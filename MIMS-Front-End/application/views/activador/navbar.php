@@ -1,4 +1,4 @@
-      <div class="container">
+
       <div class="row">
    <nav class="navbar navbar-default">
           <div class="container-fluid">
@@ -40,11 +40,4 @@
             </div>
           </div>
         </nav>
-  
-
-
- 
-
-
-</body>
-</html>
+        </div>

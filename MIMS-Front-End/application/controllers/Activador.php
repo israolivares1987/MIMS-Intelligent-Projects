@@ -91,9 +91,7 @@ class Activador extends CI_Controller{
               <td>'.$arrayDato['Employee'].'</td>
               <td>'.$arrayDato['OrderDate'].'</td>
               <td>'.$arrayDato['DateRequired'].'</td>
-              <td><a href="'.$linkHtml.'" class="btn btn-warning" role="button" aria-pressed="true">List Bucksheet</a>
-             
-              </td>
+              <td><a href="'.$linkHtml.'" class="btn btn-warning" role="button" aria-pressed="true">List Bucksheet</a></td>
 							
 						</tr>
 
