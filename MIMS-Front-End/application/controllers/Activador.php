@@ -81,6 +81,26 @@ class Activador extends CI_Controller{
 					foreach ($ArrayListEx as $arrayDato)
 					{
 
+            if($arrayDato['OrderDate'] != null){
+            $date = date_create($arrayDato['OrderDate']);
+            $newDateOrderDate = date_format($date, 'd/m/Y');
+            }else{
+
+              $newDateOrderDate= null;
+            }
+
+
+            if($arrayDato['DateRequired'] != null){
+              $date = date_create($arrayDato['DateRequired']);
+              $NewDateRequired = date_format($date, 'd/m/Y');
+              }else{
+
+                $NewDateRequired = null;
+
+              }
+
+              
+
            $linkHtml = site_url('activador/listaBucksheet/'.$arrayDato['PurchaseOrderID']);
 
 						$output .= '
@@ -89,9 +109,9 @@ class Activador extends CI_Controller{
               <td>'.$arrayDato['PurchaseOrderDescription'].'</td>
               <td>'.$arrayDato['Supplier'].'</td>
               <td>'.$arrayDato['Employee'].'</td>
-              <td>'.$arrayDato['OrderDate'].'</td>
-              <td>'.$arrayDato['DateRequired'].'</td>
-              <td><a href="'.$linkHtml.'" class="btn btn-warning" role="button" aria-pressed="true">List Bucksheet</a></td>
+              <td>'.$newDateOrderDate.'</td>
+              <td>'.$NewDateRequired.'</td>
+              <td><a href="'.$linkHtml.'" class="btn btn-warning" role="button" aria-pressed="true" target="_blank">List Bucksheet</a></td>
 							
 						</tr>
 
@@ -153,84 +173,119 @@ class Activador extends CI_Controller{
 
       $ArrayListBs = $arrayDatos['BuckSheet'];
 
-      
-      
-        $output = '';
-      
+      $output = '';
 
-				if(count($ArrayListBs) > 0)
-				{
+
+      if($ArrayListBs != null){
+      
+        try {
           
-          
-					foreach ($ArrayListBs as $arrayDato)
-					{
+          if(count($ArrayListBs) > 0)
+          {
+            
+            
+            foreach ($ArrayListBs as $arrayDato)
+            {
+  
+              if($arrayDato['TransactionDate'] != null){
+                $date = date_create($arrayDato['TransactionDate']);
+                $TransactionDate = date_format($date, 'd/m/Y');
+                }else{
+    
+                  $TransactionDate= null;
+                }
+    
+                if($arrayDato['DateCreated'] != null){
+                  $date = date_create($arrayDato['DateCreated']);
+                  $DateCreated = date_format($date, 'd/m/Y');
+                  }else{
+      
+                    $DateCreated= null;
+                  }
+  
+              $output .= '
+              <tr>
+                <td>'.$arrayDato['TransactionID'].'</td>
+                <td>'.$TransactionDate.'</td>
+                <td>'.$arrayDato['PO_Item'].'</td>
+                <td>'.$arrayDato['PO_Subitem'].'</td>
+                <td>'.$arrayDato['Product'].'</td>
+                <td>'.$arrayDato['PurchaseOrderID'].'</td>
+                
+                <td>'.$arrayDato['Description'].'</td>
+                <td>'.$arrayDato['Destination'].'</td>
+                <td>'.$arrayDato['Unit'].'</td>
+                <td>'.$arrayDato['UnitsOrdered'].'</td>
+                <td>'.$arrayDato['UnitsReceived'].'</td>
+                <td>'.$arrayDato['UnitsMRF'].'</td>
+                <td>'.$arrayDato['UnitsShrinkage'].'</td>
+                <td>'.$DateCreated.'</td>
+                <td>'.$arrayDato['CreatedBy'].'</td>
+                <td>'.$arrayDato['RECEIVED_QUANTITY'].'</td>
+                <td>'.$arrayDato['RAS'].'</td>
+                <td>'.$arrayDato['PROMISE_DATE'].'</td>
+                <td>'.$arrayDato['PROMISE_DATE_F_A'].'</td>
+                <td>'.$arrayDato['BEGIN_FAB'].'</td>
+                <td>'.$arrayDato['BEGIN_FAB_F_A'].'</td>
+                
+                <td>'.$arrayDato['COMPLETED_FAB'].'</td>
+                <td>'.$arrayDato['COMPLETED_FAB_F_A'].'</td>
+                <td>'.$arrayDato['READY_FOR_INSPECTION'].'</td>
+                <td>'.$arrayDato['READY_FOR_INSPECTION_F_A'].'</td>
+                <td>'.$arrayDato['FINAL_INSPECTION'].'</td>
+                <td>'.$arrayDato['FINAL_INSPECTION_F_A'].'</td>
+                <td>'.$arrayDato['EXITWORKS'].'</td>
+                <td>'.$arrayDato['PORT_OF_EXPORT'].'</td>
+                <td>'.$arrayDato['SHIP_DAYS'].'</td>
+                <td>'.$arrayDato['FORECAST_DELIVERY'].'</td>
+                <td>'.$arrayDato['CrateNumber'].'</td>
+                <td>'.$arrayDato['PACKING_LIST_NUMBER'].'</td>
+                <td>'.$arrayDato['ASN_NUMBER'].'</td>
+                <td>'.$arrayDato['SCN_NUMBER'].'</td>
+                <td>'.$arrayDato['TRANSPORT_MODE'].'</td>
+                <td>'.$arrayDato['BEGIN_FAB_F_A'].'</td>
+  
+                <td>'.$arrayDato['MRR_NUMBER'].'</td>
+                <td>'.$arrayDato['POSSESSION_MRR'].'</td>
+                <td>'.$arrayDato['ACTUAL_DELIVERY_AT_SITE'].'</td>
+                <td>'.$arrayDato['UOSD'].'</td>
+                <td>'.$arrayDato['DELIVERY_DESTINATION'].'</td>
+                <td>'.$arrayDato['REMARKS'].'</td>
+                <td>'.$arrayDato['MWR_Number'].'</td>  
+               
+                
+              </tr>
+  
+              ';
+            }
+          }
+          else
+          {
+            $output .= '
+            <tr>
+              <td colspan="4" align="center">No Data Found</td>
+            </tr>
+            ';
+          }
+      } catch (Exception $e) {
+      
+      } 
 
-           
 
-						$output .= '
-						<tr>
-							<td>'.$arrayDato['TransactionID'].'</td>
-              <td>'.$arrayDato['TransactionDate'].'</td>
-              <td>'.$arrayDato['PO_Item'].'</td>
-              <td>'.$arrayDato['PO_Subitem'].'</td>
-              <td>'.$arrayDato['Product'].'</td>
-              <td>'.$arrayDato['PurchaseOrderID'].'</td>
-              
-              <td>'.$arrayDato['Description'].'</td>
-              <td>'.$arrayDato['Destination'].'</td>
-              <td>'.$arrayDato['Unit'].'</td>
-              <td>'.$arrayDato['UnitsOrdered'].'</td>
-              <td>'.$arrayDato['UnitsReceived'].'</td>
-              <td>'.$arrayDato['UnitsMRF'].'</td>
-              <td>'.$arrayDato['UnitsShrinkage'].'</td>
-              <td>'.$arrayDato['DateCreated'].'</td>
-              <td>'.$arrayDato['CreatedBy'].'</td>
-              <td>'.$arrayDato['RECEIVED_QUANTITY'].'</td>
-              <td>'.$arrayDato['RAS'].'</td>
-              <td>'.$arrayDato['PROMISE_DATE'].'</td>
-              <td>'.$arrayDato['PROMISE_DATE_F_A'].'</td>
-              <td>'.$arrayDato['BEGIN_FAB'].'</td>
-              <td>'.$arrayDato['BEGIN_FAB_F_A'].'</td>
-              
-              <td>'.$arrayDato['COMPLETED_FAB'].'</td>
-              <td>'.$arrayDato['COMPLETED_FAB_F_A'].'</td>
-              <td>'.$arrayDato['READY_FOR_INSPECTION'].'</td>
-              <td>'.$arrayDato['READY_FOR_INSPECTION_F_A'].'</td>
-              <td>'.$arrayDato['FINAL_INSPECTION'].'</td>
-              <td>'.$arrayDato['FINAL_INSPECTION_F_A'].'</td>
-              <td>'.$arrayDato['EXITWORKS'].'</td>
-              <td>'.$arrayDato['PORT_OF_EXPORT'].'</td>
-              <td>'.$arrayDato['SHIP_DAYS'].'</td>
-              <td>'.$arrayDato['FORECAST_DELIVERY'].'</td>
-              <td>'.$arrayDato['CrateNumber'].'</td>
-              <td>'.$arrayDato['PACKING_LIST_NUMBER'].'</td>
-              <td>'.$arrayDato['ASN_NUMBER'].'</td>
-              <td>'.$arrayDato['SCN_NUMBER'].'</td>
-              <td>'.$arrayDato['TRANSPORT_MODE'].'</td>
-              <td>'.$arrayDato['BEGIN_FAB_F_A'].'</td>
+      }else{
 
-              <td>'.$arrayDato['MRR_NUMBER'].'</td>
-              <td>'.$arrayDato['POSSESSION_MRR'].'</td>
-              <td>'.$arrayDato['ACTUAL_DELIVERY_AT_SITE'].'</td>
-              <td>'.$arrayDato['UOSD'].'</td>
-              <td>'.$arrayDato['DELIVERY_DESTINATION'].'</td>
-              <td>'.$arrayDato['REMARKS'].'</td>
-              <td>'.$arrayDato['MWR_Number'].'</td>  
-             
-							
-						</tr>
+        $output .= '
+        <tr>
+          <td colspan="4" align="center">No Data Found</td>
+        </tr>
+        ';
+      
+      }
+      
+      
+        
 
-						';
-					}
-				}
-				else
-				{
-					$output .= '
-					<tr>
-						<td colspan="4" align="center">No Data Found</td>
-					</tr>
-					';
-				}
+			
 
        
 

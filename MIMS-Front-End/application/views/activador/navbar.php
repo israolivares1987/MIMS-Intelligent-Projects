@@ -23,10 +23,10 @@
                 <ul class="dropdown-menu">
                 <li><a href="<?php echo site_url('activador/creaExpediting');?>">Register Expediting</a></li>
                   <li><a href="<?php echo site_url('activador/listaExpediting');?>">List Expediting</a></li>
-                  <li><a href="#">List Bucksheet</a></li>
+                  <!-- <li><a href="#">List Bucksheet</a></li>
                   <li role="separator" class="divider"></li>
                   <li class="dropdown-header">Bucksheet</li>
-                  <li><a href="#">List Bucksheet</a></li>
+                  <li><a href="#">List Bucksheet</a></li> -->
                 </ul>
               </li>
                

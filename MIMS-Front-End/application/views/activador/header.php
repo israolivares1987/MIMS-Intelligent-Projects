@@ -7,6 +7,7 @@
     <link href="<?php echo base_url('assets/css/jquery.dataTables.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/fixedHeader.dataTables.min.css');?>" rel="stylesheet">
     <link href="<?php echo base_url('assets/css/buttons.dataTables.min.css');?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/css/fixedColumns.dataTables.min.css');?>" rel="stylesheet">
     
     
   

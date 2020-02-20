@@ -13,17 +13,6 @@
                                 <th>List Bucksheet</th>
                             </tr>
                         </thead>
-                        <tfoot>
-                            <tr>
-                                <th>PurchaseOrderID</th>
-                                <th>PurchaseOrderDescription</th>
-                                <th>SupplierID</th>
-                                <th>EmloyeeID</th>
-                                <th>OrderDate</th>
-                                <th>DateRequired</th>
-                                <th>List Bucksheet</th>
-                            </tr>
-                        </tfoot>
                                         <tbody>
                                                  <?php echo $DatosExpediting; ?>
                                         </tbody>
