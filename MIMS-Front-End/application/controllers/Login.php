@@ -4,11 +4,39 @@ class Login extends CI_Controller{
   function __construct(){
     parent::__construct(); 
 
+
+
   }
 
           function index(){
-            $this->load->view('login_view');
+            
+            if($this->session->userdata('logged_in') !== TRUE){
+              
+              $this->session->sess_destroy();
+              $this->load->view('login_view');
+    }else{
+
+      if($this->session->userdata('rol_id')==='202'){
+
+        $this->load->view('activador/header');
+        $this->load->view('activador/navbar');
+        $this->load->view('activador/footer');
+
+      }else if($this->session->userdata('rol_id')==='203'){
+
+        $this->load->view('bodega/header');
+        $this->load->view('bodega/navbar');
+        $this->load->view('bodega/footer');
+      
+      
+      }else if($this->session->userdata('rol_id')==='201'){
+
+        $this->load->view('administrador/header');
+        $this->load->view('administrador/navbar');
+        $this->load->view('administrador/footer');
+      }
           }
+        }
 
      function auth(){
     
