@@ -313,7 +313,7 @@ switch (ENVIRONMENT)
  * And away we go...
  */
 
-define('BASE_SERVICIOS', 'http://localhost/git/MIMS-Intelligent-Projects/MIMS-Servicios/');
+define('BASE_SERVICIOS', 'http://localhost/MIMS-Intelligent-Projects/MIMS-Servicios/');
 
 
 

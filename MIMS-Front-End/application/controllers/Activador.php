@@ -304,4 +304,17 @@ class Activador extends CI_Controller{
     
     }
 
+    function lista_empleado(){
+
+
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/listEmp');
+      $this->load->view('activador/footer');
+
+
+
+
+    }
+
   }
