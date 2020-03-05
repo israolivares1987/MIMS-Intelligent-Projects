@@ -73,6 +73,9 @@ class Login extends CI_Controller{
             $obj = json_decode($json);
             
                 $sesdata = array(
+                  'nombres'  => $obj->{'nombres'},
+                  'paterno'  => $obj->{'paterno'},
+                  'materno'  => $obj->{'materno'},
                     'n_usuario'  => $obj->{'n_usuario'},
                     'email'     => $obj->{'email'},
                     'rol_id'     => $obj->{'rol_id'},

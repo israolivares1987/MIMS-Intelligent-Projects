@@ -1,7 +1,7 @@
     <div class="row">
         <div class="col-md col-md-offset well">
             <div class="panel-body">
-                <table id="ListBuckSheet" class="stripe row-border order-column" cellspacing="0" width="100%">
+                <table id="ListBuckSheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                         <thead>
                         <tr>
 							<th>thansactionID</th>
