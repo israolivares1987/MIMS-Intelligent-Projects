@@ -17,6 +17,18 @@ class Page extends CI_Controller{
 
   }
 
+  function admin(){
+    //Allowing akses to staff only
+    if($this->session->userdata('rol_id')==='202'){
+
+      $this->load->view('administrador/header');
+      $this->load->view('administrador/navbar');
+      $this->load->view('administrador/footer');
+    }else{
+        echo "Access Denied";
+    }
+  }
+
   function staff(){
     //Allowing akses to staff only
     if($this->session->userdata('rol_id')==='202'){

@@ -71,33 +71,33 @@ class Login extends CI_Controller{
 
             $json = $response;
             $obj = json_decode($json);
-            
-                $sesdata = array(
-                  'nombres'  => $obj->{'nombres'},
-                  'paterno'  => $obj->{'paterno'},
-                  'materno'  => $obj->{'materno'},
-                    'n_usuario'  => $obj->{'n_usuario'},
-                    'email'     => $obj->{'email'},
-                    'rol_id'     => $obj->{'rol_id'},
-                    'estado'     => $obj->{'estado'},
-                    'Error'   => $obj->{'Error'} ,
-                    'DescripcionError' => $obj->{'DescripcionError'} ,
-                    'logged_in' => TRUE,
-                    'icono' => $obj->{'icono'}
-                );
-              
-
-                $this->session->set_userdata($sesdata);
+                
                
             if($obj->{'Error'} ==='0'){
 
                   if ($obj->{'estado'} ==='0'){
 
+
                     echo $this->session->set_flashdata('msg',$obj->{'DescripcionError'} );
                     redirect('login');
 
                   }else{
-                  
+
+                    $sesdata = array(
+                      'nombres'  => $obj->{'nombres'},
+                      'paterno'  => $obj->{'paterno'},
+                      'materno'  => $obj->{'materno'},
+                        'n_usuario'  => $obj->{'n_usuario'},
+                        'email'     => $obj->{'email'},
+                        'rol_id'     => $obj->{'rol_id'},
+                        'estado'     => $obj->{'estado'},
+                        'Error'   => $obj->{'Error'} ,
+                        'DescripcionError' => $obj->{'DescripcionError'} ,
+                        'logged_in' => TRUE,
+                        'icono' => $obj->{'icono'}
+                    );
+
+                      $this->session->set_userdata($sesdata);
                       // busca pagina de inicio segun Rol de usuario
                   
                       $rol_id    = $obj->{'rol_id'};

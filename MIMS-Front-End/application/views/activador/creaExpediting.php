@@ -66,7 +66,7 @@
                 <label for="OrderDate" class="control-label">Order Date</label>
             </div>
             <div class="col-md-8">
-                <input id="OrderDate" name="OrderDate" placeholder="OrderDate" type="text" class="form-control"  value="" />
+                <input name="OrderDate" id="OrderDate" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
                 </div>
             </div>
             </div>
@@ -77,7 +77,7 @@
                 <label for="DateRequired" class="control-label">Date Required</label>
             </div>
             <div class="col-md-8">
-                <input id="Date Required" name="Date Required" placeholder="Date Required" type="text" class="form-control"  value="" />
+                <input name="DateRequired" id="DateRequired" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
                 </div>
             </div>
             </div>

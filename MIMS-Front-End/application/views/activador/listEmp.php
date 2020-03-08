@@ -67,16 +67,6 @@ $(document).ready(function() {
 
     });
 
-    //datepicker
-    $('.datepicker').datepicker({
-        autoclose: true,
-        format: "yyyy-mm-dd",
-        todayHighlight: true,
-        orientation: "top auto",
-        todayBtn: true,
-        todayHighlight: true,  
-    });
-
     //set input/textarea/select event when change value, remove class error and remove text help block 
     $("input").change(function(){
         $(this).parent().parent().removeClass('has-error');

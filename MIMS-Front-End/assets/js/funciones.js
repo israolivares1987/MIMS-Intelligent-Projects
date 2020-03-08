@@ -26,6 +26,17 @@ $(document).ready(function() {
       scrollX: "400px",
       scrollCollapse: true
   } );
+
+     //datepicker
+     $('.datepicker').datepicker({
+        autoclose: true,
+        format: "yyyy-mm-dd",
+        todayHighlight: true,
+        orientation: "top auto",
+        todayBtn: true,
+        todayHighlight: true,  
+    });
+
   
   $('#ListBuckSheet').DataTable( {
    
