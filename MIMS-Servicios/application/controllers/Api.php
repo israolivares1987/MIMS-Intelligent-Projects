@@ -7,6 +7,7 @@ class Api extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Consultas');
+		$this->load->model('Empleados_model');
 	}
 
 	
@@ -168,6 +169,52 @@ class Api extends CI_Controller {
 		}
 
 		echo json_encode($sesdata);
+
+
+	}
+
+	function obtieneEmployees(){
+
+
+		$Employees = $this->Empleados_model->obtieneEmployees();
+		$no = 0;
+		$data = array();
+		foreach ($Employees as $employee) {
+			$no++;
+			$row = array();
+			$row[] = $employee->ID;
+			$row[] = $employee->Company;
+			$row[] = $employee->LastName;
+			$row[] = $employee->FirstName;
+			$row[] = $employee->EmailAddress;
+			$row[] = $employee->JobTitle;
+			$row[] = $employee->BusinessPhone;
+			$row[] = $employee->HomePhone;
+			$row[] = $employee->MobilePhone;
+			$row[] = $employee->FaxNumber;
+			$row[] = $employee->Address;
+			$row[] = $employee->City;
+			$row[] = $employee->StateProvince;
+			$row[] = $employee->ZIPPostalCode;
+			$row[] = $employee->CountryRegion;
+			$row[] = $employee->WebPage;
+			$row[] = $employee->Notes;
+			$row[] = $employee->Attachments;
+			$row[] = '<a class="btn btn-sm btn-primary" href="javascript:void(0)" title="Edit" onclick="edit_employees('."'".$employee->ID."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>';
+			$row[] ='<a class="btn btn-sm btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_employees('."'".$employee->ID."'".')"><i class="glyphicon glyphicon-trash"></i>Delete</a>';
+
+
+			$data[] = $row;
+		}
+
+		$output = array(
+						"draw" => false,
+						"recordsTotal" => $this->Empleados_model->count_all(),
+						"recordsFiltered" => $this->Empleados_model->count_all(),
+						"data" => $data,
+				);
+		//output to json format
+		echo json_encode($output);
 
 
 	}
