@@ -2,37 +2,26 @@
         <div class="col-md col-md-offset well">
             <div class="panel-body">
                         <br />
-                        <button class="btn btn-success" onclick="add_person()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
+                        <button class="btn btn-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
                         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />
                         <br />
                         <table id="ListEmp" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
-                                    <th>ID</th>
-                                    <th>Company</th>
-                                    <th>LastName</th>
-                                    <th>FirstName</th>
-                                    <th>E-mailAddress</th>
-                                    <th>JobTitle</th>
-                                    <th>BusinessPhone</th>
-                                    <th>HomePhone</th>
-                                    <th>MobilePhone</th>
-                                    <th>FaxNumber</th>
-                                    <th>Address</th>
-                                    <th>City</th>
-                                    <th>State/Province</th>
-                                    <th>ZIP Postal Code</th>
-                                    <th>Country/Region</th>
-                                    <th>WebPage</th>
-                                    <th>Notes</th>
-                                    <th>Attachments</th>
-                                     <th></th>
-                                     <th></th>
-
-                                
-
-
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>E-Mail</th>
+                                    <th>Cargo</th>
+                                    <th>Fono Oficina</th>
+                                    <th>Fono Casa</th>
+                                    <th>Fono Movil</th>
+                                    <th>Region</th>
+                                    <th>Provincia</th>
+                                    <th>Cuidad</th>
+                                    <th>Direccion</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -40,26 +29,19 @@
 
                             <tfoot>
                             <tr>
-                            <th>ID</th>
-                                    <th>Company</th>
-                                    <th>LastName</th>
-                                    <th>FirstName</th>
-                                    <th>E-mailAddress</th>
-                                    <th>JobTitle</th>
-                                    <th>BusinessPhone</th>
-                                    <th>HomePhone</th>
-                                    <th>MobilePhone</th>
-                                    <th>FaxNumber</th>
-                                    <th>Address</th>
-                                    <th>City</th>
-                                    <th>State/Province</th>
-                                    <th>ZIP Postal Code</th>
-                                    <th>Country/Region</th>
-                                    <th>WebPage</th>
-                                    <th>Notes</th>
-                                    <th>Attachments</th>
-                                     <th></th>
-                                     <th></th>
+                                    <th>Nombre</th>
+                                    <th>Apellido</th>
+                                    <th>E-Mail</th>
+                                    <th>Cargo</th>
+                                    <th>Fono Oficina</th>
+                                    <th>Fono Casa</th>
+                                    <th>Fono Movil</th>
+                                    <th>Region</th>
+                                    <th>Provincia</th>
+                                    <th>Cuidad</th>
+                                    <th>Direccion</th>
+                                    <th></th>
+                                    <th></th>
                             </tr>
                             </tfoot>
                         </table>
@@ -92,11 +74,16 @@ var base_url = '<?php echo base_url();?>';
 
                 //Set column definition initialisation properties.
                 "columnDefs": [
-                    { 
-                        "targets": [ -1 ], //last column
-                        "orderable": false, //set not orderable
-                    }
-                ],
+                        {
+                            "targets": [ 2 ],
+                            "visible": false,
+                            "searchable": false
+                        },
+                        {
+                            "targets": [ 3 ],
+                            "visible": false
+                        }
+                    ],
                 language: {
                     "emptyTable":			"No hay datos disponibles en la tabla.",
                     "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
@@ -150,18 +137,136 @@ function reload_table()
      $('#ListEmp').DataTable().ajax.reload();
 }
 
-function add_person()
+function add_empleado()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal_form').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Add Person'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Agregar Empleado'); // Set Title to Bootstrap modal title
+}
 
-    $('#photo-preview').hide(); // hide photo preview modal
+function edit_employees(id)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
 
-    $('#label-photo').text('Upload Photo'); // label photo upload
+
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('Empleados/obtieneEmpleadoPorId')?>/" + id,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+
+            $('[name="ID"]').val(data.ID);
+            $('[name="FirstName"]').val(data.FirstName);
+            $('[name="LastName"]').val(data.LastName);
+            $('[name="EmailAddress"]').val(data.EmailAddress);
+            $('[name="JobTitle"]').val(data.JobTitle);
+            $('[name="BusinessPhone"]').val(data.BusinessPhone);
+            $('[name="HomePhone"]').val(data.HomePhone);
+            $('[name="MobilePhone"]').val(data.MobilePhone);
+            $('[name="CountryRegion"]').val(data.CountryRegion);
+            $('[name="StateProvince"]').val(data.StateProvince);
+            $('[name="City"]').val(data.City);
+            $('[name="Address"]').val(data.Address);
+
+
+            
+
+            $('#modal_form').modal('show'); // show bootstrap modal when complete loaded
+            $('.modal-title').text('Editar Empleado'); // Set title to Bootstrap modal title
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+function save()
+{
+    $('#btnSave').text('saving...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable 
+    var url;
+
+    if(save_method == 'add') {
+        url = "<?php echo site_url('Empleados/agregarEmpleado')?>";
+    } else {
+        url = "<?php echo site_url('Empleados/updateEmpleado')?>";
+    }
+
+    // ajax adding data to database
+
+    var formData = new FormData($('#form')[0]);
+    $.ajax({
+        url : url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+
+            if(data.status) //if success close modal and reload ajax table
+            {
+                $('#modal_form').modal('hide');
+                reload_table();
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++) 
+                {
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                }
+            }
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+
+        }
+    });
+}
+
+
+function delete_employees(id)
+{
+    if(confirm('Está Seguro de eliminar el Empleado?'))
+    {
+        // ajax delete data to database
+        $.ajax({
+            url : "<?php echo site_url('Empleados/deleteEmpleado')?>/"+id,
+            type: "POST",
+            dataType: "JSON",
+            success: function(data)
+            {
+                //if success reload ajax table
+                $('#modal_form').modal('hide');
+                reload_table();
+            },
+            error: function (jqXHR, textStatus, errorThrown)
+            {
+                alert('Error deleting data');
+            }
+        });
+
+    }
 }
 
 </script>
@@ -173,62 +278,86 @@ function add_person()
         <div class="modal-content">
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
-                <h3 class="modal-title">Person Form</h3>
+                <h3 class="modal-title">Agregar Empleado</h3>
             </div>
             <div class="modal-body form">
                 <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="id"/> 
+                    <input type="hidden" value="" name="ID"/> 
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">First Name</label>
+                            <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
-                                <input name="firstName" placeholder="First Name" class="form-control" type="text">
+                                <input name="FirstName" placeholder="Nombre" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Last Name</label>
+                            <label class="control-label col-md-3">Apellido</label>
                             <div class="col-md-9">
-                                <input name="lastName" placeholder="Last Name" class="form-control" type="text">
+                                <input name="LastName" placeholder="Apellido" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Gender</label>
+                            <label class="control-label col-md-3">E-Mail</label>
                             <div class="col-md-9">
-                                <select name="gender" class="form-control">
-                                    <option value="">--Select Gender--</option>
-                                    <option value="male">Male</option>
-                                    <option value="female">Female</option>
-                                </select>
+                                <input name="EmailAddress" placeholder="Email" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Address</label>
+                            <label class="control-label col-md-3">Cargo</label>
                             <div class="col-md-9">
-                                <textarea name="address" placeholder="Address" class="form-control"></textarea>
+                                <textarea name="JobTitle" placeholder="Cargo" class="form-control"></textarea>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Date of Birth</label>
+                            <label class="control-label col-md-3">Fono Oficina</label>
                             <div class="col-md-9">
-                                <input name="dob" placeholder="yyyy-mm-dd" class="form-control datepicker" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group" id="photo-preview">
-                            <label class="control-label col-md-3">Photo</label>
-                            <div class="col-md-9">
-                                (No photo)
+                                <textarea name="BusinessPhone" placeholder="Fono Oficina" class="form-control"></textarea>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3" id="label-photo">Upload Photo </label>
+                            <label class="control-label col-md-3">Fono Casa</label>
                             <div class="col-md-9">
-                                <input name="photo" type="file">
+                                <textarea name="HomePhone" placeholder="Fono Casa" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fono Movil</label>
+                            <div class="col-md-9">
+                                <textarea name="MobilePhone" placeholder="Fono Movil" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Region</label>
+                            <div class="col-md-9">
+                                <textarea name="CountryRegion" placeholder="Region" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Provincia</label>
+                            <div class="col-md-9">
+                                <textarea name="StateProvince" placeholder="Provincia" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Cuidad</label>
+                            <div class="col-md-9">
+                                <textarea name="City" placeholder="Cuidad" class="form-control"></textarea>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Direccion</label>
+                            <div class="col-md-9">
+                                <textarea name="Address" placeholder="Direccion" class="form-control"></textarea>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -243,3 +372,4 @@ function add_person()
     </div><!-- /.modal-dialog -->
 </div><!-- /.modal -->
 <!-- End Bootstrap modal -->
+                                    

@@ -317,4 +317,9 @@ class Activador extends CI_Controller{
 
     }
 
+    
+
+
+
+
   }
