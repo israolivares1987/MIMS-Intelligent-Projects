@@ -83,12 +83,8 @@ $('#ListBuckSheet').DataTable( {
                    "sortDescending":	"Ordenación descendente"
                }
            },
-     fixedHeader: {
-           header: true,
-           footer: true
-       },
        fixedColumns: true,
-       scrollX:        "400px",
+       scrollY:        "400px",
        scrollCollapse: true,
        paging:         false,
        columnDefs: [

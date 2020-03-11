@@ -7,7 +7,7 @@ class Empleados extends CI_Controller{
   function listaEmpleados(){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."api/obtieneEmployees";
+    $api_url = $base_url_servicios."Empleados/obtieneEmployees";
         
     $client = curl_init($api_url);
 
@@ -26,7 +26,7 @@ class Empleados extends CI_Controller{
   function  obtieneEmpleadoPorId($id){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."api/obtieneEmpleadoPorId/".$id;
+    $api_url = $base_url_servicios."Empleados/obtieneEmpleadoPorId/".$id;
         
     $client = curl_init($api_url);
 
@@ -46,7 +46,7 @@ class Empleados extends CI_Controller{
   function  deleteEmpleado($id){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."api/deleteEmpleado/".$id;
+    $api_url = $base_url_servicios."Empleados/deleteEmpleado/".$id;
         
     $client = curl_init($api_url);
 
@@ -67,7 +67,7 @@ class Empleados extends CI_Controller{
 
     
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."api/updateEmpleado";
+    $api_url = $base_url_servicios."Empleados/updateEmpleado";
         
     $form_data = array(
                       'ID' => $this->input->post('ID'),
@@ -105,7 +105,7 @@ class Empleados extends CI_Controller{
 
     
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."api/agregarEmpleado";
+    $api_url = $base_url_servicios."Empleados/agregarEmpleado";
         
     $form_data = array(
                       'FirstName' => $this->input->post('FirstName'),

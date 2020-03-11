@@ -47,9 +47,7 @@ class Login extends CI_Controller{
             $base_url_servicios =BASE_SERVICIOS;
 
 
-            $api_url = $base_url_servicios."api/validateUser";
-
-
+            $api_url = $base_url_servicios."Login/validateUser";
 
             $form_data = array(
                         'user_name'		=>$user_name,
@@ -102,7 +100,7 @@ class Login extends CI_Controller{
                   
                       $rol_id    = $obj->{'rol_id'};
                       
-                      $api_url_rol = $base_url_servicios."api/validateUserRol";
+                      $api_url_rol = $base_url_servicios."Login/validateUserRol";
           
                       $form_data_rol = array(
                                   'rol_id'		=>$rol_id

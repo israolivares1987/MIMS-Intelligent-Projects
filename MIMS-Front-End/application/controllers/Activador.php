@@ -17,7 +17,7 @@ class Activador extends CI_Controller{
     //Obtiene datos formulario Purchase_Orderscuerpo 
         
          $base_url_servicios =BASE_SERVICIOS;
-         $api_url = $base_url_servicios."api/obtieneDatosFormsPurchaseOrders";
+         $api_url = $base_url_servicios."Consultas/obtieneDatosFormsPurchaseOrders";
 
           $client = curl_init($api_url);
 
@@ -51,7 +51,7 @@ class Activador extends CI_Controller{
 
      
       $base_url_servicios =BASE_SERVICIOS;                
-      $api_url = $base_url_servicios."api/obtieneExpediting";
+      $api_url = $base_url_servicios."Expediting/obtieneExpediting";
           
 
       $client = curl_init($api_url);
@@ -149,7 +149,7 @@ class Activador extends CI_Controller{
 
     
       $base_url_servicios =BASE_SERVICIOS;                
-      $api_url = $base_url_servicios."api/obtieneBuckSheet";
+      $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheet";
           
       $form_data = array(
                   'PurchaseOrderID'		=>$PurchaseOrderID
