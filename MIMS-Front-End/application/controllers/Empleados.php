@@ -3,7 +3,7 @@ class Empleados extends CI_Controller{
   function __construct(){
     parent::__construct();
   }
-
+ 
   function listaEmpleados(){
      
     $base_url_servicios =BASE_SERVICIOS;                
@@ -20,6 +20,7 @@ class Empleados extends CI_Controller{
     curl_close($client);
 
     echo $response;
+    
   
   }
 

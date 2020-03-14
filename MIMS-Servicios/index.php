@@ -305,6 +305,9 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
+
+	define('BASE_SERVICIOS_HOME', 'http://localhost/MIMS-Intelligent-Projects/MIMS-Front-End/index.php/');
+
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE

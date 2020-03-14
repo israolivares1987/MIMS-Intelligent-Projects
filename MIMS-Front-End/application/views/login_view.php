@@ -1,43 +1,79 @@
 <!doctype html>
 <html lang="en">
-  <head>
+
+<head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta http-equiv="Content-Language" content="en">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <title>MIMS Intelligent Projects</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
+    <meta name="description" content="Login MIMS 2.0">
 
-    <link href="<?php echo base_url('assets/bootstrap/css/bootstrap.min.css')?>" rel="stylesheet">
-    <link href="<?php echo base_url('assets/css/ie10-viewport-bug-workaround.css');?>" rel="stylesheet">
+    <!-- Disable tap highlight on IE -->
+    <meta name="msapplication-tap-highlight" content="no">
 
-     <script src="<?php echo base_url('assets/js/ie-emulation-modes-warning.js');?>"></script>
+    <link href="<?php echo base_url('assets/css/main.login.css')?>" rel="stylesheet">
+</head>
 
-  
-  </head>
+<body>
+    <div class="app-container app-theme-white body-tabs-shadow">
+        <div class="app-container">
+            <div class="h-100">
+                <div class="h-100 no-gutters row">
+                    <div class="d-none d-lg-block col-lg-4">
+                        <div class="slider-light">
+                            <div class="slick-slider">
+                                <div>
+                                    <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
+                                        <div class="slide-img-bg"></div>
+                                        <div class="slider-content"><img src="<?php echo base_url('assets/images/logo-mims.png');?>" width="300" height="150"></div>
+                                    </div>
+                                </div>
+                               
+                             
+                            </div>
+                        </div>
+                    </div>
+                    <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
+                        <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
+                            <div class="app-logo"></div>
+                            <h4 class="mb-0">
+<span class="d-block">Bienvedido,</span>
+<span>Favor Iniciar sesion con su cuenta.</span></h4>
+                            <div class="divider row"></div>
+                            <div>
+                                <form class="" action="<?php echo site_url('login/auth');?>" method="post">
+                                    <div class="form-row">
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="user_name" class="">Username</label>
+                                                <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
+                                            </div>
+                                        </div>
 
-  <body>
-    <hr><div align="center"><img src="<?php echo base_url('assets/img/logo-mims.png');?>" width="300" height="150" ></div><hr>
-    <div class="container">
-    <div class="col-md-4 col-md-offset-4">
-    <form class="form-signin" action="<?php echo site_url('login/auth');?>" method="post">
-   
-        <label for="user_name" class="sr-only">Username</label>
-        <input type="text" name="user_name" class="form-control" placeholder="Nombre Usuario" required autofocus>
-        <label for="password" class="sr-only">Password</label>
-        <input type="password" name="password" class="form-control" placeholder="Password" required>
-        <label for="cod_emp" class="sr-only">Código Empresa</label>
-        <input type="text" name="cod_emp" class="form-control" placeholder="Codigo Empresa">
-        <div class="checkbox">
-          <label>
-            <input type="checkbox" value="remember-me"> Remember me
-          </label>
-        </div>
-        <div> <?php
-       
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="password" class="">Password</label>
+                                                <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
+                                            </div>
+                                        </div>
+                                        <div class="col-md-6">
+                                            <div class="position-relative form-group">
+                                                <label for="cod_emp" class="">Código Empresa</label>
+                                                <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                    <div class="d-flex align-items-center">
+                                        <div class="ml-auto">
+                                            <button class="btn btn-primary btn-lg">Iniciar Sesion</button>
+                                            <?php
+
        $arr = $this->session->flashdata();
        if(!empty($arr['msg'])){
-        
+
          $html = '<div class="alert alert-danger">';
          $html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
          $html .= '<strong>';
@@ -48,16 +84,18 @@
          echo $html;
        }
 
-
-       
-   ?> 
-        <button class="btn btn-lg btn-primary btn-block" type="submit">Sign in</button>
-      </form>
-
-    </div> <!-- /container -->
+   ?>
+                                        </div>
+                                    </div>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
+    <script type="text/javascript" src="<?php echo base_url('assets/scripts/main.login.js')?>"></script>
+</body>
 
-    <script src="<?php echo base_url('assets/jquery/jquery-2.1.4.min.js')?>"></script>
-    <script src="<?php echo base_url('assets/bootstrap/js/bootstrap.min.js')?>"></script>
-  </body>
 </html>

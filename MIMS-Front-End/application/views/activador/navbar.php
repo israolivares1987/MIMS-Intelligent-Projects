@@ -1,57 +1,18 @@
 
-      <div class="row">
-   <nav class="navbar navbar-default">
-          <div class="container-fluid">
-            <div class="navbar-header">
-              <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
-                <span class="sr-only">Toggle navigation</span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-                <span class="icon-bar"></span>
-              </button>
-             </div>
-             <ul class="nav navbar-nav navbar">
-                <li>
-                 <img src="<?php echo base_url()."assets/img/".$this->session->userdata('icono');?>" alt="MIMS" >
-                </li>
-              </ul>
-            <div id="navbar" class="navbar-collapse collapse">
-              <ul class="nav navbar-nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Expediting Module <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li><a href="<?php echo site_url('activador/creaExpediting');?>">Register Expediting</a></li>
-                  <li><a href="<?php echo site_url('activador/listaExpediting');?>">List Expediting</a></li>
-                  <!-- <li><a href="#">List Bucksheet</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Bucksheet</li>
-                  <li><a href="#">List Bucksheet</a></li> -->
-                </ul>
-              </li>
-               
-              </ul>
-              <ul class="nav navbar-nav">
-              <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Mantenedor <span class="caret"></span></a>
-                <ul class="dropdown-menu">
-                <li><a href="<?php echo site_url('activador/lista_empleado');?>">Empleados</a></li>
-                  <li><a href="<?php echo site_url('activador/listaExpediting');?>">Proveedores</a></li>
-                  <!-- <li><a href="#">List Bucksheet</a></li>
-                  <li role="separator" class="divider"></li>
-                  <li class="dropdown-header">Bucksheet</li>
-                  <li><a href="#">List Bucksheet</a></li> -->
-                </ul>
-              </li>
-               
-              </ul>
-              
-              <ul class="nav navbar-nav navbar-right">
-                <li><a href="<?php echo site_url('login/logout');?>">Cerrar Sesión</a></li>
-              </ul> 
-                
-             
-            </div>
-          </div>
-        </nav>
-        </div>
+<!-- Navbar -->
+<nav class="main-header navbar navbar-expand navbar-white navbar-light">
+    <!-- Left navbar links -->
+    <ul class="navbar-nav">
+      <li class="nav-item">
+        <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<?php echo base_url();?>" class="nav-link">Home</a>
+      </li>
+      <li class="nav-item d-none d-sm-inline-block">
+        <a href="<?php echo site_url('login/logout');?>" class="nav-link">Cerrar Sesión</a>
+      </li>
+    </ul>
+
+  </nav>
+  <!-- /.navbar -->

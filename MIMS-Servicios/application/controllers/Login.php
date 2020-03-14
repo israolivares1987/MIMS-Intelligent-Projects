@@ -20,15 +20,31 @@ class Login extends CI_Controller {
 		$cod_emp = $this->input->post('cod_emp');
 
 		$validate_user = $this->Consultas->validate_user($user_name,$password,$cod_emp);
+		
    
 		if($validate_user->num_rows() > 0){
 		  
+
+			
+
 			$data  = $validate_user->row_array();
 			$name  = $data['n_usuario'];
 			$email = $data['email'];
 			$level = $data['rol_id'];
 			$estado = $data['estado'];
 			$iconoEmpresa = $data['icono_empresa'];
+			$avatar = $data['avatar'];
+			$nombres = $data['nombres'];
+			$paterno = $data['paterno'];
+			$materno = $data['materno'];
+
+			$validate_rol = $this->Consultas->obtiene_datos_usuario($level);
+		  
+			$data_Rol  = $validate_rol->row_array();
+			$nombreRol  = $data_Rol['nombre'];
+
+
+
 			$sesdata = array(
 				'n_usuario'  => $name,
 				'email'     => $email,
@@ -36,7 +52,12 @@ class Login extends CI_Controller {
 				'estado'     => $estado,
 				'icono' => $iconoEmpresa,
 				'Error' => '0',
-				'DescripcionError' => 'Sin Error'
+				'DescripcionError' => 'Sin Error',
+				'avatar' => $avatar,
+				'nombres'  => $nombres,
+                'paterno'  => $paterno,
+				'materno'  => $materno,
+				'nombre_rol' => $nombreRol
 				
 			);
 

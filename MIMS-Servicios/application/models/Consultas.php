@@ -14,16 +14,6 @@ class Consultas extends CI_Model{
     return $result;
   }
 
-
-  function obtiene_valores($valor){
-
-    $this->db->where('nombre_dominio',$valor);
-    $result = $this->db->get('tbl_dominios');
-    $icono = $result->result_array();
-    return $icono;
-
-    }
-
   function obtiene_employees(){
 
       $employees = $this->db->get('tbl_employees');
@@ -74,10 +64,58 @@ class Consultas extends CI_Model{
                                     WHERE PurchaseOrderID =".$PurchaseOrderID
                                   );
 
-        $BuckSheet = $query;
+        $BuckSheet = $query->result();
         return $BuckSheet;
       }
 
+      
+
+      function count_all_BuckSheet($PurchaseOrderID)
+      {
+        $this->db->query("SELECT a.*,
+                                    (select ProductName from tbl_Products_Catalogo where a.ProductID = ProductID )as Product
+                                    FROM tbl_Inventory_Expediting a
+                                    WHERE PurchaseOrderID =".$PurchaseOrderID
+                                  );
+        return $this->db->count_all_results();
+      }
+
+
+      function obtieneProveedores($codEmpresa){
+
+        $this->db->where('codEmpresa',$codEmpresa);
+        $Proveedores = $this->db->get('tbl_proveedores');
+        
+        
+        return $Proveedores->result();
+
+      }
+
+      function obtieneProyectosProveedores($idProveedor){
+
+        $this->db->where('idProveedor',$idProveedor);
+        $Pproveedores = $this->db->get('tbl_proyectos');
+        
+        
+        return $Pproveedores->result();
+
+      }
+      
+      function obtienePurchaseOrders($idProyecto,$idProveedor){
+
+        $this->db->where('idProveedor',$idProveedor);
+        $this->db->where('idProyecto',$idProyecto);
+        $PurchaseOrders = $this->db->get('tbl_Purchase_Orders');
+        
+        
+        return $PurchaseOrders->result();
+
+      }
+
+     
+
+
+    
 
      
 

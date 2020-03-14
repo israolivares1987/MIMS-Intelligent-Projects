@@ -17,23 +17,10 @@ class Login extends CI_Controller{
     }else{
 
       if($this->session->userdata('rol_id')==='202'){
+        redirect('Activador/index_activador');
+        
 
-        $this->load->view('activador/header');
-        $this->load->view('activador/navbar');
-        $this->load->view('activador/footer');
 
-      }else if($this->session->userdata('rol_id')==='203'){
-
-        $this->load->view('bodega/header');
-        $this->load->view('bodega/navbar');
-        $this->load->view('bodega/footer');
-      
-      
-      }else if($this->session->userdata('rol_id')==='201'){
-
-        $this->load->view('administrador/header');
-        $this->load->view('administrador/navbar');
-        $this->load->view('administrador/footer');
       }
           }
         }
@@ -69,6 +56,8 @@ class Login extends CI_Controller{
 
             $json = $response;
             $obj = json_decode($json);
+
+            var_dump($response);
                 
                
             if($obj->{'Error'} ==='0'){
@@ -92,7 +81,10 @@ class Login extends CI_Controller{
                         'Error'   => $obj->{'Error'} ,
                         'DescripcionError' => $obj->{'DescripcionError'} ,
                         'logged_in' => TRUE,
-                        'icono' => $obj->{'icono'}
+                        'icono' => $obj->{'icono'},
+                        'avatar' => $obj->{'avatar'},
+                        'nombre_rol' => $obj->{'nombre_rol'},
+                        'cod_emp' => $cod_emp
                     );
 
                       $this->session->set_userdata($sesdata);
