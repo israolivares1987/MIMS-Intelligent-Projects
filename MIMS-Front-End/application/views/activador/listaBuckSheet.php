@@ -149,7 +149,16 @@ $(document).ready(function() {
                    "sortAscending":	"Ordenación ascendente",
                    "sortDescending":	"Ordenación descendente"
                }
-           }
+           },
+           "fixedHeader": {
+                "header": true,
+                "footer": true
+            },
+            "scrollCollapse": true,
+            "columnDefs": [
+                { "width": '5%', "targets": 0 }
+            ],
+            "fixedColumns": true
     } );
      
     // Add event listener for opening and closing details

@@ -56,6 +56,31 @@ class Activador extends CI_Controller{
     
     }
 
+
+    function listaProveedor(){
+
+
+      $codEmpresa = $this->session->userdata('cod_emp');
+      $responseMenuLeft = $this->obtieneMenuProyectos($codEmpresa);
+
+
+      $json_datosMenuLeft = $responseMenuLeft;
+      $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
+      $datos['arrProyectos'] = $arrayDatosMenu['Proyectos'];
+
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/left_menu', $datos);
+      $this->load->view('activador/listProveedores');
+      $this->load->view('activador/footer');
+
+      
+
+
+    }
+
+
+
     function index_activador(){
 
       

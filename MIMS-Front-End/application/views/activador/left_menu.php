@@ -31,6 +31,16 @@
               <p>Empleados</p>
             </a>
           </li>
+
+          <li class="nav-item">
+            <a href="<?php echo site_url('Activador/listaProveedor');?>" class="nav-link">
+              <i class="fas fa-circle nav-icon"></i>
+              <p>Proveedores</p>
+            </a>
+          </li>
+
+
+          
                
         </ul>
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">

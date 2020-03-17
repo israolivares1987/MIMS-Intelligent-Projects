@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Lista Empleados</h1>
+            <h1>Lista Proveedores</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -22,26 +22,18 @@
             <!-- /.card-header -->
             <div class="card-body">
             <br />
-                        <button class="btn btn-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
+                        <button class="btn btn-success" onclick="add_proveedor()"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</button>
                         <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />
                         <br />
-                        <table id="ListEmp" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="ListProveedor" class="table table-striped table-bordered" cellspacing="0" width="100%">
                             <thead>
                                 <tr>
                                     <th></th>
                                     <th></th>
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>E-Mail</th>
-                                    <th>Cargo</th>
-                                    <th>Fono Oficina</th>
-                                    <th>Fono Casa</th>
-                                    <th>Fono Movil</th>
-                                    <th>Region</th>
-                                    <th>Provincia</th>
-                                    <th>Cuidad</th>
-                                    <th>Direccion</th>
+                                    <th>Nombre Proveedor</th>
+                                    <th>Rut Proveedor</th>
+                                    <th>Dv Proveedor</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -62,7 +54,7 @@ var table;
 var base_url = '<?php echo base_url();?>';    
 
       //datatables
-    $('#ListEmp').DataTable({ 
+    $('#ListProveedor').DataTable({ 
 
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -70,9 +62,11 @@ var base_url = '<?php echo base_url();?>';
 
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "<?php echo site_url('Empleados/listaEmpleados')?>",
+                    "url": "<?php echo site_url('Proveedores/listaProveedores')?>",
                     "type": "POST"
                 },
+                    "paging":         false,
+        "fixedColumns": true,
         language: {
                "emptyTable":			"No hay datos disponibles en la tabla.",
                "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
@@ -89,18 +83,7 @@ var base_url = '<?php echo base_url();?>';
                    "sortAscending":	"Ordenación ascendente",
                    "sortDescending":	"Ordenación descendente"
                }
-        },
-        "fixedHeader": {
-                "header": true,
-                "footer": true
-            },
-            "scrollX":        "400px",
-            "scrollCollapse": true,
-            "paging":         false,
-            "columnDefs": [
-                { "width": '20%', "targets": 0 }
-            ],
-            "fixedColumns": true
+        }
 
     });
 
@@ -122,7 +105,7 @@ var base_url = '<?php echo base_url();?>';
 
 function reload_table()
 {
-     $('#ListEmp').DataTable().ajax.reload();
+     $('#ListProveedor').DataTable().ajax.reload();
 }
 
 function add_empleado()
@@ -132,7 +115,7 @@ function add_empleado()
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal-default').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Agregar Empleado'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Agregar Proveedor'); // Set Title to Bootstrap modal title
 }
 
 function edit_employees(id)
@@ -145,30 +128,21 @@ function edit_employees(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('Empleados/obtieneEmpleadoPorId')?>/" + id,
+        url : "<?php echo site_url('Proveedores/obtieneProveedorPorId')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
 
-            $('[name="ID"]').val(data.ID);
-            $('[name="FirstName"]').val(data.FirstName);
-            $('[name="LastName"]').val(data.LastName);
-            $('[name="EmailAddress"]').val(data.EmailAddress);
-            $('[name="JobTitle"]').val(data.JobTitle);
-            $('[name="BusinessPhone"]').val(data.BusinessPhone);
-            $('[name="HomePhone"]').val(data.HomePhone);
-            $('[name="MobilePhone"]').val(data.MobilePhone);
-            $('[name="CountryRegion"]').val(data.CountryRegion);
-            $('[name="StateProvince"]').val(data.StateProvince);
-            $('[name="City"]').val(data.City);
-            $('[name="Address"]').val(data.Address);
-
+            $('[name="idProveedor"]').val(data.idProveedor);
+            $('[name="nombreProveedor"]').val(data.nombreProveedor);
+            $('[name="rutProveedor"]').val(data.rutProveedor);
+            $('[name="dvProveedor"]').val(data.dvProveedor);
 
             
 
             $('#modal-default').modal('show'); // show bootstrap modal
-            $('.modal-title').text('Editar Empleado'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Proveedor'); // Set title to Bootstrap modal title
 
 
         },
@@ -186,9 +160,9 @@ function save()
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('Empleados/agregarEmpleado')?>";
+        url = "<?php echo site_url('Proveedores/agregarProveedor')?>";
     } else {
-        url = "<?php echo site_url('Empleados/updateEmpleado')?>";
+        url = "<?php echo site_url('Proveedores/updateProveedor')?>";
     }
 
     // ajax adding data to database
@@ -233,13 +207,13 @@ function save()
 }
 
 
-function delete_employees(id)
+function delete_proveedor(id)
 {
-    if(confirm('Está Seguro de eliminar el Empleado?'))
+    if(confirm('Está Seguro de eliminar el Proveedor?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('Empleados/deleteEmpleado')?>/"+id,
+            url : "<?php echo site_url('Proveedores/deleteProveedor')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -266,89 +240,33 @@ function delete_employees(id)
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Agregar Empleado</h4>
+              <h4 class="modal-title">Agregar Proveedor</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
             <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="ID"/> 
+                    <input type="hidden" value="" name="idProveedor"/> 
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
-                                <input name="FirstName" placeholder="Nombre" class="form-control" type="text">
+                                <input name="nombreProveedor" placeholder="Nombre Proveedor" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Apellido</label>
+                            <label class="control-label col-md-3">Rut Proveedor</label>
                             <div class="col-md-9">
-                                <input name="LastName" placeholder="Apellido" class="form-control" type="text">
+                                <input name="rutProveedor" placeholder="Rut Proveedor" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">E-Mail</label>
+                            <label class="control-label col-md-3">Dv Proveedor</label>
                             <div class="col-md-9">
-                                <input name="EmailAddress" placeholder="Email" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Cargo</label>
-                            <div class="col-md-9">
-                                <textarea name="JobTitle" placeholder="Cargo" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Oficina</label>
-                            <div class="col-md-9">
-                                <textarea name="BusinessPhone" placeholder="Fono Oficina" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Casa</label>
-                            <div class="col-md-9">
-                                <textarea name="HomePhone" placeholder="Fono Casa" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Movil</label>
-                            <div class="col-md-9">
-                                <textarea name="MobilePhone" placeholder="Fono Movil" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Region</label>
-                            <div class="col-md-9">
-                                <textarea name="CountryRegion" placeholder="Region" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Provincia</label>
-                            <div class="col-md-9">
-                                <textarea name="StateProvince" placeholder="Provincia" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Cuidad</label>
-                            <div class="col-md-9">
-                                <textarea name="City" placeholder="Cuidad" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Direccion</label>
-                            <div class="col-md-9">
-                                <textarea name="Address" placeholder="Direccion" class="form-control"></textarea>
+                                <input name="dvProveedor" placeholder="dv Proveedor" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
