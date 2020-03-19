@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://localhost/git/MIMS-Intelligent-Projects/MIMS-Servicios/';
+$config['base_url'] = 'https://mimsprojects.com/MIMS-Intelligent-Projects/MIMS-Servicios/';
 
 /*
 |--------------------------------------------------------------------------
