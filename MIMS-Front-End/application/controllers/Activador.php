@@ -86,6 +86,7 @@ class Activador extends CI_Controller{
       $this->load->view('activador/header');
       $this->load->view('activador/navbar');
       $this->load->view('activador/left_menu', $datos);
+      $this->load->view('activador/home_activador');
       $this->load->view('activador/footer');
     }
 
