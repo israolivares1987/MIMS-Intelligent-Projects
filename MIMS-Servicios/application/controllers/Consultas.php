@@ -6,35 +6,28 @@ class Consultas extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Consultas');
+		$this->load->model('Consultas_model');
 	}
-
 	
-	function obtieneDatosFormsPurchaseOrders()
-	{
 
+	function obtieneDatosTotales($codEmpresa){
 
-		$Suppliers = $this->Consultas->obtiene_suppliers();
-		$employees = $this->Consultas->obtiene_employees();
+		$proyectos = $this->Consultas_model->obtieneDatosTotalesProyectos($codEmpresa);
+		$proveedores = $this->Consultas_model->obtieneDatosTotalesProveedores($codEmpresa);
+		$ordenes = $this->Consultas_model->obtieneDatosTotalesOrdenes($codEmpresa);
+		$suppliers = $this->Consultas_model->obtieneDatosTotalesSuppliers($codEmpresa);
+		
+		$output = array(
+			"totalProyectos" => $proyectos,
+			"totalProveedores" => $proveedores,
+			"totalOrdenes" => $ordenes,
+			"totalSuppliers" => $suppliers
 
-		 if($Suppliers->num_rows() > 0 ||$employees->num_rows() > 0 ){
-		  
-			$dataSuppliers  = $Suppliers->result_array();
-			$listSuppliers  = $dataSuppliers;
+	    );
 
-			$dataemployees = $employees->result_array();
-			$listemployees = $dataemployees;
-			
-			$sesdata = array(
-				'employees'  => $listemployees,
-				'Suppliers'  => $listSuppliers
-			);
-
-			} 
-			
-		echo json_encode($sesdata);		
-
-    }
+		//output to json format
+		echo json_encode(array_filter($output),true);
+	}
 
 	
 	}

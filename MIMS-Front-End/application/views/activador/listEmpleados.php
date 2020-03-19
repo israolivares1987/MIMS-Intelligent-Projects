@@ -274,7 +274,7 @@ function delete_employees(id)
             </div>
             <div class="modal-body">
             <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="ID"/> 
+                    <input type="hidden" value="" name="ID"/>  
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Nombre</label>

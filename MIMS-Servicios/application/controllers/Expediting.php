@@ -7,7 +7,7 @@ class Expediting extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Proyectos_model');
-		$this->load->model('Consultas');
+		$this->load->model('Consultas_model');
 	}
 
 	
@@ -73,7 +73,7 @@ class Expediting extends CI_Controller {
 		$cod_empresa = $this->input->post('cod_empresa');
 		
 
-		$proveedores = $this->Consultas->obtieneProveedores($cod_empresa);
+		$proveedores = $this->Consultas_model->obtieneProveedores($cod_empresa);
 
 		
 		

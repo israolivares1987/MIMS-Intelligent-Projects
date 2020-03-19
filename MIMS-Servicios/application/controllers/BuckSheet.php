@@ -6,7 +6,6 @@ class BuckSheet extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Consultas');
 		$this->load->model('Proyectos_model');
 	}
 
