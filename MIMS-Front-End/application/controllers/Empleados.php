@@ -109,6 +109,7 @@ class Empleados extends CI_Controller{
     $api_url = $base_url_servicios."Empleados/agregarEmpleado";
         
     $form_data = array(
+                      'codEmpresa' => $this->session->userdata('cod_emp'),
                       'FirstName' => $this->input->post('FirstName'),
                       'LastName' => $this->input->post('LastName'),
                       'EmailAddress' => $this->input->post('EmailAddress'),

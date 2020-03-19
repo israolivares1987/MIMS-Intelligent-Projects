@@ -26,6 +26,38 @@ class Activador extends CI_Controller{
   
    }
 
+   function index_activador(){
+
+      
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $response = $this->obtieneMenuProyectos($codEmpresa);
+    $json_datos = $response;
+    $arrayDatos = json_decode($json_datos,true);
+    $datos['arrClientes'] = $arrayDatos['Clientes'];
+
+
+    //Obtiene Datos para el Home
+
+
+    $Totales = $this->obtieneDatosTotales($codEmpresa);
+    
+    $json_totales = $Totales;
+    $arrayDatosTotales = json_decode($json_totales,true);
+    $datos['totalProyectos'] = $arrayDatosTotales['totalProyectos'];
+    $datos['totalProveedores'] = $arrayDatosTotales['totalProveedores'];
+    $datos['totalOrdenes'] = $arrayDatosTotales['totalOrdenes'];
+    $datos['totalSuppliers'] = $arrayDatosTotales['totalSuppliers'];
+
+
+    
+
+    $this->load->view('activador/header');
+    $this->load->view('activador/navbar');
+    $this->load->view('activador/left_menu', $datos);
+    $this->load->view('activador/home_activador', $datos);
+    $this->load->view('activador/footer');
+  }
+
     function listaBucksheet($PurchaseOrderID){
 
 
@@ -68,28 +100,6 @@ class Activador extends CI_Controller{
       $this->load->view('activador/footer');
 
     }
-
-
-
-    function index_activador(){
-
-      
-      $codEmpresa = $this->session->userdata('cod_emp');
-
-      $response = $this->obtieneMenuProyectos($codEmpresa);
-
-
-      $json_datos = $response;
-      $arrayDatos = json_decode($json_datos,true);
-      $datos['arrClientes'] = $arrayDatos['Clientes'];
-
-      $this->load->view('activador/header');
-      $this->load->view('activador/navbar');
-      $this->load->view('activador/left_menu', $datos);
-      $this->load->view('activador/home_activador');
-      $this->load->view('activador/footer');
-    }
-
 
     function listProyectosProveedor($idProveedor){
 
@@ -179,6 +189,28 @@ class Activador extends CI_Controller{
 
         $base_url_servicios =BASE_SERVICIOS;                
         $api_url = $base_url_servicios."Proveedores/obtieneProveedorPorId/".$idProveedor;
+  
+  
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+
+
+      } 
+
+      function obtieneDatosTotales($codEmpresa){
+
+        $base_url_servicios =BASE_SERVICIOS;                
+        $api_url = $base_url_servicios."Consultas/obtieneDatosTotales/".$codEmpresa;
   
   
   

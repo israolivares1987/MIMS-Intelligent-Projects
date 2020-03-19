@@ -25,6 +25,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 */
 $config['base_url'] = 'https://mimsprojects.com/MIMS-Intelligent-Projects/MIMS-Servicios/';
 
+
 /*
 |--------------------------------------------------------------------------
 | Index File

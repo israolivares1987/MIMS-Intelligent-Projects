@@ -6,7 +6,7 @@ class Login extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Consultas');
+		$this->load->model('Consultas_model');
 	}
 
 	
@@ -19,7 +19,7 @@ class Login extends CI_Controller {
 		$password= $this->input->post('password');
 		$cod_emp = $this->input->post('cod_emp');
 
-		$validate_user = $this->Consultas->validate_user($user_name,$password,$cod_emp);
+		$validate_user = $this->Consultas_model->validate_user($user_name,$password,$cod_emp);
 		
    
 		if($validate_user->num_rows() > 0){
@@ -38,7 +38,7 @@ class Login extends CI_Controller {
 			$paterno = $data['paterno'];
 			$materno = $data['materno'];
 
-			$validate_rol = $this->Consultas->obtiene_datos_usuario($level);
+			$validate_rol = $this->Consultas_model->obtiene_datos_usuario($level);
 		  
 			$data_Rol  = $validate_rol->row_array();
 			$nombreRol  = $data_Rol['nombre'];
@@ -96,7 +96,7 @@ class Login extends CI_Controller {
 		$rol_id = $this->input->post('rol_id');
 		
 
-		$validate_rol = $this->Consultas->obtiene_datos_usuario($rol_id);
+		$validate_rol = $this->Consultas_model->obtiene_datos_usuario($rol_id);
    
 		 if($validate_rol->num_rows() > 0){
 		  
