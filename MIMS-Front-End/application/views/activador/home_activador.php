@@ -54,7 +54,7 @@
               <div class="inner">
                 <h3><?php echo $totalOrdenes?></h3>
 
-                <p>Total Ordenes</p>
+                <p>Total Ordenes en Proyectos</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
