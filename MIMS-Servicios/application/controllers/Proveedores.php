@@ -18,11 +18,12 @@ class Proveedores extends CI_Controller {
 		foreach ($Proveedores as $Proveedor) {
 			$no++;
 			$row = array();
-			$row[] = '<a class="btn btn-success" href="javascript:void(0)" title="Edit" onclick="edit_proveedor('."'".$Proveedor->idProveedor."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>';
-			$row[] ='<a class="btn btn-danger" href="javascript:void(0)" title="Hapus" onclick="delete_proveedor('."'".$Proveedor->idProveedor."'".')"><i class="glyphicon glyphicon-trash"></i>Delete</a>';
 			$row[] = $Proveedor->nombreProveedor;
 			$row[] = $Proveedor->rutProveedor;
 			$row[] = $Proveedor->dvProveedor;
+			$row[] = '<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Edit" onclick="edit_proveedor('."'".$Proveedor->idProveedor."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>';
+			$row[] ='<a class="btn btn-block btn-outline-danger" href="javascript:void(0)" title="Hapus" onclick="delete_proveedor('."'".$Proveedor->idProveedor."'".')"><i class="glyphicon glyphicon-trash"></i>Delete</a>';
+			
 			$data[] = $row;
 		}
 
@@ -87,9 +88,6 @@ class Proveedores extends CI_Controller {
 			echo json_encode(array("status" => TRUE));
 	
 			}
-
-
-
 
 
 	}

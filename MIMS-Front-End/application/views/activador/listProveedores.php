@@ -22,18 +22,19 @@
             <!-- /.card-header -->
             <div class="card-body">
             <br />
-                        <button class="btn btn-success" onclick="add_proveedor()"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</button>
-                        <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
+                        <button class="btn btn-block btn-outline-success" onclick="add_proveedor()"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</button>
+                        <button class="btn btn-block btn-outline-secondary" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />
                         <br />
-                        <table id="ListProveedor" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="ListProveedor" class="table table-striped table-bordered" cellspacing="1" width="99%">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
+                                    
                                     <th>Nombre Proveedor</th>
                                     <th>Rut Proveedor</th>
                                     <th>Dv Proveedor</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -55,6 +56,7 @@ var base_url = '<?php echo base_url();?>';
 
       //datatables
     $('#ListProveedor').DataTable({ 
+        
 
                 "processing": true, //Feature control the processing indicator.
                 "serverSide": true, //Feature control DataTables' server-side processing mode.
@@ -83,7 +85,11 @@ var base_url = '<?php echo base_url();?>';
                    "sortAscending":	"Ordenación ascendente",
                    "sortDescending":	"Ordenación descendente"
                }
-        }
+        },
+        rowReorder: {
+            "selector": 'td:nth-child(2)'
+        },
+        "responsive": true
 
     });
 
@@ -108,7 +114,7 @@ function reload_table()
      $('#ListProveedor').DataTable().ajax.reload();
 }
 
-function add_empleado()
+function add_proveedor()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
@@ -118,7 +124,7 @@ function add_empleado()
     $('.modal-title').text('Agregar Proveedor'); // Set Title to Bootstrap modal title
 }
 
-function edit_employees(id)
+function edit_proveedor(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals

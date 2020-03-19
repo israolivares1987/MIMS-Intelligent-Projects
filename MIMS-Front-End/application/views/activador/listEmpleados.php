@@ -22,15 +22,14 @@
             <!-- /.card-header -->
             <div class="card-body">
             <br />
-                        <button class="btn btn-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
-                        <button class="btn btn-default" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
+                        <button class="btn btn-block btn-outline-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
+                        <button class="btn btn-block btn-outline-secondary" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />
                         <br />
-                        <table id="ListEmp" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                        <table id="ListEmp" class="table table-striped table-bordered" cellspacing="1" width="99%">
                             <thead>
                                 <tr>
-                                    <th></th>
-                                    <th></th>
+                                    
                                     <th>Nombre</th>
                                     <th>Apellido</th>
                                     <th>E-Mail</th>
@@ -42,6 +41,8 @@
                                     <th>Provincia</th>
                                     <th>Cuidad</th>
                                     <th>Direccion</th>
+                                    <th></th>
+                                    <th></th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -356,8 +357,8 @@ function delete_employees(id)
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-success swalDefaultSuccess" onclick="save()" data-dismiss="modal">Save</button>
-              <button type="button" class="btn btn-danger">Cancel</button>
+              <button type="button" class="btn btn-block btn-outline-success" onclick="save()" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-block btn-outline-danger">Cancel</button>
             </div>
           </div>
           <!-- /.modal-content -->

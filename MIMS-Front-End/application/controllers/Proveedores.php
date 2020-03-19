@@ -73,6 +73,7 @@ class Proveedores extends CI_Controller{
     $form_data = array(
                       'idProveedor' => $this->input->post('idProveedor'),
                       'rutProveedor' => $this->input->post('rutProveedor'),
+                      'nombreProveedor' => $this->input->post('nombreProveedor'),
                       'dvProveedor' => $this->input->post('dvProveedor')
               );
 
@@ -92,12 +93,12 @@ class Proveedores extends CI_Controller{
   
   }
  
-  function agregarEmpleado(){
+  function agregarProveedor(){
 
 
     
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Empleados/agregarEmpleado";
+    $api_url = $base_url_servicios."Proveedores/agregarProveedor";
         
     $form_data = array(
                       'codEmpresa' => $this->session->userdata('cod_emp'),

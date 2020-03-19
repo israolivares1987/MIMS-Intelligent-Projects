@@ -7,6 +7,7 @@ class BuckSheet extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Consultas');
+		$this->load->model('Proyectos_model');
 	}
 
 	
@@ -17,7 +18,7 @@ class BuckSheet extends CI_Controller {
 		$PurchaseOrderID = $this->input->post('PurchaseOrderID');
 
 
-		$BuckSheets = $this->Consultas->obtieneBuckSheet($PurchaseOrderID);
+		$BuckSheets = $this->Proyectos_model->obtieneBuckSheet($PurchaseOrderID);
 		$no = 0;
 		$data = array();
 		foreach ($BuckSheets as $BuckSheet) {

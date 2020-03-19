@@ -14,6 +14,9 @@
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/css/jquery.dataTables.min.css');?>">
+
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/responsive.dataTables.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/rowReorder.dataTables.min.css');?>">
   
 
   <!-- Ionicons -->
@@ -57,6 +60,8 @@
 <script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js');?>"></script>
 <script src="<?php echo base_url('assets/scripts/jquery.dataTables.min.js');?>"></script>
+<script src="<?php echo base_url('assets/scripts/dataTables.responsive.min.js');?>"></script>
+<script src="<?php echo base_url('assets/scripts/dataTables.rowReorder.min.js');?>"></script>
 
 
 </head>

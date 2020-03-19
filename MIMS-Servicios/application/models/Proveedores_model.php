@@ -3,11 +3,11 @@ class Proveedores_model extends CI_Model{
 
 	var $table = 'tbl_proveedores';
 
-  function obtieneEmployees(){
+  function obtieneProveedores(){
 
       $proveedor = $this->db->get($this->table);
-      $proveedores = $proveedoress->result();
-      return $proveedoress;
+      $proveedores = $proveedor->result();
+      return $proveedores;
   
     }
      

@@ -40,77 +40,32 @@ class Consultas extends CI_Model{
     return $rol;
 
     }
-
-   function obtieneExpediting()
-      {
-
-        $query = $this->db->query("SELECT a.* , 
-                                  (select SupplierName from tbl_Suppliers where SupplierID = a.SupplierID) as Supplier, 
-                                  (select CONCAT(FirstName, ' ', LastName)  from tbl_employees where ID = a.EmployeeID) as Employee 
-                                  FROM tbl_Purchase_Orders a"
-                                  );
-        $Expediting = $query;
-        return $Expediting;
-      }
     
-
-
-      function obtieneBuckSheet($PurchaseOrderID)
-      {
-
-        $query = $this->db->query(" SELECT a.*,
-                                    (select ProductName from tbl_Products_Catalogo where a.ProductID = ProductID )as Product
-                                    FROM tbl_Inventory_Expediting a
-                                    WHERE PurchaseOrderID =".$PurchaseOrderID
-                                  );
-
-        $BuckSheet = $query->result();
-        return $BuckSheet;
-      }
-
-      
-
-      function count_all_BuckSheet($PurchaseOrderID)
-      {
-        $this->db->query("SELECT a.*,
-                                    (select ProductName from tbl_Products_Catalogo where a.ProductID = ProductID )as Product
-                                    FROM tbl_Inventory_Expediting a
-                                    WHERE PurchaseOrderID =".$PurchaseOrderID
-                                  );
-        return $this->db->count_all_results();
-      }
-
-
-      function obtieneProveedores($codEmpresa){
+    
+    function obtieneProveedores($codEmpresa){
 
         $this->db->where('codEmpresa',$codEmpresa);
+        $this->db->order_by('idProveedor', 'asc');
         $Proveedores = $this->db->get('tbl_proveedores');
         
         
-        return $Proveedores->result();
+        return $Proveedores;
+        ;
 
       }
 
       function obtieneProyectosProveedores($idProveedor){
 
         $this->db->where('idProveedor',$idProveedor);
+        $this->db->order_by('idProveedor', 'asc');
         $Pproveedores = $this->db->get('tbl_proyectos');
         
         
-        return $Pproveedores->result();
+        return $Pproveedores;
 
       }
       
-      function obtienePurchaseOrders($idProyecto,$idProveedor){
-
-        $this->db->where('idProveedor',$idProveedor);
-        $this->db->where('idProyecto',$idProyecto);
-        $PurchaseOrders = $this->db->get('tbl_Purchase_Orders');
-        
-        
-        return $PurchaseOrders->result();
-
-      }
+     
 
      
 

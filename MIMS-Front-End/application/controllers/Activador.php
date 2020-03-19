@@ -10,23 +10,19 @@ class Activador extends CI_Controller{
 
   function index_empleados(){
 
-
     $codEmpresa = $this->session->userdata('cod_emp');
     $responseMenuLeft = $this->obtieneMenuProyectos($codEmpresa);
 
 
     $json_datosMenuLeft = $responseMenuLeft;
     $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-    $datos['arrProyectos'] = $arrayDatosMenu['Proyectos'];
+    $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
 
     $this->load->view('activador/header');
     $this->load->view('activador/navbar');
     $this->load->view('activador/left_menu', $datos);
     $this->load->view('activador/listEmpleados');
-    $this->load->view('activador/footer');
-  
-  
-  
+    $this->load->view('activador/footer'); 
   
    }
 
@@ -39,7 +35,7 @@ class Activador extends CI_Controller{
     
           $json_datosMenuLeft = $responseMenuLeft;
           $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-          $datos['arrProyectos'] = $arrayDatosMenu['Proyectos'];
+          $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
           $datos['PurchaseOrderID'] = $PurchaseOrderID;
 
           $arraySesion = array("PurchaseOrderID" => $PurchaseOrderID);		
@@ -51,9 +47,6 @@ class Activador extends CI_Controller{
           $this->load->view('activador/left_menu', $datos);
           $this->load->view('activador/listaBuckSheet',$datos);
           $this->load->view('activador/footer');
-    
-    
-    
     }
 
 
@@ -66,16 +59,13 @@ class Activador extends CI_Controller{
 
       $json_datosMenuLeft = $responseMenuLeft;
       $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-      $datos['arrProyectos'] = $arrayDatosMenu['Proyectos'];
+      $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
 
       $this->load->view('activador/header');
       $this->load->view('activador/navbar');
       $this->load->view('activador/left_menu', $datos);
       $this->load->view('activador/listProveedores');
       $this->load->view('activador/footer');
-
-      
-
 
     }
 
@@ -91,28 +81,47 @@ class Activador extends CI_Controller{
 
       $json_datos = $response;
       $arrayDatos = json_decode($json_datos,true);
+      $datos['arrClientes'] = $arrayDatos['Clientes'];
 
-
-
-         $datos['arrProyectos'] = $arrayDatos['Proyectos'];
-
-   $this->load->view('activador/header');
-   $this->load->view('activador/navbar');
-   $this->load->view('activador/left_menu', $datos);
-   $this->load->view('activador/footer');
-
-
-
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/left_menu', $datos);
+      $this->load->view('activador/footer');
     }
+
+
+    function listProyectosProveedor($idProveedor){
+
+      
+      $codEmpresa = $this->session->userdata('cod_emp');
+      $response = $this->obtieneMenuProyectos($codEmpresa);
+      $json_datos = $response;
+      $arrayDatos = json_decode($json_datos,true);
+      $datos['arrClientes'] = $arrayDatos['Clientes'];
+      $datos['idProveedor'] = $idProveedor;
+
+
+      //Obtiene datos del proveedor
+
+      $responseDatos = $this->obtieneDatosProveedor($idProveedor);
+      $array = json_decode($responseDatos);
+      $datos['nombreProveedor'] = $array->nombreProveedor;
+      $datos['rutProveedor'] = $array->rutProveedor;
+      $datos['dvProveedor'] = $array->dvProveedor;
+
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/left_menu', $datos);
+      $this->load->view('activador/listProyectos',$datos);
+      $this->load->view('activador/footer');
+    }
+
     
-
-
-
 
     function obtieneMenuProyectos($codEmpresa){
 
       $base_url_servicios =BASE_SERVICIOS;                
-      $api_url = $base_url_servicios."Expediting/obtieneProyectos";
+      $api_url = $base_url_servicios."Expediting/obtieneClientesProyectos";
 
       $form_data = array(
                   'cod_empresa'		=>$codEmpresa
@@ -133,6 +142,7 @@ class Activador extends CI_Controller{
       return $response;
 
     }
+
 
     function obtieneBucksheet($PurchaseOrderID){
 
@@ -162,5 +172,28 @@ class Activador extends CI_Controller{
 
 
     }
+
+      
+      function obtieneDatosProveedor($idProveedor){
+
+        $base_url_servicios =BASE_SERVICIOS;                
+        $api_url = $base_url_servicios."Proveedores/obtieneProveedorPorId/".$idProveedor;
+  
+  
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+
+
+      } 
 
   }
