@@ -105,29 +105,6 @@
  <!-- /.content-wrapper -->
 
  <script type="text/javascript">
-function formToggle(ID) {
-    var element = document.getElementById(ID);
-    if (element.style.display === "none") {
-        element.style.display = "block";
-    } else {
-        element.style.display = "none";
-    }
-}
-
-
-function descargaArchivoPrueba() {
-
-    window.open('<?php echo base_url();?>assets/csv-sample-bucksheet.csv', '_blank');
-}
-
-function reload_table() {
-    $('#example').DataTable().ajax.reload();
-}
-
-
-
-
-
 
 
 /* Formatting function for row details - modify as you need */
@@ -186,13 +163,38 @@ function format(d) {
         '<tr>' + '<td>Observacion5:</td>' + '<td>' + String(d.Observacion5).replace("null", "") + '</td>' + '</tr>' +
         '<tr>' + '<td>Observacion6:</td>' + '<td>' + String(d.Observacion6).replace("null", "") + '</td>' + '</tr>' +
         '<tr>' + '<td>Observacion7:</td>' + '<td>' + String(d.Observacion7).replace("null", "") + '</td>' + '</tr>' +
-        '</table>'
+       '</table>';
 
 }
 
+function formToggle(ID) {
+    var element = document.getElementById(ID);
+    if (element.style.display === "none") {
+        element.style.display = "block";
+    } else {
+        element.style.display = "none";
+    }
+}
+
+
+function descargaArchivoPrueba() {
+
+    window.open('<?php echo base_url();?>assets/csv-sample-bucksheet.csv', '_blank');
+}
+
+function reload_table() {
+    $('#example').DataTable().ajax.reload();
+}
+
+
+
+
+
+
+
 $(document).ready(function() {
 
-    $('#example').DataTable({
+    var table  = $('#example').DataTable({
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
         "ajax": {
