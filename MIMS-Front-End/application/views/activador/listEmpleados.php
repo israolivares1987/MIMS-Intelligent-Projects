@@ -22,6 +22,9 @@
             <!-- /.card-header -->
             <div class="card-body">
             <br />
+    <br/>
+    <br/>
+    <br/>
                         <button class="btn btn-block btn-outline-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
                         <button class="btn btn-block btn-outline-secondary" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />

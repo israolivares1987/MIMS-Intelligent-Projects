@@ -58,49 +58,6 @@ class Activador extends CI_Controller{
     $this->load->view('activador/footer');
   }
 
-    function listaBucksheet($PurchaseOrderID){
-
-
-          $codEmpresa = $this->session->userdata('cod_emp');
-          $responseMenuLeft = $this->obtieneMenuProyectos($codEmpresa);
-    
-    
-          $json_datosMenuLeft = $responseMenuLeft;
-          $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-          $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-          $datos['PurchaseOrderID'] = $PurchaseOrderID;
-
-          $arraySesion = array("PurchaseOrderID" => $PurchaseOrderID);		
-
-	      	$this->session->set_userdata($arraySesion);
-
-          $this->load->view('activador/header');
-          $this->load->view('activador/navbar');
-          $this->load->view('activador/left_menu', $datos);
-          $this->load->view('activador/listaBuckSheet',$datos);
-          $this->load->view('activador/footer');
-    }
-
-
-    function listaProveedor(){
-
-
-      $codEmpresa = $this->session->userdata('cod_emp');
-      $responseMenuLeft = $this->obtieneMenuProyectos($codEmpresa);
-
-
-      $json_datosMenuLeft = $responseMenuLeft;
-      $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-      $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-
-      $this->load->view('activador/header');
-      $this->load->view('activador/navbar');
-      $this->load->view('activador/left_menu', $datos);
-      $this->load->view('activador/listProveedores');
-      $this->load->view('activador/footer');
-
-    }
-
     function listProyectosProveedor($idProveedor){
 
       
@@ -126,7 +83,6 @@ class Activador extends CI_Controller{
       $this->load->view('activador/listProyectos',$datos);
       $this->load->view('activador/footer');
     }
-
     
 
     function obtieneMenuProyectos($codEmpresa){
@@ -155,34 +111,7 @@ class Activador extends CI_Controller{
     }
 
 
-    function obtieneBucksheet($PurchaseOrderID){
-
-
-      $base_url_servicios =BASE_SERVICIOS;                
-      $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheet";
-
-
-          
-      $form_data = array(
-                  'PurchaseOrderID'		=>$PurchaseOrderID
-      );
-
-      $client = curl_init($api_url);
-
-      curl_setopt($client, CURLOPT_POST, true);
-
-      curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-
-      curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-      $response = curl_exec($client);
-
-      curl_close($client);
-
-      echo $response;
-
-
-    }
+    
 
       
       function obtieneDatosProveedor($idProveedor){

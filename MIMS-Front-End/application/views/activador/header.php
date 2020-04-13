@@ -34,6 +34,7 @@
 <!-- Bootstrap -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
 <!-- overlayScrollbars -->
+<script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/overlayScrollbars/js/jquery.overlayScrollbars.min.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
@@ -62,7 +63,11 @@
 <script src="<?php echo base_url('assets/scripts/jquery.dataTables.min.js');?>"></script>
 <script src="<?php echo base_url('assets/scripts/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/scripts/dataTables.rowReorder.min.js');?>"></script>
-
+<script type="text/javascript">
+$(document).ready(function () {
+  bsCustomFileInput.init();
+});
+</script>
 
 </head>
 <body class="hold-transition sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed">

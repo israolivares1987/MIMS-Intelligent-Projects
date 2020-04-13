@@ -43,9 +43,9 @@
                     </li>
 
                     <li class="nav-item">
-                      <a href="<?php echo site_url('Activador/listaProveedor');?>" class="nav-link">
+                      <a href="<?php echo site_url('Clientes/index');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Proveedores</p>
+                        <p>Clientes</p>
                       </a>
                     </li>
               </ul>

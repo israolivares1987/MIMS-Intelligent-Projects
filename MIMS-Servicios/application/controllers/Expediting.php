@@ -47,9 +47,7 @@ class Expediting extends CI_Controller {
 			$row[] = $Expediting->Employee;
 			$row[] = $OrderDate;
 			$row[] = $DateCreated;
-			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="abrirBuckSheet('."'".$Expediting->PurchaseOrderID."'".')"><i class="glyphicon glyphicon-trash"></i>BuckSheet</a>';
-			
-		
+			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="abrirBuckSheet('."'".$Expediting->PurchaseOrderID."'".','."'".$Expediting->PurchaseOrderDescription."'".')"><i class="glyphicon glyphicon-trash"></i>BuckSheet</a>';
 
 			$data[] = $row;
 		}

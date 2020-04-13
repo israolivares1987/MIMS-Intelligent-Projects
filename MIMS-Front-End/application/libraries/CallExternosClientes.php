@@ -1,13 +1,22 @@
 <?php
-class Proveedores extends CI_Controller{
-  function __construct(){
-    parent::__construct();
-  }
- 
-  function listaProveedores(){
+if (!defined('BASEPATH')) exit('No direct script access allowed');
+/**
+ * ==============================
+ * CallExternos
+ *
+ * @package : CodeIgniter 3.x
+ * @category : Libraries
+ * @version : 1.0
+ * @author : Iolivares
+ * ==============================
+ */    
+class CallExternosClientes {
+    
+        
+  function listaClientes(){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Proveedores/obtieneProveedores";
+    $api_url = $base_url_servicios."Clientes/obtieneClientes";
         
     $client = curl_init($api_url);
 
@@ -24,10 +33,10 @@ class Proveedores extends CI_Controller{
   
   }
 
-  function  obtieneProveedorPorId($id){
+  function  obtieneClientePorId($id){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Proveedores/obtieneProveedorPorId/".$id;
+    $api_url = $base_url_servicios."Clientes/obtieneClientePorId/".$id;
         
     $client = curl_init($api_url);
 
@@ -44,10 +53,10 @@ class Proveedores extends CI_Controller{
   }
 
 
-  function  deleteProveedor($id){
+  function  deleteCliente($id){
      
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Proveedores/deleteProveedor/".$id;
+    $api_url = $base_url_servicios."Clientes/deleteCliente/".$id;
         
     $client = curl_init($api_url);
 
@@ -63,18 +72,18 @@ class Proveedores extends CI_Controller{
   
   }
 
-  function updateProveedor()
+  function updateCliente()
 {
 
     
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Proveedores/updateProveedor";
+    $api_url = $base_url_servicios."Clientes/updateCliente";
         
     $form_data = array(
-                      'idProveedor' => $this->input->post('idProveedor'),
-                      'rutProveedor' => $this->input->post('rutProveedor'),
-                      'nombreProveedor' => $this->input->post('nombreProveedor'),
-                      'dvProveedor' => $this->input->post('dvProveedor')
+                      'idCliente' => $this->input->post('idCliente'),
+                      'rutCliente' => $this->input->post('rutCliente'),
+                      'nombreCliente' => $this->input->post('nombreCliente'),
+                      'dvCliente' => $this->input->post('dvCliente')
               );
 
     $client = curl_init($api_url);
@@ -93,18 +102,18 @@ class Proveedores extends CI_Controller{
   
   }
  
-  function agregarProveedor(){
+  function agregarCliente(){
 
 
     
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Proveedores/agregarProveedor";
+    $api_url = $base_url_servicios."Clientes/agregarCliente";
         
     $form_data = array(
                       'codEmpresa' => $this->session->userdata('cod_emp'),
-                      'nombreProveedor' => $this->input->post('nombreProveedor'),
-                      'rutProveedor' => $this->input->post('rutProveedor'),
-                      'dvProveedor' => $this->input->post('dvProveedor')
+                      'nombreCliente' => $this->input->post('nombreCliente'),
+                      'rutCliente' => $this->input->post('rutCliente'),
+                      'dvCliente' => $this->input->post('dvCliente')
               );
 
 
@@ -125,8 +134,5 @@ class Proveedores extends CI_Controller{
     echo $response;
   
   }
-
-
-
-
-  }
+    
+}

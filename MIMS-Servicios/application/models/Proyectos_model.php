@@ -16,33 +16,6 @@ class Proyectos_model extends CI_Model{
 	  $Expediting = $query->result();
 	  return $Expediting;
 	}
-  
-
-
-	function obtieneBuckSheet($PurchaseOrderID)
-	{
-
-	  $query = $this->db->query(" SELECT a.*,
-								  (select ProductName from tbl_Products_Catalogo where a.ProductID = ProductID )as Product
-								  FROM tbl_Inventory_Expediting a
-								  WHERE PurchaseOrderID =".$PurchaseOrderID
-								);
-
-	  $BuckSheet = $query->result();
-	  return $BuckSheet;
-	}
-
-	
-
-	function count_all_BuckSheet($PurchaseOrderID)
-	{
-	  $this->db->query("SELECT a.*,
-								  (select ProductName from tbl_Products_Catalogo where a.ProductID = ProductID )as Product
-								  FROM tbl_Inventory_Expediting a
-								  WHERE PurchaseOrderID =".$PurchaseOrderID
-								);
-	  return $this->db->count_all_results();
-	}
 
 	function obtienePurchaseOrders($idProyecto,$idProveedor){
 

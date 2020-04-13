@@ -1,13 +1,13 @@
 <?php
-class Proveedores_model extends CI_Model{
+class Clientes_model extends CI_Model{
 
-	var $table = 'tbl_proveedores';
+	var $table = 'tbl_clientes';
 
-  function obtieneProveedores(){
+  function obtieneclientees(){
 
-      $proveedor = $this->db->get($this->table);
-      $proveedores = $proveedor->result();
-      return $proveedores;
+      $cliente = $this->db->get($this->table);
+      $clientees = $cliente->result();
+      return $clientees;
   
     }
      
@@ -21,7 +21,7 @@ class Proveedores_model extends CI_Model{
    function get_by_id($id)
 	{
 		$this->db->from($this->table);
-		$this->db->where('idProveedor',$id);
+		$this->db->where('idcliente',$id);
 		$query = $this->db->get();
 
 		return $query->row();
@@ -35,7 +35,7 @@ class Proveedores_model extends CI_Model{
 
 	function delete_by_id($id)
 	{
-		$this->db->where('idProveedor', $id);
+		$this->db->where('idcliente', $id);
 		$this->db->delete($this->table);
 	}
 

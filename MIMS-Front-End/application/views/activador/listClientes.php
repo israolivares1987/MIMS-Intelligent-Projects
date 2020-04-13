@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>Lista Proveedores</h1>
+            <h1>Lista Clientes</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -22,17 +22,17 @@
             <!-- /.card-header -->
             <div class="card-body">
             <br />
-                        <button class="btn btn-block btn-outline-success" onclick="add_proveedor()"><i class="glyphicon glyphicon-plus"></i> Agregar Proveedor</button>
+                        <button class="btn btn-block btn-outline-success" onclick="add_Clientes()"><i class="glyphicon glyphicon-plus"></i> Agregar Clientes</button>
                         <button class="btn btn-block btn-outline-secondary" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
                         <br />
                         <br />
-                        <table id="ListProveedor" class="table table-striped table-bordered" cellspacing="1" width="99%">
+                        <table id="ListClientes" class="table table-striped table-bordered" cellspacing="1" width="99%">
                             <thead>
                                 <tr>
                                     
-                                    <th>Nombre Proveedor</th>
-                                    <th>Rut Proveedor</th>
-                                    <th>Dv Proveedor</th>
+                                    <th>Nombre Cliente</th>
+                                    <th>Rut Cliente</th>
+                                    <th>Dv Cliente</th>
                                     <th></th>
                                     <th></th>
                                 </tr>
@@ -55,7 +55,7 @@ var table;
 var base_url = '<?php echo base_url();?>';    
 
       //datatables
-    $('#ListProveedor').DataTable({ 
+    $('#ListClientes').DataTable({ 
         
 
                 "processing": true, //Feature control the processing indicator.
@@ -64,7 +64,7 @@ var base_url = '<?php echo base_url();?>';
 
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "<?php echo site_url('Proveedores/listaProveedores')?>",
+                    "url": "<?php echo site_url('Clientes/listaClientes')?>",
                     "type": "POST"
                 },
                     "paging":         false,
@@ -111,20 +111,20 @@ var base_url = '<?php echo base_url();?>';
 
 function reload_table()
 {
-     $('#ListProveedor').DataTable().ajax.reload();
+     $('#ListClientes').DataTable().ajax.reload();
 }
 
-function add_proveedor()
+function add_Clientes()
 {
     save_method = 'add';
     $('#form')[0].reset(); // reset form on modals
     $('.form-group').removeClass('has-error'); // clear error class
     $('.help-block').empty(); // clear error string
     $('#modal-default').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Agregar Proveedor'); // Set Title to Bootstrap modal title
+    $('.modal-title').text('Agregar Clientes'); // Set Title to Bootstrap modal title
 }
 
-function edit_proveedor(id)
+function edit_Cliente(id)
 {
     save_method = 'update';
     $('#form')[0].reset(); // reset form on modals
@@ -134,21 +134,21 @@ function edit_proveedor(id)
 
     //Ajax Load data from ajax
     $.ajax({
-        url : "<?php echo site_url('Proveedores/obtieneProveedorPorId')?>/" + id,
+        url : "<?php echo site_url('Clientes/obtieneClientePorId')?>/" + id,
         type: "GET",
         dataType: "JSON",
         success: function(data)
         {
 
-            $('[name="idProveedor"]').val(data.idProveedor);
-            $('[name="nombreProveedor"]').val(data.nombreProveedor);
-            $('[name="rutProveedor"]').val(data.rutProveedor);
-            $('[name="dvProveedor"]').val(data.dvProveedor);
+            $('[name="idCliente"]').val(data.idCliente);
+            $('[name="nombreCliente"]').val(data.nombreCliente);
+            $('[name="rutCliente"]').val(data.rutCliente);
+            $('[name="dvCliente"]').val(data.dvCliente);
 
             
 
             $('#modal-default').modal('show'); // show bootstrap modal
-            $('.modal-title').text('Editar Proveedor'); // Set title to Bootstrap modal title
+            $('.modal-title').text('Editar Clientes'); // Set title to Bootstrap modal title
 
 
         },
@@ -166,9 +166,9 @@ function save()
     var url;
 
     if(save_method == 'add') {
-        url = "<?php echo site_url('Proveedores/agregarProveedor')?>";
+        url = "<?php echo site_url('Clientes/agregarCliente')?>";
     } else {
-        url = "<?php echo site_url('Proveedores/updateProveedor')?>";
+        url = "<?php echo site_url('Clientes/updateCliente')?>";
     }
 
     // ajax adding data to database
@@ -213,13 +213,13 @@ function save()
 }
 
 
-function delete_proveedor(id)
+function delete_Cliente(id)
 {
-    if(confirm('Está Seguro de eliminar el Proveedor?'))
+    if(confirm('Está Seguro de eliminar el Cliente?'))
     {
         // ajax delete data to database
         $.ajax({
-            url : "<?php echo site_url('Proveedores/deleteProveedor')?>/"+id,
+            url : "<?php echo site_url('Clientes/deleteCliente')?>/"+id,
             type: "POST",
             dataType: "JSON",
             success: function(data)
@@ -246,33 +246,33 @@ function delete_proveedor(id)
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
-              <h4 class="modal-title">Agregar Proveedor</h4>
+              <h4 class="modal-title">Agregar Cliente</h4>
               <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                 <span aria-hidden="true">&times;</span>
               </button>
             </div>
             <div class="modal-body">
             <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="idProveedor"/> 
+                    <input type="hidden" value="" name="idCliente"/> 
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
-                                <input name="nombreProveedor" placeholder="Nombre Proveedor" class="form-control" type="text">
+                                <input name="nombreCliente" placeholder="Nombre Cliente" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Rut Proveedor</label>
+                            <label class="control-label col-md-3">Rut Cliente</label>
                             <div class="col-md-9">
-                                <input name="rutProveedor" placeholder="Rut Proveedor" class="form-control" type="text">
+                                <input name="rutCliente" placeholder="Rut Cliente" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Dv Proveedor</label>
+                            <label class="control-label col-md-3">Dv Cliente</label>
                             <div class="col-md-9">
-                                <input name="dvProveedor" placeholder="dv Proveedor" class="form-control" type="text">
+                                <input name="dvCliente" placeholder="dv Cliente" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -280,7 +280,7 @@ function delete_proveedor(id)
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-success swalDefaultSuccess" onclick="save()" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-success" onclick="save()" data-dismiss="modal">Save</button>
               <button type="button" class="btn btn-danger">Cancel</button>
             </div>
           </div>

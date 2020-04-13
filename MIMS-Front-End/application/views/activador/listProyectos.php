@@ -58,8 +58,8 @@
                             <thead>
                                 <tr>
                                 <th>Codigo Proyecto</th>
-                                <th>PurchaseOrderID</th>
-                                <th>PurchaseOrderDescription</th>
+                                <th>OrderID</th>
+                                <th>OrderDescription</th>
                                 <th>Supplier</th>
                                 <th>Employee</th>
                                 <th>OrderDate</th>
@@ -157,9 +157,9 @@ var idProyecto = 1;
 
 
 
-function abrirBuckSheet(id)
+function abrirBuckSheet(id,nom)
 {
-    window.open('<?php echo site_url('Activador/listaBucksheet')?>/' + id, '_blank');
+    window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/' + id + '/' + nom, '_blank');
 }
 
 function reloadTableOrdenes(idProveedor,idProyecto)
