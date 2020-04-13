@@ -8,14 +8,15 @@ class Expediting extends CI_Controller {
 		parent::__construct();
 		$this->load->model('Proyectos_model');
 		$this->load->model('Consultas_model');
+		$this->load->model('Clientes_model', 'clientes');
 	}
 
 	
 
-	function obtieneExpediting($idProveedor,$idProyecto){
+	function obtieneExpediting($idCliente,$idProyecto){
 	  
   
-		$Expeditings = $this->Proyectos_model->obtieneExpediting($idProveedor,$idProyecto);
+		$Expeditings = $this->Proyectos_model->obtieneExpediting($idCliente,$idProyecto);
 		
 		$no = 0;
 		$data = array();
@@ -54,8 +55,8 @@ class Expediting extends CI_Controller {
 
 		$output = array(
 						"draw" => false,
-						"recordsTotal" => $this->Proyectos_model->count_all_Expediting($idProveedor),
-						"recordsFiltered" => $this->Proyectos_model->count_all_Expediting($idProveedor),
+						"recordsTotal" => $this->Proyectos_model->count_all_Expediting($idCliente),
+						"recordsFiltered" => $this->Proyectos_model->count_all_Expediting($idCliente),
 						"data" => $data
 				);
 		//output to json format
@@ -65,31 +66,31 @@ class Expediting extends CI_Controller {
 				
 	
 
-	function obtieneClientesProyectos(){
+	function obtieneProyectosxCliente(){
 
 		$html = "";
 		$cod_empresa = $this->input->post('cod_empresa');
 		
 
-		$proveedores = $this->Consultas_model->obtieneProveedores($cod_empresa);
+		$clientes = $this->clientes->obtieneclientesxempresa($cod_empresa);
 
 		
 		
-		if($proveedores->num_rows() > 0){
+		if($clientes->num_rows() > 0){
 
 
-			$proveedores = $proveedores->result();
+			$clientes = $clientes->result();
 
 			
-		    foreach ($proveedores as $proveedor) {
+		    foreach ($clientes as $cliente) {
 
-			$nombreProveedor = $proveedor->nombreProveedor;
-			$idProveedor = $proveedor->idProveedor;
-			$link = BASE_SERVICIOS_HOME."Activador/listProyectosProveedor/".$idProveedor;
+			$nombreCliente = $cliente->nombreCliente;
+			$idCliente = $cliente->idCliente;
+			$link = BASE_SERVICIOS_HOME."Activador/listProyectosCliente/".$idCliente;
 			$html .= '<li class="nav-item">
 			<a href="'.$link.'" class="nav-link">
 			  <i class="far fa-circle nav-icon"></i>
-			  <p style="font-size: 12px;">'.$nombreProveedor.'</p>
+			  <p style="font-size: 12px;">'.$nombreCliente.'</p>
 			</a>
 		  </li>';
 

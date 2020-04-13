@@ -5,7 +5,7 @@
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h5 class="card-title m-0">Proyectos <?php echo $nombreProveedor;?>
+            <h5 class="card-title m-0">Proyectos <?php echo $nombreCliente;?>
             </h5>
           </div>
         </div>
@@ -92,7 +92,6 @@ $(document).ready(function() {
 var save_method; //for save method string
 var table;
 var base_url = '<?php echo base_url();?>';   
-var idProyecto = 1; 
 
 
 
@@ -105,7 +104,7 @@ var idProyecto = 1;
 
                 // Load data for the table's content from an Ajax source
                 "ajax": {
-                    "url": "<?php echo site_url('Proyectos/obtieneProyectos/'.$idProveedor)?>",
+                    "url": "<?php echo site_url('Proyectos/obtieneProyectos/'.$idCliente)?>",
                     "type": "POST"
                 },
                 language: {
@@ -162,7 +161,7 @@ function abrirBuckSheet(id,nom)
     window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/' + id + '/' + nom, '_blank');
 }
 
-function reloadTableOrdenes(idProveedor,idProyecto)
+function reloadTableOrdenes(idCliente,idProyecto)
 {
 
        //datatables
@@ -174,7 +173,7 @@ function reloadTableOrdenes(idProveedor,idProyecto)
 "destroy": true,
 // Load data for the table's content from an Ajax source
 "ajax": {
-    "url": "<?php echo site_url('Proyectos/obtieneProyectosProveedor/')?>" + idProveedor + "/" + idProyecto,
+    "url": "<?php echo site_url('Proyectos/obtieneProyectosProveedor/')?>" + idCliente + "/" + idProyecto,
     "type": "POST"
 },
 language: {

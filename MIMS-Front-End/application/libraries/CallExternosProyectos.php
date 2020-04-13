@@ -16,7 +16,7 @@ class CallExternosProyectos {
     function obtieneMenuProyectos($codEmpresa){
 
         $base_url_servicios =BASE_SERVICIOS;                
-        $api_url = $base_url_servicios."Expediting/obtieneClientesProyectos";
+        $api_url = $base_url_servicios."Expediting/obtieneProyectosxCliente";
   
         $form_data = array(
                     'cod_empresa'		=>$codEmpresa

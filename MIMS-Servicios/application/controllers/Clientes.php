@@ -12,7 +12,7 @@ class Clientes extends CI_Controller {
 	function obtieneClientes(){
 
 
-		$Clientees = $this->cliente->obtieneClientees();
+		$Clientees = $this->cliente->obtieneClientes();
 		$no = 0;
 		$data = array();
 		foreach ($Clientees as $Cliente) {
@@ -40,12 +40,16 @@ class Clientes extends CI_Controller {
 	}
 
 
+	
+	
 	function obtieneClientePorId($id)
 	{
 		$data = $this->cliente->get_by_id($id);
 		
 		echo json_encode($data);
 	}
+
+
 
 	function updateCliente()
 	{

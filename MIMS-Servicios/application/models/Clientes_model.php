@@ -3,7 +3,20 @@ class Clientes_model extends CI_Model{
 
 	var $table = 'tbl_clientes';
 
-  function obtieneclientees(){
+	function obtieneclientesxempresa($codEmpresa){
+
+        $this->db->where('codEmpresa',$codEmpresa);
+        $this->db->order_by('idCliente', 'asc');
+        $Cliente = $this->db->get('tbl_clientes');
+        
+        
+        return $Cliente;
+    }	
+
+
+
+
+  function obtieneclientes(){
 
       $cliente = $this->db->get($this->table);
       $clientees = $cliente->result();

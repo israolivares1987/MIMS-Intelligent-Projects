@@ -134,5 +134,29 @@ class CallExternosClientes {
     echo $response;
   
   }
+
+
+  function obtieneDatosCliente($idProveedor){
+
+    $base_url_servicios =BASE_SERVICIOS;                
+    $api_url = $base_url_servicios."Clientes/obtieneClientePorId/".$idProveedor;
+
+
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+  } 
+
     
 }
