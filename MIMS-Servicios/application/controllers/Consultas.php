@@ -7,19 +7,20 @@ class Consultas extends CI_Controller {
 	{
 		parent::__construct();
 		$this->load->model('Consultas_model');
+		$this->load->model('Clientes_model', 'clientes');
 	}
 	
 
 	function obtieneDatosTotales($codEmpresa){
 
 		$proyectos = $this->Consultas_model->obtieneDatosTotalesProyectos($codEmpresa);
-		$proveedores = $this->Consultas_model->obtieneDatosTotalesProveedores($codEmpresa);
+		$clientes = $this->clientes->obtieneTotClientesxEmp($codEmpresa);
 		$ordenes = $this->Consultas_model->obtieneDatosTotalesOrdenes($codEmpresa);
 		$suppliers = $this->Consultas_model->obtieneDatosTotalesSuppliers($codEmpresa);
 		
 		$output = array(
 			"totalProyectos" => $proyectos,
-			"totalProveedores" => $proveedores,
+			"totalClientes" => $clientes,
 			"totalOrdenes" => $ordenes,
 			"totalSuppliers" => $suppliers
 

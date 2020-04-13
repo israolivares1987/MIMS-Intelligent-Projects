@@ -37,9 +37,9 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $totalProveedores?><sup style="font-size: 20px"></sup></h3>
+                <h3><?php echo $totalClientes?><sup style="font-size: 20px"></sup></h3>
 
-                <p>Total Proveedores</p>
+                <p>Total Clientes</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>

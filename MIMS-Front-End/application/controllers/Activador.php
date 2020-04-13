@@ -5,6 +5,7 @@ class Activador extends CI_Controller{
     
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
+    $this->load->library('CallExternosConsultas');
 
      if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -42,12 +43,12 @@ class Activador extends CI_Controller{
     //Obtiene Datos para el Home
 
 
-    $Totales = $this->obtieneDatosTotales($codEmpresa);
+    $Totales = $this->callexternosconsultas->obtieneDatosTotales($codEmpresa);
     
     $json_totales = $Totales;
     $arrayDatosTotales = json_decode($json_totales,true);
     $datos['totalProyectos'] = $arrayDatosTotales['totalProyectos'];
-    $datos['totalProveedores'] = $arrayDatosTotales['totalProveedores'];
+    $datos['totalClientes'] = $arrayDatosTotales['totalClientes'];
     $datos['totalOrdenes'] = $arrayDatosTotales['totalOrdenes'];
     $datos['totalSuppliers'] = $arrayDatosTotales['totalSuppliers'];
 
@@ -89,27 +90,4 @@ class Activador extends CI_Controller{
       $this->load->view('activador/footer');
     }
     
-    
-    function obtieneDatosTotales($codEmpresa){
-
-        $base_url_servicios =BASE_SERVICIOS;                
-        $api_url = $base_url_servicios."Consultas/obtieneDatosTotales/".$codEmpresa;
-  
-  
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-
-
-      } 
-
   }

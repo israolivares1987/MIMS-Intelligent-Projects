@@ -40,30 +40,7 @@ class Consultas_model extends CI_Model{
     return $rol;
 
     }
-    
-    
-    function obtieneProveedores($codEmpresa){
 
-        $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->order_by('idProveedor', 'asc');
-        $Proveedores = $this->db->get('tbl_proveedores');
-        
-        
-        return $Proveedores;
-        ;
-
-      }
-
-      function obtieneProyectosProveedores($idProveedor){
-
-        $this->db->where('idProveedor',$idProveedor);
-        $this->db->order_by('idProveedor', 'asc');
-        $Pproveedores = $this->db->get('tbl_proyectos');
-        
-        
-        return $Pproveedores;
-
-      }
       
      function obtieneDatosTotalesProyectos($codEmpresa)
       {
@@ -81,15 +58,7 @@ class Consultas_model extends CI_Model{
         return $this->db->count_all_results();
       }
 
-      function obtieneDatosTotalesProveedores($codEmpresa)
-      {
-
-        $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->from('tbl_proveedores');
-        return $this->db->count_all_results();
-      }
-
-
+     
       function obtieneDatosTotalesSuppliers($codEmpresa)
       {
 
@@ -97,12 +66,7 @@ class Consultas_model extends CI_Model{
         $this->db->from('tbl_Suppliers');
         return $this->db->count_all_results();
       }
-     
-
-
-    
-
-     
+          
 
       }
 ?>

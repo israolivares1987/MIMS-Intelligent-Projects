@@ -7,13 +7,19 @@ class Clientes_model extends CI_Model{
 
         $this->db->where('codEmpresa',$codEmpresa);
         $this->db->order_by('idCliente', 'asc');
-        $Cliente = $this->db->get('tbl_clientes');
+        $Cliente = $this->db->get($this->table);
         
         
         return $Cliente;
     }	
 
+	function obtieneTotClientesxEmp($codEmpresa)
+	{
 
+	  $this->db->where('codEmpresa',$codEmpresa);
+	  $this->db->from($this->table);
+	  return $this->db->count_all_results();
+	}
 
 
   function obtieneclientes(){
