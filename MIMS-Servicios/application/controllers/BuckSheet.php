@@ -21,7 +21,8 @@ class BuckSheet extends CI_Controller {
 		$data = array();
 		foreach ($BuckSheets as $BuckSheet) {
 			$no++;
-			$row = array("purchaseOrdername"=>$BuckSheet->purchaseOrdername,
+			$row = array("Editar"=>'<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Edit" onclick="edit_bucksheet('."'".$BuckSheet->NumeroLinea."'".','."'".$this->input->post('PurchaseOrderID')."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>',
+			"purchaseOrdername"=>$BuckSheet->purchaseOrdername,
 			"NumeroLinea"=>$BuckSheet->NumeroLinea,
 			"ItemST"=>$BuckSheet->ItemST,
 			"SubItemST"=>$BuckSheet->SubItemST,

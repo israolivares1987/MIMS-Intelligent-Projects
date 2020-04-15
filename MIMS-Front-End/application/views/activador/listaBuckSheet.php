@@ -72,22 +72,26 @@
                              <thead>
                                  <tr>
                                      <th></th>
+                                     <th>Editar</th>
                                      <th>purchaseOrdername</th>
                                      <th>NumeroLinea</th>
                                      <th>ItemST</th>
                                      <th>SubItemST</th>
                                      <th>STUnidad</th>
 
+
                                  </tr>
                              </thead>
                              <tfoot>
                                  <tr>
                                      <th></th>
+                                     <th>Editar</th>
                                      <th>purchaseOrdername</th>
                                      <th>NumeroLinea</th>
                                      <th>ItemST</th>
                                      <th>SubItemST</th>
                                      <th>STUnidad</th>
+
                                  </tr>
                              </tfoot>
                          </table>
@@ -186,10 +190,127 @@ function reload_table() {
     $('#example').DataTable().ajax.reload();
 }
 
+function edit_bucksheet(numeroLinea, PurchaseOrderID)
+{
+    save_method = 'update';
+    $('#form')[0].reset(); // reset form on modals
+    $('.form-group').removeClass('has-error'); // clear error class
+    $('.help-block').empty(); // clear error string
 
 
+    //Ajax Load data from ajax
+    $.ajax({
+        url : "<?php echo site_url('BuckSheet/obtieneBuckSheet')?>/" + numeroLinea+"/"+PurchaseOrderID,
+        type: "GET",
+        dataType: "JSON",
+        success: function(data)
+        {
+
+            $('[name="STCantidad"]').val(data.STCantidad);
+            $('[name="TAGNumber"]').val(data.TAGNumber);
+            $('[name="Stockcode"]').val(data.Stockcode);
+            $('[name="Descripcion"]').val(data.Descripcion);
+            $('[name="PlanoModelo"]').val(data.PlanoModelo);
+            $('[name="Revision"]').val(data.Revision);
+            $('[name="PaqueteConstruccionArea"]').val(data.PaqueteConstruccionArea);
+            $('[name="PesoUnitario"]').val(data.PesoUnitario);
+/*             $('[name="PesoTotal"]').val(PesoTotal);
+            $('[name="FechaRAS"]').val(FechaRAS);
+            $('[name="DiasAntesRAS"]').val(DiasAntesRAS);
+            $('[name="FechaComienzoFabricacion"]').val(FechaComienzoFabricacion);
+            $('[name="PAFCF"]').val(PAFCF);
+            $('[name="FechaTerminoFabricacion"]').val(FechaTerminoFabricacion);
+            $('[name="PAFTF"]').val(PAFTF);
+            $('[name="FechaGranallado"]').val(FechaGranallado);
+            $('[name="PAFG"]').val(PAFG);
+            $('[name="FechaPintura"]').val(FechaPintura);
+            $('[name="PAFP"]').val(PAFP);
+            $('[name="FechaListoInspeccion"]').val(FechaListoInspeccion);
+            $('[name="PAFLI"]').val(PAFLI);
+            $('[name="ActaLiberacionCalidad"]').val(ActaLiberacionCalidad);
+            $('[name="FechaSalidaFabrica"]').val(FechaSalidaFabrica);
+            $('[name="PAFSF"]').val(PAFSF);
+            $('[name="FechaEmbarque"]').val(FechaEmbarque);
+            $('[name="PackingList"]').val(PackingList);
+            $('[name="GuiaDespacho"]').val(GuiaDespacho);
+            $('[name="SCNNumber"]').val(SCNNumber);
+            $('[name="Origen"]').val(Origen);
+            $('[name="DiasViaje"]').val(DiasViaje);
+            $('[name="Observacion1"]').val(Observacion1);
+            $('[name="Observacion2"]').val(Observacion2);
+            $('[name="Observacion3"]').val(Observacion3);
+            $('[name="Observacion4"]').val(Observacion4);
+            $('[name="Observacion5"]').val(Observacion5);
+            $('[name="Observacion6"]').val(Observacion6);
+            $('[name="Observacion7"]').val(Observacion7);
+ */
 
 
+            
+
+            $('#modal-default').modal('show'); // show bootstrap modal
+            $('.modal-title').text('Editar Bucksheet '+PurchaseOrderID+', Numero de Linea '+numeroLinea); // Set title to Bootstrap modal title
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+
+function save()
+{
+    $('#btnSave').text('saving...'); //change button text
+    $('#btnSave').attr('disabled',true); //set button disable 
+    var url;
+
+
+        url = "<?php echo site_url('BuckSheet/updateBuckSheet')?>";
+    
+
+    // ajax adding data to database
+
+    var formData = new FormData($('#form')[0]);
+    $.ajax({
+        url : url,
+        type: "POST",
+        data: formData,
+        contentType: false,
+        processData: false,
+        dataType: "JSON",
+        success: function(data)
+        {
+
+            if(data.status) //if success close modal and reload ajax table
+            {
+                $('#modal-default').modal('hide');
+                reload_table();
+            }
+            else
+            {
+                for (var i = 0; i < data.inputerror.length; i++) 
+                {
+                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
+                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                }
+            }
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+
+
+        },
+        error: function (jqXHR, textStatus, errorThrown)
+        {
+            alert('Error adding / update data');
+            $('#btnSave').text('save'); //change button text
+            $('#btnSave').attr('disabled',false); //set button enable 
+
+        }
+    });
+}
 
 
 $(document).ready(function() {
@@ -206,6 +327,9 @@ $(document).ready(function() {
                 "orderable": false,
                 "data": null,
                 "defaultContent": ''
+            },
+            {
+                "data": "Editar"
             },
             {
                 "data": "purchaseOrdername"
@@ -285,3 +409,90 @@ tr.shown td.details-control {
     background: url('<?php echo base_url('assets/images/details_close.png');?>') no-repeat center center;
 }
  </style>
+
+ 
+
+<!-- Bootstrap modal -->
+
+<div class="modal fade" id="modal-default">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Editar BuckSheet</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            <form action="#" id="form" class="form-horizontal">
+                    <input type="hidden" value="" name="numeroLinea"/>
+                    <input type="hidden" value="" name="PurchaseOrderID"/>  
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">ST Cantidad</label>
+                            <div class="col-md-9">
+                                <input name="STCantidad" placeholder="STCantidad" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">TAG Number</label>
+                            <div class="col-md-9">
+                                <input name="TAGNumber" placeholder="TAG Number" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Stockcode</label>
+                            <div class="col-md-9">
+                                <input name="Stockcode" placeholder="Stockcode" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Descripción</label>
+                            <div class="col-md-9">
+                            <input name="Descripcion" placeholder="Descripción" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">PlanoModelo</label>
+                            <div class="col-md-9">
+                            <input type="file" name="filePlano" id="filePlano" class="custom-file-input" data-allowed-file-extensions="[PDF, pdf]" accept=".PDF, .pdf" data-buttontext="Choose File">
+                            <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Revisión</label>
+                            <div class="col-md-9">
+                            <input name="Revision" placeholder="Revisión" class="form-control" type="text">
+                            <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Paquete Construccion o Area</label>
+                            <div class="col-md-9">
+                            <input name="PaqueteConstruccionArea" placeholder="Paquete Construccion o Area" class="form-control" type="text">
+                            <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Peso Unitario</label>
+                            <div class="col-md-9">
+                            <input name="PesoUnitario" placeholder="Peso Unitario" class="form-control" type="text">
+                            <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-block btn-outline-success" onclick="save()" data-dismiss="modal">Save</button>
+              <button type="button" class="btn btn-block btn-outline-danger">Cancel</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
