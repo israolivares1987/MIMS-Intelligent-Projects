@@ -53,7 +53,30 @@
  *
  * NOTE: If you change these, also change the error_reporting() code below
  */
-	define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+	#define('ENVIRONMENT', isset($_SERVER['CI_ENV']) ? $_SERVER['CI_ENV'] : 'development');
+
+	#ENVIRONMENT 	=> define entorno de trabajo a ser ejecutado
+
+if($_SERVER['SERVER_NAME']){
+	switch ($_SERVER['SERVER_NAME']) {
+
+		#DESARROLLO LOCAL
+		case 'localhost':
+			define('ENVIRONMENT', 'development');
+			break;
+
+		#AMBIENTE QA
+		case '':
+			define('ENVIRONMENT', 'testing');
+			break;
+
+		#AMBIENTE PRODUCCIÓN
+		case 'mimsprojects.com':
+			define('ENVIRONMENT', 'production');
+			break;
+	}
+}
+
 
 /*
  *---------------------------------------------------------------
@@ -305,9 +328,6 @@ switch (ENVIRONMENT)
 
 	define('VIEWPATH', $view_folder.DIRECTORY_SEPARATOR);
 
-
-	define('BASE_SERVICIOS_HOME', 'http://localhost/MIMS-Intelligent-Projects/MIMS-Front-End/index.php/');
-
 /*
  * --------------------------------------------------------------------
  * LOAD THE BOOTSTRAP FILE
@@ -315,4 +335,11 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
+
+define('BASE_SERVICIOS', 'http://localhost/MIMS-Intelligent-Projects/MIMS-Servicios/');
+
+
+
+
+
 require_once BASEPATH.'core/CodeIgniter.php';
