@@ -24,6 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
+$config['BASE_SERVICIOS_HOME'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
 
 /*
 |--------------------------------------------------------------------------
