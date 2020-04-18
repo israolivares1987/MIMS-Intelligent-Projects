@@ -18,6 +18,10 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/css/responsive.dataTables.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/css/rowReorder.dataTables.min.css');?>">
   
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/plugins/daterangepicker/daterangepicker.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/fixedColumns.dataTables.min.css');?>">
+  
+  
 
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
@@ -63,6 +67,11 @@
 <script src="<?php echo base_url('assets/scripts/jquery.dataTables.min.js');?>"></script>
 <script src="<?php echo base_url('assets/scripts/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/scripts/dataTables.rowReorder.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
+<script src="<?php echo base_url('assets/js/dataTables.fixedColumns.min.js');?>"></script>
+
+
+
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();

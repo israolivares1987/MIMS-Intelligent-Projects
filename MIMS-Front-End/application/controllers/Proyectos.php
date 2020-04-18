@@ -4,10 +4,10 @@ class Proyectos extends CI_Controller{
     parent::__construct();
   }
 
-  function obtieneProyectosProveedor($idProyecto,$idProveedor){
+  function obtieneProyectosCliente($idProyecto,$idCliente){
 
     $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Expediting/obtieneExpediting/".$idProveedor."/".$idProyecto;
+    $api_url = $base_url_servicios."Expediting/obtieneExpediting/".$idCliente."/".$idProyecto;
 
     
     $client = curl_init($api_url);

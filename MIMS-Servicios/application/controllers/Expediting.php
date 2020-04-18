@@ -126,7 +126,8 @@ class Expediting extends CI_Controller {
 				  
 			$row[] = $Proyecto->NumeroProyecto;
 			$row[] = $Proyecto->DescripcionProyecto;
-			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="reloadTableOrdenes('."'".$Proyecto->idProveedor."'".','."'".$Proyecto->NumeroProyecto."'".')"><i class="glyphicon glyphicon-trash"></i>Lista Ordenes</a>';
+			$row[] = $Proyecto->estadoProyecto;
+			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="reloadTableOrdenes('."'".$Proyecto->idCliente."'".','."'".$Proyecto->NumeroProyecto."'".')"><i class="glyphicon glyphicon-trash"></i>Lista Ordenes</a>';
 			
 		
 

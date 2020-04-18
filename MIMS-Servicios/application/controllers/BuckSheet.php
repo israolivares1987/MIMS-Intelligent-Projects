@@ -21,7 +21,7 @@ class BuckSheet extends CI_Controller {
 		$data = array();
 		foreach ($BuckSheets as $BuckSheet) {
 			$no++;
-			$row = array("Editar"=>'<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Edit" onclick="edit_bucksheet('."'".$BuckSheet->NumeroLinea."'".','."'".$this->input->post('PurchaseOrderID')."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>',
+			$row = array("Editar"=>'<a class="btn btn-block btn-outline-success btn-sm" href="javascript:void(0)" title="Edit" onclick="edit_bucksheet('."'".$BuckSheet->NumeroLinea."'".','."'".$this->input->post('PurchaseOrderID')."'".')"><i class="far fa-edit"></i></a>',
 			"purchaseOrdername"=>$BuckSheet->purchaseOrdername,
 			"NumeroLinea"=>$BuckSheet->NumeroLinea,
 			"ItemST"=>$BuckSheet->ItemST,
@@ -32,7 +32,7 @@ class BuckSheet extends CI_Controller {
 			"Stockcode"=>$BuckSheet->Stockcode,
 			"Descripcion"=>$BuckSheet->Descripcion,
 			"PlanoModelo"=>$BuckSheet->PlanoModelo,
-			"Revision "=>$BuckSheet->Revision ,
+			"Revision"=>$BuckSheet->Revision,
 			"PaqueteConstruccionArea"=>$BuckSheet->PaqueteConstruccionArea,
 			"PesoUnitario"=>$BuckSheet->PesoUnitario,
 			"PesoTotal"=>$BuckSheet->PesoTotal,
@@ -67,7 +67,7 @@ class BuckSheet extends CI_Controller {
 			"Observacion4"=>$BuckSheet->Observacion4,
 			"Observacion5"=>$BuckSheet->Observacion5,
 			"Observacion6"=>$BuckSheet->Observacion6,
-			"Observacion7"=>$BuckSheet->Observacion7			
+			"Observacion7"=>$BuckSheet->Observacion7
 			);
 			
 			
@@ -86,6 +86,20 @@ class BuckSheet extends CI_Controller {
 				
 		//output to json format
 		echo json_encode(array_filter($output),true);
+	}
+
+	function obtieneBucksheetDet(){
+
+
+		$this->bucksheet->setPurchaseOrderID($this->input->post('PurchaseOrderID'));
+		$this->bucksheet->setNumeroLinea($this->input->post('NumeroLinea'));
+
+
+		$data = $this->bucksheet->obtieneBucksheetDet();
+		
+		echo json_encode($data);
+
+
 	}
 
 	 function getRows(){

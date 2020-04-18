@@ -231,4 +231,14 @@ class BuckSheet extends CI_Controller {
   
   
       }
+
+      function obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea)
+      {
+
+
+        $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea);
+        echo $response;
+  
+  
+      }
 }

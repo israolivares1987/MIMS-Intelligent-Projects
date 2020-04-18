@@ -2,9 +2,14 @@
 class BuckSheet_model extends CI_Model{
 
     private $_PurchaseOrderID; 
+    private $_NumeroLinea; 
 
     public function setPurchaseOrderID($PurchaseOrderID) {
         $this->_PurchaseOrderID = $PurchaseOrderID;
+    }
+
+    public function setNumeroLinea($NumeroLinea) {
+        $this->_NumeroLinea = $NumeroLinea;
     }
 
 
@@ -24,7 +29,22 @@ class BuckSheet_model extends CI_Model{
 
 	  $BuckSheet = $query->result();
 	  return $BuckSheet;
-	}
+    }
+    
+    function obtieneBucksheetDet()
+	{
+
+		$this->db->select('c.*');
+        $this->db->from($this->tableName . ' as c');
+        $this->db->where('c.PurchaseOrderID', $this->_PurchaseOrderID);
+        $this->db->where('c.NumeroLinea', $this->_NumeroLinea);
+	
+		$query = $this->db->get();
+
+      $BuckSheet = $query->row();
+      
+	  return $BuckSheet;
+    }
 
 
 	function count_all_BuckSheet()
