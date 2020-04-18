@@ -43,6 +43,37 @@ class CallExternosBuckSheet {
   
       }
 
+      function obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea)
+      {
+  
+  
+        $base_url_servicios =BASE_SERVICIOS;                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBucksheetDet";
+  
+  
+            
+        $form_data = array(
+                    'PurchaseOrderID'		=>$PurchaseOrderID,
+                    'NumeroLinea'		=>$NumeroLinea
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        echo $response;
+  
+  
+      }
+
 
     function getRows($PurchaseOrderID,$NumeroLinea){
   

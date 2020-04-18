@@ -39,7 +39,7 @@
                         <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
                             <div class="app-logo"></div>
                             <h4 class="mb-0">
-<span class="d-block">Bienvedido,</span>
+<span class="d-block">Bienvenido,</span>
 <span>Favor Iniciar sesion con su cuenta.</span></h4>
                             <div class="divider row"></div>
                             <div>

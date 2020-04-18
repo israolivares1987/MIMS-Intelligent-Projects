@@ -48,7 +48,7 @@ class BuckSheet extends CI_Controller {
 
     if($this->form_validation->run() == false) {
       
-        $error_msg = 'Invalid file, please select only CSV file.';
+        $error_msg = 'Archivo invalido, favor seleccionar archivo CSV.';
        
     } else {
        // If file uploaded
@@ -135,7 +135,7 @@ class BuckSheet extends CI_Controller {
 
                // Status message with imported data count
 						$notAddCount = ($rowCount - ($insertCount + $updateCount));
-						$successMsg = 'Members imported successfully. Total Rows ('.$rowCount.') | Inserted ('.$insertCount.') | Updated ('.$updateCount.') | Not Inserted ('.$notAddCount.')';
+						$successMsg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
 						
 
 
@@ -227,6 +227,16 @@ class BuckSheet extends CI_Controller {
 
 
         $response = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+        echo $response;
+  
+  
+      }
+
+      function obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea)
+      {
+
+
+        $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea);
         echo $response;
   
   

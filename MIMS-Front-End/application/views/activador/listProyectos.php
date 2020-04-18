@@ -31,6 +31,7 @@
                                 <tr>
                                 <th>Codigo Proyecto</th>
                                 <th>Descripcion Proyecto</th>
+                                <th>Estado Proyecto</th>
                                 <th></th>
                                 </tr>
                             </thead>
@@ -173,7 +174,7 @@ function reloadTableOrdenes(idCliente,idProyecto)
 "destroy": true,
 // Load data for the table's content from an Ajax source
 "ajax": {
-    "url": "<?php echo site_url('Proyectos/obtieneProyectosProveedor/')?>" + idCliente + "/" + idProyecto,
+    "url": "<?php echo site_url('Proyectos/obtieneProyectosCliente/')?>" + idCliente + "/" + idProyecto,
     "type": "POST"
 },
 language: {

@@ -89,7 +89,8 @@ var base_url = '<?php echo base_url();?>';
         rowReorder: {
             "selector": 'td:nth-child(2)'
         },
-        "responsive": true
+        "responsive": true,
+        "scrollX": true
 
     });
 
