@@ -42,7 +42,8 @@ class BuckSheet extends CI_Controller {
     $error_msg = "";
     $insertCount = 0;
     $updateCount = 0;
-    $rowCount = 0;
+    $rowCount = 0; 
+
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
 
@@ -60,6 +61,7 @@ class BuckSheet extends CI_Controller {
 
                foreach($csvData as $row){  
                 $rowCount++;
+
                 $memData = array(
                     'PurchaseOrderID' => $PurchaseOrderID,
                     'purchaseOrdername' => urldecode($purchaseOrdername),
@@ -133,14 +135,14 @@ class BuckSheet extends CI_Controller {
                 
                }
 
-               // Status message with imported data count
+           }
+
+
+            // Status message with imported data count
 						$notAddCount = ($rowCount - ($insertCount + $updateCount));
 						$successMsg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
-						
 
 
-
-           }
        }
 
     }
@@ -241,4 +243,44 @@ class BuckSheet extends CI_Controller {
   
   
       }
+
+
+      function updateBuckSheet()
+      {
+
+        
+    $base_url_servicios =BASE_SERVICIOS;                
+    $api_url = $base_url_servicios."BuckSheet/updateBuckSheet";
+        
+    $form_data = array(
+                      'idCliente' => $this->input->post('idCliente'),
+                      'rutCliente' => $this->input->post('rutCliente'),
+                      'nombreCliente' => $this->input->post('nombreCliente'),
+                      'dvCliente' => $this->input->post('dvCliente')
+              );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    echo $response;
+       
+  
+  
+      }
+
+
+
+      
+
+
+
 }

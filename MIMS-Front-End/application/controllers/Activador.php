@@ -53,8 +53,6 @@ class Activador extends CI_Controller{
     $datos['totalSuppliers'] = $arrayDatosTotales['totalSuppliers'];
 
 
-    
-
     $this->load->view('activador/header');
     $this->load->view('activador/navbar');
     $this->load->view('activador/left_menu', $datos);

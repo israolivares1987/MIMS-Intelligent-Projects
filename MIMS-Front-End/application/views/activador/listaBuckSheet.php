@@ -70,16 +70,16 @@
                                                      enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                      <div class="card-body">
                                                          <div class="form-group">
+                                                             <label for="exampleInputFile">Cargar Archivo</label>
                                                              <div class="input-group">
                                                                  <div class="custom-file">
-                                                                     <input type="file" name="fileURL" id="fileURL"
-                                                                         class="custom-file-input"
-                                                                         data-allowed-file-extensions="[CSV, csv]"
-                                                                         accept=".CSV, .csv"
-                                                                         data-buttontext="Choose File">
+                                                                     <input name="fileURL" type="file" class="custom-file-input"
+                                                                         id="exampleInputFile" data-allowed-file-extensions="[CSV, csv]" accept=".CSV, .csv">
                                                                      <label class="custom-file-label"
-                                                                         for="exampleInputFile">Seleccione
-                                                                         Archivo</label>
+                                                                         for="exampleInputFile"></label>
+                                                                 </div>
+                                                                 <div class="input-group-append">
+                                                                     <span class="input-group-text" id="">Upload</span>
                                                                  </div>
                                                              </div>
                                                          </div>
@@ -155,8 +155,6 @@
                                          <th>Observacion7</th>
                                      </tr>
                                  </thead>
-                                 <tbody>
-                                 </tbody>
                              </table>
                          </div>
                          <!-- /.card-body -->
@@ -171,7 +169,7 @@
  </div>
  <!-- /.content-wrapper -->
 
- <script type="text/javascript">
+ <script type="text/javascript" class="init">
 function formToggle(ID) {
     var element = document.getElementById(ID);
     if (element.style.display === "none") {
@@ -205,6 +203,8 @@ function edit_bucksheet(numeroLinea, PurchaseOrderID) {
         dataType: "JSON",
         success: function(data) {
 
+            $('[name="PurchaseOrderID"]').val(PurchaseOrderID);
+            $('[name="numeroLinea"]').val(numeroLinea);
             $('[name="STCantidad"]').val(data.STCantidad);
             $('[name="TAGNumber"]').val(data.TAGNumber);
             $('[name="Stockcode"]').val(data.Stockcode);
@@ -213,36 +213,36 @@ function edit_bucksheet(numeroLinea, PurchaseOrderID) {
             $('[name="Revision"]').val(data.Revision);
             $('[name="PaqueteConstruccionArea"]').val(data.PaqueteConstruccionArea);
             $('[name="PesoUnitario"]').val(data.PesoUnitario);
-            /*             $('[name="PesoTotal"]').val(PesoTotal);
-                        $('[name="FechaRAS"]').val(FechaRAS);
-                        $('[name="DiasAntesRAS"]').val(DiasAntesRAS);
-                        $('[name="FechaComienzoFabricacion"]').val(FechaComienzoFabricacion);
-                        $('[name="PAFCF"]').val(PAFCF);
-                        $('[name="FechaTerminoFabricacion"]').val(FechaTerminoFabricacion);
-                        $('[name="PAFTF"]').val(PAFTF);
-                        $('[name="FechaGranallado"]').val(FechaGranallado);
-                        $('[name="PAFG"]').val(PAFG);
-                        $('[name="FechaPintura"]').val(FechaPintura);
-                        $('[name="PAFP"]').val(PAFP);
-                        $('[name="FechaListoInspeccion"]').val(FechaListoInspeccion);
-                        $('[name="PAFLI"]').val(PAFLI);
-                        $('[name="ActaLiberacionCalidad"]').val(ActaLiberacionCalidad);
-                        $('[name="FechaSalidaFabrica"]').val(FechaSalidaFabrica);
-                        $('[name="PAFSF"]').val(PAFSF);
-                        $('[name="FechaEmbarque"]').val(FechaEmbarque);
-                        $('[name="PackingList"]').val(PackingList);
-                        $('[name="GuiaDespacho"]').val(GuiaDespacho);
-                        $('[name="SCNNumber"]').val(SCNNumber);
-                        $('[name="Origen"]').val(Origen);
-                        $('[name="DiasViaje"]').val(DiasViaje);
-                        $('[name="Observacion1"]').val(Observacion1);
-                        $('[name="Observacion2"]').val(Observacion2);
-                        $('[name="Observacion3"]').val(Observacion3);
-                        $('[name="Observacion4"]').val(Observacion4);
-                        $('[name="Observacion5"]').val(Observacion5);
-                        $('[name="Observacion6"]').val(Observacion6);
-                        $('[name="Observacion7"]').val(Observacion7);
-             */
+            $('[name="PesoTotal"]').val(data.PesoTotal);
+            $('[name="FechaRAS"]').val(data.FechaRAS);
+            $('[name="DiasAntesRAS"]').val(data.DiasAntesRAS);
+            $('[name="FechaComienzoFabricacion"]').val(data.FechaComienzoFabricacion);
+            $('[name="PAFCF"]').val(data.PAFCF);
+            $('[name="FechaTerminoFabricacion"]').val(data.FechaTerminoFabricacion);
+            $('[name="PAFTF"]').val(data.PAFTF);
+            $('[name="FechaGranallado"]').val(data.FechaGranallado);
+            $('[name="PAFG"]').val(data.PAFG);
+            $('[name="FechaPintura"]').val(data.FechaPintura);
+            $('[name="PAFP"]').val(data.PAFP);
+            $('[name="FechaListoInspeccion"]').val(data.FechaListoInspeccion);
+            $('[name="PAFLI"]').val(data.PAFLI);
+            $('[name="ActaLiberacionCalidad"]').val(data.ActaLiberacionCalidad);
+            $('[name="FechaSalidaFabrica"]').val(data.FechaSalidaFabrica);
+            $('[name="PAFSF"]').val(data.PAFSF);
+            $('[name="FechaEmbarque"]').val(data.FechaEmbarque);
+            $('[name="PackingList"]').val(data.PackingList);
+            $('[name="GuiaDespacho"]').val(data.GuiaDespacho);
+            $('[name="SCNNumber"]').val(data.SCNNumber);
+            $('[name="Origen"]').val(data.Origen);
+            $('[name="DiasViaje"]').val(data.DiasViaje);
+            $('[name="Observacion1"]').val(data.Observacion1);
+            $('[name="Observacion2"]').val(data.Observacion2);
+            $('[name="Observacion3"]').val(data.Observacion3);
+            $('[name="Observacion4"]').val(data.Observacion4);
+            $('[name="Observacion5"]').val(data.Observacion5);
+            $('[name="Observacion6"]').val(data.Observacion6);
+            $('[name="Observacion7"]').val(data.Observacion7);
+
 
 
 
@@ -263,8 +263,6 @@ function edit_bucksheet(numeroLinea, PurchaseOrderID) {
 function save() {
     $('#btnSave').text('saving...'); //change button text
     $('#btnSave').attr('disabled', true); //set button disable 
-    var url;
-
 
     url = "<?php echo site_url('BuckSheet/updateBuckSheet')?>";
 
@@ -310,19 +308,24 @@ function save() {
 
 
 $(document).ready(function() {
-    //datatables
-    $('#ListBucksheet').DataTable({
+
+
+
+    var table = $('#ListBucksheet').DataTable({
 
         "processing": true, //Feature control the processing indicator.
         "serverSide": true, //Feature control DataTables' server-side processing mode.
-        "order": [], //Initial no order.
 
         // Load data for the table's content from an Ajax source
         "ajax": {
             "url": "<?php echo site_url('BuckSheet/obtieneBucksheet/'.$PurchaseOrderID)?>",
             "type": "POST"
         },
-        language: {
+        scrollY: "600px",
+        scrollX: true,
+        scrollCollapse: true,
+        paging: false,
+        "language": {
             "emptyTable": "No hay datos disponibles en la tabla.",
             "info": "Del _START_ al _END_ de _TOTAL_ ",
             "infoEmpty": "Mostrando 0 registros de un total de 0.",
@@ -339,106 +342,176 @@ $(document).ready(function() {
                 "sortDescending": "Ordenación descendente"
             }
         },
-        "fixedHeader": {
-            "header": true,
-            "footer": true
-        },
-        "scrollX": "400px",
-        "scrollCollapse": true,
-        "paging": false,
-        "columnDefs": [{
-            "width": '20%',
-            "targets": 0
-        }],
-        "fixedColumns": true
-
+        "columns": [{
+                "data": "Editar"
+            },
+            {
+                "data": "purchaseOrdername"
+            },
+            {
+                "data": "NumeroLinea"
+            },
+            {
+                "data": "ItemST"
+            },
+            {
+                "data": "SubItemST"
+            },
+            {
+                "data": "STUnidad"
+            },
+            {
+                "data": "STCantidad"
+            },
+            {
+                "data": "TAGNumber"
+            },
+            {
+                "data": "Stockcode"
+            },
+            {
+                "data": "Descripcion"
+            },
+            {
+                "data": "PlanoModelo"
+            },
+            {
+                "data": "Revision"
+            },
+            {
+                "data": "PaqueteConstruccionArea"
+            },
+            {
+                "data": "PesoUnitario"
+            },
+            {
+                "data": "PesoTotal"
+            },
+            {
+                "data": "FechaRAS"
+            },
+            {
+                "data": "DiasAntesRAS"
+            },
+            {
+                "data": "FechaComienzoFabricacion"
+            },
+            {
+                "data": "PAFCF"
+            },
+            {
+                "data": "FechaTerminoFabricacion"
+            },
+            {
+                "data": "PAFTF"
+            },
+            {
+                "data": "FechaGranallado"
+            },
+            {
+                "data": "PAFG"
+            },
+            {
+                "data": "FechaPintura"
+            },
+            {
+                "data": "PAFP"
+            },
+            {
+                "data": "FechaListoInspeccion"
+            },
+            {
+                "data": "PAFLI"
+            },
+            {
+                "data": "ActaLiberacionCalidad"
+            },
+            {
+                "data": "FechaSalidaFabrica"
+            },
+            {
+                "data": "PAFSF"
+            },
+            {
+                "data": "FechaEmbarque"
+            },
+            {
+                "data": "PackingList"
+            },
+            {
+                "data": "GuiaDespacho"
+            },
+            {
+                "data": "SCNNumber"
+            },
+            {
+                "data": "UnidadesSolicitadas"
+            },
+            {
+                "data": "UnidadesRecibidas"
+            },
+            {
+                "data": "MaterialReceivedReport"
+            },
+            {
+                "data": "MaterialWithdrawalReport"
+            },
+            {
+                "data": "Origen"
+            },
+            {
+                "data": "DiasViaje"
+            },
+            {
+                "data": "Observacion1"
+            },
+            {
+                "data": "Observacion2"
+            },
+            {
+                "data": "Observacion3"
+            },
+            {
+                "data": "Observacion4"
+            },
+            {
+                "data": "Observacion5"
+            },
+            {
+                "data": "Observacion6"
+            },
+            {
+                "data": "Observacion7"
+            }
+        ]
     });
 
 
 });
  </script>
 
- <script>
-$(function() {
-    //Initialize Select2 Elements
-    $('.select2').select2()
+ <style type="text/css" class="init">
+/* Ensure that the demo table scrolls */
+th,
+td {
+    white-space: nowrap;
+}
 
-    //Initialize Select2 Elements
-    $('.select2bs4').select2({
-        theme: 'bootstrap4'
-    })
+div.dataTables_wrapper {
+    margin: 0 auto;
+}
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', {
-        'placeholder': 'dd/mm/yyyy'
-    })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm/dd/yyyy', {
-        'placeholder': 'mm/dd/yyyy'
-    })
-    //Money Euro
-    $('[data-mask]').inputmask()
-
-    //Date range picker
-    $('#reservation').daterangepicker()
-    //Date range picker with time picker
-    $('#reservationtime').daterangepicker({
-        timePicker: true,
-        timePickerIncrement: 30,
-        locale: {
-            format: 'MM/DD/YYYY hh:mm A'
-        }
-    })
-    //Date range as a button
-    $('#daterange-btn').daterangepicker({
-            ranges: {
-                'Today': [moment(), moment()],
-                'Yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                'Last 7 Days': [moment().subtract(6, 'days'), moment()],
-                'Last 30 Days': [moment().subtract(29, 'days'), moment()],
-                'This Month': [moment().startOf('month'), moment().endOf('month')],
-                'Last Month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month')
-                    .endOf('month')
-                ]
-            },
-            startDate: moment().subtract(29, 'days'),
-            endDate: moment()
-        },
-        function(start, end) {
-            $('#reportrange span').html(start.format('MMMM D, YYYY') + ' - ' + end.format('MMMM D, YYYY'))
-        }
-    )
-
-    //Timepicker
-    $('#timepicker').datetimepicker({
-        format: 'LT'
-    })
-
-    //Bootstrap Duallistbox
-    $('.duallistbox').bootstrapDualListbox()
-
-    //Colorpicker
-    $('.my-colorpicker1').colorpicker()
-    //color picker with addon
-    $('.my-colorpicker2').colorpicker()
-
-    $('.my-colorpicker2').on('colorpickerChange', function(event) {
-        $('.my-colorpicker2 .fa-square').css('color', event.color.toString());
-    });
-
-    $("input[data-bootstrap-switch]").each(function() {
-        $(this).bootstrapSwitch('state', $(this).prop('checked'));
-    });
-
-})
- </script>
+tr {
+    height: 50px;
+}
+ </style>
 
 
 
  <!-- Bootstrap modal -->
 
  <div class="modal fade" id="modal-default">
-     <div class="modal-dialog modal-xl modal-dialog-scrollable">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
                  <h4 class="modal-title">Editar BuckSheet</h4>
@@ -531,9 +604,6 @@ $(function() {
                                  </div>
                              </div>
                          </div>
-
-
-
 
                          <div class="form-group">
                              <label class="control-label col-md-3">DiasAntesRAS</label>
@@ -735,9 +805,8 @@ $(function() {
                  </form>
              </div>
              <div class="modal-footer justify-content-between">
-                 <button type="button" class="btn btn-block btn-outline-success" onclick="save()"
-                     data-dismiss="modal">Save</button>
-                 <button type="button" class="btn btn-block btn-outline-danger">Cancel</button>
+                 <button type="button" class="btn btn-block btn-outline-success" onclick="save()">Save</button>
+                 <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
              </div>
          </div>
          <!-- /.modal-content -->

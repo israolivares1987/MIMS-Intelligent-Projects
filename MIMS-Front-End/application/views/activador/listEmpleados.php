@@ -103,8 +103,7 @@ var base_url = '<?php echo base_url();?>';
             "paging":         false,
             "columnDefs": [
                 { "width": '20%', "targets": 0 }
-            ],
-            "fixedColumns": true
+            ]
 
     });
 
