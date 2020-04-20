@@ -93,8 +93,18 @@ class Clientes extends CI_Controller {
 	
 			}
 
+	function obtieneClientePorEmpresa(){
 
-	}
+		$codEmpresa = $this->input->post('codEmpresa');	
+
+		$clientes = $this->cliente->obtieneClientePorEmpresa($codEmpresa);
+
+		echo json_encode($clientes);
+		
+	}		
+
+
+}
 
 	
      
