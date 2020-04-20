@@ -68,7 +68,6 @@ var base_url = '<?php echo base_url();?>';
                     "type": "POST"
                 },
                     "paging":         false,
-        "fixedColumns": true,
         language: {
                "emptyTable":			"No hay datos disponibles en la tabla.",
                "info":		   			"Del _START_ al _END_ de _TOTAL_ ",

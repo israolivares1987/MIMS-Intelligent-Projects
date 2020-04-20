@@ -177,6 +177,7 @@
             </div><!--.modal-body-->
             <div class="modal-footer justify-content-between">
               <input type="hidden" id="act_id_proyecto">
+              <input type="hidden" id="act_id_cliente">
               <button id="btn-actualizar-proy" type="button" class="btn btn-outline-primary">Actualizar</button>
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
             </div>
@@ -326,26 +327,26 @@ $('#btn-guardar').on('click', function(){
   let nombre_proyecto = $('#var_descripcion_proyecto').val(); 
 
   $.ajax({
-      url: 		'<?php echo base_url('index.php/ingenieria/guardarProyecto'); ?>',
-      type: 		'POST',
-      dataType: 'json',
-      data: {
-              id_cliente : id_cliente,
-              nombre_proyecto: nombre_proyecto
-            },
-    }).done(function(result) {
+    url: 		'<?php echo base_url('index.php/ingenieria/guardarProyecto'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            id_cliente : id_cliente,
+            nombre_proyecto: nombre_proyecto
+          },
+  }).done(function(result) {
 
-      if(result.resp){
-        recargaProyectos(id_cliente);
-        $('#var_descripcion_proyecto').val('')
-        $('#modal_nuevo_proyecto').modal('hide');
-        toastr.success('Proyecto agregado correctamente')
-      }
-        
+    if(result.resp){
+      recargaProyectos(id_cliente);
+      $('#var_descripcion_proyecto').val('')
+      $('#modal_nuevo_proyecto').modal('hide');
+      toastr.success('Proyecto agregado correctamente');
+    }
+      
 
-    }).fail(function() {
-      console.log("error guardar proy");
-    })
+  }).fail(function() {
+    console.log("error guardar proy");
+  })
 
 });
 
@@ -389,18 +390,49 @@ function edita_proyecto(id_proyecto, id_cliente){
     $('#s_estado').empty();
     $('#s_estado').html(result.select_estado);
     $('#act_id_proyecto').val(result.id_proyecto);
+    $('#act_id_cliente').val(id_cliente);
 
     $('#modal_edita_proyecto').modal('show');
 
 
   }).fail(function() {
-    console.log("error change cliente");
+    console.log("error edita_proyecto");
   })
 
 }
 
 $('#btn-actualizar-proy').on('click', function(){
 
+  let id_cliente      = $('#act_id_cliente').val();
+  let id_proyecto     = $('#act_id_proyecto').val();
+  let nombre_proyecto = $('#act_nombre_proyecto').val();
+  let estado          = $('#act_estado').val();
+
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/ingenieria/actualizaProyecto'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            id_cliente  : id_cliente,
+            id_proyecto : id_proyecto,
+            nombre_proyecto: nombre_proyecto,
+            estado : estado
+          },
+  }).done(function(result) {
+
+    if(result.resp){
+
+      recargaProyectos(id_cliente);
+      toastr.success('Proyecto actualizado correctamente');
+
+    }else{
+      alert(result.mensaje);
+    }
+      
+
+  }).fail(function() {
+    console.log("error guardar proy");
+  })
 
 
 });

@@ -40,10 +40,8 @@ class BuckSheet_model extends CI_Model{
         $this->db->where('c.NumeroLinea', $this->_NumeroLinea);
 	
 		$query = $this->db->get();
-
-      $BuckSheet = $query->row();
-      
-	  return $BuckSheet;
+    
+	  return $query->result();
     }
 
 
