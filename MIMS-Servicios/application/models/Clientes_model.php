@@ -63,5 +63,17 @@ class Clientes_model extends CI_Model{
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
 	}
+
+	function obtieneClientePorEmpresa($empresa){
+
+		$this->db->where('codEmpresa', $empresa);
+		$this->db->order_by('idCliente', 'asc');
+
+		$clientes = $this->db->get($this->table);
+
+		return $clientes->result();
+
+
+	}
 }
 ?>
