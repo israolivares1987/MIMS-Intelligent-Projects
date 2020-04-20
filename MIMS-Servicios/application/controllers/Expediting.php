@@ -108,10 +108,10 @@ class Expediting extends CI_Controller {
 	   echo json_encode($sesdata);	
     
     
-	  }
+	}
 
 
-	  function obtieneProyectos($idProveedor){
+	function obtieneProyectos($idProveedor){
 	  
   
 		$Proyectos = $this->Proyectos_model->obtieneProyectos($idProveedor);
@@ -146,9 +146,59 @@ class Expediting extends CI_Controller {
 	}
 
 
+	function obtieneProyectosClientes(){
 
+		$cliente = $this->input->post('cliente');
+
+		$proyectos = $this->Proyectos_model->obtieneProyectosCliente($cliente);
+
+		echo json_encode($proyectos);
 
 	}
+
+	function guardaProyecto(){
+
+		$id_cliente 		= $this->input->post('id_cliente');
+		$nombre_proyecto 	= $this->input->post('nombre_proyecto');
+		$codEmpresa 	= $this->input->post('codEmpresa');
+
+
+		$data = array(
+			'codEmpresa' 			=> $codEmpresa,
+			'idCliente'  			=> $id_cliente,
+			'DescripcionProyecto'	=> $nombre_proyecto,
+			'estadoProyecto'		=> 1
+		);
+
+		$insert = $this->Proyectos_model->guardaProyecto($data);
+
+		echo json_encode(array('status'=>'OK'));
+
+	}
+
+
+	function obtieneProyectoById(){
+
+		$id = $this->input->post('id_proyecto');
+		$id_cliente = $this->input->post('id_cliente');
+
+		$datos_proyecto = $this->Proyectos_model->obtieneProyectoById($id,$id_cliente);
+
+		echo json_encode($datos_proyecto);
+
+	}
+
+	function obtieneDatosRef(){
+
+		$dominio = $this->input->post('dominio');
+
+		$datos_dominio = $this->Proyectos_model->obtieneDatosRef($dominio);
+
+		echo json_encode($datos_dominio);
+
+	}
+
+}
 
 	
      
