@@ -321,10 +321,10 @@ $(document).ready(function() {
             "url": "<?php echo site_url('BuckSheet/obtieneBucksheet/'.$PurchaseOrderID)?>",
             "type": "POST"
         },
-        scrollY: "600px",
-        scrollX: true,
-        scrollCollapse: true,
-        paging: false,
+        "scrollY": "600px",
+        "scrollX": true,
+        "scrollCollapse": true,
+        "paging": false,
         "language": {
             "emptyTable": "No hay datos disponibles en la tabla.",
             "info": "Del _START_ al _END_ de _TOTAL_ ",

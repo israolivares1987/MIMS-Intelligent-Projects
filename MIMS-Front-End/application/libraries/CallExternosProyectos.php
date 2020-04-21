@@ -10,12 +10,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * @author : Iolivares
  * ==============================
  */    
+
 class CallExternosProyectos {
+    
+    function obtienebaseservicios(){
+
+        return $this->config->item('BASE_SERVICIOS');
+
+    }
     
     
     function obtieneMenuProyectos($codEmpresa){
 
-        $base_url_servicios =BASE_SERVICIOS;                
+
+        $base_url_servicios =$this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/obtieneProyectosxCliente";
   
         $form_data = array(
@@ -40,7 +48,7 @@ class CallExternosProyectos {
 
     function obtieneProyectosCliente($cliente){
 
-        $base_url_servicios = BASE_SERVICIOS;                
+        $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/obtieneProyectosClientes";
   
         $form_data = array(
@@ -66,7 +74,7 @@ class CallExternosProyectos {
 
     function guardaProyecto($id_cliente, $nombre_proyecto,$codEmpresa){
 
-      $base_url_servicios = BASE_SERVICIOS;                
+      $base_url_servicios = $this->obtienebaseservicios();                
       $api_url = $base_url_servicios."Expediting/guardaProyecto";
 
       $form_data = array(
@@ -97,7 +105,7 @@ class CallExternosProyectos {
      */
     function obtieneProyecto($id_proyecto, $id_cliente){
 
-        $base_url_servicios = BASE_SERVICIOS;                
+        $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/obtieneProyectoById";
   
         $form_data = array(
@@ -126,7 +134,7 @@ class CallExternosProyectos {
      */
     function obtieneDatosRef($dominio){
 
-        $base_url_servicios = BASE_SERVICIOS;                
+        $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/obtieneDatosRef";
   
         $form_data = array(
@@ -151,7 +159,7 @@ class CallExternosProyectos {
 
     function actualizaProyecto($update){
 
-        $base_url_servicios = BASE_SERVICIOS;                
+        $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/actualizaProyecto";
   
         $form_data = $update;
@@ -174,7 +182,7 @@ class CallExternosProyectos {
 
     function eliminaProyecto($delete){
 
-        $base_url_servicios = BASE_SERVICIOS;                
+        $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/eliminaProyecto";
   
         $form_data = $delete;

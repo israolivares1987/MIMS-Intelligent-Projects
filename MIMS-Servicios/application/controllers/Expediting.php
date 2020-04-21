@@ -86,7 +86,7 @@ class Expediting extends CI_Controller {
 
 			$nombreCliente = $cliente->nombreCliente;
 			$idCliente = $cliente->idCliente;
-			$link = BASE_SERVICIOS_HOME."Activador/listProyectosCliente/".$idCliente;
+			$link = $this->config->item('BASE_SERVICIOS_HOME')."index.php/Activador/listProyectosCliente/".$idCliente;
 			$html .= '<li class="nav-item">
 			<a href="'.$link.'" class="nav-link">
 			  <i class="far fa-circle nav-icon"></i>
