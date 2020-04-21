@@ -92,7 +92,7 @@ class Ingenieria extends MY_Controller{
           $html .= '<td>';
           $html .= '<button data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.')" class="btn btn-outline-success mr-1"><i class="fas fa-list-ul"></i></button>';
           $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
 
           $html .= '</td>';
           $html .= '</tr>';
@@ -138,7 +138,17 @@ class Ingenieria extends MY_Controller{
     }else{
 
       $proyectos = $this->callexternosproyectos->guardaProyecto($id_cliente, $nombre_proyecto,$codEmpresa);
-      $data['resp']     = true;
+
+
+      if($proyectos){
+
+        $data['resp']        = true;
+        $data['mensaje']     = 'Proyeto creado correctamente';
+
+      }else{
+        $data['resp']        = false;
+        $data['mensaje']     = 'Error al crear proyecto';
+      }
     }
 
     echo json_encode($data);
@@ -182,7 +192,102 @@ class Ingenieria extends MY_Controller{
 
     echo json_encode($data);
 
+  }
 
+  function actualizaProyecto(){
+
+    $this->load->library('form_validation');
+
+    $id_cliente       = $this->input->post('id_cliente');
+    $id_proyecto      = $this->input->post('id_proyecto');
+    $nombre_proyecto  = $this->input->post('nombre_proyecto');
+    $estado           = $this->input->post('estado');
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+    $resp = false;
+    $mensaje = "";
+
+
+    $data = array();
+
+    $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
+
+    if(!$this->form_validation->run()){
+        
+      $data['resp']     = false;
+      $data['mensaje']  = "Campo Nombre Proyecto es obligatorio.";
+    
+    }else{
+
+      $update = array(
+        'id_cliente'        => $id_cliente,
+        'id_proyecto'       => $id_proyecto,
+        'nombre_proyecto'  => $nombre_proyecto,
+        'estado'            => $estado,
+        'codEmpresa'        => $codEmpresa
+      );
+
+      $proyectos = $this->callexternosproyectos->actualizaProyecto($update);
+
+      if($proyectos){
+
+        $resp = true;
+        $mensaje = "Proyecto actualizado correctamente";
+
+      }else{
+
+        $mensaje = "Error al actualizar el proyecto";
+
+      }
+
+      $data['resp']       = $resp;
+      $data['mensaje']    = $mensaje;
+      
+      
+
+
+    }
+
+    echo json_encode($data);
+
+
+  }
+
+  function eliminaProyecto(){
+
+    $id_cliente       = $this->input->post('id_cliente');
+    $id_proyecto      = $this->input->post('id_proyecto');
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+
+    $data = array(
+      'id_cliente'  => $id_cliente,
+      'id_proyecto' => $id_proyecto,
+      'codEmpresa'  => $codEmpresa
+    );
+
+    $delete = $this->callexternosproyectos->actualizaProyecto($data);
+
+    if($delete){
+
+      $data['resp'] = true;
+      $data['mensaje'] = 'Registro eliminado correctamente';
+
+    }else{
+      $data['resp'] = false;
+      $data['mensaje'] = 'Error al eliminar el regitro';
+    }
+
+    echo json_encode($data);
+
+  }
+
+  function obtieneOrdenes(){
+
+    $id_cliente       = $this->input->post('id_cliente');
+    $id_proyecto      = $this->input->post('id_proyecto');
+
+    
 
   }
     
