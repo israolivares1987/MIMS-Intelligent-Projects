@@ -1,5 +1,5 @@
 <?php
-class Clientes extends CI_Controller{
+class Clientes extends MY_Controller{
   function __construct(){
     parent::__construct();
     $this->load->library('CallExternosClientes');
@@ -18,11 +18,18 @@ class Clientes extends CI_Controller{
     $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
     $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
 
-    $this->load->view('activador/header');
-    $this->load->view('activador/navbar');
-    $this->load->view('activador/left_menu', $datos);
-    $this->load->view('activador/listClientes');
-    $this->load->view('activador/footer');
+    //Si es rol ingenieria. no carga proyectos en menu lateral
+    if($this->session->userdata('rol_id') == 204){
+
+      $this->plantilla_ingenieria('ingenieria/listClientes', $datos);
+
+    }else{
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/left_menu', $datos);
+      $this->load->view('activador/listClientes');
+      $this->load->view('activador/footer');
+    }
 
   }
 

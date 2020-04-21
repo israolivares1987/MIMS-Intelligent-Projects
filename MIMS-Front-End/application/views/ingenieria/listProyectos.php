@@ -58,7 +58,7 @@
                     <h5>Ordenes de Compra</h5>
                   </div>
                   <div class="card-body">
-                    <table id="tbl_ordenes" class="table table-striped table-bordered" cellspacing="0">
+                    <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0">
                         <thead>
                             <tr>
                             <th>Codigo Proyecto</th>
@@ -211,6 +211,27 @@ var tabla =  $('#tbl_proyectos').DataTable({
       }
   });
 
+
+  $('#ListOrdenes').DataTable({
+      "searching": false,
+      language: {
+        "emptyTable":			"No hay datos disponibles en la tabla.",
+        "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
+        "infoEmpty":			"Mostrando 0 registros de un total de 0.",
+        "infoFiltered":			"(filtrados de un total de _MAX_ registros)",
+        "lengthMenu":			"Mostrar _MENU_ registros",
+        "loadingRecords":		"Cargando...",
+        "processing":			"Procesando...",
+        "search":				"Buscar:",
+        "searchPlaceholder":	"Dato para buscar",
+        "zeroRecords":			"No se han encontrado coincidencias.",
+        "aria": {
+          "sortAscending":	"Ordenación ascendente",
+          "sortDescending":	"Ordenación descendente"
+        }
+      }
+  });
+
 $(document).ready(function() { 
 
 
@@ -234,53 +255,25 @@ $(document).ready(function() {
 
 
 
-function reloadTableOrdenes(idCliente,idProyecto)
-{
+function listar_ordenes(id_cliente,id_proyecto){
 
-       //datatables
-       $('#ListOrdenes').DataTable({ 
-          "processing": true, //Feature control the processing indicator.
-          "serverSide": true, //Feature control DataTables' server-side processing mode.
-          "order": [], //Initial no order.
-          "destroy": true,
-          // Load data for the table's content from an Ajax source
-          "ajax": {
-              "url": "<?php echo site_url('Proyectos/obtieneProyectosProveedor/')?>" + idCliente + "/" + idProyecto,
-              "type": "POST"
-          },
-          language: {
-          "emptyTable":			"No hay datos disponibles en la tabla.",
-          "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
-          "infoEmpty":			"Mostrando 0 registros de un total de 0.",
-          "infoFiltered":			"(filtrados de un total de _MAX_ registros)",
-          "infoPostFix":			"(actualizados)",
-          "lengthMenu":			"Mostrar _MENU_ registros",
-          "loadingRecords":		"Cargando...",
-          "processing":			"Procesando...",
-          "search":				"Buscar:",
-          "searchPlaceholder":	"Dato para buscar",
-          "zeroRecords":			"No se han encontrado coincidencias.",
-          "aria": {
-            "sortAscending":	"Ordenación ascendente",
-            "sortDescending":	"Ordenación descendente"
-          }
-          },
-          "fixedHeader": {
-          "header": true,
-          "footer": true
-          },
-          "scrollX":        "400px",
-          "scrollCollapse": true,
-          "paging":         false,
-          "columnDefs": [
-          { "width": '20%', "targets": 0 }
-          ],
-          "fixedColumns": true
-
-          });
+    $.ajax({
+      url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+              id_proyecto: id_proyecto,
+              id_cliente:id_cliente
+            },
+    }).done(function(result) {
+        
+      
 
 
-    $('#ListOrdenes').DataTable().ajax.reload();
+    }).fail(function() {
+      console.log("error edita_proyecto");
+    })
+
 }
 
 
@@ -340,7 +333,9 @@ $('#btn-guardar').on('click', function(){
       recargaProyectos(id_cliente);
       $('#var_descripcion_proyecto').val('')
       $('#modal_nuevo_proyecto').modal('hide');
-      toastr.success('Proyecto agregado correctamente');
+      toastr.success(result.mensaje);
+    }else{
+      toastr.info(result.mensaje);
     }
       
 
@@ -349,7 +344,6 @@ $('#btn-guardar').on('click', function(){
   })
 
 });
-
 
 
 function recargaProyectos(cliente){
@@ -423,19 +417,62 @@ $('#btn-actualizar-proy').on('click', function(){
     if(result.resp){
 
       recargaProyectos(id_cliente);
-      toastr.success('Proyecto actualizado correctamente');
+      $('#modal_edita_proyecto').modal('hide');
+      toastr.success(result.mensaje);
 
     }else{
-      alert(result.mensaje);
+
+      toastr.info(result.mensaje);
+    
     }
       
 
   }).fail(function() {
-    console.log("error guardar proy");
+    console.log("error actualizar proy");
   })
 
 
 });
+
+
+function elimina_proyecto(id_proyecto, id_cliente){
+
+  var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+  if(opcion){
+
+        $.ajax({
+        url: 		'<?php echo base_url('index.php/ingenieria/eliminaProyecto'); ?>',
+        type: 		'POST',
+        dataType: 'json',
+        data: {
+                id_cliente  : id_cliente,
+                id_proyecto : id_proyecto
+              },
+      }).done(function(result) {
+
+        if(result.resp){
+
+          recargaProyectos(id_cliente);
+          toastr.success(result.mensaje);
+
+        }else{
+
+          toastr.info(result.mensaje);
+        
+        }
+          
+
+      }).fail(function() {
+        console.log("error eliminar proy");
+      })
+    
+
+  }else{
+    
+  }
+
+}
 
 
 </script>

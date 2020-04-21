@@ -149,5 +149,53 @@ class CallExternosProyectos {
 
     }
 
+    function actualizaProyecto($update){
+
+        $base_url_servicios = BASE_SERVICIOS;                
+        $api_url = $base_url_servicios."Expediting/actualizaProyecto";
+  
+        $form_data = $update;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+
+    }
+
+    function eliminaProyecto($delete){
+
+        $base_url_servicios = BASE_SERVICIOS;                
+        $api_url = $base_url_servicios."Expediting/eliminaProyecto";
+  
+        $form_data = $delete;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+
+    }
+
+
+    
     
 }

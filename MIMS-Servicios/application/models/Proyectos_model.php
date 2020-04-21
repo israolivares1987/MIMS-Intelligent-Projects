@@ -122,5 +122,31 @@ class Proyectos_model extends CI_Model{
 
 	}
 
+	function actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa){
+
+		$this->db->where('idCliente', $id_cliente);
+		$this->db->where('NumeroProyecto', $id_proyecto);
+		$this->db->where('codEmpresa', $cod_empresa);
+
+		$query = $this->db->update('tbl_proyectos',$up);
+
+
+		return $query;
+
+	}
+
+	function eliminaProyecto($id_cliente, $id_proyecto,$cod_empresa){
+
+		$this->db->where('idCliente', $id_cliente);
+		$this->db->where('NumeroProyecto', $id_proyecto);
+		$this->db->where('codEmpresa', $cod_empresa);
+
+		$delete = $this->db->delete('tbl_proyectos');
+
+
+		return $delete;
+
+	}
+
 }
 ?>

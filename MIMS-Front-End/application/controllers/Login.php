@@ -14,8 +14,6 @@ class Login extends CI_Controller{
     
     }else{
 
-      print_r($_SESSION);
-
       if($this->session->userdata('rol_id')==='201'){
         redirect('Activador/index_activador');
       }elseif ($this->session->userdata('rol_id')==='202') {
