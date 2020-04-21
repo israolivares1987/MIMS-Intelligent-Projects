@@ -73,8 +73,10 @@
                                                              <label for="exampleInputFile">Cargar Archivo</label>
                                                              <div class="input-group">
                                                                  <div class="custom-file">
-                                                                     <input name="fileURL" type="file" class="custom-file-input"
-                                                                         id="exampleInputFile" data-allowed-file-extensions="[CSV, csv]" accept=".CSV, .csv">
+                                                                     <input name="fileURL" type="file"
+                                                                         class="custom-file-input" id="exampleInputFile"
+                                                                         data-allowed-file-extensions="[CSV, csv]"
+                                                                         accept=".CSV, .csv">
                                                                      <label class="custom-file-label"
                                                                          for="exampleInputFile"></label>
                                                                  </div>
@@ -261,7 +263,7 @@ function edit_bucksheet(numeroLinea, PurchaseOrderID) {
 
 
 function save() {
-    $('#btnSave').text('saving...'); //change button text
+    $('#btnSave').text('Actualizando..'); //change button text
     $('#btnSave').attr('disabled', true); //set button disable 
 
     url = "<?php echo site_url('BuckSheet/updateBuckSheet')?>";
@@ -279,27 +281,25 @@ function save() {
         dataType: "JSON",
         success: function(data) {
 
-            if (data.status) //if success close modal and reload ajax table
+
+            alert(data.resp);
+            if (data.resp) //if success close modal and reload ajax table
             {
                 $('#modal-default').modal('hide');
                 reload_table();
+                toastr.success(data.mensaje);
             } else {
-                for (var i = 0; i < data.inputerror.length; i++) {
-                    $('[name="' + data.inputerror[i] + '"]').parent().parent().addClass(
-                        'has-error'
-                    ); //select parent twice to select div form-group class and add has-error class
-                    $('[name="' + data.inputerror[i] + '"]').next().text(data.error_string[
-                        i]); //select span help-block class set text error string
-                }
+                toastr.success(data.mensaje);
+              
             }
-            $('#btnSave').text('save'); //change button text
+            $('#btnSave').text('Actualizar'); //change button text
             $('#btnSave').attr('disabled', false); //set button enable 
 
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error adding / update data');
-            $('#btnSave').text('save'); //change button text
+            alert('Error Al actualizar BuckSheet '+jqXHR+' '+textStatus+' '+errorThrown);
+            $('#btnSave').text('Actualizar'); //change button text
             $('#btnSave').attr('disabled', false); //set button enable 
 
         }
@@ -525,73 +525,98 @@ tr {
                      <input type="hidden" value="" name="PurchaseOrderID" />
                      <div class="form-body">
                          <div class="form-group">
-                             <label class="control-label col-md-3">ST Cantidad</label>
+                             <label class="control-label col-md-9">ST Cantidad</label>
                              <div class="col-md-9">
-                                 <input name="STCantidad" placeholder="STCantidad" class="form-control" type="text">
+                                 <input name="STCantidad" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">TAG Number</label>
+                             <label class="control-label col-md-9">TAG Number</label>
                              <div class="col-md-9">
-                                 <input name="TAGNumber" placeholder="TAG Number" class="form-control" type="text">
+                                 <input name="TAGNumber" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Stockcode</label>
+                             <label class="control-label col-md-9">Stockcode</label>
                              <div class="col-md-9">
-                                 <input name="Stockcode" placeholder="Stockcode" class="form-control" type="text">
+                                 <input name="Stockcode" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Descripción</label>
+                             <label class="control-label col-md-9">Descripción</label>
                              <div class="col-md-9">
-                                 <input name="Descripcion" placeholder="Descripción" class="form-control" type="text">
+                                 <input name="Descripcion" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">PlanoModelo</label>
+                             <label class="control-label col-md-9">Plano Modelo</label>
                              <div class="col-md-9">
-                                 <input name="PlanoModelo" placeholder="PlanoModelo" class="form-control" type="text">
+                                 <input name="PlanoModelo" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Revisión</label>
+                             <label class="control-label col-md-9">Revisión</label>
                              <div class="col-md-9">
-                                 <input name="Revision" placeholder="Revisión" class="form-control" type="text">
+                                 <input name="Revision" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Paquete Construccion o Area</label>
+                             <label class="control-label col-md-9">Paquete Construccion o Area</label>
                              <div class="col-md-9">
-                                 <input name="PaqueteConstruccionArea" placeholder="Paquete Construccion o Area"
-                                     class="form-control" type="text">
+                                 <input name="PaqueteConstruccionArea" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Peso Unitario</label>
+                             <label class="control-label col-md-9">Peso Unitario</label>
                              <div class="col-md-9">
-                                 <input name="PesoUnitario" placeholder="Peso Unitario" class="form-control"
-                                     type="text">
+                                 <input name="PesoUnitario" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">PesoTotal</label>
+                             <label class="control-label col-md-9">Peso Total</label>
                              <div class="col-md-9">
-                                 <input name="PesoTotal" placeholder="PesoTotal" class="form-control" type="text">
+                                 <input name="PesoTotal" placeholder="" class="form-control" type="text">
+                                 <span class="help-block"></span>
+                             </div>
+                         </div>
+
+
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Fecha RAS</label>
+                             <div class="col-md-9">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                     </div>
+                                     <input name="FechaRAS" type="text" class="form-control"
+                                         data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
+                                         data-mask="" im-insert="false">
+                                 </div>
+                             </div>
+                         </div>
+
+
+
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Dias Antes RAS</label>
+                             <div class="col-md-9">
+                                 <input name="DiasAntesRAS" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
 
                          <div class="form-group">
-                             <label class="control-label col-md-3">FechaRAS</label>
+                             <label class="control-label col-md-9">Fecha Comienzo Fabricacion</label>
                              <div class="col-md-9">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
@@ -599,205 +624,287 @@ tr {
                                              <i class="far fa-calendar-alt"></i>
                                          </span>
                                      </div>
-                                     <input name="FechaRAS" type="text" class="form-control float-right"
+                                     <input name="FechaComienzoFabricacion" type="text" class="form-control float-right"
                                          id="reservation">
                                  </div>
                              </div>
                          </div>
 
+
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Comienzo Fabricacion</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFCF" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
                          <div class="form-group">
-                             <label class="control-label col-md-3">DiasAntesRAS</label>
+                             <label class="control-label col-md-9">Fecha Termino Fabricacion</label>
                              <div class="col-md-9">
-                                 <input name="DiasAntesRAS" placeholder="DiasAntesRAS" class="form-control" type="text">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaTerminoFabricacion" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
+                             </div>
+                         </div>
+
+
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Termino Fabricacion</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFTF" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Fecha Granallado</label>
+                             <div class="col-md-9">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaGranallado" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
+                             </div>
+                         </div>
+
+
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Granallado</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFG" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                         
+                     
+
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Fecha Pintura</label>
+                             <div class="col-md-9">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaPintura" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
+                             </div>
+                         </div>
+
+
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Pintura</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFP" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
+
+                         
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Fecha Listo Inspeccion</label>
+                             <div class="col-md-9">
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaListoInspeccion" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
+                             </div>
+                         </div>
+
+                         
+                         
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Listo Inspeccion</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFLI" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                         
+                       
+
+
+                         <div class="form-group">
+                             <label class="control-label col-md-9">Acta Liberacion Calidad</label>
+                             <div class="col-md-9">
+                                 <input name="ActaLiberacionCalidad" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
+
+
                          <div class="form-group">
-                             <label class="control-label col-md-3">FechaComienzoFabricacion</label>
+                             <label class="control-label col-md-9">Fecha Salida Fabrica</label>
                              <div class="col-md-9">
-                                 <input name="FechaComienzoFabricacion" placeholder="FechaComienzoFabricacion"
-                                     class="form-control" type="text">
-                                 <span class="help-block"></span>
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaListoInspeccion" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
                              </div>
                          </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PAFCF</label>
-                             <div class="col-md-9">
-                                 <input name="PAFCF" placeholder="PAFCF" class="form-control" type="text">
-                                 <span class="help-block"></span>
+
+
+
+                         <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Salida Fabrica</label>
+                                 <div class="col-md-9">
+                                     <select name="PAFSF" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
                              </div>
                          </div>
+
+
+                         
+
+
                          <div class="form-group">
-                             <label class="control-label col-md-3">FechaTerminoFabricacion</label>
+                             <label class="control-label col-md-9">Fecha Embarque</label>
                              <div class="col-md-9">
-                                 <input name="FechaTerminoFabricacion" placeholder="FechaTerminoFabricacion"
-                                     class="form-control" type="text">
-                                 <span class="help-block"></span>
+                                 <div class="input-group">
+                                     <div class="input-group-prepend">
+                                         <span class="input-group-text">
+                                             <i class="far fa-calendar-alt"></i>
+                                         </span>
+                                     </div>
+                                     <input name="FechaEmbarque" type="text" class="form-control float-right"
+                                         id="reservation">
+                                 </div>
                              </div>
                          </div>
+
+
                          <div class="form-group">
-                             <label class="control-label col-md-3">PAFTF</label>
-                             <div class="col-md-9">
-                                 <input name="PAFTF" placeholder="PAFTF" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">FechaGranallado</label>
-                             <div class="col-md-9">
-                                 <input name="FechaGranallado" placeholder="FechaGranallado" class="form-control"
-                                     type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PAFG</label>
-                             <div class="col-md-9">
-                                 <input name="PAFG" placeholder="PAFG" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">FechaPintura</label>
-                             <div class="col-md-9">
-                                 <input name="FechaPintura" placeholder="FechaPintura" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PAFP</label>
-                             <div class="col-md-9">
-                                 <input name="PAFP" placeholder="PAFP" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">FechaListoInspeccion</label>
-                             <div class="col-md-9">
-                                 <input name="FechaListoInspeccion" placeholder="FechaListoInspeccion"
-                                     class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PAFLI</label>
-                             <div class="col-md-9">
-                                 <input name="PAFLI" placeholder="PAFLI" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">ActaLiberacionCalidad</label>
-                             <div class="col-md-9">
-                                 <input name="ActaLiberacionCalidad" placeholder="ActaLiberacionCalidad"
-                                     class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">FechaSalidaFabrica</label>
-                             <div class="col-md-9">
-                                 <input name="FechaSalidaFabrica" placeholder="FechaSalidaFabrica" class="form-control"
-                                     type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PAFSF</label>
-                             <div class="col-md-9">
-                                 <input name="PAFSF" placeholder="PAFSF" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">FechaEmbarque</label>
-                             <div class="col-md-9">
-                                 <input name="FechaEmbarque" placeholder="FechaEmbarque" class="form-control"
-                                     type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-3">PackingList</label>
+                             <label class="control-label col-md-9">Packing List</label>
                              <div class="col-md-9">
                                  <input name="PackingList" placeholder="PackingList" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">GuiaDespacho</label>
+                             <label class="control-label col-md-9">Guia Despacho</label>
                              <div class="col-md-9">
-                                 <input name="GuiaDespacho" placeholder="GuiaDespacho" class="form-control" type="text">
+                                 <input name="GuiaDespacho" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">SCNNumber</label>
+                             <label class="control-label col-md-9">SCN Number</label>
                              <div class="col-md-9">
-                                 <input name="SCNNumber" placeholder="SCNNumber" class="form-control" type="text">
+                                 <input name="SCNNumber" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Origen</label>
+                             <label class="control-label col-md-9">Origen</label>
                              <div class="col-md-9">
-                                 <input name="Origen" placeholder="Origen" class="form-control" type="text">
+                                 <input name="Origen" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">DiasViaje</label>
+                             <label class="control-label col-md-9">Dias Viaje</label>
                              <div class="col-md-9">
-                                 <input name="DiasViaje" placeholder="DiasViaje" class="form-control" type="text">
+                                 <input name="DiasViaje" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion1</label>
+                             <label class="control-label col-md-9">Observacion 1</label>
                              <div class="col-md-9">
-                                 <input name="Observacion1" placeholder="Observacion1" class="form-control" type="text">
+                                 <input name="Observacion1" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion2</label>
+                             <label class="control-label col-md-9">Observacion 2</label>
                              <div class="col-md-9">
-                                 <input name="Observacion2" placeholder="Observacion2" class="form-control" type="text">
+                                 <input name="Observacion2" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion3</label>
+                             <label class="control-label col-md-9">Observacion 3</label>
                              <div class="col-md-9">
-                                 <input name="Observacion3" placeholder="Observacion3" class="form-control" type="text">
+                                 <input name="Observacion3" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion4</label>
+                             <label class="control-label col-md-9">Observacion 4</label>
                              <div class="col-md-9">
-                                 <input name="Observacion4" placeholder="Observacion4" class="form-control" type="text">
+                                 <input name="Observacion4" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion5</label>
+                             <label class="control-label col-md-9">Observacion 5</label>
                              <div class="col-md-9">
-                                 <input name="Observacion5" placeholder="Observacion5" class="form-control" type="text">
+                                 <input name="Observacion5" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-3">Observacion6</label>
+                             <label class="control-label col-md-9">Observacion 6</label>
                              <div class="col-md-9">
-                                 <input name="Observacion6" placeholder="Observacion6" class="form-control" type="text">
+                                 <input name="Observacion6" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                              <div class="form-group">
-                                 <label class="control-label col-md-3">Observacion7</label>
+                                 <label class="control-label col-md-9">Observacion 7</label>
                                  <div class="col-md-9">
-                                     <input name="Observacion7" placeholder="Observacion7" class="form-control"
-                                         type="text">
+                                     <input name="Observacion7" placeholder="" class="form-control" type="text">
                                      <span class="help-block"></span>
                                  </div>
                              </div>
@@ -805,7 +912,7 @@ tr {
                  </form>
              </div>
              <div class="modal-footer justify-content-between">
-                 <button type="button" class="btn btn-block btn-outline-success" onclick="save()">Save</button>
+                 <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="save()">Actualizar</button>
                  <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
              </div>
          </div>

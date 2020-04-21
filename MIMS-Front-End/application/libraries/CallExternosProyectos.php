@@ -13,9 +13,12 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
 
 class CallExternosProyectos {
     
-    function obtienebaseservicios(){
+    public function obtienebaseservicios(){
 
-        return $this->config->item('BASE_SERVICIOS');
+        $CI =& get_instance();
+
+
+        return $CI->config->item('BASE_SERVICIOS');
 
     }
     

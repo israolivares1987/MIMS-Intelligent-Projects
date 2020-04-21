@@ -17,7 +17,16 @@ class MY_Controller extends CI_Controller {
         $this->load->view('ingenieria/left_menu',$datos);
         $this->load->view($view, $datos);
         $this->load->view('ingenieria/footer'); 
-    }
+	}
+	
+	public function plantilla_activador($view, $datos = array()){
+
+		$this->load->view('activador/header');
+        $this->load->view('activador/navbar');
+        $this->load->view('activador/left_menu',$datos);
+        $this->load->view($view, $datos);
+        $this->load->view('activador/footer'); 
+	}
     
     #Checkea session activa y redirecciona segun parametro
 	public function checkSession($param){

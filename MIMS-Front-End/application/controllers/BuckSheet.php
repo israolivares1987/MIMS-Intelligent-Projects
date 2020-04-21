@@ -2,7 +2,7 @@
 if (!defined('BASEPATH'))
     exit('No direct script access allowed');
 
-class BuckSheet extends CI_Controller {
+class BuckSheet extends MY_Controller {
 
     public function __construct() {
         parent::__construct();
@@ -26,11 +26,19 @@ class BuckSheet extends CI_Controller {
         $datos['purchaseOrdername'] = $purchaseOrdername;
 
 
-        $this->load->view('activador/header');
-        $this->load->view('activador/navbar');
-        $this->load->view('activador/left_menu', $datos);
-        $this->load->view('activador/listaBuckSheet',$datos);
-        $this->load->view('activador/footer');
+        $datosap     = $this->callexternosproyectos->obtieneDatosRef('ACTUAL_PREVIO');
+        $select_ap = "";
+       foreach (json_decode($datosap) as $llave => $valor) {
+        
+        $select_ap .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+
+      }
+
+       
+       $datos['select_ap'] = $select_ap;
+
+        $this->plantilla_activador('activador/listaBuckSheet', $datos);
+
   }
 
 
@@ -158,13 +166,17 @@ class BuckSheet extends CI_Controller {
         $datos['success_msg'] = $successMsg;
 
 
-        $this->load->view('activador/header');
-        $this->load->view('activador/navbar');
-        $this->load->view('activador/left_menu', $datos);
-        $this->load->view('activador/listaBuckSheet',$datos);
-        $this->load->view('activador/footer');
+        $this->plantilla_activador('activador/listaBuckSheet', $datos);
+
 }
   
+
+
+
+
+
+
+
         // checkFileValidation
         public function checkFileValidation($str) {        
             $mime_types = array(
@@ -248,30 +260,63 @@ class BuckSheet extends CI_Controller {
       function updateBuckSheet()
       {
 
+        $memData = array(
+          'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
+          'NumeroLinea' => $this->input->post('numeroLinea'),
+          'STCantidad' => $this->input->post('STCantidad'),
+          'TAGNumber' => $this->input->post('TAGNumber'),
+          'Stockcode' => $this->input->post('Stockcode'),
+          'Descripcion' => $this->input->post('Descripcion'),
+          'PlanoModelo' => $this->input->post('PlanoModelo'),
+          'Revision ' => $this->input->post('Revision'),
+          'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
+          'PesoUnitario' => $this->input->post('PesoUnitario'),
+          'PesoTotal' => $this->input->post('PesoTotal'),
+          'FechaRAS' => $this->input->post('FechaRAS'),
+          'DiasAntesRAS' => $this->input->post('DiasAntesRAS'),
+          'FechaComienzoFabricacion' => $this->input->post('FechaComienzoFabricacion'),
+          'PAFCF' => $this->input->post('PAFCF'),
+          'FechaTerminoFabricacion' => $this->input->post('FechaTerminoFabricacion'),
+          'PAFTF' => $this->input->post('PAFTF'),
+          'FechaGranallado' => $this->input->post('FechaGranallado'),
+          'PAFG' => $this->input->post('PAFG'),
+          'FechaPintura' => $this->input->post('FechaPintura'),
+          'PAFP' => $this->input->post('PAFP'),
+          'FechaListoInspeccion' => $this->input->post('FechaListoInspeccion'),
+          'PAFLI' => $this->input->post('PAFLI'),
+          'ActaLiberacionCalidad' => $this->input->post('ActaLiberacionCalidad'),
+          'FechaSalidaFabrica' => $this->input->post('FechaSalidaFabrica'),
+          'PAFSF' => $this->input->post('PAFSF'),
+          'FechaEmbarque' => $this->input->post('FechaEmbarque'),
+          'PackingList' => $this->input->post('PackingList'),
+          'GuiaDespacho' => $this->input->post('GuiaDespacho'),
+          'SCNNumber' => $this->input->post('SCNNumber'),
+          'Origen' => $this->input->post('Origen'),
+          'DiasViaje' => $this->input->post('DiasViaje'),
+          'Observacion1' => $this->input->post('Observacion1'),
+          'Observacion2' => $this->input->post('Observacion2'),
+          'Observacion3' => $this->input->post('Observacion3'),
+          'Observacion4' => $this->input->post('Observacion4'),
+          'Observacion5' => $this->input->post('Observacion5'),
+          'Observacion6' => $this->input->post('Observacion6'),
+          'Observacion7' => $this->input->post('Observacion7')
+        );
+
+        $response = $this->callexternosbucksheet->updateBuckSheetLinea($memData,$this->input->post('PurchaseOrderID'),$this->input->post('numeroLinea'));
+        $data = array();
+
+        if($response){
+
+            $data['resp']        = true;
+            $data['mensaje']     = 'Registro actualizado correctamente';
+    
+          }else{
+            $data['resp']        = false;
+            $data['mensaje']     = 'Error al actualizar registro';
+          }
         
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."BuckSheet/updateBuckSheet";
-        
-    $form_data = array(
-                      'idCliente' => $this->input->post('idCliente'),
-                      'rutCliente' => $this->input->post('rutCliente'),
-                      'nombreCliente' => $this->input->post('nombreCliente'),
-                      'dvCliente' => $this->input->post('dvCliente')
-              );
-
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
+    
+        echo json_encode($data);
        
   
   

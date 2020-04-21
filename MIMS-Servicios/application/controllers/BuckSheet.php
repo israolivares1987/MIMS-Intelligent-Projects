@@ -313,12 +313,12 @@ class BuckSheet extends CI_Controller {
 	}
 
 
-	function updateBuckSheet()
+	function updatexlinea()
 	{
 
 		// Update member data
 		$form_data = array(
-			'STUnidad'=>$this->input->post('STUnidad'),
+			'STCantidad'=>$this->input->post('STCantidad'),
 			'TAGNumber'=>$this->input->post('TAGNumber'),
 			'Stockcode'=>$this->input->post('Stockcode'),
 			'Descripcion'=>$this->input->post('Descripcion'),
@@ -358,8 +358,7 @@ class BuckSheet extends CI_Controller {
 		);
 
 $update = $this->bucksheet->update($form_data,$this->input->post('PurchaseOrderID'),$this->input->post('NumeroLinea'));
-
-echo $update;
+echo json_encode(array("status" => TRUE));
 
 
 		}

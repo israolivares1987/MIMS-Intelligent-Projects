@@ -1,5 +1,5 @@
 <?php
-class Activador extends CI_Controller{
+class Activador extends MY_Controller{
   function __construct(){
     parent::__construct();
     
@@ -12,23 +12,7 @@ class Activador extends CI_Controller{
     }
   }
 
-  function index_empleados(){
-
-    $codEmpresa = $this->session->userdata('cod_emp');
-    $responseMenuLeft = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-
-
-    $json_datosMenuLeft = $responseMenuLeft;
-    $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-    $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-
-    $this->load->view('activador/header');
-    $this->load->view('activador/navbar');
-    $this->load->view('activador/left_menu', $datos);
-    $this->load->view('activador/listEmpleados');
-    $this->load->view('activador/footer'); 
-  
-   }
+ 
 
    function index_activador(){
 
@@ -53,11 +37,8 @@ class Activador extends CI_Controller{
     $datos['totalSuppliers'] = $arrayDatosTotales['totalSuppliers'];
 
 
-    $this->load->view('activador/header');
-    $this->load->view('activador/navbar');
-    $this->load->view('activador/left_menu', $datos);
-    $this->load->view('activador/home_activador', $datos);
-    $this->load->view('activador/footer');
+    $this->plantilla_activador('activador/home_activador', $datos);
+
   }
 
 
@@ -81,11 +62,8 @@ class Activador extends CI_Controller{
       $datos['rutCliente'] = $array->rutCliente;
       $datos['dvCliente'] = $array->dvCliente;
 
-      $this->load->view('activador/header');
-      $this->load->view('activador/navbar');
-      $this->load->view('activador/left_menu', $datos);
-      $this->load->view('activador/listProyectos',$datos);
-      $this->load->view('activador/footer');
+
+      $this->plantilla_activador('activador/listProyectos', $datos);
     }
     
   }
