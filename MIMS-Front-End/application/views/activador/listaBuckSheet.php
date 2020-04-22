@@ -281,8 +281,6 @@ function save() {
         dataType: "JSON",
         success: function(data) {
 
-
-            alert(data.resp);
             if (data.resp) //if success close modal and reload ajax table
             {
                 $('#modal-default').modal('hide');
