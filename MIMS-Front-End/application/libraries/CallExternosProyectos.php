@@ -206,6 +206,50 @@ class CallExternosProyectos {
 
     }
 
+    function eliminaOrden($delete){
+
+        $base_url_servicios = $this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."Expediting/eliminaOrden";
+  
+        $form_data = $delete;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+
+    }
+
+    function obtieneOrdenesProyecto($idProyecto,$idCliente){
+ 
+        $base_url_servicios =  $this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."Expediting/obtieneExpediting/".$idCliente."/".$idProyecto;
+
+        
+        $client = curl_init($api_url);
+
+        curl_setopt($client, CURLOPT_POST, true);
+
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+        $response = curl_exec($client);
+
+        curl_close($client);
+
+        return $response;
+
+
+    }
+
 
     
     

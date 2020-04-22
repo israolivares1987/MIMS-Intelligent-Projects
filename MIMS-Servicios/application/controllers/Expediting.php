@@ -239,6 +239,19 @@ class Expediting extends CI_Controller {
 
 	}
 
+	function eliminaOrden(){
+
+		$id_cliente 	= $this->input->post('id_cliente');
+		$id_proyecto 	= $this->input->post('id_proyecto');
+		$orden 			= $this->input->post('orden');
+		$cod_empresa	= $this->input->post('codEmpresa');
+
+		$delete = $this->Proyectos_model->eliminaOrden($id_cliente, $id_proyecto,$cod_empresa,$orden);
+		
+		echo json_encode($delete);	
+
+	}
+
 }
 
 	

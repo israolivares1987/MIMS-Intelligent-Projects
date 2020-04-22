@@ -14,7 +14,7 @@ class CallExternosBuckSheet {
     
      
   
-      function obtieneBucksheet($PurchaseOrderID){
+      function obtieneBucksheet($PurchaseOrderID, $flag = false){
   
   
         $base_url_servicios =BASE_SERVICIOS;                
@@ -37,8 +37,14 @@ class CallExternosBuckSheet {
         $response = curl_exec($client);
   
         curl_close($client);
+
+        if($flag){
+          return $response;
+        }else{
+          echo $response;
+        }
   
-        echo $response;
+        
   
   
       }
