@@ -45,7 +45,7 @@
                               <th>Codigo Proyecto</th>
                               <th>Descripcion Proyecto</th>
                               <th>Estado Proyecto</th>
-                              <th>Accion</th>
+                              <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="datos_proyectos">
@@ -59,16 +59,17 @@
                   </div>
                   <div class="card-body">
                     <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0">
+                    <div id="btn-no"><button id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button></div>
                         <thead>
                             <tr>
-                            <th>Codigo Proyecto</th>
-                            <th>OrderID</th>
-                            <th>OrderDescription</th>
-                            <th>Supplier</th>
-                            <th>Employee</th>
-                            <th>OrderDate</th>
-                            <th>DateRequired</th>
-                            <th>Acciones</th>
+                              <th>Codigo Proyecto</th>
+                              <th>OrderID</th>
+                              <th>OrderDescription</th>
+                              <th>Supplier</th>
+                              <th>Employee</th>
+                              <th>OrderDate</th>
+                              <th>DateRequired</th>
+                              <th>Acciones</th>
                             </tr>
                         </thead>
                         <tbody id="datos_ordenes">
@@ -255,7 +256,7 @@ $(document).ready(function() {
 
 
 
-function listar_ordenes(id_cliente,id_proyecto){
+function listar_ordenes(id_proyecto,id_cliente){  
 
     $.ajax({
       url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
@@ -266,12 +267,26 @@ function listar_ordenes(id_cliente,id_proyecto){
               id_cliente:id_cliente
             },
     }).done(function(result) {
+
+      if(result.resp){
+
+        $('#btn-no').empty();
+        $('#btn-no').html('<button onclick="nueva_orden('+id_proyecto+','+id_cliente+')" id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button>');
+
+        $('#datos_ordenes').html(result.ordenes);
+        $('[data-toggle="tooltip"]').tooltip();
+      }else{
+
+        $('#btn-no').html('<button onclick="nueva_orden('+id_proyecto+','+id_cliente+')" id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button>');
+        $('#datos_ordenes').html(result.ordenes);
+
+      }
         
       
 
 
     }).fail(function() {
-      console.log("error edita_proyecto");
+      console.log("error listar_ordenes");
     })
 
 }
@@ -458,7 +473,7 @@ function elimina_proyecto(id_proyecto, id_cliente){
 
         }else{
 
-          toastr.info(result.mensaje);
+          toastr.error(result.mensaje);
         
         }
           
@@ -468,8 +483,74 @@ function elimina_proyecto(id_proyecto, id_cliente){
       })
     
 
-  }else{
-    
+  }
+
+}
+
+
+function recargaOrdenes(id_proyecto,id_cliente){
+
+  $.ajax({
+      url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+              id_proyecto: id_proyecto,
+              id_cliente:id_cliente
+            },
+    }).done(function(result) {
+
+      if(result.resp){
+
+        $('#datos_ordenes').html(result.ordenes);
+        $('[data-toggle="tooltip"]').tooltip();
+      }else{
+
+        $('#datos_ordenes').html(result.ordenes);
+
+      }
+
+    }).fail(function() {
+      console.log("error listar_ordenes");
+    })
+
+
+}
+
+function eliminar_orden(cliente, proyecto, orden){
+
+  var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+  if(opcion){
+
+        $.ajax({
+        url: 		'<?php echo base_url('index.php/ingenieria/eliminaOrden'); ?>',
+        type: 		'POST',
+        dataType: 'json',
+        data: {
+                id_cliente  : cliente,
+                id_proyecto : proyecto,
+                orden       : orden
+              },
+        }).done(function(result) {
+
+        if(result.resp){
+
+          recargaOrdenes(proyecto,cliente);
+          toastr.success(result.mensaje);
+
+        }else{
+
+          toastr.error(result.mensaje);
+
+        }
+          
+
+        }).fail(function() {
+        console.log("error eliminar order");
+        })
+
+
   }
 
 }

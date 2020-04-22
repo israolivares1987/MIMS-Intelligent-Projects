@@ -148,5 +148,19 @@ class Proyectos_model extends CI_Model{
 
 	}
 
+	function eliminaOrden($id_cliente, $id_proyecto,$cod_empresa,$orden){
+
+		$this->db->where('idCliente', $id_cliente);
+		$this->db->where('idProyecto', $id_proyecto);
+		$this->db->where('codEmpresa', $cod_empresa);
+		$this->db->where('PurchaseOrderID', $cod_empresa);
+
+		$delete = $this->db->delete('tbl_purchase_orders');
+
+
+		return $delete;
+
+	}
+
 }
 ?>

@@ -9,6 +9,7 @@ class Ingenieria extends MY_Controller{
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
+    $this->load->library('CallExternosBuckSheet');
 
      if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -90,7 +91,7 @@ class Ingenieria extends MY_Controller{
           $html .= '<td>'.$value->descripcion_proyecto.'</td>';
           $html .= '<td>'.$value->estado_proyecto.'</td>';
           $html .= '<td>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.')" class="btn btn-outline-success mr-1"><i class="fas fa-list-ul"></i></button>';
+          $html .= '<button data-nombre="'.$value->descripcion_proyecto.'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.','.$id_clientes.',this)" class="btn btn-outline-success mr-1"><i class="fas fa-list-ul"></i></button>';
           $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
           $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
 
@@ -266,16 +267,77 @@ class Ingenieria extends MY_Controller{
       'codEmpresa'  => $codEmpresa
     );
 
-    $delete = $this->callexternosproyectos->actualizaProyecto($data);
+    $ordenes = $this->callexternosproyectos->obtieneOrdenesProyecto($id_proyecto,$id_cliente);
 
-    if($delete){
+    $data_ordenes = json_decode($ordenes);
 
-      $data['resp'] = true;
-      $data['mensaje'] = 'Registro eliminado correctamente';
+    if(count($data_ordenes->data) > 0){
+
+      $data['resp'] = false;
+      $data['mensaje'] = 'Existen ordenes asociadas al proyecto. No se pudo eliminar.';
 
     }else{
+
+      $delete = $this->callexternosproyectos->actualizaProyecto($data);
+
+      if($delete){
+
+        $data['resp'] = true;
+        $data['mensaje'] = 'Registro eliminado correctamente';
+
+      }else{
+        $data['resp'] = false;
+        $data['mensaje'] = 'Error al eliminar el regitro';
+      }
+
+    }
+
+
+    
+
+    echo json_encode($data);
+
+  }
+
+  function eliminaOrden(){
+
+    $id_cliente       = $this->input->post('id_cliente');
+    $id_proyecto      = $this->input->post('id_proyecto');
+    $orden            = $this->input->post('orden');
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+
+    //consulta si existen bucksheet
+    $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($orden,true);
+
+    $data_buck = json_decode($bucksheet);
+
+    if(count($data_buck->data) > 0){
+    
       $data['resp'] = false;
-      $data['mensaje'] = 'Error al eliminar el regitro';
+      $data['mensaje'] = 'Existen datos asociados a esta orden. No se pudo eliminar.';
+    
+    }else{
+
+      $data = array(
+        'id_cliente'  => $id_cliente,
+        'id_proyecto' => $id_proyecto,
+        'orden'       => $orden,
+        'codEmpresa'  => $codEmpresa
+      );
+
+      $delete = $this->callexternosproyectos->eliminaOrden($data);
+
+      if($delete){
+
+        $data['resp'] = true;
+        $data['mensaje'] = 'Registro eliminado correctamente';
+
+      }else{
+        $data['resp'] = false;
+        $data['mensaje'] = 'Error al eliminar el regitro';
+      }
+
     }
 
     echo json_encode($data);
@@ -287,6 +349,50 @@ class Ingenieria extends MY_Controller{
     $id_cliente       = $this->input->post('id_cliente');
     $id_proyecto      = $this->input->post('id_proyecto');
 
+    $respuesta = false;
+
+    $ordenes = $this->callexternosproyectos->obtieneOrdenesProyecto($id_proyecto,$id_cliente);
+
+    $data_ordenes = json_decode($ordenes);
+
+    $html = '';
+
+    //Pregunto si trae datos
+    if(count($data_ordenes->data)){
+
+      foreach ($data_ordenes->data as $key => $value) {
+
+        $html .= '<tr>';
+          $html .= '<td>'.$value[0].'</td>';
+          $html .= '<td>'.$value[1].'</td>';
+          $html .= '<td>'.$value[2].'</td>';
+          $html .= '<td>'.$value[3].'</td>';
+          $html .= '<td>'.$value[4].'</td>';
+          $html .= '<td>'.$value[5].'</td>';
+          $html .= '<td>'.$value[6].'</td>';
+          $html .= '<td>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success mr-1"><i class="fas fa-eye"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('.$id_cliente.','.$id_proyecto.','.$value[1].')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
+          $html .= '</td>';
+        $html .= '</tr>';
+
+      }
+
+      $respuesta = true;
+
+    }else{
+
+      $html .= '<tr>';
+      $html .= '<td class="text-center" colspan="8">No existen ordenes para el proyecto seleccionado</td>';
+      $html .= '</tr>';
+
+    }
+
+    $datos['ordenes'] = $html;
+    $datos['resp']    = $respuesta;
+
+    echo json_encode($datos);
     
 
   }
