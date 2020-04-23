@@ -91,9 +91,9 @@ class Ingenieria extends MY_Controller{
           $html .= '<td>'.$value->descripcion_proyecto.'</td>';
           $html .= '<td>'.$value->estado_proyecto.'</td>';
           $html .= '<td>';
-          $html .= '<button data-nombre="'.$value->descripcion_proyecto.'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.','.$id_clientes.',this)" class="btn btn-outline-success mr-1"><i class="fas fa-list-ul"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
+          $html .= '<button data-nombre="'.$value->descripcion_proyecto.'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.','.$id_clientes.',this)" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list-ul"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
 
           $html .= '</td>';
           $html .= '</tr>';
@@ -371,9 +371,9 @@ class Ingenieria extends MY_Controller{
           $html .= '<td>'.$value[5].'</td>';
           $html .= '<td>'.$value[6].'</td>';
           $html .= '<td>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success mr-1"><i class="fas fa-eye"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('.$id_cliente.','.$id_proyecto.','.$value[1].')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('.$id_cliente.','.$id_proyecto.','.$value[1].')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           $html .= '</td>';
         $html .= '</tr>';
 
