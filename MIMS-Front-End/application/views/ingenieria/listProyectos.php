@@ -192,47 +192,6 @@
 
 $('[data-toggle="tooltip"]').tooltip();
 
-var tabla =  $('#tbl_proyectos').DataTable({
-      "searching": false,
-      language: {
-        "emptyTable":			"No hay datos disponibles en la tabla.",
-        "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
-        "infoEmpty":			"Mostrando 0 registros de un total de 0.",
-        "infoFiltered":			"(filtrados de un total de _MAX_ registros)",
-        "lengthMenu":			"Mostrar _MENU_ registros",
-        "loadingRecords":		"Cargando...",
-        "processing":			"Procesando...",
-        "search":				"Buscar:",
-        "searchPlaceholder":	"Dato para buscar",
-        "zeroRecords":			"No se han encontrado coincidencias.",
-        "aria": {
-          "sortAscending":	"Ordenación ascendente",
-          "sortDescending":	"Ordenación descendente"
-        }
-      }
-  });
-
-
-  $('#ListOrdenes').DataTable({
-      "searching": false,
-      language: {
-        "emptyTable":			"No hay datos disponibles en la tabla.",
-        "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
-        "infoEmpty":			"Mostrando 0 registros de un total de 0.",
-        "infoFiltered":			"(filtrados de un total de _MAX_ registros)",
-        "lengthMenu":			"Mostrar _MENU_ registros",
-        "loadingRecords":		"Cargando...",
-        "processing":			"Procesando...",
-        "search":				"Buscar:",
-        "searchPlaceholder":	"Dato para buscar",
-        "zeroRecords":			"No se han encontrado coincidencias.",
-        "aria": {
-          "sortAscending":	"Ordenación ascendente",
-          "sortDescending":	"Ordenación descendente"
-        }
-      }
-  });
-
 $(document).ready(function() { 
 
 
@@ -258,36 +217,7 @@ $(document).ready(function() {
 
 function listar_ordenes(id_proyecto,id_cliente){  
 
-    $.ajax({
-      url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
-      type: 		'POST',
-      dataType: 'json',
-      data: {
-              id_proyecto: id_proyecto,
-              id_cliente:id_cliente
-            },
-    }).done(function(result) {
-
-      if(result.resp){
-
-        $('#btn-no').empty();
-        $('#btn-no').html('<button onclick="nueva_orden('+id_proyecto+','+id_cliente+')" id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button>');
-
-        $('#datos_ordenes').html(result.ordenes);
-        $('[data-toggle="tooltip"]').tooltip();
-      }else{
-
-        $('#btn-no').html('<button onclick="nueva_orden('+id_proyecto+','+id_cliente+')" id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button>');
-        $('#datos_ordenes').html(result.ordenes);
-
-      }
-        
-      
-
-
-    }).fail(function() {
-      console.log("error listar_ordenes");
-    })
+   recargaOrdenes(id_proyecto,id_cliente);
 
 }
 
@@ -298,6 +228,7 @@ $('#select_clientes').on('change', function(){
 
     if(cliente > 0){
 
+      recargaOrdenes(0,0);
       recargaProyectos(cliente);
 
     }else{
@@ -363,6 +294,12 @@ $('#btn-guardar').on('click', function(){
 
 function recargaProyectos(cliente){
 
+    var proyectos_html ='';
+
+    var tabla_proyecto =  $('#tbl_proyectos').DataTable();
+
+    tabla_proyecto.destroy();
+
     $.ajax({
       url: 		'<?php echo base_url('index.php/ingenieria/listProyectosCliente'); ?>',
       type: 		'POST',
@@ -371,10 +308,37 @@ function recargaProyectos(cliente){
               cliente: cliente
             },
     }).done(function(result) {
+
+      $.each(result.proyectos,function(key, proyecto) {
+        proyectos_html += '<tr>';
+          proyectos_html += '<td>' + proyecto.codigo_proyecto + '</td>';
+          proyectos_html += '<td>' + proyecto.nombre_proyecto + '</td>';
+          proyectos_html += '<td>' + proyecto.estado + '</td>';
+          proyectos_html += '<td>';
+          proyectos_html += '<button data-nombre="'+ proyecto.nombre_proyecto +'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('+ proyecto.codigo_proyecto +','+ cliente +',this)" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list-ul"></i></button>';
+          proyectos_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('+ proyecto.codigo_proyecto +','+ cliente +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          proyectos_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('+ proyecto.codigo_proyecto +','+ cliente +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+          proyectos_html += '</td>';
+        proyectos_html += '</tr>';
+
+      });
         
         
-        $('#datos_proyectos').html(result.proyectos);
+        $('#datos_proyectos').html(proyectos_html);
         $('[data-toggle="tooltip"]').tooltip();
+
+        $('#tbl_proyectos').DataTable({
+          language: {
+              url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'	
+          },
+          "paging": true,
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": false,
+          "responsive": true
+      });
 
     }).fail(function() {
       console.log("error change cliente");
@@ -490,6 +454,11 @@ function elimina_proyecto(id_proyecto, id_cliente){
 
 function recargaOrdenes(id_proyecto,id_cliente){
 
+  var ordenes_html ='';
+  var tabla_ordenes =  $('#ListOrdenes').DataTable();
+
+  tabla_ordenes.destroy();
+
   $.ajax({
       url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
       type: 		'POST',
@@ -500,15 +469,44 @@ function recargaOrdenes(id_proyecto,id_cliente){
             },
     }).done(function(result) {
 
-      if(result.resp){
+      console.log(result);
+      
 
-        $('#datos_ordenes').html(result.ordenes);
+      $.each(result.ordenes,function(key, orden) {
+        ordenes_html += '<tr>';
+          ordenes_html += '<td>' + orden.codigo_proyecto + '</td>';
+          ordenes_html += '<td>' + orden.order_id + '</td>';
+          ordenes_html += '<td>' + orden.order_description + '</td>';
+          ordenes_html += '<td>' + orden.supplier + '</td>';
+          ordenes_html += '<td>' + orden.employee + '</td>';
+          ordenes_html += '<td>' + orden.order_date + '</td>';
+          ordenes_html += '<td>' + orden.date_required + '</td>';
+          ordenes_html += '<td>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.order_id +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+          ordenes_html += '</td>';
+        ordenes_html += '</tr>';
+
+      });
+
+        $('#datos_ordenes').html(ordenes_html);
         $('[data-toggle="tooltip"]').tooltip();
-      }else{
 
-        $('#datos_ordenes').html(result.ordenes);
+        $('#ListOrdenes').DataTable({
+            "searching": false,
+            language: {
+                url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'	
+            },
+            "paging": true,
+            "lengthChange": false,
+            "searching": false,
+            "ordering": true,
+            "info": true,
+            "autoWidth": false,
+            "responsive": true
+        });
 
-      }
 
     }).fail(function() {
       console.log("error listar_ordenes");
