@@ -4,8 +4,11 @@
      <section class="content-header">
          <div class="container-fluid">
              <div class="row mb-2">
-                 <div class="col-sm-6">
-                     <h1>Order Description <?php echo urldecode($purchaseOrdername);?></h1>
+                 <div class="col-sm-2">
+                 <h5 class="card-title m-0">Order ID:  <?php echo $PurchaseOrderID;?></h5>
+                 </div>
+                 <div class="col-sm-3">
+                 <h5 class="card-title m-0">Descripción:  <?php echo urldecode($purchaseOrdername);?></h5>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -23,7 +26,7 @@
                              <table class="table table-striped table-bordered" cellspacing="1" width="99%">
                                  <tbody>
                                      <tr>
-                                         <th colspan="2">
+                                         <th colspan="4">
                                              <!-- Display status message -->
                                              <?php if(!empty($success_msg)){ ?>
 
@@ -61,12 +64,28 @@
                                                  </button>
                                              </div>
                                          </th>
+                                         <th>
+                                             <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="controldecalidad()"><i class="fas fa-file-download">
+                                                     </i> Control de calidad
+                                                 </button>
+                                             </div>
+                                         </th>
+                                         <th>
+                                             <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="cambiosenorden()"><i class="fas fa-file-download">
+                                                     </i> Cambios en la orden
+                                                 </button>
+                                             </div>
+                                         </th>
                                      </tr>
                                      <tr>
-                                         <th colspan="2">
+                                         <th colspan="4">
                                              <div class="col-md-12" id="importFrm" style="display: none;">
                                                  <form role="form"
-                                                     action="<?php print site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>/<?php echo $purchaseOrdername;?>"
+                                                     action="<?php print site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID."/".$purchaseOrdername;?>"
                                                      enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                      <div class="card-body">
                                                          <div class="form-group">

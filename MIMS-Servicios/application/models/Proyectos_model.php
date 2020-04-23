@@ -42,16 +42,24 @@ class Proyectos_model extends CI_Model{
 
 	function obtieneProyectos($idCliente){
 
+		$this->db->select('t1.idCliente AS idCliente,
+						   t1.NumeroProyecto AS codigo_proyecto,
+						   t1.DescripcionProyecto AS descripcion_proyecto,
+						   t2.domain_desc AS estado_proyecto');
+		$this->db->from('tbl_proyectos t1, tbl_ref_codes t2');				   
 		$this->db->where('idCliente',$idCliente);
-        $Proyectos = $this->db->get('tbl_proyectos');
+		$this->db->where('estadoProyecto',1);
+		$this->db->where('t1.estadoProyecto = t2.domain_id');
+		$this->db->where('t2.domain = "ESTADO_PROYECTO"');
         
-        return $Proyectos->result();	
+        return $this->db->get()->result();	
 
 	}
 
 	function count_all_Proyectos($idCliente){
 
 		$this->db->where('idCliente',$idCliente);
+		$this->db->where('estadoProyecto',1);
         $Proyectoa = $this->db->get('tbl_proyectos');
         
         return $this->db->count_all_results();	

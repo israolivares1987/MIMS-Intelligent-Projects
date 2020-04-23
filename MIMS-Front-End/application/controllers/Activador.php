@@ -43,7 +43,7 @@ class Activador extends MY_Controller{
 
 
 
-  function listProyectosCliente($idProveedor){
+  function listProyectosCliente($idCliente){
 
       
       $codEmpresa = $this->session->userdata('cod_emp');
@@ -51,12 +51,12 @@ class Activador extends MY_Controller{
       $json_datos = $response;
       $arrayDatos = json_decode($json_datos,true);
       $datos['arrClientes'] = $arrayDatos['Clientes'];
-      $datos['idCliente'] = $idProveedor;
+      $datos['idCliente'] = $idCliente;
 
 
       //Obtiene datos del proveedor
 
-      $responseDatos = $this->callexternosclientes->obtieneDatosCliente($idProveedor);
+      $responseDatos = $this->callexternosclientes->obtieneDatosCliente($idCliente);
       $array = json_decode($responseDatos);
       $datos['nombreCliente'] = $array->nombreCliente;
       $datos['rutCliente'] = $array->rutCliente;

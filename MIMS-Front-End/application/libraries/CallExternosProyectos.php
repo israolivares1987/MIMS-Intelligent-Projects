@@ -111,6 +111,7 @@ class CallExternosProyectos {
         $base_url_servicios = $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Expediting/obtieneProyectoById";
   
+        
         $form_data = array(
             'id_proyecto'	=> $id_proyecto,
             'id_cliente'    => $id_cliente

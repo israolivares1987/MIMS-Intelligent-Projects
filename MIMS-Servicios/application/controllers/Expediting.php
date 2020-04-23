@@ -111,10 +111,10 @@ class Expediting extends CI_Controller {
 	}
 
 
-	function obtieneProyectos($idProveedor){
+	function obtieneProyectos($idCliente){
 	  
   
-		$Proyectos = $this->Proyectos_model->obtieneProyectos($idProveedor);
+		$Proyectos = $this->Proyectos_model->obtieneProyectos($idCliente);
 		
 		$no = 0;
 		$data = array();
@@ -124,10 +124,10 @@ class Expediting extends CI_Controller {
 
 		
 				  
-			$row[] = $Proyecto->NumeroProyecto;
-			$row[] = $Proyecto->DescripcionProyecto;
-			$row[] = $Proyecto->estadoProyecto;
-			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="reloadTableOrdenes('."'".$Proyecto->idCliente."'".','."'".$Proyecto->NumeroProyecto."'".')"><i class="glyphicon glyphicon-trash"></i>Lista Ordenes</a>';
+			$row[] = $Proyecto->codigo_proyecto;
+			$row[] = $Proyecto->descripcion_proyecto;
+			$row[] = $Proyecto->estado_proyecto;
+			$row[] ='<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Hapus" onclick="reloadTableOrdenes('."'".$Proyecto->idCliente."'".','."'".$Proyecto->descripcion_proyecto."'".')"><i class="glyphicon glyphicon-trash"></i>Lista Ordenes</a>';
 			
 		
 
@@ -136,8 +136,8 @@ class Expediting extends CI_Controller {
 
 		$output = array(
 						"draw" => false,
-						"recordsTotal" => $this->Proyectos_model->count_all_Proyectos($idProveedor),
-						"recordsFiltered" => $this->Proyectos_model->count_all_Proyectos($idProveedor),
+						"recordsTotal" => $this->Proyectos_model->count_all_Proyectos($idCliente),
+						"recordsFiltered" => $this->Proyectos_model->count_all_Proyectos($idCliente),
 						"data" => $data
 				);
 		//output to json format
