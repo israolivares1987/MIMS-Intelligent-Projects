@@ -81,40 +81,26 @@ class Ingenieria extends MY_Controller{
       $arrProyectos = json_decode($proyectos);
       $html ="";
 
+      $datos_proyectos = array();
 
       if($arrProyectos){
-
-        
-        foreach ($arrProyectos as $key => $value) {
-          $html .= '<tr>';
-          $html .= '<td>'.$value->codigo_proyecto.'</td>';
-          $html .= '<td>'.$value->descripcion_proyecto.'</td>';
-          $html .= '<td>'.$value->estado_proyecto.'</td>';
-          $html .= '<td>';
-          $html .= '<button data-nombre="'.$value->descripcion_proyecto.'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('.$value->codigo_proyecto.','.$id_clientes.',this)" class="btn btn-outline-success mr-1"><i class="fas fa-list-ul"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('.$value->codigo_proyecto.','.$id_clientes.')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
-
-          $html .= '</td>';
-          $html .= '</tr>';
-        }
-
         $respuesta = true;
         
+        foreach ($arrProyectos as $key => $value) {
 
-      }else{
+          $datos_proyectos[] = array(
+            'codigo_proyecto'   => $value->codigo_proyecto,
+            'nombre_proyecto'   => $value->descripcion_proyecto,
+            'estado'            => $value->estado_proyecto
+          );
 
-        $html .= '<tr>';
-        $html .= '<td class="text-center" colspan="4">No existen proyectos para el cliente seleccionado</td>';
-        $html .= '</tr>';
-
+        }
       }
       
-      $datos['proyectos'] = $html;
+      $datos['proyectos'] = $datos_proyectos;
       $datos['resp']      = $respuesta;
 
       echo json_encode($datos);
-      
     
   }
 
@@ -357,39 +343,27 @@ class Ingenieria extends MY_Controller{
 
     $html = '';
 
+    $datos_ordenes = array();
+
     //Pregunto si trae datos
     if(count($data_ordenes->data)){
 
       foreach ($data_ordenes->data as $key => $value) {
 
-        $html .= '<tr>';
-          $html .= '<td>'.$value[0].'</td>';
-          $html .= '<td>'.$value[1].'</td>';
-          $html .= '<td>'.$value[2].'</td>';
-          $html .= '<td>'.$value[3].'</td>';
-          $html .= '<td>'.$value[4].'</td>';
-          $html .= '<td>'.$value[5].'</td>';
-          $html .= '<td>'.$value[6].'</td>';
-          $html .= '<td>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success mr-1"><i class="fas fa-eye"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info mr-1"><i class="fas fa-edit"></i></button>';
-          $html .= '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('.$id_cliente.','.$id_proyecto.','.$value[1].')" class="btn btn-outline-danger"><i class="far fa-trash-alt"></i></button>';
-          $html .= '</td>';
-        $html .= '</tr>';
+        $datos_ordenes[] = array(
+          'codigo_proyecto'     => $value[0],
+          'order_id'            => $value[1],
+          'order_description'   => $value[2],
+          'supplier'            => $value[3],
+          'employee'            => $value[4],
+          'order_date'          => $value[5],
+          'date_required'       => $value[6]
+        );
 
       }
-
-      $respuesta = true;
-
-    }else{
-
-      $html .= '<tr>';
-      $html .= '<td class="text-center" colspan="8">No existen ordenes para el proyecto seleccionado</td>';
-      $html .= '</tr>';
-
     }
 
-    $datos['ordenes'] = $html;
+    $datos['ordenes'] = $datos_ordenes;
     $datos['resp']    = $respuesta;
 
     echo json_encode($datos);
