@@ -1,19 +1,5 @@
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header">
-         <div class="container-fluid">
-             <div class="row mb-2">
-                 <div class="col-sm-2">
-                 <h5 class="card-title m-0">Order ID:  <?php echo $PurchaseOrderID;?></h5>
-                 </div>
-                 <div class="col-sm-3">
-                 <h5 class="card-title m-0">Descripción:  <?php echo urldecode($purchaseOrdername);?></h5>
-                 </div>
-             </div>
-         </div><!-- /.container-fluid -->
-     </section>
-
      <!-- Main content -->
      <section class="content">
          <div class="row">
@@ -22,7 +8,85 @@
                      <div class="card-header">
                          <h3 class="card-title"></h3>
                          <div class="card-body">
-
+                             <div class="col-md-12">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Detalle BuckSheet
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                         <dl class="row">
+                                             <dt class="col-sm-4">Order ID:</dt>
+                                             <dd class="col-sm-6"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-4">Descripción:</dt>
+                                             <dd class="col-sm-6"><?php echo urldecode($purchaseOrdername);?></dd>
+                                             </dd>
+                                         </dl>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                                 <!-- /.card -->
+                             </div>
+                             <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
+                                 width="99%">
+                                 <thead>
+                                     <tr>
+                                         <th>Editar</th>
+                                         <th>purchaseOrdername</th>
+                                         <th>NumeroLinea</th>
+                                         <th>ItemST</th>
+                                         <th>SubItemST</th>
+                                         <th>STUnidad</th>
+                                         <th>STCantidad</th>
+                                         <th>TAGNumber</th>
+                                         <th>Stockcode</th>
+                                         <th>Descripcion</th>
+                                         <th>PlanoModelo</th>
+                                         <th>Revision</th>
+                                         <th>PaqueteConstruccionArea</th>
+                                         <th>PesoUnitario</th>
+                                         <th>PesoTotal</th>
+                                         <th>FechaRAS</th>
+                                         <th>DiasAntesRAS</th>
+                                         <th>FechaComienzoFabricacion</th>
+                                         <th>PAFCF</th>
+                                         <th>FechaTerminoFabricacion</th>
+                                         <th>PAFTF</th>
+                                         <th>FechaGranallado</th>
+                                         <th>PAFG</th>
+                                         <th>FechaPintura</th>
+                                         <th>PAFP</th>
+                                         <th>FechaListoInspeccion</th>
+                                         <th>PAFLI</th>
+                                         <th>ActaLiberacionCalidad</th>
+                                         <th>FechaSalidaFabrica</th>
+                                         <th>PAFSF</th>
+                                         <th>FechaEmbarque</th>
+                                         <th>PackingList</th>
+                                         <th>GuiaDespacho</th>
+                                         <th>SCNNumber</th>
+                                         <th>UnidadesSolicitadas</th>
+                                         <th>UnidadesRecibidas</th>
+                                         <th>MaterialReceivedReport</th>
+                                         <th>MaterialWithdrawalReport</th>
+                                         <th>Origen</th>
+                                         <th>DiasViaje</th>
+                                         <th>Observacion1</th>
+                                         <th>Observacion2</th>
+                                         <th>Observacion3</th>
+                                         <th>Observacion4</th>
+                                         <th>Observacion5</th>
+                                         <th>Observacion6</th>
+                                         <th>Observacion7</th>
+                                     </tr>
+                                 </thead>
+                             </table>
+                             </br>
+                             </br>
+                             </br>
                              <table class="table table-striped table-bordered" cellspacing="1" width="99%">
                                  <tbody>
                                      <tr>
@@ -118,65 +182,6 @@
                                      </tr>
                                  </tbody>
                              </table>
-
-
-
-                             </br>
-                             </br>
-                             <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
-                                 width="99%">
-                                 <thead>
-                                     <tr>
-                                         <th>Editar</th>
-                                         <th>purchaseOrdername</th>
-                                         <th>NumeroLinea</th>
-                                         <th>ItemST</th>
-                                         <th>SubItemST</th>
-                                         <th>STUnidad</th>
-                                         <th>STCantidad</th>
-                                         <th>TAGNumber</th>
-                                         <th>Stockcode</th>
-                                         <th>Descripcion</th>
-                                         <th>PlanoModelo</th>
-                                         <th>Revision</th>
-                                         <th>PaqueteConstruccionArea</th>
-                                         <th>PesoUnitario</th>
-                                         <th>PesoTotal</th>
-                                         <th>FechaRAS</th>
-                                         <th>DiasAntesRAS</th>
-                                         <th>FechaComienzoFabricacion</th>
-                                         <th>PAFCF</th>
-                                         <th>FechaTerminoFabricacion</th>
-                                         <th>PAFTF</th>
-                                         <th>FechaGranallado</th>
-                                         <th>PAFG</th>
-                                         <th>FechaPintura</th>
-                                         <th>PAFP</th>
-                                         <th>FechaListoInspeccion</th>
-                                         <th>PAFLI</th>
-                                         <th>ActaLiberacionCalidad</th>
-                                         <th>FechaSalidaFabrica</th>
-                                         <th>PAFSF</th>
-                                         <th>FechaEmbarque</th>
-                                         <th>PackingList</th>
-                                         <th>GuiaDespacho</th>
-                                         <th>SCNNumber</th>
-                                         <th>UnidadesSolicitadas</th>
-                                         <th>UnidadesRecibidas</th>
-                                         <th>MaterialReceivedReport</th>
-                                         <th>MaterialWithdrawalReport</th>
-                                         <th>Origen</th>
-                                         <th>DiasViaje</th>
-                                         <th>Observacion1</th>
-                                         <th>Observacion2</th>
-                                         <th>Observacion3</th>
-                                         <th>Observacion4</th>
-                                         <th>Observacion5</th>
-                                         <th>Observacion6</th>
-                                         <th>Observacion7</th>
-                                     </tr>
-                                 </thead>
-                             </table>
                          </div>
                          <!-- /.card-body -->
                      </div>
@@ -205,6 +210,18 @@ function descargaArchivoPrueba() {
 
     window.open('<?php echo base_url();?>assets/csv-sample-bucksheet.csv', '_blank');
 }
+
+function controldecalidad() {
+
+window.open('<?php echo site_url('Journal/controlCalidad')?>', '_blank');
+}
+
+function cambiosenorden() {
+
+window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
+}
+
+
 
 function reload_table() {
     $('#ListBucksheet').DataTable().ajax.reload();
@@ -307,7 +324,7 @@ function save() {
                 toastr.success(data.mensaje);
             } else {
                 toastr.success(data.mensaje);
-              
+
             }
             $('#btnSave').text('Actualizar'); //change button text
             $('#btnSave').attr('disabled', false); //set button enable 
@@ -315,7 +332,7 @@ function save() {
 
         },
         error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error Al actualizar BuckSheet '+jqXHR+' '+textStatus+' '+errorThrown);
+            alert('Error Al actualizar BuckSheet ' + jqXHR + ' ' + textStatus + ' ' + errorThrown);
             $('#btnSave').text('Actualizar'); //change button text
             $('#btnSave').attr('disabled', false); //set button enable 
 
@@ -650,7 +667,8 @@ tr {
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Comienzo Fabricacion</label>
+                                 <label class="control-label col-md-9">Previo - Actual Fecha Comienzo
+                                     Fabricacion</label>
                                  <div class="col-md-9">
                                      <select name="PAFCF" class="form-control select2bs4 select2-hidden-accessible"
                                          style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
@@ -716,9 +734,9 @@ tr {
                                  </div>
                              </div>
                          </div>
-                         
-                         
-                     
+
+
+
 
 
                          <div class="form-group">
@@ -750,7 +768,7 @@ tr {
                          </div>
 
 
-                         
+
 
                          <div class="form-group">
                              <label class="control-label col-md-9">Fecha Listo Inspeccion</label>
@@ -767,8 +785,8 @@ tr {
                              </div>
                          </div>
 
-                         
-                         
+
+
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Listo Inspeccion</label>
@@ -780,8 +798,8 @@ tr {
                                  </div>
                              </div>
                          </div>
-                         
-                       
+
+
 
 
                          <div class="form-group">
@@ -823,7 +841,7 @@ tr {
                          </div>
 
 
-                         
+
 
 
                          <div class="form-group">
@@ -929,7 +947,8 @@ tr {
                  </form>
              </div>
              <div class="modal-footer justify-content-between">
-                 <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="save()">Actualizar</button>
+                 <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
+                     onclick="save()">Actualizar</button>
                  <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
              </div>
          </div>
