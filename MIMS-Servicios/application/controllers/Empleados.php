@@ -6,51 +6,21 @@ class Empleados extends CI_Controller {
 	public function __construct()
 	{
 		parent::__construct();
-		$this->load->model('Empleados_model');
+		$this->load->model('Empleados_model', 'empleados');
 	}
 
 	function obtieneEmployees(){
 
-
-		$Employees = $this->Empleados_model->obtieneEmployees();
-		$no = 0;
-		$data = array();
-		foreach ($Employees as $employee) {
-			$no++;
-			$row = array();
-			$row[] = $employee->FirstName;
-			$row[] = $employee->LastName;
-			$row[] = $employee->EmailAddress;
-			$row[] = $employee->JobTitle;
-			$row[] = $employee->BusinessPhone;
-			$row[] = $employee->HomePhone;
-			$row[] = $employee->MobilePhone;
-			$row[] = $employee->CountryRegion;
-			$row[] = $employee->StateProvince;
-			$row[] = $employee->City;
-			$row[] = $employee->Address;
-			$row[] = '<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Edit" onclick="edit_employees('."'".$employee->ID."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>';
-			$row[] ='<a class="btn btn-block btn-outline-danger" href="javascript:void(0)" title="Hapus" onclick="delete_employees('."'".$employee->ID."'".')"><i class="glyphicon glyphicon-trash"></i>Delete</a>';
-			
+		$cod_empresa = $this->input->post('cod_empresa');
 		
+		$Employees = $this->empleados->obtieneEmployees($cod_empresa);
 
-			$data[] = $row;
-		}
-
-		$output = array(
-						"draw" => false,
-						"recordsTotal" => $this->Empleados_model->count_all(),
-						"recordsFiltered" => $this->Empleados_model->count_all(),
-						"data" => $data,
-				);
-		//output to json format
-		echo json_encode($output);
-
-
+		echo json_encode($Employees);
+		
 	}
 
 
-	function obtieneEmpleadoPorId($id)
+/* 	function obtieneEmpleadoPorId($id)
 	{
 		$data = $this->Empleados_model->get_by_id($id);
 		
@@ -113,7 +83,7 @@ class Empleados extends CI_Controller {
 	
 			echo json_encode(array("status" => TRUE));
 	
-			}
+			} */
 
 
 

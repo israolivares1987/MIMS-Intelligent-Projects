@@ -37,6 +37,7 @@ class Login extends CI_Controller {
 			$nombres = $data['nombres'];
 			$paterno = $data['paterno'];
 			$materno = $data['materno'];
+			$id_usuario = $data['id'];
 
 			$validate_rol = $this->Consultas_model->obtiene_datos_usuario($level);
 		  
@@ -57,7 +58,8 @@ class Login extends CI_Controller {
 				'nombres'  => $nombres,
                 'paterno'  => $paterno,
 				'materno'  => $materno,
-				'nombre_rol' => $nombreRol
+				'nombre_rol' => $nombreRol,
+				'id_usuario' => $id_usuario
 				
 			);
 

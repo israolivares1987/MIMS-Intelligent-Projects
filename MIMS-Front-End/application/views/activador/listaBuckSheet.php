@@ -30,63 +30,6 @@
                                  </div>
                                  <!-- /.card -->
                              </div>
-                             <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
-                                 width="99%">
-                                 <thead>
-                                     <tr>
-                                         <th>Editar</th>
-                                         <th>purchaseOrdername</th>
-                                         <th>NumeroLinea</th>
-                                         <th>ItemST</th>
-                                         <th>SubItemST</th>
-                                         <th>STUnidad</th>
-                                         <th>STCantidad</th>
-                                         <th>TAGNumber</th>
-                                         <th>Stockcode</th>
-                                         <th>Descripcion</th>
-                                         <th>PlanoModelo</th>
-                                         <th>Revision</th>
-                                         <th>PaqueteConstruccionArea</th>
-                                         <th>PesoUnitario</th>
-                                         <th>PesoTotal</th>
-                                         <th>FechaRAS</th>
-                                         <th>DiasAntesRAS</th>
-                                         <th>FechaComienzoFabricacion</th>
-                                         <th>PAFCF</th>
-                                         <th>FechaTerminoFabricacion</th>
-                                         <th>PAFTF</th>
-                                         <th>FechaGranallado</th>
-                                         <th>PAFG</th>
-                                         <th>FechaPintura</th>
-                                         <th>PAFP</th>
-                                         <th>FechaListoInspeccion</th>
-                                         <th>PAFLI</th>
-                                         <th>ActaLiberacionCalidad</th>
-                                         <th>FechaSalidaFabrica</th>
-                                         <th>PAFSF</th>
-                                         <th>FechaEmbarque</th>
-                                         <th>PackingList</th>
-                                         <th>GuiaDespacho</th>
-                                         <th>SCNNumber</th>
-                                         <th>UnidadesSolicitadas</th>
-                                         <th>UnidadesRecibidas</th>
-                                         <th>MaterialReceivedReport</th>
-                                         <th>MaterialWithdrawalReport</th>
-                                         <th>Origen</th>
-                                         <th>DiasViaje</th>
-                                         <th>Observacion1</th>
-                                         <th>Observacion2</th>
-                                         <th>Observacion3</th>
-                                         <th>Observacion4</th>
-                                         <th>Observacion5</th>
-                                         <th>Observacion6</th>
-                                         <th>Observacion7</th>
-                                     </tr>
-                                 </thead>
-                             </table>
-                             </br>
-                             </br>
-                             </br>
                              <table class="table table-striped table-bordered" cellspacing="1" width="99%">
                                  <tbody>
                                      <tr>
@@ -182,6 +125,63 @@
                                      </tr>
                                  </tbody>
                              </table>
+                             <br/>
+                             <br/>
+                             <br/>
+                             <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
+                                 width="99%">
+                                 <thead>
+                                     <tr>
+                                         <th>Editar</th>
+                                         <th>purchaseOrdername</th>
+                                         <th>NumeroLinea</th>
+                                         <th>ItemST</th>
+                                         <th>SubItemST</th>
+                                         <th>STUnidad</th>
+                                         <th>STCantidad</th>
+                                         <th>TAGNumber</th>
+                                         <th>Stockcode</th>
+                                         <th>Descripcion</th>
+                                         <th>PlanoModelo</th>
+                                         <th>Revision</th>
+                                         <th>PaqueteConstruccionArea</th>
+                                         <th>PesoUnitario</th>
+                                         <th>PesoTotal</th>
+                                         <th>FechaRAS</th>
+                                         <th>DiasAntesRAS</th>
+                                         <th>FechaComienzoFabricacion</th>
+                                         <th>PAFCF</th>
+                                         <th>FechaTerminoFabricacion</th>
+                                         <th>PAFTF</th>
+                                         <th>FechaGranallado</th>
+                                         <th>PAFG</th>
+                                         <th>FechaPintura</th>
+                                         <th>PAFP</th>
+                                         <th>FechaListoInspeccion</th>
+                                         <th>PAFLI</th>
+                                         <th>ActaLiberacionCalidad</th>
+                                         <th>FechaSalidaFabrica</th>
+                                         <th>PAFSF</th>
+                                         <th>FechaEmbarque</th>
+                                         <th>PackingList</th>
+                                         <th>GuiaDespacho</th>
+                                         <th>SCNNumber</th>
+                                         <th>UnidadesSolicitadas</th>
+                                         <th>UnidadesRecibidas</th>
+                                         <th>MaterialReceivedReport</th>
+                                         <th>MaterialWithdrawalReport</th>
+                                         <th>Origen</th>
+                                         <th>DiasViaje</th>
+                                         <th>Observacion1</th>
+                                         <th>Observacion2</th>
+                                         <th>Observacion3</th>
+                                         <th>Observacion4</th>
+                                         <th>Observacion5</th>
+                                         <th>Observacion6</th>
+                                         <th>Observacion7</th>
+                                     </tr>
+                                 </thead>
+                             </table>                            
                          </div>
                          <!-- /.card-body -->
                      </div>
@@ -196,8 +196,12 @@
  <!-- /.content-wrapper -->
 
  <script type="text/javascript" class="init">
+
 function formToggle(ID) {
+
+
     var element = document.getElementById(ID);
+    
     if (element.style.display === "none") {
         element.style.display = "block";
     } else {
@@ -213,7 +217,7 @@ function descargaArchivoPrueba() {
 
 function controldecalidad() {
 
-window.open('<?php echo site_url('Journal/controlCalidad')?>', '_blank');
+window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
 }
 
 function cambiosenorden() {

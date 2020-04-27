@@ -232,7 +232,7 @@
 
 
                function delete_cambiosorden(id) {
-                   if (confirm('Está Seguro de Eliminar registro?')) {
+                   if (confirm('Está Seguro de Desactivar registro?')) {
                        // ajax delete data to database
                        $.ajax({
                            url: "<?php #echo site_url('Clientes/deleteCliente')?>/" + id,

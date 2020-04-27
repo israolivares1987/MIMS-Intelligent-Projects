@@ -198,7 +198,7 @@
                        ordenes_html += '<td>' + orden.date_required + '</td>';
                        ordenes_html += '<td>';
                        ordenes_html +=
-                           '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet('+orden.order_id+',\''+orden.order_description+'\')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
+                           '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet('+orden.order_id+',\''+orden.order_description+'\',\''+orden.id_cliente+'\',\''+orden.codigo_proyecto+'\')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
                        ordenes_html += '</td>';
                        ordenes_html += '</tr>';
 
@@ -229,9 +229,9 @@
 
            }
 
-            function ver_bucksheet(id, descripcion)
+            function ver_bucksheet(id, descripcion,id_cliente, codigo_proyecto)
             {
-                window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/' + id + '/'+descripcion , '_blank');
+                window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/' + id + '/'+descripcion + '/'+id_cliente + '/'+codigo_proyecto, '_blank');
             }
 
 

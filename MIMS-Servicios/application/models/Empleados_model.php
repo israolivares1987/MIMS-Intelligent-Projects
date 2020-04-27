@@ -3,9 +3,12 @@ class Empleados_model extends CI_Model{
 
 	var $table = 'tbl_employees';
 
-  function obtieneEmployees(){
+  function obtieneEmployees($codEmpresa){
 
-      $employees = $this->db->get($this->table);
+	 $this->db->from($this->table);
+	 $this->db->where('codEmpresa',$codEmpresa);
+	  $employees = $this->db->get();
+	  
       $employeess = $employees->result();
       return $employeess;
   

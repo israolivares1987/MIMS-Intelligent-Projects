@@ -83,8 +83,9 @@ class Login extends CI_Controller{
               'icono'             => $obj->{'icono'},
               'avatar'            => $obj->{'avatar'},
               'nombre_rol'        => $obj->{'nombre_rol'},
-              'cod_emp'           => $cod_emp
-            );
+              'cod_emp'           => $cod_emp,
+              'id_usuario'        => $obj->{'id_usuario'}
+              );
 
               $this->session->set_userdata($sesdata);
               // busca pagina de inicio segun Rol de usuario
