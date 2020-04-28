@@ -121,6 +121,7 @@ class Proyectos_model extends CI_Model{
 
 		$this->db->where('domain', $dominio);
 		$this->db->where('domain_state', 1);
+		$this->db->order_by('domain_id', 'ASC');
 
 		$this->db->from('tbl_ref_codes');
 
@@ -169,6 +170,28 @@ class Proyectos_model extends CI_Model{
 		return $delete;
 
 	}
+
+	function obtieneSuppliers($codEmpresa){
+
+        $this->db->where('codEmpresa', $codEmpresa);
+        $this->db->from('tbl_Suppliers');
+
+        $query = $this->db->get();
+
+        return $query->result();
+
+	}
+	
+	function obtieneEmployee($codEmpresa){
+
+        $this->db->where('codEmpresa', $codEmpresa);
+        $this->db->from('tbl_employees');
+
+        $query = $this->db->get();
+
+        return $query->result();
+
+    }
 
 }
 ?>

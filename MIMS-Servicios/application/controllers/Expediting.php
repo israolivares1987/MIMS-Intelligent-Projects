@@ -252,6 +252,30 @@ class Expediting extends CI_Controller {
 
 	}
 
+
+	
+	function obtieneSuppliersEmpresa(){
+
+		$codEmpresa = $this->input->post('codEmpresa');
+		
+		$data = $this->Proyectos_model->obtieneSuppliers($codEmpresa);
+
+		echo json_encode($data);
+
+
+	}
+
+	function obtieneEmployeeEmpresa(){
+
+		$codEmpresa = $this->input->post('codEmpresa');
+		
+		$data = $this->Proyectos_model->obtieneEmployee($codEmpresa);
+
+		echo json_encode($data);
+
+
+	}
+
 }
 
 	
