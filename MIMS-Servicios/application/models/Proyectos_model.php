@@ -92,6 +92,28 @@ class Proyectos_model extends CI_Model{
 
 	}
 
+	function guardaOrden($data){
+
+		$insert = $this->db->insert('tbl_purchase_orders', $data);
+
+		return $insert;
+
+	}
+
+	function actualizaOrden($data){
+
+		$this->db->where('codEmpresa', $data['codEmpresa']);
+		$this->db->where('idCliente', $data['idCliente']);
+		$this->db->where('idProyecto', $data['idProyecto']);
+		$this->db->where('PurchaseOrderID', $data['PurchaseOrderID']);
+
+		$query = $this->db->update('tbl_purchase_orders',$data);
+
+
+		return $query;
+
+	}
+
 	function obtieneProyectoById($id, $id_cliente){
 
 		$this->db->select(' t2.nombreCliente AS nombre_cliente,
@@ -110,6 +132,21 @@ class Proyectos_model extends CI_Model{
 		$this->db->where('t1.estadoProyecto = t3.domain_id');
 		$this->db->where('t3.domain = "ESTADO_PROYECTO"');
 		
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
+	function obtieneOrderById($id_order,$id_proyecto,$id_cliente,$codEmpresa){
+
+		$this->db->from('tbl_purchase_orders t1');
+
+		$this->db->where('t1.codEmpresa', $codEmpresa);
+		$this->db->where('t1.idCliente', $id_cliente);
+		$this->db->where('t1.idProyecto', $id_proyecto);
+		$this->db->where('t1.PurchaseOrderID', $id_order);
+
 		$query = $this->db->get();
 
 		return $query->result();
@@ -162,7 +199,7 @@ class Proyectos_model extends CI_Model{
 		$this->db->where('idCliente', $id_cliente);
 		$this->db->where('idProyecto', $id_proyecto);
 		$this->db->where('codEmpresa', $cod_empresa);
-		$this->db->where('PurchaseOrderID', $cod_empresa);
+		$this->db->where('PurchaseOrderID', $orden);
 
 		$delete = $this->db->delete('tbl_purchase_orders');
 

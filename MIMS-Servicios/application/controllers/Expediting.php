@@ -188,6 +188,19 @@ class Expediting extends CI_Controller {
 
 	}
 
+	function obtieneOrderById(){
+
+		$id_order 		= $this->input->post('orden_id');
+		$id_proyecto	= $this->input->post('id_proyecto');
+		$id_cliente 	= $this->input->post('id_cliente');
+		$codEmpresa 	= $this->input->post('codEmpresa');
+
+		$datos_orden = $this->Proyectos_model->obtieneOrderById($id_order,$id_proyecto,$id_cliente,$codEmpresa);
+
+		echo json_encode($datos_orden);
+
+	}
+
 	function obtieneDatosRef(){
 
 		$dominio = $this->input->post('dominio');
@@ -273,6 +286,27 @@ class Expediting extends CI_Controller {
 
 		echo json_encode($data);
 
+
+	}
+
+	function guardaOrden(){
+
+		$data = $this->input->post();
+
+		$insert = $this->Proyectos_model->guardaOrden($data);
+
+		echo json_encode($insert);
+
+	}
+
+
+	function actualizaOrden(){
+
+		$data = $this->input->post();
+
+		$update = $this->Proyectos_model->actualizaOrden($data);
+
+		echo json_encode($update);
 
 	}
 
