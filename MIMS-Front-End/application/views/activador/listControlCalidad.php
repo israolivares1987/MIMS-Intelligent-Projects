@@ -76,9 +76,10 @@
                      </div>
                  </div>
              </div>
-
+      
 
        <script type="text/javascript">
+
             
             $('#btn_recargar').on('click', function(){
             
@@ -102,7 +103,7 @@
 
         });
 
-     function envioCorreo(orden){
+     function envioCorreo(idInsertado){
 
         var arrayEmail = new Array();
            var inputEmails = document.getElementsByClassName('varEmail'),
@@ -111,7 +112,31 @@
            });
 
            arrayEmail.forEach(function(inputsValuesData){
-               console.log("El dato es: "+ inputsValuesData);
+               
+
+
+               let idControlCalidad      = idInsertado;
+               let email = inputsValuesData;
+                $.ajax({
+                    url: 		'<?php echo base_url('index.php/Journal/guardarProyecto'); ?>',
+                    type: 		'POST',
+                    dataType: 'json',
+                    data: {
+                        id_control_calidad : idControlCalidad,
+                        email: email
+                        },
+                }).done(function(result) {
+
+                    if(result.resp){
+                    toastr.success(result.mensaje);
+                    }else{
+                    toastr.error(result.mensaje);
+                    }
+                    
+
+                }).fail(function() {
+                    console.log("error guardar proy");
+                })
 
            });
 
@@ -164,42 +189,38 @@ function getFormData(id,data)
 
       function Guardar() {
 
-      
 
 
         var data=getFiles();
         data=getFormData("miForm",data);
+        var cliente = <?php echo $idCliente?>;
+        var orden = <?php echo $idOrden?>;
           
+        $.ajax({
+                url: '<?php echo base_url('index.php/Journal/guardarJournal'); ?>',
+                type: 		'POST',
+                data: data,
+                contentType: false,
+                processData: false,
+                dataType: "JSON",
+            }).done(function(result) {
 
-                $.ajax({
-                url: 		'<?php echo base_url('index.php/Journal/guardarJournal'); ?>',
-                type:"POST",
-                data:data,
-                dataType:"json",
-                contentType:false,
-                processData:false,
-                cache:false
-                }).done(function(result) {
-                   
                 if(result.resp){
-
-                    //recargaControlCalidad(orden, cliente);
-                    //envioCorreo(orden);
-                    $('#modal_control_calidad').modal('hide');
-
-                    toastr.success(result.mensaje);
-
+                            
                     
+                            envioCorreo(result.idInsertado);
+                            $('#modal_control_calidad').modal('hide');
+                            recargaControlCalidad(orden, cliente);
+                            toastr.success(result.mensaje);
                 }else{
-
-                    $('#modal_control_calidad').modal('hide');
                     toastr.warning(result.mensaje);
                 }
-                    
+                
 
-                }).fail(function() {
-                console.log("error guardar proy");
-                })
+            }).fail(function(jqXHR, textStatus, errorThrown) {
+                toastr.error(errorThrown);
+            })
+
 
            }
 
@@ -227,7 +248,7 @@ function getFormData(id,data)
                     if (element.style.display === "block") {
                         element.style.display = "none";
                     } else {
-                        element.style.display = "block";
+                        element.style.display = "none";
                     }  
 
                 }
@@ -284,7 +305,7 @@ function getFormData(id,data)
                                 language: {
                                     url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'
                                 },
-                                "paging": true,
+                                "paging": false,
                                 "lengthChange": false,
                                 "searching": false,
                                 "ordering": true,
@@ -302,10 +323,6 @@ function getFormData(id,data)
                
              $(document).ready(function() {
                
-                
-
-
-                
                  var cliente = <?php echo $idCliente?>;
                  var orden = <?php echo $idOrden?>;
 
@@ -365,9 +382,22 @@ function getFormData(id,data)
 
             
              </script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+   
 
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
 
+    
 
+  })
+</script>
 
 
              <!--.modal nuevo control Calidad-->
@@ -422,22 +452,18 @@ function getFormData(id,data)
 
                                      <div class="col-md-12">
 
-                                         <div class="form-group">
-                                             <label class="control-label col-md-9">Fecha Ingreso</label>
-                                             <div class="col-md-12">
-                                                 <div class="input-group">
-                                                     <div class="input-group-prepend">
-                                                         <span class="input-group-text"><i
-                                                                 class="far fa-calendar-alt"></i></span>
-                                                     </div>
-                                                     <input name="fecha_ingreso" type="text" class="form-control" id="var_fecha_ingreso"
-                                                         data-inputmask-alias="datetime"
-                                                         data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                         im-insert="false">
-                                                 </div>
-                                             </div>
-                                         </div>
+                                     
+                                     <div class="form-group">
+                                        <label>Fecha Ingreso</label>
 
+                                        <div class="input-group">
+                                            <div class="input-group-prepend">
+                                            <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
+                                            </div>
+                                            <input name="fecha_ingreso" type="text" class="form-control" data-inputmask-alias="datetime" data-inputmask-inputformat="dd/mm/yyyy" data-mask="" im-insert="false">
+                                        </div>
+                                        <!-- /.input group -->
+                                        </div>
 
                                      </div>
                                    
@@ -529,7 +555,7 @@ function getFormData(id,data)
                                                  <div class="form-group">
                                                      <label class="control-label col-md-9">Notificar</label>
                                                      <div class="col-md-12">
-                                                         <select name="tipo_interaccion" id="select_interaccion" 
+                                                         <select name="notificacion" id="select_interaccion" 
                                                              class="form-control select2bs4 select2-hidden-accessible"
                                                              style="width: 100%;" data-select2-id="17" tabindex="-1"
                                                              aria-hidden="true" onchange="MostrarEmail(this);">

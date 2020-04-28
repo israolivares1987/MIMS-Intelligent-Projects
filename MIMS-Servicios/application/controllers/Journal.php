@@ -26,66 +26,55 @@ class Journal extends CI_Controller {
 
 	
 	
-	function obtieneClientePorId($id)
-	{
-		$data = $this->cliente->get_by_id($id);
-		
-		echo json_encode($data);
-	}
-
-
-
-	function updateCliente()
-	{
-
-		$data = array(
-			'idCliente' => $this->input->post('idCliente'),	
-			'nombreCliente' => $this->input->post('nombreCliente'),
-				'rutCliente' => $this->input->post('rutCliente'),
-				'dvCliente' => $this->input->post('dvCliente')
-			);
-
-		$this->cliente->update(array('idCliente' => $this->input->post('idCliente')), $data);
-		echo json_encode(array("status" => TRUE));
-
-
-		}
-
-
-		function deleteCliente($id)
-		{
-					
-			$this->cliente->delete_by_id($id);
-			echo json_encode(array("status" => TRUE));
-		}
-	
-		function agregarCliente()
+		function agregarControlCalidad()
 		{
 			
-			
-			$data = array(
-				'codEmpresa' => $this->input->post('codEmpresa'),	
-			    'nombreCliente' => $this->input->post('nombreCliente'),
-				'rutCliente' => $this->input->post('rutCliente'),
-				'dvCliente' => $this->input->post('dvCliente')
+
+			$dataInsert = array(
+				'tipo' => 1,	
+			    'id_orden_compra' => $this->input->post('id_orden_compra'),
+				'id_cliente' => $this->input->post('id_cliente'),
+				'id_proyecto' => $this->input->post('id_proyecto'),
+				'id_empleado' => $this->input->post('id_empleado'),
+				'nombre_empleado' => $this->input->post('nombre_empleado'),
+				'tipo_interaccion' => $this->input->post('tipo_interaccion'),
+				'fecha_ingreso' => $this->input->post('fecha_ingreso'),
+				'numero_referencial' => $this->input->post('numero_referencial'),
+				'solicitado_por' => $this->input->post('solicitado_por'),
+				'aprobado_por' => $this->input->post('aprobado_por'),
+				'comentarios_generales' => $this->input->post('comentarios_generales'),
+				'respaldos' => $this->input->post('respaldos'),
+				'estado' =>'1'
 				);
 	
 		
-			$insert = $this->cliente->save($data);
+			$insert = $this->journal->save($dataInsert);
+
+			if($insert > 0){
+
+				$status = true;
+
+			}else{
+
+				$status = false;
+			}
 	
-			echo json_encode(array("status" => TRUE));
+			echo json_encode(array("status" => $status,"id_insertado" => $insert));
 	
 			}
 
-	function obtieneClientePorEmpresa(){
-
-		$codEmpresa = $this->input->post('codEmpresa');	
-
-		$clientes = $this->cliente->obtieneClientePorEmpresa($codEmpresa);
-
-		echo json_encode($clientes);
 		
-	}		
+			function obtiene_journal_x_id(){
+
+				$id_interaccion = $this->input->post('id_control_calidad');
+				
+				$journals = $this->journal->get_by_id($id_interaccion);
+				
+
+				echo json_encode($journals);
+
+			}
+
 
 
 }

@@ -10,10 +10,13 @@ class Journal extends MY_Controller{
     $this->load->library('CallExternosEmpleados');
     $this->load->library('form_validation');
     $this->load->helper('file');
+    $this->load->library('CallUtil');
+    
     
   }
 
  
+
 
    function controlCalidad($idCliente,$Orden,$codProyecto){
 
@@ -100,7 +103,7 @@ class Journal extends MY_Controller{
       $datos_journal[] = array(
         'id_interaccion' => $value->id_interaccion,
         'nombre_empleado'   => $value->nombre_empleado,
-        'fecha_ingreso'   => $value->fecha_ingreso,
+        'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
         'numero_referencial' => $value->numero_referencial,
         'solicitado_por' => $value->solicitado_por,
         'aprobado_por' => $value->aprobado_por,
@@ -129,35 +132,128 @@ class Journal extends MY_Controller{
     $id_empleado = $this->input->post('id_empleado');
     $nombre_empleado = $this->input->post('nombre_empleado');
     $tipo_interaccion = $this->input->post('tipo_interaccion');
-    $fecha_ingreso = $this->input->post('fecha_ingreso');
+    $fecha_ingreso = $this->callutil->formatoFecha($this->input->post('fecha_ingreso'));
     $numero_referencial = $this->input->post('numero_referencial');
     $solicitado_por = $this->input->post('solicitado_por');
     $aprobado_por = $this->input->post('aprobado_por');
     $comentarios_generales = $this->input->post('comentarios_generales');
-
+    $target_path = $this->config->item('BASE_ARCHIVOS')."controlcalidad/";
+    $resp = false;
+    $error_msg = "";
+    $respaldo = "";
+    $idInsertado=0;
 
     $this->form_validation->set_rules('archivo0', 'Upload File', 'callback_checkFileValidation');
+
+
 
     if($this->form_validation->run() == false) {
       
         $error_msg = 'Archivo invalido, favor seleccionar archivo soportado.';
+        $resp =  false;
        
     } else {
  
         if(is_uploaded_file($_FILES['archivo0']['tmp_name'])) {   
-        
-          
-          $data['resp']        = true;
-          $data['mensaje']     = 'Registro actualizado correctamente';
 
+
+          /* create new name file */
+          $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+          $extension  = pathinfo( $_FILES["archivo0"]["name"], PATHINFO_EXTENSION ); // jpg
+          $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
+
+          $source       = $_FILES['archivo0']['tmp_name'];
+          $destination  = $target_path . $basename; 
+          /* move the file */
+
+
+          if(move_uploaded_file( $source, $destination )) {
+             
+            
+            // Comienzo Insert
+
+            $respaldo = $basename;
+
+            $dataInsert = array(	
+              'id_orden_compra' => $id_orden_compra ,
+              'id_cliente' => $id_cliente,
+              'id_proyecto' => $id_proyecto,
+              'id_empleado' =>  $id_empleado,
+              'nombre_empleado' => $nombre_empleado,
+              'tipo_interaccion' => $tipo_interaccion,
+              'fecha_ingreso' => $fecha_ingreso,
+              'numero_referencial' => $numero_referencial,
+              'solicitado_por' =>  $solicitado_por,
+              'aprobado_por' => $aprobado_por,
+              'comentarios_generales' => $comentarios_generales,
+              'respaldos' => $respaldo
+              );
+
+              $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
+
+              $journals = json_decode($journal) ;
+        
+              $resp =  $journals->status;
+              $idInsertado = $journals->id_insertado;
+        
+              
+
+              if($resp){
+
+                $error_msg = 'Registro cargado correctamente.';
+                $resp =  true;
+                
+
+              }else{
+
+                $error_msg = 'Inconvenientes al cargar registro, favor reintente.';
+                $resp =  false;
+
+              }
+             
+  
+  
+          } else{
+            
+            $dataInsert = array(	
+              'id_orden_compra' => $id_orden_compra ,
+              'id_cliente' => $id_cliente,
+              'id_proyecto' => $id_proyecto,
+              'id_empleado' =>  $id_empleado,
+              'nombre_empleado' => $nombre_empleado,
+              'tipo_interaccion' => $tipo_interaccion,
+              'fecha_ingreso' => $fecha_ingreso,
+              'numero_referencial' => $numero_referencial,
+              'solicitado_por' =>  $solicitado_por,
+              'aprobado_por' => $aprobado_por,
+              'comentarios_generales' => $comentarios_generales
+              );
+
+              $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
+
+              $journals = json_decode($journal) ;
+        
+              $resp =  $journals->status;
+              $idInsertado = $journals->id_insertado;
+  
+          
+          }
+        
         }else{
 
-          $data['resp']        = false;
-          $data['mensaje']     = 'Error Archivo actualizado correctamente';
-          
-        }  
+          $error_msg = 'Archivo no cargado, favor reintentar.';
+          $resp =  false;
+        
 
+
+        } 
     }   
+
+
+    $data['resp']        = $resp;
+    $data['mensaje']     = $error_msg;
+    $data['idInsertado'] = $idInsertado;
+ 
 
     echo json_encode($data);
 
@@ -177,13 +273,34 @@ class Journal extends MY_Controller{
                 'application/vnd.ms-excel',
                 'application/vnd.msexcel', 
                 'text/plain',
+                'application/msword',
+                'application/vnd.openxmlformats officedocument.wordprocessingml.document',
+                'image/jpeg',
+                'application/pdf',
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
             );
+
+            $fileExtArray = array(
+              'csv',
+              'CSV', 
+              'pdf', 
+              'PDF', 
+              'xls',
+              'xlsx', 
+              'XLS', 
+              'XLSX', 
+              'doc',
+              'docx', 
+              'DOC',
+              'DOCX'
+          );
             if(isset($_FILES['archivo0']['name']) && $_FILES['archivo0']['name'] != ""){
                 // get mime by extension
                 $mime = get_mime_by_extension($_FILES['archivo0']['name']);
                 $fileExt = explode('.', $_FILES['archivo0']['name']);
                 $ext = end($fileExt);
-                if(($ext == 'csv') && in_array($mime, $mime_types)){
+
+                if(in_array($ext, $fileExtArray) && in_array($mime, $mime_types)){
                     return true;
                 }else{
                     $this->form_validation->set_message('checkFileValidation', 'Please choose correct file.');
@@ -195,4 +312,107 @@ class Journal extends MY_Controller{
             }
         }
     
+
+        function enviarMail(){
+
+          $id_control_calidad = $this->input->post('id_control_calidad');
+          $email =$this->input->post('email');
+        
+          //Obtiene datos de orden
+
+          $controlCalidad = $this->callexternosjournal->obtiene_journal_x_id($id_control_calidad);
+          $arrControlCalidad = json_decode($controlCalidad);
+          $html ="";
+      
+          $datos_calidad = array();
+      
+          if($arrControlCalidad){
+            
+            foreach ($arrControlCalidad as $key => $value) {
+      
+                $id_orden_compra = $value->id_orden_compra;
+                $id_cliente = $value->id_cliente;
+                $id_proyecto = $value->id_proyecto;
+                $id_empleado = $value->id_empleado;
+                $nombre_empleado = $value->nombre_empleado;
+
+                $datosEstados     = $this->callexternosproyectos->obtieneDatoRef('TIPO_INTERACCION_CC',$value->tipo_interaccion);
+
+                foreach (json_decode($datosEstados) as $llave => $valor) {
+        
+                  $tipo_interaccion= $value->$valor->domain_desc;
+                }
+
+                
+                $fecha_ingreso= $value->fecha_ingreso;
+                $fecha_accion= $value->fecha_accion;
+                $numero_referencial= $value->numero_referencial;
+                $solicitado_por= $value->solicitado_por;
+                $aprobado_por= $value->aprobado_por;
+                $comentarios_generales= $value->comentarios_generales;
+                $respaldos= $value->respaldos;
+   
+
+      
+            }
+          }
+
+          //Obtiene Datos Proyecto
+
+
+
+          //Obtiene Datos Orden
+          
+          
+          
+          $htmlContent = '<h1>HTML email with attachment testing by CodeIgniter Email Library</h1>';
+          $htmlContent .= '<p>You can attach the files in this email.</p>';
+
+
+          $subject="Nuevo registro Control de calidad Orden: ".$id_orden_compra;
+
+
+
+
+$this->sendEmail($email,$subject,$htmlContent,$file);
+
+
+
+        }
+
+
+
+
+public function sendEmail($email,$subject,$message,$file)
+    {
+
+    $config = Array(
+      'protocol' => 'smtp',
+      'smtp_host' => 'ssl://smtp.googlemail.com',
+      'smtp_port' => 465,
+      'smtp_user' => 'isra.olivares@gmail.com', 
+      'smtp_pass' => 'B3nj4m1n.', 
+      'mailtype' => 'html',
+      'charset' => 'iso-8859-1',
+      'wordwrap' => TRUE
+    );
+
+
+          $this->load->library('email', $config);
+          $this->email->set_newline("\r\n");
+          $this->email->from('isra.olivares@gmail.com');
+          $this->email->to($email);
+          $this->email->subject($subject);
+          $this->email->message($message);
+          $this->email->attach($file);
+          if($this->email->send())
+         {
+          echo 'Email send.';
+         }
+         else
+        {
+         show_error($this->email->print_debugger());
+        }
+
+    }
   }

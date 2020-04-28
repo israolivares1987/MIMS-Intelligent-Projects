@@ -168,6 +168,20 @@ class Proyectos_model extends CI_Model{
 
 	}
 
+	function obtieneDatoRef($dominio,$dato){
+
+		$this->db->where('domain', $dominio);
+		$this->db->where('domain_state', 1);
+		$this->db->where('domain_id', $dato);
+
+		$this->db->from('tbl_ref_codes');
+
+		$query = $this->db->get();
+
+		return $query->result();
+
+	}
+
 	function actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa){
 
 		$this->db->where('idCliente', $id_cliente);

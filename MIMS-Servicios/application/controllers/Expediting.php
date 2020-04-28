@@ -211,6 +211,18 @@ class Expediting extends CI_Controller {
 
 	}
 
+
+	function obtieneDatoRef(){
+
+		$dominio = $this->input->post('dominio');
+		$dominio = $this->input->post('dato');
+
+		$datos_dominio = $this->Proyectos_model->obtieneDatoRef($dominio,$dato);
+
+		echo json_encode($datos_dominio);
+
+	}
+
 	function actualizaProyecto(){
 
 		$id_cliente  = $this->input->post('id_cliente');

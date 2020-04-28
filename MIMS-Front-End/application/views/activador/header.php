@@ -34,11 +34,17 @@
 <script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/js/dataTables.fixedColumns.min.js');?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
 
 
 <script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/toastr.min.css');?>">
+
+
+
 
 
 <script type="text/javascript">
