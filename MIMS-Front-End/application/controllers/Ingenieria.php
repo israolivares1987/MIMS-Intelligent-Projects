@@ -91,7 +91,8 @@ class Ingenieria extends MY_Controller{
           $datos_proyectos[] = array(
             'codigo_proyecto'   => $value->codigo_proyecto,
             'nombre_proyecto'   => $value->descripcion_proyecto,
-            'estado'            => $value->estado_proyecto
+            'estado'            => $value->estado_proyecto,
+            'id_clientes'       => $id_clientes
           );
 
         }
@@ -361,6 +362,8 @@ class Ingenieria extends MY_Controller{
         );
 
       }
+
+      $respuesta = true;
     }
 
     $datos['ordenes'] = $datos_ordenes;
@@ -380,28 +383,35 @@ class Ingenieria extends MY_Controller{
     $supplier = $this->callexternosproyectos->obtieneSupplier($codEmpresa);
     
     
-    $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa);
-    $data['select_employee']  = $this->obtiene_select_employee($codEmpresa);
-    $data['select_currency']  = $this->obtiene_select_def('or_select_currency','CURRENCY_ORDEN');
-    $data['select_shipping']  = $this->obtiene_select_def('or_select_shipping','SHIPPING_METHOD');
-    $data['select_status']    = $this->obtiene_select_def('or_select_status','PO_STATUS');
+    $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
+    $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
+    $data['select_currency']  = $this->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
+    $data['select_shipping']  = $this->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
+    $data['select_status']    = $this->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
 
     echo json_encode($data);
 
   }
 
-  function obtiene_select_supplier($codEmpresa){
+  function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
 
     $supplier = $this->callexternosproyectos->obtieneSupplier($codEmpresa);
     $datosSupplier = json_decode($supplier);
     $html = '';
 
-    $html .= '<select class="form-control form-control-sm" id="or_select_supplier">'; 
+    $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'">'; 
 
     if($datosSupplier){
+
+      $seleccionado = '';
   
       foreach ($datosSupplier as $key => $value) {
-        $html .= '<option value="'.$value->SupplierID.'">'.$value->SupplierName.'</option>';
+
+        if($selected > 0){
+          $seleccionado = ($selected == $value->SupplierID) ? 'selected' : '';
+        }
+
+        $html .= '<option '.$seleccionado.' value="'.$value->SupplierID.'">'.$value->SupplierName.'</option>';
       }
 
     }else{
@@ -412,16 +422,24 @@ class Ingenieria extends MY_Controller{
     return $html;
   }
 
-  function obtiene_select_employee($codEmpresa){
+  function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
 
     $employee = $this->callexternosproyectos->obtieneEmployee($codEmpresa);
     $datosEmployee = json_decode($employee);
     $html = '';
 
-    $html .= '<select class="form-control form-control-sm" id="or_select_employee">'; 
+    $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'">'; 
 
     if($datosEmployee){
+
+      $seleccionado = '';
+
       foreach ($datosEmployee as $key => $value) {
+
+        if($selected > 0){
+          $seleccionado = ($selected == $value->ID) ? 'selected' : '';
+        }
+
         $html .= '<option value="'.$value->ID.'">'.$value->FirstName.' '.$value->LastName.'</option>';
       }
     }else{
@@ -432,17 +450,17 @@ class Ingenieria extends MY_Controller{
     return $html;
   }
 
-  function obtiene_select_def($id, $domain){
+  function obtiene_select_def($id, $domain, $name){
 
-    $currency  = $this->callexternosproyectos->obtieneDatosRef($domain);
+    $def  = $this->callexternosproyectos->obtieneDatosRef($domain);
     $html = '';
 
-    $datosCurrency = json_decode($currency);
+    $datosdef = json_decode($def);
 
-    $html .= '<select class="form-control form-control-sm" id="'.$id.'">';
+    $html .= '<select name="'.$name.'" class="form-control form-control-sm" id="'.$id.'">';
     
-    if($datosCurrency){
-      foreach ($datosCurrency as $key => $value) {
+    if($datosdef){
+      foreach ($datosdef as $key => $value) {
         $html .= '<option value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
       }
     }else{
@@ -452,6 +470,243 @@ class Ingenieria extends MY_Controller{
     $html .= '</select>';
 
     return $html;
+
+  }
+
+  function obtiene_select_def_act($inputId,$selected,$domain){
+    
+    $def  = $this->callexternosproyectos->obtieneDatosRef($domain);
+    $html = '';
+
+    $datosdef = json_decode($def);
+
+    $html .= '<select name="'.$inputId.'" class="form-control form-control-sm" id="'.$inputId.'">';
+    
+    if($datosdef){
+      foreach ($datosdef as $key => $value) {
+
+        $seleccionado = ($selected == $value->domain_id) ? 'selected' : '';        
+
+        $html .= '<option '.$seleccionado.' value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
+      }
+    }else{
+      $html .= '<option value="0">No existen datos</option>';
+    }
+
+    $html .= '</select>';
+
+    return $html;
+
+  }
+
+  function guardaOrden(){
+
+    $or_purchase_order    = $this->input->post('or_purchase_order');
+    $or_purchase_desc     = $this->input->post('or_purchase_desc');
+    $or_select_supplier   = $this->input->post('or_select_supplier');
+    $or_select_employee   = $this->input->post('or_select_employee');
+    $or_select_currency   = $this->input->post('or_select_currency');
+    $or_requestor         = $this->input->post('or_requestor');
+    $or_valor_neto        = $this->input->post('or_valor_neto');
+    $or_valor_total       = $this->input->post('or_valor_total');
+    $or_budget            = $this->input->post('or_budget');
+    $or_order_date        = date('Y-m-d', strtotime($this->input->post('or_order_date')));
+    $or_date_required     = date('Y-m-d', strtotime($this->input->post('or_date_required')));
+    $or_date_promised     = date('Y-m-d', strtotime($this->input->post('or_date_promised')));
+    $or_ship_date         = date('Y-m-d', strtotime($this->input->post('or_ship_date')));
+    $or_select_shipping   = $this->input->post('or_select_shipping');
+    $or_select_status     = $this->input->post('or_select_status');
+    $id_proyecto_or       = $this->input->post('id_proyecto_or');
+    $id_cliente_or       = $this->input->post('id_cliente');
+
+    $path_completo = '';
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+    //Pregunta si viene un archivo
+    if($_FILES['or_support']['size'] > 0){
+
+      #parametros carga FILE
+      $uploadFile['userFile'] = array(
+            'id_proyecto_or'	=> $id_proyecto_or,
+            'name'			      => $_FILES['or_support']['name'],
+            'type'		  	    => $_FILES['or_support']['type'],
+            'tmp_name'		    => $_FILES['or_support']['tmp_name'],
+            'error'		    	  => $_FILES['or_support']['error'],
+            'size'			      => $_FILES['or_support']['size'],
+            'file_name'		    => 'or_'.$id_proyecto_or.'_'.$_FILES['or_support']['name']
+      );
+
+      $array_upload = $this->uploadFile($uploadFile);
+
+      if (!file_exists($array_upload['full_path'])) {
+
+        $path_imagen	  = '';
+        $nombre_imagen	= '';
+        
+
+      }else{
+
+        $path_imagen	= $array_upload['file_path'];
+        $nombre_imagen	= $array_upload['orig_name'];
+      }
+
+      $path_completo =  $path_imagen.$nombre_imagen;
+
+    }
+
+    #arreglo para insert
+
+    $data = array(
+      'codEmpresa'                => $codEmpresa,
+      'idCliente'                 => $id_cliente_or,
+      'idProyecto'                => $id_proyecto_or,
+      'PurchaseOrderNumber'       => $or_purchase_order,
+      'PurchaseOrderDescription'  => $or_purchase_desc,
+      'SupplierID'                => $or_select_supplier,
+      'EmployeeID'                => $or_select_employee,
+      'IngenieroRequestor'        => $or_requestor,
+      'Currency'                  => $or_select_currency,
+      'ValorNeto'                 => $or_valor_neto,
+      'ValorTotal'                => $or_valor_total,
+      'Budget'                    => $or_budget,
+      'OrderDate'                 => $or_order_date,
+      'DateRequired'              => $or_date_required,
+      'DatePromised'              => $or_date_promised,
+      'ShipDate'                  => $or_ship_date,
+      'ShippingMethodID'          => $or_select_shipping,
+      'DateCreated'               => date('Y-m-d'),
+      'POStatus'                  => $or_select_status,
+      'Support'                   => $path_completo
+    );
+
+    $ordenes    = $this->callexternosproyectos->guardaOrden($data);
+
+    if($ordenes){
+
+      $data = array(
+        'resp' => true
+      );
+
+    }else{
+      $data = array(
+        'resp' => false
+      );
+    }
+
+    echo json_encode($data);
+
+  }
+
+
+  function editarOrden(){
+
+    $orden_id     = $this->input->post('order_id');
+    $id_proyecto  = $this->input->post('id_proyecto');
+    $id_cliente   = $this->input->post('id_cliente');
+    $codEmpresa   = $this->session->userdata('cod_emp');
+    $data         = array();
+    $datos        = array();
+
+    $orden        = $this->callexternosproyectos->obtieneOrden($id_proyecto,$id_cliente,$orden_id,$codEmpresa);
+
+    if($orden){
+
+      foreach (json_decode($orden) as $key => $value) {
+        
+        $data = array(
+          'purchase_number'     => $value->PurchaseOrderNumber,
+          'purchase_desc'       => $value->PurchaseOrderDescription,
+          'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierID),
+          'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->EmployeeID),
+          'select_currency'     => $this->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
+          'requestor'           => $value->IngenieroRequestor,
+          'valor_neto'          => $value->ValorNeto,
+          'valor_total'         => $value->ValorTotal,
+          'budget'              => $value->Budget,
+          'order_date'          => date('d-m-Y', strtotime($value->OrderDate)),
+          'date_required'       => date('d-m-Y', strtotime($value->DateRequired)),
+          'date_promised'       => date('d-m-Y', strtotime($value->DatePromised)),
+          'ship_date'           => date('d-m-Y', strtotime($value->ShipDate)),
+          'select_shipping'     => $this->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
+          'select_status'       => $this->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
+          'orden_id'            => $orden_id,
+          'id_proyecto'         => $id_proyecto,
+          'id_cliente'          => $id_cliente
+        );
+
+      }
+
+    }
+
+    $datos['formulario'] = $data;
+
+    echo json_encode($datos);
+
+
+  }
+
+
+  function actualizaOrden(){
+
+    $or_purchase_order    = $this->input->post('or_act_purchase_order');
+    $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
+    $or_select_supplier   = $this->input->post('or_act_select_supplier');
+    $or_select_employee   = $this->input->post('or_act_select_employee');
+    $or_select_currency   = $this->input->post('or_act_select_currency');
+    $or_requestor         = $this->input->post('or_act_requestor');
+    $or_valor_neto        = $this->input->post('or_act_valor_neto');
+    $or_valor_total       = $this->input->post('or_act_valor_total');
+    $or_budget            = $this->input->post('or_act_budget');
+    $or_order_date        = date('Y-m-d', strtotime($this->input->post('or_act_order_date')));
+    $or_date_required     = date('Y-m-d', strtotime($this->input->post('or_act_date_required')));
+    $or_date_promised     = date('Y-m-d', strtotime($this->input->post('or_act_date_promised')));
+    $or_ship_date         = date('Y-m-d', strtotime($this->input->post('or_act_ship_date')));
+    $or_select_shipping   = $this->input->post('or_act_select_shipping');
+    $or_select_status     = $this->input->post('or_act_select_status');
+    $id_proyecto_or       = $this->input->post('id_act_proyecto');
+    $id_order_or       = $this->input->post('id_act_order');
+    $id_cleinte       = $this->input->post('id_act_cliente');
+
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+
+    $update = array(
+      'codEmpresa'                => $codEmpresa,
+      'idCliente'                 => $id_cleinte,
+      'idProyecto'                => $id_proyecto_or,
+      'PurchaseOrderID'           => $id_order_or,
+      'PurchaseOrderNumber'       => $or_purchase_order,
+      'PurchaseOrderDescription'  => $or_purchase_desc,
+      'SupplierID'                => $or_select_supplier,
+      'EmployeeID'                => $or_select_employee,
+      'IngenieroRequestor'        => $or_requestor,
+      'Currency'                  => $or_select_currency,
+      'ValorNeto'                 => $or_valor_neto,
+      'ValorTotal'                => $or_valor_total,
+      'Budget'                    => $or_budget,
+      'OrderDate'                 => $or_order_date,
+      'DateRequired'              => $or_date_required,
+      'DatePromised'              => $or_date_promised,
+      'ShipDate'                  => $or_ship_date,
+      'ShippingMethodID'          => $or_select_shipping,
+      'POStatus'                  => $or_select_status
+    );
+
+    $ordenes    = $this->callexternosproyectos->actualizaOrden($update);
+
+    if($ordenes){
+
+      $data = array(
+        'resp' => true
+      );
+
+    }else{
+      $data = array(
+        'resp' => false
+      );
+    }
+
+    echo json_encode($data);
 
   }
 

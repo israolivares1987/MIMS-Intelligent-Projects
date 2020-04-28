@@ -75,9 +75,12 @@
                         <tbody id="datos_ordenes">
                           
                         </tbody>
-                        <input type="hidden" id="id_proyecto_or">
-                        <input type="hidden" id="nombre_proyecto_or">
+                        
                     </table>
+                        <input type="hidden" id="id_proyecto_or">
+                        <input type="hidden" id="id_cliente_or">
+                        <input type="hidden" id="nombre_proyecto_or">
+                        <input type="hidden" id="flag_orden">
                   </div><!--.card-body-->
                 </div><!--.card-->
             </div><!--.card-header-->
@@ -201,167 +204,299 @@
             </div>
             <div class="modal-body">
               <div class="container">
-                <div class="row">
+                <form id="form_orden">
+                  <div class="row">
+                      <!--Primera columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Nombre Proyecto</label>
+                            <div class="col-sm-12">
+                              <input id="or_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Purchase Order Number</label>
+                            <div class="col-sm-12">
+                              <input id="or_purchase_order" name="or_purchase_order" type="text" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Purchase Order Description</label>
+                            <div class="col-sm-12">
+                              <input id="or_purchase_desc" name="or_purchase_desc" type="text" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Seleccione Supplier</label>
+                            <div class="col-sm-12">
+                              <div id="s_supplier"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Seleccione Employee</label>
+                            <div class="col-sm-12">
+                              <div id="s_employee"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Currency</label>
+                            <div class="col-sm-12">
+                              <div id="s_currency"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin Primera columna-->
 
-                  <!--Primera columna-->
-                  <div class="col-md-3">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Nombre Proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="or_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Purchase Order Number</label>
-                        <div class="col-sm-12">
-                          <input id="or_purchase_order" type="text" class="form-control form-control-sm">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Purchase Order Description</label>
-                        <div class="col-sm-12">
-                          <input id="or_purchase_desc" type="text" class="form-control form-control-sm">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Seleccione Supplier</label>
-                        <div class="col-sm-12">
-                          <div id="s_supplier"></div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Seleccione Employee</label>
-                        <div class="col-sm-12">
-                          <div id="s_employee"></div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Ingeniero Requestor</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm">
-                          <!--div id="s_ingeniero"></div-->
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Currency</label>
-                        <div class="col-sm-12">
-                          <div id="s_currency"></div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-3-->
-                  <!--Fin Primera columna-->
+                      <!--Segunda columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Ingeniero Requestor</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_requestor" id="or_requestor" class="form-control form-control-sm">
+                              <!--div id="s_ingeniero"></div-->
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor neto</label>
+                            <div class="col-sm-12">
+                              <input id="or_valor_neto" name="or_valor_neto" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor total</label>
+                            <div class="col-sm-12">
+                              <input id="or_valor_total" name="or_valor_total" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Budget</label>
+                            <div class="col-sm-12">
+                              <input id="or_budget" name="or_budget" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Order Date</label>
+                            <div class="col-sm-12">
+                              <div class="input-group">
+                                  <input type="text" name="or_order_date" class="form-control form-control-sm fechas" id="or_order_date">
+                              </div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Date Required</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_date_required" class="form-control form-control-sm fechas" id="or_date_required">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin Segunda columna-->
 
-                   <!--Segunda columna-->
-                   <div class="col-md-3">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Valor neto</label>
-                        <div class="col-sm-12">
-                          <input id="or_valor_neto" type="text" class="form-control form-control-sm" readonly >
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Valor total</label>
-                        <div class="col-sm-12">
-                          <input id="or_valor_total" type="text" class="form-control form-control-sm">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Budget</label>
-                        <div class="col-sm-12">
-                          <input id="or_budget" type="text" class="form-control form-control-sm">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Order Date</label>
-                        <div class="col-sm-12">
-                          <div class="input-group">
-                              <input type="text" class="form-control form-control-sm fechas" id="or_order_date">
-                          </div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Date Required</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_date_required">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Date Promised</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_date_promised">
-                          <!--div id="s_ingeniero"></div-->
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Ship date</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_ship_date">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-3-->
-                  <!--Fin Segunda columna-->
-
-                   <!--tercera columna-->
-                   <div class="col-md-3">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Shipping Method</label>
-                        <div class="col-sm-12">
-                          <div id="s_shipping"></div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">PO Status</label>
-                        <div class="col-sm-12">
-                          <div id="s_status"></div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Support</label>
-                        <div class="col-sm-12">
-                          <input id="or_support" type="text" class="form-control form-control-sm">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Order Date</label>
-                        <div class="col-sm-12">
-                          <div class="input-group">
-                              <input type="text" class="form-control form-control-sm fechas" id="or_order_date">
-                          </div>
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Date Required</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_date_required">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Date Promised</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_date_promised">
-                          <!--div id="s_ingeniero"></div-->
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Ship date</label>
-                        <div class="col-sm-12">
-                          <input type="text" class="form-control form-control-sm fechas" id="or_ship_date">
-                        </div><!--.col-sm-12-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-3-->
-                  <!--Fin tercera columna-->
-
-                </div><!--row-->
+                      <!--tercera columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Date Promised</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_date_promised" class="form-control form-control-sm fechas" id="or_date_promised">
+                              <!--div id="s_ingeniero"></div-->
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Ship date</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_ship_date" class="form-control form-control-sm fechas" id="or_ship_date">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Shipping Method</label>
+                            <div class="col-sm-12">
+                              <div id="s_shipping"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">PO Status</label>
+                            <div class="col-sm-12">
+                              <div id="s_status"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Support</label>
+                            <div class="col-sm-12">
+                              <input id="or_support" name="or_support" type="file" class="form-control form-control-file">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin tercera columna-->
+                  </div><!--row-->
+                </form>
               </div><!--.container-->
             </div><!--.modal-body-->
             <div class="modal-footer justify-content-between">
-              <button id="btn_nueva_orden" type="button" class="btn btn-outline-primary">Guardar</button>
+              <button id="btn_orden" type="button" class="btn btn-outline-primary">Guardar</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div><!--.modal-content-->
+        </div><!--.modal-dialog-->
+      </div><!--.modal-->
+      <!--.fin modal nuevo orden-->
+
+      <!--.modal edita orden-->
+      <div id="modal_edit_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Actualiza Orden</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <form id="form_orden_act">
+                  <div class="row">
+                      <!--Primera columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Nombre Proyecto</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Purchase Order Number</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_purchase_order" name="or_act_purchase_order" type="text" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Purchase Order Description</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_purchase_desc" name="or_act_purchase_desc" type="text" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Seleccione Supplier</label>
+                            <div class="col-sm-12">
+                              <div id="s_act_supplier"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Seleccione Employee</label>
+                            <div class="col-sm-12">
+                              <div id="s_act_employee"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Currency</label>
+                            <div class="col-sm-12">
+                              <div id="s_act_currency"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin Primera columna-->
+
+                      <!--Segunda columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Ingeniero Requestor</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_act_requestor" id="or_act_requestor" class="form-control form-control-sm">
+                              <!--div id="s_ingeniero"></div-->
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor neto</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_valor_neto" name="or_act_valor_neto" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor total</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_valor_total" name="or_act_valor_total" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Budget</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_budget" name="or_act_budget" type="number" class="form-control form-control-sm">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Order Date</label>
+                            <div class="col-sm-12">
+                              <div class="input-group">
+                                  <input type="text" name="or_act_order_date" class="form-control form-control-sm fechas" id="or_act_order_date">
+                              </div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Date Required</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_act_date_required" class="form-control form-control-sm fechas" id="or_act_date_required">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin Segunda columna-->
+
+                      <!--tercera columna-->
+                      <div class="col">
+                        <div class="form-horizontal">
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Date Promised</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_act_date_promised" class="form-control form-control-sm fechas" id="or_act_date_promised">
+                              <!--div id="s_ingeniero"></div-->
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Ship date</label>
+                            <div class="col-sm-12">
+                              <input type="text" name="or_act_ship_date" class="form-control form-control-sm fechas" id="or_act_ship_date">
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">Shipping Method</label>
+                            <div class="col-sm-12">
+                              <div id="s_act_shipping"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <div class="form-group">
+                            <label class="col-sm-12 control-label">PO Status</label>
+                            <div class="col-sm-12">
+                              <div id="s_act_status"></div>
+                            </div><!--.col-sm-12-->
+                          </div><!--.form-group-->
+                          <!--div class="form-group">
+                            <label class="col-sm-12 control-label">Support</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file">
+                            </div>
+                          </div--><!--.form-group-->
+                        </div><!--.form-horizontal-->
+                      </div><!--.col-md-3-->
+                      <!--Fin tercera columna-->
+                  </div><!--row-->
+                  <input type="hidden" name="id_act_order" id="id_act_order">
+                  <input type="hidden" name="id_act_proyecto" id="id_act_proyecto">
+                  <input type="hidden" name="id_act_cliente" id="id_act_cliente">
+                </form>
+              </div><!--.container-->
+            </div><!--.modal-body-->
+            <div class="modal-footer justify-content-between">
+              
+              <button id="btn_act_orden" type="button" class="btn btn-outline-primary">Actualizar</button>
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
             </div>
           </div><!--.modal-content-->
@@ -398,6 +533,7 @@ $(document).ready(function() {
 
 function listar_ordenes(id_proyecto,id_cliente){  
 
+  $('#flag_orden').val(1); 
    recargaOrdenes(id_proyecto,id_cliente);
 
 }
@@ -413,6 +549,8 @@ $('#select_clientes').on('change', function(){
       recargaProyectos(cliente);
 
     }else{
+      recargaOrdenes(0,0);
+      $('#flag_orden').val(0);
       $('#datos_proyectos').html('<td class="text-center" colspan="4">No hay datos disponibles en la tabla.</td>');
     }
 
@@ -426,7 +564,7 @@ $('#btn_nuevo_proyecto').on('click', function(){
 
   if(id_cliente == 0){
 
-    alert('Debe seleccionar un Cliente');
+    toastr.info('Debe seleccionar un Cliente');
 
   }else{
 
@@ -510,6 +648,7 @@ function recargaProyectos(cliente){
       });
         
         $('#id_proyecto_or').val(id_proyecto);
+        $('#id_cliente_or').val(cliente);
         $('#nombre_proyecto_or').val(nombre_proyecto);
         $('#datos_proyectos').html(proyectos_html);
         $('[data-toggle="tooltip"]').tooltip();
@@ -530,6 +669,8 @@ function recargaProyectos(cliente){
     }).fail(function() {
       console.log("error change cliente");
     })
+
+    $('#flag_orden').val(0);
 
 }
 
@@ -656,7 +797,9 @@ function recargaOrdenes(id_proyecto,id_cliente){
             },
     }).done(function(result) {
 
-      console.log(result);
+      if(id_proyecto == 0){
+        $('#flag_orden').val(0);
+      }
       
 
       $.each(result.ordenes,function(key, orden) {
@@ -669,8 +812,8 @@ function recargaOrdenes(id_proyecto,id_cliente){
           ordenes_html += '<td>' + orden.order_date + '</td>';
           ordenes_html += '<td>' + orden.date_required + '</td>';
           ordenes_html += '<td>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden()" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          //ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.order_id +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.order_id +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           ordenes_html += '</td>';
         ordenes_html += '</tr>';
@@ -744,7 +887,7 @@ function eliminar_orden(cliente, proyecto, orden){
 /**
   Funcion trae select para usarlos en formulario nueva orden
  */
-function obtieneSupplier(){
+function obtieneSelects(){
 
   $.ajax({
     url: 		'<?php echo base_url('index.php/ingenieria/obtieneSelectOrden'); ?>',
@@ -766,6 +909,7 @@ function obtieneSupplier(){
       $('#s_currency').html(result.select_currency);
       $('#s_shipping').html(result.select_shipping);
       $('#s_status').html(result.select_status);
+      $('#or_nombre_proyecto').val($('#nombre_proyecto_or').val());
 
     }).fail(function() {
     console.log("error eliminar order");
@@ -776,23 +920,144 @@ function obtieneSupplier(){
 
 $('#btn_nueva_orden').on('click', function(){
 
-  obtieneSupplier();
-
-
-  $('#or_nombre_proyecto').val($('#nombre_proyecto_or').val());
-
-  $('#modal_new_orden').modal('show');
-
-  /*if($('#id_proyecto_or').val() > 0){
-
+  if($('#flag_orden').val() > 0){
     
+    obtieneSelects();
+    $('#modal_new_orden').modal('show'); 
+  
   }else{
-    alert('Debe seleccionar un proyecto');
-  }*/
 
+    toastr.info('Primero debe listar ordenes');
+
+  }  
+
+});
+
+$('#btn_orden').on('click', function(){
+
+  var formData = new FormData(document.getElementById("form_orden"));
+
+  
+  formData.append('id_proyecto_or', $('#id_proyecto_or').val());
+  formData.append('id_cliente', $('#id_cliente_or').val());
+
+  $.ajax({
+				url: 			'<?php echo base_url('index.php/ingenieria/guardaOrden'); ?>',
+				type: 			'POST',
+				dataType: 		'json',
+				contentType: 	false,
+				cache: 			false,
+				processData: 	false,
+				data: 			formData
+  })
+  .done(function(result) {
+
+    if(result.resp){
+
+      recargaOrdenes($('#id_proyecto_or').val(), $('#id_cliente_or').val());
+
+      $('#modal_new_orden').modal('hide');
+      
+
+    }
+    
+  })
+  .fail(function() {
+    console.log("error guardaOrden");
+  })
+  
   
 
 });
+
+$('#modal_new_orden').on('hidden.bs.modal', function () {
+  $("#form_orden")[0].reset();
+});
+
+function editar_orden(id_cliente, id_proyecto, order_id){
+
+
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/ingenieria/editarOrden'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            id_proyecto: id_proyecto,
+            id_cliente:id_cliente,
+            order_id:order_id
+          },
+  }).done(function(result) {
+      
+      $('#or_act_nombre_proyecto').val($('#nombre_proyecto_or').val());
+
+      $('#or_act_purchase_order').val(result.formulario.purchase_number);
+      $('#or_act_purchase_desc').val(result.formulario.purchase_desc);
+      $('#s_act_supplier').html(result.formulario.select_supplier);
+      $('#s_act_employee').html(result.formulario.select_employee);
+      $('#s_act_currency').html(result.formulario.select_currency);
+      $('#or_act_requestor').val(result.formulario.requestor);
+      $('#or_act_valor_neto').val(result.formulario.valor_neto);
+      $('#or_act_valor_total').val(result.formulario.valor_total);
+      $('#or_act_budget').val(result.formulario.budget);
+      $('#or_act_order_date').val(result.formulario.order_date);
+      $('#or_act_date_required').val(result.formulario.date_required);
+      $('#or_act_date_promised').val(result.formulario.date_promised);
+      $('#or_act_ship_date').val(result.formulario.ship_date);
+      $('#s_act_shipping').html(result.formulario.select_shipping);
+      $('#s_act_status').html(result.formulario.select_status);
+
+      $('#id_act_order').val(result.formulario.orden_id);
+      $('#id_act_proyecto').val(result.formulario.id_proyecto);
+      $('#id_act_cliente').val(result.formulario.id_cliente);
+    
+
+    $('#modal_edit_orden').modal('show');
+
+
+  }).fail(function() {
+    console.log("error edita_proyecto");
+  })
+
+
+
+}
+
+
+$('#btn_act_orden').on('click', function(){
+  
+
+  var formData = new FormData(document.getElementById("form_orden_act"));
+
+
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/ingenieria/actualizaOrden'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    contentType: 	false,
+    cache: 			false,
+    processData: 	false,
+    data: formData
+  }).done(function(result) {
+
+    if(result.resp){
+      recargaOrdenes($('#id_act_proyecto').val(), $('#id_act_cliente').val());
+      $('#modal_edit_orden').modal('hide');
+      toastr.success('Datos actualizados');
+    }else{
+      toastr.error('Error al actualizar');
+    }
+
+
+  }).fail(function() {
+    console.log("error edita_proyecto");
+  })
+
+});
+
+$('#modal_edit_orden').on('hidden.bs.modal', function () {
+  $("#form_orden_act")[0].reset();
+});
+
 
 
 </script>

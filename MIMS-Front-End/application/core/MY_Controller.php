@@ -27,59 +27,60 @@ class MY_Controller extends CI_Controller {
         $this->load->view($view, $datos);
         $this->load->view('activador/footer'); 
 	}
-    
-    #Checkea session activa y redirecciona segun parametro
-	public function checkSession($param){
 
-		if (!$this->session->userdata('is_logued')) {
-			$this->removeCache();
-			redirect($param['redirect'],'refresh');
+	public function creaDirectorio($directorio)
+	{
+		$retorno = false;
+		$carpeta = 'uploads/'.$directorio;
+
+		if (!file_exists($carpeta)) {
+			mkdir($carpeta, 0777, true);
+			$retorno = true;
 		}
+
+		return $retorno;
 	}
 
-	#Checkea session activa y redirecciona inicio
-	public function checkSessionOn(){
+	public function uploadFile($param){
 
-		if ($this->session->userdata('is_logued')) {
-			$this->removeCache();
-			redirect('inicio_controller/inicio','refresh');
+		$retorno 		= false;
+		$array_upload 	= array();
 
-		}
-	}
+		$this->creaDirectorio('pro'.$param['userFile']['id_proyecto_or']);
+				
+		$config['upload_path'] 		= './uploads/pro'.$param['userFile']['id_proyecto_or'];
+		$config['allowed_types'] 	= 'jpg|png|jpeg|pdf|dwg';
+		$config['max_size'] 		= '10000';
+		$config['file_name'] 		= $param['userFile']['file_name'];
+		$config['overwrite'] 		= TRUE;
 
-	#Elimina cache generado
-	public function removeCache(){
+		#Recepcion de parametros input FILE
+		$_FILES = array();
+		$_FILES['userFile']['name'] 		= $param['userFile']['name'];
+		$_FILES['userFile']['type'] 		= $param['userFile']['type'];
+		$_FILES['userFile']['tmp_name']		= $param['userFile']['tmp_name'];
+		$_FILES['userFile']['error'] 		= $param['userFile']['error'];
+		$_FILES['userFile']['size'] 		= $param['userFile']['size'];
+
+		$this->load->library('upload',$config);
+		$this->upload->initialize($config);
+
+		if($this->upload->do_upload('userFile')){
+			
+			#Contiene informaciónn de archivo subido$
+			$retorno  = $this->upload->data();
+
+		}else{
+
+			$retorno = false;
+
+			}
 		
-		$this->output->set_header('Last-Modified:'.gmdate('D, d M Y H:i:s').'GMT');
-		$this->output->set_header('Cache-Control: no-store, no-cache, must-revalidate');
-		$this->output->set_header('Cache-Control: post-check=0, pre-check=0',false);
-		$this->output->set_header('Pragma: no-cache');
+
+		return $retorno;
+
 	}
 
-
-	/**
-	 * @descripcion: Obtiene JSON de regiones desde WS
-	 */
-	public function getRegiones(){
-		$this->load->model('my_model');
-
-		$data = array();
-		$data = $this->my_model->getRegion();
-
-		return $data;	
-	}
-
-
-	/**
-	 * @descripcion: Obtiene JSON de comunas dada una region
-	 */
-	public function getComunasRegion($region = false){
-		$this->load->model('my_model');
-		$data = array();
-		$data = $this->my_model->getComunasRegion($region);
-
-		return $data;	
-	}
 
 }
 
