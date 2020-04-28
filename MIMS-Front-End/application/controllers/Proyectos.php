@@ -37,7 +37,8 @@ class Proyectos extends CI_Controller{
           'supplier'            => $value[3],
           'employee'            => $value[4],
           'order_date'          => $value[5],
-          'date_required'       => $value[6]
+          'date_required'       => $value[6],
+          'id_cliente'          => $id_cliente
         );
 
       }

@@ -14,7 +14,7 @@ class BuckSheet extends MY_Controller {
         
     }
 
-    function listaBucksheet($PurchaseOrderID,$purchaseOrdername){
+    function listaBucksheet($PurchaseOrderID,$purchaseOrdername,$id_cliente,$codProyecto){
 
 
         $codEmpresa = $this->session->userdata('cod_emp');
@@ -24,6 +24,8 @@ class BuckSheet extends MY_Controller {
         $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
         $datos['PurchaseOrderID'] = $PurchaseOrderID;
         $datos['purchaseOrdername'] = $purchaseOrdername;
+        $datos['idCliente'] = $id_cliente;
+        $datos['codProyecto'] = $codProyecto;
 
 
         $datosap     = $this->callexternosproyectos->obtieneDatosRef('ACTUAL_PREVIO');

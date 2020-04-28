@@ -35,7 +35,9 @@
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/js/dataTables.fixedColumns.min.js');?>"></script>
 
-<script src="<?php echo base_url('assets/js/toastr.min.js');?>"></script>
+
+<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/toastr.min.css');?>">
 
 
