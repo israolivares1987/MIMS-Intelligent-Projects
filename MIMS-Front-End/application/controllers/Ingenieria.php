@@ -370,5 +370,90 @@ class Ingenieria extends MY_Controller{
     
 
   }
+
+  function obtieneSelectOrden(){
+    
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $data = array();
+    
+
+    $supplier = $this->callexternosproyectos->obtieneSupplier($codEmpresa);
+    
+    
+    $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa);
+    $data['select_employee']  = $this->obtiene_select_employee($codEmpresa);
+    $data['select_currency']  = $this->obtiene_select_def('or_select_currency','CURRENCY_ORDEN');
+    $data['select_shipping']  = $this->obtiene_select_def('or_select_shipping','SHIPPING_METHOD');
+    $data['select_status']    = $this->obtiene_select_def('or_select_status','PO_STATUS');
+
+    echo json_encode($data);
+
+  }
+
+  function obtiene_select_supplier($codEmpresa){
+
+    $supplier = $this->callexternosproyectos->obtieneSupplier($codEmpresa);
+    $datosSupplier = json_decode($supplier);
+    $html = '';
+
+    $html .= '<select class="form-control form-control-sm" id="or_select_supplier">'; 
+
+    if($datosSupplier){
+  
+      foreach ($datosSupplier as $key => $value) {
+        $html .= '<option value="'.$value->SupplierID.'">'.$value->SupplierName.'</option>';
+      }
+
+    }else{
+      $html .= '<option value="0">No existen Supplier</option>';
+    }
+
+    $html .= '</select>';
+    return $html;
+  }
+
+  function obtiene_select_employee($codEmpresa){
+
+    $employee = $this->callexternosproyectos->obtieneEmployee($codEmpresa);
+    $datosEmployee = json_decode($employee);
+    $html = '';
+
+    $html .= '<select class="form-control form-control-sm" id="or_select_employee">'; 
+
+    if($datosEmployee){
+      foreach ($datosEmployee as $key => $value) {
+        $html .= '<option value="'.$value->ID.'">'.$value->FirstName.' '.$value->LastName.'</option>';
+      }
+    }else{
+      $html .= '<option value="0">No existen Employee</option>';
+    }
+
+    $html .= '</select>';
+    return $html;
+  }
+
+  function obtiene_select_def($id, $domain){
+
+    $currency  = $this->callexternosproyectos->obtieneDatosRef($domain);
+    $html = '';
+
+    $datosCurrency = json_decode($currency);
+
+    $html .= '<select class="form-control form-control-sm" id="'.$id.'">';
+    
+    if($datosCurrency){
+      foreach ($datosCurrency as $key => $value) {
+        $html .= '<option value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
+      }
+    }else{
+      $html .= '<option value="0">No existen datos</option>';
+    }
+
+    $html .= '</select>';
+
+    return $html;
+
+  }
+
     
 }

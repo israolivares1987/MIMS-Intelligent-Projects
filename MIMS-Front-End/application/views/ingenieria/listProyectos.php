@@ -39,7 +39,7 @@
                   </div>
                   <div class="card-body">
                     <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0">
-                        <button id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right">Nuevo Proyecto</button>
+                        <button id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
                         <thead>
                             <tr>
                               <th>Codigo Proyecto</th>
@@ -59,7 +59,7 @@
                   </div>
                   <div class="card-body">
                     <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0">
-                    <div id="btn-no"><button id="btn_nueva_orden" class="btn btn-outline-primary float-right">Nueva orden</button></div>
+                      <button id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
                         <thead>
                             <tr>
                               <th>Codigo Proyecto</th>
@@ -75,6 +75,8 @@
                         <tbody id="datos_ordenes">
                           
                         </tbody>
+                        <input type="hidden" id="id_proyecto_or">
+                        <input type="hidden" id="nombre_proyecto_or">
                     </table>
                   </div><!--.card-body-->
                 </div><!--.card-->
@@ -187,8 +189,187 @@
       </div>
       <!--.fin modal edita proyecto--> 
 
-<script type="text/javascript">
+      <!--.modal nuevo orden-->
+      <div id="modal_new_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nuevo Orden</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
 
+                  <!--Primera columna-->
+                  <div class="col-md-3">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Nombre Proyecto</label>
+                        <div class="col-sm-12">
+                          <input id="or_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Purchase Order Number</label>
+                        <div class="col-sm-12">
+                          <input id="or_purchase_order" type="text" class="form-control form-control-sm">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Purchase Order Description</label>
+                        <div class="col-sm-12">
+                          <input id="or_purchase_desc" type="text" class="form-control form-control-sm">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Seleccione Supplier</label>
+                        <div class="col-sm-12">
+                          <div id="s_supplier"></div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Seleccione Employee</label>
+                        <div class="col-sm-12">
+                          <div id="s_employee"></div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Ingeniero Requestor</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm">
+                          <!--div id="s_ingeniero"></div-->
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Currency</label>
+                        <div class="col-sm-12">
+                          <div id="s_currency"></div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-3-->
+                  <!--Fin Primera columna-->
+
+                   <!--Segunda columna-->
+                   <div class="col-md-3">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Valor neto</label>
+                        <div class="col-sm-12">
+                          <input id="or_valor_neto" type="text" class="form-control form-control-sm" readonly >
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Valor total</label>
+                        <div class="col-sm-12">
+                          <input id="or_valor_total" type="text" class="form-control form-control-sm">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Budget</label>
+                        <div class="col-sm-12">
+                          <input id="or_budget" type="text" class="form-control form-control-sm">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Order Date</label>
+                        <div class="col-sm-12">
+                          <div class="input-group">
+                              <input type="text" class="form-control form-control-sm fechas" id="or_order_date">
+                          </div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Date Required</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_date_required">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Date Promised</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_date_promised">
+                          <!--div id="s_ingeniero"></div-->
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Ship date</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_ship_date">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-3-->
+                  <!--Fin Segunda columna-->
+
+                   <!--tercera columna-->
+                   <div class="col-md-3">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Shipping Method</label>
+                        <div class="col-sm-12">
+                          <div id="s_shipping"></div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">PO Status</label>
+                        <div class="col-sm-12">
+                          <div id="s_status"></div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Support</label>
+                        <div class="col-sm-12">
+                          <input id="or_support" type="text" class="form-control form-control-sm">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Order Date</label>
+                        <div class="col-sm-12">
+                          <div class="input-group">
+                              <input type="text" class="form-control form-control-sm fechas" id="or_order_date">
+                          </div>
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Date Required</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_date_required">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Date Promised</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_date_promised">
+                          <!--div id="s_ingeniero"></div-->
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Ship date</label>
+                        <div class="col-sm-12">
+                          <input type="text" class="form-control form-control-sm fechas" id="or_ship_date">
+                        </div><!--.col-sm-12-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-3-->
+                  <!--Fin tercera columna-->
+
+                </div><!--row-->
+              </div><!--.container-->
+            </div><!--.modal-body-->
+            <div class="modal-footer justify-content-between">
+              <button id="btn_nueva_orden" type="button" class="btn btn-outline-primary">Guardar</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div><!--.modal-content-->
+        </div><!--.modal-dialog-->
+      </div><!--.modal-->
+      <!--.fin modal nuevo orden-->
+
+<script type="text/javascript">
 
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -295,6 +476,8 @@ $('#btn-guardar').on('click', function(){
 function recargaProyectos(cliente){
 
     var proyectos_html ='';
+    var id_proyecto;
+    var nombre_proyecto;
 
     var tabla_proyecto =  $('#tbl_proyectos').DataTable();
 
@@ -321,9 +504,13 @@ function recargaProyectos(cliente){
           proyectos_html += '</td>';
         proyectos_html += '</tr>';
 
+        id_proyecto = proyecto.codigo_proyecto;
+        nombre_proyecto = proyecto.nombre_proyecto;
+
       });
         
-        
+        $('#id_proyecto_or').val(id_proyecto);
+        $('#nombre_proyecto_or').val(nombre_proyecto);
         $('#datos_proyectos').html(proyectos_html);
         $('[data-toggle="tooltip"]').tooltip();
 
@@ -552,6 +739,60 @@ function eliminar_orden(cliente, proyecto, orden){
   }
 
 }
+
+
+/**
+  Funcion trae select para usarlos en formulario nueva orden
+ */
+function obtieneSupplier(){
+
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/ingenieria/obtieneSelectOrden'); ?>',
+    type: 		'POST',
+    dataType: 'json'
+    }).done(function(result) {
+
+      $('.fechas').datepicker({
+          format:         "dd-mm-yyyy",
+          language:       "es",
+          autoclose:      true,
+          todayHighlight: true,
+          toggleActive:   true,
+          orientation:    "bottom left"
+      });
+
+      $('#s_supplier').html(result.select_supplier);
+      $('#s_employee').html(result.select_employee);
+      $('#s_currency').html(result.select_currency);
+      $('#s_shipping').html(result.select_shipping);
+      $('#s_status').html(result.select_status);
+
+    }).fail(function() {
+    console.log("error eliminar order");
+    })
+
+
+}
+
+$('#btn_nueva_orden').on('click', function(){
+
+  obtieneSupplier();
+
+
+  $('#or_nombre_proyecto').val($('#nombre_proyecto_or').val());
+
+  $('#modal_new_orden').modal('show');
+
+  /*if($('#id_proyecto_or').val() > 0){
+
+    
+  }else{
+    alert('Debe seleccionar un proyecto');
+  }*/
+
+  
+
+});
 
 
 </script>

@@ -19,6 +19,9 @@
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
 
   <link rel="stylesheet" href="<?php echo base_url('assets/datatable_ing/css/jquery.dataTables.min.css');?>">
+  
+
+
   <!-- DataTables -->
  
 
@@ -34,6 +37,10 @@
 <script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
 <!-- AdminLTE App -->
 <script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
+
+<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css');?>">
+<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js');?>"></script>
+
 
 <!-- OPTIONAL SCRIPTS -->
 <script src="<?php echo base_url('assets/dist/js/demo.js');?>"></script>
