@@ -12,12 +12,20 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */    
 class CallExternosBuckSheet {
     
+  public function obtienebaseservicios(){
+
+    $CI =& get_instance();
+
+
+    return $CI->config->item('BASE_SERVICIOS');
+
+}
      
   
       function obtieneBucksheet($PurchaseOrderID, $flag = false){
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();                
         $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheet";
   
   
@@ -53,7 +61,7 @@ class CallExternosBuckSheet {
       {
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/obtieneBucksheetDet";
   
   
@@ -84,7 +92,7 @@ class CallExternosBuckSheet {
     function getRows($PurchaseOrderID,$NumeroLinea){
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/getRows";
         
 
@@ -114,7 +122,7 @@ class CallExternosBuckSheet {
       function update($memData,$PurchaseOrderID,$NumeroLinea){
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/update";
   
   
@@ -189,7 +197,7 @@ class CallExternosBuckSheet {
       function insert($memData){
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/insert";
 
           $form_data = array(
@@ -263,7 +271,7 @@ class CallExternosBuckSheet {
       function updateBuckSheetLinea($memData,$PurchaseOrderID,$NumeroLinea){
   
   
-        $base_url_servicios =BASE_SERVICIOS;                
+        $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/updatexlinea";
   
   

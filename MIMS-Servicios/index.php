@@ -335,11 +335,4 @@ switch (ENVIRONMENT)
  *
  * And away we go...
  */
-
-define('BASE_SERVICIOS', 'http://localhost/MIMS-Intelligent-Projects/MIMS-Servicios/');
-
-
-
-
-
 require_once BASEPATH.'core/CodeIgniter.php';

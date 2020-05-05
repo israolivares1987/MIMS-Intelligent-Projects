@@ -12,10 +12,18 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */    
 class CallExternosConsultas {
     
+  public function obtienebaseservicios(){
+
+    $CI =& get_instance();
+
+
+    return $CI->config->item('BASE_SERVICIOS');
+
+  }  
   
         function obtieneDatosTotales($codEmpresa){
   
-          $base_url_servicios =BASE_SERVICIOS;                
+          $base_url_servicios =$this->obtienebaseservicios();                
           $api_url = $base_url_servicios."Consultas/obtieneDatosTotales/".$codEmpresa;
     
     
