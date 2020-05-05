@@ -1,55 +1,45 @@
 <?php
-class Proyectos extends CI_Controller{
+class Proyectos extends MY_Controller{
   function __construct(){
     parent::__construct();
     
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
+    $this->load->library('CallUtil');
 
  
   }
 
-  function obtieneOrdenes(){
+  
+  function listaProyectosCliente($idCliente){
 
-    $id_cliente       = $this->input->post('id_cliente');
-    $id_proyecto      = $this->input->post('id_proyecto');
+      
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+  
+    $menu = $this->callutil->armaMenuClientes($response);
 
-    $respuesta = false;
+   
+    $datos['arrClientes'] = $menu ;
+    $datos['idCliente'] = $idCliente;
 
-    $ordenes = $this->callexternosproyectos->obtieneOrdenesProyecto($id_proyecto,$id_cliente);
 
-    $data_ordenes = json_decode($ordenes);
+    //Obtiene datos del proveedor
 
-    $html = '';
+    $responseDatos = $this->callexternosclientes->obtieneCliente($idCliente);
+    $array = json_decode($responseDatos);
 
-    $datos_ordenes = array();
+    foreach ($array as $key => $value)
+			{
 
-    //Pregunto si trae datos
-    if(count($data_ordenes->data)){
+        $datos['nombreCliente'] = $value->nombreCliente;
+        $datos['rutCliente'] = $value->rutCliente;
+        $datos['dvCliente'] = $value->dvCliente;
 
-      foreach ($data_ordenes->data as $key => $value) {
+			}   
 
-        $datos_ordenes[] = array(
-          'codigo_proyecto'     => $value[0],
-          'order_id'            => $value[1],
-          'order_description'   => $value[2],
-          'supplier'            => $value[3],
-          'employee'            => $value[4],
-          'order_date'          => $value[5],
-          'date_required'       => $value[6],
-          'id_cliente'          => $id_cliente
-        );
-
-      }
-    }
-
-    $datos['ordenes'] = $datos_ordenes;
-    $datos['resp']    = $respuesta;
-
-    echo json_encode($datos);
-    
-
+    $this->plantilla_activador('activador/listProyectos', $datos);
   }
 
   function listProyectosCliente(){
@@ -70,11 +60,14 @@ class Proyectos extends CI_Controller{
       foreach ($arrProyectos as $key => $value) {
 
         $datos_proyectos[] = array(
-          'codigo_proyecto'   => $value->codigo_proyecto,
-          'nombre_proyecto'   => $value->descripcion_proyecto,
-          'estado'            => $value->estado_proyecto
+          'NumeroProyecto'   => $value->NumeroProyecto,
+          'NombreProyecto'   => $value->NombreProyecto,
+          'DescripcionProyecto'  => $value->DescripcionProyecto,
+          'estadoProyecto'       => $value->estadoProyecto,
+          'Lugar'       => $value->Lugar,
+          'idCliente'       => $value->idCliente
         );
-
+       
       }
     }
     
@@ -84,5 +77,6 @@ class Proyectos extends CI_Controller{
     echo json_encode($datos);
   
 }
+
 
     }

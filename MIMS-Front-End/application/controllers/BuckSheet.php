@@ -8,40 +8,101 @@ class BuckSheet extends MY_Controller {
         parent::__construct();
         $this->load->library('form_validation');
         $this->load->library('CSVReader');
+        $this->load->library('CallExternosClientes');
         $this->load->library('CallExternosProyectos');
-        $this->load->helper('file');
+        $this->load->library('CallExternosConsultas');
+        $this->load->library('CallExternosJournal');
+        $this->load->library('CallExternosEmpleados');
+        $this->load->library('CallExternosOrdenes');
         $this->load->library('CallExternosBuckSheet');
+        
+        $this->load->helper('file');
+        $this->load->library('CallUtil');
         
     }
 
-    function listaBucksheet($PurchaseOrderID,$purchaseOrdername,$id_cliente,$codProyecto){
+    function listaBucksheet($id_orden_compra,$id_cliente,$id_proyecto){
 
 
         $codEmpresa = $this->session->userdata('cod_emp');
-        $responseMenuLeft = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-        $json_datosMenuLeft = $responseMenuLeft;
-        $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-        $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-        $datos['PurchaseOrderID'] = $PurchaseOrderID;
-        $datos['purchaseOrdername'] = $purchaseOrdername;
-        $datos['idCliente'] = $id_cliente;
-        $datos['codProyecto'] = $codProyecto;
+        $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+        $menu = $this->callutil->armaMenuClientes($response);
+        $datos['arrClientes'] = $menu ;
+  
+  
 
 
-        $datosap     = $this->callexternosproyectos->obtieneDatosRef('ACTUAL_PREVIO');
-        $select_ap = "";
-       foreach (json_decode($datosap) as $llave => $valor) {
-        
-        $select_ap .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    //Obtiene Datos Orden
+    
+    $Orden = $this->callexternosordenes->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
+    
+
+    $arrOrden = json_decode($Orden);
+
+    
+    if($arrOrden){
+      
+      foreach ($arrOrden as $llave => $valor) {
+              
+        $PurchaseOrderID = $valor->PurchaseOrderID;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+        $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
 
       }
 
-       
-       $datos['select_ap'] = $select_ap;
+      //Obtiene Datos Proyecto
+
+      $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+                
+
+      $arrProyecto = json_decode($Proyecto);
+
+      if($arrProyecto){
+
+        foreach ($arrProyecto as $llave => $valor) {
+                
+          $DescripcionProyecto = $valor->nombre_proyecto;
+
+        }
+
+      }
+
+      $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
+  
+      $arrCliente = json_decode($responseCliente);
+     
+      $datos_cliente = array();
+  
+      if($arrCliente){
+        
+        foreach ($arrCliente as $key => $value) {
+  
+
+            $nombreCliente =  $value->nombreCliente;
+            $razonSocial  =   $value->razonSocial;
+          
+        }
+      }
+    
+     
+
+
+  
+        $datos['PurchaseOrderID'] = $PurchaseOrderID;
+        $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
+        $datos['idCliente'] = $id_cliente;
+        $datos['codProyecto'] = $id_proyecto;
+        $datos['DescripcionProyecto'] = $DescripcionProyecto;
+        $datos['nombreCliente'] = $nombreCliente;
+        $datos['razonSocial'] = $razonSocial;
+        $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
+        
 
         $this->plantilla_activador('activador/listaBuckSheet', $datos);
 
   }
+
+ }
 
 
     public function save($PurchaseOrderID,$purchaseOrdername) {

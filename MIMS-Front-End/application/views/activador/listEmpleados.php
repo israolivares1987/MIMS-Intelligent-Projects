@@ -1,271 +1,371 @@
-   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <h1>Lista Empleados</h1>
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
-    <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-              <h3 class="card-title"></h3>
-            </div>
-            <!-- /.card-header -->
-            <div class="card-body">
-            <br />
-    <br/>
-    <br/>
-    <br/>
-                        <button class="btn btn-block btn-outline-success" onclick="add_empleado()"><i class="glyphicon glyphicon-plus"></i> Agregar Empleado</button>
-                        <button class="btn btn-block btn-outline-secondary" onclick="reload_table()"><i class="glyphicon glyphicon-refresh"></i> Recargar</button>
-                        <br />
-                        <br />
-                        <table id="ListEmp" class="table table-striped table-bordered" cellspacing="1" width="99%">
-                            <thead>
-                                <tr>
-                                    
-                                    <th>Nombre</th>
-                                    <th>Apellido</th>
-                                    <th>E-Mail</th>
-                                    <th>Cargo</th>
-                                    <th>Fono Oficina</th>
-                                    <th>Fono Casa</th>
-                                    <th>Fono Movil</th>
-                                    <th>Region</th>
-                                    <th>Provincia</th>
-                                    <th>Cuidad</th>
-                                    <th>Direccion</th>
-                                    <th></th>
-                                    <th></th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                            </tbody>
-                        </table>
-                    </div>    
-         </div> 
- </div> 
-
 <script type="text/javascript">
+             $('[data-toggle="tooltip"]').tooltip();
+
+             $(document).ready(function() {
+
+                var save_method;
+                var url;
+
+                recargaEmpleados();
+
+                 //set input/textarea/select event when change value, remove class error and remove text help block 
+                 $("input").change(function() {
+                     $(this).parent().parent().removeClass('has-error');
+                     $(this).next().empty();
+                 });
+                 $("textarea").change(function() {
+                     $(this).parent().parent().removeClass('has-error');
+                     $(this).next().empty();
+                 });
+                 $("select").change(function() {
+                     $(this).parent().parent().removeClass('has-error');
+                     $(this).next().empty();
+                 });
+
+             });
+
+             function reload_table()
+                {
+                    recargaEmpleados();
+                }
+
+            function recargaEmpleados() {
+
+                 var codEmpresa = <?php echo $this->session->userdata('cod_emp');?>;
+                 var empleados_html = '';
+                 
+                 var tabla_empleados = $('#tbl_empleados').DataTable();
+
+                 tabla_empleados.destroy();
+
+                 $.ajax({
+                     url: '<?php echo site_url('Empleados/listaEmpleados')?>',
+                     type: 'POST',
+                     dataType: 'json',
+                     data: {
+                        codEmpresa: codEmpresa
+                     },
+                 }).done(function(result) {
+
+                     $.each(result.empleados, function(key, empleado) {
+             
+                        empleados_html += '<tr>';
+                        empleados_html += '<td>' + empleado.FirstName + '</td>';
+                        empleados_html += '<td>' + empleado.LastName + '</td>';
+                        empleados_html += '<td>' + empleado.EmailAddress + '</td>';
+                        empleados_html += '<td>' + empleado.cargo + '</td>';
+                        empleados_html += '<td>' + empleado.JobTitle + '</td>';
+                        empleados_html += '<td>' + empleado.BusinessPhone + '</td>';
+                        empleados_html += '<td>' + empleado.HomePhone + '</td>';
+                        empleados_html += '<td>' + empleado.MobilePhone + '</td>';
+                        empleados_html += '<td>';
+                        empleados_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Empleado" onclick="edit_empleado('+empleado.ID+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+                        empleados_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Empleado" onclick="elimina_empleado('+empleado.ID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                        empleados_html += '</td>';
+                        empleados_html += '</tr>';
+
+                     });
+
+                     $('#datos_empleados').html(empleados_html);
+                     $('[data-toggle="tooltip"]').tooltip();
+
+                     $('#tbl_empleados').DataTable({
+                         language: {
+                             url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'
+                         },
+                         "paging": true,
+                         "lengthChange": false,
+                         "searching": false,
+                         "ordering": true,
+                         "info": true,
+                         "autoWidth": false,
+                         "responsive": true
+                     });
+
+                 }).fail(function() {
+                     console.log("error change cliente");
+                 })
+
+             }
+
+             function getFormData(id)
+                {
+                    var data=new FormData();
+
+                    $("#"+id).find("input,select,textarea").each(function(i,v) {
+                        if(v.type!=="file") {
+                            if(v.type==="checkbox" && v.checked===true) {
+                                data.append(v.name,"on");
+                            }else{
+                                data.append(v.name,v.value);
+                            }
+                        }
+                    });
+                    return data;
+                }
+
+             function guardar() 
+             {
+
+                // validar campos
+                var valido = false;
+
+                data=getFormData("formEmpleado");
 
 
+                if(!validateEmail(data.get('EmailAddress'))){
+                    
+                    toastr.warning('Email: '+ data.get('EmailAddress') + ' no valido, favor revisar.');
 
-$(document).ready(function() { 
+                }else{
 
-var save_method; //for save method string
-var table;
-var base_url = '<?php echo base_url();?>';    
+                    if(save_method == 'add') {
+                        url = "<?php echo site_url('Empleados/agregarEmpleado')?>";
+                    } else {
+                        url = "<?php echo site_url('Empleados/editarEmpleado')?>";
+                    }
 
-      //datatables
-    $('#ListEmp').DataTable({ 
+                    $.ajax({
+                        url: url,
+                        type: 'POST',
+                        data: data,
+                        contentType: false,
+                        processData: false,
+                        dataType: "JSON",
+                    }).done(function(result) {
 
-                "processing": true, //Feature control the processing indicator.
-                "serverSide": true, //Feature control DataTables' server-side processing mode.
-                "order": [], //Initial no order.
+                        if(result.resp){
+                                    
+                                    $('#modal-empleado').modal('hide');
+                                    toastr.success(result.mensaje);
+                                    recargaEmpleados();
+                                
+                        }else{
+                            toastr.warning(result.mensaje);
+                        }
+                        
 
-                // Load data for the table's content from an Ajax source
-                "ajax": {
-                    "url": "<?php echo site_url('Empleados/listaEmpleados')?>",
-                    "type": "POST"
-                },
-        language: {
-               "emptyTable":			"No hay datos disponibles en la tabla.",
-               "info":		   			"Del _START_ al _END_ de _TOTAL_ ",
-               "infoEmpty":			"Mostrando 0 registros de un total de 0.",
-               "infoFiltered":			"(filtrados de un total de _MAX_ registros)",
-               "infoPostFix":			"(actualizados)",
-               "lengthMenu":			"Mostrar _MENU_ registros",
-               "loadingRecords":		"Cargando...",
-               "processing":			"Procesando...",
-               "search":				"Buscar:",
-               "searchPlaceholder":	"Dato para buscar",
-               "zeroRecords":			"No se han encontrado coincidencias.",
-               "aria": {
-                   "sortAscending":	"Ordenación ascendente",
-                   "sortDescending":	"Ordenación descendente"
-               }
-        },
-        "fixedHeader": {
-                "header": true,
-                "footer": true
-            },
-            "scrollX":        "400px",
-            "scrollCollapse": true,
-            "paging":         false,
-            "columnDefs": [
-                { "width": '20%', "targets": 0 }
-            ]
-
-    });
-
-    //set input/textarea/select event when change value, remove class error and remove text help block 
-    $("input").change(function(){
-        $(this).parent().parent().removeClass('has-error');
-        $(this).next().empty();
-    });
-    $("textarea").change(function(){
-        $(this).parent().parent().removeClass('has-error');
-        $(this).next().empty();
-    });
-    $("select").change(function(){
-        $(this).parent().parent().removeClass('has-error');
-        $(this).next().empty();
-    });
-
-});
-
-function reload_table()
-{
-     $('#ListEmp').DataTable().ajax.reload();
-}
-
-function add_empleado()
-{
-    save_method = 'add';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-    $('#modal-default').modal('show'); // show bootstrap modal
-    $('.modal-title').text('Agregar Empleado'); // Set Title to Bootstrap modal title
-}
-
-function edit_employees(id)
-{
-    save_method = 'update';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        toastr.error(errorThrown);
+                    })
+                  
+                }
+            }
 
 
-    //Ajax Load data from ajax
-    $.ajax({
-        url : "<?php echo site_url('Empleados/obtieneEmpleadoPorId')?>/" + id,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data)
-        {
+            function elimina_empleado(id_empleado)
+            {
+                if(confirm('Está Seguro de eliminar el Empleado?'))
+                    {
 
-            $('[name="ID"]').val(data.ID);
-            $('[name="FirstName"]').val(data.FirstName);
-            $('[name="LastName"]').val(data.LastName);
-            $('[name="EmailAddress"]').val(data.EmailAddress);
-            $('[name="JobTitle"]').val(data.JobTitle);
-            $('[name="BusinessPhone"]').val(data.BusinessPhone);
-            $('[name="HomePhone"]').val(data.HomePhone);
-            $('[name="MobilePhone"]').val(data.MobilePhone);
-            $('[name="CountryRegion"]').val(data.CountryRegion);
-            $('[name="StateProvince"]').val(data.StateProvince);
-            $('[name="City"]').val(data.City);
-            $('[name="Address"]').val(data.Address);
+                        $.ajax({
+                        url : "<?php echo site_url('Empleados/eliminaEmpleado')?>",
+                        type: 		'POST',
+                        dataType: 'JSON',
+                        data: {
+                               id_empleado: id_empleado
+                              },
+                    }).done(function(result) {
 
+                        if(result.resp){
+                                   
+                            toastr.success(result.mensaje);
+                            recargaEmpleados();
+                                
+                        }else{
+                            toastr.warning(result.mensaje);
+                        }
+                        
+
+                    }).fail(function(jqXHR, textStatus, errorThrown) {
+                        toastr.error(errorThrown);
+                    })
+
+
+                }
+            }
+
+            function nuevo_empleado(id_empleado)
+            {
+
+                save_method = 'add';
+                $('#btnSave').text('Agregar'); //change button text
+                $('#formEmpleado')[0].reset(); // reset form on modals
+                $('#modal-empleado').modal('show');
+                $('.modal-title').text('Agregar Empleado'); // Set title to Bootstrap modal title
+
+            }
 
             
 
-            $('#modal-default').modal('show'); // show bootstrap modal
-            $('.modal-title').text('Editar Empleado'); // Set title to Bootstrap modal title
-
-
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-function save()
-{
-    $('#btnSave').text('saving...'); //change button text
-    $('#btnSave').attr('disabled',true); //set button disable 
-    var url;
-
-    if(save_method == 'add') {
-        url = "<?php echo site_url('Empleados/agregarEmpleado')?>";
-    } else {
-        url = "<?php echo site_url('Empleados/updateEmpleado')?>";
-    }
-
-    // ajax adding data to database
-
-    var formData = new FormData($('#form')[0]);
-    $.ajax({
-        url : url,
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        dataType: "JSON",
-        success: function(data)
-        {
-
-            if(data.status) //if success close modal and reload ajax table
-            {
-                $('#modal-default').modal('hide');
-                reload_table();
-            }
-            else
-            {
-                for (var i = 0; i < data.inputerror.length; i++) 
+                function edit_empleado(id_empleado)
                 {
-                    $('[name="'+data.inputerror[i]+'"]').parent().parent().addClass('has-error'); //select parent twice to select div form-group class and add has-error class
-                    $('[name="'+data.inputerror[i]+'"]').next().text(data.error_string[i]); //select span help-block class set text error string
+                    save_method = 'update';
+                    $('#formEmpleado')[0].reset(); // reset form on modals
+                    $('#btnSave').text('Actualizar'); //change button text
+                  
+                    $.ajax({
+                            url: 		'<?php echo base_url('index.php/Empleados/obtieneEmpleado'); ?>',
+                            type: 		'POST',
+                            dataType: 'JSON',
+                            data: {
+                                    id_empleado: id_empleado
+                                },
+                        }).done(function(result) {
+
+                  
+                            $('#ID').val(result.ID);
+                            $('#FirstName').val(result.FirstName);
+                            $('#LastName').val(result.LastName);
+                            $('#EmailAddress').val(result.EmailAddress);
+                            $('#JobId').val(result.JobId);                            
+                            $('#JobTitle').val(result.JobTitle);
+                            $('#BusinessPhone').val(result.BusinessPhone);
+                            $('#HomePhone').val(result.HomePhone);
+                            $('#MobilePhone').val(result.MobilePhone);
+
+                           
+
+                            $('#modal-empleado').modal('show');
+                            $('.modal-title').text('Editar Empleado'); // Set title to Bootstrap modal title
+
+
+                        }).fail(function() {
+                            console.log("error edita Empleado");
+                        })
                 }
-            }
-            $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
 
 
-        },
-        error: function (jqXHR, textStatus, errorThrown)
-        {
-            alert('Error adding / update data');
-            $('#btnSave').text('save'); //change button text
-            $('#btnSave').attr('disabled',false); //set button enable 
 
-        }
-    });
-}
+           
+             </script>
+<script>
+  $(function () {
+    //Initialize Select2 Elements
+   
 
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
 
-function delete_employees(id)
-{
-    if(confirm('Está Seguro de eliminar el Empleado?'))
-    {
-        // ajax delete data to database
-        $.ajax({
-            url : "<?php echo site_url('Empleados/deleteEmpleado')?>/"+id,
-            type: "POST",
-            dataType: "JSON",
-            success: function(data)
-            {
-                //if success reload ajax table
-                $('#modal_default').modal('hide');
-                reload_table();
-            },
-            error: function (jqXHR, textStatus, errorThrown)
-            {
-                alert('Error deleting data');
-            }
-        });
+    
 
-    }
-}
-
+  })
 </script>
 
+<style type="text/css" class="init">
+/* Ensure that the demo table scrolls */
+th,
+td {
+    white-space: nowrap;
+}
 
-<!-- Bootstrap modal -->
+div.dataTables_wrapper {
+    margin: 0 auto;
+}
 
-<div class="modal fade" id="modal-default">
+tr {
+    height: 50px;
+}
+ </style>
+<!-- Content Wrapper. Contains page content -->
+ <div class="content-wrapper">
+     <!-- Content Header (Page header) -->
+     <section class="content-header">
+         <div class="container-fluid">
+             <div class="row mb-2">
+                 <div class="col-sm-6">
+                     <h1>Mantenedor Empleados</h1>
+                 </div>
+             </div>
+         </div><!-- /.container-fluid -->
+     </section>
+
+     <!-- Main content -->
+     <section class="content">
+         <div class="row">
+             <div class="col-12">
+                 <div class="card">
+                     <div class="card-header">
+                         <h3 class="card-title"></h3>
+                     </div>
+
+                     <div class="container">
+                         <div class="row">
+                             <div class="col-lg-12">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Detalle Empresa
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                         <dl class="row">
+                                             <dt class="col-sm-4">Nombre:</dt>
+                                             <dd class="col-sm-6"><?php echo urldecode($nombreEmpresa);?></dd>
+                                             <dt class="col-sm-4">Razón Social:</dt>
+                                             <dd class="col-sm-6"><?php echo urldecode($razonSocial);?>
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+
+                             </div>
+                             <!-- /.col-md-6 -->
+                         </div>
+                         <!-- /.row -->
+                     </div>
+
+
+                     <!-- /.card-header -->
+                     <div class="card-body">
+                         <br />
+                         <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <th>
+                                         <button id="btn_recargar"  class="btn btn-outline-secondary float-right" onclick="reload_table()" >Recargar</button>
+                                         <button id="btn_nuevo_registro" class="btn btn-outline-primary float-right" onclick="nuevo_empleado()">Nuevo Empleado</button>
+                                     </th>
+                                 </tr>
+                             </tbody>
+                         </table>
+
+                         <br />
+
+                         <table id="tbl_empleados" class="table table-striped table-bordered" cellspacing="0">
+                             <thead>
+                                 <tr>
+                                 <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>E-Mail</th>
+                                <th>Cargo</th>
+                                <th>Descripcion Cargo</th>
+                                <th>Fono Oficina</th>
+                                <th>Fono Casa</th>
+                                <th>Fono Movil</th>
+                                <th>Acciones</th>
+                              </tr>
+                             </thead>
+                             <tbody id="datos_empleados">
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
+
+
+
+<!-- /.modal-content -->
+						
+    <div class="modal fade" id="modal-empleado">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
@@ -275,83 +375,69 @@ function delete_employees(id)
               </button>
             </div>
             <div class="modal-body">
-            <form action="#" id="form" class="form-horizontal">
-                    <input type="hidden" value="" name="ID"/>  
+             <form id="formEmpleado" class="form-horizontal">
+                    <input type="hidden" value="" name="ID" id="ID" />  
+                    <input type="hidden" value="<?php echo $this->session->userdata('cod_emp');?>" name="codEmpresa" id="codEmpresa" />
+                    
                     <div class="form-body">
                         <div class="form-group">
                             <label class="control-label col-md-3">Nombre</label>
                             <div class="col-md-9">
-                                <input name="FirstName" placeholder="Nombre" class="form-control" type="text">
+                                <input name="FirstName" id="FirstName" placeholder="Nombre" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Apellido</label>
                             <div class="col-md-9">
-                                <input name="LastName" placeholder="Apellido" class="form-control" type="text">
+                                <input name="LastName" id="LastName" placeholder="Apellido" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
+
                         <div class="form-group">
                             <label class="control-label col-md-3">E-Mail</label>
                             <div class="col-md-9">
-                                <input name="EmailAddress" placeholder="Email" class="form-control" type="text">
-                                <span class="help-block"></span>
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
+                                 </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Cargo</label>
                             <div class="col-md-9">
-                                <textarea name="JobTitle" placeholder="Cargo" class="form-control"></textarea>
+                            <select name="JobId" class="form-control select2bs4 select2-hidden-accessible"
+                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                         <?php echo $select_car;?>
+                                     </select>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Descripcion Cargo</label>
+                            <div class="col-md-9">
+                            <input type="text" name="JobTitle" id="JobTitle" placeholder="Cargo" class="form-control" />
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Oficina</label>
                             <div class="col-md-9">
-                                <textarea name="BusinessPhone" placeholder="Fono Oficina" class="form-control"></textarea>
+                                <input type="text" name="BusinessPhone" id="BusinessPhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Casa</label>
                             <div class="col-md-9">
-                                <textarea name="HomePhone" placeholder="Fono Casa" class="form-control"></textarea>
+                               <input type="text" name="HomePhone" id="HomePhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Movil</label>
                             <div class="col-md-9">
-                                <textarea name="MobilePhone" placeholder="Fono Movil" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Region</label>
-                            <div class="col-md-9">
-                                <textarea name="CountryRegion" placeholder="Region" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Provincia</label>
-                            <div class="col-md-9">
-                                <textarea name="StateProvince" placeholder="Provincia" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Cuidad</label>
-                            <div class="col-md-9">
-                                <textarea name="City" placeholder="Cuidad" class="form-control"></textarea>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Direccion</label>
-                            <div class="col-md-9">
-                                <textarea name="Address" placeholder="Direccion" class="form-control"></textarea>
+                            <input type="text" name="MobilePhone" id="MobilePhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -359,11 +445,10 @@ function delete_employees(id)
                 </form>
             </div>
             <div class="modal-footer justify-content-between">
-              <button type="button" class="btn btn-block btn-outline-success" onclick="save()" data-dismiss="modal">Save</button>
-              <button type="button" class="btn btn-block btn-outline-danger">Cancel</button>
+              <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="guardar()">Actualizar</button>
+              <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
             </div>
           </div>
           <!-- /.modal-content -->
         </div>
         <!-- /.modal-dialog -->
-      </div>

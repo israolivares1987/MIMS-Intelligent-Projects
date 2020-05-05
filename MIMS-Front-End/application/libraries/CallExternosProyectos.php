@@ -27,7 +27,7 @@ class CallExternosProyectos {
 
 
         $base_url_servicios =$this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneProyectosxCliente";
+        $api_url = $base_url_servicios."Proyectos/obtieneProyectosxCliente";
   
         $form_data = array(
                     'cod_empresa'		=>$codEmpresa
@@ -52,7 +52,7 @@ class CallExternosProyectos {
     function obtieneProyectosCliente($cliente){
 
         $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneProyectosClientes";
+        $api_url = $base_url_servicios."Proyectos/obtieneProyectosClientes";
   
         $form_data = array(
             'cliente'		=> $cliente
@@ -403,7 +403,6 @@ class CallExternosProyectos {
         $response = curl_exec($client);
   
         curl_close($client);
-  
         return $response;
 
     }

@@ -6,6 +6,7 @@ class Activador extends MY_Controller{
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
+    $this->load->library('CallUtil');
 
      if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -16,12 +17,14 @@ class Activador extends MY_Controller{
 
    function index_activador(){
 
-      
+    $html = "";	 
     $codEmpresa = $this->session->userdata('cod_emp');
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-    $json_datos = $response;
-    $arrayDatos = json_decode($json_datos,true);
-    $datos['arrClientes'] = $arrayDatos['Clientes'];
+  
+    $menu = $this->callutil->armaMenuClientes($response);
+
+   
+    $datos['arrClientes'] = $menu ;
 
 
     //Obtiene Datos para el Home
@@ -40,30 +43,5 @@ class Activador extends MY_Controller{
     $this->plantilla_activador('activador/home_activador', $datos);
 
   }
-
-
-
-  function listProyectosCliente($idCliente){
-
-      
-      $codEmpresa = $this->session->userdata('cod_emp');
-      $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-      $json_datos = $response;
-      $arrayDatos = json_decode($json_datos,true);
-      $datos['arrClientes'] = $arrayDatos['Clientes'];
-      $datos['idCliente'] = $idCliente;
-
-
-      //Obtiene datos del proveedor
-
-      $responseDatos = $this->callexternosclientes->obtieneDatosCliente($idCliente);
-      $array = json_decode($responseDatos);
-      $datos['nombreCliente'] = $array->nombreCliente;
-      $datos['rutCliente'] = $array->rutCliente;
-      $datos['dvCliente'] = $array->dvCliente;
-
-
-      $this->plantilla_activador('activador/listProyectos', $datos);
-    }
     
   }

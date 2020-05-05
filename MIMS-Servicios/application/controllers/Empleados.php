@@ -9,87 +9,111 @@ class Empleados extends CI_Controller {
 		$this->load->model('Empleados_model', 'empleados');
 	}
 
-	function obtieneEmployees(){
+	function listaEmpleados(){
 
 		$cod_empresa = $this->input->post('cod_empresa');
 		
-		$Employees = $this->empleados->obtieneEmployees($cod_empresa);
+		$Empleados = $this->empleados->listaEmpleados($cod_empresa);
 
-		echo json_encode($Employees);
+		echo json_encode(array_filter($Empleados));
+		
+	}
+
+	function obtieneEmpleado(){
+
+		$id_empleado = $this->input->post('id_empleado');
+		
+		$Empleado = $this->empleados->obtieneEmpleado($id_empleado);
+
+		echo json_encode($Empleado);
 		
 	}
 
 
-/* 	function obtieneEmpleadoPorId($id)
-	{
-		$data = $this->Empleados_model->get_by_id($id);
+	function editarEmpleado(){
+
+		$ID       = $this->input->post('ID');
+    $LastName      = $this->input->post('LastName');
+    $FirstName  = $this->input->post('FirstName');
+    $EmailAddress           = $this->input->post('EmailAddress');
+    $BusinessPhone       = $this->input->post('BusinessPhone');
+    $JobTitle       = $this->input->post('JobTitle'); 
+    $HomePhone       = $this->input->post('HomePhone'); 
+	$MobilePhone       = $this->input->post('MobilePhone');   
+	$JobId         = $this->input->post('JobId');
+
+		$update= array(
+			'LastName'   => $LastName,
+			'FirstName'   => $FirstName,
+			'EmailAddress' => $EmailAddress,
+			'JobId ' => $JobId,
+			'JobTitle'       => $JobTitle,
+			'BusinessPhone' => $BusinessPhone,
+			'HomePhone' => $HomePhone,
+			'MobilePhone' => $MobilePhone
+		  );
+
+	
+		$Empleado = $this->empleados->editarEmpleado($update,array('ID' =>$ID));
+
+		echo json_encode($Empleado);
 		
-		echo json_encode($data);
 	}
 
-	function updateEmpleado()
-	{
 
-		$data = array(
-			'ID' => $this->input->post('ID'),	
-			'FirstName' => $this->input->post('FirstName'),
-				'LastName' => $this->input->post('LastName'),
-				'EmailAddress' => $this->input->post('EmailAddress'),
-				'JobTitle' => $this->input->post('JobTitle'),
-				'BusinessPhone' => $this->input->post('BusinessPhone'),
-				'HomePhone' => $this->input->post('HomePhone'),
-				'MobilePhone' => $this->input->post('MobilePhone'),
-				'CountryRegion' => $this->input->post('CountryRegion'),
-				'StateProvince' => $this->input->post('StateProvince'),
-				'City' => $this->input->post('City'),
-				'Address' => $this->input->post('Address')
+	function agregarEmpleado(){
 
-			);
+		$LastName      = $this->input->post('LastName');
+		$FirstName  = $this->input->post('FirstName');
+		$EmailAddress           = $this->input->post('EmailAddress');
+		$BusinessPhone       = $this->input->post('BusinessPhone');
+		$JobTitle       = $this->input->post('JobTitle'); 
+		$HomePhone       = $this->input->post('HomePhone'); 
+		$MobilePhone       = $this->input->post('MobilePhone');   
+		$codEmpresa = $this->input->post('codEmpresa');   
+		$JobId         = $this->input->post('JobId');
+		$insert= array(
 
-		$this->Empleados_model->update(array('ID' => $this->input->post('ID')), $data);
-		echo json_encode(array("status" => TRUE));
+			'codEmpresa' => $codEmpresa,
+			'LastName'   => $LastName,
+			'FirstName'   => $FirstName,
+			'EmailAddress' => $EmailAddress,
+			'JobTitle'       => $JobTitle,
+			'JobId ' => $JobId,
+			'BusinessPhone' => $BusinessPhone,
+			'HomePhone' => $HomePhone,
+			'MobilePhone' => $MobilePhone
+		  );
 
+	
+		$Empleado = $this->empleados->agregarEmpleado($insert);
 
+		if($Empleado > 0){
+
+			$status = true;
+
+		}else{
+
+			$status = false;
 		}
 
-
-		function deleteEmpleado($id)
-		{
-					
-			$this->Empleados_model->delete_by_id($id);
-			echo json_encode(array("status" => TRUE));
-		}
-	
-		function agregarEmpleado()
-		{
-			
-			
-			$data = array(
-				'FirstName' => $this->input->post('FirstName'),
-					'LastName' => $this->input->post('LastName'),
-					'EmailAddress' => $this->input->post('EmailAddress'),
-					'JobTitle' => $this->input->post('JobTitle'),
-					'BusinessPhone' => $this->input->post('BusinessPhone'),
-					'HomePhone' => $this->input->post('HomePhone'),
-					'MobilePhone' => $this->input->post('MobilePhone'),
-					'CountryRegion' => $this->input->post('CountryRegion'),
-					'StateProvince' => $this->input->post('StateProvince'),
-					'City' => $this->input->post('City'),
-					'Address' => $this->input->post('Address')
-				);
-	
+		echo json_encode(array("resp" => $status,"id_insertado" => $Empleado));
 		
-			$insert = $this->Empleados_model->save($data);
-	
-			echo json_encode(array("status" => TRUE));
-	
-			} */
-
-
-
-
-
 	}
+	
+	function eliminaEmpleado(){  
+
+
+		$id_empleado = $this->input->post('id_empleado');
+		
+		$Empleado = $this->empleados->eliminaEmpleado($id_empleado);
+
+		echo json_encode($Empleado);
+
+
+    }
+
+}
 
 	
      

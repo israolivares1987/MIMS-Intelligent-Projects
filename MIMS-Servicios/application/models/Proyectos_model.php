@@ -69,9 +69,12 @@ class Proyectos_model extends CI_Model{
 
 	function obtieneProyectosCliente($idCliente){
 		
-		$this->db->select('t1.NumeroProyecto AS codigo_proyecto,
-						   t1.DescripcionProyecto AS descripcion_proyecto,
-						   t2.domain_desc AS estado_proyecto');
+		$this->db->select('t1.NumeroProyecto AS NumeroProyecto,
+						   t1.NombreProyecto AS NombreProyecto,
+						   t1.DescripcionProyecto AS DescripcionProyecto,
+						   t1.Lugar AS Lugar,
+						   t2.domain_desc AS estadoProyecto,
+						   t1.idCliente as idCliente');
 		$this->db->from('tbl_proyectos t1,
 						 tbl_ref_codes t2');				   
 		$this->db->where('idCliente',$idCliente);
@@ -141,13 +144,14 @@ class Proyectos_model extends CI_Model{
 	function obtieneOrderById($id_order,$id_proyecto,$id_cliente,$codEmpresa){
 
 		$this->db->from('tbl_purchase_orders t1');
-
 		$this->db->where('t1.codEmpresa', $codEmpresa);
 		$this->db->where('t1.idCliente', $id_cliente);
 		$this->db->where('t1.idProyecto', $id_proyecto);
 		$this->db->where('t1.PurchaseOrderID', $id_order);
 
 		$query = $this->db->get();
+
+		
 
 		return $query->result();
 

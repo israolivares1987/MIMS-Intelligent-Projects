@@ -9,100 +9,110 @@ class Clientes extends CI_Controller {
 		$this->load->model('Clientes_model','cliente');
 	}
 
-	function obtieneClientes(){
+	function listaClientes(){
 
+		$codEmpresa = $this->input->post('codEmpresa');
 
-		$Clientees = $this->cliente->obtieneClientes();
-		$no = 0;
-		$data = array();
-		foreach ($Clientees as $Cliente) {
-			$no++;
-			$row = array();
-			$row[] = $Cliente->nombreCliente;
-			$row[] = $Cliente->rutCliente;
-			$row[] = $Cliente->dvCliente;
-			$row[] = '<a class="btn btn-block btn-outline-success" href="javascript:void(0)" title="Edit" onclick="edit_Cliente('."'".$Cliente->idCliente."'".')"><i class="glyphicon glyphicon-pencil"></i>Edit</a>';
-			$row[] ='<a class="btn btn-block btn-outline-danger" href="javascript:void(0)" title="Hapus" onclick="delete_Cliente('."'".$Cliente->idCliente."'".')"><i class="glyphicon glyphicon-trash"></i>Delete</a>';
-			
-			$data[] = $row;
-		}
+		$Clientes = $this->cliente->listaClientes($codEmpresa);
+		
 
-		$output = array(
-						"draw" => false,
-						"recordsTotal" => $this->cliente->count_all(),
-						"recordsFiltered" => $this->cliente->count_all(),
-						"data" => $data,
-				);
-		//output to json format
-		echo json_encode($output);
+		echo json_encode($Clientes);
 
 
 	}
 
+	function agregarCliente(){
+
+		$codEmpresa      = $this->input->post('codEmpresa');
+		$nombreCliente  = $this->input->post('nombreCliente');
+		$razonSocial           = $this->input->post('razonSocial');
+		$rutCliente       = $this->input->post('rutCliente');
+		$dvCliente       = $this->input->post('dvCliente'); 
+		$direccion       = $this->input->post('direccion'); 
+		$contacto       = $this->input->post('contacto');   
+		$telefono = $this->input->post('telefono');   
+		$correo = $this->input->post('correo');   
+
+		$insert= array(
+			'codEmpresa' => $codEmpresa,
+			'nombreCliente'   => $nombreCliente,
+			'razonSocial'   => $razonSocial,
+			'rutCliente' => $rutCliente,
+			'dvCliente'       => $dvCliente,
+			'direccion' => $direccion,
+			'contacto' => $contacto,
+			'telefono' => $telefono,
+			'correo' => $correo
+		  );
 
 	
-	
-	function obtieneClientePorId($id)
-	{
-		$data = $this->cliente->get_by_id($id);
+		$Cliente = $this->cliente->agregarCliente($insert);
+
+		if($Cliente > 0){
+
+			$status = true;
+
+		}else{
+
+			$status = false;
+		}
+
+		echo json_encode(array("resp" => $status,"id_insertado" => $Cliente));
 		
-		echo json_encode($data);
 	}
 
+	function obtieneCliente(){
 
-
-	function updateCliente()
-	{
-
-		$data = array(
-			'idCliente' => $this->input->post('idCliente'),	
-			'nombreCliente' => $this->input->post('nombreCliente'),
-				'rutCliente' => $this->input->post('rutCliente'),
-				'dvCliente' => $this->input->post('dvCliente')
-			);
-
-		$this->cliente->update(array('idCliente' => $this->input->post('idCliente')), $data);
-		echo json_encode(array("status" => TRUE));
-
-
-		}
-
-
-		function deleteCliente($id)
-		{
-					
-			$this->cliente->delete_by_id($id);
-			echo json_encode(array("status" => TRUE));
-		}
-	
-		function agregarCliente()
-		{
-			
-			
-			$data = array(
-				'codEmpresa' => $this->input->post('codEmpresa'),	
-			    'nombreCliente' => $this->input->post('nombreCliente'),
-				'rutCliente' => $this->input->post('rutCliente'),
-				'dvCliente' => $this->input->post('dvCliente')
-				);
-	
+		$id_cliente = $this->input->post('id_cliente');
 		
-			$insert = $this->cliente->save($data);
-	
-			echo json_encode(array("status" => TRUE));
-	
-			}
+		$cliente = $this->cliente->obtieneCliente($id_cliente);
 
-	function obtieneClientePorEmpresa(){
-
-		$codEmpresa = $this->input->post('codEmpresa');	
-
-		$clientes = $this->cliente->obtieneClientePorEmpresa($codEmpresa);
-
-		echo json_encode($clientes);
+		echo json_encode($cliente);
 		
-	}		
+	}
 
+	function editarCliente(){
+
+		$codEmpresa      = $this->input->post('codEmpresa');
+		$nombreCliente  = $this->input->post('nombreCliente');
+		$razonSocial           = $this->input->post('razonSocial');
+		$rutCliente       = $this->input->post('rutCliente');
+		$dvCliente       = $this->input->post('dvCliente'); 
+		$direccion       = $this->input->post('direccion'); 
+		$contacto       = $this->input->post('contacto');   
+		$telefono = $this->input->post('telefono');   
+		$correo = $this->input->post('correo');   
+		$idCliente = $this->input->post('idCliente');
+
+		$update= array(
+			'nombreCliente'   => $nombreCliente,
+			'razonSocial'   => $razonSocial,
+			'rutCliente' => $rutCliente,
+			'dvCliente'       => $dvCliente,
+			'direccion' => $direccion,
+			'contacto' => $contacto,
+			'telefono' => $telefono,
+			'correo' => $correo
+		  );
+
+	
+		$Cliente = $this->cliente->editarEmpleado($update,array('idCliente' =>$idCliente));
+
+		echo json_encode($Cliente);
+		
+	}
+
+	function eliminaCliente(){  
+
+
+		$idCliente = $this->input->post('idCliente');
+		
+		$Cliente = $this->cliente->eliminaCliente($idCliente);
+
+		echo json_encode($Cliente);
+
+
+    }
 
 }
 

@@ -3,16 +3,6 @@ class Clientes_model extends CI_Model{
 
 	var $table = 'tbl_clientes';
 
-	function obtieneclientesxempresa($codEmpresa){
-
-        $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->order_by('idCliente', 'asc');
-        $Cliente = $this->db->get($this->table);
-        
-        
-        return $Cliente;
-    }	
-
 	function obtieneTotClientesxEmp($codEmpresa)
 	{
 
@@ -22,58 +12,70 @@ class Clientes_model extends CI_Model{
 	}
 
 
-  function obtieneclientes(){
+	function obtieneProyectosxCliente($codEmpresa)
+	{
 
-      $cliente = $this->db->get($this->table);
-      $clientees = $cliente->result();
-      return $clientees;
+	  $this->db->where('codEmpresa',$codEmpresa);
+	  $this->db->order_by('idCliente', 'asc');
+	  $Cliente = $this->db->get($this->table);
+	  
+	  
+	  return  $Cliente->result();
+	}
+
+
+  function listaClientes($codEmpresa){
+
+	$this->db->where('codEmpresa',$codEmpresa);
+	$this->db->order_by('idCliente', 'asc');
+	$Cliente = $this->db->get($this->table);
+	
+	
+	return  $Cliente->result();
   
     }
      
 
-   function count_all()
-	{
-		$this->db->from($this->table);
-		return $this->db->count_all_results();
-  }
-  
-   function get_by_id($id)
-	{
-		$this->db->from($this->table);
-		$this->db->where('idcliente',$id);
-		$query = $this->db->get();
-
-		return $query->row();
-	}
-
-	function update($where, $data)
-	{
-		$this->db->update($this->table, $data, $where);
-		return $this->db->affected_rows();
-	}
-
-	function delete_by_id($id)
-	{
-		$this->db->where('idcliente', $id);
-		$this->db->delete($this->table);
-	}
-
-	function save($data)
+	function agregarCliente($data)
 	{
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
 	}
 
-	function obtieneClientePorEmpresa($empresa){
 
-		$this->db->where('codEmpresa', $empresa);
-		$this->db->order_by('idCliente', 'asc');
+	function obtieneCliente($id_cliente){
 
-		$clientes = $this->db->get($this->table);
+		$this->db->from($this->table);
+		$this->db->where('idCliente',$id_cliente);
+   
+		$query = $this->db->get();
+		
+		return $query->result();
 
-		return $clientes->result();
+	 
+	   }
 
+	   function editarEmpleado($data,$where)
+	   {
+		   $this->db->update($this->table, $data, $where);
+		   $this->db->affected_rows();
+		   
+		   if ($this->db->affected_rows() > 0 ) {
+			   return true; // Or do whatever you gotta do here to raise an error
+		   } else {
+			   return false;
+		   }
+	   }
 
+	   function eliminaCliente($idCliente)
+	{
+
+		$this->db->where('idCliente', $idCliente);
+
+		$delete = $this->db->delete($this->table);
+		return $delete;
 	}
+
+
 }
 ?>

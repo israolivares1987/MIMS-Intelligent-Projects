@@ -15,7 +15,7 @@ class BuckSheet_model extends CI_Model{
 
     function __construct() {
         // Set table name
-        $this->tableName = 'tbl_Inventory_Expediting';
+        $this->tableName = 'tbl_bucksheet';
     }
 
 	function obtieneBuckSheet()

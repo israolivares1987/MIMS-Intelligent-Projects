@@ -18,7 +18,7 @@ class Journal extends MY_Controller{
  
 
 
-   function controlCalidad($idCliente,$Orden,$codProyecto){
+   function controlCalidad($idCliente,$idOrden,$codProyecto){
 
       
     $codEmpresa = $this->session->userdata('cod_emp');
@@ -28,10 +28,56 @@ class Journal extends MY_Controller{
     $datos['arrClientes'] = $arrayDatos['Clientes'];
 
     $datos['idCliente'] = $idCliente;
-    $datos['idOrden'] = $Orden;
+    $datos['idOrden'] = $idOrden;
     $datos['codProyecto'] = $codProyecto;
 
+    //Obtiene datos para cabecera
 
+      //Obtiene Datos Proyecto
+
+      $Proyecto = $this->callexternosproyectos->obtieneProyecto($codProyecto, $idCliente);
+                
+
+      $arrProyecto = json_decode($Proyecto);
+
+      if($arrProyecto){
+
+        foreach ($arrProyecto as $llave => $valor) {
+                
+          $DescripcionProyecto = $valor->nombre_proyecto;
+
+        }
+
+      }
+        //Obtiene Datos Orden
+                  
+        $Orden = $this->callexternosproyectos->obtieneOrden($codProyecto,$idCliente,$idOrden,$codEmpresa);
+                  
+
+        $arrOrden = json_decode($Orden);
+
+
+        if($arrOrden){
+          
+          foreach ($arrOrden as $llave => $valor) {
+                  
+            $PurchaseOrderID = $valor->PurchaseOrderID;
+            $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+            $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+          }
+        
+          // Obtiene datos del cliente
+
+
+          $Cliente = $this->callexternosclientes->obtieneClientePorId($idCliente);
+
+          $arrCliente = json_decode($Cliente);
+          $nombreCliente = $arrCliente->nombreCliente;
+  
+               
+ 
+    }
 
     //Obtiene Datos para el Home
 
@@ -40,9 +86,19 @@ class Journal extends MY_Controller{
     foreach (json_decode($datosap) as $llave => $valor) {
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
     }
+   
+   
+   
+   //llena arreglo con datos
+   
+   $datos['idCliente'] = $idCliente;
+   $datos['idOrden'] = $idOrden;
+   $datos['codProyecto'] = $codProyecto;
+   $datos['DescripcionProyecto'] = $DescripcionProyecto;
+   $datos['nombreCliente'] = $nombreCliente;
+   $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
    $datos['select_cc'] = $select_cc;
-
-  $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
+   $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
     $this->plantilla_activador('activador/listControlCalidad', $datos);
 
@@ -94,7 +150,7 @@ class Journal extends MY_Controller{
       $respaldo = '';
 
       if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
-        $respaldo = '<a class="btn btn-download" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos.'">Descarga Archivo</a>';
+        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos.'"><i class="fas fa-download"></i> Descarga</a>';
       }else{
         $respaldo = '';
       }
@@ -317,68 +373,136 @@ class Journal extends MY_Controller{
 
           $id_control_calidad = $this->input->post('id_control_calidad');
           $email =$this->input->post('email');
-        
-          //Obtiene datos de orden
+          $codEmpresa = $this->input->post('cod_empresa'); 
+          $tipo_interaccion="";
+
+          //Obtiene datos de Journal
 
           $controlCalidad = $this->callexternosjournal->obtiene_journal_x_id($id_control_calidad);
           $arrControlCalidad = json_decode($controlCalidad);
-          $html ="";
       
-          $datos_calidad = array();
-      
+       
           if($arrControlCalidad){
             
-            foreach ($arrControlCalidad as $key => $value) {
+       
       
-                $id_orden_compra = $value->id_orden_compra;
-                $id_cliente = $value->id_cliente;
-                $id_proyecto = $value->id_proyecto;
-                $id_empleado = $value->id_empleado;
-                $nombre_empleado = $value->nombre_empleado;
+                $id_orden_compra = $arrControlCalidad->id_orden_compra;
+                $id_cliente = $arrControlCalidad->id_cliente;
+                $id_proyecto = $arrControlCalidad->id_proyecto;
+                $id_empleado = $arrControlCalidad->id_empleado;
+                $nombre_empleado = $arrControlCalidad->nombre_empleado;
 
-                $datosEstados     = $this->callexternosproyectos->obtieneDatoRef('TIPO_INTERACCION_CC',$value->tipo_interaccion);
+                $datosEstados     = $this->callexternosproyectos->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
 
-                foreach (json_decode($datosEstados) as $llave => $valor) {
-        
-                  $tipo_interaccion= $value->$valor->domain_desc;
-                }
-
+              
+            
+                  foreach (json_decode($datosEstados) as $llave => $valor) {
+                    
+                    $tipo_interaccion = $valor->domain_desc;
+            
+                  }
                 
-                $fecha_ingreso= $value->fecha_ingreso;
-                $fecha_accion= $value->fecha_accion;
-                $numero_referencial= $value->numero_referencial;
-                $solicitado_por= $value->solicitado_por;
-                $aprobado_por= $value->aprobado_por;
-                $comentarios_generales= $value->comentarios_generales;
-                $respaldos= $value->respaldos;
+                $fecha_ingreso= $arrControlCalidad->fecha_ingreso;
+                $fecha_accion= $arrControlCalidad->fecha_accion;
+                $numero_referencial= $arrControlCalidad->numero_referencial;
+                $solicitado_por= $arrControlCalidad->solicitado_por;
+                $aprobado_por= $arrControlCalidad->aprobado_por;
+                $comentarios_generales= $arrControlCalidad->comentarios_generales;
+                $respaldos= $arrControlCalidad->respaldos;
    
 
       
-            }
+            
           }
 
           //Obtiene Datos Proyecto
 
+          $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+          
 
+          $arrProyecto = json_decode($Proyecto);
+      
+          if($arrProyecto){
 
+            foreach ($arrProyecto as $llave => $valor) {
+                    
+              $DescripcionProyecto = $valor->nombre_proyecto;
+      
+            }
+        
+          }
+        
+  
           //Obtiene Datos Orden
           
+          $Orden = $this->callexternosproyectos->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
           
+
+          $arrOrden = json_decode($Orden);
+      
           
-          $htmlContent = '<h1>HTML email with attachment testing by CodeIgniter Email Library</h1>';
+          if($arrOrden){
+            
+            foreach ($arrOrden as $llave => $valor) {
+                    
+              $PurchaseOrderID = $valor->PurchaseOrderID;
+              $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+              $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+      
+            }
+           
+      
+               
+           
+          }
+
+
+          $htmlContent = '<h1>Proyecto: '.$DescripcionProyecto.' Orden: '.$PurchaseOrderID.' </h1>';
           $htmlContent .= '<p>You can attach the files in this email.</p>';
 
 
-          $subject="Nuevo registro Control de calidad Orden: ".$id_orden_compra;
+          $htmlContent .= '<table cellspacing="0">';
+          $htmlContent .= '<thead>';
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Orden de Compra</th>';
+          $htmlContent .= '<th>Nombre Empleado</th>';
+          $htmlContent .= '<th>Fecha Ingreso</th>';
+          $htmlContent .= '<th>Numero Referencial</th>';
+          $htmlContent .= '<th>Tipo Interaccion</th>';
+          $htmlContent .= '<th>Solicitado por</th>';
+          $htmlContent .= '<th>Aprobado por</th>';
+          $htmlContent .= '<th>Comentarios Generales</th>';
+          $htmlContent .= '<th>Respaldos</th>';
+          $htmlContent .= '<th>Acciones</th>';
+          $htmlContent .= '</tr>';
+          $htmlContent .= '</thead>';
+          $htmlContent .= '<tbody>';
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>'.$id_orden_compra.'</th>';
+          $htmlContent .= '<th>'.$nombre_empleado.'</th>';
+          $htmlContent .= '<th>'.$fecha_ingreso.'</th>';
+          $htmlContent .= '<th>'.$numero_referencial.'</th>';
+          $htmlContent .= '<th>'.$tipo_interaccion.'</th>';
+          $htmlContent .= '<th>'.$solicitado_por.'</th>';
+          $htmlContent .= '<th>'.$aprobado_por.'</th>';
+          $htmlContent .= '<th>'.$comentarios_generales.'</th>';
+          $htmlContent .= '</tr>';
+          
+          $htmlContent .= '</tbody>';
+          $htmlContent .= '</table>';
+
+
+        
+
+          $subject="Nuevo registro Control de calidad Orden: ".$PurchaseOrderNumber." ".$PurchaseOrderDescription;
+
+          $file = $this->config->item('BASE_ARCHIVOS')."controlcalidad/".$respaldos;
 
 
 
+          $this->sendEmail($email,$subject,$htmlContent,$file);
 
-$this->sendEmail($email,$subject,$htmlContent,$file);
-
-
-
-        }
+    }
 
 
 
@@ -388,10 +512,10 @@ public function sendEmail($email,$subject,$message,$file)
 
     $config = Array(
       'protocol' => 'smtp',
-      'smtp_host' => 'ssl://smtp.googlemail.com',
+      'smtp_host' => 'ssl://mail.mimsprojects.com',
       'smtp_port' => 465,
-      'smtp_user' => 'isra.olivares@gmail.com', 
-      'smtp_pass' => 'B3nj4m1n.', 
+      'smtp_user' => 'controlcalidad@mimsprojects.com', 
+      'smtp_pass' => 'r9x0ptj~y5)T', 
       'mailtype' => 'html',
       'charset' => 'iso-8859-1',
       'wordwrap' => TRUE
@@ -400,19 +524,28 @@ public function sendEmail($email,$subject,$message,$file)
 
           $this->load->library('email', $config);
           $this->email->set_newline("\r\n");
-          $this->email->from('isra.olivares@gmail.com');
+          $this->email->from('controlcalidad@mimsprojects.com');
           $this->email->to($email);
           $this->email->subject($subject);
           $this->email->message($message);
           $this->email->attach($file);
           if($this->email->send())
          {
-          echo 'Email send.';
+          $resp= true;
+          $error_msg= 'Correo enviado correctamente';
+         
          }
          else
         {
-         show_error($this->email->print_debugger());
+
+          $resp= true;
+          $error_msg= show_error($this->email->print_debugger());
+
         }
 
+        $data['resp']        = $resp;
+        $data['mensaje']     = $error_msg;
+
+        echo json_encode($data);
     }
   }

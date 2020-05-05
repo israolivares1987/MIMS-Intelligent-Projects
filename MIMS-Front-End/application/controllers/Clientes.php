@@ -1,9 +1,13 @@
 <?php
 class Clientes extends MY_Controller{
+
   function __construct(){
     parent::__construct();
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
+    $this->load->library('CallExternosEmpresas');
+    $this->load->library('form_validation');
+    $this->load->library('CallUtil');
   }
  
 
@@ -11,12 +15,43 @@ class Clientes extends MY_Controller{
 
 
     $codEmpresa = $this->session->userdata('cod_emp');
-    $responseMenuLeft = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+    $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+  
+    $menu = $this->callutil->armaMenuClientes($response);
+
+   
+    $datos['arrClientes'] = $menu ;
 
 
-    $json_datosMenuLeft = $responseMenuLeft;
-    $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-    $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
+      // Datos Empresas
+
+      $responseEmpresas = $this->callexternosempresas->obtieneEmpresas($codEmpresa);
+      $respuesta = false;
+
+      $arrEmpresas = json_decode($responseEmpresas);
+
+      if($arrEmpresas){
+        $respuesta = true;
+        
+        foreach ($arrEmpresas as $key => $value) {
+
+          $nombreEmpresa = $value->nombre;
+          $razonSocial = $value->razon_social;
+          
+        }
+      }
+
+
+
+
+
+      $datos['nombreEmpresa'] = $nombreEmpresa;
+      $datos['razonSocial'] = $razonSocial;
+
+
+
+
+
 
     //Si es rol ingenieria. no carga proyectos en menu lateral
     if($this->session->userdata('rol_id') == 204){
@@ -24,105 +59,280 @@ class Clientes extends MY_Controller{
       $this->plantilla_ingenieria('ingenieria/listClientes', $datos);
 
     }else{
-      $this->load->view('activador/header');
-      $this->load->view('activador/navbar');
-      $this->load->view('activador/left_menu', $datos);
-      $this->load->view('activador/listClientes');
-      $this->load->view('activador/footer');
+
+      $this->plantilla_activador('activador/listClientes', $datos);
+   
     }
 
   }
 
 
   function listaClientes(){
-     
-    $response = $this->callexternosclientes->listaClientes();
-    echo $response;
-    
-  
-  }
 
-  function  obtieneClientePorId($id){
-     
-     
-      $response = $this->callexternosclientes->obtieneClientePorId($id);
-      echo $response;
+
+    $codEmpresa = $this->input->post('codEmpresa');
+    $responseClientes = $this->callexternosclientes->listaClientes($codEmpresa);
+    $respuesta = false;
+
+    $arrClientes = json_decode($responseClientes);
+   
+    $datos_clientes = array();
+
+    if($arrClientes){
+      $respuesta = true;
       
+      foreach ($arrClientes as $key => $value) {
+
+        $datos_clientes[] = array(
+          'idCliente' => $value->idCliente,
+          'nombreCliente'   => $value->nombreCliente,
+          'razonSocial'   => $value->razonSocial,
+          'rutCliente' => $value->rutCliente,
+          'dvCliente'       => $value->dvCliente,
+          'direccion' => $value->direccion,
+          'contacto' => $value->contacto,
+          'telefono' => $value->telefono,
+          'correo' => $value->correo
+        );
+        
+      }
+    }
+
+    $datos['clientes'] = $datos_clientes;
+    $datos['resp']      = $respuesta;
+
+    echo json_encode($datos);
+    
   
   }
 
-
-  function  deleteCliente($id){
-     
-    $response = $this->callexternosclientes->deleteCliente($id);
-    echo $response;
-  
-  }
-
-  function updateCliente()
-{
+  function agregarCliente(){  
 
     
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/updateCliente";
+
+    $nombreCliente      = $this->input->post('nombreCliente');
+    $razonSocial  = $this->input->post('razonSocial');
+    $rutCliente           = $this->input->post('rutCliente');
+    $dvCliente       = $this->input->post('dvCliente');
+    $direccion       = $this->input->post('direccion'); 
+    $contacto       = $this->input->post('contacto'); 
+    $telefono       = $this->input->post('telefono');  
+    $correo          = $this->input->post('correo');  
+    $codEmpresa  = $this->input->post('codEmpresa');  
+    $resp = false;
+    $mensaje = "";
+
+
+    $data = array();
+
+    $nombre = $this->form_validation->set_rules('nombreCliente', 'Nombre Cliente', 'required|trim');
+    $razon = $this->form_validation->set_rules('razonSocial', 'Razon Social', 'required|trim');
+    $rut = $this->form_validation->set_rules('rutCliente', 'Rut Cliente', 'required|trim');
+    $dv = $this->form_validation->set_rules('dvCliente', 'Dv Cliente', 'required|trim');
+    
+    if(!$nombre->run() && !$razon->run() && !$rut->run() && !$dv->run()){
         
-    $form_data = array(
-                      'idCliente' => $this->input->post('idCliente'),
-                      'rutCliente' => $this->input->post('rutCliente'),
-                      'nombreCliente' => $this->input->post('nombreCliente'),
-                      'dvCliente' => $this->input->post('dvCliente')
-              );
+      $data['resp']     = false;
+      $data['mensaje']  = "Campos faltantes, favor revisar.";
+    
 
-    $client = curl_init($api_url);
+    }else{
 
-    curl_setopt($client, CURLOPT_POST, true);
+      $insert= array(
+        'codEmpresa' => $codEmpresa,
+        'nombreCliente'   => $nombreCliente,
+        'razonSocial'   => $razonSocial,
+        'rutCliente' => $rutCliente,
+        'dvCliente'       => $dvCliente,
+        'direccion' => $direccion,
+        'contacto' => $contacto,
+        'telefono' => $telefono,
+        'correo' => $correo
+      );
 
-    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+      $cliente = $this->callexternosclientes->agregarCliente($insert);
+      $clienteins = json_decode($cliente) ;
+        
+      $resp =  $clienteins->resp;
+      $idInsertado = $clienteins->id_insertado;
 
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+      
 
-    $response = curl_exec($client);
+      if($resp){
 
-    curl_close($client);
+        $error_msg = 'Cliente creado correctamente.';
+        $resp =  true;
+        
 
-    echo $response;
-  
-  }
+      }else{
+
+        $error_msg = 'Inconvenientes al crear cliente, favor reintente.';
+        $resp =  false;
+
+      }
+
+ }
+
+    $data['resp']        = $resp;
+    $data['mensaje']     = $error_msg;
+    $data['idInsertado'] = $idInsertado;
  
-  function agregarCliente(){
 
+    echo json_encode($data);
 
-    
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/agregarCliente";
+  }
+
+  function obtieneCliente(){
+  
+    $id_cliente = $this->input->post('id_cliente');
+
+    $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
+    $respuesta = false;
+
+    $arrCliente = json_decode($responseCliente);
+   
+    $datos_cliente = array();
+
+    if($arrCliente){
+      
+      foreach ($arrCliente as $key => $value) {
+
+        $datos_clientes = array(
+          'idCliente' => $value->idCliente,
+          'codEmpresa' => $value->codEmpresa,
+          'nombreCliente'   => $value->nombreCliente,
+          'razonSocial'   => $value->razonSocial,
+          'rutCliente' => $value->rutCliente,
+          'dvCliente'       => $value->dvCliente,
+          'direccion' => $value->direccion,
+          'contacto' => $value->contacto,
+          'telefono' => $value->telefono,
+          'correo' => $value->correo
+        );
         
-    $form_data = array(
-                      'codEmpresa' => $this->session->userdata('cod_emp'),
-                      'nombreCliente' => $this->input->post('nombreCliente'),
-                      'rutCliente' => $this->input->post('rutCliente'),
-                      'dvCliente' => $this->input->post('dvCliente')
-              );
+        
+      }
+    }
+
+    echo json_encode($datos_clientes);
 
 
-
-
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
   
   }
 
 
+  function editarCliente(){  
+
+    $idCliente        = $this->input->post('idCliente');
+    $nombreCliente      = $this->input->post('nombreCliente');
+    $razonSocial  = $this->input->post('razonSocial');
+    $rutCliente           = $this->input->post('rutCliente');
+    $dvCliente       = $this->input->post('dvCliente');
+    $direccion       = $this->input->post('direccion'); 
+    $contacto       = $this->input->post('contacto'); 
+    $telefono       = $this->input->post('telefono');  
+    $correo          = $this->input->post('correo');  
+    $codEmpresa  = $this->input->post('codEmpresa');  
+    $resp = false;
+    $mensaje = "";
+
+
+    $data = array();
+
+    $nombre = $this->form_validation->set_rules('nombreCliente', 'Nombre Cliente', 'required|trim');
+    $razon = $this->form_validation->set_rules('razonSocial', 'Razon Social', 'required|trim');
+    $rut = $this->form_validation->set_rules('rutCliente', 'Rut Cliente', 'required|trim');
+    $dv = $this->form_validation->set_rules('dvCliente', 'Dv Cliente', 'required|trim');
+    
+    if(!$nombre->run() || !$razon->run() || !$rut->run() || !$dv->run()){
+        
+
+      $error_msg = 'Campos faltantes, favor revisar.';
+      $resp =  false;
+
+    
+
+    }else{
+
+      $update= array(
+
+        'idCliente' => $idCliente,
+        'codEmpresa' => $codEmpresa,
+        'nombreCliente'   => $nombreCliente,
+        'razonSocial'   => $razonSocial,
+        'rutCliente' => $rutCliente,
+        'dvCliente'       => $dvCliente,
+        'direccion' => $direccion,
+        'contacto' => $contacto,
+        'telefono' => $telefono,
+        'correo' => $correo
+      );
+
+      $cliente = $this->callexternosclientes->editarCliente($update);
+  
+
+      if($cliente){
+
+        $error_msg = 'Cliente actualizado correctamente.';
+        $resp =  true;
+        
+
+      }else{
+
+        $error_msg = 'Inconvenientes al actualizar cliente, favor reintente.';
+        $resp =  false;
+
+      }
+
+ }
+
+    $data['resp']        = $resp;
+    $data['mensaje']     = $error_msg;
+ 
+
+    echo json_encode($data);
+
+  }
+
+  function eliminaCliente(){  
+
+
+    $idCliente       = $this->input->post('id_cliente');
+    $resp = false;
+    $mensaje = "";
+
+
+   
+      $cliente = $this->callexternosclientes->eliminaCliente($idCliente);
+    
+ 
+      if($cliente){
+
+        $resp = true;
+        $mensaje = "Cliente Eliminado correctamente";
+
+      }else{
+
+        $resp = false;
+        $mensaje = "Error al Eliminar cliente, datos sin actualizar";
+      }
+  
+  
+
+      $data['resp']       = $resp;
+      $data['mensaje']    = $mensaje;
+      
+      
+
+
+     
+    echo json_encode($data);
+
+
+
+  }
+
+  
 
 
   }

@@ -11,141 +11,84 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  * ==============================
  */    
 class CallExternosClientes {
-    
-        
-  function listaClientes(){
-     
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/obtieneClientes";
-        
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
-    
-  
-  }
-
-  function  obtieneClientePorId($id){
-     
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/obtieneClientePorId/".$id;
-        
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
-  
-  }
-
-
-  function  deleteCliente($id){
-     
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/deleteCliente/".$id;
-        
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
-  
-  }
-
-  function updateCliente()
-{
-
-    
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/updateCliente";
-        
-    $form_data = array(
-                      'idCliente' => $this->input->post('idCliente'),
-                      'rutCliente' => $this->input->post('rutCliente'),
-                      'nombreCliente' => $this->input->post('nombreCliente'),
-                      'dvCliente' => $this->input->post('dvCliente')
-              );
-
-    $client = curl_init($api_url);
-
-    curl_setopt($client, CURLOPT_POST, true);
-
-    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
-  
-  }
  
-  function agregarCliente(){
+ 
+  public function obtienebaseservicios(){
+
+    $CI =& get_instance();
 
 
-    
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/agregarCliente";
+    return $CI->config->item('BASE_SERVICIOS');
+
+  }  
         
-    $form_data = array(
-                      'codEmpresa' => $this->session->userdata('cod_emp'),
-                      'nombreCliente' => $this->input->post('nombreCliente'),
-                      'rutCliente' => $this->input->post('rutCliente'),
-                      'dvCliente' => $this->input->post('dvCliente')
-              );
+  function listaClientes($codEmpresa){
+     
+     $base_url_servicios =$this->obtienebaseservicios();               
+     $api_url = $base_url_servicios."Clientes/listaClientes";
+        
+     $form_data = array(
+      'codEmpresa' => $codEmpresa
+      );
 
+      $client = curl_init($api_url);
 
+      curl_setopt($client, CURLOPT_POST, true);
+  
+      curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+      curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+      $response = curl_exec($client);
+  
+      curl_close($client);
+  
+      return $response;
+    
+  
+  }
 
-
+  function obtieneCliente($id_cliente){
+     
+    $base_url_servicios =$this->obtienebaseservicios();                
+    $api_url = $base_url_servicios."Clientes/obtieneCliente";
+        
     $client = curl_init($api_url);
+    
 
-    curl_setopt($client, CURLOPT_POST, true);
+    $form_data = array(
+    'id_cliente' => $id_cliente
+        );
 
-    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+        $client = curl_init($api_url);
 
-    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-    $response = curl_exec($client);
-
-    curl_close($client);
-
-    echo $response;
+        curl_setopt($client, CURLOPT_POST, true);
+    
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+    
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+    
+        $response = curl_exec($client);
+    
+        curl_close($client);
+    
+        return $response;
   
   }
 
 
-  function obtieneDatosCliente($idProveedor){
+  function editarCliente($update){
 
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/obtieneClientePorId/".$idProveedor;
+    $base_url_servicios = $this->obtienebaseservicios();                
+    $api_url = $base_url_servicios."Clientes/editarCliente";
 
-
+    $form_data = $update;
 
     $client = curl_init($api_url);
 
     curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
 
     curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 
@@ -153,19 +96,50 @@ class CallExternosClientes {
 
     curl_close($client);
 
+ 
+
     return $response;
 
+}
 
-  } 
 
-  function obtieneClientePorEmpresa($codEmpresa){
+function agregarCliente($insert){
 
-    $base_url_servicios =BASE_SERVICIOS;                
-    $api_url = $base_url_servicios."Clientes/obtieneClientePorEmpresa";
-        
-    $form_data = array(
-                      'codEmpresa' => $codEmpresa
-              );
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Clientes/agregarCliente";
+
+  $form_data = $insert;
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+function eliminaCliente($idCliente){  
+
+$base_url_servicios =$this->obtienebaseservicios();                
+$api_url = $base_url_servicios."Clientes/eliminaCliente";
+    
+$client = curl_init($api_url);
+
+
+$form_data = array(
+'idCliente' => $idCliente
+    );
 
     $client = curl_init($api_url);
 
@@ -181,7 +155,10 @@ class CallExternosClientes {
 
     return $response;
 
-  }
+
+
+
+}
 
     
 }

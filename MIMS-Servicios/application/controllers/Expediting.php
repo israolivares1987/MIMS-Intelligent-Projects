@@ -196,7 +196,6 @@ class Expediting extends CI_Controller {
 		$codEmpresa 	= $this->input->post('codEmpresa');
 
 		$datos_orden = $this->Proyectos_model->obtieneOrderById($id_order,$id_proyecto,$id_cliente,$codEmpresa);
-
 		echo json_encode($datos_orden);
 
 	}
@@ -215,7 +214,7 @@ class Expediting extends CI_Controller {
 	function obtieneDatoRef(){
 
 		$dominio = $this->input->post('dominio');
-		$dominio = $this->input->post('dato');
+		$dato = $this->input->post('dato');
 
 		$datos_dominio = $this->Proyectos_model->obtieneDatoRef($dominio,$dato);
 

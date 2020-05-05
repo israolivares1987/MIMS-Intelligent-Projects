@@ -1,36 +1,94 @@
- <!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-     <!-- Main content -->
-     <section class="content">
-         <div class="row">
-             <div class="col-12">
-                 <div class="card">
-                     <div class="card-header">
-                         <h3 class="card-title"></h3>
-                         <div class="card-body">
-                             <div class="col-md-12">
-                                 <div class="card">
-                                     <div class="card-header">
-                                         <h3 class="card-title">
-                                             <i class="fas fa-text-width"></i>
-                                             Detalle BuckSheet
-                                         </h3>
-                                     </div>
-                                     <!-- /.card-header -->
-                                     <div class="card-body">
-                                         <dl class="row">
-                                             <dt class="col-sm-4">Order ID:</dt>
-                                             <dd class="col-sm-6"><?php echo $PurchaseOrderID;?></dd>
-                                             <dt class="col-sm-4">Descripción:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($purchaseOrdername);?></dd>
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+        <div class="container-fluid">
+            <div class="row mb-2">
+                <div class="col-sm-6">
+                    <h1>BuckSheet Orden <?php echo $PurchaseOrderDescription;?> </h1>
+                </div>
+            </div>
+        </div><!-- /.container-fluid -->
+    </section>
+    <div class="row">
+        <div class="col-12">
+        <div class="card">
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                </div>
+
+                <div class="container">
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                    <i class="fas fa-building"></i>
+                                           Detalle Orden
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                <dl class="row">
+                                             <dt class="col-sm-8">Order ID:</dt>
+                                             <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-8">Descripción:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>
+                                             
+                                             
                                              </dd>
                                          </dl>
-                                     </div>
-                                     <!-- /.card-body -->
-                                 </div>
-                                 <!-- /.card -->
-                             </div>
-                             <table class="table table-striped table-bordered" cellspacing="1" width="99%">
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+                        </div>
+                        <!-- /.col-md-6 -->
+                        <div class="col-lg-6">
+                            <div class="card">
+                                <div class="card-header">
+                                    <h3 class="card-title">
+                                    <i class="fas fa-building"></i>
+                                    Detalle Proyecto
+                                    </h3>
+                                </div>
+                                <!-- /.card-header -->
+                                <div class="card-body">
+                                <dl class="row">
+                                             <dt class="col-sm-8">Cliente:</dt>
+                                             <dd class="col-sm-7"><?php echo $nombreCliente;?></dd>
+                                             <dt class="col-sm-8">Proyecto:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($DescripcionProyecto);?></dd>
+                                             <dt class="col-sm-8">Razon Social:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($razonSocial);?></dd>
+                                             </dd>
+                                         </dl>
+                                </div>
+                                <!-- /.card-body -->
+                            </div>
+
+                        </div>
+                    </div>
+                    <!-- /.row -->
+                </div>
+
+
+					 <div class="container">
+										<div class="row">
+											<div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                                                        <i class="fas fa-tasks"></i>
+															Opciones del BuckSheet
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
+													 
+                                                    <table class="table table-striped table-bordered" cellspacing="1" width="99%">
                                  <tbody>
                                      <tr>
                                          <th colspan="4">
@@ -91,9 +149,7 @@
                                      <tr>
                                          <th colspan="4">
                                              <div class="col-md-12" id="importFrm" style="display: none;">
-                                                 <form role="form"
-                                                     action="<?php print site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID."/".$purchaseOrdername;?>"
-                                                     enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                                                 <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                      <div class="card-body">
                                                          <div class="form-group">
                                                              <label for="exampleInputFile">Cargar Archivo</label>
@@ -125,10 +181,23 @@
                                      </tr>
                                  </tbody>
                              </table>
-                             <br/>
-                             <br/>
-                             <br/>
-                             <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+
+                                            <div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                                                        <i class="fas fa-clipboard-list"></i></i>
+															BuckSheet Orden:  <?php echo $PurchaseOrderDescription;?>
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
+                                                    <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
                                  width="99%">
                                  <thead>
                                      <tr>
@@ -181,19 +250,28 @@
                                          <th>Observacion7</th>
                                      </tr>
                                  </thead>
-                             </table>                            
+                             </table>                   
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+											<!-- /.col-md-6 -->
+										</div>
+										<!-- /.row -->
+											<!-- /.col-md-6 -->
+										</div>
+										<!-- /.row -->
+									</div>
+
+										
+									
                          </div>
-                         <!-- /.card-body -->
-                     </div>
-                     <!-- /.card -->
-                 </div>
-                 <!-- /.col -->
-             </div>
-             <!-- /.row -->
-     </section>
-     <!-- /.content -->
- </div>
- <!-- /.content-wrapper -->
+
+        </div>
+    </div>
+</div> <!-- Content Wrapper. Contains page content --> 
+
 
  <script type="text/javascript" class="init">
 
