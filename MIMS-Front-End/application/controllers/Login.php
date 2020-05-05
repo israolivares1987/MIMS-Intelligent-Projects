@@ -32,7 +32,7 @@ class Login extends CI_Controller{
     $password     = md5($this->input->post('password',TRUE));
     $cod_emp      = $this->input->post('cod_emp',TRUE);
 
-    $base_url_servicios = BASE_SERVICIOS;
+    $base_url_servicios = $this->config->item('BASE_SERVICIOS');
 
 
     $api_url = $base_url_servicios."Login/validateUser";
