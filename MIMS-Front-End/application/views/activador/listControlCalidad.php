@@ -128,7 +128,68 @@
              }
              </style>
 
+
+
              <script type="text/javascript">
+
+                            $(document).ready(function() {
+
+                            var cliente = <?php echo $idCliente?> ;
+                            var orden = <?php echo $idOrden?> ;
+
+                            recargaControlCalidad(orden, cliente);
+
+
+
+                            //set input/textarea/select event when change value, remove class error and remove text help block 
+                            $("input").change(function() {
+                                $(this).parent().parent().removeClass('has-error');
+                                $(this).next().empty();
+                            });
+                            $("textarea").change(function() {
+                                $(this).parent().parent().removeClass('has-error');
+                                $(this).next().empty();
+                            });
+                            $("select").change(function() {
+                                $(this).parent().parent().removeClass('has-error');
+                                $(this).next().empty();
+                            });
+
+                            var x = 1; //Initial field counter is 1 
+                            var maxField = 10; //Input fields increment limitation
+                            var addButton = $('.add_button'); //Add button selector
+                            var wrapper = $('.field_wrapper'); //Input field wrapper
+                            var fieldHTML = '<div col-md-12>' +
+                                '<div class="input-group-prepend">' +
+                                '<span class="input-group-text"><i class="fas fa-envelope"></i></span>' +
+                                '<input type="text" name="var_email" value="" class="form-control varEmail"/>' +
+                                '<a href="javascript:void(0);" class="btn btn-block btn-outline-danger btn-sm remove_button" title="Add field"><i class="far fa-envelope"></i> Eliminar Mail</a>' +
+                                '</div>' +
+                                '</div>'; //New input field html 
+
+
+
+                            //Once add button is clicked
+                            $(addButton).click(function() {
+                                //Check maximum number of input fields
+                                if (x < maxField) {
+                                    x++; //Increment field counter
+                                    $(wrapper).append(fieldHTML); //Add field html
+                                }
+                            });
+
+                            //Once remove button is clicked
+                            $(wrapper).on('click', '.remove_button', function(e) {
+                                e.preventDefault();
+                                $(this).parent('div').remove(); //Remove field html
+                                x--; //Decrement field counter
+                            });
+
+
+
+
+                            });   
+
              $('#btn_recargar').on('click', function() {
 
                  var cliente = <?php echo $idCliente?> ;
@@ -166,7 +227,7 @@
 
                      let idControlCalidad = idInsertado;
                      let email = inputsValuesData;
-                     let cod_empresa = '<?php echo $this->session->userdata('cod_emp'); ?>'
+                     let cod_empresa = '<?php echo $this->session->userdata('cod_emp');?>'
                      $.ajax({
                          url: '<?php echo base_url('index.php/Journal/enviarMail'); ?>',
                          type: 'POST',
@@ -245,9 +306,11 @@
 
                  // validar campos
                  var valido = false;
+                 var falso = 0;
 
                  var data = getFiles();
                  data = getFormData("miForm", data);
+
                  var cliente = <?php echo $idCliente?>;
                  var orden = <?php echo $idOrden?>;
 
@@ -256,43 +319,40 @@
 
                      toastr.warning('Fecha incorrecta, favor validar');
 
-                 } else if (data.get('notificacion') === 'S') {
-
-                     var arrayEmail = new Array();
-                     var inputEmails = document.getElementsByClassName('varEmail'),
-                         emailValues = [].map.call(inputEmails, function(dataEmail) {
-                             arrayEmail.push(dataEmail.value);
-                         });
-
-                     arrayEmail.forEach(function(inputsValuesData) {
-
-
-
-                         let email = inputsValuesData;
-                         let falso = 0;
-
-
-                         if (!validateEmail(email)) {
-
-                             falso++;
-
-                         }
-
-                         if (falso > 0) {
-
-                             toastr.warning('Email: ' + email + ' no valido, favor revisar.');
-
-                         }
-
-
-
-                     });
-
-
                  } else {
 
-                     $.ajax({
-                         url: '<?php echo base_url('index.php/Journal/guardarJournal'); ?>',
+                    
+                    if (data.get('notificacion') === 'S') {
+
+                            var arrayEmail = new Array();
+                            var inputEmails = document.getElementsByClassName('varEmail'),
+                                emailValues = [].map.call(inputEmails, function(dataEmail) {
+                                    arrayEmail.push(dataEmail.value);
+                                });
+
+                                    arrayEmail.forEach(function(inputsValuesData) {
+
+                                            let email = inputsValuesData;
+                                            if (!validateEmail(email)) {
+                                            falso++;
+                                            }
+                                            if (falso > 0) {
+
+                                                toastr.warning('Email: ' + email + ' no valido, favor revisar.');
+                                        }                
+                                    });
+                    } 
+                 
+                 
+                 }
+                 
+
+
+                 
+                 if(falso == 0 ){
+
+                    $.ajax({
+                         url: '<?php echo base_url('index.php/Journal/guardarJournal');?>',
                          type: 'POST',
                          data: data,
                          contentType: false,
@@ -313,17 +373,17 @@
                              }
 
 
-                         } else {
-                             toastr.warning(result.mensaje);
-                         }
+                        }else{
+                        
+                            toastr.warning(result.mensaje);
+                        }
 
 
                      }).fail(function(jqXHR, textStatus, errorThrown) {
                          toastr.error(errorThrown);
                      })
-
-
                  }
+
 
              }
 
@@ -421,65 +481,6 @@
                  })
 
              }
-
-
-             $(document).ready(function() {
-
-                 var cliente = <?php echo $idCliente?> ;
-                 var orden = <?php echo $idOrden?> ;
-
-                 recargaControlCalidad(orden, cliente);
-
-
-
-                 //set input/textarea/select event when change value, remove class error and remove text help block 
-                 $("input").change(function() {
-                     $(this).parent().parent().removeClass('has-error');
-                     $(this).next().empty();
-                 });
-                 $("textarea").change(function() {
-                     $(this).parent().parent().removeClass('has-error');
-                     $(this).next().empty();
-                 });
-                 $("select").change(function() {
-                     $(this).parent().parent().removeClass('has-error');
-                     $(this).next().empty();
-                 });
-
-                 var x = 1; //Initial field counter is 1 
-                 var maxField = 10; //Input fields increment limitation
-                 var addButton = $('.add_button'); //Add button selector
-                 var wrapper = $('.field_wrapper'); //Input field wrapper
-                 var fieldHTML = '<div col-md-12>' +
-                     '<div class="input-group-prepend">' +
-                     '<span class="input-group-text"><i class="fas fa-envelope"></i></span>' +
-                     '<input type="text" name="var_email" value="" class="form-control varEmail"/>' +
-                     '<a href="javascript:void(0);" class="btn btn-block btn-outline-danger btn-sm remove_button" title="Add field"><i class="far fa-envelope"></i> Eliminar Mail</a>' +
-                     '</div>' +
-                     '</div>'; //New input field html 
-
-
-
-                 //Once add button is clicked
-                 $(addButton).click(function() {
-                     //Check maximum number of input fields
-                     if (x < maxField) {
-                         x++; //Increment field counter
-                         $(wrapper).append(fieldHTML); //Add field html
-                     }
-                 });
-
-                 //Once remove button is clicked
-                 $(wrapper).on('click', '.remove_button', function(e) {
-                     e.preventDefault();
-                     $(this).parent('div').remove(); //Remove field html
-                     x--; //Decrement field counter
-                 });
-
-
-
-
-             });
              </script>
              <script>
              $(function() {
@@ -708,7 +709,7 @@
                              </div>
                          </div>
                          <div class="modal-footer justify-content-between">
-                             <button id="btn-guardar" onclick="Guardar();" type="button"
+                             <button onclick="Guardar();" type="button"
                                  class="btn btn-outline-primary">Guardar</button>
                              <button type="button" class="btn btn-outline-secondary"
                                  data-dismiss="modal">Cerrar</button>

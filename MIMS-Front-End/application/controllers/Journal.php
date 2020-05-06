@@ -442,7 +442,7 @@ class Journal extends MY_Controller{
   
           //Obtiene Datos Orden
           
-          $Orden = $this->callexternosproyectos->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
+          $Orden = $this->callexternosordenes->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
           
 
           $arrOrden = json_decode($Orden);
