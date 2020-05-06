@@ -148,6 +148,7 @@
 
                  $('#miForm')[0].reset();
                  $('#modal_control_calidad').modal('show');
+                 $('#name_respaldo').html("");
 
              });
 
