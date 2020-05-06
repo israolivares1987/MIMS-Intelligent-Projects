@@ -105,8 +105,9 @@ class BuckSheet extends MY_Controller {
  }
 
 
-    public function save($PurchaseOrderID,$purchaseOrdername) {
+    public function save($idOrden,$idCliente,$idProyecto) {
 
+    $codEmpresa = $this->session->userdata('cod_emp');    
     $data = array();
     $memData = array();
     $success_msg="";
@@ -118,6 +119,30 @@ class BuckSheet extends MY_Controller {
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
 
+
+    //Obtiene Datos Orden
+    
+    $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+    $arrOrden = json_decode($Orden);
+
+    
+    if($arrOrden){
+      
+      foreach ($arrOrden as $llave => $valor) {
+              
+        $SupplierName = $valor->SupplierName;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+
+      }
+    }
+      
+
+
+
+
+
     if($this->form_validation->run() == false) {
       
         $error_msg = 'Archivo invalido, favor seleccionar archivo CSV.';
@@ -127,15 +152,21 @@ class BuckSheet extends MY_Controller {
        if(is_uploaded_file($_FILES['fileURL']['tmp_name'])) {                            
            // Parse data from CSV file
            $csvData = $this->csvreader->parse_csv($_FILES['fileURL']['tmp_name']);            
+           
+    
+           
            // create array from CSV file
            if(!empty($csvData)){
 
                foreach($csvData as $row){  
+
+
                 $rowCount++;
 
                 $memData = array(
-                    'PurchaseOrderID' => $PurchaseOrderID,
-                    'purchaseOrdername' => urldecode($purchaseOrdername),
+                    'PurchaseOrderID' => $idOrden,
+                    'purchaseOrdername' => urldecode($PurchaseOrderNumber),
+                    'SupplierName' => urldecode($SupplierName),
                     'NumeroLinea' => $row['NumeroLinea'],
                     'ItemST' => $row['ItemST'],
                     'SubItemST' => $row['SubItemST'],
@@ -185,12 +216,12 @@ class BuckSheet extends MY_Controller {
                 
                     // Check whether register already exists in the database
                     
-                    $prevCount = $this->callexternosbucksheet->getRows($PurchaseOrderID,$row['NumeroLinea']); 
+                    $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
                                         
                     if($prevCount > 0){
                         // Update member data
                        
-                        $update = $this->callexternosbucksheet->update($memData,$PurchaseOrderID,$row['NumeroLinea']);
+                        $update = $this->callexternosbucksheet->update($memData,$idOrden,$row['NumeroLinea']);
                         
                         if($update){
                             $updateCount++;
