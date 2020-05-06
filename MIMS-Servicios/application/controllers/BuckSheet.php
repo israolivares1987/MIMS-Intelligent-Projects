@@ -199,6 +199,7 @@ class BuckSheet extends CI_Controller {
 				$form_data = array(
 					'PurchaseOrderID'=>$this->input->post('PurchaseOrderID'),
 					'purchaseOrdername'=>$this->input->post('purchaseOrdername'),
+					'SupplierName'=>$this->input->post('SupplierName'),
 					'NumeroLinea'=>$this->input->post('NumeroLinea'),
 					'ItemST'=>$this->input->post('ItemST'),
 					'SubItemST'=>$this->input->post('SubItemST'),
@@ -260,6 +261,7 @@ class BuckSheet extends CI_Controller {
 		$form_data = array(
 					'PurchaseOrderID'=>$this->input->post('PurchaseOrderID'),
 					'purchaseOrdername'=>$this->input->post('purchaseOrdername'),
+					'SupplierName'=>$this->input->post('SupplierName'),
 					'NumeroLinea'=>$this->input->post('NumeroLinea'),
 					'ItemST'=>$this->input->post('ItemST'),
 					'SubItemST'=>$this->input->post('SubItemST'),

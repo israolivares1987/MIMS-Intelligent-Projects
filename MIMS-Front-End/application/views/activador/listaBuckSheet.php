@@ -33,11 +33,9 @@
                                              <dt class="col-sm-8">Order ID:</dt>
                                              <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
-                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderDescription);?></dd>
                                              <dt class="col-sm-8">PurchaseOrderNumber:</dt>
-                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>
-                                             
-                                             
+                                             <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
                                 </div>
@@ -82,7 +80,7 @@
 													<div class="card-header">
 														<h3 class="card-title">
                                                         <i class="fas fa-tasks"></i>
-															Opciones del BuckSheet
+															Opciones
 														</h3>
 													</div>
 													<!-- /.card-header -->
@@ -149,7 +147,7 @@
                                      <tr>
                                          <th colspan="4">
                                              <div class="col-md-12" id="importFrm" style="display: none;">
-                                                 <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+                                                 <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>/<?php echo $idCliente;?>/<?php echo $codProyecto;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                      <div class="card-body">
                                                          <div class="form-group">
                                                              <label for="exampleInputFile">Cargar Archivo</label>

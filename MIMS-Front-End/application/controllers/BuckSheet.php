@@ -67,6 +67,8 @@ class BuckSheet extends MY_Controller {
 
       }
 
+      // Obtiene Datos Cliente
+      
       $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
   
       $arrCliente = json_decode($responseCliente);
@@ -105,8 +107,9 @@ class BuckSheet extends MY_Controller {
  }
 
 
-    public function save($PurchaseOrderID,$purchaseOrdername) {
+    public function save($idOrden,$idCliente,$idProyecto) {
 
+    $codEmpresa = $this->session->userdata('cod_emp');    
     $data = array();
     $memData = array();
     $success_msg="";
@@ -118,6 +121,30 @@ class BuckSheet extends MY_Controller {
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
 
+
+    //Obtiene Datos Orden
+    
+    $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+    $arrOrden = json_decode($Orden);
+
+    
+    if($arrOrden){
+      
+      foreach ($arrOrden as $llave => $valor) {
+              
+        $SupplierName = $valor->SupplierName;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+
+      }
+    }
+      
+
+
+
+
+
     if($this->form_validation->run() == false) {
       
         $error_msg = 'Archivo invalido, favor seleccionar archivo CSV.';
@@ -127,15 +154,21 @@ class BuckSheet extends MY_Controller {
        if(is_uploaded_file($_FILES['fileURL']['tmp_name'])) {                            
            // Parse data from CSV file
            $csvData = $this->csvreader->parse_csv($_FILES['fileURL']['tmp_name']);            
+           
+    
+           
            // create array from CSV file
            if(!empty($csvData)){
 
                foreach($csvData as $row){  
+
+
                 $rowCount++;
 
                 $memData = array(
-                    'PurchaseOrderID' => $PurchaseOrderID,
-                    'purchaseOrdername' => urldecode($purchaseOrdername),
+                    'PurchaseOrderID' => $idOrden,
+                    'purchaseOrdername' => urldecode($PurchaseOrderNumber),
+                    'SupplierName' => urldecode($SupplierName),
                     'NumeroLinea' => $row['NumeroLinea'],
                     'ItemST' => $row['ItemST'],
                     'SubItemST' => $row['SubItemST'],
@@ -185,12 +218,12 @@ class BuckSheet extends MY_Controller {
                 
                     // Check whether register already exists in the database
                     
-                    $prevCount = $this->callexternosbucksheet->getRows($PurchaseOrderID,$row['NumeroLinea']); 
+                    $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
                                         
                     if($prevCount > 0){
                         // Update member data
                        
-                        $update = $this->callexternosbucksheet->update($memData,$PurchaseOrderID,$row['NumeroLinea']);
+                        $update = $this->callexternosbucksheet->update($memData,$idOrden,$row['NumeroLinea']);
                         
                         if($update){
                             $updateCount++;
@@ -219,12 +252,76 @@ class BuckSheet extends MY_Controller {
     }
 
         $codEmpresa = $this->session->userdata('cod_emp');
-        $responseMenuLeft = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-        $json_datosMenuLeft = $responseMenuLeft;
-        $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-        $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-        $datos['PurchaseOrderID'] = $PurchaseOrderID;
-        $datos['purchaseOrdername'] = $purchaseOrdername;
+        $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+        $menu = $this->callutil->armaMenuClientes($response);
+        $datos['arrClientes'] = $menu ;
+  
+
+
+
+    //Obtiene Datos Orden
+  
+    $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+    $arrOrden = json_decode($Orden);
+
+    
+    if($arrOrden){
+      
+      foreach ($arrOrden as $llave => $valor) {
+              
+        $PurchaseOrderID = $valor->PurchaseOrderID;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+        $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+      }
+     }
+
+      //Obtiene Datos Proyecto
+    
+      $Proyecto = $this->callexternosproyectos->obtieneProyecto($idProyecto, $idCliente);
+                
+
+      $arrProyecto = json_decode($Proyecto);
+
+      if($arrProyecto){
+
+        foreach ($arrProyecto as $llave => $valor) {
+                
+          $DescripcionProyecto = $valor->nombre_proyecto;
+
+        }
+
+      }
+
+      // Obtiene Datos Cliente
+
+      $responseCliente = $this->callexternosclientes->obtieneCliente($idCliente);
+  
+      $arrCliente = json_decode($responseCliente);
+     
+      $datos_cliente = array();
+  
+      if($arrCliente){
+        
+        foreach ($arrCliente as $key => $value) {
+  
+
+            $nombreCliente =  $value->nombreCliente;
+            $razonSocial  =   $value->razonSocial;
+          
+        }
+      }
+
+        $datos['PurchaseOrderID'] = $idOrden;
+        $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
+        $datos['idCliente'] = $idCliente;
+        $datos['codProyecto'] = $idProyecto;
+        $datos['DescripcionProyecto'] = $DescripcionProyecto;
+        $datos['nombreCliente'] = $nombreCliente;
+        $datos['razonSocial'] = $razonSocial;
+        $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
         $datos['error_msg'] = $error_msg;
         $datos['success_msg'] = $successMsg;
 

@@ -456,7 +456,7 @@ $.ajax({
 
 
 
-    function ver_bucksheet(id, cliente, codigo_proyecto) {
-        window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ id + '/'+cliente+'/'+codigo_proyecto,'_blank');
+    function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
+        window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');
     }
     </script>

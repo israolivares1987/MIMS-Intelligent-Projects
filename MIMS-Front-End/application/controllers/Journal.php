@@ -11,7 +11,7 @@ class Journal extends MY_Controller{
     $this->load->library('form_validation');
     $this->load->helper('file');
     $this->load->library('CallUtil');
-    
+    $this->load->library('CallExternosOrdenes');
     
   }
 
@@ -22,10 +22,10 @@ class Journal extends MY_Controller{
 
       
     $codEmpresa = $this->session->userdata('cod_emp');
+
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-    $json_datos = $response;
-    $arrayDatos = json_decode($json_datos,true);
-    $datos['arrClientes'] = $arrayDatos['Clientes'];
+    $menu = $this->callutil->armaMenuClientes($response);
+    $datos['arrClientes'] = $menu ;
 
     $datos['idCliente'] = $idCliente;
     $datos['idOrden'] = $idOrden;
@@ -51,11 +51,10 @@ class Journal extends MY_Controller{
       }
         //Obtiene Datos Orden
                   
-        $Orden = $this->callexternosproyectos->obtieneOrden($codProyecto,$idCliente,$idOrden,$codEmpresa);
+        $Orden = $this->callexternosordenes->obtieneOrden($codProyecto,$idCliente,$idOrden,$codEmpresa);
                   
 
         $arrOrden = json_decode($Orden);
-
 
         if($arrOrden){
           
@@ -66,18 +65,26 @@ class Journal extends MY_Controller{
             $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
 
           }
-        
-          // Obtiene datos del cliente
+        }
 
-
-          $Cliente = $this->callexternosclientes->obtieneClientePorId($idCliente);
-
-          $arrCliente = json_decode($Cliente);
-          $nombreCliente = $arrCliente->nombreCliente;
+     // Obtiene Datos Cliente
+      
+     $responseCliente = $this->callexternosclientes->obtieneCliente($idCliente);
   
-               
+     $arrCliente = json_decode($responseCliente);
+    
+     $datos_cliente = array();
  
-    }
+     if($arrCliente){
+       
+       foreach ($arrCliente as $key => $value) {
+ 
+
+           $nombreCliente =  $value->nombreCliente;
+           $razonSocial  =   $value->razonSocial;
+         
+       }
+     }
 
     //Obtiene Datos para el Home
 

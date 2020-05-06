@@ -419,8 +419,8 @@
 
              $(document).ready(function() {
 
-                 var cliente = < ? php echo $idCliente ? > ;
-                 var orden = < ? php echo $idOrden ? > ;
+                 var cliente = <?php echo $idCliente?> ;
+                 var orden = <?php echo $idOrden?> ;
 
                  recargaControlCalidad(orden, cliente);
 
