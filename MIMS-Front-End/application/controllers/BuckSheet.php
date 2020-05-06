@@ -109,14 +109,17 @@ class BuckSheet extends MY_Controller {
 
     public function save($idOrden,$idCliente,$idProyecto) {
 
-    $codEmpresa = $this->session->userdata('cod_emp');    
     $data = array();
     $memData = array();
-    $success_msg="";
+    $successMsg="";
     $error_msg = "";
     $insertCount = 0;
     $updateCount = 0;
     $rowCount = 0; 
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+    $menu = $this->callutil->armaMenuClientes($response);
+    $datos['arrClientes'] = $menu ;
 
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
@@ -166,7 +169,7 @@ class BuckSheet extends MY_Controller {
                 $rowCount++;
 
                 $memData = array(
-                    'PurchaseOrderID' => $idOrden,
+                    'PurchaseOrderID' => $row['PurchaseOrderID'],
                     'purchaseOrdername' => urldecode($PurchaseOrderNumber),
                     'SupplierName' => urldecode($SupplierName),
                     'NumeroLinea' => $row['NumeroLinea'],
@@ -217,47 +220,54 @@ class BuckSheet extends MY_Controller {
                 );
                 
                     // Check whether register already exists in the database
-                    
-                    $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
+
+
+                    if($row['PurchaseOrderID'] == $idOrden){
+
+
+                      $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
                                         
-                    if($prevCount > 0){
-                        // Update member data
-                       
-                        $update = $this->callexternosbucksheet->update($memData,$idOrden,$row['NumeroLinea']);
-                        
-                        if($update){
-                            $updateCount++;
-                        }
+                      if($prevCount > 0){
+                          // Update member data
+                         
+                          $update = $this->callexternosbucksheet->update($memData,$idOrden,$row['NumeroLinea']);
+                          
+                          if($update){
+                              $updateCount++;
+                          }
+                      }else{
+                          // Insert member data
+                          $insert = $this->callexternosbucksheet->insert($memData);
+                          
+                          if($insert){
+                              $insertCount++;
+                          }
+                      }
+
+                          // Status message with imported data count
+                            $notAddCount = ($rowCount - ($insertCount + $updateCount));
+                            $successMsg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
+
+
                     }else{
-                        // Insert member data
-                        $insert = $this->callexternosbucksheet->insert($memData);
-                        
-                        if($insert){
-                            $insertCount++;
-                        }
+
+                      $error_msg = 'Orden en archivo no coincide con la orden seleccionada '.
+                                    'Orden de Archivo: '.$row['PurchaseOrderID'].
+                                    ' Orden seleccionada: '.$idOrden;
+
                     }
+                  
                 
                }
 
            }
 
 
-            // Status message with imported data count
-						$notAddCount = ($rowCount - ($insertCount + $updateCount));
-						$successMsg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
-
+        
 
        }
 
     }
-
-        $codEmpresa = $this->session->userdata('cod_emp');
-        $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-        $menu = $this->callutil->armaMenuClientes($response);
-        $datos['arrClientes'] = $menu ;
-  
-
-
 
     //Obtiene Datos Orden
   
@@ -332,13 +342,8 @@ class BuckSheet extends MY_Controller {
   
 
 
-
-
-
-
-
-        // checkFileValidation
-        public function checkFileValidation($str) {        
+   // checkFileValidation
+  public function checkFileValidation($str) {        
             $mime_types = array(
                 'text/csv',
                 'text/x-csv', 
