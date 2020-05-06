@@ -149,24 +149,23 @@
                                              <div class="col-md-12" id="importFrm" style="display: none;">
                                                  <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>/<?php echo $idCliente;?>/<?php echo $codProyecto;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
                                                      <div class="card-body">
+
                                                          <div class="form-group">
                                                              <label for="exampleInputFile">Cargar Archivo</label>
                                                              <div class="input-group">
                                                                  <div class="custom-file">
-                                                                     <input name="fileURL" type="file"
-                                                                         class="custom-file-input" id="exampleInputFile"
-                                                                         data-allowed-file-extensions="[CSV, csv]"
-                                                                         accept=".CSV, .csv">
+                                                                     <input type="file" onChange="ver_archivo();" class="custom-file-input" id="var_fileURL" name="fileURL" required="">
                                                                      <label class="custom-file-label"
                                                                          for="exampleInputFile"></label>
                                                                  </div>
-                                                                 <div class="input-group-append">
-                                                                     <span class="input-group-text" id="">Upload</span>
-                                                                 </div>
+                                                                               
                                                              </div>
                                                          </div>
                                                      </div>
                                                      <!-- /.card-body -->
+                                                     <div>
+                                                                    <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
+                                                                </div>
 
                                                      <div class="card-footer">
                                                          <button type="submit"
@@ -301,7 +300,12 @@ function cambiosenorden() {
 window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
 }
 
-
+function ver_archivo(){
+                
+                var archivo = document.getElementById('var_fileURL').value;
+                var nombre = archivo.substring(archivo.lastIndexOf("\\")+1,archivo.length-4);
+                $('#name_respaldo').html(nombre);
+}
 
 function reload_table() {
     $('#ListBucksheet').DataTable().ajax.reload();

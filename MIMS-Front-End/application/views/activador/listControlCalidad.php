@@ -192,7 +192,12 @@
 
 
              }
-
+             function ver_archivo(){
+                
+                var archivo = document.getElementById('var_respaldos').value;
+                var nombre = archivo.substring(archivo.lastIndexOf("\\")+1,archivo.length-4);
+                $('#name_respaldo').html(nombre);
+             }
 
              /**
               * Función que pone el archivo en un FormData
@@ -636,21 +641,14 @@
 
                                          <div class="form-group">
                                              <label for="exampleInputFile">Respaldo</label>
-                                             <div class="input-group">
-                                                 <div class="custom-file">
-                                                     <input id="var_respaldos" name="respaldos" type="file"
-                                                         class="custom-file-input" id="exampleInputFile"
-                                                         data-allowed-file-extensions="[doc,docx,pdf,csv,txt,DOC,DOCX,PDF,CSV,TXT,xls,xlsx,XLS,XLSX]"
-                                                         accept=".doc,.docx,.pdf,.csv,.txt,.DOC,.DOCX,.PDF,.CSV,.TXT,.xls,.xlsx,.XLS,.XLSX">
-                                                     <label class="custom-file-label" for="exampleInputFile">Seleccionar
-                                                         Archivo</label>
-                                                 </div>
-                                                 <div class="input-group-append">
-                                                     <span class="input-group-text" id="">Upload</span>
-                                                 </div>
+                                             <div class="custom-file">
+                                                <input type="file"  onChange="ver_archivo();" class="custom-file-input" id="var_respaldos" name="respaldos" required="">
+                                                <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
+                                             </div>
+                                             <div>
+                                                 <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
                                              </div>
                                          </div>
-
                                      </div>
 
 
