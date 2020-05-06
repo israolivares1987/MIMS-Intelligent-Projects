@@ -467,13 +467,16 @@
                      $('#tbl_ccalidad').DataTable({language: {
                           url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
                          },
-                         "paging": false,
+                         "paging": true,
                          "lengthChange": false,
                          "searching": false,
                          "ordering": true,
                          "info": true,
-                         "autoWidth": false,
-                         "responsive": true
+                         "autoWidth": true,
+                         "responsive": true,
+                         "scrollY": "600px",
+                        "scrollX": true,
+                        "scrollCollapse": true
                      });
 
                  }).fail(function() {
