@@ -67,6 +67,8 @@ class BuckSheet extends MY_Controller {
 
       }
 
+      // Obtiene Datos Cliente
+      
       $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
   
       $arrCliente = json_decode($responseCliente);
@@ -250,12 +252,76 @@ class BuckSheet extends MY_Controller {
     }
 
         $codEmpresa = $this->session->userdata('cod_emp');
-        $responseMenuLeft = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-        $json_datosMenuLeft = $responseMenuLeft;
-        $arrayDatosMenu = json_decode($json_datosMenuLeft,true);
-        $datos['arrClientes'] = $arrayDatosMenu['Clientes'];
-        $datos['PurchaseOrderID'] = $PurchaseOrderID;
-        $datos['purchaseOrdername'] = $purchaseOrdername;
+        $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+        $menu = $this->callutil->armaMenuClientes($response);
+        $datos['arrClientes'] = $menu ;
+  
+
+
+
+    //Obtiene Datos Orden
+  
+    $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+    $arrOrden = json_decode($Orden);
+
+    
+    if($arrOrden){
+      
+      foreach ($arrOrden as $llave => $valor) {
+              
+        $PurchaseOrderID = $valor->PurchaseOrderID;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+        $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+      }
+     }
+
+      //Obtiene Datos Proyecto
+    
+      $Proyecto = $this->callexternosproyectos->obtieneProyecto($idProyecto, $idCliente);
+                
+
+      $arrProyecto = json_decode($Proyecto);
+
+      if($arrProyecto){
+
+        foreach ($arrProyecto as $llave => $valor) {
+                
+          $DescripcionProyecto = $valor->nombre_proyecto;
+
+        }
+
+      }
+
+      // Obtiene Datos Cliente
+
+      $responseCliente = $this->callexternosclientes->obtieneCliente($idCliente);
+  
+      $arrCliente = json_decode($responseCliente);
+     
+      $datos_cliente = array();
+  
+      if($arrCliente){
+        
+        foreach ($arrCliente as $key => $value) {
+  
+
+            $nombreCliente =  $value->nombreCliente;
+            $razonSocial  =   $value->razonSocial;
+          
+        }
+      }
+
+        $datos['PurchaseOrderID'] = $idOrden;
+        $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
+        $datos['idCliente'] = $idCliente;
+        $datos['codProyecto'] = $idProyecto;
+        $datos['DescripcionProyecto'] = $DescripcionProyecto;
+        $datos['nombreCliente'] = $nombreCliente;
+        $datos['razonSocial'] = $razonSocial;
+        $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
         $datos['error_msg'] = $error_msg;
         $datos['success_msg'] = $successMsg;
 

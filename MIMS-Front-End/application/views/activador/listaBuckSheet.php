@@ -80,7 +80,7 @@
 													<div class="card-header">
 														<h3 class="card-title">
                                                         <i class="fas fa-tasks"></i>
-															Opciones del BuckSheet
+															Opciones
 														</h3>
 													</div>
 													<!-- /.card-header -->
