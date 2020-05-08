@@ -48,7 +48,7 @@
 <!-- PAGE SCRIPTS -->
 <script src="<?php echo base_url('assets/dist/js/pages/dashboard2.js');?>"></script>
 <script src="<?php echo base_url('assets/datatable_ing/js/jquery.dataTables.min.js');?>"></script>
-
+<script src="<?php echo base_url('assets/scripts/validaciones.js');?>"></script>
 
 
 <script src="<?php echo base_url('assets/js/toastr.min.js');?>"></script>

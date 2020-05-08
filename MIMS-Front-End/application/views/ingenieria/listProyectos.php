@@ -1,75 +1,94 @@
    <!-- Content Wrapper. Contains page content -->
    <div class="content-wrapper">
     <!-- Content Header (Page header) -->
-    <section class="content-header">
-      <div class="container-fluid">
-        <div class="row mb-2">
-          <div class="col-sm-6">
-            <!--h5 class="card-title m-0">Clientes empresa <?php #echo $nombreCliente;?>
-            </h5-->
-          </div>
-        </div>
-      </div><!-- /.container-fluid -->
-    </section>
-
     <!-- Main content -->
-    <section class="content">
-      <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <div class="card-header">
-                <div class="card">
-                  <div class="card-header">
-                    <h5>Clientes</h5>
-                  </div>
-                  <div class="card-body">
-                      <div class="container">
-                        <div class="col-md-6">
+
+    <div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                            <i class="fas fa-user-tie"></i>
+															Cliente
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
                           <div class="form-group">
                             <label>Seleccione cliente</label>
                             <?php echo $select_clientes;?>
                           </div>
-                        </div>
-                      </div>
-                  </div><!--.card-body-->
-                </div><!--.card-->
-                <div class="card mt-5">
-                  <div class="card-header">
-                    <h5>Proyectos</h5>
-                  </div>
-                  <div class="card-body">
-                    <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0">
-                        <button id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+
+
+                <div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                              <i class="fas fa-clipboard-list"></i></i>
+															Proyectos
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
+                          <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                        <button style="display: none;" id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
                         <thead>
                             <tr>
-                              <th>Codigo Proyecto</th>
-                              <th>Descripcion Proyecto</th>
-                              <th>Estado Proyecto</th>
-                              <th>Acciones</th>
+                                <th>Acciones</th>
+																<th>Nombre Proyecto</th>
+																<th>Descripcion Proyecto</th>
+																<th>Lugar</th>
+																<th>Estado Proyecto</th>
                             </tr>
                         </thead>
                         <tbody id="datos_proyectos">
                         </tbody>
                     </table>
-                  </div><!--.card-body-->
-                </div><!--.card-->
-                <div class="card mt-5">
-                  <div class="card-header">
-                    <h5>Ordenes de Compra</h5>
-                  </div>
-                  <div class="card-body">
-                    <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0">
-                      <button id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+
+
+                <div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                              <i class="fas fa-clipboard-list"></i></i>
+															Ordenes de Compra
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
+                          <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                      <button style="display: none;" id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
                         <thead>
                             <tr>
-                              <th>Codigo Proyecto</th>
-                              <th>OrderID</th>
-                              <th>OrderDescription</th>
-                              <th>Supplier</th>
-                              <th>Employee</th>
-                              <th>OrderDate</th>
-                              <th>DateRequired</th>
-                              <th>Acciones</th>
+                            <th>Acciones</th>
+                            <th>Orden ID</th>
+                            <th>Orden Number</th>
+                            <th>Orden Description</th>
+                            <th>Nombre Proveedor</th>
+                            <th>Activador</th>
+                            <th>Generador de Compra</th>
+                            <th>Moneda</th>
+                            <th>Valor Neto</th>
+                            <th>Valor Total</th>
+                            <th>Presupuesto</th>
+                            <th>Codigo Presupuesto</th>
+                            <th>Fecha Orden</th>
+                            <th>Fecha Requerida</th>
+                            <th>Fecha Prometida</th>
+                            <th>Fecha Enviada</th>
+                            <th>Metodo Envio</th>
+                            <th>Fecha Orden Creada</th>
+                            <th>Estado</th>
+                            <th>Archivo</th>	
                             </tr>
                         </thead>
                         <tbody id="datos_ordenes">
@@ -81,8 +100,49 @@
                         <input type="hidden" id="id_cliente_or">
                         <input type="hidden" id="nombre_proyecto_or">
                         <input type="hidden" id="flag_orden">
-                  </div><!--.card-body-->
-                </div><!--.card-->
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+
+                     <div class="col-lg-12">
+												<div class="card">
+													<div class="card-header">
+														<h3 class="card-title">
+                              <i class="fas fa-clipboard-list"></i></i>
+															Items Orden
+														</h3>
+													</div>
+													<!-- /.card-header -->
+													<div class="card-body">
+													  <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
+														<button style="display: none;" id="btn_nueva_item_orden" class="btn btn-outline-primary float-right mb-3">Nueva Item Orden</button>
+                            <thead>
+															<tr>
+                                                            <th>Orden ID</th>
+                                                            <th>Orden Item ID</th>
+                                                            <th>Descripcion</th>
+                                                            <th>Revision</th>
+                                                            <th>Unidad</th>
+                                                            <th>Cantidad</th>
+                                                            <th>Precio Unitario</th>
+                                                            <th>Valor Neto</th>
+                                                            <th>Estado</th>	
+                                                        </tr>
+														</thead>
+														<tbody id="datos_ordenes_items">
+														</tbody>
+													</table>
+													</div>
+													<!-- /.card-body -->
+												</div>
+
+											</div>
+
+
+
+
             </div><!--.card-header-->
             <!-- /.card-header -->
          </div><!--.card--> 
@@ -117,7 +177,27 @@
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Nombre proyecto</label>
                         <div class="col-sm-12">
+                          <input id="var_nombre_proyecto" type="text" class="form-control">
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Descripcion Proyecto</label>
+                        <div class="col-sm-12">
                           <input id="var_descripcion_proyecto" type="text" class="form-control">
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Lugar</label>
+                        <div class="col-sm-12">
+                          <input id="var_lugar_proyecto" type="text" class="form-control">
                         </div><!--.col-sm-9-->
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
@@ -164,6 +244,26 @@
                         <label class="col-sm-12 control-label">Nombre proyecto</label>
                         <div class="col-sm-12">
                           <input id="act_nombre_proyecto" type="text" class="form-control">
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Descripcion Proyecto</label>
+                        <div class="col-sm-12">
+                          <input id="act_descripcion_proyecto" type="text" class="form-control">
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Lugar proyecto</label>
+                        <div class="col-sm-12">
+                          <input id="act_lugar_proyecto" type="text" class="form-control">
                         </div><!--.col-sm-9-->
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
@@ -504,14 +604,92 @@
       </div><!--.modal-->
       <!--.fin modal nuevo orden-->
 
+
+  <!--.modal edita proyecto-->
+  <div id="modal_nuevo_orden_item" class="modal fade" tabindex="-1" role="dialog">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title">Nuevo Orden Item</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              <div class="container">
+                <div class="row">
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Cliente</label>
+                        <div class="col-sm-12">
+                          <input id="act_nombre_cliente" type="text" class="form-control" readonly >
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Nombre proyecto</label>
+                        <div class="col-sm-12">
+                          <input id="act_nombre_proyecto" type="text" class="form-control">
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                  <div class="col-md-12">
+                    <div class="form-horizontal">
+                      <div class="form-group">
+                        <label class="col-sm-12 control-label">Seleccione estado</label>
+                        <div class="col-sm-12">
+                          <div id="s_estado"></div>
+                        </div><!--.col-sm-9-->
+                      </div><!--.form-group-->
+                    </div><!--.form-horizontal-->
+                  </div><!--.col-md-12-->
+                </div><!--row-->
+              </div><!--.container-->
+            </div><!--.modal-body-->
+            <div class="modal-footer justify-content-between">
+              <input type="hidden" id="act_id_proyecto">
+              <input type="hidden" id="act_id_cliente">
+              <button id="btn-actualizar-proy" type="button" class="btn btn-outline-primary">Actualizar</button>
+              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+            </div>
+          </div>
+        </div>
+      </div>
+      <!--.fin modal edita proyecto--> 
+
+
+
+
+      <style type="text/css" class="init">
+    /* Ensure that the demo table scrolls */
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+
+    tr {
+        height: 50px;
+    }
+    </style>
+
 <script type="text/javascript">
 
 $('[data-toggle="tooltip"]').tooltip();
 
 $(document).ready(function() { 
 
-
-    
+    recargaProyectos(0);
+    recargaOrdenes(0,0);
+    recargaItemOrdenes(0, 0, 0)
 
     //set input/textarea/select event when change value, remove class error and remove text help block 
     $("input").change(function(){
@@ -532,7 +710,8 @@ $(document).ready(function() {
 
 
 function listar_ordenes(id_proyecto,id_cliente){  
-
+  
+  formToggleActivar('btn_nueva_orden');
   $('#flag_orden').val(1); 
    recargaOrdenes(id_proyecto,id_cliente);
 
@@ -542,16 +721,19 @@ function listar_ordenes(id_proyecto,id_cliente){
 $('#select_clientes').on('change', function(){
 
     var cliente = this.value;
+    formToggleActivar('btn_nuevo_proyecto');
 
     if(cliente > 0){
 
       recargaOrdenes(0,0);
       recargaProyectos(cliente);
+      
+
 
     }else{
-      recargaOrdenes(0,0);
+      //recargaOrdenes(0,0);
       $('#flag_orden').val(0);
-      $('#datos_proyectos').html('<td class="text-center" colspan="4">No hay datos disponibles en la tabla.</td>');
+      $('#datos_proyectos').html('<td class="text-center" colspan="5">No hay datos disponibles en la tabla.</td>');
     }
 
 });
@@ -579,18 +761,31 @@ $('#btn_nuevo_proyecto').on('click', function(){
 });
 
 
+$('#btn_nueva_item_orden').on('click', function(){
+ 
+ 
+   $('#modal_nuevo_orden_item').modal('show');
+   
+ 
+});
+
+
 $('#btn-guardar').on('click', function(){
 
   let id_cliente      = $('#var_cliente').val();
-  let nombre_proyecto = $('#var_descripcion_proyecto').val(); 
+  let nombre_proyecto = $('#var_nombre_proyecto').val(); 
+  let descripcion_proyecto = $('#var_descripcion_proyecto').val(); 
+  let lugar_proyecto = $('#var_lugar_proyecto').val(); 
 
   $.ajax({
-    url: 		'<?php echo base_url('index.php/ingenieria/guardarProyecto'); ?>',
+    url: 		'<?php echo base_url('index.php/Proyectos/guardarProyecto'); ?>',
     type: 		'POST',
     dataType: 'json',
     data: {
             id_cliente : id_cliente,
-            nombre_proyecto: nombre_proyecto
+            nombre_proyecto: nombre_proyecto,
+            descripcion_proyecto: descripcion_proyecto,
+            lugar_proyecto: lugar_proyecto
           },
   }).done(function(result) {
 
@@ -622,7 +817,7 @@ function recargaProyectos(cliente){
     tabla_proyecto.destroy();
 
     $.ajax({
-      url: 		'<?php echo base_url('index.php/ingenieria/listProyectosCliente'); ?>',
+      url: 		'<?php echo base_url('index.php/Proyectos/listProyectosCliente'); ?>',
       type: 		'POST',
       dataType: 'json',
       data: {
@@ -630,16 +825,24 @@ function recargaProyectos(cliente){
             },
     }).done(function(result) {
 
+      
+
       $.each(result.proyectos,function(key, proyecto) {
         proyectos_html += '<tr>';
-          proyectos_html += '<td>' + proyecto.codigo_proyecto + '</td>';
-          proyectos_html += '<td>' + proyecto.nombre_proyecto + '</td>';
-          proyectos_html += '<td>' + proyecto.estado + '</td>';
-          proyectos_html += '<td>';
-          proyectos_html += '<button data-nombre="'+ proyecto.nombre_proyecto +'" data-toggle="tooltip" data-placement="top" title="Listar ordenes" onclick="listar_ordenes('+ proyecto.codigo_proyecto +','+ cliente +',this)" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list-ul"></i></button>';
-          proyectos_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Proyecto" onclick="edita_proyecto('+ proyecto.codigo_proyecto +','+ cliente +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-          proyectos_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Proyecto" onclick="elimina_proyecto('+ proyecto.codigo_proyecto +','+ cliente +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+        proyectos_html += '<td>';
+          proyectos_html += '<button data-nombre="'+ proyecto.nombre_proyecto +'" data-toggle="tooltip" data-placement="left" title="Listar ordenes" onclick="listar_ordenes('+ proyecto.NumeroProyecto +','+ cliente +',this)" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list-ul"></i></button>';
+          proyectos_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Proyecto" onclick="edita_proyecto('+ proyecto.NumeroProyecto +','+ cliente +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          proyectos_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Proyecto" onclick="elimina_proyecto('+ proyecto.NumeroProyecto +','+ cliente +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           proyectos_html += '</td>';
+        proyectos_html += '<td>' + proyecto.NombreProyecto + '</td>';
+        proyectos_html += '<td>' + proyecto.DescripcionProyecto + '</td>';
+        proyectos_html += '<td>' + proyecto.Lugar + '</td>';
+        if(proyecto.estadoProyecto ==='ACTIVO'){
+            proyectos_html += '<td><span class="bg-green">'+ proyecto.estadoProyecto +'</span></td>';    
+        }else{
+            proyectos_html += '<td><span class="bg-red">'+ proyecto.estadoProyecto +'</span></td>';
+        }
+         
         proyectos_html += '</tr>';
 
         id_proyecto = proyecto.codigo_proyecto;
@@ -662,8 +865,11 @@ function recargaProyectos(cliente){
           "searching": false,
           "ordering": true,
           "info": true,
-          "autoWidth": false,
-          "responsive": true
+          "autoWidth": true,
+          "responsive": true,
+          "scrollY": "600px",
+          "scrollX": true,
+          "scrollCollapse": true
       });
 
     }).fail(function() {
@@ -677,7 +883,7 @@ function recargaProyectos(cliente){
 function edita_proyecto(id_proyecto, id_cliente){
 
   $.ajax({
-    url: 		'<?php echo base_url('index.php/ingenieria/editarProyecto'); ?>',
+    url: 		'<?php echo base_url('index.php/Proyectos/editarProyecto'); ?>',
     type: 		'POST',
     dataType: 'json',
     data: {
@@ -687,7 +893,9 @@ function edita_proyecto(id_proyecto, id_cliente){
   }).done(function(result) {
       
     $('#act_nombre_cliente').val(result.nombre_cliente);
-    $('#act_nombre_proyecto').val(result.nombre_proyecto);
+    $('#act_nombre_proyecto').val(result.NombreProyecto);
+    $('#act_descripcion_proyecto').val(result.DescripcionProyecto);
+    $('#act_lugar_proyecto').val(result.Lugar);
     $('#s_estado').empty();
     $('#s_estado').html(result.select_estado);
     $('#act_id_proyecto').val(result.id_proyecto);
@@ -779,6 +987,85 @@ function elimina_proyecto(id_proyecto, id_cliente){
 
 }
 
+function listar_item_ordenes(orden_id, id_cliente, id_proyecto ) {
+
+formToggleActivar('btn_nueva_item_orden');
+recargaItemOrdenes(orden_id, id_cliente, id_proyecto);
+
+}
+
+
+function recargaItemOrdenes(orden_id, id_cliente, id_proyecto) {
+
+var ordenes_item_html = '';
+var tabla_ordenes = $('#tbl_ordenes_items').DataTable();
+
+tabla_ordenes.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/OrdenesItem/obtieneItemOrdenes');?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        idOrden: orden_id,
+        idCliente: id_cliente,
+        idProyecto: id_proyecto
+    },
+}).done(function(result) {
+
+    console.log(result);
+    
+   
+    $.each(result.ordenes_item, function(key, orden_item) {
+        ordenes_item_html += '<tr>';
+
+        ordenes_item_html += '<td>' + orden_item.PurchaseOrderID + '</td>';
+        ordenes_item_html += '<td>' + orden_item.id_item + '</td>';
+        ordenes_item_html += '<td>' + orden_item.descripcion + '</td>';
+        ordenes_item_html += '<td>' + orden_item.revision + '</td>';
+        ordenes_item_html += '<td>' + orden_item.unidad + '</td>';
+        ordenes_item_html += '<td>' + orden_item.cantidad + '</td>';
+        ordenes_item_html += '<td>' + orden_item.precio_unitario + '</td>';
+        ordenes_item_html += '<td>' + orden_item.valor_neto + '</td>';
+
+        if(orden_item.estado ==='ACTIVO'){
+            ordenes_item_html += '<td><span class="bg-green">'+ orden_item.estado +'</span></td>';    
+        }else{
+            ordenes_item_html += '<td><span class="bg-red">'+ orden_item.estado +'</span></td>';
+        }
+        ordenes_item_html += '</tr>';
+
+                                            
+    });
+
+    $('#datos_ordenes_items').html(ordenes_item_html);
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('#tbl_ordenes_items').DataTable({
+        "searching": false,
+        language: {
+            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+        },
+        "paging": true,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "responsive": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "scrollCollapse": true
+    });
+
+
+}).fail(function() {
+    console.log("error listar_ordenes");
+})
+
+
+}
+
 
 function recargaOrdenes(id_proyecto,id_cliente){
 
@@ -788,34 +1075,48 @@ function recargaOrdenes(id_proyecto,id_cliente){
   tabla_ordenes.destroy();
 
   $.ajax({
-      url: 		'<?php echo base_url('index.php/ingenieria/obtieneOrdenes'); ?>',
+      url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenes'); ?>',
       type: 		'POST',
       dataType: 'json',
       data: {
-              id_proyecto: id_proyecto,
-              id_cliente:id_cliente
+              idCliente: id_cliente,
+              idProyecto: id_proyecto
             },
     }).done(function(result) {
+
+      
 
       if(id_proyecto == 0){
         $('#flag_orden').val(0);
       }
       
-
       $.each(result.ordenes,function(key, orden) {
         ordenes_html += '<tr>';
-          ordenes_html += '<td>' + orden.codigo_proyecto + '</td>';
-          ordenes_html += '<td>' + orden.order_id + '</td>';
-          ordenes_html += '<td>' + orden.order_description + '</td>';
-          ordenes_html += '<td>' + orden.supplier + '</td>';
-          ordenes_html += '<td>' + orden.employee + '</td>';
-          ordenes_html += '<td>' + orden.order_date + '</td>';
-          ordenes_html += '<td>' + orden.date_required + '</td>';
-          ordenes_html += '<td>';
+        ordenes_html += '<td>';
           //ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.order_id +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.order_id +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           ordenes_html += '</td>';
+        ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+        ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+        ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+        ordenes_html += '<td>' + orden.SupplierName + '</td>';
+        ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+        ordenes_html += '<td>' + orden.Requestor + '</td>';
+        ordenes_html += '<td>' + orden.Currency + '</td>';
+        ordenes_html += '<td>' + orden.ValorNeto + '</td>';
+        ordenes_html += '<td>' + orden.ValorTotal + '</td>';
+        ordenes_html += '<td>' + orden.Budget + '</td>';
+        ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
+        ordenes_html += '<td>' + orden.OrderDate + '</td>';
+        ordenes_html += '<td>' + orden.DateRequired + '</td>';
+        ordenes_html += '<td>' + orden.DatePromised + '</td>';
+        ordenes_html += '<td>' + orden.ShipDate + '</td>';
+        ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
+        ordenes_html += '<td>' + orden.DateCreated + '</td>';
+        ordenes_html += '<td>' + orden.POStatus + '</td>';
+        ordenes_html += '<td>' + orden.Support + '</td>';
         ordenes_html += '</tr>';
 
       });
@@ -829,12 +1130,15 @@ function recargaOrdenes(id_proyecto,id_cliente){
                 url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'	
             },
             "paging": true,
-            "lengthChange": false,
-            "searching": false,
-            "ordering": true,
-            "info": true,
-            "autoWidth": false,
-            "responsive": true
+          "lengthChange": false,
+          "searching": false,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+          "responsive": true,
+          "scrollY": "600px",
+          "scrollX": true,
+          "scrollCollapse": true
         });
 
 

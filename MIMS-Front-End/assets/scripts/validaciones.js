@@ -9,3 +9,19 @@ function validateEmail(email) {
      return (d && (d.getMonth() + 1) == temp[1] && d.getDate() == Number(temp[0]) && d.getFullYear() == Number(temp[2]));
 }
 
+function formToggleDesactivar(ID) {
+
+
+  var element = document.getElementById(ID);
+  
+      element.style.display = "none";
+
+}
+
+function formToggleActivar(ID) {
+
+  var element = document.getElementById(ID);
+ 
+  
+      element.style.display = "block";
+}

@@ -10,6 +10,7 @@ class Ingenieria extends MY_Controller{
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosBuckSheet');
+    $this->load->library('CallUtil');
 
      if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -20,7 +21,7 @@ class Ingenieria extends MY_Controller{
 
     $codEmpresa = $this->session->userdata('cod_emp');
 
-    $clientes = $this->callexternosclientes->obtieneClientePorEmpresa($codEmpresa);
+    $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
 
     $arrClientes = json_decode($clientes);
 
@@ -47,9 +48,8 @@ class Ingenieria extends MY_Controller{
       
     $codEmpresa = $this->session->userdata('cod_emp');
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-    $json_datos = $response;
-    $arrayDatos = json_decode($json_datos,true);
-    $datos['arrClientes'] = $arrayDatos['Clientes'];
+    $menu = $this->callutil->armaMenuClientes($response);
+    $datos['arrClientes'] = $menu ;
 
 
     //Obtiene Datos para el Home
@@ -71,116 +71,8 @@ class Ingenieria extends MY_Controller{
   }
 
 
-  function listProyectosCliente(){
+  
 
-      $datos = array();
-      $id_clientes = $this->input->post('cliente');
-      $respuesta = false;
-
-      $proyectos    = $this->callexternosproyectos->obtieneProyectosCliente($id_clientes);
-      $arrProyectos = json_decode($proyectos);
-      $html ="";
-
-      $datos_proyectos = array();
-
-      if($arrProyectos){
-        $respuesta = true;
-        
-        foreach ($arrProyectos as $key => $value) {
-
-          $datos_proyectos[] = array(
-            'codigo_proyecto'   => $value->codigo_proyecto,
-            'nombre_proyecto'   => $value->descripcion_proyecto,
-            'estado'            => $value->estado_proyecto,
-            'id_clientes'       => $id_clientes
-          );
-
-        }
-      }
-      
-      $datos['proyectos'] = $datos_proyectos;
-      $datos['resp']      = $respuesta;
-
-      echo json_encode($datos);
-    
-  }
-
-
-  function guardarProyecto(){
-
-    $this->load->library('form_validation');
-
-    $id_cliente       = $this->input->post('id_cliente');
-    $nombre_proyecto  = $this->input->post('nombre_proyecto');
-    $codEmpresa       = $this->session->userdata('cod_emp');
-    $data = array();
-
-
-    $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
-
-    if(!$this->form_validation->run()){
-        
-      $data['resp']     = false;
-      $data['mensaje']  = "Campo Nombre Proyecto es obligatorio.";
-    
-    }else{
-
-      $proyectos = $this->callexternosproyectos->guardaProyecto($id_cliente, $nombre_proyecto,$codEmpresa);
-
-
-      if($proyectos){
-
-        $data['resp']        = true;
-        $data['mensaje']     = 'Proyeto creado correctamente';
-
-      }else{
-        $data['resp']        = false;
-        $data['mensaje']     = 'Error al crear proyecto';
-      }
-    }
-
-    echo json_encode($data);
-
-  }
-
-
-  function editarProyecto(){
-
-    $id_proyecto = $this->input->post('id_proyecto');
-    $id_cliente = $this->input->post('id_cliente');
-
-    $proyecto         = $this->callexternosproyectos->obtieneProyecto($id_proyecto,$id_cliente);
-    $datosEstados     = $this->callexternosproyectos->obtieneDatosRef('ESTADO_PROYECTO');
-    $select_estados   = '<select class="form-control" id="act_estado">'; 
-    $nombre_proyecto  = '';
-
-    $data = array();
-
-    foreach (json_decode($proyecto) as $key => $value) {
-
-      $nombre_cliente  = $value->nombre_cliente;
-      $nombre_proyecto = $value->nombre_proyecto;
-
-      foreach (json_decode($datosEstados) as $llave => $valor) {
-        
-        $selected = ($valor->domain_id == $value->estado_proyecto) ? 'selected' : '';
-        $select_estados .='<option '.$selected.' value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
-
-      }
-
-    } 
-
-    $select_estados .= '</select>';
-
-    $data['nombre_cliente']     = $nombre_cliente;
-    $data['nombre_proyecto']    = $nombre_proyecto;
-    $data['select_estado']      = $select_estados;
-    $data['id_proyecto']        = $id_proyecto;
-
-
-    echo json_encode($data);
-
-  }
 
   function actualizaProyecto(){
 

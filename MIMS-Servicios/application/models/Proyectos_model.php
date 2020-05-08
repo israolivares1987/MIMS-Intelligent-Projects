@@ -119,12 +119,13 @@ class Proyectos_model extends CI_Model{
 
 	function obtieneProyectoById($id, $id_cliente){
 
-		$this->db->select(' t2.nombreCliente AS nombre_cliente,
-							t1.DescripcionProyecto AS nombre_proyecto,
+		$this->db->select(' t2.nombreCliente as nombre_cliente ,
+							t1.NumeroProyecto as id_proyecto,t1.NombreProyecto as NombreProyecto,
+							t1.DescripcionProyecto AS DescripcionProyecto,
+							t1.Lugar as Lugar,
 							t1.estadoProyecto AS estado_proyecto,
 							t3.domain_id AS domain_id,
 							t3.domain_desc AS domain_desc');
-
 		$this->db->from('tbl_proyectos t1,
 						 tbl_clientes  t2,
 						 tbl_ref_codes t3');

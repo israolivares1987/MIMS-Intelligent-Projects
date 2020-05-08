@@ -79,4 +79,85 @@ class Proyectos extends MY_Controller{
 }
 
 
+function guardarProyecto(){
+
+  $this->load->library('form_validation');
+
+  $id_cliente       = $this->input->post('id_cliente');
+  $nombre_proyecto  = $this->input->post('nombre_proyecto');
+  $descripcion_proyecto  = $this->input->post('descripcion_proyecto');
+  $lugar_proyecto  = $this->input->post('lugar_proyecto');
+  $codEmpresa       = $this->session->userdata('cod_emp');
+  $data = array();
+
+
+  $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
+
+  if(!$this->form_validation->run()){
+      
+    $data['resp']     = false;
+    $data['mensaje']  = "Campo Nombre Proyecto es obligatorio.";
+  
+  }else{
+
+    $proyectos = $this->callexternosproyectos->guardaProyecto($id_cliente, $nombre_proyecto,$descripcion_proyecto ,$lugar_proyecto,$codEmpresa);
+
+
+    if($proyectos){
+
+      $data['resp']        = true;
+      $data['mensaje']     = 'Proyeto creado correctamente';
+
+    }else{
+      $data['resp']        = false;
+      $data['mensaje']     = 'Error al crear proyecto';
+    }
+  }
+
+  echo json_encode($data);
+
+}
+
+
+
+function editarProyecto(){
+
+  $id_proyecto = $this->input->post('id_proyecto');
+  $id_cliente = $this->input->post('id_cliente');
+
+  $proyecto         = $this->callexternosproyectos->obtieneProyecto($id_proyecto,$id_cliente);
+  $datosEstados     = $this->callexternosproyectos->obtieneDatosRef('ESTADO_PROYECTO');
+  $select_estados   = '<select class="form-control" id="act_estado">'; 
+  $nombre_proyecto  = '';
+  $data = array();
+
+  foreach (json_decode($proyecto) as $key => $value) {
+
+    $nombre_cliente  = $value->nombre_cliente;
+    $nombre_proyecto = $value->NombreProyecto;
+    $descripcion_proyecto = $value->DescripcionProyecto;
+    $lugar_proyecto = $value->Lugar;
+
+    foreach (json_decode($datosEstados) as $llave => $valor) {
+      
+      $selected = ($valor->domain_id == $value->estado_proyecto) ? 'selected' : '';
+      $select_estados .='<option '.$selected.' value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+
+    }
+
+  } 
+
+  $select_estados .= '</select>';
+
+  $data['nombre_cliente']     = $nombre_cliente;
+  $data['nombre_proyecto']    = $nombre_proyecto;
+  $data['descripcion_proyecto']    = $descripcion_proyecto;
+  $data['lugar_proyecto']    = $lugar_proyecto;
+  $data['select_estado']      = $select_estados;
+  $data['id_proyecto']        = $id_proyecto;
+
+
+  echo json_encode($data);
+
+}
     }

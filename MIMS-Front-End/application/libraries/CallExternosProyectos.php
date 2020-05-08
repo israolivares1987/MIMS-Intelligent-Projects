@@ -75,14 +75,16 @@ class CallExternosProyectos {
     }
 
 
-    function guardaProyecto($id_cliente, $nombre_proyecto,$codEmpresa){
+    function guardaProyecto($id_cliente, $nombre_proyecto,$descripcion_proyecto ,$lugar_proyecto,$codEmpresa){
 
       $base_url_servicios = $this->obtienebaseservicios();                
-      $api_url = $base_url_servicios."Expediting/guardaProyecto";
+      $api_url = $base_url_servicios."Proyectos/guardaProyecto";
 
       $form_data = array(
           'id_cliente'		  => $id_cliente,
           'nombre_proyecto' => $nombre_proyecto,
+          'descripcion_proyecto' => $descripcion_proyecto,
+          'lugar_proyecto' => $lugar_proyecto,
           'codEmpresa'      => $codEmpresa
       );
 
@@ -109,7 +111,7 @@ class CallExternosProyectos {
     function obtieneProyecto($id_proyecto, $id_cliente){
 
         $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneProyectoById";
+        $api_url = $base_url_servicios."Proyectos/obtieneProyectoById";
   
         
         $form_data = array(

@@ -36,6 +36,44 @@ class Proyectos extends CI_Controller {
 
 	}
 
+	function guardaProyecto(){
+
+		$id_cliente 		= $this->input->post('id_cliente');
+		$nombre_proyecto 	= $this->input->post('nombre_proyecto');
+		$codEmpresa 	= $this->input->post('codEmpresa');
+
+		$descripcion_proyecto 	= $this->input->post('descripcion_proyecto');
+		$lugar_proyecto 	= $this->input->post('lugar_proyecto');
+
+
+		$data = array(
+			'codEmpresa' 			=> $codEmpresa,
+			'idCliente'  			=> $id_cliente,
+			'NombreProyecto'	=> $nombre_proyecto,
+			'DescripcionProyecto' => $descripcion_proyecto,
+			'Lugar' => $lugar_proyecto,
+			'estadoProyecto'		=> 1
+		);
+
+		$insert = $this->Proyectos_model->guardaProyecto($data);
+
+		echo json_encode(array('status'=>'OK'));
+
+	}
+
+	
+	function obtieneProyectoById(){
+
+		$id = $this->input->post('id_proyecto');
+		$id_cliente = $this->input->post('id_cliente');
+
+		$datos_proyecto = $this->Proyectos_model->obtieneProyectoById($id,$id_cliente);
+
+		echo json_encode($datos_proyecto);
+
+	}
+
+
 }
 
 	
