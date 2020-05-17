@@ -156,37 +156,8 @@ class Expediting extends CI_Controller {
 
 	}
 
-	function guardaProyecto(){
 
-		$id_cliente 		= $this->input->post('id_cliente');
-		$nombre_proyecto 	= $this->input->post('nombre_proyecto');
-		$codEmpresa 	= $this->input->post('codEmpresa');
-
-
-		$data = array(
-			'codEmpresa' 			=> $codEmpresa,
-			'idCliente'  			=> $id_cliente,
-			'DescripcionProyecto'	=> $nombre_proyecto,
-			'estadoProyecto'		=> 1
-		);
-
-		$insert = $this->Proyectos_model->guardaProyecto($data);
-
-		echo json_encode(array('status'=>'OK'));
-
-	}
-
-
-	function obtieneProyectoById(){
-
-		$id = $this->input->post('id_proyecto');
-		$id_cliente = $this->input->post('id_cliente');
-
-		$datos_proyecto = $this->Proyectos_model->obtieneProyectoById($id,$id_cliente);
-
-		echo json_encode($datos_proyecto);
-
-	}
+	
 
 	function obtieneOrderById(){
 
@@ -222,46 +193,8 @@ class Expediting extends CI_Controller {
 
 	}
 
-	function actualizaProyecto(){
-
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
-		$cod_empresa = $this->input->post('codEmpresa');
-		$nombre_proyecto = $this->input->post('nombre_proyecto');
-		$estado = $this->input->post('estado');
-		$resp = false;
-
-		$up = array(
-			'DescripcionProyecto'	=> $nombre_proyecto,
-			'estadoProyecto'		=> $estado
-		);
-
-		$update = $this->Proyectos_model->actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa);
 
 
-		if($update){
-			$resp = true;
-			echo json_encode(array('status' => $resp));	
-		}else{
-			echo json_encode(array('status' => $resp));	
-		}
-
-		
-
-	}
-
-
-	function eliminaProyecto(){
-
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
-		$cod_empresa = $this->input->post('codEmpresa');
-
-		$delete = $this->Proyectos_model->eliminaProyecto($id_cliente, $id_proyecto,$cod_empresa);
-		
-		echo json_encode($delete);	
-
-	}
 
 	function eliminaOrden(){
 

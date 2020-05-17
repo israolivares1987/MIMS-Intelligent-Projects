@@ -7,52 +7,47 @@
 
   <title>MIMS Intelligent Projects</title>
 
-  <!-- Font Awesome Icons -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
-  <!-- overlayScrollbars -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/overlayScrollbars/css/OverlayScrollbars.min.css');?>">
-  <!-- Theme style -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
   
-
+  <!-- Font Awesome -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-
-  <link rel="stylesheet" href="<?php echo base_url('assets/datatable_ing/css/jquery.dataTables.min.css');?>">
-  
-
-
   <!-- DataTables -->
- 
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css');?>">
+  <!-- Theme style -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
 
+  <link rel="stylesheet" href="<?php echo base_url('assets/css/fixedColumns.dataTables.min.css');?>">
 
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 
-<!-- jQuery -->
+  <!-- jQuery -->
 <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
-<!-- Bootstrap -->
+<!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
-<script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
+<!-- DataTables -->
+<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js');?>"></script>
 <!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/dist/js/adminlte.js');?>"></script>
+<script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
+<script src="<?php echo base_url('assets/scripts/validaciones.js');?>"></script>
 
-<link rel="stylesheet" href="<?php echo base_url('assets/bootstrap-datepicker/css/bootstrap-datepicker3.min.css');?>">
-<script src="<?php echo base_url('assets/bootstrap-datepicker/js/bootstrap-datepicker.min.js');?>"></script>
-
-
-<!-- OPTIONAL SCRIPTS -->
-<script src="<?php echo base_url('assets/dist/js/demo.js');?>"></script>
-
-<!-- PAGE SCRIPTS -->
-<script src="<?php echo base_url('assets/dist/js/pages/dashboard2.js');?>"></script>
-<script src="<?php echo base_url('assets/datatable_ing/js/jquery.dataTables.min.js');?>"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url('assets/js/dataTables.fixedColumns.min.js');?>"></script>
+<!-- InputMask -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
 
 
-
-<script src="<?php echo base_url('assets/js/toastr.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 <link rel="stylesheet" href="<?php echo base_url('assets/css/toastr.min.css');?>">
+
+
+
+
 
 <script type="text/javascript">
 $(document).ready(function () {

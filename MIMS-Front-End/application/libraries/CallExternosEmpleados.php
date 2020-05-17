@@ -51,6 +51,34 @@ class CallExternosEmpleados {
       
       }
 
+      function listaActivadores($cod_empresa){
+     
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."Empleados/listaActivadores";
+            
+        $client = curl_init($api_url);
+        
+
+        $form_data = array(
+        'cod_empresa' => $cod_empresa
+            );
+
+            $client = curl_init($api_url);
+
+            curl_setopt($client, CURLOPT_POST, true);
+        
+            curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+        
+            curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+        
+            $response = curl_exec($client);
+        
+            curl_close($client);
+        
+            return $response;
+      
+      }
+
 
       function obtieneEmpleado($id_empleado){
      

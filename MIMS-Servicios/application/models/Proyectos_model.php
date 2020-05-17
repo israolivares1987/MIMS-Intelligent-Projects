@@ -119,12 +119,13 @@ class Proyectos_model extends CI_Model{
 
 	function obtieneProyectoById($id, $id_cliente){
 
-		$this->db->select(' t2.nombreCliente AS nombre_cliente,
-							t1.DescripcionProyecto AS nombre_proyecto,
+		$this->db->select(' t2.nombreCliente as nombre_cliente ,
+							t1.NumeroProyecto as id_proyecto,t1.NombreProyecto as NombreProyecto,
+							t1.DescripcionProyecto AS DescripcionProyecto,
+							t1.Lugar as Lugar,
 							t1.estadoProyecto AS estado_proyecto,
 							t3.domain_id AS domain_id,
 							t3.domain_desc AS domain_desc');
-
 		$this->db->from('tbl_proyectos t1,
 						 tbl_clientes  t2,
 						 tbl_ref_codes t3');
@@ -158,33 +159,7 @@ class Proyectos_model extends CI_Model{
 	}
 
 
-	function obtieneDatosRef($dominio){
 
-		$this->db->where('domain', $dominio);
-		$this->db->where('domain_state', 1);
-		$this->db->order_by('domain_id', 'ASC');
-
-		$this->db->from('tbl_ref_codes');
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	function obtieneDatoRef($dominio,$dato){
-
-		$this->db->where('domain', $dominio);
-		$this->db->where('domain_state', 1);
-		$this->db->where('domain_id', $dato);
-
-		$this->db->from('tbl_ref_codes');
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
 
 	function actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa){
 
@@ -225,28 +200,6 @@ class Proyectos_model extends CI_Model{
 		return $delete;
 
 	}
-
-	function obtieneSuppliers($codEmpresa){
-
-        $this->db->where('codEmpresa', $codEmpresa);
-        $this->db->from('tbl_Suppliers');
-
-        $query = $this->db->get();
-
-        return $query->result();
-
-	}
 	
-	function obtieneEmployee($codEmpresa){
-
-        $this->db->where('codEmpresa', $codEmpresa);
-        $this->db->from('tbl_employees');
-
-        $query = $this->db->get();
-
-        return $query->result();
-
-    }
-
 }
 ?>

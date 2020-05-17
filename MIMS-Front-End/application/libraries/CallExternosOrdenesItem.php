@@ -54,5 +54,113 @@ class CallExternosOrdenesItem {
 
 
     }
+
+
+    function guardaOrdenItem($data){
+ 
+        $base_url_servicios = $this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."OrdenesItem/guardaOrdenItem";
+  
+        $form_data = $data;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+    }
+
+
+    function editarOrdenItem($id_proyecto,$id_cliente,$orden_id,$item_id,$codEmpresa)
+    {
+ 
+
+        $form_data = array(
+            'id_proyecto'	=> $id_proyecto,
+            'id_cliente'    => $id_cliente,
+            'orden_id'      => $orden_id,
+            'item_id'       => $item_id,
+            'codEmpresa'    => $codEmpresa
+        );
+
+        $base_url_servicios = $this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."OrdenesItem/editarOrdenItem";
+  
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+    }
+
+
+    function actualizaOrdenItem($data){
+ 
+        $base_url_servicios = $this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."OrdenesItem/actualizaOrdenItem";
+  
+        $form_data = $data;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+    }
+
+    function eliminaOrdenItem($data){
+ 
+        $base_url_servicios = $this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."OrdenesItem/eliminaOrdenItem";
+  
+        $form_data = $data;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+    }
     
 }
