@@ -72,7 +72,53 @@ class Proyectos extends CI_Controller {
 		echo json_encode($datos_proyecto);
 
 	}
+	function actualizaProyecto(){
 
+		$id_cliente  = $this->input->post('id_cliente');
+		$id_proyecto = $this->input->post('id_proyecto');
+		$cod_empresa = $this->input->post('codEmpresa');
+		$nombre_proyecto = $this->input->post('nombre_proyecto');
+		$estado = $this->input->post('estado');
+		$lugar_proyecto=  $this->input->post('lugar_proyecto');
+		$descripcion_proyecto = $this->input->post('descripcion_proyecto');
+
+		$resp = false;
+
+
+
+		$up = array(
+			'DescripcionProyecto'	=> $descripcion_proyecto,
+			'estadoProyecto'		=> $estado,
+			'NombreProyecto'		=> $nombre_proyecto,
+			'Lugar'		=> $lugar_proyecto,
+		);
+
+		$update = $this->Proyectos_model->actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa);
+
+
+		if($update){
+			$resp = true;
+			echo json_encode(array('status' => $resp));	
+		}else{
+			echo json_encode(array('status' => $resp));	
+		}
+
+		
+
+	}
+
+
+	function eliminaProyecto(){
+
+		$id_cliente  = $this->input->post('id_cliente');
+		$id_proyecto = $this->input->post('id_proyecto');
+		$cod_empresa = $this->input->post('codEmpresa');
+
+		$delete = $this->Proyectos_model->eliminaProyecto($id_cliente, $id_proyecto,$cod_empresa);
+		
+		echo json_encode($delete);	
+
+	}
 
 }
 

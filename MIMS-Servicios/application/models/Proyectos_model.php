@@ -159,33 +159,7 @@ class Proyectos_model extends CI_Model{
 	}
 
 
-	function obtieneDatosRef($dominio){
 
-		$this->db->where('domain', $dominio);
-		$this->db->where('domain_state', 1);
-		$this->db->order_by('domain_id', 'ASC');
-
-		$this->db->from('tbl_ref_codes');
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
-
-	function obtieneDatoRef($dominio,$dato){
-
-		$this->db->where('domain', $dominio);
-		$this->db->where('domain_state', 1);
-		$this->db->where('domain_id', $dato);
-
-		$this->db->from('tbl_ref_codes');
-
-		$query = $this->db->get();
-
-		return $query->result();
-
-	}
 
 	function actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa){
 
@@ -226,28 +200,6 @@ class Proyectos_model extends CI_Model{
 		return $delete;
 
 	}
-
-	function obtieneSuppliers($codEmpresa){
-
-        $this->db->where('codEmpresa', $codEmpresa);
-        $this->db->from('tbl_Suppliers');
-
-        $query = $this->db->get();
-
-        return $query->result();
-
-	}
 	
-	function obtieneEmployee($codEmpresa){
-
-        $this->db->where('codEmpresa', $codEmpresa);
-        $this->db->from('tbl_employees');
-
-        $query = $this->db->get();
-
-        return $query->result();
-
-    }
-
 }
 ?>

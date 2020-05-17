@@ -6,6 +6,9 @@ class Proyectos extends MY_Controller{
     $this->load->library('CallExternosClientes');
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
+    $this->load->library('CallExternosOrdenes');
+    
+    
     $this->load->library('CallUtil');
 
  
@@ -160,4 +163,120 @@ function editarProyecto(){
   echo json_encode($data);
 
 }
+
+
+
+
+function actualizaProyecto(){
+
+  $this->load->library('form_validation');
+
+  $id_cliente       = $this->input->post('id_cliente');
+  $id_proyecto      = $this->input->post('id_proyecto');
+  $nombre_proyecto  = $this->input->post('nombre_proyecto');
+  $estado           = $this->input->post('estado');
+  $codEmpresa       = $this->session->userdata('cod_emp');
+  $descripcion_proyecto  = $this->input->post('descripcion_proyecto');
+  $lugar_proyecto  = $this->input->post('lugar_proyecto');
+
+
+  $resp = false;
+  $mensaje = "";
+
+
+  $data = array();
+
+  $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
+
+  if(!$this->form_validation->run()){
+      
+    $data['resp']     = false;
+    $data['mensaje']  = "Campo Nombre Proyecto es obligatorio.";
+  
+  }else{
+
+    $update = array(
+      'id_cliente'        => $id_cliente,
+      'id_proyecto'       => $id_proyecto,
+      'nombre_proyecto'  => $nombre_proyecto,
+      'lugar_proyecto' => $lugar_proyecto ,
+      'descripcion_proyecto' => $descripcion_proyecto ,
+      'estado'            => $estado,
+      'codEmpresa'        => $codEmpresa
+    );
+
+    $proyectos = $this->callexternosproyectos->actualizaProyecto($update);
+
+    if($proyectos){
+
+      $resp = true;
+      $mensaje = "Proyecto actualizado correctamente";
+
+    }else{
+
+      $mensaje = "Error al actualizar el proyecto";
+
+    }
+
+    $data['resp']       = $resp;
+    $data['mensaje']    = $mensaje;
+    
+    
+
+
+  }
+
+  echo json_encode($data);
+
+
+}
+
+
+
+
+function eliminaProyecto(){
+
+  $id_cliente       = $this->input->post('id_cliente');
+  $id_proyecto      = $this->input->post('id_proyecto');
+  $codEmpresa       = $this->session->userdata('cod_emp');
+
+
+  $data = array(
+    'id_cliente'  => $id_cliente,
+    'id_proyecto' => $id_proyecto,
+    'codEmpresa'  => $codEmpresa
+  );
+
+  $ordenes = $this->callexternosordenes->obtieneOrdenes($id_proyecto,$id_cliente);
+
+  $data_ordenes = json_decode($ordenes);
+
+  if(count($data_ordenes) > 0){
+
+    $data['resp'] = false;
+    $data['mensaje'] = 'Existen ordenes asociadas al proyecto. No se pudo eliminar.';
+
+  }else{
+
+    $delete = $this->callexternosproyectos->actualizaProyecto($data);
+
+    if($delete){
+
+      $data['resp'] = true;
+      $data['mensaje'] = 'Registro eliminado correctamente';
+
+    }else{
+      $data['resp'] = false;
+      $data['mensaje'] = 'Error al eliminar el regitro';
+    }
+
+  }
+
+
+  
+
+  echo json_encode($data);
+
+}
+
     }

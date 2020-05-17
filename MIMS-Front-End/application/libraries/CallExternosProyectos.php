@@ -135,64 +135,12 @@ class CallExternosProyectos {
 
     }
 
-    /**
-     * Funcion general que retorna los datos segun dominios
-     */
-    function obtieneDatosRef($dominio){
-
-        $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneDatosRef";
-  
-        $form_data = array(
-            'dominio'	=> $dominio
-        );
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-
-    }
-
-    function obtieneDatoRef($dominio,$dato){
-
-        $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneDatoRef";
-  
-        $form_data = array(
-            'dominio'	=> $dominio,
-            'id' => $dato
-        );
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-
-    }
+   
 
     function actualizaProyecto($update){
 
         $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/actualizaProyecto";
+        $api_url = $base_url_servicios."Proyectos/actualizaProyecto";
   
         $form_data = $update;
   
@@ -215,7 +163,7 @@ class CallExternosProyectos {
     function eliminaProyecto($delete){
 
         $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/eliminaProyecto";
+        $api_url = $base_url_servicios."Proyectos/eliminaProyecto";
   
         $form_data = $delete;
   
@@ -258,104 +206,7 @@ class CallExternosProyectos {
 
     }
 
-    function obtieneOrdenesProyecto($idProyecto,$idCliente){
- 
-        $base_url_servicios =  $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/obtieneExpediting/".$idCliente."/".$idProyecto;
-
-        
-        $client = curl_init($api_url);
-
-        curl_setopt($client, CURLOPT_POST, true);
-
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-
-        $response = curl_exec($client);
-
-        curl_close($client);
-
-        return $response;
-
-
-    }
-
-
-    function obtieneSupplier($codEmpresa){
-
-        $base_url_servicios = $this->obtienebaseservicios();  
   
-        $api_url = $base_url_servicios."Expediting/obtieneSuppliersEmpresa";
-  
-        $form_data = array(
-            'codEmpresa'	=> $codEmpresa
-        );
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-  
-    }
-
-
-    function obtieneEmployee($codEmpresa){
-
-        $base_url_servicios = $this->obtienebaseservicios();  
-  
-        $api_url = $base_url_servicios."Expediting/obtieneEmployeeEmpresa";
-  
-        $form_data = array(
-            'codEmpresa'	=> $codEmpresa
-        );
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-  
-    }
-
-    function guardaOrden($data){
-
-        $base_url_servicios = $this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."Expediting/guardaOrden";
-  
-        $form_data = $data;
-  
-        $client = curl_init($api_url);
-  
-        curl_setopt($client, CURLOPT_POST, true);
-  
-        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
-  
-        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
-  
-        $response = curl_exec($client);
-  
-        curl_close($client);
-  
-        return $response;
-  
-  
-    }
 
     function actualizaOrden($data){
 

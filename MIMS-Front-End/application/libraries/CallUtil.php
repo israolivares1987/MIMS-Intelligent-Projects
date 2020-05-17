@@ -12,7 +12,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */    
 class CallUtil {
     
-	public function obtienebaseservicios(){
+public function obtienebaseservicios(){
 
         $CI =& get_instance();
 
@@ -20,11 +20,9 @@ class CallUtil {
         return $CI->config->item('BASE_SERVICIOS');
 
 	}
-	
 
-	
-	
-  public function formatoFecha($date){
+
+public function formatoFecha($date){
 		
 		$time = strtotime($date); 
 		$Fecha= date('Y-m-d',$time);
@@ -32,15 +30,16 @@ class CallUtil {
 		return $Fecha;
 	 }
 	
-	 public function formatoFechaSalida($date){
+public function formatoFechaSalida($date){
 		
 		$time = strtotime($date); 
 		$Fecha= date('d-m-Y',$time);
 
 		return $Fecha;
 	 }
-
-	 function armaMenuClientes($response){
+	 
+	 
+function armaMenuClientes($response){
 
 
 		$html ="";
@@ -66,7 +65,8 @@ class CallUtil {
 
 	 }
 
-	 function formatoDinero($dato){
+
+function formatoDinero($dato){
 
 
 		$dinero =  "$ ".number_format($dato);
@@ -74,12 +74,45 @@ class CallUtil {
 		return $dinero;
 	 }
 
-	 function formatoNumero($dato){
+function formatoNumero($dato){
 
 
 		$dinero =  number_format($dato);
 
 		return $dinero;
 	 }
+
+
+public function obtiene_select_def_act($inputId,$selected,$domain){
+
+	
+	$CI =& get_instance();
+	$CI->load->library('CallExternosDominios');
     
+
+	 
+	$def  = $CI->callexternosdominios->obtieneDatosRef($domain); 
+	$html = '';
+	
+	$datosdef = json_decode($def);
+	
+	$html .= '<select name="'.$inputId.'" class="form-control form-control-sm" id="'.$inputId.'">';
+	
+	if($datosdef){
+	  foreach ($datosdef as $key => $value) {
+	
+		$seleccionado = ($selected == $value->domain_id) ? 'selected' : '';        
+	
+		$html .= '<option '.$seleccionado.' value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
+	  }
+	}else{
+	  $html .= '<option value="0">No existen datos</option>';
+	}
+	
+	$html .= '</select>';
+	
+	return $html;
+	
+	}
+
 }

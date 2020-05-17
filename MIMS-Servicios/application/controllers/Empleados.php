@@ -19,6 +19,18 @@ class Empleados extends CI_Controller {
 		
 	}
 
+	function listaActivadores(){
+
+		$cod_empresa = $this->input->post('cod_empresa');
+		
+		$Empleados = $this->empleados->listaActivadores($cod_empresa);
+
+		echo json_encode(array_filter($Empleados));
+		
+	}
+
+	
+
 	function obtieneEmpleado(){
 
 		$id_empleado = $this->input->post('id_empleado');

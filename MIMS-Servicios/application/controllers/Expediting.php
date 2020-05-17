@@ -193,46 +193,8 @@ class Expediting extends CI_Controller {
 
 	}
 
-	function actualizaProyecto(){
-
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
-		$cod_empresa = $this->input->post('codEmpresa');
-		$nombre_proyecto = $this->input->post('nombre_proyecto');
-		$estado = $this->input->post('estado');
-		$resp = false;
-
-		$up = array(
-			'DescripcionProyecto'	=> $nombre_proyecto,
-			'estadoProyecto'		=> $estado
-		);
-
-		$update = $this->Proyectos_model->actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa);
 
 
-		if($update){
-			$resp = true;
-			echo json_encode(array('status' => $resp));	
-		}else{
-			echo json_encode(array('status' => $resp));	
-		}
-
-		
-
-	}
-
-
-	function eliminaProyecto(){
-
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
-		$cod_empresa = $this->input->post('codEmpresa');
-
-		$delete = $this->Proyectos_model->eliminaProyecto($id_cliente, $id_proyecto,$cod_empresa);
-		
-		echo json_encode($delete);	
-
-	}
 
 	function eliminaOrden(){
 

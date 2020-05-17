@@ -33,7 +33,40 @@ class Empleados_model extends CI_Model{
 
 	 return $this->db->get()->result();
   
-    }
+	}
+	
+	function listaActivadores($codEmpresa){
+		$this->db->select('t1.codEmpresa,
+		t1.ID,
+		t1.Company,
+		t1.LastName,
+		t1.FirstName,
+		t1.JobId,
+		t1.JobTitle,
+		t1.EmailAddress,
+		t1.BusinessPhone,
+		t1.HomePhone,
+		t1.MobilePhone,
+		t1.FaxNumber,
+		t1.Address,
+		t1.City,
+		t1.StateProvince,
+		t1.ZIPPostalCode,
+		t1.CountryRegion,
+		t1.WebPage,
+		t1.Notes,
+		t1.Attachments,
+		t2.domain_desc AS cargo'); 
+		$this->db->from('tbl_employees t1,
+		tbl_ref_codes t2');			
+		 $this->db->where('codEmpresa',$codEmpresa);
+		 $this->db->where('t1.JobId = t2.domain_id');
+		 $this->db->where('t2.domain = "JOB_ID"');
+		 $this->db->where('t1.JobId = 1');
+	
+		 return $this->db->get()->result();
+	  
+		}
      
 
 	function obtieneEmpleado($id_empleado){
