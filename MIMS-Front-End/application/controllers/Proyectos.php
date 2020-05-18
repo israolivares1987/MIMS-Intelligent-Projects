@@ -7,6 +7,7 @@ class Proyectos extends MY_Controller{
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosOrdenes');
+    $this->load->library('CallExternosDominios');
     
     
     $this->load->library('CallUtil');
@@ -129,7 +130,7 @@ function editarProyecto(){
   $id_cliente = $this->input->post('id_cliente');
 
   $proyecto         = $this->callexternosproyectos->obtieneProyecto($id_proyecto,$id_cliente);
-  $datosEstados     = $this->callexternosproyectos->obtieneDatosRef('ESTADO_PROYECTO');
+  $datosEstados     = $this->callexternosdominios->obtieneDatosRef('ESTADO_PROYECTO');
   $select_estados   = '<select class="form-control" id="act_estado">'; 
   $nombre_proyecto  = '';
   $data = array();
