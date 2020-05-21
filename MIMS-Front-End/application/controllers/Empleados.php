@@ -48,7 +48,7 @@ class Empleados extends MY_Controller{
 
 
 
-      $datocargo     = $this->callexternosproyectos->obtieneDatosRef('JOB_ID');
+      $datocargo     = $this->callexternosdominios->obtieneDatosRef('JOB_ID');
       $select_car = "";
      foreach (json_decode($datocargo) as $llave => $valor) {
       
@@ -64,7 +64,7 @@ class Empleados extends MY_Controller{
 
 
 
-    $this->plantilla_activador('activador/listEmpleados', $datos);
+    $this->plantilla_activador('mantenedores/listEmpleados', $datos);
   
    }
 

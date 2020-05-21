@@ -22,7 +22,7 @@
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3><?php echo $totalProyectos?></h3>
+                <h3></h3>
 
                 <p>Total Proyectos</p>
               </div>
@@ -37,7 +37,7 @@
             <!-- small box -->
             <div class="small-box bg-success">
               <div class="inner">
-                <h3><?php echo $totalClientes?><sup style="font-size: 20px"></sup></h3>
+                <h3><sup style="font-size: 20px"></sup></h3>
 
                 <p>Total Clientes</p>
               </div>
@@ -52,7 +52,7 @@
             <!-- small box -->
             <div class="small-box bg-warning">
               <div class="inner">
-                <h3><?php echo $totalOrdenes?></h3>
+                <h3></h3>
 
                 <p>Total Ordenes</p>
               </div>
@@ -67,7 +67,7 @@
             <!-- small box -->
             <div class="small-box bg-danger">
               <div class="inner">
-                <h3><?php echo $totalSuppliers?></h3>
+                <h3></h3>
 
                 <p>Total Suppliers</p>
               </div>

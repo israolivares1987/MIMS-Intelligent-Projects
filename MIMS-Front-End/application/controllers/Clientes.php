@@ -48,21 +48,7 @@ class Clientes extends MY_Controller{
       $datos['nombreEmpresa'] = $nombreEmpresa;
       $datos['razonSocial'] = $razonSocial;
 
-
-
-
-
-
-    //Si es rol ingenieria. no carga proyectos en menu lateral
-    if($this->session->userdata('rol_id') == 204){
-
-      $this->plantilla_ingenieria('ingenieria/listClientes', $datos);
-
-    }else{
-
-      $this->plantilla_activador('activador/listClientes', $datos);
-   
-    }
+      $this->plantilla_ingenieria('mantenedores/listClientes', $datos);
 
   }
 

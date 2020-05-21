@@ -7,8 +7,7 @@ class Proyectos extends MY_Controller{
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosOrdenes');
-    
-    
+    $this->load->library('CallExternosDominios');
     $this->load->library('CallUtil');
 
  
@@ -91,10 +90,17 @@ function guardarProyecto(){
   $descripcion_proyecto  = $this->input->post('descripcion_proyecto');
   $lugar_proyecto  = $this->input->post('lugar_proyecto');
   $codEmpresa       = $this->session->userdata('cod_emp');
-  $data = array();
+  
+  
+  $valida = array(
+            'nombre_proyecto' => $nombre_proyecto,
+            'descripcion_proyecto' => $descripcion_proyecto,
+            'lugar_proyecto' => $lugar_proyecto
+    
+);
 
+$validar = $this->callutil->validarDatosProyectos($valida);
 
-  $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
 
   if(!$this->form_validation->run()){
       
@@ -129,7 +135,7 @@ function editarProyecto(){
   $id_cliente = $this->input->post('id_cliente');
 
   $proyecto         = $this->callexternosproyectos->obtieneProyecto($id_proyecto,$id_cliente);
-  $datosEstados     = $this->callexternosproyectos->obtieneDatosRef('ESTADO_PROYECTO');
+  $datosEstados     = $this->callexternosdominios->obtieneDatosRef('ESTADO_PROYECTO');
   $select_estados   = '<select class="form-control" id="act_estado">'; 
   $nombre_proyecto  = '';
   $data = array();

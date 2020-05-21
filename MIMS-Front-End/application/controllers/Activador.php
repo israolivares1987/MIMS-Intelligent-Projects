@@ -27,18 +27,6 @@ class Activador extends MY_Controller{
     $datos['arrClientes'] = $menu ;
 
 
-    //Obtiene Datos para el Home
-
-
-    $Totales = $this->callexternosconsultas->obtieneDatosTotales($codEmpresa);
-    
-    $json_totales = $Totales;
-    $arrayDatosTotales = json_decode($json_totales,true);
-    $datos['totalProyectos'] = $arrayDatosTotales['totalProyectos'];
-    $datos['totalClientes'] = $arrayDatosTotales['totalClientes'];
-    $datos['totalOrdenes'] = $arrayDatosTotales['totalOrdenes'];
-    $datos['totalSuppliers'] = $arrayDatosTotales['totalSuppliers'];
-
 
     $this->plantilla_activador('activador/home_activador', $datos);
 
