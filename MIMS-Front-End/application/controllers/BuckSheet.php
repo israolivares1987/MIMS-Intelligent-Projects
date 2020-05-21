@@ -61,7 +61,7 @@ class BuckSheet extends MY_Controller {
 
         foreach ($arrProyecto as $llave => $valor) {
                 
-          $DescripcionProyecto = $valor->nombre_proyecto;
+          $DescripcionProyecto = $valor->NombreProyecto;
 
         }
 

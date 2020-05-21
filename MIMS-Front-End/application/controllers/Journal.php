@@ -12,6 +12,7 @@ class Journal extends MY_Controller{
     $this->load->helper('file');
     $this->load->library('CallUtil');
     $this->load->library('CallExternosOrdenes');
+    $this->load->library('CallExternosDominios');
     
   }
 
@@ -44,7 +45,7 @@ class Journal extends MY_Controller{
 
         foreach ($arrProyecto as $llave => $valor) {
                 
-          $DescripcionProyecto = $valor->nombre_proyecto;
+          $DescripcionProyecto = $valor->NombreProyecto;
 
         }
 
@@ -88,7 +89,7 @@ class Journal extends MY_Controller{
 
     //Obtiene Datos para el Home
 
-    $datosap     = $this->callexternosproyectos->obtieneDatosRef('TIPO_INTERACCION_CC');
+    $datosap     = $this->callexternosdominios->obtieneDatosRef('TIPO_INTERACCION_CC');
     $select_cc = "";
     foreach (json_decode($datosap) as $llave => $valor) {
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
