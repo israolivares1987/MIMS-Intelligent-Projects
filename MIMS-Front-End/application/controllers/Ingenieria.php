@@ -59,19 +59,6 @@ class Ingenieria extends MY_Controller{
     $menu = $this->callutil->armaMenuClientes($response);
     $datos['arrClientes'] = $menu ;
 
-
-    //Obtiene Datos para el Home
-
-
-    $Totales = $this->callexternosconsultas->obtieneDatosTotales($codEmpresa);
-    
-    $json_totales             = $Totales;
-    $arrayDatosTotales        = json_decode($json_totales,true);
-    $datos['totalProyectos']  = $arrayDatosTotales['totalProyectos'];
-    $datos['totalClientes']   = $arrayDatosTotales['totalClientes'];
-    $datos['totalOrdenes']    = $arrayDatosTotales['totalOrdenes'];
-    $datos['totalSuppliers']  = $arrayDatosTotales['totalSuppliers'];
-
     
 
 
