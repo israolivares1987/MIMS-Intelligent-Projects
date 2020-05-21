@@ -6,6 +6,11 @@
       <li class="nav-item">
         <a class="nav-link" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
       </li>
+    
+
+    </ul>
+    <ul class="navbar-nav ml-auto">
+      
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo base_url('index.php/ingenieria/index_ingenieria');?>" class="nav-link">Home</a>
       </li>
