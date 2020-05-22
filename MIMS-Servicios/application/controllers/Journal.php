@@ -75,6 +75,19 @@ class Journal extends CI_Controller {
 
 			}
 
+			
+			function desactivaJournal(){
+
+				$id_interaccion 	= $this->input->post('id_interaccion');
+				$id_orden 	= $this->input->post('id_orden');
+				$codEmpresa 			= $this->input->post('codEmpresa');
+			
+		
+				$delete = $this->journal->desactivaJournal($id_interaccion, $id_orden,$cod_empresa);
+				
+				echo json_encode($delete);	
+		
+			}
 
 
 }

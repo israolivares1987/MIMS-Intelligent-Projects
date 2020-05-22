@@ -341,7 +341,8 @@ class Journal extends MY_Controller{
                 'application/vnd.openxmlformats officedocument.wordprocessingml.document',
                 'image/jpeg',
                 'application/pdf',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+                'video/mp4'
             );
 
             $fileExtArray = array(
@@ -356,7 +357,9 @@ class Journal extends MY_Controller{
               'doc',
               'docx', 
               'DOC',
-              'DOCX'
+              'DOCX',
+              'mp4',
+              'MP4'
           );
             if(isset($_FILES['archivo0']['name']) && $_FILES['archivo0']['name'] != ""){
                 // get mime by extension
@@ -555,5 +558,35 @@ public function sendEmail($email,$subject,$message,$file)
         $data['mensaje']     = $error_msg;
 
         echo json_encode($data);
+    }
+
+
+    function desactivaJournal(){
+      
+
+      $id_interaccion       = $this->input->post('id_interaccion');
+      $id_orden      = $this->input->post('id_orden');
+      $codEmpresa       = $this->session->userdata('cod_emp');
+
+
+       $delete = $this->callexternosjournal->desactivaJournal($id_interaccion,$id_orden,$codEmpresa);
+
+        if($delete){
+
+          $data['resp'] = true;
+          $data['mensaje'] = 'Registro eliminado correctamente';
+
+        }else{
+          $data['resp'] = false;
+          $data['mensaje'] = 'Error al eliminar el regitro';
+        }
+
+      
+
+  echo json_encode($data);
+
+
+
+
     }
   }

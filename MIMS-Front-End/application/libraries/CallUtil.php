@@ -121,6 +121,7 @@ class CallUtil {
 		$mensaje = '';
 		$resp = false;
 
+	
 		if(strlen($data['nombre_proyecto']) == 0 ) {
 
 			$mensaje = 'Nombre Proyecto obligatorio';

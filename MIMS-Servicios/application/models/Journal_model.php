@@ -53,10 +53,12 @@ return $this->db->get()->result();
 		return $this->db->affected_rows();
 	}
 
-	function delete_by_id($id)
+	function desactivaJournal($id_interaccion, $id_orden,$cod_empresa)
 	{
-		$this->db->where('id_interaccion', $id);
-		$this->db->delete($this->table);
+		$query=$this->db->query("update $this->table SET estado=0  where id_interaccion=".$id_interaccion." and id_orden_compra=".$id_orden);
+
+
+		return $query;
 	}
 
 	function save($data)
@@ -64,5 +66,11 @@ return $this->db->get()->result();
 		$this->db->insert($this->table, $data);
 		return $this->db->insert_id();
 	}
+
+
+
+
+
+
 }
 ?>
