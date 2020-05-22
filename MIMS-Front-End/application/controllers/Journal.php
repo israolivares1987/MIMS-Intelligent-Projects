@@ -400,7 +400,7 @@ class Journal extends MY_Controller{
                 $id_empleado = $arrControlCalidad->id_empleado;
                 $nombre_empleado = $arrControlCalidad->nombre_empleado;
 
-                $datosEstados     = $this->callexternosproyectos->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
+                $datosEstados     = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
 
               
             
@@ -434,7 +434,7 @@ class Journal extends MY_Controller{
 
             foreach ($arrProyecto as $llave => $valor) {
                     
-              $DescripcionProyecto = $valor->nombre_proyecto;
+              $DescripcionProyecto = $valor->NombreProyecto;
       
             }
         
