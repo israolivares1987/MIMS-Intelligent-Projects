@@ -101,11 +101,10 @@ function guardarProyecto(){
 
 $validar = $this->callutil->validarDatosProyectos($valida);
 
-
-  if(!$this->form_validation->run()){
+  if(!$validar['resp']){
       
-    $data['resp']     = false;
-    $data['mensaje']  = "Campo Nombre Proyecto es obligatorio.";
+    $data['resp']     = $validar['resp'];
+    $data['mensaje']  = $validar['mensaje'];;
   
   }else{
 
@@ -115,7 +114,7 @@ $validar = $this->callutil->validarDatosProyectos($valida);
     if($proyectos){
 
       $data['resp']        = true;
-      $data['mensaje']     = 'Proyeto creado correctamente';
+      $data['mensaje']     = 'Proyecto creado correctamente';
 
     }else{
       $data['resp']        = false;

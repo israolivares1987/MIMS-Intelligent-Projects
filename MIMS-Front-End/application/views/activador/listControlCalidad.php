@@ -455,7 +455,7 @@
                          calidad_html += '<td>';
                          calidad_html +=
                              '<button data-toggle="tooltip" data-placement="top" title="Desactiva Registro" onclick="desactiva_registro_cc(' +
-                             journal.id_interaccion +
+                             journal.id_interaccion +','+ orden + ',' + cliente +
                              ')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
                          calidad_html += '</td>';
                          calidad_html += '</tr>';
@@ -484,6 +484,47 @@
                  })
 
              }
+
+
+             function desactiva_registro_cc(id_interaccion, orden, cliente){
+
+var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+if(opcion){
+
+      $.ajax({
+      url: 		'<?php echo base_url('index.php/Journal/desactivaJournal'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+        id_interaccion  : id_interaccion,
+              id_orden : orden
+            },
+    }).done(function(result) {
+
+      if(result.resp){
+
+        recargaControlCalidad(orden, cliente)
+        toastr.success(result.mensaje);
+
+      }else{
+
+        toastr.error(result.mensaje);
+      
+      }
+        
+
+    }).fail(function() {
+      console.log("error eliminar journal");
+    })
+  
+
+}
+             
+             }
+
+
+
              </script>
              <script>
              $(function() {
