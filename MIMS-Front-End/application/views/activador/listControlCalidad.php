@@ -112,6 +112,7 @@
                  </div>
              </div>
 
+
              <style type="text/css" class="init">
              /* Ensure that the demo table scrolls */
              th,
@@ -189,6 +190,20 @@
 
 
                             });   
+
+
+                            function mostrarBlock(){
+		$.blockUI({ 
+			message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/images/pageLoader.gif');?>" />&nbsp;Espere un momento...</h5>',
+			css:{
+				backgroundColor: '#0063BE',
+				opacity: .8,
+				'-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px',
+	            color: '#fff'
+			}
+		});
+	}
 
              $('#btn_recargar').on('click', function() {
 
@@ -351,37 +366,49 @@
                  
                  if(falso == 0 ){
 
+  
+
                     $.ajax({
-                         url: '<?php echo base_url('index.php/Journal/guardarJournal');?>',
-                         type: 'POST',
-                         data: data,
-                         contentType: false,
-                         processData: false,
-                         dataType: "JSON",
-                     }).done(function(result) {
+                            url: '<?php echo base_url('index.php/Journal/guardarJournal');?>',
+                            type: 'post',
+                            data: data,
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
 
-                         if (result.resp) {
+                                if (result.resp) {
 
-                             $('#modal_control_calidad').modal('hide');
-                             recargaControlCalidad(orden, cliente);
-                             toastr.success(result.mensaje);
-
-
-                             if (data.get('notificacion') === 'S') {
-
-                                 envioCorreo(result.idInsertado);
-                             }
+                                        $('#modal_control_calidad').modal('hide');
+                                        recargaControlCalidad(orden, cliente);
+                                        toastr.success(result.mensaje);
 
 
-                        }else{
-                        
-                            toastr.warning(result.mensaje);
-                        }
+                                        if (data.get('notificacion') === 'S') {
+
+                                            envioCorreo(result.idInsertado);
+                                        }
 
 
-                     }).fail(function(jqXHR, textStatus, errorThrown) {
-                         toastr.error(errorThrown);
-                     })
+                                        }else{
+
+                                        toastr.warning(result.mensaje);
+                                        }
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+      
+       }
+                            });
+
                  }
 
 
@@ -757,6 +784,10 @@ if(opcion){
                                  class="btn btn-outline-primary">Guardar</button>
                              <button type="button" class="btn btn-outline-secondary"
                                  data-dismiss="modal">Cerrar</button>
+                             <!-- Image loader -->
+                            <img src='<?php echo base_url()."assets/images/loader.gif"?>' width='32px' height='32px'>
+                            </div>
+                            <!-- Image loader -->     
                          </div>
                      </div>
                  </div>

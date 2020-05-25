@@ -114,9 +114,7 @@
                         </tbody>
                         
                     </table>
-                        <input type="hidden" id="id_proyecto_or">
-                        <input type="hidden" id="id_cliente_or">
-                        <input type="hidden" id="nombre_proyecto_or">
+
                         <input type="hidden" id="flag_orden">
 													</div>
 													<!-- /.card-body -->
@@ -590,6 +588,10 @@
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
           </div>
         </div>
+
+          <input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
+          <input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
+
                 </form>
               </div><!--.container-->
             </div><!--.modal-body-->
@@ -1291,12 +1293,25 @@ $(document).ready(function() {
 });
 
 
+function mostrarBlock(){
+		$.blockUI({ 
+			message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/images/pageLoader.gif');?>" />&nbsp;Espere un momento...</h5>',
+			css:{
+				backgroundColor: '#0063BE',
+				opacity: .8,
+				'-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px',
+	            color: '#fff'
+			}
+		});
+	}
+
 
 function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){  
   
   formToggleActivar('btn_nueva_orden');
   $('#flag_orden').val(1); 
-   recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
+  recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
 
 }
 
@@ -1360,6 +1375,47 @@ $('#btn_orden_item').on('click', function(){
 
   var formData = new FormData(document.getElementById("form_orden_item"));
 
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/OrdenesItem/guardaOrdenItem'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: formData,
+    contentType: 	false,
+		cache: 			false,
+    processData: 	false,
+    beforeSend: function(){
+      mostrarBlock();
+    },
+    complete: function(){
+      $.unblockUI();
+    },
+    success: function(result){
+      if(result.resp){
+
+          recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val());
+          $('#modal_nuevo_orden_item').modal('hide');
+          toastr.success(result.mensaje);
+      
+      }else{
+          
+          toastr.error(result.mensaje);
+      }
+    },
+    error: function(request, status, err) {
+      toastr.error(result.mensaje);
+      toastr.error("error: " + request + status + err);
+      
+       }
+});
+
+
+
+
+
+
+
+
+
 $.ajax({
   url: 		'<?php echo base_url('index.php/OrdenesItem/guardaOrdenItem'); ?>',
   type: 		'POST',
@@ -1370,15 +1426,7 @@ $.ajax({
 				processData: 	false
 }).done(function(result) {
 
-  if(result.resp){
-
-
-    recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val());
-    $('#modal_nuevo_orden_item').modal('hide');
-    toastr.success(result.mensaje);
-  }else{
-    toastr.error(result.mensaje);
-  }
+  
     
 
 }).fail(function() {
@@ -1711,6 +1759,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
   var ordenes_html ='';
   var tabla_ordenes =  $('#ListOrdenes').DataTable();
   var titulo_ordenes ='';
+
   tabla_ordenes.destroy();
 
   $.ajax({
@@ -1765,6 +1814,11 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       $('#datos_ordenes').html(ordenes_html);
       $('#or_nombre_proyecto').val(nombre_proyecto);
       $('#or_act_nombre_proyecto').val(nombre_proyecto);
+      $('#id_proyecto_or').val(id_proyecto);
+      $('#id_cliente_or').val(id_cliente);
+
+   
+
 
       $('#datos_ordenes').val(ordenes_html);
         $('[data-toggle="tooltip"]').tooltip();
