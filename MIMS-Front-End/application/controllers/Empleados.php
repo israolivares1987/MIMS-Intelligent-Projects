@@ -9,6 +9,7 @@ class Empleados extends MY_Controller{
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosEmpleados');
     $this->load->library('CallExternosEmpresas');
+    $this->load->library('CallExternosDominios');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
     
@@ -63,8 +64,17 @@ class Empleados extends MY_Controller{
     $datos['razonSocial'] = $razonSocial;
 
 
+    if ($this->session->userdata('rol_id')==='202'){
 
-    $this->plantilla_activador('mantenedores/listEmpleados', $datos);
+
+      $this->plantilla_activador('mantenedores/listEmpleados', $datos);
+
+    }elseif($this->session->userdata('rol_id')==='204'){
+
+      $this->plantilla_ingenieria('mantenedores/listEmpleados', $datos);
+
+    }
+    
   
    }
 

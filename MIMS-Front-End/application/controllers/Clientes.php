@@ -48,7 +48,18 @@ class Clientes extends MY_Controller{
       $datos['nombreEmpresa'] = $nombreEmpresa;
       $datos['razonSocial'] = $razonSocial;
 
-      $this->plantilla_ingenieria('mantenedores/listClientes', $datos);
+      if ($this->session->userdata('rol_id')==='202'){
+
+
+        $this->plantilla_activador('mantenedores/listClientes', $datos);
+  
+      }elseif($this->session->userdata('rol_id')==='204'){
+  
+        $this->plantilla_ingenieria('mantenedores/listClientes', $datos);
+  
+      }
+
+    
 
   }
 
