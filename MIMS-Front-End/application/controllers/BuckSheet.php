@@ -15,6 +15,7 @@ class BuckSheet extends MY_Controller {
         $this->load->library('CallExternosEmpleados');
         $this->load->library('CallExternosOrdenes');
         $this->load->library('CallExternosBuckSheet');
+        $this->load->library('CallExternosDominios');
         
         $this->load->helper('file');
         $this->load->library('CallUtil');
@@ -86,10 +87,18 @@ class BuckSheet extends MY_Controller {
         }
       }
     
+
+      $datocargo     = $this->callexternosdominios->obtieneDatosRef('NOMBRE_ARCHIVO_EJEMPLO');
+      $select_car = "";
+     foreach (json_decode($datocargo) as $llave => $valor) {
+      
+      $nombreArchivoEjemplo =$valor->domain_desc;
+
+    }
      
 
 
-  
+        $datos['nombreArchivoEjemplo'] = $nombreArchivoEjemplo;
         $datos['PurchaseOrderID'] = $PurchaseOrderID;
         $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
         $datos['idCliente'] = $id_cliente;

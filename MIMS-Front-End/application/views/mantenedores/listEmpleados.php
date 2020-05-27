@@ -271,11 +271,7 @@
          <div class="row">
              <div class="col-12">
                  <div class="card">
-                     <div class="card-header">
-                         <h3 class="card-title"></h3>
-                     </div>
-
-                     <div class="container">
+                    
                          <div class="row">
                              <div class="col-lg-12">
                                  <div class="card">
@@ -303,7 +299,7 @@
                              <!-- /.col-md-6 -->
                          </div>
                          <!-- /.row -->
-                     </div>
+                     
 
 
                      <!-- /.card-header -->

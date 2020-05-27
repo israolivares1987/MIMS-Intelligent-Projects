@@ -28,6 +28,16 @@ class MY_Controller extends CI_Controller {
         $this->load->view('activador/footer'); 
 	}
 
+
+	public function plantilla_calidad($view, $datos = array()){
+
+		$this->load->view('calidad/header');
+        $this->load->view('calidad/navbar');
+        $this->load->view('calidad/left_menu',$datos);
+        $this->load->view($view, $datos);
+        $this->load->view('calidad/footer'); 
+	}
+
 	public function creaDirectorio($directorio)
 	{
 		$retorno = false;

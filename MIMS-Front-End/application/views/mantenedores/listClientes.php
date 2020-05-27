@@ -278,7 +278,6 @@
                          <h3 class="card-title"></h3>
                      </div>
 
-                     <div class="container">
                          <div class="row">
                              <div class="col-lg-12">
                                  <div class="card">
@@ -306,7 +305,7 @@
                              <!-- /.col-md-6 -->
                          </div>
                          <!-- /.row -->
-                     </div>
+                     
 
 
                      <!-- /.card-header -->
