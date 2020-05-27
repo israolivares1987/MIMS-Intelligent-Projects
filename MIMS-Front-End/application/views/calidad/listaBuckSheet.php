@@ -10,9 +10,14 @@
             </div>
         </div><!-- /.container-fluid -->
     </section>
+    <div class="row">
         <div class="col-12">
         <div class="card">
-              
+                <div class="card-header">
+                    <h3 class="card-title"></h3>
+                </div>
+
+                <div class="container">
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card">
@@ -65,10 +70,10 @@
                         </div>
                     </div>
                     <!-- /.row -->
-              
+                </div>
 
 
-		
+					 <div class="container">
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="card">
@@ -258,10 +263,10 @@
 
 										
 									
-                        
+                         </div>
 
         </div>
- 
+    </div>
 </div> <!-- Content Wrapper. Contains page content --> 
 
 
@@ -270,7 +275,7 @@
 
 function descargaArchivoPrueba() {
 
-    window.open('<?php echo base_url('assets/'.$nombreArchivoEjemplo);?>', '_blank');
+    window.open('<?php echo base_url();?>assets/csv-sample-bucksheet.csv', '_blank');
 }
 
 function controldecalidad() {

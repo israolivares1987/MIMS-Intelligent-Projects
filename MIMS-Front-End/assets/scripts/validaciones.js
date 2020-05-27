@@ -25,3 +25,4 @@ function formToggleActivar(ID) {
   
       element.style.display = "block";
 }
+
