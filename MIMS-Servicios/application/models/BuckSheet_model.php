@@ -41,18 +41,10 @@ class BuckSheet_model extends CI_Model{
 	
 		$query = $this->db->get();
     
-	  return $query->result();
+
+        $BuckSheet = $query->result();
+        return $BuckSheet;
     }
-
-
-	function count_all_BuckSheet()
-	{
-		$this->db->select('c.*');
-        $this->db->from($this->tableName . ' as c');
-		$this->db->where('c.PurchaseOrderID', $this->_PurchaseOrderID);
-		
-	  return $this->db->count_all_results();
-	}
 
 
     function getRows($params = array())

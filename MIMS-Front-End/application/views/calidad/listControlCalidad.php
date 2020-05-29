@@ -77,16 +77,14 @@
                                      <th>
                                          <button id="btn_recargar"
                                              class="btn btn-outline-secondary float-right">Recargar</button>
-                                         <button id="btn_nuevo_registro"
-                                             class="btn btn-outline-primary float-right">Nuevo Registro</button>
-                                     </th>
+                                    </th>
                                  </tr>
                              </tbody>
                          </table>
 
                          <br />
 
-                         <table id="tbl_ccalidad" class="table table-striped table-bordered" cellspacing="0">
+                         <table id="tbl_ccalidad" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
                                      <th>Nombre Empleado</th>

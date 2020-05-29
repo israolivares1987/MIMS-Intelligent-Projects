@@ -41,7 +41,22 @@ class Proyectos extends MY_Controller{
 
 			}   
 
-    $this->plantilla_activador('activador/listProyectos', $datos);
+
+      if ($this->session->userdata('rol_id')==='202'){
+
+
+        $this->plantilla_activador('activador/listProyectos', $datos);
+        
+  
+      }elseif($this->session->userdata('rol_id')==='203'){
+
+        $this->plantilla_calidad('calidad/listProyectos', $datos);
+
+      }
+
+
+
+
   }
 
   function listProyectosCliente(){

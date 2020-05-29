@@ -1,30 +1,33 @@
-<!-- Content Wrapper. Contains page content -->
-<div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <section class="content-header">
-        <div class="container-fluid">
-            <div class="row mb-2">
-                <div class="col-sm-6">
-                    <h1>BuckSheet Orden <?php echo $PurchaseOrderDescription;?> </h1>
-                </div>
-            </div>
-        </div><!-- /.container-fluid -->
-    </section>
-        <div class="col-12">
-        <div class="card">
-              
-                    <div class="row">
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                    <i class="fas fa-building"></i>
-                                           Detalle Orden
-                                    </h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                <dl class="row">
+ <!-- Content Wrapper. Contains page content -->
+  <div class="content-wrapper">
+     <!-- Content Header (Page header) -->
+     <section class="content-header">
+         <div class="container-fluid">
+             <div class="row mb-2">
+                 <div class="col-sm-6">
+                     <h1>BuckSheet</h1>
+                 </div>
+             </div>
+         </div><!-- /.container-fluid -->
+     </section>
+
+     <!-- Main content -->
+     <section class="content">
+         <div class="row">
+             <div class="col-12">
+                 <div class="card">
+                         <div class="row">
+                             <div class="col-lg-6">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Detalle Orden de Compra
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                          <dl class="row">
                                              <dt class="col-sm-8">Order ID:</dt>
                                              <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
@@ -33,23 +36,23 @@
                                              <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
 
-                        </div>
-                        <!-- /.col-md-6 -->
-                        <div class="col-lg-6">
-                            <div class="card">
-                                <div class="card-header">
-                                    <h3 class="card-title">
-                                    <i class="fas fa-building"></i>
-                                    Detalle Proyecto
-                                    </h3>
-                                </div>
-                                <!-- /.card-header -->
-                                <div class="card-body">
-                                <dl class="row">
+                             </div>
+                             <!-- /.col-md-6 -->
+                             <div class="col-lg-6">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Detalle Proyecto
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                     <dl class="row">
                                              <dt class="col-sm-8">Cliente:</dt>
                                              <dd class="col-sm-7"><?php echo $nombreCliente;?></dd>
                                              <dt class="col-sm-8">Proyecto:</dt>
@@ -58,60 +61,27 @@
                                              <dd class="col-sm-7"><?php echo urldecode($razonSocial);?></dd>
                                              </dd>
                                          </dl>
-                                </div>
-                                <!-- /.card-body -->
-                            </div>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                             </div>
+                             <!-- /.col-md-6 -->
+                         </div>
+                         <!-- /.row -->
+                     
 
-                        </div>
-                    </div>
-                    <!-- /.row -->
-              
 
-
-		
-										<div class="row">
-											<div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title">
-                                                        <i class="fas fa-tasks"></i>
-															Opciones
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-													 
-                                                    <table class="table table-striped table-bordered" cellspacing="1" width="99%">
+                     <!-- /.card-header -->
+                     <div class="card-body">
+                     <table class="table table-striped table-bordered" cellspacing="1" width="100%">
                                  <tbody>
                                      <tr>
-                                         <th colspan="4">
-                                             <!-- Display status message -->
-                                             <?php if(!empty($success_msg)){ ?>
-
-                                             <div class="col-xs-12">
-                                                 <div class="alert alert-success"><?php echo $success_msg; ?></div>
-                                             </div>
-                                             <?php if(form_error('fileURL')) {?>
-                                             <div class="col-xs-12">
-                                                 <div class="alert alert-danger"><?php print form_error('fileURL'); ?>
-                                                 </div>
-                                             </div>
-                                             <?php } ?>
-                                             <?php }elseif(!empty($error_msg)){ ?>
-                                             <div class="col-xs-12">
-                                                 <div class="alert alert-danger"><?php echo $error_msg; ?></div>
-                                             </div>
-                                             <?php } ?>
-                                         </th>
-                                     </tr>
-                                     <tr>
                                          <th>
-                                             <div class="col-12">
-                                                 <a href="javascript:void(0);"
-                                                     class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="formToggle('importFrm');"><i class="fas fa-file-upload">
-                                                     </i> Subir archivo
-                                                 </a>
+                                         <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="subirBuckSheet()"><i class="fas fa-file-download">
+                                                     </i> Subir Archivo
+                                                 </button>
                                              </div>
                                          </th>
                                          <th>
@@ -139,63 +109,31 @@
                                              </div>
                                          </th>
                                      </tr>
-                                     <tr>
-                                         <th colspan="4">
-                                             <div class="col-md-12" id="importFrm" style="display: none;">
-                                                 <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>/<?php echo $idCliente;?>/<?php echo $codProyecto;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                                                     <div class="card-body">
-
-                                                         <div class="form-group">
-                                                             <label for="exampleInputFile">Cargar Archivo</label>
-                                                             <div class="input-group">
-                                                                 <div class="custom-file">
-                                                                     <input type="file" onChange="ver_archivo();" class="custom-file-input" id="var_fileURL" name="fileURL" required="">
-                                                                     <label class="custom-file-label"
-                                                                         for="exampleInputFile"></label>
-                                                                 </div>
-                                                                               
-                                                             </div>
-                                                         </div>
-                                                     </div>
-                                                     <!-- /.card-body -->
-                                                     <div>
-                                                                    <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
-                                                                </div>
-
-                                                     <div class="card-footer">
-                                                         <button type="submit"
-                                                             class="btn btn-block btn-outline-success"> <i
-                                                                 class="far fa-check-circle"></i> Cargar</button>
-                                                     </div>
-                                                 </form>
-                                             </div>
-                                         </th>
-                                     </tr>
                                  </tbody>
                              </table>
-													</div>
-													<!-- /.card-body -->
-												</div>
+                         <br />
+                         <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <th>
+                                             <button class="btn btn-outline-secondary float-right"
+                                                     onclick="lista_bucksheet()">
+                                                     Recargar
+                                                 </button>
+                                     </th>
+                                 </tr>
+                             </tbody>
+                         </table>
 
-											</div>
+                         <br />
 
-                                            <div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title">
-                                                        <i class="fas fa-clipboard-list"></i></i>
-															BuckSheet Orden:  <?php echo $PurchaseOrderDescription;?>
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-                                                    <table id="ListBucksheet" class="table table-striped table-bordered" cellspacing="1"
-                                 width="99%">
-                                 <thead>
-                                     <tr>
+                         <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
+                             <thead>
+                             <tr>
                                          <th>Editar</th>
                                          <th>purchaseOrdername</th>
                                          <th>NumeroLinea</th>
+                                         <th>Proveedor</th>
                                          <th>ItemST</th>
                                          <th>SubItemST</th>
                                          <th>STUnidad</th>
@@ -241,377 +179,56 @@
                                          <th>Observacion6</th>
                                          <th>Observacion7</th>
                                      </tr>
-                                 </thead>
-                             </table>                   
-													</div>
-													<!-- /.card-body -->
-												</div>
-
-											</div>
-											<!-- /.col-md-6 -->
-										</div>
-										<!-- /.row -->
-											<!-- /.col-md-6 -->
-										</div>
-										<!-- /.row -->
-									</div>
-
-										
-									
-                        
-
-        </div>
- 
-</div> <!-- Content Wrapper. Contains page content --> 
+                             </thead>
+                             <tbody id="datos_bucksheet">
+                             </tbody>
+                         </table>
+                     </div>
+                 </div>
+             </div>
 
 
- <script type="text/javascript" class="init">
+         <!--.modal nuevo control Calidad-->
+         <div id="modal_buckSheet" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
 
+                         <div class="modal-header">
+                             <h5 class="modal-title">Subir Archivo</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                <form action="#" id="formBuckSheet" class="form-horizontal">
+                                        <input name="idOrden" placeholder="" class="form-control" type="hidden" id="idOrden" value="<?php echo $PurchaseOrderID;?>">
+                                        <input name="idCliente" placeholder="" class="form-control" type="hidden" id="idCliente" value="<?php echo $idCliente;?>">
+                                        <input name="idProyecto" placeholder="" class="form-control" type="hidden" id="idProyecto" value="<?php echo $codProyecto;?>">
+                            
+                                                            <div class="form-group">
+                                                                <label for="exampleInputFile">Cargar Archivo</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file"   id="fileURL"  name="fileURL" >     
+                                                                </div>
+                                                            </div>
+                                </form>
 
-function descargaArchivoPrueba() {
+                                </div>
+                            </div>
+                            <div class="modal-footer justify-content-between">
+                                    <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
+                                        onclick="saveBuckSheet()">Actualizar</button>
+                                    <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                            <!-- Image loader -->     
+                     </div>
+                 </div>
+             </div>
 
-    window.open('<?php echo base_url('assets/'.$nombreArchivoEjemplo);?>', '_blank');
-}
+<!-- Bootstrap modal -->
 
-function controldecalidad() {
-
-window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
-}
-
-function cambiosenorden() {
-
-window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
-}
-
-function ver_archivo(){
-                
-                var archivo = document.getElementById('var_fileURL').value;
-                var nombre = archivo.substring(archivo.lastIndexOf("\\")+1,archivo.length-4);
-                $('#name_respaldo').html(nombre);
-}
-
-function reload_table() {
-    $('#ListBucksheet').DataTable().ajax.reload();
-}
-
-function edit_bucksheet(numeroLinea, PurchaseOrderID) {
-    save_method = 'update';
-    $('#form')[0].reset(); // reset form on modals
-    $('.form-group').removeClass('has-error'); // clear error class
-    $('.help-block').empty(); // clear error string
-
-
-    //Ajax Load data from ajax
-    $.ajax({
-        url: "<?php echo site_url('BuckSheet/obtieneBuckSheetDet')?>/" + PurchaseOrderID + "/" + numeroLinea,
-        type: "GET",
-        dataType: "JSON",
-        success: function(data) {
-
-            $('[name="PurchaseOrderID"]').val(PurchaseOrderID);
-            $('[name="numeroLinea"]').val(numeroLinea);
-            $('[name="STCantidad"]').val(data.STCantidad);
-            $('[name="TAGNumber"]').val(data.TAGNumber);
-            $('[name="Stockcode"]').val(data.Stockcode);
-            $('[name="Descripcion"]').val(data.Descripcion);
-            $('[name="PlanoModelo"]').val(data.PlanoModelo);
-            $('[name="Revision"]').val(data.Revision);
-            $('[name="PaqueteConstruccionArea"]').val(data.PaqueteConstruccionArea);
-            $('[name="PesoUnitario"]').val(data.PesoUnitario);
-            $('[name="PesoTotal"]').val(data.PesoTotal);
-            $('[name="FechaRAS"]').val(data.FechaRAS);
-            $('[name="DiasAntesRAS"]').val(data.DiasAntesRAS);
-            $('[name="FechaComienzoFabricacion"]').val(data.FechaComienzoFabricacion);
-            $('[name="PAFCF"]').val(data.PAFCF);
-            $('[name="FechaTerminoFabricacion"]').val(data.FechaTerminoFabricacion);
-            $('[name="PAFTF"]').val(data.PAFTF);
-            $('[name="FechaGranallado"]').val(data.FechaGranallado);
-            $('[name="PAFG"]').val(data.PAFG);
-            $('[name="FechaPintura"]').val(data.FechaPintura);
-            $('[name="PAFP"]').val(data.PAFP);
-            $('[name="FechaListoInspeccion"]').val(data.FechaListoInspeccion);
-            $('[name="PAFLI"]').val(data.PAFLI);
-            $('[name="ActaLiberacionCalidad"]').val(data.ActaLiberacionCalidad);
-            $('[name="FechaSalidaFabrica"]').val(data.FechaSalidaFabrica);
-            $('[name="PAFSF"]').val(data.PAFSF);
-            $('[name="FechaEmbarque"]').val(data.FechaEmbarque);
-            $('[name="PackingList"]').val(data.PackingList);
-            $('[name="GuiaDespacho"]').val(data.GuiaDespacho);
-            $('[name="SCNNumber"]').val(data.SCNNumber);
-            $('[name="Origen"]').val(data.Origen);
-            $('[name="DiasViaje"]').val(data.DiasViaje);
-            $('[name="Observacion1"]').val(data.Observacion1);
-            $('[name="Observacion2"]').val(data.Observacion2);
-            $('[name="Observacion3"]').val(data.Observacion3);
-            $('[name="Observacion4"]').val(data.Observacion4);
-            $('[name="Observacion5"]').val(data.Observacion5);
-            $('[name="Observacion6"]').val(data.Observacion6);
-            $('[name="Observacion7"]').val(data.Observacion7);
-
-
-
-
-
-            $('#modal-default').modal('show'); // show bootstrap modal
-            $('.modal-title').text('Editar Bucksheet ' + PurchaseOrderID + ', Numero de Linea ' +
-                numeroLinea); // Set title to Bootstrap modal title
-
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error get data from ajax');
-        }
-    });
-}
-
-
-function save() {
-    $('#btnSave').text('Actualizando..'); //change button text
-    $('#btnSave').attr('disabled', true); //set button disable 
-
-    url = "<?php echo site_url('BuckSheet/updateBuckSheet')?>";
-
-
-    // ajax adding data to database
-
-    var formData = new FormData($('#form')[0]);
-    $.ajax({
-        url: url,
-        type: "POST",
-        data: formData,
-        contentType: false,
-        processData: false,
-        dataType: "JSON",
-        success: function(data) {
-
-            if (data.resp) //if success close modal and reload ajax table
-            {
-                $('#modal-default').modal('hide');
-                reload_table();
-                toastr.success(data.mensaje);
-            } else {
-                toastr.success(data.mensaje);
-
-            }
-            $('#btnSave').text('Actualizar'); //change button text
-            $('#btnSave').attr('disabled', false); //set button enable 
-
-
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            alert('Error Al actualizar BuckSheet ' + jqXHR + ' ' + textStatus + ' ' + errorThrown);
-            $('#btnSave').text('Actualizar'); //change button text
-            $('#btnSave').attr('disabled', false); //set button enable 
-
-        }
-    });
-}
-
-
-$(document).ready(function() {
-
-
-
-    var table = $('#ListBucksheet').DataTable({
-
-        "processing": true, //Feature control the processing indicator.
-        "serverSide": true, //Feature control DataTables' server-side processing mode.
-
-        // Load data for the table's content from an Ajax source
-        "ajax": {
-            "url": "<?php echo site_url('BuckSheet/obtieneBucksheet/'.$PurchaseOrderID)?>",
-            "type": "POST"
-        },
-        "scrollY": "600px",
-        "scrollX": true,
-        "scrollCollapse": true,
-        "paging": false,
-        "language": {
-            "emptyTable": "No hay datos disponibles en la tabla.",
-            "info": "Del _START_ al _END_ de _TOTAL_ ",
-            "infoEmpty": "Mostrando 0 registros de un total de 0.",
-            "infoFiltered": "(filtrados de un total de _MAX_ registros)",
-            "infoPostFix": "(actualizados)",
-            "lengthMenu": "Mostrar _MENU_ registros",
-            "loadingRecords": "Cargando...",
-            "processing": "Procesando...",
-            "search": "Buscar:",
-            "searchPlaceholder": "Dato para buscar",
-            "zeroRecords": "No se han encontrado coincidencias.",
-            "aria": {
-                "sortAscending": "Ordenación ascendente",
-                "sortDescending": "Ordenación descendente"
-            }
-        },
-        "columns": [{
-                "data": "Editar"
-            },
-            {
-                "data": "purchaseOrdername"
-            },
-            {
-                "data": "NumeroLinea"
-            },
-            {
-                "data": "ItemST"
-            },
-            {
-                "data": "SubItemST"
-            },
-            {
-                "data": "STUnidad"
-            },
-            {
-                "data": "STCantidad"
-            },
-            {
-                "data": "TAGNumber"
-            },
-            {
-                "data": "Stockcode"
-            },
-            {
-                "data": "Descripcion"
-            },
-            {
-                "data": "PlanoModelo"
-            },
-            {
-                "data": "Revision"
-            },
-            {
-                "data": "PaqueteConstruccionArea"
-            },
-            {
-                "data": "PesoUnitario"
-            },
-            {
-                "data": "PesoTotal"
-            },
-            {
-                "data": "FechaRAS"
-            },
-            {
-                "data": "DiasAntesRAS"
-            },
-            {
-                "data": "FechaComienzoFabricacion"
-            },
-            {
-                "data": "PAFCF"
-            },
-            {
-                "data": "FechaTerminoFabricacion"
-            },
-            {
-                "data": "PAFTF"
-            },
-            {
-                "data": "FechaGranallado"
-            },
-            {
-                "data": "PAFG"
-            },
-            {
-                "data": "FechaPintura"
-            },
-            {
-                "data": "PAFP"
-            },
-            {
-                "data": "FechaListoInspeccion"
-            },
-            {
-                "data": "PAFLI"
-            },
-            {
-                "data": "ActaLiberacionCalidad"
-            },
-            {
-                "data": "FechaSalidaFabrica"
-            },
-            {
-                "data": "PAFSF"
-            },
-            {
-                "data": "FechaEmbarque"
-            },
-            {
-                "data": "PackingList"
-            },
-            {
-                "data": "GuiaDespacho"
-            },
-            {
-                "data": "SCNNumber"
-            },
-            {
-                "data": "UnidadesSolicitadas"
-            },
-            {
-                "data": "UnidadesRecibidas"
-            },
-            {
-                "data": "MaterialReceivedReport"
-            },
-            {
-                "data": "MaterialWithdrawalReport"
-            },
-            {
-                "data": "Origen"
-            },
-            {
-                "data": "DiasViaje"
-            },
-            {
-                "data": "Observacion1"
-            },
-            {
-                "data": "Observacion2"
-            },
-            {
-                "data": "Observacion3"
-            },
-            {
-                "data": "Observacion4"
-            },
-            {
-                "data": "Observacion5"
-            },
-            {
-                "data": "Observacion6"
-            },
-            {
-                "data": "Observacion7"
-            }
-        ]
-    });
-
-
-});
- </script>
-
- <style type="text/css" class="init">
-/* Ensure that the demo table scrolls */
-th,
-td {
-    white-space: nowrap;
-}
-
-div.dataTables_wrapper {
-    margin: 0 auto;
-}
-
-tr {
-    height: 50px;
-}
- </style>
-
-
-
- <!-- Bootstrap modal -->
-
- <div class="modal fade" id="modal-default">
+<div class="modal fade" id="modal-default">
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
@@ -622,7 +239,7 @@ tr {
              </div>
              <div class="modal-body">
                  <form action="#" id="form" class="form-horizontal">
-                     <input type="hidden" value="" name="numeroLinea" />
+                     <input type="hidden" value="" name="NumeroLinea"/>
                      <input type="hidden" value="" name="PurchaseOrderID" />
                      <div class="form-body">
                          <div class="form-group">
@@ -887,7 +504,7 @@ tr {
                                              <i class="far fa-calendar-alt"></i>
                                          </span>
                                      </div>
-                                     <input name="FechaListoInspeccion" type="text" class="form-control float-right"
+                                     <input name="FechaSalidaFabrica" type="text" class="form-control float-right"
                                          id="reservation">
                                  </div>
                              </div>
@@ -1015,7 +632,7 @@ tr {
              </div>
              <div class="modal-footer justify-content-between">
                  <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
-                     onclick="save()">Actualizar</button>
+                     onclick="guardarbuckSheetdet()">Actualizar</button>
                  <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
              </div>
          </div>
@@ -1023,3 +640,456 @@ tr {
      </div>
      <!-- /.modal-dialog -->
  </div>
+
+
+             <style type="text/css" class="init">
+             /* Ensure that the demo table scrolls */
+             th,
+             td {
+                 white-space: nowrap;
+             }
+
+             div.dataTables_wrapper {
+                 margin: 0 auto;
+             }
+
+             tr {
+                 height: 50px;
+             }
+             </style>
+
+
+
+             <script type="text/javascript">
+
+
+             function lista_bucksheet(){
+
+                    var cliente = <?php echo $idCliente?> ;
+                    var orden = <?php echo $PurchaseOrderID;?> ;
+
+                    recargaBuckSheet(orden, cliente);
+
+             }
+
+
+            $(document).ready(function() {
+
+                    var cliente = <?php echo $idCliente?> ;
+                    var orden = <?php echo $PurchaseOrderID;?> ;
+
+                    recargaBuckSheet(orden, cliente);
+
+
+
+                    //set input/textarea/select event when change value, remove class error and remove text help block 
+                    $("input").change(function() {
+                        $(this).parent().parent().removeClass('has-error');
+                        $(this).next().empty();
+                    });
+                    $("textarea").change(function() {
+                        $(this).parent().parent().removeClass('has-error');
+                        $(this).next().empty();
+                    });
+                    $("select").change(function() {
+                        $(this).parent().parent().removeClass('has-error');
+                        $(this).next().empty();
+                    });
+
+                    });   
+
+
+        function mostrarBlock(){
+                $.blockUI({ 
+                        message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/images/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
+                    css:{
+                        backgroundColor: '#0063BE',
+                        opacity: .8,
+                        '-webkit-border-radius': '10px', 
+                        '-moz-border-radius': '10px',
+                        color: '#fff'
+                    }
+                });
+            }
+
+
+            
+             /**
+              * Función que pone el archivo en un FormData
+              * @return FormData
+              */
+             function getFiles(id) {
+                 var idFiles = document.getElementById(id);
+                 // Obtenemos el listado de archivos en un array
+                 var archivos = idFiles.files;
+                 // Creamos un objeto FormData, que nos permitira enviar un formulario
+                 // Este objeto, ya tiene la propiedad multipart/form-data
+                 var data = new FormData();
+                 // Recorremos todo el array de archivos y lo vamos añadiendo all
+                 // objeto data
+                 for (var i = 0; i < archivos.length; i++) {
+                     // Al objeto data, le pasamos clave,valor
+                     data.append("archivo" + i, archivos[i]);
+                 }
+                 return data;
+             }
+
+             /**
+              * Función que recorre todo el formulario para apadir en el FormData los valores del formulario
+              * @param string id hace referencia al id del formulario
+              * @param FormData data hace referencia al FormData
+              * @return FormData
+              */
+             function getFormData(id, data) {
+                 $("#" + id).find("input,select,textarea").each(function(i, v) {
+                     if (v.type !== "file") {
+                         if (v.type === "checkbox" && v.checked === true) {
+                             data.append(v.name, "on");
+                         } else {
+                             data.append(v.name, v.value);
+                         }
+                     }
+                 });
+                 return data;
+             }
+
+
+             function recargaBuckSheet(orden, cliente) {
+
+
+                 var tabla_bucksheet = $('#tbl_bucksheet').DataTable();
+
+                 
+
+                 tabla_bucksheet.destroy();
+
+                 var  id_orden = '<?php echo $PurchaseOrderID;?>';
+                 var   bucksheet_html = "";
+
+                 $.ajax({
+                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                     type: 'POST',
+                     dataType: 'JSON',
+                     data: {
+                        id_orden: id_orden
+                     },
+                 }).done(function(result) {
+
+
+                     $.each(result.bucksheets, function(key, bucksheets) {
+                         bucksheet_html += '<tr>';
+                         bucksheet_html += '<td>';
+                         bucksheet_html +=
+                             '<button data-toggle="tooltip" data-placement="top" title="Editar BuckSheet" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+                        bucksheet_html += '</td>';
+                        bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.SubItemST+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Descripcion+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PlanoModelo+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Revision+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PaqueteConstruccionArea+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaComienzoFabricacion+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaTerminoFabricacion+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFTF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaGranallado+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFG+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaPintura+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFP+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaListoInspeccion+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFLI+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.ActaLiberacionCalidad+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaSalidaFabrica+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PAFSF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaEmbarque+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.SCNNumber+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.UnidadesSolicitadas+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.UnidadesRecibidas+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.MaterialReceivedReport+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.MaterialWithdrawalReport+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion1+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion2+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion3+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion4+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion5+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion6+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
+                        bucksheet_html += '</tr>';
+
+                     });
+
+
+                     $('#datos_bucksheet').html(bucksheet_html);
+
+                     $('#tbl_bucksheet').DataTable({
+                        "searching": false,
+                        language: {
+                            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                        },
+                        "paging": false,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": true,
+                        "responsive": true,
+                        "scrollY": "600px",
+                        "scrollX": "200px",
+                        "scrollCollapse": true
+                     });
+
+                 }).fail(function() {
+                     console.log("error change cliente");
+                 })
+
+             }
+
+             function subirBuckSheet() {
+
+
+                $('#modal_buckSheet').modal('show'); // show bootstrap modal
+                $('#formBuckSheet')[0].reset(); // reset form on modals
+                        
+
+            }
+
+                function saveBuckSheet() {
+    
+                    $('#btnSave').text('Actualizando..'); //change button text
+                    $('#btnSave').attr('disabled', true); //set button disable 
+
+                    url = "<?php echo site_url('BuckSheet/save')?>";
+
+
+                    // ajax adding data to database
+
+                    var formData = new FormData($('#formBuckSheet')[0]);
+
+                $.ajax({
+                            url: url ,
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(data){
+
+                                if (data.resp) //if success close modal and reload ajax table
+                                    {
+                                        $('#modal_buckSheet').modal('hide');
+                                        lista_bucksheet();
+                                        toastr.success(data.mensaje);
+                                        $.unblockUI();
+                                    } else {
+                                        toastr.success(data.mensaje);
+
+                                    }
+                                    $('#btnSave').text('Cargar'); //change button text
+                                    $('#btnSave').attr('disabled', false); //set button enable 
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            $('#btnSave').text('Cargar'); //change button text
+                            $('#btnSave').attr('disabled', false); //set button enable   
+                            $.unblockUI();         
+                        }
+                            });
+
+                }
+
+                function descargaArchivoPrueba() {
+
+                window.open('<?php echo base_url('assets/'.$nombreArchivoEjemplo);?>', '_blank');
+                }
+
+                function controldecalidad() {
+
+                window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
+                }
+
+                function cambiosenorden() {
+
+                window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
+                }
+
+
+                function edit_bucksheet(PurchaseOrderID ,numeroLinea) {
+
+                $('#form')[0].reset(); // reset form on modals
+                $('.form-group').removeClass('has-error'); // clear error class
+                $('.help-block').empty(); // clear error string
+
+
+    //Ajax Load data from ajax
+    $.ajax({
+        url: "<?php echo site_url('BuckSheet/obtieneBuckSheetDet')?>",
+        type: "POST",
+        data: {
+            id_orden: PurchaseOrderID,
+            numero_linea: numeroLinea
+                     },
+        dataType: "JSON",
+        success: function(result) {
+
+            $.each(result.bucksheet, function(key, bucksheets) {
+
+            $('[name="PurchaseOrderID"]').val(bucksheets.PurchaseOrderID);
+            $('[name="NumeroLinea"]').val(bucksheets.NumeroLinea);
+            $('[name="STCantidad"]').val(bucksheets.STCantidad);
+            $('[name="TAGNumber"]').val(bucksheets.TAGNumber);
+            $('[name="Stockcode"]').val(bucksheets.Stockcode);
+            $('[name="Descripcion"]').val(bucksheets.Descripcion);
+            $('[name="PlanoModelo"]').val(bucksheets.PlanoModelo);
+            $('[name="Revision"]').val(bucksheets.Revision);
+            $('[name="PaqueteConstruccionArea"]').val(bucksheets.PaqueteConstruccionArea);
+            $('[name="PesoUnitario"]').val(bucksheets.PesoUnitario);
+            $('[name="PesoTotal"]').val(bucksheets.PesoTotal);
+            $('[name="FechaRAS"]').val(bucksheets.FechaRAS);
+            $('[name="DiasAntesRAS"]').val(bucksheets.DiasAntesRAS);
+            $('[name="FechaComienzoFabricacion"]').val(bucksheets.FechaComienzoFabricacion);
+            $('[name="PAFCF"]').val(bucksheets.PAFCF);
+            $('[name="FechaTerminoFabricacion"]').val(bucksheets.FechaTerminoFabricacion);
+            $('[name="PAFTF"]').val(bucksheets.PAFTF);
+            $('[name="FechaGranallado"]').val(bucksheets.FechaGranallado);
+            $('[name="PAFG"]').val(bucksheets.PAFG);
+            $('[name="FechaPintura"]').val(bucksheets.FechaPintura);
+            $('[name="PAFP"]').val(bucksheets.PAFP);
+            $('[name="FechaListoInspeccion"]').val(bucksheets.FechaListoInspeccion);
+            $('[name="PAFLI"]').val(bucksheets.PAFLI);
+            $('[name="ActaLiberacionCalidad"]').val(bucksheets.ActaLiberacionCalidad);
+            $('[name="FechaSalidaFabrica"]').val(bucksheets.FechaSalidaFabrica);
+            $('[name="PAFSF"]').val(bucksheets.PAFSF);
+            $('[name="FechaEmbarque"]').val(bucksheets.FechaEmbarque);
+            $('[name="PackingList"]').val(bucksheets.PackingList);
+            $('[name="GuiaDespacho"]').val(bucksheets.GuiaDespacho);
+            $('[name="SCNNumber"]').val(bucksheets.SCNNumber);
+            $('[name="Origen"]').val(bucksheets.Origen);
+            $('[name="DiasViaje"]').val(bucksheets.DiasViaje);
+            $('[name="Observacion1"]').val(bucksheets.Observacion1);
+            $('[name="Observacion2"]').val(bucksheets.Observacion2);
+            $('[name="Observacion3"]').val(bucksheets.Observacion3);
+            $('[name="Observacion4"]').val(bucksheets.Observacion4);
+            $('[name="Observacion5"]').val(bucksheets.Observacion5);
+            $('[name="Observacion6"]').val(bucksheets.Observacion6);
+            $('[name="Observacion7"]').val(bucksheets.Observacion7);
+
+             });
+
+
+
+            $('#modal-default').modal('show'); // show bootstrap modal
+            $('.modal-title').text('Editar Bucksheet ' + PurchaseOrderID + ', Numero de Linea ' +
+                numeroLinea); // Set title to Bootstrap modal title
+
+
+        },
+        error: function(jqXHR, textStatus, errorThrown) {
+            alert('Error get data from ajax');
+        }
+    });
+}
+
+
+function guardarbuckSheetdet() {
+    $('#btnSave').text('Actualizando..'); //change button text
+    $('#btnSave').attr('disabled', true); //set button disable 
+
+    url = "<?php echo site_url('BuckSheet/updateBuckSheet')?>";
+
+
+    // ajax adding data to database
+
+    var formData = new FormData($('#form')[0]);
+
+    $.ajax({
+                            url: url ,
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(data){
+
+                                if (data.resp) //if success close modal and reload ajax table
+                                    {
+                                        $('#modal-default').modal('hide');
+                                        lista_bucksheet();
+                                        toastr.success(data.mensaje);
+                                        $.unblockUI();
+                                    } else {
+                                        toastr.success(data.mensaje);
+
+                                    }
+                                    $('#btnSave').text('Actualizar'); //change button text
+                                    $('#btnSave').attr('disabled', false); //set button enable 
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            $('#btnSave').text('Cargar'); //change button text
+                            $('#btnSave').attr('disabled', false); //set button enable   
+                            $.unblockUI();         
+                        }
+                            });
+
+
+}
+
+
+
+             </script>
+             <script>
+             $(function() {
+                 //Initialize Select2 Elements
+
+
+                 //Datemask dd/mm/yyyy
+                 $('#datemask').inputmask('dd/mm/yyyy', {
+                     'placeholder': 'dd/mm/yyyy'
+                 })
+                 //Datemask2 mm/dd/yyyy
+                 $('#datemask2').inputmask('mm/dd/yyyy', {
+                     'placeholder': 'mm/dd/yyyy'
+                 })
+                 //Money Euro
+                 $('[data-mask]').inputmask()
+
+
+
+             })
+             </script>
+
+
+    

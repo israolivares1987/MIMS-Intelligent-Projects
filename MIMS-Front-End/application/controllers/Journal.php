@@ -108,7 +108,23 @@ class Journal extends MY_Controller{
    $datos['select_cc'] = $select_cc;
    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
+
+   if ($this->session->userdata('rol_id')==='202'){
+
+
     $this->plantilla_activador('activador/listControlCalidad', $datos);
+    
+
+  }elseif($this->session->userdata('rol_id')==='203'){
+
+    $this->plantilla_calidad('calidad/listControlCalidad', $datos);
+
+  }
+
+
+
+
+   
 
   }
 
