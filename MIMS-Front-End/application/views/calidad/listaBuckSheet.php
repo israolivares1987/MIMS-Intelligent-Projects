@@ -4,7 +4,7 @@
     <section class="content-header">
         <div class="container-fluid">
             <div class="row mb-2">
-                <div class="col-sm-6">
+                <div class="col-sm-12">
                     <h1>BuckSheet Orden <?php echo $PurchaseOrderDescription;?> </h1>
                 </div>
             </div>
@@ -17,7 +17,7 @@
                     <h3 class="card-title"></h3>
                 </div>
 
-                <div class="container">
+           
                     <div class="row">
                         <div class="col-lg-6">
                             <div class="card">
@@ -70,10 +70,10 @@
                         </div>
                     </div>
                     <!-- /.row -->
-                </div>
+             
 
 
-					 <div class="container">
+				
 										<div class="row">
 											<div class="col-lg-12">
 												<div class="card">
@@ -114,7 +114,7 @@
                                              <div class="col-12">
                                                  <a href="javascript:void(0);"
                                                      class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="formToggle('importFrm');"><i class="fas fa-file-upload">
+                                                     onclick="subirBucksheet();"><i class="fas fa-file-upload">
                                                      </i> Subir archivo
                                                  </a>
                                              </div>
@@ -147,32 +147,7 @@
                                      <tr>
                                          <th colspan="4">
                                              <div class="col-md-12" id="importFrm" style="display: none;">
-                                                 <form role="form" action="<?php echo site_url();?>/BuckSheet/save/<?php echo $PurchaseOrderID;?>/<?php echo $idCliente;?>/<?php echo $codProyecto;?>" enctype="multipart/form-data" method="post" accept-charset="utf-8">
-                                                     <div class="card-body">
-
-                                                         <div class="form-group">
-                                                             <label for="exampleInputFile">Cargar Archivo</label>
-                                                             <div class="input-group">
-                                                                 <div class="custom-file">
-                                                                     <input type="file" onChange="ver_archivo();" class="custom-file-input" id="var_fileURL" name="fileURL" required="">
-                                                                     <label class="custom-file-label"
-                                                                         for="exampleInputFile"></label>
-                                                                 </div>
-                                                                               
-                                                             </div>
-                                                         </div>
-                                                     </div>
-                                                     <!-- /.card-body -->
-                                                     <div>
-                                                                    <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
-                                                                </div>
-
-                                                     <div class="card-footer">
-                                                         <button type="submit"
-                                                             class="btn btn-block btn-outline-success"> <i
-                                                                 class="far fa-check-circle"></i> Cargar</button>
-                                                     </div>
-                                                 </form>
+                                               
                                              </div>
                                          </th>
                                      </tr>
@@ -263,7 +238,7 @@
 
 										
 									
-                         </div>
+                    
 
         </div>
     </div>
@@ -370,7 +345,10 @@ function edit_bucksheet(numeroLinea, PurchaseOrderID) {
 }
 
 
+
+
 function save() {
+    
     $('#btnSave').text('Actualizando..'); //change button text
     $('#btnSave').attr('disabled', true); //set button disable 
 
@@ -411,6 +389,82 @@ function save() {
         }
     });
 }
+
+
+function subirBucksheet() {
+
+$('#formBuckSheet')[0].reset(); // reset form on modals
+$('.form-group').removeClass('has-error'); // clear error class
+$('.help-block').empty(); // clear error string
+$('#modal-bucksheet').modal('show'); // show bootstrap modal
+        
+
+}
+
+
+function saveBuckSheet() {
+    
+    $('#btnSave').text('Actualizando..'); //change button text
+    $('#btnSave').attr('disabled', true); //set button disable 
+
+    url = "<?php echo site_url('BuckSheet/save')?>";
+
+
+    // ajax adding data to database
+
+    var formData = new FormData($('#formBuckSheet')[0]);
+
+                $.ajax({
+                            url: url ,
+                            type: 'post',
+                            data: formData,
+                            contentType: false,
+                            processData: false,
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(data){
+
+                                if (data.resp) //if success close modal and reload ajax table
+                                    {
+                                        $('#modal-bucksheet').modal('hide');
+                                        reload_table();
+                                        toastr.success(data.mensaje);
+                                    } else {
+                                        toastr.success(data.mensaje);
+
+                                    }
+                                    $('#btnSave').text('Cargar'); //change button text
+                                    $('#btnSave').attr('disabled', false); //set button enable 
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            $('#btnSave').text('Cargar'); //change button text
+                            $('#btnSave').attr('disabled', false); //set button enable            
+                        }
+                            });
+
+                }
+
+function mostrarBlock(){
+		$.blockUI({ 
+                message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/images/loading.gif');?>" />&nbsp;Espere un momento...</h5>',
+            css:{
+				backgroundColor: '#0063BE',
+				opacity: .8,
+				'-webkit-border-radius': '10px', 
+	            '-moz-border-radius': '10px',
+	            color: '#fff'
+			}
+		});
+	}
 
 
 $(document).ready(function() {
@@ -615,6 +669,59 @@ tr {
 
 
  <!-- Bootstrap modal -->
+
+
+
+ 
+
+
+ <div class="modal fade" id="modal-bucksheet'">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+                 <h4 class="modal-title">Editar BuckSheet</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+             <form role="formBuckSheet" action="#" enctype="multipart/form-data" method="post" accept-charset="utf-8">
+
+                                                     <div class="card-body">
+                                                         <div class="form-group">
+                                                             <label for="exampleInputFile">Cargar Archivo</label>
+                                                             <div class="input-group">
+                                                                 <div class="custom-file">
+                                                                     <input type="file" onChange="ver_archivo();" class="custom-file-input" id="var_fileURL" name="fileURL" required="">
+                                                                     <label class="custom-file-label"
+                                                                         for="exampleInputFile"></label>
+                                                                 </div>
+                                                                               
+                                                             </div>
+                                                         </div>
+                                                     </div>
+                                                     <!-- /.card-body -->
+                                                     <div>
+                                                                    <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
+                                                                </div>
+                                                                
+    <input name="idOrden" placeholder="" class="form-control" type="hidden" id="idOrden" value="<?php echo $PurchaseOrderID;?>">
+    <input name="idCliente" placeholder="" class="form-control" type="hidden" id="idCliente" value="<?php echo $idCliente;?>">
+    <input name="idProyecto" placeholder="" class="form-control" type="hidden" id="idProyecto" value="<?php echo $codProyecto;?>">
+            </form>
+          </div>
+             <div class="modal-footer justify-content-between">
+                 <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
+                     onclick="saveBuckSheet()">Actualizar</button>
+                 <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
+             </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
+
+
 
  <div class="modal fade" id="modal-default">
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">

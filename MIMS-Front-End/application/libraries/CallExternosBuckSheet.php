@@ -22,7 +22,7 @@ class CallExternosBuckSheet {
 }
      
   
-      function obtieneBucksheet($PurchaseOrderID, $flag = false){
+      function obtieneBucksheet($PurchaseOrderID){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
@@ -46,12 +46,8 @@ class CallExternosBuckSheet {
   
         curl_close($client);
 
-        if($flag){
-          return $response;
-        }else{
-          echo $response;
-        }
-  
+     
+        return $response;
         
   
   
@@ -83,7 +79,7 @@ class CallExternosBuckSheet {
   
         curl_close($client);
   
-        echo $response;
+        return $response;
   
   
       }
@@ -124,59 +120,8 @@ class CallExternosBuckSheet {
   
         $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/update";
-  
-  
-            
-        $form_data = array(
-          'PurchaseOrderID' => $memData['PurchaseOrderID'],
-          'purchaseOrdername' => $memData['purchaseOrdername'],
-          'SupplierName' => $memData['SupplierName'],
-          'NumeroLinea' => $memData['NumeroLinea'],
-          'ItemST' => $memData['ItemST'],
-          'SubItemST' => $memData['SubItemST'],
-          'STUnidad' => $memData['STUnidad'],
-          'STCantidad' => $memData['STCantidad'],
-          'TAGNumber' => $memData['TAGNumber'],
-          'Stockcode' => $memData['Stockcode'],
-          'Descripcion' => $memData['Descripcion'],
-          'PlanoModelo' => $memData['PlanoModelo'],
-          'Revision ' => $memData['Revision '],
-          'PaqueteConstruccionArea' => $memData['PaqueteConstruccionArea'],
-          'PesoUnitario' => $memData['PesoUnitario'],
-          'PesoTotal' => $memData['PesoTotal'],
-          'FechaRAS' => $memData['FechaRAS'],
-          'DiasAntesRAS' => $memData['DiasAntesRAS'],
-          'FechaComienzoFabricacion' => $memData['FechaComienzoFabricacion'],
-          'PAFCF' => $memData['PAFCF'],
-          'FechaTerminoFabricacion' => $memData['FechaTerminoFabricacion'],
-          'PAFTF' => $memData['PAFTF'],
-          'FechaGranallado' => $memData['FechaGranallado'],
-          'PAFG' => $memData['PAFG'],
-          'FechaPintura' => $memData['FechaPintura'],
-          'PAFP' => $memData['PAFP'],
-          'FechaListoInspeccion' => $memData['FechaListoInspeccion'],
-          'PAFLI' => $memData['PAFLI'],
-          'ActaLiberacionCalidad' => $memData['ActaLiberacionCalidad'],
-          'FechaSalidaFabrica' => $memData['FechaSalidaFabrica'],
-          'PAFSF' => $memData['PAFSF'],
-          'FechaEmbarque' => $memData['FechaEmbarque'],
-          'PackingList' => $memData['PackingList'],
-          'GuiaDespacho' => $memData['GuiaDespacho'],
-          'SCNNumber' => $memData['SCNNumber'],
-          'UnidadesSolicitadas' => $memData['UnidadesSolicitadas'],
-          'UnidadesRecibidas' => $memData['UnidadesRecibidas'],
-          'MaterialReceivedReport' => $memData['MaterialReceivedReport'],
-          'MaterialWithdrawalReport' => $memData['MaterialWithdrawalReport'],
-          'Origen' => $memData['Origen'],
-          'DiasViaje' => $memData['DiasViaje'],
-          'Observacion1' => $memData['Observacion1'],
-          'Observacion2' => $memData['Observacion2'],
-          'Observacion3' => $memData['Observacion3'],
-          'Observacion4' => $memData['Observacion4'],
-          'Observacion5' => $memData['Observacion5'],
-          'Observacion6' => $memData['Observacion6'],
-          'Observacion7' => $memData['Observacion7']
-      );
+
+        $form_data = $memData;
   
         $client = curl_init($api_url);
   
@@ -201,56 +146,7 @@ class CallExternosBuckSheet {
         $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/insert";
 
-          $form_data = array(
-            'PurchaseOrderID' => $memData['PurchaseOrderID'],
-            'purchaseOrdername' => $memData['purchaseOrdername'],
-            'SupplierName' => $memData['SupplierName'],
-            'NumeroLinea' => $memData['NumeroLinea'],
-            'ItemST' => $memData['ItemST'],
-            'SubItemST' => $memData['SubItemST'],
-            'STUnidad' => $memData['STUnidad'],
-            'STCantidad' => $memData['STCantidad'],
-            'TAGNumber' => $memData['TAGNumber'],
-            'Stockcode' => $memData['Stockcode'],
-            'Descripcion' => $memData['Descripcion'],
-            'PlanoModelo' => $memData['PlanoModelo'],
-            'Revision ' => $memData['Revision '],
-            'PaqueteConstruccionArea' => $memData['PaqueteConstruccionArea'],
-            'PesoUnitario' => $memData['PesoUnitario'],
-            'PesoTotal' => $memData['PesoTotal'],
-            'FechaRAS' => $memData['FechaRAS'],
-            'DiasAntesRAS' => $memData['DiasAntesRAS'],
-            'FechaComienzoFabricacion' => $memData['FechaComienzoFabricacion'],
-            'PAFCF' => $memData['PAFCF'],
-            'FechaTerminoFabricacion' => $memData['FechaTerminoFabricacion'],
-            'PAFTF' => $memData['PAFTF'],
-            'FechaGranallado' => $memData['FechaGranallado'],
-            'PAFG' => $memData['PAFG'],
-            'FechaPintura' => $memData['FechaPintura'],
-            'PAFP' => $memData['PAFP'],
-            'FechaListoInspeccion' => $memData['FechaListoInspeccion'],
-            'PAFLI' => $memData['PAFLI'],
-            'ActaLiberacionCalidad' => $memData['ActaLiberacionCalidad'],
-            'FechaSalidaFabrica' => $memData['FechaSalidaFabrica'],
-            'PAFSF' => $memData['PAFSF'],
-            'FechaEmbarque' => $memData['FechaEmbarque'],
-            'PackingList' => $memData['PackingList'],
-            'GuiaDespacho' => $memData['GuiaDespacho'],
-            'SCNNumber' => $memData['SCNNumber'],
-            'UnidadesSolicitadas' => $memData['UnidadesSolicitadas'],
-            'UnidadesRecibidas' => $memData['UnidadesRecibidas'],
-            'MaterialReceivedReport' => $memData['MaterialReceivedReport'],
-            'MaterialWithdrawalReport' => $memData['MaterialWithdrawalReport'],
-            'Origen' => $memData['Origen'],
-            'DiasViaje' => $memData['DiasViaje'],
-            'Observacion1' => $memData['Observacion1'],
-            'Observacion2' => $memData['Observacion2'],
-            'Observacion3' => $memData['Observacion3'],
-            'Observacion4' => $memData['Observacion4'],
-            'Observacion5' => $memData['Observacion5'],
-            'Observacion6' => $memData['Observacion6'],
-            'Observacion7' => $memData['Observacion7'],
-          );
+        $form_data = $memData ;
   
         $client = curl_init($api_url);
   
@@ -270,55 +166,13 @@ class CallExternosBuckSheet {
       }
 
 
-      function updateBuckSheetLinea($memData,$PurchaseOrderID,$NumeroLinea){
+      function updateBuckSheetLinea($memData){
   
-  
+
         $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/updatexlinea";
-  
-  
             
-        $form_data = array(
-          'PurchaseOrderID' => $memData['PurchaseOrderID'],
-          'NumeroLinea' => $memData['NumeroLinea'],
-          'STCantidad' => $memData['STCantidad'],
-          'TAGNumber' => $memData['TAGNumber'],
-          'Stockcode' => $memData['Stockcode'],
-          'Descripcion' => $memData['Descripcion'],
-          'PlanoModelo' => $memData['PlanoModelo'],
-          'Revision ' => $memData['Revision '],
-          'PaqueteConstruccionArea' => $memData['PaqueteConstruccionArea'],
-          'PesoUnitario' => $memData['PesoUnitario'],
-          'PesoTotal' => $memData['PesoTotal'],
-          'FechaRAS' => $memData['FechaRAS'],
-          'DiasAntesRAS' => $memData['DiasAntesRAS'],
-          'FechaComienzoFabricacion' => $memData['FechaComienzoFabricacion'],
-          'PAFCF' => $memData['PAFCF'],
-          'FechaTerminoFabricacion' => $memData['FechaTerminoFabricacion'],
-          'PAFTF' => $memData['PAFTF'],
-          'FechaGranallado' => $memData['FechaGranallado'],
-          'PAFG' => $memData['PAFG'],
-          'FechaPintura' => $memData['FechaPintura'],
-          'PAFP' => $memData['PAFP'],
-          'FechaListoInspeccion' => $memData['FechaListoInspeccion'],
-          'PAFLI' => $memData['PAFLI'],
-          'ActaLiberacionCalidad' => $memData['ActaLiberacionCalidad'],
-          'FechaSalidaFabrica' => $memData['FechaSalidaFabrica'],
-          'PAFSF' => $memData['PAFSF'],
-          'FechaEmbarque' => $memData['FechaEmbarque'],
-          'PackingList' => $memData['PackingList'],
-          'GuiaDespacho' => $memData['GuiaDespacho'],
-          'SCNNumber' => $memData['SCNNumber'],
-          'Origen' => $memData['Origen'],
-          'DiasViaje' => $memData['DiasViaje'],
-          'Observacion1' => $memData['Observacion1'],
-          'Observacion2' => $memData['Observacion2'],
-          'Observacion3' => $memData['Observacion3'],
-          'Observacion4' => $memData['Observacion4'],
-          'Observacion5' => $memData['Observacion5'],
-          'Observacion6' => $memData['Observacion6'],
-          'Observacion7' => $memData['Observacion7']
-      );
+        $form_data = $memData; 
   
         $client = curl_init($api_url);
   

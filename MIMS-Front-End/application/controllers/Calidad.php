@@ -17,7 +17,17 @@ class Calidad extends MY_Controller{
 
    function index_calidad(){
 
-    $this->plantilla_calidad('calidad/home_calidad', $datos);
+
+    $html = "";	 
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+  
+    $menu = $this->callutil->armaMenuClientes($response);
+
+   
+    $datos['arrClientes'] = $menu ;
+
+    $this->plantilla_calidad('calidad/home_calidad',$datos);
 
   }
     

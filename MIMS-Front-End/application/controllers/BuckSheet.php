@@ -88,16 +88,25 @@ class BuckSheet extends MY_Controller {
       }
     
 
-      $datocargo     = $this->callexternosdominios->obtieneDatosRef('NOMBRE_ARCHIVO_EJEMPLO');
-      $select_car = "";
-     foreach (json_decode($datocargo) as $llave => $valor) {
+      $datoarchivo     = $this->callexternosdominios->obtieneDatosRef('NOMBRE_ARCHIVO_EJEMPLO');
+
+     foreach (json_decode($datoarchivo) as $llave => $valor) {
       
       $nombreArchivoEjemplo =$valor->domain_desc;
 
     }
-     
 
 
+    $datoap   = $this->callexternosdominios->obtieneDatosRef('ACTUAL_PREVIO');
+    $select_ap = "";
+    foreach (json_decode($datoap) as $llave => $valor) {
+      
+      $select_ap .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+
+    }
+    
+
+        $datos['select_ap'] = $select_ap;
         $datos['nombreArchivoEjemplo'] = $nombreArchivoEjemplo;
         $datos['PurchaseOrderID'] = $PurchaseOrderID;
         $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
@@ -109,14 +118,27 @@ class BuckSheet extends MY_Controller {
         $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
         
 
-        $this->plantilla_activador('activador/listaBuckSheet', $datos);
+
+        if ($this->session->userdata('rol_id')==='202'){
+
+
+          $this->plantilla_activador('activador/listaBuckSheet', $datos);
+          
+      
+        }elseif($this->session->userdata('rol_id')==='203'){
+      
+          $this->plantilla_calidad('calidad/listaBuckSheet', $datos);
+      
+        }
+
+
 
   }
 
  }
 
 
-    public function save($idOrden,$idCliente,$idProyecto) {
+    public function save() {
 
     $data = array();
     $memData = array();
@@ -129,6 +151,10 @@ class BuckSheet extends MY_Controller {
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
     $menu = $this->callutil->armaMenuClientes($response);
     $datos['arrClientes'] = $menu ;
+
+    $idOrden = $this->input->post('idOrden');
+    $idCliente = $this->input->post('idCliente');
+    $idProyecto = $this->input->post('idProyecto');
 
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
@@ -148,18 +174,18 @@ class BuckSheet extends MY_Controller {
               
         $SupplierName = $valor->SupplierName;
         $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+        $PurchaseOrderID = $valor->PurchaseOrderID;
+        $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
 
       }
     }
       
 
 
-
-
-
     if($this->form_validation->run() == false) {
       
         $error_msg = 'Archivo invalido, favor seleccionar archivo CSV.';
+        $resp = false;
        
     } else {
        // If file uploaded
@@ -167,7 +193,7 @@ class BuckSheet extends MY_Controller {
            // Parse data from CSV file
            $csvData = $this->csvreader->parse_csv($_FILES['fileURL']['tmp_name']);            
            
-    
+          
            
            // create array from CSV file
            if(!empty($csvData)){
@@ -190,7 +216,7 @@ class BuckSheet extends MY_Controller {
                     'Stockcode' => $row['Stockcode'],
                     'Descripcion' => $row['Descripcion'],
                     'PlanoModelo' => $row['PlanoModelo'],
-                    'Revision ' => $row['Revision '],
+                    'Revision ' => $row['Revision'],
                     'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
                     'PesoUnitario' => $row['PesoUnitario'],
                     'PesoTotal' => $row['PesoTotal'],
@@ -255,14 +281,15 @@ class BuckSheet extends MY_Controller {
 
                           // Status message with imported data count
                             $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                            $successMsg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
-
+                            $error_msg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
+                            $resp = true;
 
                     }else{
 
                       $error_msg = 'Orden en archivo no coincide con la orden seleccionada '.
                                     'Orden de Archivo: '.$row['PurchaseOrderID'].
                                     ' Orden seleccionada: '.$idOrden;
+                      $resp = false;
 
                     }
                   
@@ -274,28 +301,14 @@ class BuckSheet extends MY_Controller {
 
         
 
+       }else{
+         
+        $error_msg = 'Archivo con problemas, favor comunicarse con soporte.';
+        $resp = false;
+
        }
 
     }
-
-    //Obtiene Datos Orden
-  
-    $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
-    
-
-    $arrOrden = json_decode($Orden);
-
-    
-    if($arrOrden){
-      
-      foreach ($arrOrden as $llave => $valor) {
-              
-        $PurchaseOrderID = $valor->PurchaseOrderID;
-        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
-        $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
-
-      }
-     }
 
       //Obtiene Datos Proyecto
     
@@ -308,7 +321,7 @@ class BuckSheet extends MY_Controller {
 
         foreach ($arrProyecto as $llave => $valor) {
                 
-          $DescripcionProyecto = $valor->nombre_proyecto;
+          $DescripcionProyecto = $valor->NombreProyecto;
 
         }
 
@@ -333,19 +346,13 @@ class BuckSheet extends MY_Controller {
         }
       }
 
-        $datos['PurchaseOrderID'] = $idOrden;
-        $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
-        $datos['idCliente'] = $idCliente;
-        $datos['codProyecto'] = $idProyecto;
-        $datos['DescripcionProyecto'] = $DescripcionProyecto;
-        $datos['nombreCliente'] = $nombreCliente;
-        $datos['razonSocial'] = $razonSocial;
-        $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
-        $datos['error_msg'] = $error_msg;
-        $datos['success_msg'] = $successMsg;
 
 
-        $this->plantilla_activador('activador/listaBuckSheet', $datos);
+
+        $data['resp']        = $resp;
+        $data['mensaje']     = $error_msg;
+
+        echo json_encode($data);
 
 }
   
@@ -411,21 +418,181 @@ class BuckSheet extends MY_Controller {
         exit;
     }
 
-    function obtieneBucksheet($PurchaseOrderID){
+    function obtieneBucksheet(){
 
 
-        $response = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
-        echo $response;
+      $PurchaseOrderID = $this->input->post('id_orden');
+      $respuesta = false;
+
+        $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+
+
+        $arrBucksheet = json_decode($bucksheet);
+ 
+
+  $datos_bucksheet = array();
+
+  if($arrBucksheet){
+    $respuesta = true;
+    
+    foreach ($arrBucksheet as $key => $value) {
+
+     
+
+      
+      $datos_bucksheet[] = array(
+        'PurchaseOrderID' => $value->PurchaseOrderID,
+        'purchaseOrdername' => $value->purchaseOrdername,
+        'NumeroLinea' => $value->NumeroLinea,
+        'SupplierName' => $value->SupplierName,
+        'ItemST' => $value->ItemST,
+        'SubItemST' => $value->SubItemST,
+        'STUnidad' => $value->STUnidad,
+        'STCantidad' => $value->STCantidad,
+        'TAGNumber' => $value->TAGNumber,
+        'Stockcode' => $value->Stockcode,
+        'Descripcion' => $value->Descripcion,
+        'PlanoModelo' => $value->PlanoModelo,
+        'Revision' => $value->Revision,
+        'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
+        'PesoUnitario' => $value->PesoUnitario,
+        'PesoTotal' => $value->PesoTotal,
+        'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
+        'DiasAntesRAS' => $value->DiasAntesRAS,
+        'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
+        'PAFCF' => $value->PAFCF,
+        'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
+        'PAFTF' => $value->PAFTF,
+        'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
+        'PAFG' => $value->PAFG,
+        'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
+        'PAFP' => $value->PAFP,
+        'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
+        'PAFLI' => $value->PAFLI,
+        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
+        'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
+        'PAFSF' => $value->PAFSF,
+        'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
+        'PackingList' => $value->PackingList,
+        'GuiaDespacho' => $value->GuiaDespacho,
+        'SCNNumber' => $value->SCNNumber,
+        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
+        'UnidadesRecibidas' => $value->UnidadesRecibidas,
+        'MaterialReceivedReport' => $value->MaterialReceivedReport,
+        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
+        'Origen' => $value->Origen,
+        'DiasViaje' => $value->DiasViaje,
+        'Observacion1' => $value->Observacion1,
+        'Observacion2' => $value->Observacion2,
+        'Observacion3' => $value->Observacion3,
+        'Observacion4' => $value->Observacion4,
+        'Observacion5' => $value->Observacion5,
+        'Observacion6' => $value->Observacion6,
+        'Observacion7' => $value->Observacion7
+
+      );
+
+    }
+  }else{
+  
+    $respuesta = false;
+
+  }
+  
+  $datos['bucksheets'] = $datos_bucksheet;
+  $datos['resp']      = $respuesta;
+
+  echo json_encode($datos);
+
   
   
       }
 
-      function obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea)
+function obtieneBucksheetDet()
       {
 
+        $PurchaseOrderID = $this->input->post('id_orden');
+        $NumeroLinea = $this->input->post('numero_linea');
 
         $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea);
-        echo $response;
+      
+        $arrBucksheet = json_decode($response);
+ 
+
+        $datos_bucksheet = array();
+      
+        if($arrBucksheet){
+          $respuesta = true;
+          
+          foreach ($arrBucksheet as $key => $value) {
+      
+           
+      
+            
+            $datos_bucksheet[] = array(
+              'PurchaseOrderID' => $value->PurchaseOrderID,
+              'purchaseOrdername' => $value->purchaseOrdername,
+              'NumeroLinea' => $value->NumeroLinea,
+              'SupplierName' => $value->SupplierName,
+              'ItemST' => $value->ItemST,
+              'SubItemST' => $value->SubItemST,
+              'STUnidad' => $value->STUnidad,
+              'STCantidad' => $value->STCantidad,
+              'TAGNumber' => $value->TAGNumber,
+              'Stockcode' => $value->Stockcode,
+              'Descripcion' => $value->Descripcion,
+              'PlanoModelo' => $value->PlanoModelo,
+              'Revision' => $value->Revision,
+              'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
+              'PesoUnitario' => $value->PesoUnitario,
+              'PesoTotal' => $value->PesoTotal,
+              'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
+              'DiasAntesRAS' => $value->DiasAntesRAS,
+              'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
+              'PAFCF' => $value->PAFCF,
+              'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
+              'PAFTF' => $value->PAFTF,
+              'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
+              'PAFG' => $value->PAFG,
+              'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
+              'PAFP' => $value->PAFP,
+              'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
+              'PAFLI' => $value->PAFLI,
+              'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
+              'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
+              'PAFSF' => $value->PAFSF,
+              'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
+              'PackingList' => $value->PackingList,
+              'GuiaDespacho' => $value->GuiaDespacho,
+              'SCNNumber' => $value->SCNNumber,
+              'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
+              'UnidadesRecibidas' => $value->UnidadesRecibidas,
+              'MaterialReceivedReport' => $value->MaterialReceivedReport,
+              'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
+              'Origen' => $value->Origen,
+              'DiasViaje' => $value->DiasViaje,
+              'Observacion1' => $value->Observacion1,
+              'Observacion2' => $value->Observacion2,
+              'Observacion3' => $value->Observacion3,
+              'Observacion4' => $value->Observacion4,
+              'Observacion5' => $value->Observacion5,
+              'Observacion6' => $value->Observacion6,
+              'Observacion7' => $value->Observacion7
+      
+            );
+      
+          }
+        }else{
+        
+          $respuesta = false;
+      
+        }
+        
+        $datos['bucksheet'] = $datos_bucksheet;
+        $datos['resp']      = $respuesta;
+      
+        echo json_encode($datos);
+
   
   
       }
@@ -436,7 +603,7 @@ class BuckSheet extends MY_Controller {
 
         $memData = array(
           'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
-          'NumeroLinea' => $this->input->post('numeroLinea'),
+          'NumeroLinea' => $this->input->post('NumeroLinea'),
           'STCantidad' => $this->input->post('STCantidad'),
           'TAGNumber' => $this->input->post('TAGNumber'),
           'Stockcode' => $this->input->post('Stockcode'),
@@ -446,22 +613,22 @@ class BuckSheet extends MY_Controller {
           'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
           'PesoUnitario' => $this->input->post('PesoUnitario'),
           'PesoTotal' => $this->input->post('PesoTotal'),
-          'FechaRAS' => $this->input->post('FechaRAS'),
+          'FechaRAS' => $this->callutil->formatoFecha($this->input->post('FechaRAS')),
           'DiasAntesRAS' => $this->input->post('DiasAntesRAS'),
-          'FechaComienzoFabricacion' => $this->input->post('FechaComienzoFabricacion'),
+          'FechaComienzoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaComienzoFabricacion')),
           'PAFCF' => $this->input->post('PAFCF'),
-          'FechaTerminoFabricacion' => $this->input->post('FechaTerminoFabricacion'),
+          'FechaTerminoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaTerminoFabricacion')),
           'PAFTF' => $this->input->post('PAFTF'),
-          'FechaGranallado' => $this->input->post('FechaGranallado'),
+          'FechaGranallado' => $this->callutil->formatoFecha($this->input->post('FechaGranallado')),
           'PAFG' => $this->input->post('PAFG'),
-          'FechaPintura' => $this->input->post('FechaPintura'),
+          'FechaPintura' => $this->callutil->formatoFecha($this->input->post('FechaPintura')),
           'PAFP' => $this->input->post('PAFP'),
-          'FechaListoInspeccion' => $this->input->post('FechaListoInspeccion'),
+          'FechaListoInspeccion' => $this->callutil->formatoFecha($this->input->post('FechaListoInspeccion')),
           'PAFLI' => $this->input->post('PAFLI'),
           'ActaLiberacionCalidad' => $this->input->post('ActaLiberacionCalidad'),
-          'FechaSalidaFabrica' => $this->input->post('FechaSalidaFabrica'),
+          'FechaSalidaFabrica' => $this->callutil->formatoFecha($this->input->post('FechaSalidaFabrica')),
           'PAFSF' => $this->input->post('PAFSF'),
-          'FechaEmbarque' => $this->input->post('FechaEmbarque'),
+          'FechaEmbarque' => $this->callutil->formatoFecha($this->input->post('FechaEmbarque')),
           'PackingList' => $this->input->post('PackingList'),
           'GuiaDespacho' => $this->input->post('GuiaDespacho'),
           'SCNNumber' => $this->input->post('SCNNumber'),
@@ -476,7 +643,7 @@ class BuckSheet extends MY_Controller {
           'Observacion7' => $this->input->post('Observacion7')
         );
 
-        $response = $this->callexternosbucksheet->updateBuckSheetLinea($memData,$this->input->post('PurchaseOrderID'),$this->input->post('numeroLinea'));
+        $response = $this->callexternosbucksheet->updateBuckSheetLinea($memData);
         $data = array();
 
         if($response){
