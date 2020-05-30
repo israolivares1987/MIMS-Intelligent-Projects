@@ -28,12 +28,12 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                           <dl class="row">
-                                             <dt class="col-sm-8">Order ID:</dt>
-                                             <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
-                                             <dt class="col-sm-8">Descripción:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
+                                             <dt class="col-sm-12">Order ID:</dt>
+                                             <dd class="col-sm-10"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-12">Descripción:</dt>
+                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dt class="col-sm-12">PurchaseOrderNumber:</dt>
+                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
                                      </div>
@@ -73,7 +73,7 @@
 
                      <!-- /.card-header -->
                      <div class="card-body">
-                     <table class="table table-striped table-bordered" cellspacing="1" width="100%">
+                     <table class="" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
                                          <th>
@@ -111,7 +111,6 @@
                                      </tr>
                                  </tbody>
                              </table>
-                         <br />
                          <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
@@ -124,8 +123,6 @@
                                  </tr>
                              </tbody>
                          </table>
-
-                         <br />
 
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
@@ -848,7 +845,7 @@
                         "info": true,
                         "autoWidth": true,
                         "responsive": true,
-                        "scrollY": "600px",
+                        "scrollY": "400px",
                         "scrollX": "200px",
                         "scrollCollapse": true
                      });
