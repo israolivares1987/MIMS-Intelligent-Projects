@@ -202,7 +202,17 @@ class BuckSheet extends MY_Controller {
 
 
                 $rowCount++;
+                
+                if (strlen($row['Revision']) < 1 || $row['Revision']=== "" || isset($row['Revision']) || empty($row['Revision']) || is_null($row['Revision']) ){
 
+                  $revision = '0';
+
+                }else{
+
+                  $revision = $row['Revision'];
+                }
+              
+                
                 $memData = array(
                     'PurchaseOrderID' => $row['PurchaseOrderID'],
                     'purchaseOrdername' => urldecode($PurchaseOrderNumber),
@@ -216,26 +226,26 @@ class BuckSheet extends MY_Controller {
                     'Stockcode' => $row['Stockcode'],
                     'Descripcion' => $row['Descripcion'],
                     'PlanoModelo' => $row['PlanoModelo'],
-                    'Revision ' => $row['Revision'],
+                    'Revision' =>  $revision,
                     'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
                     'PesoUnitario' => $row['PesoUnitario'],
                     'PesoTotal' => $row['PesoTotal'],
-                    'FechaRAS' => $row['FechaRAS'],
+                    'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
                     'DiasAntesRAS' => $row['DiasAntesRAS'],
-                    'FechaComienzoFabricacion' => $row['FechaComienzoFabricacion'],
+                    'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
                     'PAFCF' => $row['PAFCF'],
-                    'FechaTerminoFabricacion' => $row['FechaTerminoFabricacion'],
+                    'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
                     'PAFTF' => $row['PAFTF'],
-                    'FechaGranallado' => $row['FechaGranallado'],
+                    'FechaGranallado' => $this->callutil->formatoFecha($row['FechaGranallado']),
                     'PAFG' => $row['PAFG'],
-                    'FechaPintura' => $row['FechaPintura'],
+                    'FechaPintura' => $this->callutil->formatoFecha($row['FechaPintura']),
                     'PAFP' => $row['PAFP'],
-                    'FechaListoInspeccion' => $row['FechaListoInspeccion'],
+                    'FechaListoInspeccion' => $this->callutil->formatoFecha($row['FechaListoInspeccion']),
                     'PAFLI' => $row['PAFLI'],
                     'ActaLiberacionCalidad' => $row['ActaLiberacionCalidad'],
-                    'FechaSalidaFabrica' => $row['FechaSalidaFabrica'],
+                    'FechaSalidaFabrica' => $this->callutil->formatoFecha($row['FechaSalidaFabrica']),
                     'PAFSF' => $row['PAFSF'],
-                    'FechaEmbarque' => $row['FechaEmbarque'],
+                    'FechaEmbarque' => $this->callutil->formatoFecha($row['FechaEmbarque']),
                     'PackingList' => $row['PackingList'],
                     'GuiaDespacho' => $row['GuiaDespacho'],
                     'SCNNumber' => $row['SCNNumber'],
@@ -609,7 +619,7 @@ function obtieneBucksheetDet()
           'Stockcode' => $this->input->post('Stockcode'),
           'Descripcion' => $this->input->post('Descripcion'),
           'PlanoModelo' => $this->input->post('PlanoModelo'),
-          'Revision ' => $this->input->post('Revision'),
+          'Revision' => $this->input->post('Revision'),
           'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
           'PesoUnitario' => $this->input->post('PesoUnitario'),
           'PesoTotal' => $this->input->post('PesoTotal'),
