@@ -12,43 +12,75 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
   <!-- Ionicons -->
   <link rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
-  <!-- DataTables -->
-  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.css');?>">
+  <!-- daterange picker -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.css');?>">
+  <!-- iCheck for checkboxes and radio inputs -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/icheck-bootstrap/icheck-bootstrap.min.css');?>">
+  <!-- Bootstrap Color Picker -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-colorpicker/css/bootstrap-colorpicker.min.css');?>">
+  <!-- Tempusdominus Bbootstrap 4 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/css/tempusdominus-bootstrap-4.min.css');?>">
+  <!-- Select2 -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2/css/select2.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/select2-bootstrap4-theme/select2-bootstrap4.min.css');?>">
+  <!-- Bootstrap4 Duallistbox -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap4-duallistbox/bootstrap-duallistbox.min.css');?>">
   <!-- Theme style -->
   <link rel="stylesheet" href="<?php echo base_url('assets/dist/css/adminlte.min.css');?>">
-
-  <link rel="stylesheet" href="<?php echo base_url('assets/css/fixedColumns.dataTables.min.css');?>">
-
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
 
-  <!-- jQuery -->
+
+  <!-- Toastr -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/toastr/toastr.min.css');?>">
+
+  <script src="<?php echo base_url('assets/plugins/validaciones/validaciones.js');?>"></script>
+
+
+
+  <!-- DataTables -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+
+<!-- jQuery -->
 <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
 <!-- Bootstrap 4 -->
 <script src="<?php echo base_url('assets/plugins/bootstrap/js/bootstrap.bundle.min.js');?>"></script>
-<!-- DataTables -->
-<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.js');?>"></script>
-<script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.js');?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
-<script src="<?php echo base_url('assets/scripts/validaciones.js');?>"></script>
-
-<!-- AdminLTE for demo purposes -->
-<script src="<?php echo base_url('assets/js/dataTables.fixedColumns.min.js');?>"></script>
+<!-- Select2 -->
+<script src="<?php echo base_url('assets/plugins/select2/js/select2.full.min.js');?>"></script>
+<!-- Bootstrap4 Duallistbox -->
+<script src="<?php echo base_url('assets/plugins/bootstrap4-duallistbox/jquery.bootstrap-duallistbox.min.js');?>"></script>
 <!-- InputMask -->
 <script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/inputmask/min/jquery.inputmask.bundle.min.js');?>"></script>
+<!-- date-range-picker -->
+<script src="<?php echo base_url('assets/plugins/daterangepicker/daterangepicker.js');?>"></script>
+<!-- bootstrap color picker -->
+<script src="<?php echo base_url('assets/plugins/bootstrap-colorpicker/js/bootstrap-colorpicker.min.js');?>"></script>
+<!-- Tempusdominus Bootstrap 4 -->
+<script src="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js');?>"></script>
+<!-- Bootstrap Switch -->
+<script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js');?>"></script>
+<!-- AdminLTE App -->
+<script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
+<!-- AdminLTE for demo purposes -->
+<script src="<?php echo base_url('assets/dist/js/demo.js');?>"></script>
 
+<script src="<?php echo base_url('assets/dist/js/assets_block_ui_jquery.blockUI.js');?>"></script>
 
-<script src="<?php echo base_url('assets/plugins/sweetalert2/sweetalert2.min.js');?>"></script>
+<!-- Toastr -->
 <script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
-<script src="<?php echo base_url('/assets/js/assets_block_ui_jquery.blockUI.js');?>"></script>
 
+<!-- DataTables -->
+<script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
 
-
-<link rel="stylesheet" href="<?php echo base_url('assets/css/toastr.min.css');?>">
-
+<!-- bs-custom-file-input -->
+<script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
+<!-- Page script -->
 
 
 

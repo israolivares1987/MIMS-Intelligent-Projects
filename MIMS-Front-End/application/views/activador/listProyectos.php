@@ -13,7 +13,6 @@
     <div class="row">
         <div class="col-12">
         <div class="card">
-
                     <div class="row">
                         <div class="col-lg-12">
                             <div class="card">
@@ -266,7 +265,7 @@
 
             $('#tbl_proyectos').DataTable({
                 language: {
-                    url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                    url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                 },
                 "paging": true,
                 "lengthChange": false,
@@ -274,7 +273,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                "responsive": true,
+               // "responsive": true,
                 "scrollY": "600px",
                 "scrollX": true,
                 "scrollCollapse": true
@@ -350,7 +349,7 @@
             $('#tbl_ordenes').DataTable({
                 "searching": false,
                 language: {
-                    url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                    url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                 },
                 "paging": true,
                 "lengthChange": false,
@@ -358,7 +357,7 @@
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
-                "responsive": true,
+                //"responsive": true,
                 "scrollY": "600px",
                 "scrollX": "200px",
                 "scrollCollapse": true
@@ -423,7 +422,7 @@ $.ajax({
     $('#tbl_ordenes_items').DataTable({
         "searching": false,
         language: {
-            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
         },
         "paging": true,
         "lengthChange": false,
@@ -431,7 +430,7 @@ $.ajax({
         "ordering": true,
         "info": true,
         "autoWidth": true,
-        "responsive": true,
+       // "responsive": true,
         "scrollY": "600px",
         "scrollX": true,
         "scrollCollapse": true
@@ -444,10 +443,6 @@ $.ajax({
 
 
 }
-
-
-
-
 
     function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
         window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');

@@ -212,12 +212,13 @@
                                 </form>
 
                                 </div>
-                            </div>
-                            <div class="modal-footer justify-content-between">
+                                <div class="modal-footer justify-content-between">
                                     <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
                                         onclick="saveBuckSheet()">Actualizar</button>
                                     <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
                             </div>
+                            </div>
+                          
                             <!-- Image loader -->     
                      </div>
                  </div>
@@ -509,12 +510,12 @@
 
 
 
-                         <div class="form-group" data-select2-id="89">
+                         <div class="form-group">
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Salida Fabrica</label>
                                  <div class="col-md-9">
-                                     <select name="PAFSF" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFSF" class="form-control "
+                                         style="width: 100%;" aria-hidden="true">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -698,7 +699,7 @@
 
         function mostrarBlock(){
                 $.blockUI({ 
-                        message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/images/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
+                        message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/images/loading.gif');?>" />&nbsp;Espere un momento...</h5>',
                     css:{
                         backgroundColor: '#0063BE',
                         opacity: .8,
@@ -836,7 +837,7 @@
                      $('#tbl_bucksheet').DataTable({
                         "searching": false,
                         language: {
-                            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                         },
                         "paging": false,
                         "lengthChange": false,
@@ -844,7 +845,7 @@
                         "ordering": true,
                         "info": true,
                         "autoWidth": true,
-                        "responsive": true,
+                        //"responsive": true,
                         "scrollY": "400px",
                         "scrollX": "200px",
                         "scrollCollapse": true

@@ -94,11 +94,11 @@ class Journal extends MY_Controller{
     foreach (json_decode($datosap) as $llave => $valor) {
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
     }
-   
+
    
    
    //llena arreglo con datos
-   
+
    $datos['idCliente'] = $idCliente;
    $datos['idOrden'] = $idOrden;
    $datos['codProyecto'] = $codProyecto;

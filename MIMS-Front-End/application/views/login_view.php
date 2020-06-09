@@ -13,7 +13,7 @@
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
 
-    <link href="<?php echo base_url('assets/css/main.login.css')?>" rel="stylesheet">
+    <link href="<?php echo base_url('assets/dist/css/main.login.css')?>" rel="stylesheet">
 </head>
 
 <body>
@@ -27,7 +27,7 @@
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
                                         <div class="slide-img-bg"></div>
-                                        <div class="slider-content"><img src="<?php echo base_url('assets/images/logo-mims.png');?>" width="300" height="150"></div>
+                                        <div class="slider-content"><img src="<?php echo base_url('assets/dist/img/logo-mims.png');?>" width="300" height="150"></div>
                                     </div>
                                 </div>
                                

@@ -69,16 +69,21 @@
                      $('[data-toggle="tooltip"]').tooltip();
 
                      $('#tbl_empleados').DataTable({
-                         language: {
-                             url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'
-                         },
-                         "paging": true,
-                         "lengthChange": false,
-                         "searching": false,
-                         "ordering": true,
-                         "info": true,
-                         "autoWidth": false,
-                         "responsive": true
+
+                        language: {
+                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
+                        },
+                        "paging": true,
+                        "lengthChange": false,
+                        "searching": false,
+                        "ordering": true,
+                        "info": true,
+                        "autoWidth": true,
+                    // "responsive": true,
+                        "scrollY": "600px",
+                        "scrollX": true,
+                        "scrollCollapse": true
+           
                      });
 
                  }).fail(function() {
@@ -253,6 +258,23 @@
 
   })
 </script>
+
+<style type="text/css" class="init">
+             /* Ensure that the demo table scrolls */
+             th,
+             td {
+                 white-space: nowrap;
+             }
+
+             div.dataTables_wrapper {
+                 margin: 0 auto;
+             }
+
+             tr {
+                 height: 50px;
+             }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
      <!-- Content Header (Page header) -->

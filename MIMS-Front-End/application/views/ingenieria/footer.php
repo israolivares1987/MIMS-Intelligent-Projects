@@ -1,3 +1,5 @@
+</div>  
+  
      <!-- Main Footer -->
   <footer class="main-footer">
     <strong>Copyright &copy; 2020 <a href="http://mimsprojects.com">mimsprojects.com</a></strong>

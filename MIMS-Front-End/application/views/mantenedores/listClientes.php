@@ -69,18 +69,22 @@
                      $('#datos_clientes').html(clientes_html);
                      $('[data-toggle="tooltip"]').tooltip();
 
-                     $('#tbl_clientes').DataTable({
-                         language: {
-                             url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'
+
+                     $('#tbl_clientes').DataTable({language: {
+                          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                          },
                          "paging": true,
                          "lengthChange": false,
                          "searching": false,
                          "ordering": true,
                          "info": true,
-                         "autoWidth": false,
-                         "responsive": true
+                         "autoWidth": true,
+                         //"responsive": true,
+                         "scrollY": "600px",
+                        "scrollX": true,
+                        "scrollCollapse": true
                      });
+
 
                  }).fail(function() {
                      console.log("error change cliente");
@@ -256,6 +260,23 @@
 
   })
 </script>
+
+<style type="text/css" class="init">
+             /* Ensure that the demo table scrolls */
+             th,
+             td {
+                 white-space: nowrap;
+             }
+
+             div.dataTables_wrapper {
+                 margin: 0 auto;
+             }
+
+             tr {
+                 height: 50px;
+             }
+</style>
+
 <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
      <!-- Content Header (Page header) -->
@@ -270,80 +291,104 @@
      </section>
 
      <!-- Main content -->
-     <section class="content">
          <div class="row">
              <div class="col-12">
                  <div class="card">
+
+
                      <div class="card-header">
                          <h3 class="card-title"></h3>
                      </div>
 
-                         <div class="row">
-                             <div class="col-lg-12">
-                                 <div class="card">
-                                     <div class="card-header">
-                                         <h3 class="card-title">
-                                             <i class="fas fa-text-width"></i>
-                                             Detalle Empresa
-                                         </h3>
-                                     </div>
-                                     <!-- /.card-header -->
-                                     <div class="card-body">
-                                         <dl class="row">
-                                             <dt class="col-sm-4">Nombre:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($nombreEmpresa);?></dd>
-                                             <dt class="col-sm-4">Razón Social:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($razonSocial);?>
-                                             </dd>
-                                             </dd>
-                                         </dl>
-                                     </div>
-                                     <!-- /.card-body -->
-                                 </div>
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="fas fa-text-width"></i>
+                                                            Detalle Empresa
+                                                        </h3>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                        <dl class="row">
+                                                            <dt class="col-sm-4">Nombre:</dt>
+                                                            <dd class="col-sm-6"><?php echo urldecode($nombreEmpresa);?></dd>
+                                                            <dt class="col-sm-4">Razón Social:</dt>
+                                                            <dd class="col-sm-6"><?php echo urldecode($razonSocial);?>
+                                                            </dd>
+                                                            </dd>
+                                                        </dl>
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
 
-                             </div>
-                             <!-- /.col-md-6 -->
-                         </div>
-                         <!-- /.row -->
+                                            </div>
+                                            <!-- /.col-md-6 -->
+                                        </div>
+                                        <!-- /.row -->
                      
+                                        <div class="row">
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="fas fa-text-width"></i>
+                                                            Detalle Clientes
+                                                        </h3>
+                                                    </div>
+                                                    <!-- /.card-header -->
+                                                    <div class="card-body">
+                                                    <table class="table" cellspacing="0" width="99%">
+                                                        <tbody>
+                                                            <tr>
+                                                                <th>
+                                                                    <button id="btn_recargar"  class="btn btn-outline-secondary float-right" onclick="reload_table()" >Recargar</button>
+                                                                    <button id="btn_nuevo_registro" class="btn btn-outline-primary float-right" onclick="nuevo_Cliente()">Nuevo Cliente</button>
+                                                                </th>
+                                                            </tr>
+                                                        </tbody>
+                                                    </table>
+                                                    <table id="tbl_clientes" class="table table-striped table-bordered" cellspacing="0">
+                                                            <thead>
+                                                                <tr>
+                                                                <th>Nombre</th>
+                                                                <th>Razon Social</th>
+                                                                <th>Rut</th>
+                                                                <th>Dv</th>
+                                                                <th>Direccion</th>
+                                                                <th>Contacto</th>
+                                                                <th>Telefono</th>
+                                                                <th>Email</th>
+                                                                <th>Acciones</th>
+                                                            </tr>
+                                                            </thead>
+                                                            <tbody id="datos_clientes">
+                                                            </tbody>
+                                                        </table>
 
+
+
+                                                    </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+
+                                            </div>
+                                            <!-- /.col-md-6 -->
+                                        </div>
+                                        <!-- /.row -->
 
                      <!-- /.card-header -->
-                     <div class="card-body">
-                         <br />
-                         <table class="table" cellspacing="0" width="99%">
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                         <button id="btn_recargar"  class="btn btn-outline-secondary float-right" onclick="reload_table()" >Recargar</button>
-                                         <button id="btn_nuevo_registro" class="btn btn-outline-primary float-right" onclick="nuevo_Cliente()">Nuevo Cliente</button>
-                                     </th>
-                                 </tr>
-                             </tbody>
-                         </table>
-
-                         <br />
-
-                         <table id="tbl_clientes" class="table table-striped table-bordered" cellspacing="0">
-                             <thead>
-                                 <tr>
-                                 <th>Nombre</th>
-                                 <th>Razon Social</th>
-                                 <th>Rut</th>
-                                 <th>Dv</th>
-                                 <th>Direccion</th>
-                                 <th>Contacto</th>
-                                 <th>Telefono</th>
-                                 <th>Email</th>
-                                <th>Acciones</th>
-                              </tr>
-                             </thead>
-                             <tbody id="datos_clientes">
-                             </tbody>
-                         </table>
-                     </div>
+                   
                  </div>
              </div>
+    </div>
+
+
+
+
+
+
 
 
 

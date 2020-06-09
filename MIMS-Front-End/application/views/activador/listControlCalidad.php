@@ -10,7 +10,6 @@
              </div>
          </div><!-- /.container-fluid -->
      </section>
-
      <!-- Main content -->
      <section class="content">
          <div class="row">
@@ -38,7 +37,6 @@
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-
                              </div>
                              <!-- /.col-md-6 -->
                              <div class="col-lg-6">
@@ -65,28 +63,29 @@
                              <!-- /.col-md-6 -->
                          </div>
                          <!-- /.row -->
-                     
-
-
                      <!-- /.card-header -->
-                     <div class="card-body">
-                         <br />
-                         <table class="table" cellspacing="0" width="99%">
+                     <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                Cambios en la orden
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                        <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
-                                         <button id="btn_recargar"
+                                     <button id="btn_recargar"
                                              class="btn btn-outline-secondary float-right">Recargar</button>
                                          <button id="btn_nuevo_registro"
                                              class="btn btn-outline-primary float-right">Nuevo Registro</button>
-                                     </th>
+                                    </th>
                                  </tr>
                              </tbody>
                          </table>
-
-                         <br />
-
-                         <table id="tbl_ccalidad" class="table table-striped table-bordered" cellspacing="0">
+                         <table id="tbl_ccalidad" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
                                      <th>Nombre Empleado</th>
@@ -103,9 +102,36 @@
                              <tbody id="datos_ccalidad">
                              </tbody>
                          </table>
-                     </div>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+                     <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                Control de Calidad
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                            <table id="tbl_controlcalidaddet" class="table table-striped table-bordered" cellspacing="0" width=%100>
+                            <thead>
+                                <tr>
+                                    <th>Id Orden</th>
+                                    <th>Id Control</th>
+                                    <th>Descripcion Control</th>
+                                    <th>Estado</th>
+                                    <th>Porcentaje</th>
+                                    <th>Archivo</th>
+                                </tr>
+                            </thead>
+                            <tbody id="datos_controlcalidaddet">
+                            </tbody>
+                        </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
                  </div>
-             </div>
 
 
              <style type="text/css" class="init">
@@ -132,8 +158,10 @@
 
                             var cliente = <?php echo $idCliente?> ;
                             var orden = <?php echo $idOrden?> ;
+                            var proyecto = <?php echo $codProyecto?> ;
 
                             recargaControlCalidad(orden, cliente);
+                            recargaCalidadDet(orden,cliente,proyecto);
 
 
 
@@ -487,7 +515,7 @@ function mostrarBlock(){
 
                      $('#datos_ccalidad').html(calidad_html);
                      $('#tbl_ccalidad').DataTable({language: {
-                          url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                          },
                          "paging": true,
                          "lengthChange": false,
@@ -495,7 +523,7 @@ function mostrarBlock(){
                          "ordering": true,
                          "info": true,
                          "autoWidth": true,
-                         "responsive": true,
+                         //"responsive": true,
                          "scrollY": "600px",
                         "scrollX": true,
                         "scrollCollapse": true
@@ -545,7 +573,65 @@ if(opcion){
              
              }
 
+function recargaCalidadDet(id_orden,id_cliente,id_proyecto){
 
+
+var calidad_det_html ='';
+var tabla_calidad_det =  $('#tbl_controlcalidaddet').DataTable();
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+tabla_calidad_det.destroy();
+
+$.ajax({
+url: 		'<?php echo base_url('index.php/ControlCalidadDet/obtieneControlCalidadDet'); ?>',
+type: 		'POST',
+dataType: 'json',
+data: {
+        id_orden : id_orden,
+        id_cliente : id_cliente,
+        id_proyecto : id_proyecto,
+        cod_empresa : cod_empresa
+
+    },
+}).done(function(result) {
+
+$.each(result.datos_calidad_det,function(key, dato_calidad_det) {
+calidad_det_html += '<tr>';
+calidad_det_html += '<td>' + id_orden+ '</td>';
+calidad_det_html += '<td>' + dato_calidad_det.id_control_calidad + '</td>';
+calidad_det_html += '<td>' + dato_calidad_det.descripcion_control_calidad + '</td>';
+calidad_det_html += '<td>' + dato_calidad_det.estado_cc_det + '</td>';
+calidad_det_html += '<td>' + dato_calidad_det.estado_porc_cc_det + '</td>';
+calidad_det_html += '<td>' + dato_calidad_det.archivo_cc_det + '</td>';
+calidad_det_html += '</tr>';
+
+});
+
+
+    $('#datos_controlcalidaddet').html(calidad_det_html);
+
+    $('#tbl_controlcalidaddet').DataTable({
+        language: {
+            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'	
+        },
+        "paging": false,
+        "lengthChange": false,
+        "searching": false,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+    //   "responsive": true,
+        "scrollY": "300px",
+        "scrollX": true,
+        "scrollCollapse": true
+    });
+
+    }).fail(function() {
+    console.log("error change ccdet");
+    })
+
+
+}
 
              </script>
              <script>
@@ -723,13 +809,13 @@ if(opcion){
 
                                      <div class="col-md-12">
                                          <div class="form-horizontal">
-                                             <div class="form-group" data-select2-id="89">
+                                             <div class="form-group">
                                                  <div class="form-group">
                                                      <label class="control-label col-md-9">Notificar</label>
                                                      <div class="col-md-12">
                                                          <select name="notificacion" id="select_interaccion"
-                                                             class="form-control select2bs4 select2-hidden-accessible"
-                                                             style="width: 100%;" data-select2-id="17" tabindex="-1"
+                                                             class="form-control"
+                                                             style="width: 100%;" tabindex="-1"
                                                              aria-hidden="true" onchange="MostrarEmail(this);">
                                                              <option value="" selected></option>
                                                              <option value="S">SI</option>
@@ -753,7 +839,7 @@ if(opcion){
                                      <div id="mailFrm" style="display: none;" class="col-md-12">
                                          <div class="field_wrapper">
                                              <table class="table table-striped table-bordered" cellspacing="1"
-                                                 width="99%">
+                                                 width="100%">
                                                  <tbody>
                                                      <tr>
                                                          <th>
@@ -779,10 +865,6 @@ if(opcion){
                                  class="btn btn-outline-primary">Guardar</button>
                              <button type="button" class="btn btn-outline-secondary"
                                  data-dismiss="modal">Cerrar</button>
-                             <!-- Image loader -->
-                            <img src='<?php echo base_url()."assets/images/loader.gif"?>' width='32px' height='32px'>
-                            </div>
-                            <!-- Image loader -->     
                          </div>
                      </div>
                  </div>
