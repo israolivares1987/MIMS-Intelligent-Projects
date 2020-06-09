@@ -174,5 +174,62 @@ class CallUtil {
 	return false;
 
 	}
+
+	public function ValidaArchivo($str) {        
+		$mime_types = array(
+			'text/csv',
+			'text/x-csv', 
+			'application/csv', 
+			'application/x-csv', 
+			'application/excel',
+			'text/x-comma-separated-values', 
+			'text/comma-separated-values', 
+			'application/octet-stream', 
+			'application/vnd.ms-excel',
+			'application/vnd.msexcel', 
+			'text/plain',
+			'application/msword',
+			'application/vnd.openxmlformats officedocument.wordprocessingml.document',
+			'image/jpeg',
+			'application/pdf',
+			'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+			'video/mp4'
+		);
+
+		$fileExtArray = array(
+		  'csv',
+		  'CSV', 
+		  'pdf', 
+		  'PDF', 
+		  'xls',
+		  'xlsx', 
+		  'XLS', 
+		  'XLSX', 
+		  'doc',
+		  'docx', 
+		  'DOC',
+		  'DOCX',
+		  'mp4',
+		  'MP4'
+	  );
+		if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
+			// get mime by extension
+			$mime = get_mime_by_extension($_FILES[$str]['name']);
+			$fileExt = explode('.', $_FILES[$str]['name']);
+			$ext = end($fileExt);
+
+			if(in_array($ext, $fileExtArray) && in_array($mime, $mime_types)){
+				return true;
+			}else{
+				
+				return false;
+			}
+		}else{
+			
+			return false;
+		}
+	}
+
+
 }
 

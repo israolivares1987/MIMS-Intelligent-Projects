@@ -111,7 +111,6 @@
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                                         <th>Editar</th>
                                          <th>purchaseOrdername</th>
                                          <th>NumeroLinea</th>
                                          <th>Proveedor</th>
@@ -292,11 +291,7 @@
 
 
                      $.each(result.bucksheets, function(key, bucksheets) {
-                         bucksheet_html += '<tr>';
-                         bucksheet_html += '<td>';
-                         bucksheet_html +=
-                             '<button data-toggle="tooltip" data-placement="top" title="Editar BuckSheet" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-                        bucksheet_html += '</td>';
+                        bucksheet_html += '<tr>';
                         bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
@@ -354,7 +349,7 @@
                      $('#tbl_bucksheet').DataTable({
                         "searching": false,
                         language: {
-                            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                         },
                         "paging": false,
                         "lengthChange": false,
@@ -362,7 +357,7 @@
                         "ordering": true,
                         "info": true,
                         "autoWidth": true,
-                        "responsive": true,
+                      //  "responsive": true,
                         "scrollY": "600px",
                         "scrollX": "200px",
                         "scrollCollapse": true

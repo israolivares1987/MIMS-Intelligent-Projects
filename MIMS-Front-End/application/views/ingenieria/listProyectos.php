@@ -1,182 +1,167 @@
-   <!-- Content Wrapper. Contains page content -->
-   <div class="content-wrapper">
-    <!-- Content Header (Page header) -->
-    <!-- Main content -->
+<div class="content-wrapper">
+   
+    <div class="col-lg-12">
+            <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                      <i class="fas fa-user-tie"></i>
+                        Cliente
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                      <div class="form-group">
+                      <label>Seleccione cliente</label>
+                      <?php echo $select_clientes;?>
+                      </div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+
+            </div>
 
     <div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title">
-                            <i class="fas fa-user-tie"></i>
-															Cliente
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-                          <div class="form-group">
-                            <label>Seleccione cliente</label>
-                            <?php echo $select_clientes;?>
-                          </div>
-													</div>
-													<!-- /.card-body -->
-												</div>
+                <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                      <i class="fas fa-clipboard-list"></i>
+                        Proyectos
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+                            <table class="table" cellspacing="0" width="99%">
+                                <tbody>
+                                    <tr>
+                                        <th>
+                                        <button style="display: none;" id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
+                                        </th>
+                                    </tr>
+                                </tbody>
+                            </table>
 
-											</div>
+                            <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                <thead>
+                                    <tr>
+                                        <th>Acciones</th>
+                                        <th>Nombre Proyecto</th>
+                                        <th>Descripcion Proyecto</th>
+                                        <th>Lugar</th>
+                                        <th>Estado Proyecto</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="datos_proyectos">
+                                </tbody>
+                            </table>
+                      </div>
+             
+                    <!-- /.card-body -->
+            </div>
+            
+    <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title" id="titulo_ordenes">
+                        <i class="fas fa-clipboard-list"></i>
+                        Ordenes de Compra Proyecto
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+							   <table class="table" cellspacing="0" width="99%">
+								   <tbody>
+									   <tr>
+										   <th>
+										   <button style="display: none;" id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
+										   </th>
+									   </tr>
+								   </tbody>
+							   </table>
+								<table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0" width=100%>
+						 
+							  <thead>
+								  <tr>
+								  <th>Acciones</th>
+								  <th>Orden ID</th>
+								  <th>Orden Number</th>
+								  <th>Orden Description</th>
+								  <th>Nombre Proveedor</th>
+								  <th>Activador</th>
+								  <th>Generador de Compra</th>
+								  <th>Moneda</th>
+								  <th>Valor Neto</th>
+								  <th>Valor Total</th>
+								  <th>Presupuesto</th>
+								  <th>Codigo Presupuesto</th>
+								  <th>Fecha Orden</th>
+								  <th>Fecha Requerida</th>
+								  <th>Fecha Prometida</th>
+								  <th>Fecha Enviada</th>
+								  <th>Metodo Envio</th>
+								  <th>Fecha Orden Creada</th>
+								  <th>Estado</th>
+								  <th>Archivo</th>	
+								  </tr>
+							  </thead>
+							  <tbody id="datos_ordenes">
+								
+							  </tbody>
+							  
+						  </table>
 
+                  <input type="hidden" id="flag_orden">
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
 
-                <div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title">
-                              <i class="fas fa-clipboard-list"></i></i>
-															Proyectos
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-                         <table class="table" cellspacing="0" width="99%">
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                     <button style="display: none;" id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
-                                     </th>
-                                 </tr>
-                             </tbody>
-                         </table>
+                </div>
+                
 
-                          <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0" width=100%>
-                        <thead>
-                            <tr>
-                                <th>Acciones</th>
-																<th>Nombre Proyecto</th>
-																<th>Descripcion Proyecto</th>
-																<th>Lugar</th>
-																<th>Estado Proyecto</th>
-                            </tr>
-                        </thead>
-                        <tbody id="datos_proyectos">
-                        </tbody>
+     <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                      <h3 class="card-title">
+                        <i class="fas fa-clipboard-list"></i>
+                        Items Orden
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+						   <table class="table" cellspacing="0" width="99%">
+							   <tbody>
+								   <tr>
+									   <th>
+									   <button style="display: none;" id="btn_nueva_item_orden" class="btn btn-outline-primary float-right mb-3">Nueva Item Orden</button>
+									   </th>
+								   </tr>
+							   </tbody>
+						   </table>
+						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                      <thead>
+                        <tr>                          
+						  <th>Acciones</th>
+						  <th>Orden ID</th>
+						  <th>Item ID</th>
+						  <th>Descripcion</th>
+						  <th>Revision</th>
+						  <th>Unidad</th>
+						  <th>Cantidad</th>
+						  <th>Precio Unitario</th>
+						  <th>Valor Neto</th>
+						  <th>Estado</th>	
+					  </tr>
+                     </thead>
+                      <tbody id="datos_ordenes_items">
+                      </tbody>
                     </table>
-													</div>
-													<!-- /.card-body -->
-												</div>
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
 
-											</div>
+   </div>
 
-
-                <div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title" id="titulo_ordenes">
-                              <i class="fas fa-clipboard-list"></i>
-															Ordenes de Compra Proyecto
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-                         <table class="table" cellspacing="0" width="99%">
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                     <button style="display: none;" id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
-                                     </th>
-                                 </tr>
-                             </tbody>
-                         </table>
-                          <table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0" width=100%>
-                   
-                        <thead>
-                            <tr>
-                            <th>Acciones</th>
-                            <th>Orden ID</th>
-                            <th>Orden Number</th>
-                            <th>Orden Description</th>
-                            <th>Nombre Proveedor</th>
-                            <th>Activador</th>
-                            <th>Generador de Compra</th>
-                            <th>Moneda</th>
-                            <th>Valor Neto</th>
-                            <th>Valor Total</th>
-                            <th>Presupuesto</th>
-                            <th>Codigo Presupuesto</th>
-                            <th>Fecha Orden</th>
-                            <th>Fecha Requerida</th>
-                            <th>Fecha Prometida</th>
-                            <th>Fecha Enviada</th>
-                            <th>Metodo Envio</th>
-                            <th>Fecha Orden Creada</th>
-                            <th>Estado</th>
-                            <th>Archivo</th>	
-                            </tr>
-                        </thead>
-                        <tbody id="datos_ordenes">
-                          
-                        </tbody>
-                        
-                    </table>
-
-                        <input type="hidden" id="flag_orden">
-													</div>
-													<!-- /.card-body -->
-												</div>
-
-											</div>
-
-                     <div class="col-lg-12">
-												<div class="card">
-													<div class="card-header">
-														<h3 class="card-title">
-                              <i class="fas fa-clipboard-list"></i></i>
-															Items Orden
-														</h3>
-													</div>
-													<!-- /.card-header -->
-													<div class="card-body">
-                         <table class="table" cellspacing="0" width="99%">
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                   	<button style="display: none;" id="btn_nueva_item_orden" class="btn btn-outline-primary float-right mb-3">Nueva Item Orden</button>
-                                     </th>
-                                 </tr>
-                             </tbody>
-                         </table>
-													  <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
-													
-                            <thead>
-															<tr>                          
-                                                            <th>Acciones</th>
-                                                            <th>Orden ID</th>
-                                                            <th>Item ID</th>
-                                                            <th>Descripcion</th>
-                                                            <th>Revision</th>
-                                                            <th>Unidad</th>
-                                                            <th>Cantidad</th>
-                                                            <th>Precio Unitario</th>
-                                                            <th>Valor Neto</th>
-                                                            <th>Estado</th>	
-                                                        </tr>
-														</thead>
-														<tbody id="datos_ordenes_items">
-														</tbody>
-													</table>
-													</div>
-													<!-- /.card-body -->
-												</div>
-
-											</div>
-
-
-
-
-            </div><!--.card-header-->
-            <!-- /.card-header -->
-         </div><!--.card--> 
-        </div><!--.col-12-->    
-      </div><!--.row-->
-
-      <!--.modal nuevo proyecto-->
-      <div id="modal_nuevo_proyecto" class="modal fade" tabindex="-1" role="dialog">
+        <!--.modal nuevo proyecto-->
+        <div id="modal_nuevo_proyecto" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
           <div class="modal-content">
             <div class="modal-header">
@@ -570,28 +555,18 @@
                           </div>
                    </div>
 
+					<input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
+					<input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
 
-
-
-              </div>
 
             </div>
-            <!-- /.row -->
-
-
-
-          </div>
-          <!-- /.card-body -->
-
-          <div class="modal-footer justify-content-between">
-              <button id="btn_orden" type="button" class="btn btn-outline-primary">Guardar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-
-          <input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
-          <input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
-
+					  <div class="modal-footer justify-content-between">
+						  <button id="btn_orden" type="button" class="btn btn-outline-primary">Guardar</button>
+						  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+					  </div>
+        
+			      </div>
+                 
                 </form>
               </div><!--.container-->
             </div><!--.modal-body-->
@@ -601,8 +576,8 @@
       </div><!--.modal-->
       <!--.fin modal nuevo orden-->
 
-      <!--.modal edita orden-->
 
+ <!--.modal edita orden-->
       <div id="modal_edit_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
@@ -614,11 +589,12 @@
             </div>
             <div class="modal-body">
               <div class="container">
-                <form id="form_orden_item_act">
+                <form id="form_orden_act">
                   <div class="card-body">
                      <div class="row">
 
-              <div class="col-12 col-sm-6">
+
+               <div class="col-12 col-sm-6">
                 
                 <div class="form-group">
                    <label class="col-sm-12 control-label">Nombre Proyecto</label>
@@ -859,23 +835,17 @@
 
               </div>
 
-            </div>
-            <!-- /.row -->
+					 <input type="hidden" id="id_act_order" name="id_act_order" value="">
+					  <input type="hidden" id="id_act_proyecto" name="id_act_proyecto" value=""> 
+					  <input type="hidden" id="id_act_cliente" name="id_act_cliente" value="">
 
 
-
-          </div>
-          <!-- /.card-body -->
-          <input type="hidden" id="id_act_order" name="id_act_order" value="">
-          <input type="hidden" id="id_act_proyecto" name="id_act_proyecto" value=""> 
-          <input type="hidden" id="id_act_cliente" name="id_act_cliente" value="">
-
-
-          <div class="modal-footer justify-content-between">
-              <button id="btn_act_orden" type="button" class="btn btn-outline-primary">Guardar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
+                   </div>
+			      <div class="modal-footer justify-content-between">
+							  <button id="btn_act_orden" type="button" class="btn btn-outline-primary">Guardar</button>
+							  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+						</div>
+                
                 </form>
               </div><!--.container-->
             </div><!--.modal-body-->
@@ -1046,7 +1016,7 @@
               <button id="btn_orden_item" type="button" class="btn btn-outline-primary">Guardar</button>
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
           </div>
-        </div>
+   
                 </form>
               </div><!--.container-->
             </div><!--.modal-body-->
@@ -1057,10 +1027,8 @@
 <!--. fin modal nueva oden item-->
 
 
-
-
-  <!--.modal edita oden item-->
-  <div id="modal_edita_orden_item" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
+ <!--.modal edita oden item-->
+ <div id="modal_edita_orden_item" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
@@ -1221,14 +1189,89 @@
 
 
 
+ <!--.modal control de calidad-->
+<div class="modal fade" id="modal_control_calidad">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div class="modal-body">
 
+                                <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      <h3 class="card-title">
+                                      <i class="fas fa-clipboard-list"></i>
+                                        Ingresar Control de Calidad
+                                      </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                            <table class="table" cellspacing="0" width="99%">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                        <div class="form-group" id="cc_select">
+                                                        </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
 
+                                            <table id="tbl_control_calidad" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                <thead>
+                                                    <tr>
+                                                      <th>Acciones</th>
+                                                      <th>Id Orden</th>
+                                                      <th>Id Calidad</th>
+                                                      <th>Descripcion Calidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="datos_control_calidad">
+                                                </tbody>
+                                            </table>
+                                      </div>
+                            
+                                    <!-- /.card-body -->
+                            </div>
+
+                         <input type="hidden" id="id_order_cc" name="id_order_cc" value="">
+                          <input type="hidden" id="id_proyecto_cc" name="id_proyecto_cc" value=""> 
+                          <input type="hidden" id="id_cliente_cc" name="id_cliente_cc" value="">
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button id="btn_agregar_cc" type="button" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!--. modal control de calidad-->
+
+  <!--.modal control de calidad-->
+ 
 
 
       <script>
              $(function() {
-                 //Initialize Select2 Elements
+                 
 
+                  //Initialize Select2 Elements
+                  $('.select2').select2()
+
+                  //Initialize Select2 Elements
+                  $('.select2bs4').select2({
+                    theme: 'bootstrap4'
+                  })
 
                  //Datemask dd/mm/yyyy
                  $('#datemask').inputmask('dd/mm/yyyy', {
@@ -1262,6 +1305,19 @@
         height: 50px;
     }
     </style>
+<script>
+  $(function () {
+
+    //Datemask dd/mm/yyyy
+    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
+
+  })
+</script>
+
 
 <script type="text/javascript">
 
@@ -1269,9 +1325,12 @@ $('[data-toggle="tooltip"]').tooltip();
 
 $(document).ready(function() { 
 
+
+
     recargaProyectos(0);
     recargaOrdenes(0,0,'');
-    recargaItemOrdenes(0, 0, 0)
+    recargaItemOrdenes(0, 0, 0);
+   // recargaCalidadDet(0, 0, 0);
 
 
     
@@ -1290,12 +1349,13 @@ $(document).ready(function() {
         $(this).next().empty();
     });
 
+
 });
 
 
 function mostrarBlock(){
 		$.blockUI({ 
-			message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/images/pageLoader.gif');?>" />&nbsp;Espere un momento...</h5>',
+			message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
 			css:{
 				backgroundColor: '#0063BE',
 				opacity: .8,
@@ -1493,8 +1553,6 @@ function recargaProyectos(cliente){
             },
     }).done(function(result) {
 
-      
-
       $.each(result.proyectos,function(key, proyecto) {
         proyectos_html += '<tr>';
         proyectos_html += '<td>';
@@ -1526,7 +1584,7 @@ function recargaProyectos(cliente){
 
         $('#tbl_proyectos').DataTable({
           language: {
-              url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'	
+              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
           },
           "paging": true,
           "lengthChange": false,
@@ -1534,7 +1592,7 @@ function recargaProyectos(cliente){
           "ordering": true,
           "info": true,
           "autoWidth": true,
-          "responsive": true,
+       //   "responsive": true,
           "scrollY": "600px",
           "scrollX": true,
           "scrollCollapse": true
@@ -1578,6 +1636,117 @@ function edita_proyecto(id_proyecto, id_cliente){
   })
 
 }
+
+function recargaControlCalidad(id_cliente ,id_proyecto,id_orden){
+
+  var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+    $.ajax({
+        url: '<?php echo base_url('index.php/ControlCalidad/obtieneControlCalidad');?>',
+        type: 'POST',
+        dataType: 'json',
+        data: {
+          codEmpresa: cod_empresa,
+          id_cliente :id_cliente,
+          id_proyecto : id_proyecto,
+          id_orden : id_orden
+        },
+    }).done(function(result) {
+
+        
+      dato_calidad_html = '<select class="form-control" id="select_cc" name="select_cc">';
+      
+      $.each(result.datos_calidad, function(key, dato_calidad) {
+            
+            dato_calidad_html += '<option value='+dato_calidad.id_control_calidad + '>'+dato_calidad.descripcion_control_calidad+'</option>';
+                                                
+        });
+
+        dato_calidad_html += '</select>';
+
+
+    $('#cc_select').html(dato_calidad_html);
+
+    recargaCalidadDet(id_orden,id_cliente,id_proyecto);
+
+    }).fail(function() {
+        console.log("error listar CC");
+    })
+
+}
+
+
+
+function listar_cc(id_cliente ,id_proyecto,id_orden){
+  
+     recargaControlCalidad(id_cliente ,id_proyecto,id_orden);
+   
+    $('#id_order_cc').val(id_orden);
+    $('#id_proyecto_cc').val(id_proyecto);
+    $('#id_cliente_cc').val(id_cliente);
+      
+    $('#modal_control_calidad').modal('show');
+
+} 
+
+
+
+$('#btn_agregar_cc').on('click', function(){
+
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+let select     = $('#select_cc');
+let id_control_calidad = $('#select_cc').val();
+
+
+var id_cliente = $('#id_cliente_cc').val();
+var id_proyecto = $('#id_proyecto_cc').val();
+var id_orden = $('#id_order_cc').val();
+
+
+                    $.ajax({
+                            url: '<?php echo base_url('index.php/ControlCalidadDet/guardaControlCalidadDet');?>',
+                            type: 'post',
+                            data: {
+                              id_control_calidad : id_control_calidad,
+                              id_cliente : id_cliente,
+                              id_proyecto : id_proyecto,
+                              id_orden : id_orden,
+                              cod_empresa : cod_empresa
+                            },
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
+
+                                if (result.resp) {
+
+                                      //  $('#modal_control_calidad').modal('hide');
+                                        listar_cc(id_cliente,id_proyecto,id_orden);
+                                        toastr.success(result.mensaje);
+                                        $.unblockUI();
+                                        }else{
+                                          $.unblockUI();
+                                        toastr.warning(result.mensaje);
+                                        }
+
+                            },
+                            complete:function(result){
+                              $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                            $.unblockUI();
+                          }
+                 });
+
+});
+
+
+
+
 
 $('#btn-actualizar-proy').on('click', function(){
 
@@ -1623,6 +1792,47 @@ $('#btn-actualizar-proy').on('click', function(){
 
 });
 
+
+function borrar_cc(id_control_calidad_det,id_orden,id_cliente,id_proyecto){
+
+  var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+if(opcion){
+
+      $.ajax({
+      url: 		'<?php echo base_url('index.php/ControlCalidadDet/eliminaControlCalidadDet');?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+              id_control_calidad_det : id_control_calidad_det,
+              id_orden : id_orden,
+              id_cliente : id_cliente,
+              id_proyecto : id_proyecto
+            },
+    }).done(function(result) {
+
+      if(result.resp){
+
+        listar_cc(id_cliente,id_proyecto,id_orden);
+        toastr.success(result.mensaje);
+
+      }else{
+
+        toastr.error(result.mensaje);
+      
+      }
+        
+
+    }).fail(function() {
+      console.log("error eliminar cc det");
+    })
+  
+
+}
+
+
+
+}
 
 function elimina_proyecto(id_proyecto, id_cliente){
 
@@ -1731,7 +1941,7 @@ $.ajax({
     $('#tbl_ordenes_items').DataTable({
         "searching": false,
         language: {
-            url: '<?php echo base_url('assets/datatables/lang/esp.js');?>'
+            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
         },
         "paging": true,
         "lengthChange": false,
@@ -1739,7 +1949,7 @@ $.ajax({
         "ordering": true,
         "info": true,
         "autoWidth": true,
-        "responsive": true,
+        //"responsive": true,
         "scrollY": "600px",
         "scrollX": true,
         "scrollCollapse": true
@@ -1752,6 +1962,68 @@ $.ajax({
 
 
 }
+
+function recargaCalidadDet(id_orden,id_cliente,id_proyecto){
+
+
+  var calidad_det_html ='';
+  var tabla_calidad_det =  $('#tbl_control_calidad').DataTable();
+  var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+  tabla_calidad_det.destroy();
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/ControlCalidadDet/obtieneControlCalidadDet'); ?>',
+  type: 		'POST',
+  dataType: 'json',
+  data: {
+          id_orden : id_orden,
+          id_cliente : id_cliente,
+          id_proyecto : id_proyecto,
+          cod_empresa : cod_empresa
+
+        },
+}).done(function(result) {
+
+  $.each(result.datos_calidad_det,function(key, dato_calidad_det) {
+    calidad_det_html += '<tr>';
+    calidad_det_html += '<td>';
+    calidad_det_html += '<button data-nombre="'+ dato_calidad_det.id_control_calidad_det +'" data-toggle="tooltip" data-placement="left" title="Borrar Control de Calidad" '+
+    'onclick="borrar_cc('+ dato_calidad_det.id_control_calidad_det +','+ id_orden +','+id_cliente+','+id_proyecto+')" class="btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i></button>';
+    calidad_det_html += '</td>';
+    calidad_det_html += '<td>' + id_orden+ '</td>';
+    calidad_det_html += '<td>' + dato_calidad_det.id_control_calidad + '</td>';
+    calidad_det_html += '<td>' + dato_calidad_det.descripcion_control_calidad + '</td>';
+    calidad_det_html += '</tr>';
+
+  });
+    
+
+    $('#datos_control_calidad').html(calidad_det_html);
+
+    $('#tbl_control_calidad').DataTable({
+      language: {
+          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+      },
+      "paging": false,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+   //   "responsive": true,
+      "scrollY": "300px",
+      "scrollX": true,
+      "scrollCollapse": true
+  });
+
+}).fail(function() {
+  console.log("error change ccdet");
+})
+
+
+}
+
 
 
 function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
@@ -1781,10 +2053,11 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       $.each(result.ordenes,function(key, orden) {
         ordenes_html += '<tr>';
         ordenes_html += '<td>';
-          //ordenes_html += '<button data-toggle="tooltip" data-placement="top" title="Ver Bucksheet" onclick="ver_bucksheet()" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Control de Calidad" onclick="listar_cc('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm"><i class="fas fa-shield-alt"></i></button>';
+    
           ordenes_html += '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
@@ -1826,7 +2099,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         $('#ListOrdenes').DataTable({
             "searching": false,
             language: {
-                url: '<?php echo base_url('assets/datatables/lang/esp.js'); ?>'	
+                url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
             },
             "paging": true,
           "lengthChange": false,
@@ -1834,7 +2107,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
           "ordering": true,
           "info": true,
           "autoWidth": true,
-          "responsive": true,
+        //  "responsive": true,
           "scrollY": "600px",
           "scrollX": true,
           "scrollCollapse": true
@@ -2187,6 +2460,7 @@ if(opcion){
 
 
 }
+
 
 }
 
