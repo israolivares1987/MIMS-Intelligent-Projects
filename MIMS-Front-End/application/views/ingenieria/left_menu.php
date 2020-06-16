@@ -21,7 +21,7 @@
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
 
@@ -36,12 +36,26 @@
                     </a>
                     <ul class="nav nav-treeview">  
                     <li class="nav-item">
+                      <a href="<?php echo site_url('Empleados/index_empleados');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Empleados</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
                       <a href="<?php echo site_url('Clientes/index');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Clientes</p>
                       </a>
                     </li>
-                  </ul>
+
+                    <li class="nav-item">
+                      <a href="<?php echo site_url('Proveedores/index');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Proveedores</p>
+                      </a>
+                    </li>
+              </ul>
             </li>  
         </ul>
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
