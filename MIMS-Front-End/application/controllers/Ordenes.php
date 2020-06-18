@@ -51,6 +51,7 @@ class Ordenes extends CI_Controller{
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
                 'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
+                'nombreCliente'   => $value->nombreCliente,
                 "SupplierName" => $value->SupplierName,
                 'ExpediterID'   => $value->ExpediterID,
                 'Requestor'   => $value->Requestor,

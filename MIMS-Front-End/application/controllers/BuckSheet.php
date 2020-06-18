@@ -18,6 +18,7 @@ class BuckSheet extends MY_Controller {
         $this->load->library('CallExternosDominios');
         
         $this->load->helper('file');
+        $this->load->helper('url');
         $this->load->library('CallUtil');
         
     }
@@ -400,33 +401,6 @@ class BuckSheet extends MY_Controller {
             }
         }
     
-    // export Data
-    public function exportData() {
-        $storData = array();
-        $metaData[] = array('firstname' => 'FirstName', 'lastname' => 'LastName', 'email' => 'Email', 'phone' => 'Phone', 'status' => 'Status');       
-        $this->customer->setStatus(1);
-        $customerInfo = $this->customer->getcustomerList(); 
-        foreach($customerInfo as $key=>$row) {
-            $storData[] = array(
-                'firstname' => $row['firstname'],
-                'lastname' => $row['lastname'],
-                'email' => $row['email'],
-                'phone' => $row['phone'],
-                'status' => $row['status'],
-            );
-        }
-        $data = array_merge($metaData,$storData);
-        header("Content-type: application/csv");
-        header("Content-Disposition: attachment; filename=\"csv-sample-customer".".csv\"");
-        header("Pragma: no-cache");
-        header("Expires: 0");
-        $handle = fopen('php://output', 'w');
-        foreach ($data as $data) {
-            fputcsv($handle, $data);
-        }
-            fclose($handle);
-        exit;
-    }
 
     function obtieneBucksheet(){
 
@@ -674,7 +648,182 @@ function obtieneBucksheetDet()
       }
 
 
+      function eliminaBuckSheet(){
 
+
+        $PurchaseOrderID       = $this->input->post('PurchaseOrderID');
+        $numeroLinea       = $this->input->post('numeroLinea');
+        $resp = false;
+        $mensaje = "";
+    
+    
+       
+          $bucksheet = $this->callexternosbucksheet->eliminaBuckSheet($PurchaseOrderID,$numeroLinea);
+        
+          if($bucksheet){
+    
+            $resp = true;
+            $mensaje = "Linea ".$numeroLinea." del BuckeSheet Eliminado correctamente";
+    
+          }else{
+    
+            $resp = false;
+            $mensaje = "Error al Eliminar Linea, datos sin actualizar";
+          }
+      
+      
+    
+          $data['resp']       = $resp;
+          $data['mensaje']    = $mensaje;
+          
+          
+    
+    
+         
+        echo json_encode($data);
+
+
+
+
+
+      }
+
+ // export Data
+   // Export data in CSV format 
+   public function exportCSV($PurchaseOrderID){ 
+    // file name 
+    $filename = 'bucksheet_'.$PurchaseOrderID.'_'.date('Ymd').date('H:i:s').'.csv'; 
+    header("Content-Description: File Transfer"); 
+    header("Content-Disposition: attachment; filename=$filename"); 
+    header("Content-Type: application/csv; ");
+    
+    // get data 
+    $usersData = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+ 
+
+    $arrBucksheet = json_decode($usersData);
+
+    
+    // file creation 
+    $file = fopen('php://output', 'w');
+  
+    $header = array("PurchaseOrderID",
+    "purchaseOrdername",
+    "NumeroLinea",
+    "SupplierName",
+    "ItemST",
+    "SubItemST",
+    "STUnidad",
+    "STCantidad",
+    "TAGNumber",
+    "Stockcode",
+    "Descripcion",
+    "PlanoModelo",
+    "Revision",
+    "PaqueteConstruccionArea",
+    "PesoUnitario",
+    "PesoTotal",
+    "FechaRAS",
+    "DiasAntesRAS",
+    "FechaComienzoFabricacion",
+    "PAFCF",
+    "FechaTerminoFabricacion",
+    "PAFTF",
+    "FechaGranallado",
+    "PAFG",
+    "FechaPintura",
+    "PAFP",
+    "FechaListoInspeccion",
+    "PAFLI",
+    "ActaLiberacionCalidad",
+    "FechaSalidaFabrica",
+    "PAFSF",
+    "FechaEmbarque",
+    "PackingList",
+    "GuiaDespacho",
+    "SCNNumber",
+    "UnidadesSolicitadas",
+    "UnidadesRecibidas",
+    "MaterialReceivedReport",
+    "MaterialWithdrawalReport",
+    "Origen",
+    "DiasViaje",
+    "Observacion1",
+    "Observacion2",
+    "Observacion3",
+    "Observacion4",
+    "Observacion5",
+    "Observacion6",
+    "Observacion7",
+    "created",
+    "modified"); 
+
+    fputcsv($file, $header);
+    
+    foreach ($arrBucksheet as $key => $value){ 
+
+
+      $datos_bucksheet = array(
+        'PurchaseOrderID' => $value->PurchaseOrderID,
+        'purchaseOrdername' => $value->purchaseOrdername,
+        'NumeroLinea' => $value->NumeroLinea,
+        'SupplierName' => $value->SupplierName,
+        'ItemST' => $value->ItemST,
+        'SubItemST' => $value->SubItemST,
+        'STUnidad' => $value->STUnidad,
+        'STCantidad' => $value->STCantidad,
+        'TAGNumber' => $value->TAGNumber,
+        'Stockcode' => $value->Stockcode,
+        'Descripcion' => $value->Descripcion,
+        'PlanoModelo' => $value->PlanoModelo,
+        'Revision' => $value->Revision,
+        'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
+        'PesoUnitario' => $value->PesoUnitario,
+        'PesoTotal' => $value->PesoTotal,
+        'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
+        'DiasAntesRAS' => $value->DiasAntesRAS,
+        'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
+        'PAFCF' => $value->PAFCF,
+        'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
+        'PAFTF' => $value->PAFTF,
+        'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
+        'PAFG' => $value->PAFG,
+        'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
+        'PAFP' => $value->PAFP,
+        'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
+        'PAFLI' => $value->PAFLI,
+        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
+        'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
+        'PAFSF' => $value->PAFSF,
+        'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
+        'PackingList' => $value->PackingList,
+        'GuiaDespacho' => $value->GuiaDespacho,
+        'SCNNumber' => $value->SCNNumber,
+        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
+        'UnidadesRecibidas' => $value->UnidadesRecibidas,
+        'MaterialReceivedReport' => $value->MaterialReceivedReport,
+        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
+        'Origen' => $value->Origen,
+        'DiasViaje' => $value->DiasViaje,
+        'Observacion1' => $value->Observacion1,
+        'Observacion2' => $value->Observacion2,
+        'Observacion3' => $value->Observacion3,
+        'Observacion4' => $value->Observacion4,
+        'Observacion5' => $value->Observacion5,
+        'Observacion6' => $value->Observacion6,
+        'Observacion7' => $value->Observacion7,
+        'created' => $value->created,
+        'modified' => $value->modified
+      );
+
+
+
+
+      fputcsv($file,$datos_bucksheet); 
+    }
+    fclose($file); 
+    exit; 
+   }
       
 
 

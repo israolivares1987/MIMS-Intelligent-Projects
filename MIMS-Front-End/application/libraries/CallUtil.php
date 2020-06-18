@@ -12,7 +12,7 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */    
 class CallUtil {
     
-	public function obtienebaseservicios(){
+public function obtienebaseservicios(){
 
 			$CI =& get_instance();
 
@@ -22,7 +22,7 @@ class CallUtil {
 		}
 
 
-	public function formatoFecha($date){
+public function formatoFecha($date){
 			
 			$time = strtotime($date); 
 			$Fecha= date('Y-m-d',$time);
@@ -30,7 +30,7 @@ class CallUtil {
 			return $Fecha;
 		}
 		
-	public function formatoFechaSalida($date){
+public function formatoFechaSalida($date){
 			
 			$time = strtotime($date); 
 			$Fecha= date('d-m-Y',$time);
@@ -39,7 +39,7 @@ class CallUtil {
 		}
 		
 		
-	function armaMenuClientes($response){
+function armaMenuClientes($response){
 
 
 			$html ="";
@@ -66,7 +66,7 @@ class CallUtil {
 		}
 
 
-	function formatoDinero($dato){
+function formatoDinero($dato){
 
 
 			$dinero =  "$ ".number_format($dato);
@@ -74,7 +74,7 @@ class CallUtil {
 			return $dinero;
 		}
 
-	function formatoNumero($dato){
+function formatoNumero($dato){
 
 
 			$dinero =  number_format($dato);
@@ -83,7 +83,7 @@ class CallUtil {
 		}
 
 
-	public function obtiene_select_def_act($inputId,$selected,$domain){
+public function obtiene_select_def_act($inputId,$selected,$domain){
 
 	
 		$CI =& get_instance();
@@ -116,7 +116,7 @@ class CallUtil {
 		}
 
 
-	public function validarDatosProyectos($data){
+public function validarDatosProyectos($data){
 
 		$mensaje = '';
 		$resp = false;
@@ -165,17 +165,19 @@ class CallUtil {
 			return $respuesta;
 		
 	}
-	public function validaFecha($fecha){
+
+public function validaFecha($fecha){
 
 		$valores = explode('-', $fecha);
-	if(count($valores) == 3 && checkdate($valores[0], $valores[1], $valores[2])){
-		return true;
-    }
-	return false;
+			if(count($valores) == 3 && checkdate($valores[0], $valores[1], $valores[2])){
+				return true;
+			}
+			return false;
 
 	}
 
-	public function ValidaArchivo($str) {        
+public function ValidaArchivo($str) {        
+
 		$mime_types = array(
 			'text/csv',
 			'text/x-csv', 
@@ -229,6 +231,33 @@ class CallUtil {
 			return false;
 		}
 	}
+
+
+public function cambianull($var){
+
+  $valor = '';
+
+
+	if(strlen($var) == 0 ){
+
+		$valor = '';
+
+	}else{
+
+		$valor = $var;
+
+	}
+
+	return $valor;
+
+
+}
+
+
+
+
+
+
 
 
 }

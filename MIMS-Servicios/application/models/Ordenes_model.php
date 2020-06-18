@@ -9,6 +9,7 @@ class Ordenes_model extends CI_Model{
 	  $query = $this->db->query("SELECT a.PurchaseOrderID,
 								a.PurchaseOrderNumber,
 								a.PurchaseOrderDescription,
+								b.nombreCliente,
 								a.SupplierName,
 								a.Comprador,
 								concat(c.FirstName,' ', c.LastName) as ExpediterID,
@@ -27,9 +28,10 @@ class Ordenes_model extends CI_Model{
 								(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
 								a.Support,
 								a.DateCreated       
-								FROM tbl_ordenes a ,  tbl_employees c
-								WHERE idCliente = ".$idCliente."
+								FROM tbl_ordenes a ,  tbl_employees c, tbl_clientes b
+								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."
+								and a.idCliente = b.idCliente
 								and ExpediterID = c.id");
 	  $Ordenes = $query->result();
 	  return $Ordenes;

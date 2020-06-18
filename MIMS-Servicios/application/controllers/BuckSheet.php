@@ -228,6 +228,25 @@ class BuckSheet extends CI_Controller {
 
 		}
 	
+
+		function eliminaBuckSheet(){
+
+			$PurchaseOrderID = $this->input->post('PurchaseOrderID');
+			$numeroLinea = $this->input->post('numeroLinea');
+	
+	
+		
+	
+	
+			$delete = $this->bucksheet->eliminaBuckSheet($PurchaseOrderID,$numeroLinea);
+			
+			
+			echo json_encode($delete);
+		 }
+
+
+
+
 	}
 
     

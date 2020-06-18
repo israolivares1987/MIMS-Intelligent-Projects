@@ -119,6 +119,11 @@
                                                      onclick="lista_bucksheet()">
                                                      Recargar
                                                  </button>
+                                                 <button class="btn btn-outline-secondary float-right"
+                                                     onclick="descarga_bucksheet()">
+                                                     Descargar BuckSheet
+                                                 </button>   
+
                                      </th>
                                  </tr>
                              </tbody>
@@ -778,7 +783,8 @@
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html +=
-                             '<button data-toggle="tooltip" data-placement="top" title="Editar BuckSheet" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+                             '<button data-toggle="tooltip" data-placement="left" title="Editar BuckSheet" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
+                             '<button data-toggle="tooltip" data-placement="left" title="Borrar BuckSheet" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
                         bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
@@ -929,11 +935,52 @@
                 window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
                 }
 
+                function descarga_bucksheet() {
+
+                window.open('<?php echo site_url('BuckSheet/exportCSV/'.$PurchaseOrderID)?>', '_blank');
+                }
+
                 function cambiosenorden() {
 
                 window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
                 }
 
+                function eliminar_bucksheet(PurchaseOrderID ,numeroLinea){
+
+                        var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+                        if(opcion){
+
+                            $.ajax({
+                            url: 		'<?php echo base_url('index.php/BuckSheet/eliminaBuckSheet'); ?>',
+                            type: 		'POST',
+                            dataType: 'json',
+                            data: {
+                                PurchaseOrderID  : PurchaseOrderID,
+                                numeroLinea : numeroLinea
+                                    },
+                            }).done(function(result) {
+
+                            if(result.resp){
+
+                                lista_bucksheet();
+                                toastr.success(result.mensaje);
+
+                            }else{
+
+                                toastr.error(result.mensaje);
+
+                            }
+                                
+
+                            }).fail(function() {
+                            console.log("error eliminar bucksheet");
+                            })
+
+
+                        }
+
+                        }
 
                 function edit_bucksheet(PurchaseOrderID ,numeroLinea) {
 

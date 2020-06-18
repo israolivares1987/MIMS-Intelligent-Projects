@@ -85,6 +85,7 @@
 								  <th>Orden ID</th>
 								  <th>Orden Number</th>
 								  <th>Orden Description</th>
+                  <th>Nombre Cliente</th>
 								  <th>Nombre Proveedor</th>
 								  <th>Activador</th>
 								  <th>Generador de Compra</th>
@@ -325,6 +326,16 @@
                    <label class="col-sm-12 control-label">Nombre Proyecto</label>
                             <div class="col-sm-12">
                               <input id="or_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
+                            </div> 
+                </div>
+                </div>
+
+                <div class="col-12 col-sm-6">
+                
+                <div class="form-group">
+                   <label class="col-sm-12 control-label">Nombre Cliente</label>
+                            <div class="col-sm-12">
+                              <input id="or_nombre_cliente" type="text" class="form-control form-control-sm" readonly >
                             </div> 
                 </div>
                 </div>
@@ -2031,6 +2042,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
   var ordenes_html ='';
   var tabla_ordenes =  $('#ListOrdenes').DataTable();
   var titulo_ordenes ='';
+  var nombre_cliente = '';
 
   tabla_ordenes.destroy();
 
@@ -2062,6 +2074,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+        ordenes_html += '<td>' + orden.nombreCliente + '</td>';
         ordenes_html += '<td>' + orden.SupplierName + '</td>';
         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
         ordenes_html += '<td>' + orden.Requestor + '</td>';
@@ -2080,6 +2093,8 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         ordenes_html += '<td>' + orden.Support + '</td>';
         ordenes_html += '</tr>';
 
+        nombre_cliente = orden.nombreCliente ;
+
       });
 
       titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
@@ -2089,6 +2104,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       $('#or_act_nombre_proyecto').val(nombre_proyecto);
       $('#id_proyecto_or').val(id_proyecto);
       $('#id_cliente_or').val(id_cliente);
+      $('#or_nombre_cliente').val(nombre_cliente);
 
    
 

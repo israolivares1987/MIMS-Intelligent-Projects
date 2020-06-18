@@ -86,6 +86,7 @@
                                                             <th>Orden ID</th>
                                                             <th>Orden Number</th>
                                                             <th>Orden Description</th>
+                                                            <th>Nombre Cliente</th>
                                                             <th>Nombre Proveedor</th>
                                                             <th>Activador</th>
                                                             <th>Generador de Compra</th>
@@ -322,6 +323,7 @@
                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+                                        ordenes_html += '<td>' + orden.nombreCliente + '</td>';
                                         ordenes_html += '<td>' + orden.SupplierName + '</td>';
                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                         ordenes_html += '<td>' + orden.Requestor + '</td>';
