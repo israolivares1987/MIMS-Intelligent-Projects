@@ -137,5 +137,17 @@ class BuckSheet_model extends CI_Model{
         return false;
     }
 
+
+
+    function eliminaBuckSheet($PurchaseOrderID,$numeroLinea)
+	{
+
+        $this->db->where('PurchaseOrderID', $PurchaseOrderID);
+        $this->db->where('NumeroLinea', $numeroLinea);
+
+		$delete = $this->db->delete($this->tableName);
+		return $delete;
+	}
+
 }
 ?>

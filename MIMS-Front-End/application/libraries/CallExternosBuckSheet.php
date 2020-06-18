@@ -192,6 +192,35 @@ class CallExternosBuckSheet {
       }
 
 
+      function eliminaBuckSheet($PurchaseOrderID,$numeroLinea){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."BuckSheet/eliminaBuckSheet";
+        
+
+        $form_data = array(
+          'PurchaseOrderID'		=>$PurchaseOrderID,
+          'numeroLinea'		=>$numeroLinea
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+      }
+
 
     
 }
