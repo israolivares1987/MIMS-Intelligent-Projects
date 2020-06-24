@@ -68,7 +68,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Cambios en la orden
+                                Actividades de control de Calidad
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -109,7 +109,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Control de Calidad
+                                Control de Calidad (Dossier)
                             </h3>
                         </div>
                         <!-- /.card-header -->
