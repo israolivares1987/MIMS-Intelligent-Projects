@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>BuckSheet</h1>
+                     <h1>Administracion de ordenes y contratos</h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -86,10 +86,10 @@
                                          </th>
                                          <th>
                                              <div class="col-12">
-                                                 <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="descargaArchivoPrueba()"><i class="fas fa-file-download">
-                                                     </i> Archivo ejemplo
-                                                 </button>
+                                             <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="descarga_bucksheet()"><i class="fas fa-file-download">
+                                                     </i> Descargar BuckSheet
+                                                 </button>   
                                              </div>
                                          </th>
                                          <th>
@@ -116,13 +116,14 @@
                                  <tr>
                                      <th>
                                              <button class="btn btn-outline-secondary float-right"
-                                                     onclick="lista_bucksheet()">
-                                                     Recargar
+                                                     onclick="lista_bucksheet()"> <i class="fas fa-spinner">
+                                                     </i>  Actualizar
                                                  </button>
                                                  <button class="btn btn-outline-secondary float-right"
-                                                     onclick="descarga_bucksheet()">
-                                                     Descargar BuckSheet
-                                                 </button>   
+                                                     onclick="descargaArchivoPrueba()"><i class="fas fa-file-download">
+                                                     </i> Descargar Archivo ejemplo
+                                                 </button>
+                                             
 
                                      </th>
                                  </tr>
@@ -841,13 +842,12 @@
                      $('#datos_bucksheet').html(bucksheet_html);
 
                      $('#tbl_bucksheet').DataTable({
-                        "searching": false,
+                        "searching": true,
                         language: {
                             url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                         },
                         "paging": false,
                         "lengthChange": false,
-                        "searching": false,
                         "ordering": true,
                         "info": true,
                         "autoWidth": true,
