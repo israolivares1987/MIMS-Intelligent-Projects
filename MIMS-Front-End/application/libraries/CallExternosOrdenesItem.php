@@ -162,5 +162,86 @@ class CallExternosOrdenesItem {
   
   
     }
+
+
+    function getRows($idProyecto,$idOrden,$ItemId){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."OrdenesItem/getRows";
+        
+
+        $form_data = array(
+          'idProyecto'	=> $idProyecto,
+          'idOrden'		=> $idOrden,
+          'ItemId'		=> $ItemId
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+      }
+
+      function update($memData){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."OrdenesItem/update";
+
+        $form_data = $memData;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+      }
+
+      function insert($memData){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."OrdenesItem/insert";
+
+        $form_data = $memData ;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+      }
     
 }

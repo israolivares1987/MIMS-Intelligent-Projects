@@ -84,6 +84,7 @@
 								  <th>Acciones</th>
 								  <th>Orden ID</th>
 								  <th>Orden Number</th>
+                  <th>Categorizacion</th>
 								  <th>Orden Description</th>
                   <th>Nombre Cliente</th>
 								  <th>Nombre Proveedor</th>
@@ -133,6 +134,8 @@
 								   <tr>
 									   <th>
 									   <button style="display: none;" id="btn_nueva_item_orden" class="btn btn-outline-primary float-right mb-3">Nueva Item Orden</button>
+                     <button style="display: none;" id="btn_carga_masivo" class="btn btn-outline-primary float-right mb-3">Cargar Masivo</button>
+                     <button style="display: none;" id="btn_archivo_ejemplo" class="btn btn-outline-primary float-right mb-3">Archivo Ejemplo</button>
 									   </th>
 								   </tr>
 							   </tbody>
@@ -353,6 +356,16 @@
 
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
+                    <label class="col-sm-12 control-label">Seleccione Categorizacion</label>
+                                <div class="col-sm-12">
+                                  <div id="s_categorizacion"></div>
+                                </div>
+                  
+                  </div>
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                    <div class="form-group">
                     
                     <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
                                 <div class="col-sm-12">
@@ -417,7 +430,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_valor_neto" name="or_valor_neto" type="number" class="form-control form-control-sm">
+                               <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -431,7 +444,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_valor_total" name="or_valor_total" type="number" class="form-control form-control-sm">
+                              <input id="or_valor_total" name="or_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                           </div>
                     </div>
@@ -445,7 +458,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_budget" name="or_budget" type="number" class="form-control form-control-sm">
+                              <input id="or_budget" name="or_budget" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                           </div>
                     </div>
@@ -455,14 +468,14 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Codigo Presupuesto</label>
                             <div class="col-sm-12">
-                              <input id="or_costcodebudget" name="or_costcodebudget" class="form-control form-control-sm">
+                              <input id="or_costcodebudget" name="or_costcodebudget" class="form-control form-control-sm" >
                             </div>
                           </div>
                    </div>
 
                    <div class="col-12 col-sm-6">
                    <div class="form-group">
-                                             <label>Fecha orden</label>
+                                             <label>Fecha emision orden de compra</label>
 
                                              <div class="input-group">
                                                  <div class="input-group-prepend">
@@ -499,26 +512,7 @@
 
                    <div class="col-12 col-sm-6">
                    <div class="form-group">
-                                             <label>Fecha comprometida</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_date_promised" type="text" class="form-control" id="or_date_promised"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                     im-insert="false">
-                                              </div>
-                   </div>
-                   </div>
-
-
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha enviada</label>
+                                             <label>Fecha de cierre de orden de compra</label>
 
                                              <div class="input-group">
                                                  <div class="input-group-prepend">
@@ -628,6 +622,17 @@
 
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
+                    <label class="col-sm-12 control-label">Seleccione Categorizacion</label>
+                                <div class="col-sm-12">
+                                  <div id="s_act_categorizacion"></div>
+                                </div>
+                  
+                  </div>
+                  </div>
+
+
+                  <div class="col-12 col-sm-6">
+                    <div class="form-group">
                     
                     <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
                                 <div class="col-sm-12">
@@ -692,7 +697,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_valor_neto" name="or_act_valor_neto" type="number" class="form-control form-control-sm">
+                               <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -706,7 +711,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_act_valor_total" name="or_act_valor_total" type="number" class="form-control form-control-sm">
+                              <input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                           </div>
                     </div>
@@ -720,7 +725,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_act_budget" name="or_act_budget" type="number" class="form-control form-control-sm">
+                              <input id="or_act_budget" name="or_act_budget" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                           </div>
                     </div>
@@ -737,7 +742,7 @@
 
                    <div class="col-12 col-sm-6">
                    <div class="form-group">
-                                             <label>Fecha orden</label>
+                                             <label>Fecha emision orden de compra</label>
 
                                              <div class="input-group">
                                                  <div class="input-group-prepend">
@@ -774,26 +779,7 @@
 
                    <div class="col-12 col-sm-6">
                    <div class="form-group">
-                                             <label>Fecha comprometida</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_act_date_promised" type="text" class="form-control" id="or_act_date_promised"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
-                                                     im-insert="false">
-                                              </div>
-                   </div>
-                   </div>
-
-
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha enviada</label>
+                                             <label>Fecha de cierre de orden de compra<</label>
 
                                              <div class="input-group">
                                                  <div class="input-group-prepend">
@@ -898,6 +884,16 @@
 
                   </div>
 
+                  <div class="col-12 col-sm-6">
+                <div class="form-group">
+                <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
+                            <div class="col-sm-12">
+                              <input id="or_item_nombre_orden" name="or_item_nombre_orden" type="text" class="form-control form-control-sm" readonly>
+                            </div>
+                 </div>
+
+                  </div>
+
 
 
 
@@ -962,7 +958,7 @@
                                       <i class="fas fa-sort-numeric-up"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_cantidad" name="or_item_cantidad" type="number" class="form-control form-control-sm">
+                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -976,7 +972,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_valor_neto" name="or_item_valor_neto" type="number" class="form-control form-control-sm">
+                               <input id="or_item_valor_neto" name="or_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -991,7 +987,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="number" class="form-control form-control-sm">
+                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -1069,6 +1065,16 @@
 
                   </div>
 
+                  <div class="col-12 col-sm-6">
+                <div class="form-group">
+                <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_item_nombre_orden" name="or_act_item_nombre_orden" type="text" class="form-control form-control-sm" readonly>
+                            </div>
+                 </div>
+
+                  </div>
+
 
 
 
@@ -1123,7 +1129,7 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Cantidad</label>
                             <div class="input-group">
-                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="number" class="form-control form-control-sm">
+                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -1137,7 +1143,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_item_valor_neto" name="or_act_item_valor_neto" type="number" class="form-control form-control-sm">
+                               <input id="or_act_item_valor_neto" name="or_act_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -1152,7 +1158,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="number" class="form-control form-control-sm">
+                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                             </div>
                     </div>
                     </div>
@@ -1270,6 +1276,44 @@
 
   <!--.modal control de calidad-->
  
+  <!--.modal nuevo control Calidad-->
+  <div id="modal_orden_item_masivo" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                             <h5 class="modal-title">Subir Archivo</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                <form action="#" id="formOrdenItem" class="form-horizontal">
+                                        <input id="id_orden_item_mas" name="PurchaseOrderID" placeholder="" class="form-control" type="hidden" value="">
+                                        <input id="id_cliente_item_mas" name="idCliente" placeholder="" class="form-control" type="hidden" value="">
+                                        <input id="id_proyecto_item_mas" name="idProyecto" placeholder="" class="form-control" type="hidden"  value="">
+                            
+                                                            <div class="form-group">
+                                                                <label for="exampleInputFile">Cargar Archivo</label>
+                                                                    <div class="custom-file">
+                                                                        <input type="file"   id="fileOrdenItem"  name="fileOrdenItem" >     
+                                                                </div>
+                                                            </div>
+                                </form>
+
+                                </div>
+                                <div class="modal-footer justify-content-between">
+                                    <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
+                                        onclick="saveOrdenItem()">Actualizar</button>
+                                    <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
+                            </div>
+                            </div>
+                          
+                            <!-- Image loader -->     
+                     </div>
+                 </div>
+             </div>
 
 
       <script>
@@ -1340,7 +1384,7 @@ $(document).ready(function() {
 
     recargaProyectos(0);
     recargaOrdenes(0,0,'');
-    recargaItemOrdenes(0, 0, 0);
+    recargaItemOrdenes(0, 0, 0,'');
    // recargaCalidadDet(0, 0, 0);
 
 
@@ -1378,6 +1422,64 @@ function mostrarBlock(){
 	}
 
 
+  function saveOrdenItem() {
+    
+    $('#btnSave').text('Actualizando..'); //change button text
+    $('#btnSave').attr('disabled', true); //set button disable 
+
+    url = "<?php echo site_url('OrdenesItem/save')?>";
+
+
+    // ajax adding data to database
+
+    var formData = new FormData($('#formOrdenItem')[0]);
+
+
+$.ajax({
+            url: url ,
+            type: 'post',
+            data: formData,
+            contentType: false,
+            processData: false,
+            dataType: "JSON",
+            beforeSend: function(){
+            mostrarBlock();
+            },
+            success: function(data){
+
+                if (data.resp) //if success close modal and reload ajax table
+
+                    {
+                        $('#modal_orden_item_masivo').modal('hide');
+
+                  
+                        recargaItemOrdenes(formData.get("PurchaseOrderID"), formData.get("idCliente"), formData.get("idProyecto"),$('#or_act_item_nombre_orden').val()) 
+                        toastr.success(data.mensaje);
+                        $.unblockUI();
+                    } else {
+                        toastr.success(data.mensaje);
+
+                    }
+                    $('#btnSave').text('Cargar'); //change button text
+                    $('#btnSave').attr('disabled', false); //set button enable 
+
+            },
+            complete:function(result){
+                $.unblockUI();
+            },
+            error: function(request, status, err) {
+
+            toastr.error("error: " + request + status + err);
+      
+            $('#btnSave').text('Cargar'); //change button text
+            $('#btnSave').attr('disabled', false); //set button enable   
+            $.unblockUI();         
+        }
+            });
+
+}
+
+
 function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){  
   
   formToggleActivar('btn_nueva_orden');
@@ -1401,7 +1503,7 @@ $('#select_clientes').on('change', function(){
 
     }else{
       recargaOrdenes(0,0,'');
-      recargaItemOrdenes(0, 0, 0);
+      recargaItemOrdenes(0, 0, 0,'');
       $('#flag_orden').val(0);
       $('#datos_proyectos').html('<td class="text-center" colspan="5">No hay datos disponibles en la tabla.</td>');
     }
@@ -1463,7 +1565,7 @@ $('#btn_orden_item').on('click', function(){
     success: function(result){
       if(result.resp){
 
-          recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val());
+          recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val(),$('#or_act_item_nombre_orden').val());
           $('#modal_nuevo_orden_item').modal('hide');
           toastr.success(result.mensaje);
       
@@ -1599,7 +1701,7 @@ function recargaProyectos(cliente){
           },
           "paging": true,
           "lengthChange": false,
-          "searching": false,
+          "searching": true,
           "ordering": true,
           "info": true,
           "autoWidth": true,
@@ -1882,16 +1984,35 @@ function elimina_proyecto(id_proyecto, id_cliente){
 
 }
 
-function listar_item_ordenes(orden_id, id_cliente, id_proyecto ) {
+function listar_item_ordenes(orden_id, id_cliente, id_proyecto, nombre_orden ) {
 
 formToggleActivar('btn_nueva_item_orden');
-recargaItemOrdenes(orden_id, id_cliente, id_proyecto);
+formToggleActivar('btn_carga_masivo');
+formToggleActivar('btn_archivo_ejemplo');
+recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden);
 obtieneSelects();
 
 }
 
+$('#btn_archivo_ejemplo').on('click', function(){
 
-function recargaItemOrdenes(orden_id, id_cliente, id_proyecto) {
+  window.open('<?php echo base_url('assets/'.$nombreArchivoEjemploItem);?>', '_blank');
+
+});
+
+$('#btn_carga_masivo').on('click', function(){
+
+  $('#modal_orden_item_masivo').modal('show'); // show bootstrap modal
+  $('#formOrdenItem')[0].reset(); // reset form on modals
+
+});
+
+
+
+
+
+
+function recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden) {
 
 var ordenes_item_html = '';
 var tabla_ordenes = $('#tbl_ordenes_items').DataTable();
@@ -1941,9 +2062,18 @@ $.ajax({
 
     $('#id_order_item').val(orden_id);
 
+    $('#or_item_nombre_orden').val(nombre_orden);
+    $('#or_act_item_nombre_orden').val(nombre_orden);
+
     $('#id_orden_item_proyecto').val(id_proyecto);
     $('#id_orden_item_cliente').val(id_cliente);
     $('#or_item_purchase_order').val(orden_id);
+
+    $('#id_orden_item_mas').val(orden_id);
+    $('#id_cliente_item_mas').val(id_cliente);
+    $('#id_proyecto_item_mas').val(id_proyecto);
+
+
 
 
     
@@ -2065,7 +2195,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       $.each(result.ordenes,function(key, orden) {
         ordenes_html += '<tr>';
         ordenes_html += '<td>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +',\''+orden.PurchaseOrderDescription+'\', this)" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Control de Calidad" onclick="listar_cc('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm"><i class="fas fa-shield-alt"></i></button>';
@@ -2073,6 +2203,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
           ordenes_html += '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+        ordenes_html += '<td>' + orden.Categorizacion + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
         ordenes_html += '<td>' + orden.SupplierName + '</td>';
@@ -2102,6 +2233,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       $('#datos_ordenes').html(ordenes_html);
       $('#or_nombre_proyecto').val(nombre_proyecto);
       $('#or_act_nombre_proyecto').val(nombre_proyecto);
+
       $('#id_proyecto_or').val(id_proyecto);
       $('#id_cliente_or').val(id_cliente);
       $('#or_nombre_cliente').val(nombre_cliente);
@@ -2192,6 +2324,7 @@ function obtieneSelects(){
       $('#s_currency').html(result.select_currency);
       $('#s_shipping').html(result.select_shipping);
       $('#s_status').html(result.select_status);
+      $('#s_categorizacion').html(result.select_categorizacion);
 
       $('#s_item_unidad').html(result.select_item_unidad);
       $('#s_item_status').html(result.select_item_status);
@@ -2279,6 +2412,9 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       
 
       $('#or_act_purchase_order').val(result.formulario.purchase_number);
+
+      $('#s_act_categorizacion').html(result.formulario.select_categorizacion);
+
       $('#or_act_purchase_desc').val(result.formulario.purchase_desc);
       $('#s_act_supplier').html(result.formulario.select_supplier);
       $('#s_act_employee').html(result.formulario.select_employee);
@@ -2417,8 +2553,8 @@ $('#btn_act_orden_item').on('click', function(){
 
     if(result.resp){
 
-      recargaItemOrdenes( $('#id_act_order_item').val(), $('#id_act_orden_item_cliente').val(), $('#id_act_orden_item_proyecto').val());
-    //  $('#modal_edita_orden_item').modal('hide');
+      recargaItemOrdenes( $('#id_act_order_item').val(), $('#id_act_orden_item_cliente').val(), $('#id_act_orden_item_proyecto').val(),$('#or_act_item_nombre_orden').val());
+      $('#modal_edita_orden_item').modal('hide');
       toastr.success(result.mensaje);
 
         }else{
@@ -2435,7 +2571,7 @@ $('#btn_act_orden_item').on('click', function(){
 });
 
 $('#modal_edita_orden_item').on('hidden.bs.modal', function () {
-  $("#form_orden_item_act")[0].reset();
+  $("#form_edit_item")[0].reset();
 });
 
 
@@ -2459,7 +2595,7 @@ if(opcion){
 
       if(result.resp){
 
-        recargaItemOrdenes(orden, cliente, proyecto);
+        recargaItemOrdenes(orden, cliente, proyecto, $('#or_act_item_nombre_orden').val());
 
         toastr.success(result.mensaje);
 

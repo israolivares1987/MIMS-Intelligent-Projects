@@ -130,20 +130,110 @@ class Journal extends MY_Controller{
 
 
 
-  function cambiosOrden(){
+  function cambiosOrden($idCliente,$idOrden,$codProyecto){
 
       
     $codEmpresa = $this->session->userdata('cod_emp');
+
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
-    $json_datos = $response;
-    $arrayDatos = json_decode($json_datos,true);
-    $datos['arrClientes'] = $arrayDatos['Clientes'];
+    $menu = $this->callutil->armaMenuClientes($response);
+    $datos['arrClientes'] = $menu ;
 
+    $datos['idCliente'] = $idCliente;
+    $datos['idOrden'] = $idOrden;
+    $datos['codProyecto'] = $codProyecto;
 
+    //Obtiene datos para cabecera
+
+      //Obtiene Datos Proyecto
+
+      $Proyecto = $this->callexternosproyectos->obtieneProyecto($codProyecto, $idCliente);
+                
+
+      $arrProyecto = json_decode($Proyecto);
+
+      if($arrProyecto){
+
+        foreach ($arrProyecto as $llave => $valor) {
+                
+          $DescripcionProyecto = $valor->NombreProyecto;
+
+        }
+
+      }
+        //Obtiene Datos Orden
+                  
+        $Orden = $this->callexternosordenes->obtieneOrden($codProyecto,$idCliente,$idOrden,$codEmpresa);
+                  
+
+        $arrOrden = json_decode($Orden);
+
+        if($arrOrden){
+          
+          foreach ($arrOrden as $llave => $valor) {
+                  
+            $PurchaseOrderID = $valor->PurchaseOrderID;
+            $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+            $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+          }
+        }
+
+     // Obtiene Datos Cliente
+      
+     $responseCliente = $this->callexternosclientes->obtieneCliente($idCliente);
+  
+     $arrCliente = json_decode($responseCliente);
+    
+     $datos_cliente = array();
+ 
+     if($arrCliente){
+       
+       foreach ($arrCliente as $key => $value) {
+ 
+
+           $nombreCliente =  $value->nombreCliente;
+           $razonSocial  =   $value->razonSocial;
+         
+       }
+     }
 
     //Obtiene Datos para el Home
 
+    $datosap     = $this->callexternosdominios->obtieneDatosRef('TIPO_INTERACCION_CC');
+    $select_cc = "";
+    foreach (json_decode($datosap) as $llave => $valor) {
+      $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    }
+
+   
+   
+   //llena arreglo con datos
+
+   $datos['idCliente'] = $idCliente;
+   $datos['idOrden'] = $idOrden;
+   $datos['codProyecto'] = $codProyecto;
+   $datos['DescripcionProyecto'] = $DescripcionProyecto;
+   $datos['nombreCliente'] = $nombreCliente;
+   $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
+   $datos['select_cc'] = $select_cc;
+   $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
+
+
+   if ($this->session->userdata('rol_id')==='202'){
+
+
     $this->plantilla_activador('activador/listCambioOrden', $datos);
+    
+
+  }elseif($this->session->userdata('rol_id')==='203'){
+
+    $this->plantilla_calidad('calidad/listCambioOrden', $datos);
+
+  }
+
+
+
 
   }
 
@@ -205,7 +295,7 @@ class Journal extends MY_Controller{
 
   function guardarJournal(){
 
-    
+    $tipo = $this->input->post('tipo');
     $id_orden_compra = $this->input->post('id_orden_compra');
     $id_cliente =$this->input->post('id_cliente');
     $id_proyecto = $this->input->post('id_proyecto');
@@ -255,6 +345,7 @@ class Journal extends MY_Controller{
             $respaldo = $basename;
 
             $dataInsert = array(	
+              'tipo' => $tipo ,
               'id_orden_compra' => $id_orden_compra ,
               'id_cliente' => $id_cliente,
               'id_proyecto' => $id_proyecto,
@@ -296,6 +387,7 @@ class Journal extends MY_Controller{
           } else{
             
             $dataInsert = array(	
+              'tipo' => $tipo ,
               'id_orden_compra' => $id_orden_compra ,
               'id_cliente' => $id_cliente,
               'id_proyecto' => $id_proyecto,
@@ -340,7 +432,7 @@ class Journal extends MY_Controller{
   }
 
   // checkFileValidation
-        public function checkFileValidation($str) {        
+  public function checkFileValidation($str) {        
             $mime_types = array(
                 'text/csv',
                 'text/x-csv', 
@@ -396,7 +488,7 @@ class Journal extends MY_Controller{
         }
     
 
-        function enviarMail(){
+function enviarMail(){
 
           $id_control_calidad = $this->input->post('id_control_calidad');
           $email =$this->input->post('email');
@@ -599,10 +691,65 @@ public function sendEmail($email,$subject,$message,$file)
 
       
 
-  echo json_encode($data);
+       echo json_encode($data);
 
 
 
 
     }
+
+
+    function obtieneJournalOrden(){ 
+
+
+      $id_orden_compra = $this->input->post('id_orden_compra');
+      $tipo = 2;
+      $id_cliente = $this->input->post('id_cliente');
+      $respuesta = false;
+  
+    $journal = $this->callexternosjournal->obtienejournal($id_orden_compra,$tipo,$id_cliente);
+    
+  
+   $arrJournal = json_decode($journal);
+   
+  
+    $datos_journal = array();
+  
+    if($arrJournal){
+      $respuesta = true;
+      
+      foreach ($arrJournal as $key => $value) {
+  
+        $respaldo = '';
+  
+        if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
+          $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos.'"><i class="fas fa-download"></i> Descarga</a>';
+        }else{
+          $respaldo = '';
+        }
+  
+        
+        $datos_journal[] = array(
+          'id_interaccion' => $value->id_interaccion,
+          'nombre_empleado'   => $value->nombre_empleado,
+          'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+          'numero_referencial' => $value->numero_referencial,
+          'solicitado_por' => $value->solicitado_por,
+          'aprobado_por' => $value->aprobado_por,
+          'comentarios_generales' => $value->comentarios_generales,
+          'respaldos' =>  $respaldo ,
+          'tipo_interaccion' => $value->tipo_interaccion,
+        );
+  
+      }
+    }
+    
+    $datos['journals'] = $datos_journal;
+    $datos['resp']      = $respuesta;
+  
+    echo json_encode($datos);
+  
+    }
+
+
   }

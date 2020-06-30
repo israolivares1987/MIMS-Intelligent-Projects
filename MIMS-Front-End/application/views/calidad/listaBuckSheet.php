@@ -101,7 +101,8 @@
                                      <th>
                                              <button class="btn btn-outline-secondary float-right"
                                                      onclick="lista_bucksheet()">
-                                                     Recargar
+                                                     <i class="fas fa-spinner">
+                                                     </i>  Actualizar
                                                  </button>
                                      </th>
                                  </tr>
@@ -377,7 +378,7 @@
 
                 function cambiosenorden() {
 
-                window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
+                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
                 }
 
              </script>

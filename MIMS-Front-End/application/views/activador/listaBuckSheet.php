@@ -298,14 +298,14 @@
                          <div class="form-group">
                              <label class="control-label col-md-9">Peso Unitario</label>
                              <div class="col-md-9">
-                                 <input name="PesoUnitario" placeholder="" class="form-control" type="text">
+                                 <input name="PesoUnitario" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-md-9">Peso Total</label>
                              <div class="col-md-9">
-                                 <input name="PesoTotal" placeholder="" class="form-control" type="text">
+                                 <input name="PesoTotal" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
@@ -705,7 +705,7 @@
 
         function mostrarBlock(){
                 $.blockUI({ 
-                        message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/images/loading.gif');?>" />&nbsp;Espere un momento...</h5>',
+                        message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
                     css:{
                         backgroundColor: '#0063BE',
                         opacity: .8,
@@ -942,7 +942,7 @@
 
                 function cambiosenorden() {
 
-                window.open('<?php echo site_url('Journal/cambiosOrden')?>', '_blank');
+                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
                 }
 
                 function eliminar_bucksheet(PurchaseOrderID ,numeroLinea){

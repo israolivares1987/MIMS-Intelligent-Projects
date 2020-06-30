@@ -69,7 +69,7 @@ function armaMenuClientes($response){
 function formatoDinero($dato){
 
 
-			$dinero =  "$ ".number_format($dato);
+			$dinero =  "$ ".number_format($dato,0,'', '.');
 
 			return $dinero;
 		}
@@ -77,7 +77,7 @@ function formatoDinero($dato){
 function formatoNumero($dato){
 
 
-			$dinero =  number_format($dato);
+			$dinero =  number_format($dato,0,'', '.');
 
 			return $dinero;
 		}
@@ -214,7 +214,8 @@ public function ValidaArchivo($str) {
 		  'mp4',
 		  'MP4'
 	  );
-		if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
+
+   		if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
 			// get mime by extension
 			$mime = get_mime_by_extension($_FILES[$str]['name']);
 			$fileExt = explode('.', $_FILES[$str]['name']);
@@ -252,6 +253,16 @@ public function cambianull($var){
 
 
 }
+
+function formatoNumeroMilesEntrada($dato){
+
+
+	$valor = intval(str_replace(".", "", $dato));
+
+	return $valor;
+}
+
+
 
 
 

@@ -44,8 +44,20 @@ class Ingenieria extends MY_Controller{
     
     }
 
+    
+    $datoarchivo     = $this->callexternosdominios->obtieneDatosRef('NOMBRE_ARCHIVO_EJEMPLO_ITEM');
+
+    foreach (json_decode($datoarchivo) as $llave => $valor) {
+     
+     $nombreArchivoEjemploItem =$valor->domain_desc;
+
+   }
+
     $html .= '</select>';
     $datos['select_clientes'] = $html;
+    $datos['nombreArchivoEjemploItem'] = $nombreArchivoEjemploItem;
+
+    
 
     $this->plantilla_ingenieria('ingenieria/listProyectos', $datos);
   

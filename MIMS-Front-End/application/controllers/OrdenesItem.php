@@ -8,6 +8,10 @@ class OrdenesItem extends CI_Controller{
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosOrdenesItem');
     $this->load->library('CallUtil');
+    $this->load->library('form_validation');
+    $this->load->helper('file');
+    $this->load->helper('url');
+    $this->load->library('CSVReader');
     
 
  
@@ -71,9 +75,9 @@ class OrdenesItem extends CI_Controller{
     $or_item_descripcion     = $this->input->post('or_item_descripcion');
     $or_item_revision   = $this->input->post('or_item_revision');
     $or_item_unidad   = $this->input->post('or_item_select_unidad');
-    $or_item_cantidad   = $this->input->post('or_item_cantidad');
-    $or_item_valor_unitario         = $this->input->post('or_item_valor_unitario');
-    $or_item_valor_neto        = $this->input->post('or_item_valor_neto');
+    $or_item_cantidad   = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_item_cantidad'));
+    $or_item_valor_unitario         = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_item_valor_unitario'));
+    $or_item_valor_neto        = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_item_valor_neto'));
     $or_item_status        = $this->input->post('or_item_select_status');
     $id_order_item       = $this->input->post('id_order_item');
     $id_orden_item_proyecto            = $this->input->post('id_orden_item_proyecto');
@@ -150,9 +154,9 @@ class OrdenesItem extends CI_Controller{
           'or_act_item_descripcion'=> $value->descripcion,
           'or_act_item_revision'=> $value->revision,
           's_act_item_unidad'=> $this->callutil->obtiene_select_def_act('or_act_select_unidad',$value->unidad,'UNIDAD_MEDIDA'),
-          'or_act_item_cantidad'=> $value->cantidad, 
-          'or_act_item_valor_unitario'=> $value->precio_unitario,
-          'or_act_item_valor_neto'=> $value->valor_neto,
+          'or_act_item_cantidad'=> $this->callutil->formatoNumero($value->cantidad), 
+          'or_act_item_valor_unitario'=> $this->callutil->formatoNumero($value->precio_unitario),
+          'or_act_item_valor_neto'=> $this->callutil->formatoNumero($value->valor_neto),
           's_act_item_status'=> $this->callutil->obtiene_select_def_act('or_act_select_estado',$value->estado,'ESTADO_ITEM_ORDEN')
         );
   
@@ -174,9 +178,9 @@ class OrdenesItem extends CI_Controller{
     $or_act_item_descripcion    = $this->input->post('or_act_item_descripcion');
     $or_act_item_revision     = $this->input->post('or_act_item_revision');
     $s_act_item_unidad   = $this->input->post('or_act_select_unidad');
-    $or_act_item_cantidad   = $this->input->post('or_act_item_cantidad');
-    $or_act_item_valor_neto   = $this->input->post('or_act_item_valor_neto');
-    $or_act_item_valor_unitario         = $this->input->post('or_act_item_valor_unitario');
+    $or_act_item_cantidad   = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_cantidad'));
+    $or_act_item_valor_neto   = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_valor_neto'));
+    $or_act_item_valor_unitario         = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_valor_unitario'));
     $s_act_item_status        = $this->input->post('or_act_select_estado');
   
 
@@ -261,7 +265,203 @@ class OrdenesItem extends CI_Controller{
 
 
   
+public function save() {
+
+  $data = array();
+  $memData = array();
+  $successMsg="";
+  $error_msg = "";
+  $insertCount = 0;
+  $updateCount = 0;
+  $rowCount = 0; 
+  $codEmpresa = $this->session->userdata('cod_emp');
+  $idOrden = $this->input->post('PurchaseOrderID');
+  $idCliente = $this->input->post('idCliente');
+  $idProyecto = $this->input->post('idProyecto');
+  $id_item	= $this->input->post('id_item'); 
+  $descripcion	= $this->input->post('descripcion');
+  $revision	= $this->input->post('revision');
+  $unidad	= $this->input->post('unidad');
+  $cantidad	= $this->callutil->formatoNumeroMilesEntrada($this->input->post('cantidad'));
+  $precio_unitario	= $this->callutil->formatoNumeroMilesEntrada($this->input->post('precio_unitario'));
+  $valor_neto= $this->callutil->formatoNumeroMilesEntrada($this->input->post('valor_neto'));
+  $estado = 1;   
+  $nameArchivo = 'fileOrdenItem';
 
 
+  $archivo = $this->checkFileValidation($nameArchivo);
+  $respArchivo = $archivo['resp'];
+
+  
+  if($respArchivo== false){
+
+    
+
+
+    $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
+    $resp = false;
+  
+
+  }else{  
+
+      
+     if(is_uploaded_file($_FILES[$nameArchivo]['tmp_name'])) {                            
+
+        $csvData = $this->csvreader->parse_csv($_FILES[$nameArchivo]['tmp_name']);            
+      
+    
+                        // create array from CSV file
+                        if(!empty($csvData)){
+
+                            foreach($csvData as $row){  
+
+
+                            $rowCount++;
+                            
+                          
+                                                 
+                            
+                            
+                            $memData = array(
+                                'codEmpresa' => $codEmpresa,
+                                'PurchaseOrderID' => $idOrden,
+                                'idCliente' => $idCliente,
+                                'idProyecto' => $idProyecto,
+                                'id_item' => $row['id_item'],
+                                'descripcion' => $row['descripcion'],
+                                'revision' => $row['revision'],
+                                'unidad' => $row['unidad'],
+                                'cantidad' => $row['cantidad'],
+                                'precio_unitario' => $row['precio_unitario'],
+                                'valor_neto' => $row['valor_neto'],
+                                'estado' => $estado
+                            );
+                            
+                                // Check whether register already exists in the database
+
+
+                                if($row['PurchaseOrderID'] == $idOrden){
+
+
+                                  $prevCount = $this->callexternosordenesitem->getRows($idProyecto,$idOrden,$row['id_item']); 
+                                                    
+                                  if($prevCount > 0){
+                                      // Update member data
+                                      
+                                      $update = $this->callexternosordenesitem->update($memData);
+                                      
+                                      if($update){
+                                          $updateCount++;
+                                      }
+                                  }else{
+                                      // Insert member data
+                                      $insert = $this->callexternosordenesitem->insert($memData);
+                                      
+                                      if($insert){
+                                          $insertCount++;
+                                      }
+                                  }
+
+                                      // Status message with imported data count
+                                        $notAddCount = ($rowCount - ($insertCount + $updateCount));
+                                        $error_msg = 'Orden Items importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
+                                        $resp = true;
+
+                                }else{
+
+                                  $error_msg = 'Orden en archivo no coincide con la orden seleccionada '.
+                                                'Orden de Archivo: '.$row['PurchaseOrderID'].
+                                                ' Orden seleccionada: '.$idOrden;
+                                  $resp = false;
+
+                                }
+                              
+                            
+                            }
+
+                        }   
+
+            }else{
+              
+            $error_msg = 'Archivo con problemas, favor comunicarse con soporte.';
+            $resp = false;
+
+          }  
+    }
+
+
+      $data['resp']        = $resp;
+      $data['mensaje']     = $error_msg;
+
+      echo json_encode($data);
+
+}
+
+    // checkFileValidation
+    public function checkFileValidation($str) {   
+    
+
+
+      $mime_types = array(
+          'text/csv',
+          'text/x-csv', 
+          'application/csv', 
+          'application/x-csv', 
+          'application/excel',
+          'text/x-comma-separated-values', 
+          'text/comma-separated-values', 
+          'application/octet-stream', 
+          'application/vnd.ms-excel',
+          'application/vnd.msexcel', 
+          'text/plain',
+          'application/msword',
+          'application/vnd.openxmlformats officedocument.wordprocessingml.document',
+          'image/jpeg',
+          'application/pdf',
+          'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+      );
+  
+      $fileExtArray = array(
+        'csv',
+        'CSV', 
+        'pdf', 
+        'PDF', 
+        'xls',
+        'xlsx', 
+        'XLS', 
+        'XLSX', 
+        'doc',
+        'docx', 
+        'DOC',
+        'DOCX'
+    );
+      if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
+          // get mime by extension
+          $mime = get_mime_by_extension($_FILES[$str]['name']);
+          $fileExt = explode('.', $_FILES[$str]['name']);
+          $ext = end($fileExt);
+  
+          if(in_array($ext, $fileExtArray) && in_array($mime, $mime_types)){
+            $resp=  true;
+            $error_msg = 'Archivo OK';
+  
+  
+          }else{
+            $error_msg = 'Please choose correct file.';
+            $resp = false;
+          }
+      }else{
+          $error_msg =  'Please choose a file.';
+          $resp = false;
+      }
+  
+      $data = array(
+        'mensaje'  => $error_msg,
+        'resp' => $resp
+      );
+  
+      return $data;
+  
+  }
 
     }

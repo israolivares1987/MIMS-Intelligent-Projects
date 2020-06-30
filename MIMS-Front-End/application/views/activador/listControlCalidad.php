@@ -27,10 +27,10 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                          <dl class="row">
-                                             <dt class="col-sm-4">Order ID:</dt>
-                                             <dd class="col-sm-6"><?php echo $idOrden;?></dd>
-                                             <dt class="col-sm-4">Descripción:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($PurchaseOrderDescription);?>
+                                             <dt class="col-sm-8">Order ID:</dt>
+                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dt class="col-sm-8">Descripción:</dt>
+                                             <dd class="col-sm-9"><?php echo urldecode($PurchaseOrderDescription);?>
                                              </dd>
                                              </dd>
                                          </dl>
@@ -50,10 +50,10 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                          <dl class="row">
-                                             <dt class="col-sm-4">Cliente:</dt>
-                                             <dd class="col-sm-6"><?php echo $nombreCliente;?></dd>
-                                             <dt class="col-sm-4">Proyecto:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($DescripcionProyecto);?></dd>
+                                             <dt class="col-sm-8">Cliente:</dt>
+                                             <dd class="col-sm-9"><?php echo $nombreCliente;?></dd>
+                                             <dt class="col-sm-8">Proyecto:</dt>
+                                             <dd class="col-sm-9"><?php echo urldecode($DescripcionProyecto);?></dd>
                                              </dd>
                                          </dl>
                                      </div>
@@ -78,7 +78,8 @@
                                  <tr>
                                      <th>
                                      <button id="btn_recargar"
-                                             class="btn btn-outline-secondary float-right">Recargar</button>
+                                             class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
+                                                     </i>  Actualizar</button>
                                          <button id="btn_nuevo_registro"
                                              class="btn btn-outline-primary float-right">Nuevo Registro</button>
                                     </th>
@@ -217,7 +218,7 @@
 
 function mostrarBlock(){
 		$.blockUI({ 
-                message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/images/loading.gif');?>" />&nbsp;Espere un momento...</h5>',
+                message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
             css:{
 				backgroundColor: '#0063BE',
 				opacity: .8,
@@ -827,6 +828,8 @@ calidad_det_html += '</tr>';
                                          </div>
 
                                      </div>
+                                     <input type="hidden" id="tipo" name="tipo"
+                                         value="1">
                                      <input type="hidden" id="id_orden_compra" name="id_orden_compra"
                                          value="<?php echo $idOrden?>">
                                      <input type="hidden" id="id_cliente" name="id_cliente"
