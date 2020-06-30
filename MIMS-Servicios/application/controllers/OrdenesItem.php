@@ -70,6 +70,78 @@ class OrdenesItem extends CI_Controller {
 	  
 	  }
 	  
+	  function getRows(){
+
+		$idProyecto = $this->input->post('idProyecto');
+		$idOrden = $this->input->post('idOrden');
+		$ItemId = $this->input->post('ItemId');
+
+
+		$con = array(
+			'where' => array(
+				'PurchaseOrderID' => $idOrden,
+				'id_item' => $ItemId,
+				'idProyecto' => $idProyecto
+			),
+			'returnType' => 'count'
+		);
+
+
+		$prevCount = $this->ordenesitem->getRows($con);
+		
+		
+		echo $prevCount;
+	 }
+	 
+	 function update(){
+
+				// Update member data
+				$form_data = array(
+					'codEmpresa' => $this->input->post('codEmpresa'),
+					'PurchaseOrderID'  => $this->input->post('PurchaseOrderID'),
+					'idCliente'  => $this->input->post('idCliente'),
+					'idProyecto' => $this->input->post('idProyecto'),
+					'id_item'  => $this->input->post('id_item'),
+					'descripcion'  => $this->input->post('descripcion'),
+					'revision' => $this->input->post('revision'),
+					'unidad'  => $this->input->post('unidad'),
+					'cantidad'  => $this->input->post('cantidad'),
+					'precio_unitario'  => $this->input->post('precio_unitario'),
+					'valor_neto' => $this->input->post('valor_neto'),
+					'estado'  => $this->input->post('estado')
+				);
+
+	$update = $this->ordenesitem->update($form_data,$this->input->post('PurchaseOrderID'),$this->input->post('id_item'),$this->input->post('idProyecto') );
+		
+	echo json_encode($update);
+	 }
+
+		
+	 function insert(){
+
+
+
+	
+			$form_data = array(
+				'codEmpresa' => $this->input->post('codEmpresa'),
+				'PurchaseOrderID'  => $this->input->post('PurchaseOrderID'),
+				'idCliente'  => $this->input->post('idCliente'),
+				'idProyecto' => $this->input->post('idProyecto'),
+				'id_item'  => $this->input->post('id_item'),
+				'descripcion'  => $this->input->post('descripcion'),
+				'revision' => $this->input->post('revision'),
+				'unidad'  => $this->input->post('unidad'),
+				'cantidad'  => $this->input->post('cantidad'),
+				'precio_unitario'  => $this->input->post('precio_unitario'),
+				'valor_neto' => $this->input->post('valor_neto'),
+				'estado'  => $this->input->post('estado')
+			);
+	
+		$insert = $this->ordenesitem->insert($form_data);
+		
+		echo json_encode($insert);
+	}
+
 
 }
 

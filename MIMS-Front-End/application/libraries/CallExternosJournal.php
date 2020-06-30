@@ -90,21 +90,7 @@ class CallExternosJournal {
             $base_url_servicios =$this->obtienebaseservicios();                
             $api_url = $base_url_servicios."Journal/agregarControlCalidad";
       
-            $form_data = array(
-                            'id_orden_compra' => $memData['id_orden_compra'],
-                            'id_cliente' => $memData['id_cliente'],
-                            'id_proyecto' => $memData['id_proyecto'],
-                            'id_empleado' => $memData['id_empleado'],
-                            'nombre_empleado' => $memData['nombre_empleado'],
-                            'tipo_interaccion' => $memData['tipo_interaccion'],
-                            'fecha_ingreso' => $memData['fecha_ingreso'],
-                            'numero_referencial' => $memData['numero_referencial'],
-                            'solicitado_por' => $memData['solicitado_por'],
-                            'aprobado_por' => $memData['aprobado_por'],
-                            'comentarios_generales' => $memData['comentarios_generales'],
-                            'respaldos' => $memData['respaldos']
-                );
-      
+            $form_data = $memData;
                     
                         $client = curl_init($api_url);
                 

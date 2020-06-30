@@ -1,0 +1,4 @@
+PurchaseOrderID;id_item;descripcion;revision;unidad;cantidad;precio_unitario;valor_neto
+5;1;dfsdfsd;3;1;222;22222;2222
+5;2;dfsdfsd;3;3;222;22222;2222
+5;3;Paquete 1 Jackets;0;5;103;2628;2628

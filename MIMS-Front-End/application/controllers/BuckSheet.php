@@ -758,7 +758,7 @@ function obtieneBucksheetDet()
     "created",
     "modified"); 
 
-    fputcsv($file, $header);
+    fputcsv($file, $header, ';', chr(27));
     
     foreach ($arrBucksheet as $key => $value){ 
 
@@ -819,7 +819,7 @@ function obtieneBucksheetDet()
 
 
 
-      fputcsv($file,$datos_bucksheet); 
+      fputcsv($file,$datos_bucksheet, ';', chr(27));
     }
     fclose($file); 
     exit; 

@@ -426,7 +426,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Rut</label>
                             <div class="col-md-9">
-                            <input type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control" />
+                            <input type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control"  onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" />
                                 <span class="help-block"></span>
                             </div>
                         </div>

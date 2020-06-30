@@ -31,7 +31,7 @@ class Journal extends CI_Controller {
 			
 
 			$dataInsert = array(
-				'tipo' => 1,	
+				'tipo' => $this->input->post('tipo'),	
 			    'id_orden_compra' => $this->input->post('id_orden_compra'),
 				'id_cliente' => $this->input->post('id_cliente'),
 				'id_proyecto' => $this->input->post('id_proyecto'),
