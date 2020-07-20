@@ -32,6 +32,18 @@ class Dominios_model extends CI_Model{
 		return $query->result();
 
 	}
+
+	function editarIva($data,$where)
+	{
+		$this->db->update($this->table, $data, $where);
+		$this->db->affected_rows();
+		
+		if ($this->db->affected_rows() > 0 ) {
+			return true; // Or do whatever you gotta do here to raise an error
+		} else {
+			return false;
+		}
+	}
 	
 
 }

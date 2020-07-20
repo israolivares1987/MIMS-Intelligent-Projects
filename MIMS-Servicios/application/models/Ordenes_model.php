@@ -10,6 +10,7 @@ class Ordenes_model extends CI_Model{
 								a.PurchaseOrderNumber,
 								(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,
 								a.PurchaseOrderDescription,
+								a.Revision,
 								b.nombreCliente,
 								a.SupplierName,
 								a.Comprador,

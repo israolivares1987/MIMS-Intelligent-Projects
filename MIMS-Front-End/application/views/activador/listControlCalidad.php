@@ -640,9 +640,9 @@ calidad_det_html += '</tr>';
                  //Initialize Select2 Elements
 
 
-                 //Datemask dd/mm/yyyy
-                 $('#datemask').inputmask('dd/mm/yyyy', {
-                     'placeholder': 'dd/mm/yyyy'
+                 //Datemask dd-mm-yyyy
+                 $('#datemask').inputmask('dd-mm-yyyy', {
+                     'placeholder': 'dd-mm-yyyy'
                  })
                  //Datemask2 mm/dd/yyyy
                  $('#datemask2').inputmask('mm/dd/yyyy', {
@@ -720,7 +720,7 @@ calidad_det_html += '</tr>';
                                                  </div>
                                                  <input name="fecha_ingreso" type="text" class="form-control"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->

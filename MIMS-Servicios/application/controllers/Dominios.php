@@ -32,6 +32,23 @@ class Dominios extends CI_Controller {
 
 	}
 
+
+	function editarIva(){
+
+		$domain_id  = $this->input->post('domain_id');  
+		$domain      = $this->input->post('domain');
+	
+		$update= array(
+			'domain_id' => $domain_id
+		  );
+	
+		$ivadato = $this->dominios->editarIva($update,array('domain' =>$domain));
+
+		echo json_encode($ivadato);
+		
+	}
+
+
 }
 
 	
