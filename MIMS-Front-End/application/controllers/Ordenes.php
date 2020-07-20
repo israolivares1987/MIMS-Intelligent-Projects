@@ -52,6 +52,7 @@ class Ordenes extends CI_Controller{
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
                 'Categorizacion'  => $value->Categorizacion,
                 'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
+                'Revision'   => $value->Revision,
                 'nombreCliente'   => $value->nombreCliente,
                 "SupplierName" => $value->SupplierName,
                 'ExpediterID'   => $value->ExpediterID,
@@ -90,6 +91,7 @@ class Ordenes extends CI_Controller{
     $or_purchase_order    = $this->input->post('or_purchase_order');
     $or_select_categorizacion    = $this->input->post('or_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
+    $or_revision = $this->input->post('or_revision');
     $or_select_supplier   = $this->input->post('or_select_supplier');
     $or_select_employee   = $this->input->post('or_select_employee');
     $or_select_currency   = $this->input->post('or_select_currency');
@@ -159,6 +161,7 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'           =>  $or_select_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
+                  'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
@@ -237,6 +240,7 @@ class Ordenes extends CI_Controller{
           'purchase_number'     => $value->PurchaseOrderNumber,
           'select_categorizacion'     => $this->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
+          'revision'            => $value->Revision,
           'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierName),
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
           'select_currency'     => $this->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
@@ -276,6 +280,7 @@ class Ordenes extends CI_Controller{
     $or_purchase_order    = $this->input->post('or_act_purchase_order');
     $or_categorizacion   = $this->input->post('or_act_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
+    $or_revision        = $this->input->post('or_act_revision');
     $or_select_supplier   = $this->input->post('or_act_select_supplier');
     $or_select_employee   = $this->input->post('or_act_select_employee');
     $or_select_currency   = $this->input->post('or_act_select_currency');
@@ -339,6 +344,7 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
+                  'Revision'  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
@@ -402,6 +408,7 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $$or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
+                  'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,

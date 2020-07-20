@@ -86,6 +86,7 @@
 								  <th>Orden Number</th>
                   <th>Categorizacion</th>
 								  <th>Orden Description</th>
+                  <th>Revision</th>
                   <th>Nombre Cliente</th>
 								  <th>Nombre Proveedor</th>
 								  <th>Activador</th>
@@ -374,6 +375,19 @@
                     </div>
                     </div>
 
+
+                    <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                    
+                    <label class="col-sm-12 control-label">Revision</label>
+                                <div class="col-sm-12">
+                                  <input id="or_revision" name="or_revision" type="text" class="form-control form-control-sm">
+                                </div>
+                    </div>
+                    </div>
+
+
+
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
                     <label class="col-sm-12 control-label">Seleccione Proveedor</label>
@@ -484,7 +498,7 @@
                                                  </div>
                                                  <input name="or_order_date" type="text" class="form-control" id="or_order_date"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -502,7 +516,7 @@
                                                  </div>
                                                  <input name="or_date_required" type="text" class="form-control" id="or_date_required"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -521,7 +535,7 @@
                                                  </div>
                                                  <input name="or_ship_date" type="text" class="form-control" id="or_ship_date"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -643,6 +657,16 @@
 
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
+                    
+                    <label class="col-sm-12 control-label">Revision</label>
+                                <div class="col-sm-12">
+                                  <input id="or_act_revision" name="or_act_revision" type="text" class="form-control form-control-sm">
+                                </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                    <div class="form-group">
                     <label class="col-sm-12 control-label">Seleccione Proveedor</label>
                                 <div class="col-sm-12">
                                   <div id="s_act_supplier"></div>
@@ -751,7 +775,7 @@
                                                  </div>
                                                  <input name="or_act_order_date" type="text" class="form-control" id="or_act_order_date"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -769,7 +793,7 @@
                                                  </div>
                                                  <input name="or_act_date_required" type="text" class="form-control" id="or_act_date_required"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -788,7 +812,7 @@
                                                  </div>
                                                  <input name="or_act_ship_date" type="text" class="form-control" id="or_act_ship_date"
                                                      data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd/mm/yyyy" data-mask=""
+                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
                                              </div>
                                              <!-- /.input group -->
@@ -1328,9 +1352,9 @@
                     theme: 'bootstrap4'
                   })
 
-                 //Datemask dd/mm/yyyy
-                 $('#datemask').inputmask('dd/mm/yyyy', {
-                     'placeholder': 'dd/mm/yyyy'
+                 //Datemask dd-mm-yyyy
+                 $('#datemask').inputmask('dd-mm-yyyy', {
+                     'placeholder': 'dd-mm-yyyy'
                  })
                  //Datemask2 mm/dd/yyyy
                  $('#datemask2').inputmask('mm/dd/yyyy', {
@@ -1363,8 +1387,8 @@
 <script>
   $(function () {
 
-    //Datemask dd/mm/yyyy
-    $('#datemask').inputmask('dd/mm/yyyy', { 'placeholder': 'dd/mm/yyyy' })
+    //Datemask dd-mm-yyyy
+    $('#datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
     //Datemask2 mm/dd/yyyy
     $('#datemask2').inputmask('mm/dd/yyyy', { 'placeholder': 'mm/dd/yyyy' })
     //Money Euro
@@ -2205,6 +2229,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+        ordenes_html += '<td>' + orden.Revision + '</td>';
         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
         ordenes_html += '<td>' + orden.SupplierName + '</td>';
         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
@@ -2416,6 +2441,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#s_act_categorizacion').html(result.formulario.select_categorizacion);
 
       $('#or_act_purchase_desc').val(result.formulario.purchase_desc);
+      $('#or_act_revision').val(result.formulario.revision);
       $('#s_act_supplier').html(result.formulario.select_supplier);
       $('#s_act_employee').html(result.formulario.select_employee);
       $('#s_act_currency').html(result.formulario.select_currency);
