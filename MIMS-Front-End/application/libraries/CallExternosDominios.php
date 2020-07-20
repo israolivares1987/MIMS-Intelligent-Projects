@@ -57,7 +57,7 @@ class CallExternosDominios {
   
         $form_data = array(
             'dominio'	=> $dominio,
-            'id' => $dato
+            'dato' => $dato
         );
   
         $client = curl_init($api_url);

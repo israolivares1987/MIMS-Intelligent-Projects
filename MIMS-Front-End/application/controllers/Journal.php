@@ -200,7 +200,7 @@ class Journal extends MY_Controller{
 
     //Obtiene Datos para el Home
 
-    $datosap     = $this->callexternosdominios->obtieneDatosRef('TIPO_INTERACCION_CC');
+    $datosap     = $this->callexternosdominios->obtieneDatosRef('TIPO_INTERACCION_CO');
     $select_cc = "";
     foreach (json_decode($datosap) as $llave => $valor) {
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
@@ -510,8 +510,23 @@ function enviarMail(){
                 $id_proyecto = $arrControlCalidad->id_proyecto;
                 $id_empleado = $arrControlCalidad->id_empleado;
                 $nombre_empleado = $arrControlCalidad->nombre_empleado;
+                $tipo = $arrControlCalidad->tipo;
 
-                $datosEstados     = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
+
+                var_dump( $arrControlCalidad );
+                var_dump( $arrControlCalidad->tipo_interaccion );
+
+
+                if ($tipo === '1'){
+
+                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
+
+                }else{
+
+                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$arrControlCalidad->tipo_interaccion);
+                }
+
+                var_dump( $datosEstados );
 
               
             
@@ -577,36 +592,53 @@ function enviarMail(){
 
 
           $htmlContent = '<h1>Proyecto: '.$DescripcionProyecto.' Orden: '.$PurchaseOrderID.' </h1>';
-          $htmlContent .= '<p>You can attach the files in this email.</p>';
+          $htmlContent .= '<p>Archivo adjunto: '. $respaldos.'</p>';
 
 
           $htmlContent .= '<table cellspacing="0">';
           $htmlContent .= '<thead>';
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Orden de Compra</th>';
-          $htmlContent .= '<th>Nombre Empleado</th>';
-          $htmlContent .= '<th>Fecha Ingreso</th>';
-          $htmlContent .= '<th>Numero Referencial</th>';
-          $htmlContent .= '<th>Tipo Interaccion</th>';
-          $htmlContent .= '<th>Solicitado por</th>';
-          $htmlContent .= '<th>Aprobado por</th>';
-          $htmlContent .= '<th>Comentarios Generales</th>';
-          $htmlContent .= '<th>Respaldos</th>';
-          $htmlContent .= '<th>Acciones</th>';
-          $htmlContent .= '</tr>';
           $htmlContent .= '</thead>';
           $htmlContent .= '<tbody>';
+          
           $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Orden de Compra</th>';
           $htmlContent .= '<th>'.$id_orden_compra.'</th>';
+          $htmlContent .= '</tr>';
+
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Nombre Empleado</th>';
           $htmlContent .= '<th>'.$nombre_empleado.'</th>';
-          $htmlContent .= '<th>'.$fecha_ingreso.'</th>';
-          $htmlContent .= '<th>'.$numero_referencial.'</th>';
-          $htmlContent .= '<th>'.$tipo_interaccion.'</th>';
-          $htmlContent .= '<th>'.$solicitado_por.'</th>';
-          $htmlContent .= '<th>'.$aprobado_por.'</th>';
-          $htmlContent .= '<th>'.$comentarios_generales.'</th>';
           $htmlContent .= '</tr>';
           
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Fecha Ingreso</th>';
+          $htmlContent .= '<th>'.$fecha_ingreso.'</th>';
+          $htmlContent .= '</tr>';
+
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Numero Referencial</th>';
+          $htmlContent .= '<th>'.$numero_referencial.'</th>';
+          $htmlContent .= '</tr>';
+
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Tipo Interaccion</th>';
+          $htmlContent .= '<th>'.$tipo_interaccion.'</th>';
+          $htmlContent .= '</tr>';
+          $htmlContent .= '<tr>';
+
+          $htmlContent .= '<th>Solicitado por</th>';
+          $htmlContent .= '<th>'.$solicitado_por.'</th>';
+          $htmlContent .= '</tr>';
+
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Aprobado por</th>';
+          $htmlContent .= '<th>'.$aprobado_por.'</th>';
+          $htmlContent .= '</tr>';
+
+          $htmlContent .= '<tr>';
+          $htmlContent .= '<th>Comentarios Generales</th>';
+          $htmlContent .= '<th>'.$comentarios_generales.'</th>';
+          $htmlContent .= '</tr>';          
           $htmlContent .= '</tbody>';
           $htmlContent .= '</table>';
 
@@ -619,55 +651,11 @@ function enviarMail(){
 
 
 
-          $this->sendEmail($email,$subject,$htmlContent,$file);
+          $respuesta =$this->callutil->sendEmail($email,$subject,$htmlContent,$file);
+
+          echo json_encode($respuesta);
 
     }
-
-
-
-
-public function sendEmail($email,$subject,$message,$file)
-    {
-
-    $config = Array(
-      'protocol' => 'smtp',
-      'smtp_host' => 'ssl://mail.mimsprojects.com',
-      'smtp_port' => 465,
-      'smtp_user' => 'controlcalidad@mimsprojects.com', 
-      'smtp_pass' => 'r9x0ptj~y5)T', 
-      'mailtype' => 'html',
-      'charset' => 'iso-8859-1',
-      'wordwrap' => TRUE
-    );
-
-
-          $this->load->library('email', $config);
-          $this->email->set_newline("\r\n");
-          $this->email->from('controlcalidad@mimsprojects.com');
-          $this->email->to($email);
-          $this->email->subject($subject);
-          $this->email->message($message);
-          $this->email->attach($file);
-          if($this->email->send())
-         {
-          $resp= true;
-          $error_msg= 'Correo enviado correctamente';
-         
-         }
-         else
-        {
-
-          $resp= true;
-          $error_msg= show_error($this->email->print_debugger());
-
-        }
-
-        $data['resp']        = $resp;
-        $data['mensaje']     = $error_msg;
-
-        echo json_encode($data);
-    }
-
 
     function desactivaJournal(){
       

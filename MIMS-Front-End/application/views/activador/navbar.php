@@ -10,9 +10,8 @@
 
     </ul>
     <ul class="navbar-nav ml-auto">
-      
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url('index.php/ingenieria/index_ingenieria');?>" class="nav-link">Home</a>
+        <a href="<?php echo base_url('index.php/activador/index_activador');?>" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo site_url('login/logout');?>" class="nav-link">Cerrar Sesión</a>

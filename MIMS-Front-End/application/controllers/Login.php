@@ -84,7 +84,8 @@ class Login extends CI_Controller{
               'avatar'            => $obj->{'avatar'},
               'nombre_rol'        => $obj->{'nombre_rol'},
               'cod_emp'           => $cod_emp,
-              'id_usuario'        => $obj->{'id_usuario'}
+              'id_usuario'        => $obj->{'id_usuario'},
+              'cod_user'        => $obj->{'cod_user'}
               );
 
               $this->session->set_userdata($sesdata);
