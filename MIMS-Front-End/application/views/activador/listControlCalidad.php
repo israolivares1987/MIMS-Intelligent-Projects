@@ -688,13 +688,13 @@ calidad_det_html += '</tr>';
 
                                      <div class="col-md-12">
                                          <div class="form-horizontal">
-                                             <div class="form-group" data-select2-id="89">
+                                             <div class="form-group">
                                                  <div class="form-group">
                                                      <label class="control-label col-md-9">Tipo Interaccion</label>
                                                      <div class="col-md-12">
                                                          <select name="tipo_interaccion" id="var_tipo_interaccion"
-                                                             class="form-control select2bs4 select2-hidden-accessible"
-                                                             style="width: 100%;" data-select2-id="17" tabindex="-1"
+                                                             class="form-control"
+                                                             style="width: 100%;" tabindex="-1"
                                                              aria-hidden="true">
                                                              <?php echo $select_cc;?>
                                                          </select>

@@ -252,15 +252,63 @@ public function cambianull($var){
 	return $valor;
 
 
-}
+ }
 
-function formatoNumeroMilesEntrada($dato){
-
+public function formatoNumeroMilesEntrada($dato){
 
 	$valor = intval(str_replace(".", "", $dato));
 
 	return $valor;
-}
+ }
+
+public function sendEmail($email,$subject,$message,$file){
+
+    $CI = & get_instance();
+	$CI->load->helper('url');
+	$CI->load->library('session');
+	$CI->config->item('base_url');
+	$CI->load->library('email');
+
+    $config = Array(
+      'protocol' => 'smtp',
+      'smtp_host' => 'ssl://mail.mimsprojects.com',
+      'smtp_port' => 465,
+      'smtp_user' => 'controlcalidad@mimsprojects.com', 
+      'smtp_pass' => 'r9x0ptj~y5)T', 
+      'mailtype' => 'html',
+      'charset' => 'utf-8',
+	  'wordwrap' => TRUE,
+	 'priority' => 1
+	);
+	
+
+	      $CI->load->library('email', $config);
+          $CI->email->set_newline("\r\n");
+          $CI->email->from('controlcalidad@mimsprojects.com');
+          $CI->email->to($email);
+          $CI->email->subject($subject);
+          $CI->email->message($message);
+		  $CI->email->attach($file);
+		  $CI->email->set_mailtype('html');
+          if($CI->email->send())
+         {
+          $resp= true;
+          $error_msg= 'Correo enviado correctamente';
+         
+         }
+         else
+        {
+
+          $resp= true;
+          $error_msg= $CI->show_error($this->email->print_debugger());
+
+        }
+
+        $data['resp']        = $resp;
+        $data['mensaje']     = $error_msg;
+
+        return $data;
+ }
 
 
 
@@ -271,5 +319,5 @@ function formatoNumeroMilesEntrada($dato){
 
 
 
-}
+ }
 
