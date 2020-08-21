@@ -4,10 +4,16 @@ function validateEmail(email) {
   }
 
   function validatefecha(date) {
-    var temp = date.split('/');
-    var d = new Date(temp[1] + '/' + temp[0] + '/' + temp[2]);
-     return (d && (d.getMonth() + 1) == temp[1] && d.getDate() == Number(temp[0]) && d.getFullYear() == Number(temp[2]));
-}
+   
+    var dob = date;
+    var pattern = /^([0-9]{2})-([0-9]{2})-([0-9]{4})$/;
+    if (dob == null || dob == "" || !pattern.test(dob)) {
+        return false;
+    }
+    else {
+        return true
+    }
+  }
 
 function formToggleDesactivar(ID) {
 
@@ -38,4 +44,5 @@ input.value = num;
 else{ alert('Solo se permiten numeros');
 input.value = input.value.replace(/[^\d\.]*/g,'');
 }
+
 }

@@ -982,26 +982,11 @@
                                       <i class="fas fa-sort-numeric-up"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);mostrarValorNetoItemor()">
                             </div>
                     </div>
                     </div>
-                
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor neto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_item_valor_neto" name="or_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
-                            </div>
-                    </div>
-                    </div>
-
-
+            
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Valor Unitatio</label>
@@ -1011,12 +996,24 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);mostrarValorNetoItemor()">
                             </div>
                     </div>
                     </div>
 
-
+                    <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor neto</label>
+                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fas fa-dollar-sign"></i>
+                                      </span>
+                                    </div>
+                               <input  id="or_item_valor_neto" name="or_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
+                            </div>
+                    </div>
+                    </div>
                    
 
                    <div class="col-12 col-sm-6">
@@ -1153,7 +1150,7 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Cantidad</label>
                             <div class="input-group">
-                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);;mostrarValorNetoItemact()">
                             </div>
                     </div>
                     </div>
@@ -1167,7 +1164,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_item_valor_neto" name="or_act_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_act_item_valor_neto" name="or_act_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
                             </div>
                     </div>
                     </div>
@@ -1182,7 +1179,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);;mostrarValorNetoItemact()">
                             </div>
                     </div>
                     </div>
@@ -2641,6 +2638,46 @@ if(opcion){
 
 
 }
+
+
+function mostrarValorNetoItemor(){
+
+/* Sumar dos números. */
+
+  var total = 0;	
+
+  valor = document.getElementById('or_item_valor_unitario').value;
+  cantidad = document.getElementById('or_item_valor_unitario').value;
+
+  // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+  total = (total == null || total == undefined || total == "") ? 0 : total;
+
+  total = (parseInt(cantidad) * parseInt(valor));
+
+  // Colocar el resultado de la suma en el control "span".
+  document.getElementById('or_item_valor_neto').innerHTML = total;
+}
+
+function mostrarValorNetoItemact(){
+
+/* Sumar dos números. */
+
+  var total = 0;	
+
+  valor = document.getElementById('or_act_item_valor_unitario').value;
+  cantidad = document.getElementById('or_act_item_cantidad').value;
+
+  // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+  total = (total == null || total == undefined || total == "") ? 0 : total;
+
+  total = (parseInt(cantidad) * parseInt(valor));
+
+  // Colocar el resultado de la suma en el control "span".
+  document.getElementById('or_act_item_valor_neto').innerHTML = total;
+}
+
+
+
 
 
 </script>

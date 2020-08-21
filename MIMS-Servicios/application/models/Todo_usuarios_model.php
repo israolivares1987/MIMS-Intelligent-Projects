@@ -10,7 +10,7 @@ class Todo_usuarios_model extends CI_Model{
 		
 		
 		$this->db->select("a.*, CONCAT(
-			FLOOR(HOUR(TIMEDIFF(SYSDATE(), fecha_termino)) / 24), ' Dias ') as dif");
+			( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif ");
         $this->db->where('codEmpresa', $codEmpresa);
 		$this->db->where('id_usuario', $codUsuario);
 		$this->db->from('tbl_todo_usuario a');
