@@ -9,12 +9,16 @@ class Ordenes extends CI_Controller{
     $this->load->library('CallExternosBuckSheet');
     $this->load->library('CallUtil');
     $this->load->library('CallExternosProveedores');
+    $this->load->library('CallExternosOrdenesItem');
     $this->load->library('CallExternosDominios');
     $this->load->library('CallExternosEmpleados');
     $this->load->library('CallExternosOrdenes');
         $this->load->library('form_validation');
     $this->load->helper('file');
     
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
 
  
   }
@@ -41,7 +45,7 @@ class Ordenes extends CI_Controller{
               $Support = '';
 
               if(strlen($value->Support) > 0 && $value->Support !='null'  ){
-                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support.'"><i class="fas fa-download"></i> Descarga</a>';
+                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support_original.'"><i class="fas fa-download"></i> Descarga</a>';
               }else{
                 $Support = '';
               }
@@ -69,7 +73,7 @@ class Ordenes extends CI_Controller{
                 'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
                 'DateCreated'   => $this->callutil->formatoFechaSalida($value->DateCreated),
                 "POStatus" => $this->callutil->cambianull($value->POStatus),
-                'Support' =>  $Support,
+                'Support' =>  $Support
               );
 
             }
@@ -135,6 +139,7 @@ class Ordenes extends CI_Controller{
 
           /* create new name file */
           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+          $respaldo_original = $_FILES["or_support"]["name"];
           $extension  = pathinfo( $_FILES["or_support"]["name"], PATHINFO_EXTENSION ); // jpg
           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
@@ -178,7 +183,8 @@ class Ordenes extends CI_Controller{
                   'ShippingMethodID'          => $or_select_shipping,
                   'DateCreated'               => date('Y-m-d'),
                   'POStatus'                  => $or_select_status,
-                  'Support'                   => $respaldo 
+                  'Support'                   => $respaldo,
+                  'Support_original'          => $respaldo_original
                 );
 
                 $ordenes    = $this->callexternosordenes->guardaOrden($data);
@@ -382,6 +388,7 @@ class Ordenes extends CI_Controller{
 
           /* create new name file */
           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+          $respaldo_original = $_FILES["or_support"]["name"];
           $extension  = pathinfo( $_FILES[$nameArchivo ]["name"], PATHINFO_EXTENSION ); // jpg
           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
@@ -425,7 +432,8 @@ class Ordenes extends CI_Controller{
                   'ShippingMethodID'          => $or_select_shipping,
                   'DateCreated'               => date('Y-m-d'),
                   'POStatus'                  => $or_select_status,
-                  'Support'                   => $respaldo 
+                  'Support'                   => $respaldo,
+                  'Support_original'          => $respaldo_original 
                 );
 
                 $ordenes    = $this->callexternosordenes->actualizaOrden($update);
@@ -479,9 +487,14 @@ class Ordenes extends CI_Controller{
         //consulta si existen bucksheet
         $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($orden,true);
 
-        $data_buck = json_decode($bucksheet);
+        $arrBucksheet = json_decode($bucksheet);
 
-        if(count($data_buck->data) > 0){
+        //consulta si existen item
+        $ordenesItem = $this->callexternosordenesitem->obtieneItemOrdenes($orden,$id_proyecto,$id_cliente);
+
+        $arrOrdenesItem = json_decode($ordenesItem);
+
+        if(count($arrBucksheet) > 0 || count($arrOrdenesItem) > 0){
         
           $data['resp'] = false;
           $data['mensaje'] = 'Existen datos asociados a esta orden. No se pudo eliminar.';

@@ -91,10 +91,6 @@
                                                             <th>Activador</th>
                                                             <th>Generador de Compra</th>
                                                             <th>Moneda</th>
-                                                            <th>Valor Neto</th>
-                                                            <th>Valor Total</th>
-                                                            <th>Presupuesto</th>
-                                                            <th>Codigo Presupuesto</th>
                                                             <th>Fecha Orden</th>
                                                             <th>Fecha Requerida</th>
                                                             <th>Fecha Prometida</th>
@@ -134,8 +130,6 @@
                                                             <th>Revision</th>
                                                             <th>Unidad</th>
                                                             <th>Cantidad</th>
-                                                            <th>Precio Unitario</th>
-                                                            <th>Valor Neto</th>
                                                             <th>Estado</th>	
                                                         </tr>
 														</thead>
@@ -328,10 +322,6 @@
                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                         ordenes_html += '<td>' + orden.Requestor + '</td>';
                                         ordenes_html += '<td>' + orden.Currency + '</td>';
-                                        ordenes_html += '<td>' + orden.ValorNeto + '</td>';
-                                        ordenes_html += '<td>' + orden.ValorTotal + '</td>';
-                                        ordenes_html += '<td>' + orden.Budget + '</td>';
-                                        ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
                                         ordenes_html += '<td>' + orden.OrderDate + '</td>';
                                         ordenes_html += '<td>' + orden.DateRequired + '</td>';
                                         ordenes_html += '<td>' + orden.DatePromised + '</td>';
@@ -405,8 +395,6 @@ $.ajax({
         ordenes_item_html += '<td>' + orden_item.revision + '</td>';
         ordenes_item_html += '<td>' + orden_item.unidad + '</td>';
         ordenes_item_html += '<td>' + orden_item.cantidad + '</td>';
-        ordenes_item_html += '<td>' + orden_item.precio_unitario + '</td>';
-        ordenes_item_html += '<td>' + orden_item.valor_neto + '</td>';
 
         if(orden_item.estado ==='ACTIVO'){
             ordenes_item_html += '<td><span class="bg-green">'+ orden_item.estado +'</span></td>';    

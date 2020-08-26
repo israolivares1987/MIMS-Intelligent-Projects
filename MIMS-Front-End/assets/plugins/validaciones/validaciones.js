@@ -27,8 +27,7 @@ function formToggleDesactivar(ID) {
 function formToggleActivar(ID) {
 
   var element = document.getElementById(ID);
- 
-  
+
       element.style.display = "block";
 }
 
@@ -45,4 +44,22 @@ else{ alert('Solo se permiten numeros');
 input.value = input.value.replace(/[^\d\.]*/g,'');
 }
 
+
 }
+
+function replaceAll( text, busca, reemplaza ){
+  while (text.toString().indexOf(busca) != -1)
+      text = text.toString().replace(busca,reemplaza);
+  return text;
+}
+
+
+function validaDvRut(T)    //digito verificador
+{  
+      var M=0,S=1;
+	  for(;T;T=Math.floor(T/10))
+      S=(S+T%10*(9-M++%6))%11;
+	  return S?S-1:'K';
+}
+
+

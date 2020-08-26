@@ -84,14 +84,6 @@
                                                  </button>
                                              </div>
                                          </th>
-                                         <th>
-                                             <div class="col-12">
-                                                 <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="cambiosenorden()"><i class="fas fa-file-download">
-                                                     </i> Cambios en la orden
-                                                 </button>
-                                             </div>
-                                         </th>
                                      </tr>
                                  </tbody>
                              </table>

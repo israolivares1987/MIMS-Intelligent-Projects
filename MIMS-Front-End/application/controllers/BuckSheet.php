@@ -20,8 +20,14 @@ class BuckSheet extends MY_Controller {
         $this->load->helper('file');
         $this->load->helper('url');
         $this->load->library('CallUtil');
+
+        if($this->session->userdata('logged_in') !== TRUE){
+          redirect('login');
+        }
         
     }
+
+    
 
     function listaBucksheet($id_orden_compra,$id_cliente,$id_proyecto){
 
@@ -212,11 +218,10 @@ class BuckSheet extends MY_Controller {
 
                   $revision = $row['Revision'];
                 }
-              
-                
+
                 $memData = array(
                     'PurchaseOrderID' => $row['PurchaseOrderID'],
-                    'purchaseOrdername' => urldecode($PurchaseOrderNumber),
+                    'purchaseOrdername' => urldecode($PurchaseOrderDescription),
                     'SupplierName' => urldecode($SupplierName),
                     'NumeroLinea' => $row['NumeroLinea'],
                     'ItemST' => $row['ItemST'],
@@ -232,7 +237,7 @@ class BuckSheet extends MY_Controller {
                     'PesoUnitario' => $row['PesoUnitario'],
                     'PesoTotal' => $row['PesoTotal'],
                     'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
-                    'DiasAntesRAS' => $row['DiasAntesRAS'],
+                    'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $row['FechaSalidaFabrica']),
                     'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
                     'PAFCF' => $row['PAFCF'],
                     'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
@@ -588,15 +593,15 @@ function obtieneBucksheetDet()
         $memData = array(
           'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
           'NumeroLinea' => $this->input->post('NumeroLinea'),
-          'STCantidad' => $this->input->post('STCantidad'),
+          'STCantidad' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('STCantidad')),
           'TAGNumber' => $this->input->post('TAGNumber'),
           'Stockcode' => $this->input->post('Stockcode'),
           'Descripcion' => $this->input->post('Descripcion'),
           'PlanoModelo' => $this->input->post('PlanoModelo'),
           'Revision' => $this->input->post('Revision'),
           'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
-          'PesoUnitario' => $this->input->post('PesoUnitario'),
-          'PesoTotal' => $this->input->post('PesoTotal'),
+          'PesoUnitario' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoUnitario')),
+          'PesoTotal' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoTotal')),
           'FechaRAS' => $this->callutil->formatoFecha($this->input->post('FechaRAS')),
           'DiasAntesRAS' => $this->input->post('DiasAntesRAS'),
           'FechaComienzoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaComienzoFabricacion')),
@@ -764,56 +769,56 @@ function obtieneBucksheetDet()
 
 
       $datos_bucksheet = array(
-        'PurchaseOrderID' => $value->PurchaseOrderID,
-        'purchaseOrdername' => $value->purchaseOrdername,
-        'NumeroLinea' => $value->NumeroLinea,
-        'SupplierName' => $value->SupplierName,
-        'ItemST' => $value->ItemST,
-        'SubItemST' => $value->SubItemST,
-        'STUnidad' => $value->STUnidad,
-        'STCantidad' => $value->STCantidad,
-        'TAGNumber' => $value->TAGNumber,
-        'Stockcode' => $value->Stockcode,
-        'Descripcion' => $value->Descripcion,
-        'PlanoModelo' => $value->PlanoModelo,
-        'Revision' => $value->Revision,
-        'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
-        'PesoUnitario' => $value->PesoUnitario,
-        'PesoTotal' => $value->PesoTotal,
+        'PurchaseOrderID' => $this->callutil->clean_string($value->PurchaseOrderID),
+        'purchaseOrdername' => $this->callutil->clean_string($value->purchaseOrdername),
+        'NumeroLinea' => $this->callutil->clean_string($value->NumeroLinea),
+        'SupplierName' => $this->callutil->clean_string($value->SupplierName),
+        'ItemST' => $this->callutil->clean_string($value->ItemST),
+        'SubItemST' => $this->callutil->clean_string($value->SubItemST),
+        'STUnidad' => $this->callutil->clean_string($value->STUnidad),
+        'STCantidad' => $this->callutil->clean_string($value->STCantidad),
+        'TAGNumber' =>  $this->callutil->clean_string($value->TAGNumber),
+        'Stockcode' =>  $this->callutil->clean_string($value->Stockcode),
+        'Descripcion' => $this->callutil->clean_string($value->Descripcion),
+        'PlanoModelo' =>  $this->callutil->clean_string($value->PlanoModelo),
+        'Revision' => $this->callutil->clean_string($value->Revision),
+        'PaqueteConstruccionArea' =>  $this->callutil->clean_string($value->PaqueteConstruccionArea),
+        'PesoUnitario' => $this->callutil->clean_string($value->PesoUnitario),
+        'PesoTotal' => $this->callutil->clean_string($value->PesoTotal),
         'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
-        'DiasAntesRAS' => $value->DiasAntesRAS,
+        'DiasAntesRAS' => $this->callutil->clean_string($value->DiasAntesRAS),
         'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
-        'PAFCF' => $value->PAFCF,
+        'PAFCF' => $this->callutil->clean_string($value->PAFCF),
         'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
-        'PAFTF' => $value->PAFTF,
+        'PAFTF' => $this->callutil->clean_string($value->PAFTF),
         'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
-        'PAFG' => $value->PAFG,
+        'PAFG' => $this->callutil->clean_string($value->PAFG),
         'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
-        'PAFP' => $value->PAFP,
+        'PAFP' => $this->callutil->clean_string($value->PAFP),
         'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
-        'PAFLI' => $value->PAFLI,
-        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
+        'PAFLI' => $this->callutil->clean_string($value->PAFLI),
+        'ActaLiberacionCalidad' => $this->callutil->clean_string($value->ActaLiberacionCalidad),
         'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
-        'PAFSF' => $value->PAFSF,
+        'PAFSF' => $this->callutil->clean_string($value->PAFSF),
         'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-        'PackingList' => $value->PackingList,
-        'GuiaDespacho' => $value->GuiaDespacho,
-        'SCNNumber' => $value->SCNNumber,
-        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
-        'UnidadesRecibidas' => $value->UnidadesRecibidas,
-        'MaterialReceivedReport' => $value->MaterialReceivedReport,
-        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
-        'Origen' => $value->Origen,
-        'DiasViaje' => $value->DiasViaje,
-        'Observacion1' => $value->Observacion1,
-        'Observacion2' => $value->Observacion2,
-        'Observacion3' => $value->Observacion3,
-        'Observacion4' => $value->Observacion4,
-        'Observacion5' => $value->Observacion5,
-        'Observacion6' => $value->Observacion6,
-        'Observacion7' => $value->Observacion7,
-        'created' => $value->created,
-        'modified' => $value->modified
+        'PackingList' => $this->callutil->clean_string($value->PackingList),
+        'GuiaDespacho' => $this->callutil->clean_string($value->GuiaDespacho),
+        'SCNNumber' =>  $this->callutil->clean_string($value->SCNNumber),
+        'UnidadesSolicitadas' => $this->callutil->clean_string($value->UnidadesSolicitadas),
+        'UnidadesRecibidas' => $this->callutil->clean_string($value->UnidadesRecibidas),
+        'MaterialReceivedReport' => $this->callutil->clean_string($value->MaterialReceivedReport),
+        'MaterialWithdrawalReport' => $this->callutil->clean_string($value->MaterialWithdrawalReport),
+        'Origen' => $this->callutil->clean_string($value->Origen),
+        'DiasViaje' => $this->callutil->clean_string($value->DiasViaje),
+        'Observacion1' =>  $this->callutil->clean_string($value->Observacion1),
+        'Observacion2' =>  $this->callutil->clean_string($value->Observacion2),
+        'Observacion3' =>  $this->callutil->clean_string($value->Observacion3),
+        'Observacion4' =>  $this->callutil->clean_string($value->Observacion4),
+        'Observacion5' =>  $this->callutil->clean_string($value->Observacion5),
+        'Observacion6' =>  $this->callutil->clean_string($value->Observacion6),
+        'Observacion7' =>  $this->callutil->clean_string($value->Observacion7),
+        'created' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->created)),
+        'modified' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->modified)),
       );
 
 

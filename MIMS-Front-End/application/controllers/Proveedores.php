@@ -8,6 +8,10 @@ class Proveedores extends MY_Controller{
     $this->load->library('CallExternosEmpresas');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
   }
  
 

@@ -14,6 +14,11 @@ class Journal extends MY_Controller{
     $this->load->library('CallExternosOrdenes');
     $this->load->library('CallExternosDominios');
     
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
+
+
   }
 
  
@@ -512,11 +517,6 @@ function enviarMail(){
                 $nombre_empleado = $arrControlCalidad->nombre_empleado;
                 $tipo = $arrControlCalidad->tipo;
 
-
-                var_dump( $arrControlCalidad );
-                var_dump( $arrControlCalidad->tipo_interaccion );
-
-
                 if ($tipo === '1'){
 
                   $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
@@ -525,10 +525,7 @@ function enviarMail(){
 
                   $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$arrControlCalidad->tipo_interaccion);
                 }
-
-                var_dump( $datosEstados );
-
-              
+            
             
                   foreach (json_decode($datosEstados) as $llave => $valor) {
                     

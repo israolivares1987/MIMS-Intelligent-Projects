@@ -11,6 +11,7 @@ class Calidad extends MY_Controller{
 
      if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
+      
     }
   }
 
