@@ -444,7 +444,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)">
                             </div>
                     </div>
                     </div>
@@ -458,7 +458,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_valor_total" name="or_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                              <input id="or_valor_total" name="or_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" readonly>
                             </div>
                           </div>
                     </div>
@@ -721,7 +721,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                               <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalAct(this)">
                             </div>
                     </div>
                     </div>
@@ -735,7 +735,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                              <input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                              <input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control form-control-sm"  onkeyup="formatoNumero(this)" readonly>
                             </div>
                           </div>
                     </div>
@@ -989,7 +989,7 @@
             
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor Unitatio</label>
+                            <label class="col-sm-12 control-label">Valor Unitario</label>
                             <div class="input-group">
                                     <div class="input-group-prepend">
                                       <span class="input-group-text">
@@ -1150,7 +1150,21 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Cantidad</label>
                             <div class="input-group">
-                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);;mostrarValorNetoItemact()">
+                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()">
+                            </div>
+                    </div>
+                    </div>
+
+                    <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                            <label class="col-sm-12 control-label">Valor Unitario</label>
+                            <div class="input-group">
+                                    <div class="input-group-prepend">
+                                      <span class="input-group-text">
+                                        <i class="fas fa-dollar-sign"></i>
+                                      </span>
+                                    </div>
+                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()">
                             </div>
                     </div>
                     </div>
@@ -1170,22 +1184,7 @@
                     </div>
 
 
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor Unitatio</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);;mostrarValorNetoItemact()">
-                            </div>
-                    </div>
-                    </div>
-
-
-                   
+                                   
 
                    <div class="col-12 col-sm-6">
                    <div class="form-group">
@@ -1505,6 +1504,7 @@ function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){
   
   formToggleActivar('btn_nueva_orden');
   $('#flag_orden').val(1); 
+  recargaItemOrdenes(0, 0, 0,'');
   recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
 
 }
@@ -1518,7 +1518,9 @@ $('#select_clientes').on('change', function(){
     if(cliente > 0){
 
       recargaOrdenes(0,0,'');
+      recargaItemOrdenes(0, 0, 0,'');
       recargaProyectos(cliente);
+
       
 
 
@@ -2640,9 +2642,46 @@ if(opcion){
 }
 
 
-function mostrarValorNetoItemor(){
+function mostrarValorTotalAct(input){
 
-/* Sumar dos números. */
+var valor_neto = 0;
+var valor_total = 0;
+var valor_iva  = 0;
+
+var iva = <?php echo $this->session->userdata('valor_iva');?>;	
+
+valor_neto = replaceAll(input.value , ".", "" );
+
+valor_iva = ((valor_neto * iva)/100);
+
+valor_total = parseInt(valor_neto) + parseInt(valor_neto);
+
+$('#or_act_valor_total').val(Math.round(valor_total));
+
+}
+
+
+function mostrarValorTotalOr(input){
+
+var valor_neto = 0;
+var valor_total = 0;
+var valor_iva  = 0;
+
+var iva = <?php echo $this->session->userdata('valor_iva');?>;	
+
+valor_neto = replaceAll(input.value , ".", "" );
+
+valor_iva = ((valor_neto * iva)/100);
+
+valor_total = parseInt(valor_neto) + parseInt(valor_neto);
+
+$('#or_valor_total').val(Math.round(valor_total));
+
+}
+
+
+
+function mostrarValorNetoItemor(){
 
   var total = 0;	
 
@@ -2654,26 +2693,25 @@ function mostrarValorNetoItemor(){
 
   total = (parseInt(cantidad) * parseInt(valor));
 
-  // Colocar el resultado de la suma en el control "span".
-  document.getElementById('or_item_valor_neto').innerHTML = total;
+  $('#or_item_valor_neto').val( +(Math.round(total + "e+2")  + "e-2"));
 }
+
+
 
 function mostrarValorNetoItemact(){
 
-/* Sumar dos números. */
-
   var total = 0;	
 
-  valor = document.getElementById('or_act_item_valor_unitario').value;
-  cantidad = document.getElementById('or_act_item_cantidad').value;
+  valor = replaceAll(document.getElementById('or_act_item_valor_unitario').value , ".", "" );
+  cantidad =  replaceAll(document.getElementById('or_act_item_cantidad').value , ".", "" );
 
   // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
   total = (total == null || total == undefined || total == "") ? 0 : total;
 
   total = (parseInt(cantidad) * parseInt(valor));
 
-  // Colocar el resultado de la suma en el control "span".
-  document.getElementById('or_act_item_valor_neto').innerHTML = total;
+  $('#or_act_item_valor_neto').val( +(Math.round(total + "e+2")  + "e-2"));
+
 }
 
 

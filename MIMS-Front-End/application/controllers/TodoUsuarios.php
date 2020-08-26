@@ -6,6 +6,11 @@ class TodoUsuarios extends MY_Controller{
     $this->load->library('CallExternosTodo');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
+    
   }
  
 

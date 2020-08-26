@@ -8,6 +8,11 @@ class Clientes extends MY_Controller{
     $this->load->library('CallExternosEmpresas');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+    
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
+    
   }
  
 
@@ -84,7 +89,7 @@ class Clientes extends MY_Controller{
           'idCliente' => $value->idCliente,
           'nombreCliente'   => $value->nombreCliente,
           'razonSocial'   => $value->razonSocial,
-          'rutCliente' => $value->rutCliente,
+          'rutCliente' =>  $this->callutil->formatoNumero($value->rutCliente),
           'dvCliente'       => $value->dvCliente,
           'direccion' => $value->direccion,
           'contacto' => $value->contacto,
@@ -139,7 +144,7 @@ class Clientes extends MY_Controller{
         'codEmpresa' => $codEmpresa,
         'nombreCliente'   => $nombreCliente,
         'razonSocial'   => $razonSocial,
-        'rutCliente' => $rutCliente,
+        'rutCliente' => $this->callutil->formatoNumeroMilesEntrada($value->rutCliente),
         'dvCliente'       => $dvCliente,
         'direccion' => $direccion,
         'contacto' => $contacto,
@@ -199,7 +204,7 @@ class Clientes extends MY_Controller{
           'codEmpresa' => $value->codEmpresa,
           'nombreCliente'   => $value->nombreCliente,
           'razonSocial'   => $value->razonSocial,
-          'rutCliente' => $value->rutCliente,
+          'rutCliente' =>$this->callutil->formatoNumero($value->rutCliente),
           'dvCliente'       => $value->dvCliente,
           'direccion' => $value->direccion,
           'contacto' => $value->contacto,
@@ -257,7 +262,7 @@ class Clientes extends MY_Controller{
         'codEmpresa' => $codEmpresa,
         'nombreCliente'   => $nombreCliente,
         'razonSocial'   => $razonSocial,
-        'rutCliente' => $rutCliente,
+        'rutCliente' => $this->callutil->formatoNumeroMilesEntrada($rutCliente),
         'dvCliente'       => $dvCliente,
         'direccion' => $direccion,
         'contacto' => $contacto,

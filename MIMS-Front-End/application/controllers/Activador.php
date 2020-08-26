@@ -18,6 +18,8 @@ class Activador extends MY_Controller{
 
    function index_activador(){
 
+    
+
     $html = "";	 
     $codEmpresa = $this->session->userdata('cod_emp');
     $cod_usuario = $this->session->userdata('cod_user');

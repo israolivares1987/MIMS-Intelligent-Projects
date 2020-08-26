@@ -66,6 +66,22 @@ class Consultas_model extends CI_Model{
         $this->db->from('tbl_Suppliers');
         return $this->db->count_all_results();
       }
+
+function setSession($userId, $sessionId){
+
+        $oldSessionId=$this->db->select("session_id")
+                      ->where(array('cod_user'=>$userId))
+                      ->get("tbl_user")
+                      ->row('session_id');
+
+
+       $this->db->where('id', $oldSessionId);
+       $this->db->delete('ci_sessions');
+       
+       $this->db->where('cod_user', $userId);
+       $this->db->update('tbl_user', array('session_id'=>$sessionId));
+      
+      }
           
   }
 ?>

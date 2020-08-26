@@ -9,6 +9,11 @@ class Dominios extends MY_Controller{
     $this->load->library('CallExternosDominios');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
+
   }
  
 

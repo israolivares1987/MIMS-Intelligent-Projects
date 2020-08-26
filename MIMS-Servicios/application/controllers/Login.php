@@ -116,9 +116,17 @@ class Login extends CI_Controller {
 		echo json_encode($sesdata);		
 		}
 
+		function setSession(){
 
+			$userId = $this->input->post('userId');
+			$sessionId = $this->input->post('sessionId');
+		
+		$this->Consultas_model->setSession($userId, $sessionId);
+		
+		}
 	}
 
-	
+
+
      
 ?>

@@ -13,7 +13,9 @@ class OrdenesItem extends CI_Controller{
     $this->load->helper('url');
     $this->load->library('CSVReader');
     
-
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
  
   }
 

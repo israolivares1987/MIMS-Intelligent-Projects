@@ -189,6 +189,15 @@
                 }
             }
 
+            function validaDv(input)
+            {
+
+                var rut  = replaceAll(input.value , ".", "" );
+                var dv = validaDvRut(rut);
+
+                $('#dvCliente').val(dv);
+            }
+
             function nuevo_Cliente()
             {
 
@@ -426,14 +435,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Rut</label>
                             <div class="col-md-9">
-                            <input type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control"  onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" />
+                            <input type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control"  onkeyup="formatoNumero(this)" onchange="validaDv(this)" />
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Digito verificador</label>
                             <div class="col-md-9">
-                                <input type="text" name="dvCliente" id="dvCliente" value="" class="form-control"/>
+                                <input type="text" name="dvCliente" id="dvCliente" value="" class="form-control" readonly/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -472,9 +481,11 @@
                     </div>
                 </form>
             </div>
+
             <div class="modal-footer justify-content-between">
-              <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="guardar()">Actualizar</button>
-              <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
+                    <button id="btnSave" type="button" class="btn btn-primary" onclick="guardar()">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+
             </div>
           </div>
           <!-- /.modal-content -->

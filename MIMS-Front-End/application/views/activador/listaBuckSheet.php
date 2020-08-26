@@ -111,6 +111,7 @@
                                      </tr>
                                  </tbody>
                              </table>
+
                          <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
@@ -147,7 +148,7 @@
                                          <th>PlanoModelo</th>
                                          <th>Revision</th>
                                          <th>PaqueteConstruccionArea</th>
-                                         <th>PesoUnitario</th>
+                                         <th>Medida Unitaria</th>
                                          <th>PesoTotal</th>
                                          <th>FechaRAS</th>
                                          <th>DiasAntesRAS</th>
@@ -168,9 +169,9 @@
                                          <th>PackingList</th>
                                          <th>GuiaDespacho</th>
                                          <th>SCNNumber</th>
-                                         <th>UnidadesSolicitadas</th>
-                                         <th>UnidadesRecibidas</th>
-                                         <th>MaterialReceivedReport</th>
+                                         <th class="grey" >UnidadesSolicitadas</th>
+                                         <th class="grey" >UnidadesRecibidas</th>
+                                         <th class="grey" >MaterialReceivedReport</th>
                                          <th>MaterialWithdrawalReport</th>
                                          <th>Origen</th>
                                          <th>DiasViaje</th>
@@ -249,7 +250,7 @@
                          <div class="form-group">
                              <label class="control-label col-md-9">ST Cantidad</label>
                              <div class="col-md-9">
-                                 <input name="STCantidad" placeholder="" class="form-control" type="text">
+                                 <input name="STCantidad" id="STCantidad" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
@@ -296,16 +297,16 @@
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Peso Unitario</label>
+                             <label class="control-label col-md-9">Medida Unitaria</label>
                              <div class="col-md-9">
-                                 <input name="PesoUnitario" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                                 <input name="PesoUnitario" id="PesoUnitario" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
                              <label class="control-label col-md-9">Peso Total</label>
                              <div class="col-md-9">
-                                 <input name="PesoTotal" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
+                                 <input name="PesoTotal" id="PesoTotal" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
                                  <span class="help-block"></span>
                              </div>
                          </div>
@@ -319,9 +320,9 @@
                                      <div class="input-group-prepend">
                                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                      </div>
-                                     <input name="FechaRAS" type="text" class="form-control"
+                                     <input name="FechaRAS" type="text" class="form-control" id="FechaRAS"
                                          data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
-                                         data-mask="" im-insert="false">
+                                         data-mask="" im-insert="false" onchange="mostrarDiaAntesRAS(this)">
                                  </div>
                              </div>
                          </div>
@@ -332,7 +333,7 @@
                          <div class="form-group">
                              <label class="control-label col-md-9">Dias Antes RAS</label>
                              <div class="col-md-9">
-                                 <input name="DiasAntesRAS" placeholder="" class="form-control" type="text">
+                                 <input name="DiasAntesRAS"  id="DiasAntesRAS" placeholder="" class="form-control" type="text" readonly>
                                  <span class="help-block"></span>
                              </div>
                          </div>
@@ -347,7 +348,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaComienzoFabricacion" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaComienzoFabricacion">
                                  </div>
                              </div>
                          </div>
@@ -358,8 +359,8 @@
                                  <label class="control-label col-md-9">Previo - Actual Fecha Comienzo
                                      Fabricacion</label>
                                  <div class="col-md-9">
-                                     <select name="PAFCF" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFCF" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -376,7 +377,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaTerminoFabricacion" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaTerminoFabricacion">
                                  </div>
                              </div>
                          </div>
@@ -386,8 +387,8 @@
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Termino Fabricacion</label>
                                  <div class="col-md-9">
-                                     <select name="PAFTF" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFTF" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -405,7 +406,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaGranallado" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaGranallado">
                                  </div>
                              </div>
                          </div>
@@ -415,8 +416,8 @@
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Granallado</label>
                                  <div class="col-md-9">
-                                     <select name="PAFG" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFG" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -437,7 +438,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaPintura" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaPintura">
                                  </div>
                              </div>
                          </div>
@@ -447,8 +448,8 @@
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Pintura</label>
                                  <div class="col-md-9">
-                                     <select name="PAFP" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFP" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -468,7 +469,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaListoInspeccion" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaListoInspeccion">
                                  </div>
                              </div>
                          </div>
@@ -479,8 +480,8 @@
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Listo Inspeccion</label>
                                  <div class="col-md-9">
-                                     <select name="PAFLI" class="form-control select2bs4 select2-hidden-accessible"
-                                         style="width: 100%;" data-select2-id="17" tabindex="-1" aria-hidden="true">
+                                     <select name="PAFLI" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -509,7 +510,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaSalidaFabrica" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaSalidaFabrica" onchange="mostrarDiaAntesRAS(this)">
                                  </div>
                              </div>
                          </div>
@@ -520,8 +521,8 @@
                              <div class="form-group">
                                  <label class="control-label col-md-9">Previo - Actual Fecha Salida Fabrica</label>
                                  <div class="col-md-9">
-                                     <select name="PAFSF" class="form-control "
-                                         style="width: 100%;" aria-hidden="true">
+                                     <select name="PAFSF" class="form-control"
+                                         style="width: 100%;">
                                          <?php echo $select_ap;?>
                                      </select>
                                  </div>
@@ -542,7 +543,7 @@
                                          </span>
                                      </div>
                                      <input name="FechaEmbarque" type="text" class="form-control float-right"
-                                         id="reservation">
+                                         id="FechaEmbarque">
                                  </div>
                              </div>
                          </div>
@@ -634,11 +635,12 @@
 
                  </form>
              </div>
+
              <div class="modal-footer justify-content-between">
-                 <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
-                     onclick="guardarbuckSheetdet()">Actualizar</button>
-                 <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
-             </div>
+                    <button id="btnSave" type="button" class="btn btn-primary" onclick="guardarbuckSheetdet()">Actualizar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
          </div>
          <!-- /.modal-content -->
      </div>
@@ -660,6 +662,11 @@
              tr {
                  height: 50px;
              }
+
+             .grey {
+            background-color: rgba(128,128,128,.25)!important;
+            }
+
              </style>
 
 
@@ -821,9 +828,9 @@
                         bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.SCNNumber+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.UnidadesSolicitadas+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.UnidadesRecibidas+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.MaterialReceivedReport+ '</td>';
+                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesSolicitadas+ '</td>';
+                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesRecibidas+ '</td>';
+                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialReceivedReport+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.MaterialWithdrawalReport+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
@@ -1110,11 +1117,66 @@ function guardarbuckSheetdet() {
                             });
 
 
+
+
+
+}
+
+function mostrarPesoTotal(input){
+
+var total = 0;	
+
+valor = replaceAll(document.getElementById('PesoUnitario').value , ".", "" ); 
+cantidad =  replaceAll(document.getElementById('STCantidad').value , ".", "" );
+
+// Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+total = (total == null || total == undefined || total == "") ? 0 : total;
+
+total = (parseInt(cantidad) * parseInt(valor));
+
+$('#PesoTotal').val( +(Math.round(total + "e+2")  + "e-2"));
+
+
+}
+
+function mostrarDiaAntesRAS(input){
+
+   
+// Here are the two dates to compare
+var date1 = replaceAll(document.getElementById('FechaRAS').value , ".", "" );
+var date2 = replaceAll(document.getElementById('FechaSalidaFabrica').value , ".", "" );
+
+// First we split the values to arrays date1[0] is the year, [1] the month and [2] the day
+date1 = date1.split('-');
+date2 = date2.split('-');
+
+// Now we convert the array to a Date object, which has several helpful methods
+date1 = new Date(date1[2], date1[1], date1[0]);
+date2 = new Date(date2[2], date2[1], date2[0]);
+
+// We use the getTime() method and get the unixtime (in milliseconds, but we want seconds, therefore we divide it through 1000)
+date1_unixtime = parseInt(date1.getTime() / 1000);
+date2_unixtime = parseInt(date2.getTime() / 1000);
+
+// This is the calculated difference in seconds
+var timeDifference = date1_unixtime - date2_unixtime;
+
+// in Hours
+var timeDifferenceInHours = timeDifference / 60 / 60;
+
+// and finaly, in days :)
+var timeDifferenceInDays = timeDifferenceInHours  / 24;
+
+
+$('#DiasAntesRAS').val(Math.round(timeDifferenceInDays));
+
+
 }
 
 
 
              </script>
+
              <script>
              $(function() {
                  //Initialize Select2 Elements
@@ -1125,8 +1187,8 @@ function guardarbuckSheetdet() {
                      'placeholder': 'dd-mm-yyyy'
                  })
                  //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
+                 $('#datemask2').inputmask('dd-mm-yyyy', {
+                     'placeholder': 'dd-mm-yyyy'
                  })
                  //Money Euro
                  $('[data-mask]').inputmask()

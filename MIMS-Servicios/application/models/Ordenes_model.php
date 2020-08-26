@@ -29,7 +29,8 @@ class Ordenes_model extends CI_Model{
 								a.DateCreated,
 								(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
 								a.Support,
-								a.DateCreated       
+								a.DateCreated,
+								a.Support_original       
 								FROM tbl_ordenes a ,  tbl_employees c, tbl_clientes b
 								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."

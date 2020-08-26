@@ -8,6 +8,12 @@ class ControlCalidadDet extends MY_Controller{
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
     $this->load->helper('file');
+
+    if($this->session->userdata('logged_in') !== TRUE){
+      redirect('login');
+    }
+
+    
   }
  
   function obtieneControlCalidadDet(){
