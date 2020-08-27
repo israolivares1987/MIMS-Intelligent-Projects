@@ -85,6 +85,7 @@
                                                             <th>Acciones</th>
                                                             <th>Orden ID</th>
                                                             <th>Orden Number</th>
+                                                            <th>Categorizacion</th>
                                                             <th>Orden Description</th>
                                                             <th>Revision</th>
                                                             <th>Nombre Cliente</th>
@@ -98,8 +99,7 @@
                                                             <th>Codigo Presupuesto</th>
                                                             <th>Fecha Orden</th>
                                                             <th>Fecha Requerida</th>
-                                                            <th>Fecha Prometida</th>
-                                                            <th>Fecha Enviada</th>
+                                                            <th>Fecha de cierre</th>
                                                             <th>Metodo Envio</th>
                                                             <th>Fecha Orden Creada</th>
                                                             <th>Estado</th>
@@ -323,6 +323,7 @@
                                         ordenes_html += '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+                                        ordenes_html += '<td>' + orden.Categorizacion + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
                                         ordenes_html += '<td>' + orden.Revision + '</td>';
                                         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
@@ -336,7 +337,6 @@
                                         ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
                                         ordenes_html += '<td>' + orden.OrderDate + '</td>';
                                         ordenes_html += '<td>' + orden.DateRequired + '</td>';
-                                        ordenes_html += '<td>' + orden.DatePromised + '</td>';
                                         ordenes_html += '<td>' + orden.ShipDate + '</td>';
                                         ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
                                         ordenes_html += '<td>' + orden.DateCreated + '</td>';

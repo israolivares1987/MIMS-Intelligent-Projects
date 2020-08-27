@@ -98,8 +98,7 @@
 								  <th>Codigo Presupuesto</th>
 								  <th>Fecha Orden</th>
 								  <th>Fecha Requerida</th>
-								  <th>Fecha Prometida</th>
-								  <th>Fecha Enviada</th>
+								  <th>Fecha de cierre</th>
 								  <th>Metodo Envio</th>
 								  <th>Fecha Orden Creada</th>
 								  <th>Estado</th>
@@ -982,7 +981,7 @@
                                       <i class="fas fa-sort-numeric-up"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);mostrarValorNetoItemor()">
+                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()">
                             </div>
                     </div>
                     </div>
@@ -996,7 +995,7 @@
                                         <i class="fas fa-dollar-sign"></i>
                                       </span>
                                     </div>
-                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this);mostrarValorNetoItemor()">
+                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()">
                             </div>
                     </div>
                     </div>
@@ -2240,7 +2239,6 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
         ordenes_html += '<td>' + orden.OrderDate + '</td>';
         ordenes_html += '<td>' + orden.DateRequired + '</td>';
-        ordenes_html += '<td>' + orden.DatePromised + '</td>';
         ordenes_html += '<td>' + orden.ShipDate + '</td>';
         ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
         ordenes_html += '<td>' + orden.DateCreated + '</td>';
@@ -2686,7 +2684,7 @@ function mostrarValorNetoItemor(){
   var total = 0;	
 
   valor = document.getElementById('or_item_valor_unitario').value;
-  cantidad = document.getElementById('or_item_valor_unitario').value;
+  cantidad = document.getElementById('or_item_cantidad').value;
 
   // Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
   total = (total == null || total == undefined || total == "") ? 0 : total;

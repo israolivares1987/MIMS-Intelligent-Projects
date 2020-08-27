@@ -93,8 +93,7 @@
                                                             <th>Moneda</th>
                                                             <th>Fecha Orden</th>
                                                             <th>Fecha Requerida</th>
-                                                            <th>Fecha Prometida</th>
-                                                            <th>Fecha Enviada</th>
+                                                            <th>Fecha de cierre</th>
                                                             <th>Metodo Envio</th>
                                                             <th>Fecha Orden Creada</th>
                                                             <th>Estado</th>
@@ -324,7 +323,6 @@
                                         ordenes_html += '<td>' + orden.Currency + '</td>';
                                         ordenes_html += '<td>' + orden.OrderDate + '</td>';
                                         ordenes_html += '<td>' + orden.DateRequired + '</td>';
-                                        ordenes_html += '<td>' + orden.DatePromised + '</td>';
                                         ordenes_html += '<td>' + orden.ShipDate + '</td>';
                                         ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
                                         ordenes_html += '<td>' + orden.DateCreated + '</td>';
