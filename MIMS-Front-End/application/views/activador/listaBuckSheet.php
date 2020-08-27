@@ -171,8 +171,8 @@
                                          <th>SCNNumber</th>
                                          <th class="grey" >UnidadesSolicitadas</th>
                                          <th class="grey" >UnidadesRecibidas</th>
-                                         <th class="grey" >MaterialReceivedReport</th>
-                                         <th>MaterialWithdrawalReport</th>
+                                         <th class="grey" >RR Reporte de Recepción</th>
+                                         <th class="grey" >RE Reporte de Entrega</th>
                                          <th>Origen</th>
                                          <th>DiasViaje</th>
                                          <th>Observacion1</th>
@@ -831,7 +831,7 @@
                         bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesSolicitadas+ '</td>';
                         bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesRecibidas+ '</td>';
                         bucksheet_html += '<td class="grey" >' + bucksheets.MaterialReceivedReport+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.MaterialWithdrawalReport+ '</td>';
+                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialWithdrawalReport+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion1+ '</td>';

@@ -276,6 +276,12 @@ class ControlCalidadDet extends MY_Controller{
 
             $respaldo = $basename;
 
+            if ($estado_porc_cc_det = 100){
+
+              $estado_cc_det = '2';
+
+            }
+
             $dataInsert = array(	
               'id_orden' => $id_orden ,
               'id_cliente' => $id_cliente,
@@ -312,6 +318,12 @@ class ControlCalidadDet extends MY_Controller{
           
           }
       }else{
+
+        if ($estado_porc_cc_det = 100){
+
+          $estado_cc_det = '2';
+
+        }
 
          $dataInsert = array(	
           'id_orden' => $id_orden ,
