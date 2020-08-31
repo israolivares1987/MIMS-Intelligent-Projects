@@ -82,6 +82,50 @@ function setSession($userId, $sessionId){
        $this->db->update('tbl_user', array('session_id'=>$sessionId));
       
       }
+
+
+      function cuentaSession($user_name,$cod_emp, $sessionId){
+
+        $this->db->select("*");
+        $this->db->where('n_usuario',$user_name);
+        $this->db->where('cod_emp',$cod_emp);
+        $this->db->from("tbl_user");
+        $this->db->join("ci_sessions", "tbl_user.session_id = ci_sessions.id");
+        $result = $this->db->get()->num_rows();
+
+        return $result;
+      
+      }
+
+
+
+      function eliminarSession($userId, $sessionId){
+
+       $this->db->where('id', $sessionId);
+       
+       $delete = $this->db->delete('ci_sessions');
+	    	return $delete;
+       
+     
+      } 
+
+
+      function consultaSession($userId, $sessionId){
+
+        $this->db->select("*");
+        $this->db->where('cod_user',$userId);
+        $this->db->from("tbl_user");
+        $this->db->join("ci_sessions", "tbl_user.session_id = ci_sessions.id");
+        
+        $query = $this->db->get();
+
+        return $query->result();
+      
+      }
+
+
+
+
           
   }
 ?>

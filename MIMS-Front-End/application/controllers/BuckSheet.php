@@ -136,6 +136,11 @@ class BuckSheet extends MY_Controller {
       
           $this->plantilla_calidad('calidad/listaBuckSheet', $datos);
       
+
+        }elseif($this->session->userdata('rol_id')==='204'){
+      
+          $this->plantilla_ingenieria('ingenieria/listaBuckSheet', $datos);
+      
         }
 
 
@@ -219,64 +224,99 @@ class BuckSheet extends MY_Controller {
                   $revision = $row['Revision'];
                 }
 
-                $memData = array(
-                    'PurchaseOrderID' => $row['PurchaseOrderID'],
-                    'purchaseOrdername' => urldecode($PurchaseOrderDescription),
-                    'SupplierName' => urldecode($SupplierName),
-                    'NumeroLinea' => $row['NumeroLinea'],
-                    'ItemST' => $row['ItemST'],
-                    'SubItemST' => $row['SubItemST'],
-                    'STUnidad' => $row['STUnidad'],
-                    'STCantidad' => $row['STCantidad'],
-                    'TAGNumber' => $row['TAGNumber'],
-                    'Stockcode' => $row['Stockcode'],
-                    'Descripcion' => $row['Descripcion'],
-                    'PlanoModelo' => $row['PlanoModelo'],
-                    'Revision' =>  $revision,
-                    'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
-                    'PesoUnitario' => $row['PesoUnitario'],
-                    'PesoTotal' => $row['PesoTotal'],
-                    'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
-                    'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $row['FechaSalidaFabrica']),
-                    'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
-                    'PAFCF' => $row['PAFCF'],
-                    'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
-                    'PAFTF' => $row['PAFTF'],
-                    'FechaGranallado' => $this->callutil->formatoFecha($row['FechaGranallado']),
-                    'PAFG' => $row['PAFG'],
-                    'FechaPintura' => $this->callutil->formatoFecha($row['FechaPintura']),
-                    'PAFP' => $row['PAFP'],
-                    'FechaListoInspeccion' => $this->callutil->formatoFecha($row['FechaListoInspeccion']),
-                    'PAFLI' => $row['PAFLI'],
-                    'ActaLiberacionCalidad' => $row['ActaLiberacionCalidad'],
-                    'FechaSalidaFabrica' => $this->callutil->formatoFecha($row['FechaSalidaFabrica']),
-                    'PAFSF' => $row['PAFSF'],
-                    'FechaEmbarque' => $this->callutil->formatoFecha($row['FechaEmbarque']),
-                    'PackingList' => $row['PackingList'],
-                    'GuiaDespacho' => $row['GuiaDespacho'],
-                    'SCNNumber' => $row['SCNNumber'],
-                    'UnidadesSolicitadas' => $row['UnidadesSolicitadas'],
-                    'UnidadesRecibidas' => $row['UnidadesRecibidas'],
-                    'MaterialReceivedReport' => $row['MaterialReceivedReport'],
-                    'MaterialWithdrawalReport' => $row['MaterialWithdrawalReport'],
-                    'Origen' => $row['Origen'],
-                    'DiasViaje' => $row['DiasViaje'],
-                    'Observacion1' => $row['Observacion1'],
-                    'Observacion2' => $row['Observacion2'],
-                    'Observacion3' => $row['Observacion3'],
-                    'Observacion4' => $row['Observacion4'],
-                    'Observacion5' => $row['Observacion5'],
-                    'Observacion6' => $row['Observacion6'],
-                    'Observacion7' => $row['Observacion7'],
-                );
-                
-                    // Check whether register already exists in the database
-
-
+  
                     if($row['PurchaseOrderID'] == $idOrden){
 
-
                       $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
+                 
+                      if($prevCount > 0){
+
+                      
+                             if(!is_null($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'A'){
+
+                                $EstadoLineaBucksheet = '2';
+
+                              }
+                              
+                             if(!is_null($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'A'){
+                            
+                              $EstadoLineaBucksheet = '3';
+                              
+                             }
+                             if(!is_null($row['FechaListoInspeccion']) && $row['PAFLI'] == 'A') { 
+                            
+                                $EstadoLineaBucksheet = '4';
+
+                             }
+                             if(!is_null($row['FechaEmbarque']) && !is_null($row['PackingList'])){  
+                            
+                             $EstadoLineaBucksheet = '5';
+
+
+                             }
+                       
+                      
+                      }else{
+
+
+                        $EstadoLineaBucksheet = '1';
+
+                      }
+                      
+                      $memData = array(
+                        'PurchaseOrderID' => $row['PurchaseOrderID'],
+                        'purchaseOrdername' => urldecode($PurchaseOrderDescription),
+                        'SupplierName' => urldecode($SupplierName),
+                        'EstadoLineaBucksheet' => $EstadoLineaBucksheet,
+                        'NumeroLinea' => $row['NumeroLinea'],
+                        'ItemST' => $row['ItemST'],
+                        'SubItemST' => $row['SubItemST'],
+                        'STUnidad' => $row['STUnidad'],
+                        'STCantidad' => $row['STCantidad'],
+                        'TAGNumber' => $row['TAGNumber'],
+                        'Stockcode' => $row['Stockcode'],
+                        'Descripcion' => $row['Descripcion'],
+                        'PlanoModelo' => $row['PlanoModelo'],
+                        'Revision' =>  $revision,
+                        'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
+                        'PesoUnitario' => $row['PesoUnitario'],
+                        'PesoTotal' => $row['PesoTotal'],
+                        'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
+                        'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $row['FechaSalidaFabrica']),
+                        'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
+                        'PAFCF' => $row['PAFCF'],
+                        'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
+                        'PAFTF' => $row['PAFTF'],
+                        'FechaGranallado' => $this->callutil->formatoFecha($row['FechaGranallado']),
+                        'PAFG' => $row['PAFG'],
+                        'FechaPintura' => $this->callutil->formatoFecha($row['FechaPintura']),
+                        'PAFP' => $row['PAFP'],
+                        'FechaListoInspeccion' => $this->callutil->formatoFecha($row['FechaListoInspeccion']),
+                        'PAFLI' => $row['PAFLI'],
+                        'ActaLiberacionCalidad' => $row['ActaLiberacionCalidad'],
+                        'FechaSalidaFabrica' => $this->callutil->formatoFecha($row['FechaSalidaFabrica']),
+                        'PAFSF' => $row['PAFSF'],
+                        'FechaEmbarque' => $this->callutil->formatoFecha($row['FechaEmbarque']),
+                        'PackingList' => $row['PackingList'],
+                        'GuiaDespacho' => $row['GuiaDespacho'],
+                        'SCNNumber' => $row['SCNNumber'],
+                        'UnidadesSolicitadas' => $row['UnidadesSolicitadas'],
+                        'UnidadesRecibidas' => $row['UnidadesRecibidas'],
+                        'MaterialReceivedReport' => $row['MaterialReceivedReport'],
+                        'MaterialWithdrawalReport' => $row['MaterialWithdrawalReport'],
+                        'Origen' => $row['Origen'],
+                        'DiasViaje' => $row['DiasViaje'],
+                        'Observacion1' => $row['Observacion1'],
+                        'Observacion2' => $row['Observacion2'],
+                        'Observacion3' => $row['Observacion3'],
+                        'Observacion4' => $row['Observacion4'],
+                        'Observacion5' => $row['Observacion5'],
+                        'Observacion6' => $row['Observacion6'],
+                        'Observacion7' => $row['Observacion7'],
+                    );
+
+
+                    
                                         
                       if($prevCount > 0){
                           // Update member data
@@ -426,12 +466,11 @@ class BuckSheet extends MY_Controller {
     
     foreach ($arrBucksheet as $key => $value) {
 
-     
-
       
       $datos_bucksheet[] = array(
         'PurchaseOrderID' => $value->PurchaseOrderID,
         'purchaseOrdername' => $value->purchaseOrdername,
+        'EstadoLineaBucksheet' => $this->callutil->cambianull($value->EstadoLineaBucksheet),
         'NumeroLinea' => $value->NumeroLinea,
         'SupplierName' => $value->SupplierName,
         'ItemST' => $value->ItemST,
@@ -514,13 +553,13 @@ function obtieneBucksheetDet()
           $respuesta = true;
           
           foreach ($arrBucksheet as $key => $value) {
-      
-           
+    
       
             
             $datos_bucksheet[] = array(
               'PurchaseOrderID' => $value->PurchaseOrderID,
               'purchaseOrdername' => $value->purchaseOrdername,
+              'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
               'NumeroLinea' => $value->NumeroLinea,
               'SupplierName' => $value->SupplierName,
               'ItemST' => $value->ItemST,
@@ -590,8 +629,36 @@ function obtieneBucksheetDet()
       function updateBuckSheet()
       {
 
+
+        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'A'){
+
+          $EstadoLineaBucksheet = '2';
+
+        }
+        
+        if(!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'A'){
+      
+        $EstadoLineaBucksheet = '3';
+        
+       }
+       
+       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'A'){ 
+      
+          $EstadoLineaBucksheet = '4';
+
+       }
+       
+       if(!is_null($this->input->post('FechaEmbarque')) &&  !is_null($this->input->post('PackingList'))){  
+      
+       $EstadoLineaBucksheet = '5';
+
+
+        }
+
+
         $memData = array(
           'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
+          'EstadoLineaBucksheet' =>  $EstadoLineaBucksheet,
           'NumeroLinea' => $this->input->post('NumeroLinea'),
           'STCantidad' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('STCantidad')),
           'TAGNumber' => $this->input->post('TAGNumber'),
@@ -716,6 +783,7 @@ function obtieneBucksheetDet()
     "purchaseOrdername",
     "NumeroLinea",
     "SupplierName",
+    "EstadoLineaBucksheet",
     "ItemST",
     "SubItemST",
     "STUnidad",
@@ -771,6 +839,7 @@ function obtieneBucksheetDet()
       $datos_bucksheet = array(
         'PurchaseOrderID' => $this->callutil->clean_string($value->PurchaseOrderID),
         'purchaseOrdername' => $this->callutil->clean_string($value->purchaseOrdername),
+        'EstadoLineaBucksheet' => $this->callutil->clean_string($value->EstadoLineaBucksheet),
         'NumeroLinea' => $this->callutil->clean_string($value->NumeroLinea),
         'SupplierName' => $this->callutil->clean_string($value->SupplierName),
         'ItemST' => $this->callutil->clean_string($value->ItemST),
@@ -818,7 +887,7 @@ function obtieneBucksheetDet()
         'Observacion6' =>  $this->callutil->clean_string($value->Observacion6),
         'Observacion7' =>  $this->callutil->clean_string($value->Observacion7),
         'created' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->created)),
-        'modified' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->modified)),
+        'modified' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->modified))
       );
 
 

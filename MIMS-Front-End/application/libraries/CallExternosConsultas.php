@@ -106,24 +106,110 @@ function setSession($userId, $sessionId){
   $form_data = array(
     'userId'		=>$userId,
     'sessionId'		=>$sessionId
-);
+   );
 
-$client = curl_init($api_url);
+    $client = curl_init($api_url);
 
-curl_setopt($client, CURLOPT_POST, true);
+    curl_setopt($client, CURLOPT_POST, true);
 
-curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
 
-curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
 
-$response = curl_exec($client);
+    $response = curl_exec($client);
 
-curl_close($client);
+    curl_close($client);
 
-return $response;
+    return $response;
 
 
 }
+
+
+function cuentaSession($user_name,$cod_emp, $sessionId){
+  
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/cuentaSession";
+
+  $form_data = array(
+    'user_name'		=>$user_name,
+    'cod_emp'		=>$cod_emp,
+    'sessionId'		=>$sessionId
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+}
+
+
+function consultaSession($userId, $sessionId){
+  
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/consultaSession";
+
+  $form_data = array(
+    'userId'		=>$userId,
+    'sessionId'		=>$sessionId
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+}
+
+function eliminarSession($userId, $sessionId){
+  
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/eliminarSession";
+
+  $form_data = array(
+    'userId'		=>$userId,
+    'sessionId'		=>$sessionId
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+}
+
+
 
     
 }

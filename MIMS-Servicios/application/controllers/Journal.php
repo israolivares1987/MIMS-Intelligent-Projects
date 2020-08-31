@@ -62,7 +62,7 @@ class Journal extends CI_Controller {
 			echo json_encode(array("status" => $status,"id_insertado" => $insert));
 	
 			}
-
+ 
 		
 			function obtiene_journal_x_id(){
 
@@ -88,6 +88,35 @@ class Journal extends CI_Controller {
 				echo json_encode($delete);	
 		
 			}
+
+
+			function actualizarControlCalidad()
+			{
+				
+	
+				$update = array(
+					'tipo' => $this->input->post('tipo'),	
+					'id_orden_compra' => $this->input->post('id_orden_compra'),
+					'id_cliente' => $this->input->post('id_cliente'),
+					'id_proyecto' => $this->input->post('id_proyecto'),
+					'id_empleado' => $this->input->post('id_empleado'),
+					'nombre_empleado' => $this->input->post('nombre_empleado'),
+					'tipo_interaccion' => $this->input->post('tipo_interaccion'),
+					'fecha_ingreso' => $this->input->post('fecha_ingreso'),
+					'numero_referencial' => $this->input->post('numero_referencial'),
+					'solicitado_por' => $this->input->post('solicitado_por'),
+					'aprobado_por' => $this->input->post('aprobado_por'),
+					'comentarios_generales' => $this->input->post('comentarios_generales'),
+					'respaldos' => $this->input->post('respaldos'),
+					'estado' =>'1'
+					);
+		
+			
+					$updateJournal = $this->journal->update($update,array('id_interaccion' =>$this->input->post('id_interaccion')));
+
+					echo json_encode(array("status" => $updateJournal));
+		
+				}
 
 
 }

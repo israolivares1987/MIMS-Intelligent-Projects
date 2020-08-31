@@ -62,6 +62,7 @@ class BuckSheet extends CI_Controller {
 				// Update member data
 				$form_data = array(
 					'PurchaseOrderID'=>$this->input->post('PurchaseOrderID'),
+					'EstadoLineaBucksheet'=>$this->input->post('EstadoLineaBucksheet'),
 					'purchaseOrdername'=>$this->input->post('purchaseOrdername'),
 					'SupplierName'=>$this->input->post('SupplierName'),
 					'NumeroLinea'=>$this->input->post('NumeroLinea'),
@@ -124,6 +125,7 @@ class BuckSheet extends CI_Controller {
 		$form_data = array(
 					'PurchaseOrderID'=>$this->input->post('PurchaseOrderID'),
 					'purchaseOrdername'=>$this->input->post('purchaseOrdername'),
+					'EstadoLineaBucksheet'=>$this->input->post('EstadoLineaBucksheet'),
 					'SupplierName'=>$this->input->post('SupplierName'),
 					'NumeroLinea'=>$this->input->post('NumeroLinea'),
 					'ItemST'=>$this->input->post('ItemST'),
@@ -186,6 +188,7 @@ class BuckSheet extends CI_Controller {
 			'STCantidad'=>$this->input->post('STCantidad'),
 			'TAGNumber'=>$this->input->post('TAGNumber'),
 			'Stockcode'=>$this->input->post('Stockcode'),
+			'EstadoLineaBucksheet'=>$this->input->post('EstadoLineaBucksheet'),
 			'Descripcion'=>$this->input->post('Descripcion'),
 			'PlanoModelo'=>$this->input->post('PlanoModelo'),
 			'Revision '=>$this->input->post('Revision'),

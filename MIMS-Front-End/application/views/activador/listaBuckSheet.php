@@ -135,53 +135,54 @@
                              <thead>
                              <tr>
                                          <th>Editar</th>
-                                         <th>purchaseOrdername</th>
-                                         <th>NumeroLinea</th>
+                                         <th>Nombre de la Orden</th>
+                                         <th>Estado Linea</th>
+                                         <th>Numero Linea</th>
                                          <th>Proveedor</th>
-                                         <th>ItemST</th>
-                                         <th>SubItemST</th>
-                                         <th>STUnidad</th>
-                                         <th>STCantidad</th>
-                                         <th>TAGNumber</th>
+                                         <th>Item ST</th>
+                                         <th>SubItem ST</th>
+                                         <th>ST Unidad</th>
+                                         <th>ST Cantidad</th>
+                                         <th>TAG Number</th>
                                          <th>Stockcode</th>
                                          <th>Descripcion</th>
-                                         <th>PlanoModelo</th>
+                                         <th>Plano Modelo</th>
                                          <th>Revision</th>
-                                         <th>PaqueteConstruccionArea</th>
+                                         <th>Paquete Construccion Area</th>
                                          <th>Medida Unitaria</th>
-                                         <th>PesoTotal</th>
-                                         <th>FechaRAS</th>
-                                         <th>DiasAntesRAS</th>
-                                         <th>FechaComienzoFabricacion</th>
-                                         <th>PAFCF</th>
-                                         <th>FechaTerminoFabricacion</th>
-                                         <th>PAFTF</th>
-                                         <th>FechaGranallado</th>
-                                         <th>PAFG</th>
-                                         <th>FechaPintura</th>
-                                         <th>PAFP</th>
-                                         <th>FechaListoInspeccion</th>
-                                         <th>PAFLI</th>
-                                         <th>ActaLiberacionCalidad</th>
-                                         <th>FechaSalidaFabrica</th>
-                                         <th>PAFSF</th>
-                                         <th>FechaEmbarque</th>
-                                         <th>PackingList</th>
-                                         <th>GuiaDespacho</th>
-                                         <th>SCNNumber</th>
-                                         <th class="grey" >UnidadesSolicitadas</th>
-                                         <th class="grey" >UnidadesRecibidas</th>
+                                         <th>Peso Total</th>
+                                         <th>Fecha RAS</th>
+                                         <th>Dia sAntes RAS</th>
+                                         <th>Fecha Comienzo Fabricacion</th>
+                                         <th>P/A FCF</th>
+                                         <th>Fecha Termino Fabricacion</th>
+                                         <th>P/A FTF</th>
+                                         <th>Fecha Granallado</th>
+                                         <th>P/A FG</th>
+                                         <th>Fecha Pintura</th>
+                                         <th>P/A FP</th>
+                                         <th>Fecha Listo Inspeccion</th>
+                                         <th>P/A FLI</th>
+                                         <th>Acta Liberacion Calidad</th>
+                                         <th>Fecha Salida Fabrica</th>
+                                         <th>P/A FSF</th>
+                                         <th>Fecha Embarque</th>
+                                         <th>Packing List</th>
+                                         <th>Guia Despacho</th>
+                                         <th>SCN Number</th>
+                                         <th class="grey" >Unidades Solicitadas</th>
+                                         <th class="grey" >Unidades Recibidas</th>
                                          <th class="grey" >RR Reporte de Recepción</th>
                                          <th class="grey" >RE Reporte de Entrega</th>
                                          <th>Origen</th>
-                                         <th>DiasViaje</th>
-                                         <th>Observacion1</th>
-                                         <th>Observacion2</th>
-                                         <th>Observacion3</th>
-                                         <th>Observacion4</th>
-                                         <th>Observacion5</th>
-                                         <th>Observacion6</th>
-                                         <th>Observacion7</th>
+                                         <th>Dias Viaje</th>
+                                         <th>Observacion 1</th>
+                                         <th>Observacion 2</th>
+                                         <th>Observacion 3</th>
+                                         <th>Observacion 4</th>
+                                         <th>Observacion 5</th>
+                                         <th>Observacion 6</th>
+                                         <th>Observacion 7</th>
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -795,6 +796,7 @@
                              '<button data-toggle="tooltip" data-placement="left" title="Borrar BuckSheet" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
                         bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';

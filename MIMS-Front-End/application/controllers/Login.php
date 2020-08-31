@@ -35,17 +35,8 @@ class Login extends CI_Controller{
     $user_name    = $this->input->post('user_name',TRUE);
     $password     = md5($this->input->post('password',TRUE));
     $cod_emp      = $this->input->post('cod_emp',TRUE);
+    $sessionId    = 0;
 
-    if($this->session->userdata('logged_in') == TRUE){
-            $sessionData=$this->session->all_userdata();
-            $userId = $sessionData['id_usuario'];
-
-            if ($userId > 0){
-
-              echo $this->session->set_flashdata('msg','Usuario ya se encuentra logueado, favor cerrar sesion o esperar 5 min para acceder.');
-              redirect('login');
-            }
-    }else{
   
         $json = $this->callexternosconsultas->iniciosesion($user_name,$password,$cod_emp);
         $obj = json_decode($json);
@@ -71,7 +62,10 @@ class Login extends CI_Controller{
             
               }
 
-                $sesdata = array(
+
+              $hora = time();
+
+              $sesdata = array(
                   'nombres'           => $obj->{'nombres'},
                   'paterno'           => $obj->{'paterno'},
                   'materno'           => $obj->{'materno'},
@@ -87,8 +81,9 @@ class Login extends CI_Controller{
                   'nombre_rol'        => $obj->{'nombre_rol'},
                   'cod_emp'           => $cod_emp,
                   'id_usuario'        => $obj->{'id_usuario'},
-                  'cod_user'        => $obj->{'cod_user'},
-                  'valor_iva'      => $datoIva
+                  'cod_user'          => $obj->{'cod_user'},
+                  'valor_iva'         => $datoIva,
+                  'inicio'            =>  $hora
                   );
 
                   $this->session->set_userdata($sesdata);
@@ -113,15 +108,29 @@ class Login extends CI_Controller{
             echo $this->session->set_flashdata('msg',$obj->{'DescripcionError'});
             redirect('login');
         }
-    }
+    
   }
 
   function logout(){
 
+    $sessionId = 0;
 
-    $sessionData=$this->session->all_userdata();
-    $userId = $sessionData['cod_user'];
-    $this->session->sess_destroy();
+
+    $dataSession = $this->callexternosconsultas->consultaSession($this->session->userdata('cod_user'),0);
+
+    foreach (json_decode($dataSession) as $llave => $valor) {
+    
+    $sessionId =$valor->session_id;
+
+  }
+
+
+    $dataSession = $this->callexternosconsultas->eliminarSession($this->session->userdata('cod_user'), $sessionId);
+    
+    var_dump($dataSession);
+    
+     $this->session->sess_destroy();
+
     redirect('login');
   }
 
