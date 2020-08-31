@@ -2221,6 +2221,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Control de Calidad" onclick="listar_cc('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm"><i class="fas fa-shield-alt"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Bucksheet" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
     
           ordenes_html += '</td>';
         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
@@ -2652,7 +2653,7 @@ valor_neto = replaceAll(input.value , ".", "" );
 
 valor_iva = ((valor_neto * iva)/100);
 
-valor_total = parseInt(valor_neto) + parseInt(valor_neto);
+valor_total = parseInt(valor_neto) + parseInt(valor_iva);
 
 $('#or_act_valor_total').val(Math.round(valor_total));
 
@@ -2671,7 +2672,7 @@ valor_neto = replaceAll(input.value , ".", "" );
 
 valor_iva = ((valor_neto * iva)/100);
 
-valor_total = parseInt(valor_neto) + parseInt(valor_neto);
+valor_total = parseInt(valor_neto) + parseInt(valor_iva);
 
 $('#or_valor_total').val(Math.round(valor_total));
 
@@ -2712,7 +2713,9 @@ function mostrarValorNetoItemact(){
 
 }
 
-
+function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
+        window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');
+    }
 
 
 

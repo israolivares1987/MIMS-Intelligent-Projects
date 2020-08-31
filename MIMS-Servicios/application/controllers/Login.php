@@ -124,6 +124,48 @@ class Login extends CI_Controller {
 		$this->Consultas_model->setSession($userId, $sessionId);
 		
 		}
+
+
+		function cuentaSession(){
+
+			$user_name = $this->input->post('user_name');
+			$cod_emp = $this->input->post('cod_emp');
+			$sessionId = $this->input->post('sessionId');
+		
+		$login = $this->Consultas_model->cuentaSession($user_name,$cod_emp, $sessionId);
+
+		echo json_encode($login);	
+		
+		}
+
+
+		function consultaSession(){
+
+			$user_name = $this->input->post('user_name');
+			$sessionId = $this->input->post('sessionId');
+		
+	     	$login = $this->Consultas_model->consultaSession($userId, $sessionId);
+
+		echo json_encode($login);	
+		
+		}
+
+
+
+		function eliminarSession(){
+
+			$userId = $this->input->post('userId');
+			$sessionId = $this->input->post('sessionId');
+		
+		$delete = $this->Consultas_model->eliminarSession($userId, $sessionId);
+
+		echo json_encode($delete);
+		
+		}
+
+
+
+
 	}
 
 

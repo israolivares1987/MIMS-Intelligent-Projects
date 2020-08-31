@@ -380,11 +380,16 @@ $config['encryption_key'] = '';
 */
 $config['sess_driver'] = 'database';
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 7200;
+$config['sess_expiration'] = 600;
 $config['sess_save_path'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 30;
 $config['sess_regenerate_destroy'] = FALSE;
+
+
+ini_set( 'session.gc_probability',  0 );
+ini_set( 'session.gc_divisor',      20 );
+ini_set( 'session.gc_maxlifetime',      600 );
 
 /*
 |--------------------------------------------------------------------------
@@ -522,3 +527,5 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
+
+

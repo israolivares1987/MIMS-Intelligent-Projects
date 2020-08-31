@@ -53,13 +53,19 @@ return $this->db->get()->result();
 		$this->db->where('id_interaccion',$id);
 		$query = $this->db->get();
 
-		return $query->row();
+		return $query->result();	
 	}
 
-	function update($where, $data)
+	function update($data,$where)
 	{
 		$this->db->update($this->table, $data, $where);
-		return $this->db->affected_rows();
+		$this->db->affected_rows();
+		
+		if ($this->db->affected_rows() > 0 ) {
+			return true; // Or do whatever you gotta do here to raise an error
+		} else {
+			return false;
+		}
 	}
 
 	function desactivaJournal($id_interaccion, $id_orden,$cod_empresa)

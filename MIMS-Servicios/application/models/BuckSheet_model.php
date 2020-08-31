@@ -21,29 +21,119 @@ class BuckSheet_model extends CI_Model{
 	function obtieneBuckSheet()
 	{
 
-		$this->db->select('c.*');
-        $this->db->from($this->tableName . ' as c');
-		$this->db->where('c.PurchaseOrderID', $this->_PurchaseOrderID);
+    	$this->db->select(" t1.PurchaseOrderID,
+        t1.purchaseOrdername,
+        t1.NumeroLinea,
+        t1.SupplierName,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
+        t1.ItemST,
+        t1.SubItemST,
+        t1.STUnidad,
+        t1.STCantidad,
+        t1.TAGNumber,
+        t1.Stockcode,
+        t1.Descripcion,
+        t1.PlanoModelo,
+        t1.Revision,
+        t1.PaqueteConstruccionArea,
+        t1.PesoUnitario,
+        t1.PesoTotal,
+        t1.FechaRAS,
+        t1.DiasAntesRAS,
+        t1.FechaComienzoFabricacion,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PAFCF and domain = 'ACTUAL_PREVIO ') as PAFCF,
+        t1.FechaTerminoFabricacion,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFTF and domain = 'ACTUAL_PREVIO ') as PAFTF,
+        t1.FechaGranallado,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFG and domain = 'ACTUAL_PREVIO ') as PAFG,
+        t1.FechaPintura,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFP and domain = 'ACTUAL_PREVIO ') as PAFP, 
+        t1.FechaListoInspeccion,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFLI and domain = 'ACTUAL_PREVIO ') as PAFLI, 
+        t1.ActaLiberacionCalidad,
+        t1.FechaSalidaFabrica,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFSF and domain = 'ACTUAL_PREVIO ') as PAFSF, 
+        t1.FechaEmbarque,
+        t1.PackingList,
+        t1.GuiaDespacho,
+        t1.SCNNumber,
+        t1.UnidadesSolicitadas,
+        t1.UnidadesRecibidas,
+        t1.MaterialReceivedReport,
+        t1.MaterialWithdrawalReport,
+        t1.Origen,
+        t1.DiasViaje,
+        t1.Observacion1,
+        t1.Observacion2,
+        t1.Observacion3,
+        t1.Observacion4,
+        t1.Observacion5,
+        t1.Observacion6,
+        t1.Observacion7"); 
+    $this->db->from('tbl_bucksheet t1');			
+	 $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
 	
-		$query = $this->db->get();
 
-	  $BuckSheet = $query->result();
-	  return $BuckSheet;
+	 return $this->db->get()->result();    
     }
     
     function obtieneBucksheetDet()
 	{
 
-		$this->db->select('c.*');
-        $this->db->from($this->tableName . ' as c');
-        $this->db->where('c.PurchaseOrderID', $this->_PurchaseOrderID);
-        $this->db->where('c.NumeroLinea', $this->_NumeroLinea);
+        $this->db->select(" t1.PurchaseOrderID,
+        t1.purchaseOrdername,
+        t1.NumeroLinea,
+        t1.SupplierName,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
+        t1.ItemST,
+        t1.SubItemST,
+        t1.STUnidad,
+        t1.STCantidad,
+        t1.TAGNumber,
+        t1.Stockcode,
+        t1.Descripcion,
+        t1.PlanoModelo,
+        t1.Revision,
+        t1.PaqueteConstruccionArea,
+        t1.PesoUnitario,
+        t1.PesoTotal,
+        t1.FechaRAS,
+        t1.DiasAntesRAS,
+        t1.FechaComienzoFabricacion,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PAFCF and domain = 'ACTUAL_PREVIO ') as PAFCF,
+        t1.FechaTerminoFabricacion,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFTF and domain = 'ACTUAL_PREVIO ') as PAFTF,
+        t1.FechaGranallado,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFG and domain = 'ACTUAL_PREVIO ') as PAFG,
+        t1.FechaPintura,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFP and domain = 'ACTUAL_PREVIO ') as PAFP, 
+        t1.FechaListoInspeccion,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFLI and domain = 'ACTUAL_PREVIO ') as PAFLI, 
+        t1.ActaLiberacionCalidad,
+        t1.FechaSalidaFabrica,
+        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFSF and domain = 'ACTUAL_PREVIO ') as PAFSF, 
+        t1.FechaEmbarque,
+        t1.PackingList,
+        t1.GuiaDespacho,
+        t1.SCNNumber,
+        t1.UnidadesSolicitadas,
+        t1.UnidadesRecibidas,
+        t1.MaterialReceivedReport,
+        t1.MaterialWithdrawalReport,
+        t1.Origen,
+        t1.DiasViaje,
+        t1.Observacion1,
+        t1.Observacion2,
+        t1.Observacion3,
+        t1.Observacion4,
+        t1.Observacion5,
+        t1.Observacion6,
+        t1.Observacion7"); 
+    $this->db->from('tbl_bucksheet t1');			
+     $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
+     $this->db->where('NumeroLinea',$this->_NumeroLinea);
 	
-		$query = $this->db->get();
-    
-
-        $BuckSheet = $query->result();
-        return $BuckSheet;
+ return $this->db->get()->result();   
     }
 
 
