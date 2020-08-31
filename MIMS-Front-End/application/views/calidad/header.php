@@ -89,8 +89,22 @@
 $(document).ready(function () {
   bsCustomFileInput.init();
 });
+
+
+function ActualizarReloj() {
+
+mensaje ='<?php $hora = time(); $hace = $hora - $this->session->userdata('inicio'); 
+                                       echo "Inició sesión hace ". floor($hace / 60) .
+                                       " minutos y " . ($hace % 60) . " segundos";?>';
+
+document.getElementById('datos_sesion').innerHTML='<a href="#" class="nav-link">'+ mensaje +'</a>';
+
+setTimeout('ActualizarReloj()',1000);
+
+}
+
 </script>
 
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm" onload="ActualizarReloj()">
 <div class="wrapper">
