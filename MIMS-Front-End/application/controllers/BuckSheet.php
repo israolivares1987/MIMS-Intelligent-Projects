@@ -141,6 +141,10 @@ class BuckSheet extends MY_Controller {
       
           $this->plantilla_ingenieria('ingenieria/listaBuckSheet', $datos);
       
+        }elseif($this->session->userdata('rol_id')==='205'){
+      
+          $this->plantilla_supervisor('supervisor/listaBuckSheet', $datos);
+      
         }
 
 

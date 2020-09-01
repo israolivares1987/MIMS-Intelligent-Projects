@@ -126,7 +126,11 @@ class Journal extends MY_Controller{
 
   }elseif($this->session->userdata('rol_id')==='204'){
 
-    $this->plantilla_calidad('ingenieria/listControlCalidad', $datos);
+    $this->plantilla_ingenieria('ingenieria/listControlCalidad', $datos);
+
+  }elseif($this->session->userdata('rol_id')==='205'){
+
+    $this->plantilla_supervisor('supervisor/listControlCalidad', $datos);
 
   }
 
@@ -241,9 +245,14 @@ class Journal extends MY_Controller{
 
   }elseif($this->session->userdata('rol_id')==='204'){
 
-    $this->plantilla_calidad('ingenieria/listCambioOrden', $datos);
+    $this->plantilla_ingenieria('ingenieria/listCambioOrden', $datos);
+
+  }elseif($this->session->userdata('rol_id')==='205'){
+
+    $this->plantilla_supervisor('supervisor/listCambioOrden', $datos);
 
   }
+
 
 
 

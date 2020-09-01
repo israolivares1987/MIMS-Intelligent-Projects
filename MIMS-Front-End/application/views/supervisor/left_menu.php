@@ -18,59 +18,17 @@
           <a href="#" class="d-block"><?php echo $this->session->userdata('nombres')." ".$this->session->userdata('paterno')." ".$this->session->userdata('materno');?></a>
         </div>
       </div>
+
       <!-- Sidebar Menu -->
       <nav class="mt-2">
       <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-
-
-               <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link text-sm">
-                      <i class="nav-icon fas fa-th"></i>
-                      <p>
-                          MANTENEDORES
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">  
-                    <li class="nav-item">
-                      <a href="<?php echo site_url('Empleados/index_empleados');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Empleados</p>
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a href="<?php echo site_url('Clientes/index');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Clientes</p>
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a href="<?php echo site_url('Proveedores/index');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Proveedores</p>
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
-                      <a href="<?php echo site_url('Dominios/index_iva');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Valor IVA</p>
-                      </a>
-                    </li>
-
-                    
-              </ul>
-            </li>  
-        </ul>
         <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
                <li class="nav-item has-treeview">
-                    <a href="<?php echo base_url();?>index.php/ingenieria/proyectos" class="nav-link text-sm">
+                    <a href="<?php echo base_url();?>index.php/Supervisor/proyectos" class="nav-link text-sm">
                       <i class="nav-icon fas fa-user-tie"></i>
                       <p>PROYECTOS</p>
                     </a>
