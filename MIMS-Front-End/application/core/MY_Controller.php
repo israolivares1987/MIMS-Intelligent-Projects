@@ -19,6 +19,16 @@ class MY_Controller extends CI_Controller {
         $this->load->view('ingenieria/footer'); 
 	}
 	
+
+	public function plantilla_supervisor($view, $datos = array()){
+
+		$this->load->view('supervisor/header');
+        $this->load->view('supervisor/navbar');
+        $this->load->view('supervisor/left_menu',$datos);
+        $this->load->view($view, $datos);
+        $this->load->view('supervisor/footer'); 
+	}
+
 	public function plantilla_activador($view, $datos = array()){
 
 		$this->load->view('activador/header');

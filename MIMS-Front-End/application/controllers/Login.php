@@ -25,7 +25,9 @@ class Login extends CI_Controller{
           redirect('Calidad/index_calidad');
         }elseif ($this->session->userdata('rol_id')==='204') {
           redirect('Ingenieria/index_ingenieria');
-        }
+        }elseif ($this->session->userdata('rol_id')==='205') {
+          redirect('Supervisor/index_supervisor');
+        }  
 
       }
   }

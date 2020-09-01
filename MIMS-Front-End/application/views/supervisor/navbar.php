@@ -11,13 +11,16 @@
     </ul>
     <ul class="navbar-nav ml-auto">
 
-    <li class="nav-item d-none d-sm-inline-block"  id="datos_sesion">
+      <li class="nav-item d-none d-sm-inline-block"  id="datos_sesion">
        
-   </li>
+      </li>
       
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url('index.php/supervisor/index_supervisor');?>" class="nav-link">Home</a>
+        <a href="<?php echo base_url('index.php/ingenieria/index_ingenieria');?>" class="nav-link">Home</a>
       </li>
+
+
+     
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo site_url('login/logout');?>" class="nav-link">Cerrar Sesión</a>
       </li>
