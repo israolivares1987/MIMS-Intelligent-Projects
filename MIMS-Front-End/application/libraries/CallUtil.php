@@ -239,7 +239,7 @@ public function cambianull($var){
   $valor = '';
 
 
-	if(strlen($var) == 0 ){
+	if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null'){
 
 		$valor = '';
 
