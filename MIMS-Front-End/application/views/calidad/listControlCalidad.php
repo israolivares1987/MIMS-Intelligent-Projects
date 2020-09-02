@@ -82,7 +82,7 @@
                                              class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
                                                      </i>  Actualizar</button>
                                          <button id="btn_nuevo_registro"
-                                             class="btn btn-outline-primary float-right">Nuevo Registro de Cambios en la Orden</button>
+                                             class="btn btn-outline-primary float-right">Nuevo registro de Calidad</button>
                                     </th>
                                  </tr>
                              </tbody>
