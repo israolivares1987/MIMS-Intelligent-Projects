@@ -228,7 +228,9 @@ class BuckSheet extends MY_Controller {
                   $revision = $row['Revision'];
                 }
 
-  
+            
+
+
                     if($row['PurchaseOrderID'] == $idOrden){
 
                       $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
@@ -236,18 +238,18 @@ class BuckSheet extends MY_Controller {
                       if($prevCount > 0){
 
                       
-                             if(!is_null($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'A'){
+                             if(!is_null($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'Actual'){
 
                                 $EstadoLineaBucksheet = '2';
 
                               }
                               
-                             if(!is_null($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'A'){
+                             if(!is_null($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'Actual'){
                             
                               $EstadoLineaBucksheet = '3';
                               
                              }
-                             if(!is_null($row['FechaListoInspeccion']) && $row['PAFLI'] == 'A') { 
+                             if(!is_null($row['FechaListoInspeccion']) && $row['PAFLI'] == 'Actual') { 
                             
                                 $EstadoLineaBucksheet = '4';
 
@@ -634,19 +636,19 @@ function obtieneBucksheetDet()
       {
 
 
-        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'A'){
+        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'Actual'){
 
           $EstadoLineaBucksheet = '2';
 
         }
         
-        if(!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'A'){
+        if(!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'Actual'){
       
         $EstadoLineaBucksheet = '3';
         
        }
        
-       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'A'){ 
+       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'Actual'){ 
       
           $EstadoLineaBucksheet = '4';
 
