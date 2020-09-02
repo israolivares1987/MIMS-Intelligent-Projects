@@ -661,9 +661,30 @@ function obtieneBucksheetDet()
 
         }
 
+        $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+        $arrOrden = json_decode($Orden);
+    
+        
+        if($arrOrden){
+          
+          foreach ($arrOrden as $llave => $valor) {
+                  
+            $SupplierName = $valor->SupplierName;
+            $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+            $PurchaseOrderID = $valor->PurchaseOrderID;
+            $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+    
+          }
+        }
+
+
 
         $memData = array(
           'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
+          'purchaseOrdername' => urldecode($PurchaseOrderDescription),
+          'SupplierName' => urldecode($SupplierName),
           'EstadoLineaBucksheet' =>  $EstadoLineaBucksheet,
           'NumeroLinea' => $this->input->post('NumeroLinea'),
           'STCantidad' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('STCantidad')),
