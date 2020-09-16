@@ -53,6 +53,7 @@ class Ordenes extends CI_Controller{
               
               $datos_ordenes[] = array(
                 'PurchaseOrderID' => $value->PurchaseOrderID,
+                'idRequerimiento' => $value->idRequerimiento,
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
                 'Categorizacion'  => $value->Categorizacion,
                 'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
@@ -93,6 +94,7 @@ class Ordenes extends CI_Controller{
   function guardaOrden(){
 
     $or_purchase_order    = $this->input->post('or_purchase_order');
+    $or_idrequerimiento      = $this->input->post('or_idrequerimiento');
     $or_select_categorizacion    = $this->input->post('or_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
     $or_revision = $this->input->post('or_revision');
@@ -164,6 +166,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderNumber'       => $or_purchase_order,
+                  'idRequerimiento'           => $or_idrequerimiento,
                   'Categorizacion'           =>  $or_select_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
@@ -244,6 +247,7 @@ class Ordenes extends CI_Controller{
         
         $data = array(
           'purchase_number'     => $value->PurchaseOrderNumber,
+          'id_requerimiento'           => $value->idRequerimiento,
           'select_categorizacion'     => $this->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
@@ -284,6 +288,7 @@ class Ordenes extends CI_Controller{
 
 
     $or_purchase_order    = $this->input->post('or_act_purchase_order');
+    $or_idrequerimiento      = $this->input->post('or_act_idrequerimiento');
     $or_categorizacion   = $this->input->post('or_act_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
     $or_revision        = $this->input->post('or_act_revision');
@@ -347,6 +352,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderID'           => $id_order_or,
+                  'idRequerimiento'           => $or_idrequerimiento,
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
@@ -412,6 +418,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderID'           => $id_order_or,
+                  'idRequerimiento'           => $or_idrequerimiento,
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $$or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
@@ -615,6 +622,17 @@ function obtieneSelectOrden(){
   $data['select_item_unidad']    = $this->obtiene_select_def('or_item_select_unidad','UNIDAD_MEDIDA','or_item_select_unidad');
   $data['select_item_status']    = $this->obtiene_select_def('or_item_select_status','ESTADO_ITEM_ORDEN','or_item_select_status');
  
+  $data['select_disciplina']    = $this->obtiene_select_def('or_disciplina','DISCIPLINA','or_disciplina');
+  $data['select_tipo_pm']    = $this->obtiene_select_def('or_tipo_pm','TIPO_PM','or_tipo_pm');
+  $data['select_nivel_inspeccion']    = $this->obtiene_select_def('or_nivel_inspeccion','NIVEL_INSPECCION','or_nivel_inspeccion');
+
+  
+
+  $data['select_instalacion_definitiva']    = $this->obtiene_select_def('or_instalacion_definitiva','SI_NO','or_instalacion_definitiva');
+  $data['select_inspeccion_requerida']    = $this->obtiene_select_def('or_inspeccion_requerida','SI_NO','or_inspeccion_requerida');
+  $data['select_documentos_antes_iniciar']    = $this->obtiene_select_def('or_documentos_antes_iniciar','SI_NO','or_documentos_antes_iniciar');
+
+
 
   echo json_encode($data);
 

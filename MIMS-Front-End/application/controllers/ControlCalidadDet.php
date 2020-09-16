@@ -38,7 +38,7 @@ class ControlCalidadDet extends MY_Controller{
         $respaldo = '';
 
         if(strlen($value->archivo_cc_det) > 0 && $value->archivo_cc_det !='null'  ){
-          $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidaddet/'.$value->archivo_cc_det.'" download="'.$value->archivo_cc_det.'"><i class="fas fa-download"></i> Descarga</a>';
+          $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidaddet/'.$value->archivo_cc_det.'" download="'.$value->archivo_cc_original.'"><i class="fas fa-download"></i> Descarga</a>';
         }else{
           $respaldo = '';
         }
@@ -261,6 +261,7 @@ class ControlCalidadDet extends MY_Controller{
 
           /* create new name file */
           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+          $respaldo_original = $_FILES["archivo_cc_det"]["name"];
           $extension  = pathinfo( $_FILES["archivo_cc_det"]["name"], PATHINFO_EXTENSION ); // jpg
           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
@@ -271,7 +272,7 @@ class ControlCalidadDet extends MY_Controller{
 
           if(move_uploaded_file( $source, $destination )) {
              
-            
+             
             // Comienzo Update
 
             $respaldo = $basename;
@@ -281,7 +282,7 @@ class ControlCalidadDet extends MY_Controller{
               $estado_cc_det = '2';
 
             }
-
+ 
             $dataInsert = array(	
               'id_orden' => $id_orden ,
               'id_cliente' => $id_cliente,
@@ -290,7 +291,8 @@ class ControlCalidadDet extends MY_Controller{
               'id_control_calidad_det' => $id_control_calidad_det,
               'estado_cc_det' => $estado_cc_det,
               'id_control_calidad' => $id_control_calidad,
-              'archivo_cc_det' => $respaldo
+              'archivo_cc_det' => $respaldo,
+              'archivo_cc_original' => $respaldo_original
               );
 
               $journal = $this->callexternoscontrolcalidaddet->actualizaControlCalidadDet($dataInsert);

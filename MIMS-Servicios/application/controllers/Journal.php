@@ -44,6 +44,7 @@ class Journal extends CI_Controller {
 				'aprobado_por' => $this->input->post('aprobado_por'),
 				'comentarios_generales' => $this->input->post('comentarios_generales'),
 				'respaldos' => $this->input->post('respaldos'),
+				'respaldos_original' => $this->input->post('respaldos_original'),				
 				'estado' =>'1'
 				);
 	
@@ -108,6 +109,7 @@ class Journal extends CI_Controller {
 					'aprobado_por' => $this->input->post('aprobado_por'),
 					'comentarios_generales' => $this->input->post('comentarios_generales'),
 					'respaldos' => $this->input->post('respaldos'),
+					'respaldos_original' => $this->input->post('respaldos_original'),
 					'estado' =>'1'
 					);
 		

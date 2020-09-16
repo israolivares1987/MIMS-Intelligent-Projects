@@ -13,6 +13,7 @@ class Journal_model extends CI_Model{
 	t1.aprobado_por,
 	t1.comentarios_generales,
 	t1.respaldos,
+	t1.respaldos_original,
 	t2.domain_desc AS tipo_interaccion');
 $this->db->from('tbl_journal t1, tbl_ref_codes t2');				   
 $this->db->where('tipo',$tipo);

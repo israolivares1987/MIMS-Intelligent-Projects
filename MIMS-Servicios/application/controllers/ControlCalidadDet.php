@@ -99,6 +99,7 @@ class ControlCalidadDet extends CI_Controller {
 		$id_proyecto = $this->input->post('id_proyecto');
 		$estado_porc_cc_det = $this->input->post('estado_porc_cc_det');
 		$archivo_cc_det = $this->input->post('archivo_cc_det');
+		$archivo_cc_original = $this->input->post('archivo_cc_original');		
 		$estado_cc_det = $this->input->post('estado_cc_det');
 		$id_control_calidad_det = $this->input->post('id_control_calidad_det');
 		$id_control_calidad = $this->input->post('id_control_calidad');
@@ -114,7 +115,8 @@ class ControlCalidadDet extends CI_Controller {
 			'id_control_calidad_det' => $id_control_calidad_det,
 			'estado_cc_det' => $estado_cc_det,
 			'id_control_calidad' => $id_control_calidad,
-			'archivo_cc_det' => $archivo_cc_det
+			'archivo_cc_det' => $archivo_cc_det,
+			'archivo_cc_original' => $archivo_cc_original
 			);
 
 
