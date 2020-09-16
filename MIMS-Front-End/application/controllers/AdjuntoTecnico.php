@@ -85,13 +85,13 @@ class AdjuntoTecnico extends MY_Controller{
 
     $data = array();
 
-    $id_requerimiento_var = $this->form_validation->set_rules('or_id_requerimiento', 'or_id_requerimiento', 'required|trim');
+    $id_requerimiento_var = $this->form_validation->set_rules('or_area_proyecto', 'or_area_proyecto', 'required|trim');
    
     
     if(!$id_requerimiento_var->run()){
         
-      $data['resp']     = false;
-      $data['mensaje']  = "Campos faltantes, favor revisar.";
+      $error_msg = "Campos faltantes, favor revisar.";
+      $resp  = false;
     
 
     }else{
