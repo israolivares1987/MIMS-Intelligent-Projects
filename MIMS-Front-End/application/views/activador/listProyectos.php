@@ -305,7 +305,7 @@
                 idCliente: id_cliente
             },
         }).done(function(result) {
-
+ 
             console.log(result);
 
            

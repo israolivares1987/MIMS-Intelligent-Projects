@@ -7,6 +7,7 @@ class Ordenes_model extends CI_Model{
 	{
 
 	  $query = $this->db->query("SELECT a.PurchaseOrderID,
+	  							a.idRequerimiento,
 								a.PurchaseOrderNumber,
 								(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,
 								a.PurchaseOrderDescription,

@@ -286,7 +286,7 @@ class Journal extends MY_Controller{
       $respaldo = '';
 
       if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
-        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos.'"><i class="fas fa-download"></i> Descarga</a>';
+        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos_original.'"><i class="fas fa-download"></i> Descarga</a>';
       }else{
         $respaldo = '';
       }
@@ -354,6 +354,7 @@ class Journal extends MY_Controller{
 
           /* create new name file */
           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+          $respaldos_original   = $_FILES["respaldos"]["name"];
           $extension  = pathinfo( $_FILES["respaldos"]["name"], PATHINFO_EXTENSION ); // jpg
           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
@@ -382,7 +383,8 @@ class Journal extends MY_Controller{
               'solicitado_por' =>  $solicitado_por,
               'aprobado_por' => $aprobado_por,
               'comentarios_generales' => $comentarios_generales,
-              'respaldos' => $respaldo
+              'respaldos' => $respaldo,
+              'respaldos_original'   => $respaldos_original
               );
 
               $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
@@ -728,7 +730,7 @@ function enviarMail(){
         $respaldo = '';
   
         if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
-          $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos.'"><i class="fas fa-download"></i> Descarga</a>';
+          $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos_original.'"><i class="fas fa-download"></i> Descarga</a>';
         }else{
           $respaldo = '';
         }
@@ -842,6 +844,7 @@ function enviarMail(){
                 
                           /* create new name file */
                           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+                          $respaldos_original = $_FILES["respaldos"]["name"];
                           $extension  = pathinfo( $_FILES["respaldos"]["name"], PATHINFO_EXTENSION ); // jpg
                           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
                 
@@ -871,7 +874,8 @@ function enviarMail(){
                               'solicitado_por' =>  $solicitado_por,
                               'aprobado_por' => $aprobado_por,
                               'comentarios_generales' => $comentarios_generales,
-                              'respaldos' => $respaldo
+                              'respaldos' => $respaldo,
+                              'respaldos_original' => $respaldos_original
                               );
                 
                               $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
