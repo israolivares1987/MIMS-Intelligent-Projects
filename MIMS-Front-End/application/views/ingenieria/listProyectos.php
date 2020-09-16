@@ -399,6 +399,20 @@
 
                   </div>
 
+
+                  <div class="col-12 col-sm-6">
+                <div class="form-group">
+                <label class="col-sm-12 control-label">ID Requerimiento</label>
+                            <div class="col-sm-12">
+                              <input id="or_idrequerimiento" name="or_idrequerimiento" type="text" class="form-control form-control-sm">
+                            </div>
+                 </div>
+
+                  </div>
+
+
+                  
+
                   <div class="col-12 col-sm-6">
                     <div class="form-group">
                     <label class="col-sm-12 control-label">Seleccione Categorizacion</label>
@@ -673,6 +687,16 @@
                 <label class="col-sm-12 control-label">Numero Orden de Compra</label>
                             <div class="col-sm-12">
                               <input id="or_act_purchase_order" name="or_act_purchase_order" type="text" class="form-control form-control-sm">
+                            </div>
+                 </div>
+
+                  </div>
+
+                  <div class="col-12 col-sm-6">
+                <div class="form-group">
+                <label class="col-sm-12 control-label">ID Requerimiento</label>
+                            <div class="col-sm-12">
+                              <input id="or_act_idrequerimiento" name="or_act_idrequerimiento" type="text" class="form-control form-control-sm" readonly>
                             </div>
                  </div>
 
@@ -2881,6 +2905,8 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       
 
       $('#or_act_purchase_order').val(result.formulario.purchase_number);
+
+      $('#or_act_idrequerimiento').val(result.formulario.id_requerimiento);
 
       $('#s_act_categorizacion').html(result.formulario.select_categorizacion);
 
