@@ -271,55 +271,14 @@ function mostrarBlock(){
                 $('#name_respaldo').html(nombre);
              }
 
-             /**
-              * Función que pone el archivo en un FormData
-              * @return FormData
-              */
-             function getFiles() {
-                 var idFiles = document.getElementById("var_respaldos");
-                 // Obtenemos el listado de archivos en un array
-                 var archivos = idFiles.files;
-                 // Creamos un objeto FormData, que nos permitira enviar un formulario
-                 // Este objeto, ya tiene la propiedad multipart/form-data
-                 var data = new FormData();
-                 // Recorremos todo el array de archivos y lo vamos añadiendo all
-                 // objeto data
-                 for (var i = 0; i < archivos.length; i++) {
-                     // Al objeto data, le pasamos clave,valor
-                     data.append("archivo" + i, archivos[i]);
-                 }
-                 return data;
-             }
-
-             /**
-              * Función que recorre todo el formulario para apadir en el FormData los valores del formulario
-              * @param string id hace referencia al id del formulario
-              * @param FormData data hace referencia al FormData
-              * @return FormData
-              */
-             function getFormData(id, data) {
-                 $("#" + id).find("input,select,textarea").each(function(i, v) {
-                     if (v.type !== "file") {
-                         if (v.type === "checkbox" && v.checked === true) {
-                             data.append(v.name, "on");
-                         } else {
-                             data.append(v.name, v.value);
-                         }
-                     }
-                 });
-                 return data;
-             }
-
-
-             function Guardar() {
+                         function Guardar() {
 
 
                  // validar campos
                  var valido = false;
                  var falso = 0;
 
-                 var data = getFiles();
-                 data = getFormData("miForm", data);
+                 data = new FormData(document.getElementById("miForm"));
 
                  var cliente = <?php echo $idCliente?>;
                  var orden = <?php echo $idOrden?>;
@@ -590,7 +549,7 @@ if(opcion){
                                                  <label class="control-label col-md-9">Nombre Empleado</label>
                                                  <div class="col-md-12">
                                                      <input name="nombre_empleado" placeholder="" class="form-control"
-                                                         type="text" value="<?php echo $nombreEmpleador;?>" disabled>
+                                                         type="text" value="<?php echo $nombreEmpleador;?>" readonly>
                                                  </div>
                                              </div>
                                          </div>
