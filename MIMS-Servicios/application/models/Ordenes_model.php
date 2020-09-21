@@ -6,7 +6,8 @@ class Ordenes_model extends CI_Model{
 	function obtieneOrdenes($idCliente,$idProyecto)
 	{
 
-	  $query = $this->db->query("SELECT a.PurchaseOrderID,
+	  $query = $this->db->query("SELECT a.CodEmpresa as codEmpresa,
+	  							a.PurchaseOrderID,
 	  							a.idRequerimiento,
 								a.PurchaseOrderNumber,
 								(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,

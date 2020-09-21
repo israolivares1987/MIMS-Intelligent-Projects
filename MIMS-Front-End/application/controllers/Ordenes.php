@@ -51,7 +51,7 @@ class Ordenes extends CI_Controller{
               }
 
               
-              $datos_ordenes[] = array(
+              $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'idRequerimiento' => $value->idRequerimiento,
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
