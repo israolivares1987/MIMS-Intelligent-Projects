@@ -84,6 +84,7 @@
 															<tr>
                                                             <th>Acciones</th>
                                                             <th>Orden ID</th>
+                                                            <th>ID Requerimiento</th>
                                                             <th>Orden Number</th>
                                                             <th>Categorizacion</th>
                                                             <th>Orden Description</th>
@@ -149,20 +150,124 @@
 
 											</div>
 											<!-- /.col-md-6 -->
+                                            
+
+                                            <div class="col-lg-12">
+                                                    <div class="card">
+                                                        <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="fas fa-clipboard-list"></i>
+                                                            Adjuntos Técnicos
+                                                        </h3>
+                                                        </div>
+                                                        <!-- /.card-header -->
+                                                        <div class="card-body">
+                                                            <table class="table" cellspacing="0" width="99%">
+                                                                <tbody>
+                                                                    <tr>
+                                                                        <th>
+                                                                            <button style="display: none;" id="btn_nueva_arch_tecnico" class="btn btn-outline-primary float-right mb-3">Nuevo Archivo Técnico</button>
+                                                        </th>
+                                                                    </tr>
+                                                                </tbody>
+                                                            </table>
+                                                            <table id="tbl_archivos_tecnicos" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                        <thead>
+                                                            <tr>                          
+                                                            <th>Acciones</th>
+                                                            <th>Orden ID</th>
+                                                            <th>ID Requerimiento</th>
+                                                            <th>Disciplina</th>
+                                                            <th>Instalación Definitiva</th>
+                                                            <th>Area Proyecto</th>
+                                                            <th>Tipo</th>
+                                                            <th>Inspección Requerida</th>
+                                                            <th>Nivel Inspeccion</th>
+                                                            <th>Documentos Antes Iniciar</th>	
+                                                            <th>Alcance Técnico Trabajo</th>	
+                                                            <th>Instrucción Requirente</th>	
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody id="datos_archivos_tecnicos">
+                                                        </tbody>
+                                                        </table>
+                                                        </div>
+                                                        <!-- /.card-body -->
+                                                    </div>
+
+   </div>
+
+
+
+
 										</div>
 										<!-- /.row -->
 											<!-- /.col-md-6 -->
 										</div>
 										<!-- /.row -->
 									</div>
-
-										
-									
-                
-
         </div>
     </div>
 </div> <!-- Content Wrapper. Contains page content -->
+
+<!--.modal modal_archivos_tecnicos-->
+<div id="modal_archivos_tecnicos" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                             <h5 class="modal-title">Subir Archivo</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                            <div class="modal-body">
+                                <div class="container">
+                                            <div class="col-lg-12">
+                                            <div class="card">
+                                                <div class="card-header">
+                                                <h3 class="card-title">
+                                                <i class="fas fa-clipboard-list"></i>
+                                                    Archivos Tecnicos
+                                                </h3>
+                                                </div>
+                                                <!-- /.card-header -->
+                                                <div class="card-body">
+                                                        <table id="tbl_archivos_tecnicos_subidos" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>ID Orden</th>
+                                                                    <th>ID Archivo Técnico</th>
+                                                                    <th>Nombre Archivo</th>
+                                                                    <th>Descarga Archivo</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="datos_archivos_tecnicos_subidos">
+                                                            </tbody>
+                                                        </table>
+                                                </div>
+
+                                    <!-- /.card-body -->
+                            </div>
+                                </div>
+
+                                
+
+                                <!-- /.card-body -->
+                          <div class="modal-footer justify-content-between">
+                              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
+                          </div>
+                              
+                            </div>
+
+                       
+                          
+                            <!-- Image loader -->     
+                     </div>
+                 </div>
+             </div>
+
+
 
     <style type="text/css" class="init">
     /* Ensure that the demo table scrolls */
@@ -191,6 +296,8 @@
         recargaProyectos(cliente);
         recargaOrdenes(0, 0);
         recargaItemOrdenes(0, 0, 0);
+        recargaArchivoTecnico(0,0);
+   recargaArchivosTecnicos(0, 0, 0);
 
 
         //set input/textarea/select event when change value, remove class error and remove text help block 
@@ -214,6 +321,8 @@
     function listar_ordenes(id_proyecto, id_cliente) {
 
         recargaOrdenes(id_proyecto, id_cliente);
+        recargaArchivoTecnico(0,0);
+   recargaArchivosTecnicos(0, 0, 0);
 
     }
 
@@ -319,9 +428,10 @@
                                             '<button data-toggle="tooltip" data-placement="left" title="Ver Items Orden" onclick="listar_item_ordenes(' +
                                             orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
                                             ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-inbox"></i></button>';
-                                            
+                                            ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
                                         ordenes_html += '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+                                        ordenes_html += '<td>' + orden.idRequerimiento + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
                                         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
@@ -448,7 +558,172 @@ $.ajax({
 
 }
 
-    function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
+function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
         window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');
-    }
+}
+
+function listar_archivos_adjuntos(cod_empresa,id_orden){  
+  
+  recargaArchivoTecnico(cod_empresa,id_orden);
+
+}
+
+function recargaArchivoTecnico(cod_empresa,id_orden){
+
+
+var archivo_tecnico_html = '';
+var tabla_archivo_tecnico = $('#tbl_archivos_tecnicos').DataTable();
+
+
+tabla_archivo_tecnico.destroy();
+
+$.ajax({
+  url: '<?php echo base_url('index.php/AdjuntoTecnico/listasAdjuntoTecnico');?>',
+  type: 'POST',
+  dataType: 'json',
+  data: {
+    cod_empresa: cod_empresa,
+    id_orden: id_orden
+  },
+}).done(function(result) {
+
+  console.log(result);
+  
+ 
+  $.each(result.adjuntotecnicos, function(key, adjuntotecnico) {
+    archivo_tecnico_html += '<tr>';
+    archivo_tecnico_html += '<td>';
+    archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Técnicos" onclick="ver_archivo_tecnico('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
+    archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Técnicos EP" onclick="ver_archivo_tecnico_ep('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
+    archivo_tecnico_html += '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.id_orden + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.id_requerimiento + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.disciplina + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.instalacion_definitiva + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.area_proyecto + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.tipo_pm + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.inspeccion_requerida + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.nivel_inspeccion + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.documentos_antes_iniciar + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.alcance_tecnico_trabajo + '</td>';
+    archivo_tecnico_html += '<td>' + adjuntotecnico.instruccion_requirente + '</td>';
+    archivo_tecnico_html += '</tr>';
+
+
+  });
+
+  $('#datos_archivos_tecnicos').html(archivo_tecnico_html);
+
+  $('#or_id_orden_arch_tecnico').val(id_orden);
+  $('#or_cod_empresa_arch_tecnico').val(cod_empresa);
+  
+  $('[data-toggle="tooltip"]').tooltip();
+
+  $('#tbl_archivos_tecnicos').DataTable({
+      "searching": false,
+      language: {
+          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
+      },
+      "paging": true,
+      "lengthChange": false,
+      "searching": false,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      //"responsive": true,
+      "scrollY": "600px",
+      "scrollX": true,
+      "scrollCollapse": true
+  });
+
+
+}).fail(function() {
+  console.log("error tbl_archivos_tecnicos");
+})
+
+
+
+}
+
+
+function ver_archivo_tecnico(id,cod_empresa, id_orden) {
+
+$('#modal_archivos_tecnicos').modal('show');
+$('.modal-title').text('Archivos Técnico'); // Set title to Bootstrap modal title
+
+recargaArchivosTecnicos('1', id_orden, cod_empresa);
+
+}
+
+
+function ver_archivo_tecnico_ep(id,cod_empresa, id_orden) {
+
+$('#modal_archivos_tecnicos').modal('show');
+$('.modal-title').text('Archivos Técnico EP'); // Set title to Bootstrap modal title
+
+recargaArchivosTecnicos('2', id_orden, cod_empresa);
+
+
+}
+
+
+
+
+function recargaArchivosTecnicos(tipo_archivo, id_orden, cod_empresa){
+
+var archivos_html ='';
+
+var tabla_proyecto =  $('#tbl_archivos_tecnicos_subidos').DataTable();
+
+tabla_proyecto.destroy();
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/AdjuntoTecnico/listasArchivosTecnico'); ?>',
+  type: 		'POST',
+  dataType: 'json',
+  data: {
+    cod_empresa: cod_empresa,
+    id_orden: id_orden,
+    tipo_archivo : tipo_archivo
+    
+        },
+}).done(function(result) {
+
+  $.each(result.adjuntotecnicos,function(key, adjuntotecnico) {
+    archivos_html += '<tr>';
+    archivos_html += '<td>' + adjuntotecnico.id_orden + '</td>';
+    archivos_html += '<td>' + adjuntotecnico.id_archivo_tecnico + '</td>';
+    archivos_html += '<td>' + adjuntotecnico.archivo_original + '</td>';
+    archivos_html += '<td>' + adjuntotecnico.documentos_tecnicos_considera + '</td>';
+    archivos_html += '</tr>';
+
+  });
+    
+  $('#datos_archivos_tecnicos_subidos').html(archivos_html);
+
+    $('[data-toggle="tooltip"]').tooltip();
+
+    $('#tbl_archivos_tecnicos_subidos').DataTable({
+      language: {
+          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+      },
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+   //   "responsive": true,
+      "scrollY": "600px",
+      "scrollX": true,
+      "scrollCollapse": true
+  });
+
+}).fail(function() {
+  console.log("error recargaArchivosTecnicos");
+})
+
+}
+
+
     </script>
