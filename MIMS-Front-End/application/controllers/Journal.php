@@ -338,16 +338,25 @@ class Journal extends MY_Controller{
     $respaldo = "";
     $idInsertado=0;
 
-    $this->form_validation->set_rules('respaldos', 'Upload File', 'callback_checkFileValidation');
+
+    $nameArchivo = 'respaldos';
 
 
+  $archivo = $this->checkFileValidation($nameArchivo);
+  $respArchivo = $archivo['resp'];
 
-    if($this->form_validation->run() == false) {
-      
-        $error_msg = 'Archivo invalido, favor seleccionar archivo soportado.';
-        $resp =  false;
-       
-    } else {
+  
+  if($respArchivo== false){
+
+    
+
+    $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
+    $resp = false;
+  
+
+  }else{ 
+
+   
  
         if(is_uploaded_file($_FILES['respaldos']['tmp_name'])) {   
 
@@ -458,61 +467,72 @@ class Journal extends MY_Controller{
 
   }
 
-  // checkFileValidation
-  public function checkFileValidation($str) {        
-            $mime_types = array(
-                'text/csv',
-                'text/x-csv', 
-                'application/csv', 
-                'application/x-csv', 
-                'application/excel',
-                'text/x-comma-separated-values', 
-                'text/comma-separated-values', 
-                'application/octet-stream', 
-                'application/vnd.ms-excel',
-                'application/vnd.msexcel', 
-                'text/plain',
-                'application/msword',
-                'application/vnd.openxmlformats officedocument.wordprocessingml.document',
-                'image/jpeg',
-                'application/pdf',
-                'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
-                'video/mp4'
-            );
+   // checkFileValidation
+   public function checkFileValidation($str) {   
+    
 
-            $fileExtArray = array(
-              'csv',
-              'CSV', 
-              'pdf', 
-              'PDF', 
-              'xls',
-              'xlsx', 
-              'XLS', 
-              'XLSX', 
-              'doc',
-              'docx', 
-              'DOC',
-              'DOCX',
-              'mp4',
-              'MP4'
-          );
-            if(isset($_FILES['respaldos']['name']) && $_FILES['respaldos']['name'] != ""){
-                // get mime by extension
-                $mime = get_mime_by_extension($_FILES['respaldos']['name']);
-                $fileExt = explode('.', $_FILES['respaldos']['name']);
-                $ext = end($fileExt);
 
-                if(in_array($ext, $fileExtArray) && in_array($mime, $mime_types)){
-                    return true;
-                }else{
-                    $this->form_validation->set_message('checkFileValidation', 'Please choose correct file.');
-                    return false;
-                }
-            }else{
-                $this->form_validation->set_message('checkFileValidation', 'Please choose a file.');
-                return false;
-            }
+    $mime_types = array(
+        'text/csv',
+        'text/x-csv', 
+        'application/csv', 
+        'application/x-csv', 
+        'application/excel',
+        'text/x-comma-separated-values', 
+        'text/comma-separated-values', 
+        'application/octet-stream', 
+        'application/vnd.ms-excel',
+        'application/vnd.msexcel', 
+        'text/plain',
+        'application/msword',
+        'application/vnd.openxmlformats officedocument.wordprocessingml.document',
+        'image/jpeg',
+        'application/pdf',
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+    );
+
+    $fileExtArray = array(
+      'csv',
+      'CSV', 
+      'pdf', 
+      'PDF', 
+      'xls',
+      'xlsx', 
+      'XLS', 
+      'XLSX', 
+      'doc',
+      'docx', 
+      'DOC',
+      'DOCX'
+  );
+    if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
+        // get mime by extension
+        $mime = get_mime_by_extension($_FILES[$str]['name']);
+        $fileExt = explode('.', $_FILES[$str]['name']);
+        $ext = end($fileExt);
+
+        if(in_array($ext, $fileExtArray) && in_array($mime, $mime_types)){
+          $resp=  true;
+          $error_msg = 'Archivo OK';
+
+
+        }else{
+          $error_msg = 'Please choose correct file.';
+          $resp = false;
         }
+    }else{
+        $error_msg =  'Please choose a file.';
+        $resp = false;
+    }
+
+    $data = array(
+      'mensaje'  => $error_msg,
+      'resp' => $resp
+    );
+
+    return $data;
+
+}
     
 
 function enviarMail(){
@@ -830,14 +850,20 @@ function enviarMail(){
       if(is_uploaded_file($_FILES['respaldos']['tmp_name'])) {   
   
 
-                    $this->form_validation->set_rules('respaldos', 'Upload File', 'callback_checkFileValidation');
-         
-                    if($this->form_validation->run() == false) {
-                      
-                        $error_msg = 'Archivo invalido, favor seleccionar archivo soportado.';
-                        $resp =  false;
-                      
-                    } else {
+                
+                            $archivo = $this->checkFileValidation($nameArchivo);
+                            $respArchivo = $archivo['resp'];
+
+                            
+                            if($respArchivo== false){
+
+                              
+
+                              $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
+                              $resp = false;
+                            
+
+                            }else{ 
                 
                         
                 
