@@ -39,24 +39,10 @@ class TodoUsuarios extends CI_Controller {
 
 	function guardarTodoUsuario(){
 
-	
-		$descripcion_todo  = $this->input->post('descripcion_todo');  
-		$fecha_inicio      = $this->input->post('fecha_inicio');
-		$fecha_termino  = $this->input->post('fecha_termino');
-		$codEmpresa = $this->input->post('codEmpresa'); 
-		$cod_usuario = $this->input->post('id_usuario'); 
 
 
 	
-		$insert= array(
-			'codEmpresa'  => $codEmpresa,  
-			'id_usuario'      => $cod_usuario,
-			'descripcion_todo'  => $descripcion_todo,
-			'fecha_inicio'           => $fecha_inicio,
-			'fecha_termino'       => $fecha_termino
-		  );
-
-	
+		$insert=  $this->input->post();
 	
 		$todo = $this->todo->guardarTodoUsuario($insert);
 	
@@ -103,9 +89,12 @@ class TodoUsuarios extends CI_Controller {
 		$fecha_termino  = $this->input->post('fecha_termino');
 		$id_usuario = $this->input->post('id_usuario');  
 		$id_todo      = $this->input->post('id_todo');
+		$lista_todo      = $this->input->post('lista_todo');
+
 		
 
 		$update= array(
+			'lista_todo'  => $lista_todo,
 			'descripcion_todo'  => $descripcion_todo,
 			'fecha_inicio'           => $fecha_inicio,
 			'fecha_termino'       => $fecha_termino

@@ -15,6 +15,8 @@ class Ordenes_model extends CI_Model{
 								a.Revision,
 								b.nombreCliente,
 								a.SupplierName,
+								a.EstadoPlano,
+								a.ObservacionesEp,
 								a.Comprador,
 								concat(c.FirstName,' ', c.LastName) as ExpediterID,
 								a.Requestor,

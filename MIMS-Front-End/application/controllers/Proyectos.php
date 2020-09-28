@@ -9,6 +9,7 @@ class Proyectos extends MY_Controller{
     $this->load->library('CallExternosOrdenes');
     $this->load->library('CallExternosDominios');
     $this->load->library('CallUtil');
+    $this->load->library('CallExternosBitacora');
 
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -134,6 +135,16 @@ $validar = $this->callutil->validarDatosProyectos($valida);
       $data['resp']        = true;
       $data['mensaje']     = 'Proyecto creado correctamente';
 
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'INSERTA_PROVEEDORES',
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'PROYECTOS' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
     }else{
       $data['resp']        = false;
       $data['mensaje']     = 'Error al crear proyecto';
@@ -235,6 +246,16 @@ function actualizaProyecto(){
       $resp = true;
       $mensaje = "Proyecto actualizado correctamente";
 
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'ACTUALIZA_PROVEEDORES',
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'PROYECTOS' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
     }else{
 
       $mensaje = "Error al actualizar el proyecto";
@@ -287,6 +308,16 @@ function eliminaProyecto(){
 
       $data['resp'] = true;
       $data['mensaje'] = 'Registro eliminado correctamente';
+
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'ELIMINA_PROVEEDORES',
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'PROYECTOS' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
     }else{
       $data['resp'] = false;

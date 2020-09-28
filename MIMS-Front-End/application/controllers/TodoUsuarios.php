@@ -6,6 +6,8 @@ class TodoUsuarios extends MY_Controller{
     $this->load->library('CallExternosTodo');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+    $this->load->library('CallExternosBitacora');
+    $this->load->library('CallExternosDominios');
 
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -19,6 +21,7 @@ class TodoUsuarios extends MY_Controller{
 
     
     $descripcion_todo  = $this->input->post('var_descripcion_todo');  
+    $var_lista_todo  = $this->input->post('var_lista_todo');  
     $var_fecha_inicio      = $this->callutil->formatoFecha($this->input->post('var_fecha_inicio'));
     $var_fecha_termino  = $this->callutil->formatoFecha($this->input->post('var_fecha_termino'));
 
@@ -34,12 +37,11 @@ class TodoUsuarios extends MY_Controller{
 
     $data = array();
 
-    $descripcion = $this->form_validation->set_rules('var_descripcion_todo', 'Descripcion', 'required|trim');
     $fecha_inicio = $this->form_validation->set_rules('var_fecha_inicio', 'Fecha Inicio', 'required|trim');
     $fecha_termino = $this->form_validation->set_rules('var_fecha_termino', 'Fecha Termino', 'required|trim');
    
     
-    if(!$descripcion->run() || !$fecha_inicio->run()  || !$fecha_termino->run()){
+    if(!$fecha_inicio->run()  || !$fecha_termino->run()){
         
       $error_msg = 'Datos Faltantes, favor revisar.';
       $resp =  false;
@@ -52,7 +54,8 @@ class TodoUsuarios extends MY_Controller{
         'id_usuario'      => $cod_usuario,
         'descripcion_todo'  => $descripcion_todo,
         'fecha_inicio'           => $var_fecha_inicio,
-        'fecha_termino'       => $var_fecha_termino
+        'fecha_termino'       => $var_fecha_termino,
+        'lista_todo'          => $var_lista_todo
       );
 
       $todo = $this->callexternostodo->guardarTodoUsuario($insert);
@@ -67,6 +70,16 @@ class TodoUsuarios extends MY_Controller{
 
         $error_msg = 'To-Do creado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'INSERTA_TO-DO',
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'TO-DO' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -154,6 +167,16 @@ class TodoUsuarios extends MY_Controller{
 
         $error_msg = 'To-Do actualizado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ACTUALIZA_ESTADO_TO-DO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'TO-DO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+  
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -185,13 +208,29 @@ class TodoUsuarios extends MY_Controller{
     $datos        = array();
 
     $todo        =  $this->callexternostodo->obtieneTodoUsuario($codEmpresa,$id_usuario,$id_todo);
-
+    $select_todo   = '<select class="form-control" onchange="cambia_todo_edit(this)" id="edit_var_lista_todo" name="edit_var_lista_todo">'; 
     if($todo){
 
       foreach (json_decode($todo) as $key => $value) {
+      
+
+        $datoap   = $this->callexternosdominios->obtieneDatosRef('LISTA_TO_DO');
+
+
+           foreach (json_decode($datoap) as $llave => $valor) {
+      
+              $selected = ($valor->domain_id == $value->lista_todo) ? 'selected' : '';
+              $select_todo .='<option '.$selected.' value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    
+        }
         
+  $select_todo .= '</select>';
+
+
         $data = array(
           'descripcion_todo'     => $value->descripcion_todo,
+          'lista_todo'     => $value->lista_todo,
+          'select_lista_todo'     => $select_todo,
           'fecha_inicio'     => $this->callutil->formatoFechaSalida($value->fecha_inicio),
           'fecha_termino'       => $this->callutil->formatoFechaSalida($value->fecha_termino)
         );
@@ -210,7 +249,9 @@ class TodoUsuarios extends MY_Controller{
   function editaTodoUsuario(){  
 
     
-    $descripcion_todo  = $this->input->post('var_edit_descripcion_todo');  
+    $descripcion_todo  = $this->input->post('var_edit_descripcion_todo'); 
+    $lista_todo  = $this->input->post('edit_var_lista_todo'); 
+    
     $var_fecha_inicio      = $this->callutil->formatoFecha($this->input->post('var_edit_fecha_inicio'));
     $var_fecha_termino  = $this->callutil->formatoFecha($this->input->post('var_edit_fecha_termino'));
 
@@ -223,12 +264,11 @@ class TodoUsuarios extends MY_Controller{
 
     $data = array();
 
-    $descripcion = $this->form_validation->set_rules('var_edit_descripcion_todo', 'Descripcion', 'required|trim');
-    $fecha_inicio = $this->form_validation->set_rules('var_edit_fecha_inicio', 'Fecha Inicio', 'required|trim');
+   $fecha_inicio = $this->form_validation->set_rules('var_edit_fecha_inicio', 'Fecha Inicio', 'required|trim');
     $fecha_termino = $this->form_validation->set_rules('var_edit_fecha_termino', 'Fecha Termino', 'required|trim');
    
     
-    if(!$descripcion->run() || !$fecha_inicio->run()  || !$fecha_termino->run()){
+    if( !$fecha_inicio->run()  || !$fecha_termino->run()){
         
       $error_msg = 'Datos Faltantes, favor revisar.';
       $resp =  false;
@@ -242,7 +282,8 @@ class TodoUsuarios extends MY_Controller{
         'descripcion_todo'  => $descripcion_todo,
         'fecha_inicio'           => $var_fecha_inicio,
         'fecha_termino'       => $var_fecha_termino,
-        'id_todo'      => $id_todo
+        'id_todo'      => $id_todo,
+        'lista_todo' =>$lista_todo
       );
 
    
@@ -255,6 +296,15 @@ class TodoUsuarios extends MY_Controller{
 
         $error_msg = 'To-Do actualizado correctamente.';
         $resp =  true;
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ACTUALIZA_TO-DO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'TO-DO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+  
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -292,6 +342,17 @@ class TodoUsuarios extends MY_Controller{
 
         $resp = true;
         $mensaje = "To Do Eliminado correctamente";
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_TO-DO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'TO-DO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+ 
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
 
       }else{
 

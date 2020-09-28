@@ -10,7 +10,9 @@ class Todo_usuarios_model extends CI_Model{
 		
 		
 		$this->db->select("a.*, CONCAT(
-			( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif ");
+			( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif,
+			(select domain_desc from tbl_ref_codes where domain_id = a.lista_todo and domain = 'LISTA_TO_DO ') as lista_todo
+			");
         $this->db->where('codEmpresa', $codEmpresa);
 		$this->db->where('id_usuario', $codUsuario);
 		$this->db->from('tbl_todo_usuario a');

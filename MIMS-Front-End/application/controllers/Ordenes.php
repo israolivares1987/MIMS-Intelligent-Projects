@@ -15,6 +15,7 @@ class Ordenes extends CI_Controller{
     $this->load->library('CallExternosOrdenes');
         $this->load->library('form_validation');
     $this->load->helper('file');
+    $this->load->library('CallExternosBitacora');
     
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -61,7 +62,11 @@ class Ordenes extends CI_Controller{
                 'nombreCliente'   => $value->nombreCliente,
                 "SupplierName" => $value->SupplierName,
                 'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
                 'Requestor'   => $value->Requestor,
+                'Comprador'   => $value->Comprador,
+
                 'Currency'   => $value->Currency,
                 'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
                 'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
@@ -99,6 +104,10 @@ class Ordenes extends CI_Controller{
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
     $or_revision = $this->input->post('or_revision');
     $or_select_supplier   = $this->input->post('or_select_supplier');
+    
+    $or_estado_plano   = $this->input->post('or_estado_plano');
+    $or_observacion_ep   = $this->input->post('or_observacion_ep');
+  
     $or_select_employee   = $this->input->post('or_select_employee');
     $or_select_currency   = $this->input->post('or_select_currency');
     $or_requestor         = $this->input->post('or_requestor');
@@ -171,6 +180,8 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                  'EstadoPlano' => $or_estado_plano ,
+                  'ObservacionesEp' => $or_observacion_ep,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
@@ -196,6 +207,15 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden cargada correctamente';
                   $resp =  true;
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'INSERTA_ORDEN',
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
                 }else{
                   $error_msg = 'Error en cargar Orden, favor revisar con Soporte';
@@ -255,6 +275,8 @@ class Ordenes extends CI_Controller{
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
           'select_currency'     => $this->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
           'requestor'           => $value->Requestor,
+          'EstadoPlano'         => $value->EstadoPlano,
+          'ObservacionesEp'     => $value->ObservacionesEp,
           'valor_neto'          => $this->callutil->formatoNumero($value->ValorNeto),
           'valor_total'         => $this->callutil->formatoNumero($value->ValorTotal),
           'comprador'           => $value->Comprador,
@@ -293,6 +315,10 @@ class Ordenes extends CI_Controller{
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
     $or_revision        = $this->input->post('or_act_revision');
     $or_select_supplier   = $this->input->post('or_act_select_supplier');
+
+    $or_estado_plano   = $this->input->post('or_act_estado_plano');
+    $or_observacion_ep   = $this->input->post('or_act_observacion_ep');
+
     $or_select_employee   = $this->input->post('or_act_select_employee');
     $or_select_currency   = $this->input->post('or_act_select_currency');
     $or_requestor         = $this->input->post('or_act_requestor');
@@ -341,6 +367,12 @@ class Ordenes extends CI_Controller{
     $respArchivo = $archivo['resp'];
 
 
+    if ($or_select_status === '6'){
+
+      $or_ship_date = date_create()->format('Y-m-d');
+
+
+    }
 
 
     if($respArchivo == false) {
@@ -358,6 +390,8 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                   'EstadoPlano'  => $or_estado_plano  ,
+                   'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
@@ -381,6 +415,16 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden actualizada correctamente';
                   $resp =  true;
+
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
                 }else{
                   $error_msg = 'Error en actualizar Orden, favor revisar con Soporte';
@@ -424,7 +468,10 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                  'EstadoPlano'  => $or_estado_plano  ,
+                  'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
+
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
                   'Currency'                  => $or_select_currency,
@@ -449,6 +496,15 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden actualizada correctamente';
                   $resp =  true;
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
                 }else{
                   $error_msg = 'Error en actualizar Orden, favor revisar con Soporte';
@@ -521,6 +577,15 @@ class Ordenes extends CI_Controller{
 
             $data['resp'] = true;
             $data['mensaje'] = 'Registro eliminado correctamente';
+
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ELIMINA_ORDEN_'.$orden,
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'ORDEN' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+    
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
           }else{
             $data['resp'] = false;

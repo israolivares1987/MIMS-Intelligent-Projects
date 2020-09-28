@@ -80,7 +80,7 @@
                                              <div class="col-12">
                                              <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="descarga_bucksheet()"><i class="fas fa-file-download">
-                                                     </i> Descargar BuckSheet
+                                                     </i> Descargar WPanel
                                                  </button>   
                                              </div>
                                          </th>
@@ -128,6 +128,7 @@
                              <tr>
                                          <th>Nombre de la Orden</th>
                                          <th>Estado Linea</th>
+                                         <th>Tipo de Linea</th>
                                          <th>Numero Linea</th>
                                          <th>Proveedor</th>
                                          <th>Item ST</th>
@@ -138,12 +139,10 @@
                                          <th>Stockcode</th>
                                          <th>Descripcion</th>
                                          <th>Plano Modelo</th>
-                                         <th>Revision</th>
+                                         <th>Revisión</th>
                                          <th>Paquete Construccion Area</th>
                                          <th>Medida Unitaria</th>
                                          <th>Peso Total</th>
-                                         <th>Fecha RAS</th>
-                                         <th>Dia sAntes RAS</th>
                                          <th>Fecha Comienzo Fabricacion</th>
                                          <th>P/A FCF</th>
                                          <th>Fecha Termino Fabricacion</th>
@@ -174,6 +173,9 @@
                                          <th>Observacion 5</th>
                                          <th>Observacion 6</th>
                                          <th>Observacion 7</th>
+                                         <th>Fecha RAS</th>
+                                         <th>Dias Antes RAS</th>
+                                        
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -288,6 +290,7 @@
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';

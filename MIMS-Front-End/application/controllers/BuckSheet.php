@@ -4,6 +4,8 @@ if (!defined('BASEPATH'))
 
 class BuckSheet extends MY_Controller {
 
+
+
     public function __construct() {
         parent::__construct();
         $this->load->library('form_validation');
@@ -16,6 +18,8 @@ class BuckSheet extends MY_Controller {
         $this->load->library('CallExternosOrdenes');
         $this->load->library('CallExternosBuckSheet');
         $this->load->library('CallExternosDominios');
+
+        $this->load->library('CallExternosBitacora');
         
         $this->load->helper('file');
         $this->load->helper('url');
@@ -214,6 +218,20 @@ class BuckSheet extends MY_Controller {
            // create array from CSV file
            if(!empty($csvData)){
 
+
+                //Carga Bitacora
+       
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'SUBE_WPANEL',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'WPANEL' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+
+
                foreach($csvData as $row){  
 
 
@@ -268,12 +286,15 @@ class BuckSheet extends MY_Controller {
                         $EstadoLineaBucksheet = '1';
 
                       }
-                      
+
+                      $fecha_hoy = date_create()->format('Y-m-d');
+
                       $memData = array(
                         'PurchaseOrderID' => $row['PurchaseOrderID'],
                         'purchaseOrdername' => urldecode($PurchaseOrderDescription),
                         'SupplierName' => urldecode($SupplierName),
                         'EstadoLineaBucksheet' => $EstadoLineaBucksheet,
+                        'lineaActivable' => $row['lineaActivable'],
                         'NumeroLinea' => $row['NumeroLinea'],
                         'ItemST' => $row['ItemST'],
                         'SubItemST' => $row['SubItemST'],
@@ -288,7 +309,7 @@ class BuckSheet extends MY_Controller {
                         'PesoUnitario' => $row['PesoUnitario'],
                         'PesoTotal' => $row['PesoTotal'],
                         'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
-                        'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $row['FechaSalidaFabrica']),
+                        'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $fecha_hoy),
                         'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
                         'PAFCF' => $row['PAFCF'],
                         'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
@@ -331,6 +352,23 @@ class BuckSheet extends MY_Controller {
                           
                           if($update){
                               $updateCount++;
+
+                               //Carga Bitacora
+       
+                                   //Carga Bitacora
+       
+                                   $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                                   'accion'  => 'ACTUALIZA_WPANEL_LINEA_'.$row['NumeroLinea'],
+                                   'usuario'  =>  $this->session->userdata('n_usuario'),
+                                   'rol' =>   $this->session->userdata('nombre_rol'),
+                                   'objeto'  => 'WPANEL' ,
+                                   'fechaCambio' =>  date_create()->format('Y-m-d'));
+ 
+                                   $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+                                
+
+
                           }
                       }else{
                           // Insert member data
@@ -338,6 +376,19 @@ class BuckSheet extends MY_Controller {
                           
                           if($insert){
                               $insertCount++;
+
+                              $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                              'accion'  => 'INSERTA_WPANEL_LINEA_'.$row['NumeroLinea'],
+                              'usuario'  =>  $this->session->userdata('n_usuario'),
+                              'rol' =>   $this->session->userdata('nombre_rol'),
+                              'objeto'  => 'WPANEL' ,
+                              'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+                              $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+
+
+
                           }
                       }
 
@@ -369,6 +420,11 @@ class BuckSheet extends MY_Controller {
         $resp = false;
 
        }
+
+
+      
+
+
 
     }
 
@@ -472,57 +528,59 @@ class BuckSheet extends MY_Controller {
     
     foreach ($arrBucksheet as $key => $value) {
 
+      $fecha_hoy = date_create()->format('Y-m-d');
       
       $datos_bucksheet[] = array(
         'PurchaseOrderID' => $value->PurchaseOrderID,
         'purchaseOrdername' => $value->purchaseOrdername,
         'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
+        'lineaActivable' => $value->lineaActivable,
         'NumeroLinea' => $value->NumeroLinea,
         'SupplierName' => $value->SupplierName,
         'ItemST' => $value->ItemST,
-        'SubItemST' => $value->SubItemST,
+        'SubItemST' => $this->callutil->cambianull($value->SubItemST),
         'STUnidad' => $value->STUnidad,
         'STCantidad' => $value->STCantidad,
-        'TAGNumber' => $value->TAGNumber,
-        'Stockcode' => $value->Stockcode,
+        'TAGNumber' => $this->callutil->cambianull($value->TAGNumber),
+        'Stockcode' => $this->callutil->cambianull($value->Stockcode),
         'Descripcion' => $value->Descripcion,
-        'PlanoModelo' => $value->PlanoModelo,
+        'PlanoModelo' => $this->callutil->cambianull($value->PlanoModelo),
         'Revision' => $this->callutil->cambianull($value->Revision),
-        'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
-        'PesoUnitario' => $value->PesoUnitario,
-        'PesoTotal' => $value->PesoTotal,
-        'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
-        'DiasAntesRAS' => $value->DiasAntesRAS,
-        'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
+        'PaqueteConstruccionArea' => $this->callutil->cambianull($value->PaqueteConstruccionArea),
+        'PesoUnitario' => $this->callutil->cambianull($value->PesoUnitario),
+        'PesoTotal' => $this->callutil->cambianull($value->PesoTotal),
+        'FechaRAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaRAS)),
+        'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaRAS, $fecha_hoy),
+        'FechaComienzoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion)),
         'PAFCF' => $this->callutil->cambianull($value->PAFCF),
-        'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
+        'FechaTerminoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion)),
         'PAFTF' => $this->callutil->cambianull($value->PAFTF),
-        'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
+        'FechaGranallado' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaGranallado)),
         'PAFG' => $this->callutil->cambianull($value->PAFG),
-        'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
+        'FechaPintura' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaPintura)),
         'PAFP' => $this->callutil->cambianull($value->PAFP),
-        'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
+        'FechaListoInspeccion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaListoInspeccion)),
         'PAFLI' => $this->callutil->cambianull($value->PAFLI),
-        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
-        'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
+        'ActaLiberacionCalidad' => $this->callutil->cambianull($value->ActaLiberacionCalidad),
+        'FechaSalidaFabrica' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaSalidaFabrica)),
         'PAFSF' => $this->callutil->cambianull($value->PAFSF),
-        'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-        'PackingList' => $value->PackingList,
-        'GuiaDespacho' => $value->GuiaDespacho,
-        'SCNNumber' => $value->SCNNumber,
-        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
-        'UnidadesRecibidas' => $value->UnidadesRecibidas,
-        'MaterialReceivedReport' => $value->MaterialReceivedReport,
-        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
-        'Origen' => $value->Origen,
-        'DiasViaje' => $value->DiasViaje,
-        'Observacion1' => $value->Observacion1,
-        'Observacion2' => $value->Observacion2,
-        'Observacion3' => $value->Observacion3,
-        'Observacion4' => $value->Observacion4,
-        'Observacion5' => $value->Observacion5,
-        'Observacion6' => $value->Observacion6,
-        'Observacion7' => $value->Observacion7
+        'FechaEmbarque' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaEmbarque)),
+        'PackingList' => $this->callutil->cambianull($value->PackingList),
+        'GuiaDespacho' => $this->callutil->cambianull($value->GuiaDespacho),
+        'SCNNumber' => $this->callutil->cambianull($value->SCNNumber),
+        'UnidadesSolicitadas' => $this->callutil->cambianull($value->UnidadesSolicitadas),
+        'UnidadesRecibidas' => $this->callutil->cambianull($value->UnidadesRecibidas),
+        'MaterialReceivedReport' => $this->callutil->cambianull($value->MaterialReceivedReport),
+        'MaterialWithdrawalReport' => $this->callutil->cambianull($value->MaterialWithdrawalReport),
+        'Origen' => $this->callutil->cambianull($value->Origen),
+        'DiasViaje' => $this->callutil->cambianull($value->DiasViaje),
+        'Observacion1' => $this->callutil->cambianull($value->Observacion1),
+        'Observacion2' => $this->callutil->cambianull($value->Observacion2),
+        'Observacion3' => $this->callutil->cambianull($value->Observacion3),
+        'Observacion4' => $this->callutil->cambianull($value->Observacion4),
+        'Observacion5' => $this->callutil->cambianull($value->Observacion5),
+        'Observacion6' => $this->callutil->cambianull($value->Observacion6),
+        'Observacion7' => $this->callutil->cambianull($value->Observacion7)
 
       );
 
@@ -566,6 +624,7 @@ function obtieneBucksheetDet()
               'PurchaseOrderID' => $value->PurchaseOrderID,
               'purchaseOrdername' => $value->purchaseOrdername,
               'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
+              'lineaActivable' => $value->lineaActivable,
               'NumeroLinea' => $value->NumeroLinea,
               'SupplierName' => $value->SupplierName,
               'ItemST' => $value->ItemST,
@@ -660,8 +719,11 @@ function obtieneBucksheetDet()
 
 
         }
-
-        $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+        $Orden = $this->callexternosordenes->obtieneOrden($this->input->post('idProyecto'),
+                                                          $this->input->post('idCliente'),
+                                                          $this->input->post('PurchaseOrderID'),
+                                                          $this->input->post('codEmpresa'));
     
 
         $arrOrden = json_decode($Orden);
@@ -687,6 +749,7 @@ function obtieneBucksheetDet()
           'SupplierName' => urldecode($SupplierName),
           'EstadoLineaBucksheet' =>  $EstadoLineaBucksheet,
           'NumeroLinea' => $this->input->post('NumeroLinea'),
+          'lineaActivable' => $this->input->post('lineaActivable'),
           'STCantidad' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('STCantidad')),
           'TAGNumber' => $this->input->post('TAGNumber'),
           'Stockcode' => $this->input->post('Stockcode'),
@@ -733,6 +796,19 @@ function obtieneBucksheetDet()
 
             $data['resp']        = true;
             $data['mensaje']     = 'Registro actualizado correctamente';
+
+
+
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ACTUALIZA_WPANEL_LINEA_'.$this->input->post('NumeroLinea'),
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'WPANEL' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+
     
           }else{
             $data['resp']        = false;
@@ -763,6 +839,18 @@ function obtieneBucksheetDet()
     
             $resp = true;
             $mensaje = "Linea ".$numeroLinea." del BuckeSheet Eliminado correctamente";
+
+
+            
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ELIMINA_WPANEL_LINEA_'.$numeroLinea,
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'WPANEL' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
     
           }else{
     
@@ -787,7 +875,7 @@ function obtieneBucksheetDet()
 
       }
 
- // export Data
+    // export Data
    // Export data in CSV format 
    public function exportCSV($PurchaseOrderID){ 
     // file name 
@@ -811,6 +899,7 @@ function obtieneBucksheetDet()
     "NumeroLinea",
     "SupplierName",
     "EstadoLineaBucksheet",
+    'lineaActivable',
     "ItemST",
     "SubItemST",
     "STUnidad",
@@ -867,6 +956,7 @@ function obtieneBucksheetDet()
         'PurchaseOrderID' => $this->callutil->clean_string($value->PurchaseOrderID),
         'purchaseOrdername' => $this->callutil->clean_string($value->purchaseOrdername),
         'EstadoLineaBucksheet' => $this->callutil->clean_string($value->EstadoLineaBucksheet),
+        'lineaActivable' =>  $this->callutil->clean_string($value->lineaActivable),
         'NumeroLinea' => $this->callutil->clean_string($value->NumeroLinea),
         'SupplierName' => $this->callutil->clean_string($value->SupplierName),
         'ItemST' => $this->callutil->clean_string($value->ItemST),
@@ -923,7 +1013,29 @@ function obtieneBucksheetDet()
       fputcsv($file,$datos_bucksheet, ';', chr(27));
     }
     fclose($file); 
+    
+    
+    $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+    'accion'  => 'DESCARGA_WPANEL',
+    'usuario'  =>  $this->session->userdata('n_usuario'),
+    'rol' =>   $this->session->userdata('nombre_rol'),
+    'objeto'  => 'WPANEL' ,
+    'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+    $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+    
+    
+    
+    
     exit; 
+
+
+
+
+
+
+
+
    }
       
 

@@ -7,11 +7,14 @@ class OrdenesItem extends CI_Controller{
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosOrdenesItem');
+    $this->load->library('CallExternosOrdenes');
+    $this->load->library('CallExternosBuckSheet');
     $this->load->library('CallUtil');
     $this->load->library('form_validation');
     $this->load->helper('file');
     $this->load->helper('url');
     $this->load->library('CSVReader');
+    $this->load->library('CallExternosBitacora');
     
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -104,12 +107,53 @@ class OrdenesItem extends CI_Controller{
                 );
 
                 $ordenes    = $this->callexternosordenesitem->guardaOrdenItem($data);
+              
+
 
                 if($ordenes){
 
                   $error_msg = 'Orden Item cargada correctamente';
                   $resp =  true;
-            
+
+                  $numerolineaResponse = $this->callexternosbucksheet->obtieneNumeroLinea($id_order_item,$codEmpresa, $id_orden_item_proyecto);
+
+                 
+
+                  $arrnumerolinea = json_decode($numerolineaResponse);
+ 
+
+                
+                      if($arrnumerolinea){
+                        
+                        foreach ($arrnumerolinea as $key => $value) {
+                          
+                          $numerolinea = $value->NumeroLinea;
+              
+                        }
+
+                      }  
+
+                 $cargaWpanel = $this->ordenItem_to_wpanel($numerolinea,
+                                                            $id_orden_item_proyecto,
+                                                            $id_orden_item_cliente,
+                                                            $id_order_item,
+                                                            $codEmpresa,
+                                                            $or_item_id_item,
+                                                            $or_item_unidad,
+                                                            $or_item_cantidad,
+                                                            $or_item_descripcion);
+
+                
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'INSERTA_ORDEN_ITEM',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'ORDEN_ITEM' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+        
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+                           
                 }else{
                   $error_msg = 'Error en cargar Orden Item, favor revisar con Soporte';
                   $resp =  false;
@@ -216,6 +260,16 @@ class OrdenesItem extends CI_Controller{
                   $error_msg = 'Orden Item actualizada correctamente';
                   $resp =  true;
 
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_ORDEN_ITEM',
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN_ITEM' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
                 }else{
                   $error_msg = 'Error en actualizar Orden Item , favor revisar con Soporte';
                   $resp =  false;
@@ -254,6 +308,16 @@ class OrdenesItem extends CI_Controller{
 
         $data['resp'] = true;
         $data['mensaje'] = 'Registro eliminado correctamente';
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_ORDEN_ITEM',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'ORDEN_ITEM' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
       }else{
         $data['resp'] = false;
@@ -335,7 +399,7 @@ public function save() {
                                 'unidad' => $row['unidad'],
                                 'cantidad' => $row['cantidad'],
                                 'precio_unitario' => $row['precio_unitario'],
-                                'valor_neto' => $row['valor_neto'],
+                                'valor_neto' => $row['cantidad'] * $row['precio_unitario'],
                                 'estado' => $estado
                             );
                             
@@ -354,13 +418,70 @@ public function save() {
                                       
                                       if($update){
                                           $updateCount++;
+
+
+                                          $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                                          'accion'  => 'ACTUALIZA_ORDEN_ITEM_'.$row['id_item'],
+                                          'usuario'  =>  $this->session->userdata('n_usuario'),
+                                          'rol' =>   $this->session->userdata('nombre_rol'),
+                                          'objeto'  => 'ORDEN_ITEM' ,
+                                          'fechaCambio' =>  date_create()->format('Y-m-d'));
+                                  
+                                          $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
                                       }
                                   }else{
                                       // Insert member data
                                       $insert = $this->callexternosordenesitem->insert($memData);
+
+
+
+                                      $numerolineaResponse = $this->callexternosbucksheet->obtieneNumeroLinea($idOrden,$codEmpresa, $idProyecto);
+                                  
+                                                   
+                                           $arrnumerolinea = json_decode($numerolineaResponse);
+                                   
+                                  
+                                                  
+                                                        if($arrnumerolinea){
+                                                          
+                                                          foreach ($arrnumerolinea as $key => $value) {
+                                                            
+                                                            $numerolinea = $value->NumeroLinea;
+                                                
+                                                          }
+                                  
+                                                        }  
+                                  
+                                                          $cargaWpanel = $this->ordenItem_to_wpanel($numerolinea,
+                                                                                                    $idProyecto,
+                                                                                                    $idCliente,
+                                                                                                    $idOrden,
+                                                                                                    $codEmpresa,
+                                                                                                    $row['id_item'],
+                                                                                                    $row['unidad'],
+                                                                                                    $row['cantidad'],
+                                                                                                    $row['descripcion']);          
+                                                      
+                                                 
+
+
                                       
                                       if($insert){
                                           $insertCount++;
+
+                                      
+                                          $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                                          'accion'  => 'INSERTA_ORDEN_ITEM_'.$row['id_item'],
+                                          'usuario'  =>  $this->session->userdata('n_usuario'),
+                                          'rol' =>   $this->session->userdata('nombre_rol'),
+                                          'objeto'  => 'ORDEN_ITEM' ,
+                                          'fechaCambio' =>  date_create()->format('Y-m-d'));
+                                  
+                                          $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+
+
                                       }
                                   }
 
@@ -463,6 +584,55 @@ public function save() {
       );
   
       return $data;
+  
+  }
+
+  function ordenItem_to_wpanel($numerolinea,$idProyecto,$idCliente,$idOrden,$codEmpresa,$OrdenItemID,$Unidad,$Cantidad,$Descripcion){
+
+    $SupplierName = "";
+    $PurchaseOrderNumber = "";
+    $PurchaseOrderID = "";
+    $PurchaseOrderDescription = "";
+
+
+      //Obtiene Datos Orden
+    
+      $Orden = $this->callexternosordenes->obtieneOrden($idProyecto,$idCliente,$idOrden,$codEmpresa);
+    
+
+      $arrOrden = json_decode($Orden);
+  
+      
+      if($arrOrden){
+        
+        foreach ($arrOrden as $llave => $valor) {
+                
+          $SupplierName = $valor->SupplierName;
+          $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+          $PurchaseOrderID = $valor->PurchaseOrderID;
+          $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+  
+        }
+      }
+
+
+      $EstadoLineaBucksheet = '1';
+              
+      $memData = array(
+        'PurchaseOrderID' => $PurchaseOrderID,
+        'purchaseOrdername' => urldecode($PurchaseOrderDescription),
+        'SupplierName' => urldecode($SupplierName),
+        'EstadoLineaBucksheet' => $EstadoLineaBucksheet,
+        'NumeroLinea' => $numerolinea,
+        'ItemST' => $OrdenItemID,
+        'STUnidad' => $Unidad,
+        'STCantidad' => $Cantidad,
+        'Descripcion' => $Descripcion,
+        'Revision' =>  '1'
+    );
+
+
+    $insert = $this->callexternosbucksheet->insertOrderItem($memData);
   
   }
 

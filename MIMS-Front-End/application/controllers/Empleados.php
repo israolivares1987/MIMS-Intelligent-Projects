@@ -12,6 +12,7 @@ class Empleados extends MY_Controller{
     $this->load->library('CallExternosDominios');
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
+    $this->load->library('CallExternosBitacora');
     
 
      if($this->session->userdata('logged_in') !== TRUE){
@@ -206,6 +207,16 @@ class Empleados extends MY_Controller{
 				$resp = true;
         $mensaje = "Empleado actualizado correctamente";
 
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ACTUALIZA_EMPLEADOS',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'EMPLEADOS' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
 			}else{
 
         $resp = false;
@@ -280,6 +291,16 @@ class Empleados extends MY_Controller{
 
         $error_msg = 'Empleado creado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'INSERTA_EMPLEADOS',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'EMPLEADOS' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -319,6 +340,16 @@ class Empleados extends MY_Controller{
   
           $resp = true;
           $mensaje = "Empleado Eliminado correctamente";
+
+
+          $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_EMPLEADOS',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'EMPLEADOS' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
   
         }else{
   
