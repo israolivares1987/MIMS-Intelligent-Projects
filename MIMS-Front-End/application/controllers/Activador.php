@@ -84,6 +84,10 @@ class Activador extends MY_Controller{
           <input type="checkbox" value="'.$value->id_todo.'" name="todo'.$number.'" id="todoCheck'.$number.'" onclick="cambiarEstado(this)">
           <label for="todoCheck'.$number.'"></label>
         </div>
+
+        <span class="text">'.$value->lista_todo.'</span>
+       
+
         <span class="text">'.$value->descripcion_todo.'</span>
         <small class="'.$color.'"><i class="far fa-clock"></i> '.$value->dif.'</small>
         <div class="tools">
@@ -100,6 +104,9 @@ class Activador extends MY_Controller{
         
       }
     }
+
+    $datos['select_listaTodo']  = $this->callutil->obtiene_select_def('var_lista_todo','LISTA_TO_DO','var_lista_todo');
+
 
     $datos['listaTodo'] = $listaTodo ;
 

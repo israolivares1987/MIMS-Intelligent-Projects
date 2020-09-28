@@ -7,6 +7,7 @@ class Proveedores extends MY_Controller{
     $this->load->library('CallExternosProyectos');
     $this->load->library('CallExternosEmpresas');
     $this->load->library('form_validation');
+    $this->load->library('CallExternosBitacora');
     $this->load->library('CallUtil');
 
     if($this->session->userdata('logged_in') !== TRUE){
@@ -180,6 +181,16 @@ class Proveedores extends MY_Controller{
 
         $error_msg = 'Proveedor creado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'INSERTA_PROVEEDORES',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'PROVEEDORES' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -309,6 +320,16 @@ class Proveedores extends MY_Controller{
 
         $error_msg = 'Proveedor actualizado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ACTUALIZA_PROVEEDORES',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'PROVEEDORES' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -345,6 +366,16 @@ class Proveedores extends MY_Controller{
 
         $resp = true;
         $mensaje = "Proveedor Eliminado correctamente";
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_PROVEEDORES',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'PROVEEDORES' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
       }else{
 

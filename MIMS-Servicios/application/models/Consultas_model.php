@@ -4,7 +4,7 @@ class Consultas_model extends CI_Model{
   function validate_user($user_name,$password,$cod_emp){
 
     $this->db->select("*");
-    $this->db->where('n_usuario',$user_name);
+    $this->db->where('email',$user_name);
     $this->db->where('password',$password);
     $this->db->where('cod_emp',$cod_emp);
     $this->db->from("tbl_user");

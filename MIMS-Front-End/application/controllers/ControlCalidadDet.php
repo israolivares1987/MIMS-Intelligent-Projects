@@ -8,6 +8,7 @@ class ControlCalidadDet extends MY_Controller{
     $this->load->library('form_validation');
     $this->load->library('CallUtil');
     $this->load->helper('file');
+    $this->load->library('CallExternosBitacora');
 
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -113,6 +114,16 @@ class ControlCalidadDet extends MY_Controller{
         $error_msg = 'Control de calidad creado correctamente.';
         $resp =  true;   
 
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'INSERTA_CONTROL_CALIDAD',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'CONTROL_CALIDAD' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
       }else{
 
         $error_msg = 'Inconvenientes al crear control de calidad, favor reintente.';
@@ -149,6 +160,15 @@ class ControlCalidadDet extends MY_Controller{
 
         $resp = true;
         $mensaje = "Registro Eliminado correctamente";
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_CONTROL_CALIDAD',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'CONTROL_CALIDAD' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
       }else{
 
@@ -303,6 +323,15 @@ class ControlCalidadDet extends MY_Controller{
                 $resp =  true;
                 
 
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'ACTUALIZA_CONTROL_CALIDAD',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'CONTROL_CALIDAD' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+        
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
               }else{
 
                 $error_msg = 'Inconvenientes al actualizar registro, favor reintente.';
@@ -343,6 +372,16 @@ class ControlCalidadDet extends MY_Controller{
 
             $error_msg = 'Registro actualizado correctamente.';
             $resp =  true;
+
+
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ACTUALIZA_CONTROL_CALIDAD',
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'CONTROL_CALIDAD' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+    
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
 
           }else{
@@ -359,6 +398,7 @@ class ControlCalidadDet extends MY_Controller{
     $data['resp']        = $resp;
     $data['mensaje']     = $error_msg;
     $data['idInsertado'] = $idInsertado;
+
  
 
     echo json_encode($data);

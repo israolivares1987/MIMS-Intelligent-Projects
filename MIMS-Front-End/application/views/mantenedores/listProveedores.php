@@ -83,7 +83,7 @@
                          },
                          "paging": true,
                          "lengthChange": false,
-                         "searching": false,
+                         "searching": true,
                          "ordering": true,
                          "info": true,
                          "autoWidth": true,
@@ -367,6 +367,7 @@
                                                                 <th>Acciones</th>
                                                                 <th>Id Proveedor</th>
                                                                 <th>Nombre Proveedor</th>
+<th>Comprador</th>
                                                                 <th>Nombre Contacto </th>
                                                                 <th>Titulo Contacto</th>
                                                                 <th>Direccion</th>

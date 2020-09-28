@@ -53,8 +53,8 @@
 														<thead>
 															<tr>
                                                                 <th>Acciones</th>
-																<th>Nombre Proyecto</th>
-																<th>Descripcion Proyecto</th>
+																<th>Numeración de Proyecto</th> 
+																<th>Nombre de Proyecto</th> 
 																<th>Lugar</th>
 																<th>Estado Proyecto</th>
 																
@@ -83,14 +83,17 @@
 														<thead>
 															<tr>
                                                             <th>Acciones</th>
-                                                            <th>Orden ID</th>
+                                                            <th>ID Orden</th>
                                                             <th>ID Requerimiento</th>
-                                                            <th>Orden Number</th>
-                                                            <th>Orden Description</th>
-                                                            <th>Revision</th>
+                                                            <th>Número Orden</th>
+                                                            <th>Descripcion Orden</th>
+                                                            <th>Revisión</th>
                                                             <th>Nombre Proveedor</th>
+                                                            <th>Comprador</th>
                                                             <th>Activador</th>
                                                             <th>Generador de Compra</th>
+                                                            <th>Estado Plano</th>
+                                                            <th>Observaciones Estado Plano</th>
                                                             <th>Moneda</th>
                                                             <th>Fecha Orden</th>
                                                             <th>Fecha Requerida</th>
@@ -124,10 +127,10 @@
 													  <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=%100>
 														<thead>
 															<tr>
-                                                            <th>Orden ID</th>
+                                                            <th>ID Orden</th>
                                                             <th>Orden Item ID</th>
                                                             <th>Descripcion</th>
-                                                            <th>Revision</th>
+                                                            <th>Revisión</th>
                                                             <th>Unidad</th>
                                                             <th>Cantidad</th>
                                                             <th>Estado</th>	
@@ -173,7 +176,7 @@
                                                         <thead>
                                                             <tr>                          
                                                             <th>Acciones</th>
-                                                            <th>Orden ID</th>
+                                                            <th>ID Orden</th>
                                                             <th>ID Requerimiento</th>
                                                             <th>Disciplina</th>
                                                             <th>Instalación Definitiva</th>
@@ -374,7 +377,7 @@
                 },
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
@@ -416,7 +419,7 @@
                                         ordenes_html += '<tr>';
                                         ordenes_html += '<td>';
                                         ordenes_html +=
-                                            '<button data-toggle="tooltip" data-placement="left" title="Ver Bucksheet" onclick="ver_bucksheet(' +
+                                            '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' +
                                             orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
                                             ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'+
                                             '<button data-toggle="tooltip" data-placement="left" title="Ver Items Orden" onclick="listar_item_ordenes(' +
@@ -429,9 +432,12 @@
                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
                                         ordenes_html += '<td>' + orden.Revision + '</td>';
-                                        ordenes_html += '<td>' + orden.SupplierName + '</td>';
+                                      ordenes_html += '<td>' + orden.SupplierName + '</td>';
+                                        ordenes_html += '<td>' + orden.Comprador + '</td>';
                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                         ordenes_html += '<td>' + orden.Requestor + '</td>';
+                                        ordenes_html += '<td>' + orden.EstadoPlano + '</td>';
+                                         ordenes_html += '<td>' + orden.ObservacionesEp + '</td>';
                                         ordenes_html += '<td>' + orden.Currency + '</td>';
                                         ordenes_html += '<td>' + orden.OrderDate + '</td>';
                                         ordenes_html += '<td>' + orden.DateRequired + '</td>';
@@ -449,13 +455,13 @@
             $('[data-toggle="tooltip"]').tooltip();
 
             $('#tbl_ordenes').DataTable({
-                "searching": false,
+                "searching": true,
                 language: {
                     url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
                 },
                 "paging": true,
                 "lengthChange": false,
-                "searching": false,
+                "searching": true,
                 "ordering": true,
                 "info": true,
                 "autoWidth": true,
@@ -520,13 +526,13 @@ $.ajax({
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#tbl_ordenes_items').DataTable({
-        "searching": false,
+        "searching": true,
         language: {
             url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
         },
         "paging": true,
         "lengthChange": false,
-        "searching": false,
+        "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": true,
@@ -607,13 +613,13 @@ $.ajax({
   $('[data-toggle="tooltip"]').tooltip();
 
   $('#tbl_archivos_tecnicos').DataTable({
-      "searching": false,
+      "searching": true,
       language: {
           url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
       },
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": true,

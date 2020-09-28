@@ -29,9 +29,8 @@ class OrdenesItem_model extends CI_Model{
 
 	function guardaOrdenItem($data){
 
-		$insert = $this->db->insert($this->table, $data);
-
-		return $insert;
+        $insert = $this->db->insert($this->table, $data);
+        return $insert;
 
 	}
 

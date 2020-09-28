@@ -26,6 +26,7 @@ class BuckSheet_model extends CI_Model{
         t1.NumeroLinea,
         t1.SupplierName,
         (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
+        t1.lineaActivable,
         t1.ItemST,
         t1.SubItemST,
         t1.STUnidad,
@@ -83,6 +84,7 @@ class BuckSheet_model extends CI_Model{
         $this->db->select(" t1.PurchaseOrderID,
         t1.purchaseOrdername,
         t1.NumeroLinea,
+        t1.lineaActivable,
         t1.SupplierName,
         (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
         t1.ItemST,
@@ -237,7 +239,37 @@ class BuckSheet_model extends CI_Model{
 
 		$delete = $this->db->delete($this->tableName);
 		return $delete;
-	}
+    }
+    
+    function obtieneNumeroLinea($PurchaseOrderID,$codEmpresa,$id_proyecto){
+
+        $this->db->select(" IFNULL(max(NumeroLinea),0) + 1 as NumeroLinea"); 
+        $this->db->from('tbl_bucksheet t1');			
+        $this->db->where('PurchaseOrderID', $PurchaseOrderID);
+
+
+        return $this->db->get()->result();   
+
+
+    }
+
+
+    public function insertOrderItem($data = array()) {
+
+        if(!empty($data)){
+            // Add created and modified date if not included
+            if(!array_key_exists("created", $data)){
+                $data['created'] = date("Y-m-d H:i:s");
+            }
+            if(!array_key_exists("modified", $data)){
+                $data['modified'] = date("Y-m-d H:i:s");
+            }
+            
+           $this->db->insert($this->tableName, $data);
+	    	return $this->db->insert_id();
+        }
+
+    }
 
 }
 ?>

@@ -119,6 +119,7 @@
   </div>
   <!-- /.content-wrapper -->
 
+    
        <!--.modal nuevo todo-->
        <div id="modal_nuevo_todo" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -143,7 +144,24 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+
+
                   <div class="col-md-12">
+                                         <div class="form-horizontal">
+                                             <div class="form-group">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-md-9">Lista Todo</label>
+                                                     <div class="col-md-12">
+                                                             <?php echo $select_listaTodo;?>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!--.form-horizontal-->
+                                     </div>
+                  
+
+                  <div class="col-md-12" id="descripcion_todo" style="display: none;">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
@@ -153,6 +171,10 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+         
+         
+         
+         
                   <div class="col-md-12">
                     <div class="form-horizontal">
                     <div class="form-group">
@@ -227,7 +249,25 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+
+
                   <div class="col-md-12">
+                                         <div class="form-horizontal">
+                                             <div class="form-group">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-md-9">Lista Todo</label>
+                                                     <div class="col-md-12" id="select_edit_lista_todo">
+                                                             
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!--.form-horizontal-->
+                                     </div>
+
+
+
+                  <div class="col-md-12" id="bloque_edit_descripcion_todo" style="display: none;">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
@@ -283,17 +323,13 @@
             <div class="modal-footer justify-content-between">
             
            
-              <button id="btn-guardar-edit" type="button" class="btn btn-outline-primary">Guardar</button>
+              <button id="btn-guardar-edit" onclick="actualizar_todo()" type="button" class="btn btn-outline-primary">Guardar</button>
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
       <!--.fin modal nuevo TODO--> 
-
-
-
-
 
 
       <script>
@@ -312,6 +348,8 @@
 
 <script type="text/javascript">
 
+
+
 $('[data-toggle="tooltip"]').tooltip();
 
 
@@ -321,6 +359,29 @@ $('#btn_nuevo_todo').on('click', function(){
   $('#form_nuevo_todo')[0].reset(); // reset form on modals
    $('#modal_nuevo_todo').modal('show');
    
+});
+
+
+
+$('#var_lista_todo').on('change', function(){
+
+var estado = this.value;
+
+
+if(estado === '1'){
+
+  formToggleActivar('descripcion_todo');
+  $('#var_descripcion_todo').val('');
+
+
+}else{
+
+  formToggleDesactivar('descripcion_todo');
+  $('#var_descripcion_todo').val('');
+
+
+}
+
 });
 
 
@@ -338,7 +399,7 @@ $.ajax({
   cache: 			false,
   processData: 	false,
   beforeSend: function(){
-    mostrarBlock();
+   mostrarBlock();
   },
   complete: function(){
     $.unblockUI();
@@ -348,7 +409,7 @@ $.ajax({
 
        $('#modal_nuevo_todo').modal('hide');
        toastr.success(result.mensaje);
-        sleep();
+        esperar();
         location.reload();
 
     }else{
@@ -383,7 +444,7 @@ function mostrarBlock(){
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function sleep() {
+async function esperar() {
   console.log('Taking a break...');
   await sleep(2000);
   console.log('Two seconds later, showing sleep in a loop...');
@@ -476,8 +537,17 @@ function obtiene_todo(id_todo, cod_usuario){
       $('#var_edit_fecha_inicio').val(result.formulario.fecha_inicio);
       $('#var_edit_descripcion_todo').val(result.formulario.descripcion_todo);
       $('#var_edit_id_todo').val(id_todo);
+      $('#select_edit_lista_todo').html(result.formulario.select_lista_todo);
+      
+
       $('#var_edit_id_usuario').val(cod_usuario);
       
+      
+      if(result.formulario.lista_todo === '1'){
+
+      formToggleActivar('bloque_edit_descripcion_todo');
+
+      }
     
      
     $('#modal_nuevo_todo_edit').modal('show');
@@ -492,7 +562,7 @@ function obtiene_todo(id_todo, cod_usuario){
 }
 
 
-$('#btn-guardar-edit').on('click', function(){
+function actualizar_todo(){
 
 var formData = new FormData(document.getElementById("form_nuevo_todo_edit"));
 
@@ -505,7 +575,7 @@ $.ajax({
   cache: 			false,
   processData: 	false,
   beforeSend: function(){
-    mostrarBlock();
+   mostrarBlock();
   },
   complete: function(){
     $.unblockUI();
@@ -514,9 +584,9 @@ $.ajax({
     if(result.resp){
 
       toastr.success(result.mensaje);
-      $('#modal_nuevo_todo_edit').modal('hide');
-       sleep();
-        location.reload();
+     $('#modal_nuevo_todo_edit').modal('hide');
+       esperar();
+       location.reload();
 
     }else{
         
@@ -530,7 +600,7 @@ $.ajax({
      }
 });
 
-});
+}
 
 
 function eliminar_todo(id_todo, cod_usuario){
@@ -553,7 +623,8 @@ if(opcion){
 
     
         toastr.success(result.mensaje);
-       // sleep();
+       
+        esperar();
         location.reload();
 
 
@@ -574,5 +645,26 @@ if(opcion){
 }
 
 
-</script>
+function cambia_todo_edit(lista){
 
+var estado = lista.value;
+
+
+if(estado === '1'){
+
+  formToggleActivar('bloque_edit_descripcion_todo');
+  $('#var_edit_descripcion_todo').val('');
+
+
+}else{
+
+  formToggleDesactivar('bloque_edit_descripcion_todo');
+  $('#var_edit_descripcion_todo').val('');
+
+
+}
+
+}
+
+
+</script>
