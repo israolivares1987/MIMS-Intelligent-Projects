@@ -82,31 +82,29 @@
 							  <thead>
 								  <tr>
 								  <th>Acciones</th>
-								  <th>ID Orden</th>
                   <th>ID Requerimiento</th>
-								  <th>Número Orden</th>
                   <th>Categorizacion</th>
-								  <th>Descripcion Orden</th>
+                  <th>Número Orden</th>
+                  <th>Fecha Orden</th>
+                  <th>Descripcion Orden</th>
                   <th>Revisión</th>
+                  <th>Nombre Proveedor</th>
                   <th>Nombre Cliente</th>
-								  <th>Nombre Proveedor</th>
                   <th>Comprador</th>
-								  <th>Activador</th>
-								  <th>Generador de Compra</th>
-                  <th>Estado Plano</th>
-                  <th>Observaciones Estado Plano</th>
-								  <th>Moneda</th>
-								  <th>Valor Neto</th>
-								  <th>Valor Total</th>
-								  <th>Presupuesto</th>
-								  <th>Codigo Presupuesto</th>
-								  <th>Fecha Orden</th>
-								  <th>Fecha Requerida</th>
-								  <th>Fecha de cierre</th>
-								  <th>Metodo Envio</th>
-								  <th>Fecha Orden Creada</th>
-								  <th>Estado</th>
-								  <th>Archivo</th>	
+                  <th>Generador de Compra</th>
+                  <th>Activador</th>
+                  <th>Moneda</th>
+                  <th>Valor Neto</th>
+                  <th>Valor Total</th>
+                  <th>Presupuesto</th>
+                  <th>Codigo Presupuesto</th>
+                  <th>Fecha Orden Creada</th>
+                  <th>Fecha Requerida</th>
+                  <th>Metodo Envio</th>
+                  <th>Estado</th>
+                  <th>Fecha de cierre</th>
+                  <th>ID Orden</th>
+                  <th>Archivo</th>	
 								  </tr>
 							  </thead>
 							  <tbody id="datos_ordenes">
@@ -479,31 +477,6 @@
 
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Estado Plano</label>
-                                <div class="col-sm-12">
-                                      <select id="or_estado_plano" name="or_estado_plano" class="form-control form-control-sm">
-                                         
-                                         <option value="">Seleccionar Estado Plano</option>
-                                         <option value="Aprobado">Aprobado</option>
-                                         <option value="Rechazado">Rechazado</option>
-                                         
-                                      </select>
-                                </div>
-                    </div>
-                    </div>
-
-
-                  <div class="col-12 col-sm-6" id="or_observacion_ep_block"  style="display: none;">
-                    <div class="form-group">
-                      <label class="col-sm-12 control-label">Observaciones Estado Plano</label>
-                                <div class="col-sm-12">
-                                  <input id="or_observacion_ep" name="or_observacion_ep" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                  </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
                             <label class="col-sm-12 control-label">Moneda</label>
                             <div class="col-sm-12">
                               <div id="s_currency"></div>
@@ -788,31 +761,6 @@
                                 </div>
                     </div>
                     </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Estado Plano</label>
-                                <div class="col-sm-12">
-                                      <select id="or_act_estado_plano" name="or_act_estado_plano" class="form-control form-control-sm">
-                                         
-                                         <option value="">Seleccionar Estado Plano</option>
-                                         <option value="Aprobado">Aprobado</option>
-                                         <option value="Rechazado">Rechazado</option>
-                                         
-                                      </select>
-                                </div>
-                    </div>
-                    </div>
-
-
-                  <div class="col-12 col-sm-6" id="or_observacion_ep_block"  style="display: none;">
-                    <div class="form-group">
-                      <label class="col-sm-12 control-label">Observaciones Estado Plano</label>
-                                <div class="col-sm-12">
-                                  <input id="or_act_observacion_ep" name="or_act_observacion_ep" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                  </div>
 
                     <div class="col-12 col-sm-6">
                     <div class="form-group">
@@ -2016,52 +1964,6 @@ $('#select_clientes').on('change', function(){
 });
 
 
-
-
-
-$('#or_estado_plano').on('change', function(){
-
-var estado = this.value;
-
-
-if(estado === 'Rechazado'){
-
-  formToggleActivar('or_observacion_ep_block');
-  $('#or_observacion_ep').val('');
-
-
-}else{
-
-  formToggleDesactivar('or_observacion_ep_block');
-  $('#or_observacion_ep').val('');
-
-
-}
-
-});
-
-
-$('#or_act_estado_plano').on('change', function(){
-
-var estado = this.value;
-
-
-if(estado === 'Rechazado'){
-
-  formToggleActivar('or_act_observacion_ep_block');
-  $('#or_act_observacion_ep').val('');
-
-
-}else{
-
-  formToggleDesactivar('or_act_observacion_ep_block');
-  $('#or_act_observacion_ep').val('');
-
-
-}
-
-});
-
 $('#btn_nuevo_proyecto').on('click', function(){
  
   let select     = $('#select_clientes');
@@ -2760,32 +2662,29 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Bucksheet" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
           ordenes_html += '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
-        ordenes_html += '<td>' + orden.idRequerimiento + '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
-        ordenes_html += '<td>' + orden.Categorizacion + '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
-        ordenes_html += '<td>' + orden.Revision + '</td>';
-        ordenes_html += '<td>' + orden.nombreCliente + '</td>';
-        ordenes_html += '<td>' + orden.SupplierName + '</td>';
-        ordenes_html += '<td>' + orden.Comprador + '</td>';
-        ordenes_html += '<td>' + orden.ExpediterID + '</td>';
-        ordenes_html += '<td>' + orden.Requestor + '</td>';
-        ordenes_html += '<td>' + orden.EstadoPlano + '</td>';
-        ordenes_html += '<td>' + orden.ObservacionesEp + '</td>';
-
-        ordenes_html += '<td>' + orden.Currency + '</td>';
-        ordenes_html += '<td>' + orden.ValorNeto + '</td>';
-        ordenes_html += '<td>' + orden.ValorTotal + '</td>';
-        ordenes_html += '<td>' + orden.Budget + '</td>';
-        ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
-        ordenes_html += '<td>' + orden.OrderDate + '</td>';
-        ordenes_html += '<td>' + orden.DateRequired + '</td>';
-        ordenes_html += '<td>' + orden.ShipDate + '</td>';
-        ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
-        ordenes_html += '<td>' + orden.DateCreated + '</td>';
-        ordenes_html += '<td>' + orden.POStatus + '</td>';
-        ordenes_html += '<td>' + orden.Support + '</td>';
+           ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+           ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+           ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+           ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+           ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+           ordenes_html += '<td>' + orden.Revision + '</td>';
+           ordenes_html += '<td>' + orden.SupplierName + '</td>';
+           ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+           ordenes_html += '<td>' + orden.Comprador + '</td>';
+           ordenes_html += '<td>' + orden.Requestor+ '</td>';
+           ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+           ordenes_html += '<td>' + orden.Currency  + '</td>';
+           ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+           ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
+           ordenes_html += '<td>' + orden.Budget  + '</td>';
+           ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+           ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+           ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+           ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+           ordenes_html += '<td>' + orden.POStatus  + '</td>';
+           ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+           ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+           ordenes_html += '<td>' + orden.Support  + '</td>';
         ordenes_html += '</tr>';
 
         nombre_cliente = orden.nombreCliente ;
@@ -3005,10 +2904,6 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#or_act_comprador').val(result.formulario.comprador);
       $('#s_act_supplier').html(result.formulario.select_supplier);
       $('#s_act_employee').html(result.formulario.select_employee);
-
-      
-      $('#or_act_estado_plano').val(result.formulario.EstadoPlano);
-      $('#or_act_observacion_ep').val(result.formulario.ObservacionesEp);
 
       $('#s_act_currency').html(result.formulario.select_currency);
       $('#or_act_requestor').val(result.formulario.requestor);

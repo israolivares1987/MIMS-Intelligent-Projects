@@ -83,25 +83,29 @@
 														<thead>
 															<tr>
                                                             <th>Acciones</th>
-                                                            <th>ID Orden</th>
                                                             <th>ID Requerimiento</th>
+                                                            <th>Categorizacion</th>
                                                             <th>Número Orden</th>
+                                                            <th>Fecha Orden</th>
                                                             <th>Descripcion Orden</th>
                                                             <th>Revisión</th>
                                                             <th>Nombre Proveedor</th>
+                                                            <th>Nombre Cliente</th>
                                                             <th>Comprador</th>
-                                                            <th>Activador</th>
                                                             <th>Generador de Compra</th>
-                                                            <th>Estado Plano</th>
-                                                            <th>Observaciones Estado Plano</th>
+                                                            <th>Activador</th>
                                                             <th>Moneda</th>
-                                                            <th>Fecha Orden</th>
-                                                            <th>Fecha Requerida</th>
-                                                            <th>Fecha de cierre</th>
-                                                            <th>Metodo Envio</th>
+                                                            <th>Valor Neto</th>
+                                                            <th>Valor Total</th>
+                                                            <th>Presupuesto</th>
+                                                            <th>Codigo Presupuesto</th>
                                                             <th>Fecha Orden Creada</th>
+                                                            <th>Fecha Requerida</th>
+                                                            <th>Metodo Envio</th>
                                                             <th>Estado</th>
-                                                            <th>Archivo</th>	
+                                                            <th>Fecha de cierre</th>
+                                                            <th>ID Orden</th>
+                                                            <th>Archivo</th>
 
                                                         </tr>
 														</thead>
@@ -427,25 +431,29 @@
                                             ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-inbox"></i></button>';
                                             ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'    
                                         ordenes_html += '</td>';
-                                        ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
-                                        ordenes_html += '<td>' + orden.idRequerimiento + '</td>';
-                                        ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
-                                        ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
-                                        ordenes_html += '<td>' + orden.Revision + '</td>';
-                                      ordenes_html += '<td>' + orden.SupplierName + '</td>';
-                                        ordenes_html += '<td>' + orden.Comprador + '</td>';
-                                        ordenes_html += '<td>' + orden.ExpediterID + '</td>';
-                                        ordenes_html += '<td>' + orden.Requestor + '</td>';
-                                        ordenes_html += '<td>' + orden.EstadoPlano + '</td>';
-                                         ordenes_html += '<td>' + orden.ObservacionesEp + '</td>';
-                                        ordenes_html += '<td>' + orden.Currency + '</td>';
-                                        ordenes_html += '<td>' + orden.OrderDate + '</td>';
-                                        ordenes_html += '<td>' + orden.DateRequired + '</td>';
-                                        ordenes_html += '<td>' + orden.ShipDate + '</td>';
-                                        ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
-                                        ordenes_html += '<td>' + orden.DateCreated + '</td>';
-                                        ordenes_html += '<td>' + orden.POStatus + '</td>';
-                                        ordenes_html += '<td>' + orden.Support + '</td>';
+                                         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+                                         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+                                         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+                                         ordenes_html += '<td>' + orden.Revision + '</td>';
+                                         ordenes_html += '<td>' + orden.SupplierName + '</td>';
+                                         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+                                         ordenes_html += '<td>' + orden.Comprador + '</td>';
+                                         ordenes_html += '<td>' + orden.Requestor+ '</td>';
+                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+                                         ordenes_html += '<td>' + orden.Currency  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
+                                         ordenes_html += '<td>' + orden.Budget  + '</td>';
+                                         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+                                         ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+                                         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+                                         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+                                         ordenes_html += '<td>' + orden.POStatus  + '</td>';
+                                         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+                                         ordenes_html += '<td>' + orden.Support  + '</td>';
                                         ordenes_html += '</tr>';
 
                                                     
