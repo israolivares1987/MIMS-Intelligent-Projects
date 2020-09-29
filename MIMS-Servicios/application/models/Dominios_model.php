@@ -9,7 +9,7 @@ class Dominios_model extends CI_Model{
 
 		$this->db->where('domain', $dominio);
 		$this->db->where('domain_state', 1);
-		$this->db->order_by('domain_id', 'ASC');
+		$this->db->order_by('CAST(domain_id AS DECIMAL)', 'ASC');
 
 		$this->db->from($this->table);
 

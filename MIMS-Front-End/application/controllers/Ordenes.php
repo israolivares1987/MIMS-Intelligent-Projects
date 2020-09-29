@@ -268,12 +268,12 @@ class Ordenes extends CI_Controller{
         $data = array(
           'purchase_number'     => $value->PurchaseOrderNumber,
           'id_requerimiento'           => $value->idRequerimiento,
-          'select_categorizacion'     => $this->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
+          'select_categorizacion'     => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
           'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierName),
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
-          'select_currency'     => $this->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
+          'select_currency'     => $this->callutil->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
           'requestor'           => $value->Requestor,
           'EstadoPlano'         => $value->EstadoPlano,
           'ObservacionesEp'     => $value->ObservacionesEp,
@@ -286,8 +286,8 @@ class Ordenes extends CI_Controller{
           'date_required'       => date('d-m-Y', strtotime($value->DateRequired)),
           'date_promised'       => date('d-m-Y', strtotime($value->DatePromised)),
           'ship_date'           => date('d-m-Y', strtotime($value->ShipDate)),
-          'select_shipping'     => $this->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
-          'select_status'       => $this->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
+          'select_shipping'     => $this->callutil->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
+          'select_status'       => $this->callutil->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
           'orden_id'            => $orden_id,
           'id_proyecto'         => $id_proyecto,
           'id_cliente'          => $id_cliente
@@ -679,23 +679,23 @@ function obtieneSelectOrden(){
   
   $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
   $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
-  $data['select_currency']  = $this->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
-  $data['select_shipping']  = $this->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
-  $data['select_status']    = $this->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
-  $data['select_categorizacion']    = $this->obtiene_select_def('or_select_categorizacion','CATEGORIZACION_ORDENES','or_select_categorizacion');
+  $data['select_currency']  = $this->callutil->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
+  $data['select_shipping']  = $this->callutil->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
+  $data['select_status']    = $this->callutil->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
+  $data['select_categorizacion']    = $this->callutil->obtiene_select_def('or_select_categorizacion','CATEGORIZACION_ORDENES','or_select_categorizacion');
   
-  $data['select_item_unidad']    = $this->obtiene_select_def('or_item_select_unidad','UNIDAD_MEDIDA','or_item_select_unidad');
-  $data['select_item_status']    = $this->obtiene_select_def('or_item_select_status','ESTADO_ITEM_ORDEN','or_item_select_status');
+  $data['select_item_unidad']    = $this->callutil->obtiene_select_def('or_item_select_unidad','UNIDAD_MEDIDA','or_item_select_unidad');
+  $data['select_item_status']    = $this->callutil->obtiene_select_def('or_item_select_status','ESTADO_ITEM_ORDEN','or_item_select_status');
  
-  $data['select_disciplina']    = $this->obtiene_select_def('or_disciplina','DISCIPLINA','or_disciplina');
-  $data['select_tipo_pm']    = $this->obtiene_select_def('or_tipo_pm','TIPO_PM','or_tipo_pm');
-  $data['select_nivel_inspeccion']    = $this->obtiene_select_def('or_nivel_inspeccion','NIVEL_INSPECCION','or_nivel_inspeccion');
+  $data['select_disciplina']    = $this->callutil->obtiene_select_def('or_disciplina','DISCIPLINA','or_disciplina');
+  $data['select_tipo_pm']    = $this->callutil->obtiene_select_def('or_tipo_pm','TIPO_PM','or_tipo_pm');
+  $data['select_nivel_inspeccion']    =$this->callutil->obtiene_select_def('or_nivel_inspeccion','NIVEL_INSPECCION','or_nivel_inspeccion');
 
   
 
-  $data['select_instalacion_definitiva']    = $this->obtiene_select_def('or_instalacion_definitiva','SI_NO','or_instalacion_definitiva');
-  $data['select_inspeccion_requerida']    = $this->obtiene_select_def('or_inspeccion_requerida','SI_NO','or_inspeccion_requerida');
-  $data['select_documentos_antes_iniciar']    = $this->obtiene_select_def('or_documentos_antes_iniciar','SI_NO','or_documentos_antes_iniciar');
+  $data['select_instalacion_definitiva']    = $this->callutil->obtiene_select_def('or_instalacion_definitiva','SI_NO','or_instalacion_definitiva');
+  $data['select_inspeccion_requerida']    =$this->callutil->obtiene_select_def('or_inspeccion_requerida','SI_NO','or_inspeccion_requerida');
+  $data['select_documentos_antes_iniciar']    =$this->callutil->obtiene_select_def('or_documentos_antes_iniciar','SI_NO','or_documentos_antes_iniciar');
 
 
 
