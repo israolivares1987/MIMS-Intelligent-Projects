@@ -388,7 +388,12 @@ return $fecha_final;
   }
 
 
+  public function objectToArray ($object) {
 
+	$array = json_decode(json_encode($object), true);
+
+	return $array;
+}
 
 
 

@@ -3,14 +3,6 @@ class Clientes_model extends CI_Model{
 
 	var $table = 'tbl_clientes';
 
-	function obtieneTotClientesxEmp($codEmpresa)
-	{
-
-	  $this->db->where('codEmpresa',$codEmpresa);
-	  $this->db->from($this->table);
-	  return $this->db->count_all_results();
-	}
-
 
 	function obtieneProyectosxCliente($codEmpresa)
 	{

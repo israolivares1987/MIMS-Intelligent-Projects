@@ -405,16 +405,18 @@
 
         var ordenes_html = '';
         var tabla_ordenes = $('#tbl_ordenes').DataTable();
+        var codActivador = '<?php echo $this->session->userdata('email');?>';
 
         tabla_ordenes.destroy();
 
         $.ajax({
-            url: '<?php echo base_url('index.php/Ordenes/obtieneOrdenes');?>',
+            url: '<?php echo base_url('index.php/Ordenes/obtieneOrdenesActivador');?>',
             type: 'POST',
             dataType: 'json',
             data: {
                 idProyecto: id_proyecto,
-                idCliente: id_cliente
+                idCliente: id_cliente,
+                codActivador: codActivador
             },
         }).done(function(result) {
  

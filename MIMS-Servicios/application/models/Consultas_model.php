@@ -41,31 +41,260 @@ class Consultas_model extends CI_Model{
 
     }
 
-      
+
      function obtieneDatosTotalesProyectos($codEmpresa)
-      {
+    {
 
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where('estadoProyecto','1');
+      $this->db->from('tbl_proyectos');
+      return $this->db->count_all_results();
+
+    }
+
+	
+    function obtieneTotClientesxEmp($codEmpresa)
+    {
+  
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->from('tbl_clientes');
+      return $this->db->count_all_results();
+    }
+
+  
+    
+    function obtieneDatosTotalesLineasActCompras($codEmpresa)
+    {
+
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where("a.lineaActivable = 'Activable'");
+      $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+      $this->db->where("b.POStatus = '5'");
+      $this->db->where("b.Categorizacion = '1' ");
+      $this->db->from('tbl_bucksheet a, tbl_ordenes b');
+
+      return $this->db->count_all_results();
+
+
+    }
+
+	
+
+    function obtieneDatosTotalesLineasActObra($codEmpresa)
+    {
+
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where("a.lineaActivable = 'Activable'");
+      $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+      $this->db->where("b.POStatus = '5'");
+      $this->db->where("b.Categorizacion = '2' ");
+      $this->db->from('tbl_bucksheet a, tbl_ordenes b');
+      return $this->db->count_all_results();
+
+
+    }
+ 
+    function obtieneDatosOrdenesObra($codEmpresa)
+    {
+
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where('b.POStatus', '5');
+      $this->db->where('b.Categorizacion', '1');
+      $this->db->from('tbl_ordenes b');
+      return $this->db->count_all_results();
+
+
+    }
+  
+	
+    function obtieneDatosTotalOrdenesCompras($codEmpresa)
+    {
+
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where('b.POStatus', '5');
+      $this->db->where('b.Categorizacion', '2');
+      $this->db->from('tbl_ordenes b');
+      return $this->db->count_all_results();
+
+
+    }
+
+   
+    function obtieneDatosAdminMMCompras($codEmpresa)
+    {
+
+      $this->db->select_sum('ValorNeto');
+      $this->db->where('codEmpresa',$codEmpresa);
+      $this->db->where('b.POStatus', '5');
+      $this->db->where('b.Categorizacion', '2');
+      $this->db->from('tbl_ordenes b');
+      return $this->db->get()->result();
+
+
+    }
+
+	
+      function obtieneDatosAdminMMObras($codEmpresa)
+      {
+        $this->db->select_sum('ValorNeto');
         $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->from('tbl_proyectos');
-        return $this->db->count_all_results();
+        $this->db->where('b.POStatus', '5');
+        $this->db->where('b.Categorizacion', '1');
+        $this->db->from('tbl_ordenes b');
+        return $this->db->get()->result();
+
+
       }
 
-      function obtieneDatosTotalesOrdenes($codEmpresa)
-      {
+// Funciones por Activador
 
-        $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->from('tbl_Purchase_Orders');
-        return $this->db->count_all_results();
-      }
 
-     
-      function obtieneDatosTotalesSuppliers($codEmpresa)
-      {
 
-        $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->from('tbl_Suppliers');
-        return $this->db->count_all_results();
-      }
+
+function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
+{
+  $this->db->distinct();
+  $this->db->select('a.*');
+  $this->db->where('a.codEmpresa = b.codEmpresa');
+  
+  $this->db->where('a.codEmpresa = b.codEmpresa');
+  $this->db->where('a.NumeroProyecto = b.idProyecto');
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where('estadoProyecto = 1');
+  $this->db->where('b.POStatus = 5');
+  $this->db->where('a.codEmpresa = '.$codEmpresa);
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  
+  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_employees c');
+
+  return $this->db->count_all_results();
+
+}
+
+
+function obtieneTotClientesxEmpActivador($codEmpresa,$activador)
+{
+  $this->db->distinct();
+  $this->db->select( ' d.nombreCliente');
+  $this->db->where('a.codEmpresa = b.codEmpresa');
+  $this->db->where('a.NumeroProyecto = b.idProyecto');
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where('estadoProyecto = 1');
+  $this->db->where('b.POStatus = 5');
+  $this->db->where('a.codEmpresa = '.$codEmpresa);
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->where('d.idCliente = b.idCliente');
+  $this->db->where(' a.idCliente = d.idCliente');
+  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_employees c, tbl_clientes d');
+
+  return $this->db->get()->num_rows();
+
+}
+
+
+
+function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
+{
+
+  $this->db->where('b.codEmpresa',$codEmpresa);
+  $this->db->where("a.lineaActivable = 'Activable'");
+  $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+  $this->db->where("b.POStatus = '5'");
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->where("b.Categorizacion = '1' ");
+  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_employees c');
+
+  return $this->db->count_all_results();
+
+
+}
+
+
+
+function obtieneDatosTotalesLineasActObraActivador($codEmpresa,$activador)
+{
+
+  $this->db->where('b.codEmpresa',$codEmpresa);
+  $this->db->where("a.lineaActivable = 'Activable'");
+  $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+  $this->db->where("b.POStatus = '5'");
+  $this->db->where("b.Categorizacion = '2' ");
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_employees c');
+  return $this->db->count_all_results();
+
+
+}
+
+function obtieneDatosOrdenesObraActivador($codEmpresa,$activador)
+{
+
+  $this->db->where('b.codEmpresa',$codEmpresa);
+  $this->db->where('b.POStatus', '5');
+  $this->db->where('b.Categorizacion', '1');
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->from('tbl_ordenes b,tbl_employees c');
+  return $this->db->count_all_results();
+
+
+}
+
+
+function obtieneDatosTotalOrdenesComprasActivador($codEmpresa,$activador)
+{
+
+  $this->db->where('b.codEmpresa',$codEmpresa);
+  $this->db->where('b.POStatus', '5');
+  $this->db->where('b.Categorizacion', '2');
+  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->from('tbl_ordenes b,tbl_employees c');
+  return $this->db->count_all_results();
+
+
+}
+
+
+function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
+{
+
+  $this->db->select_sum('ValorNeto');
+  $this->db->where('b.codEmpresa',$codEmpresa);
+  $this->db->where('b.POStatus', '5');
+  $this->db->where('b.Categorizacion', '2');
+  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->from('tbl_ordenes b,tbl_employees c');
+  return $this->db->get()->result();
+
+
+}
+
+
+  function obtieneDatosAdminMMObrasActivador($codEmpresa,$activador)
+  {
+    $this->db->select_sum('ValorNeto');
+    $this->db->where('b.codEmpresa',$codEmpresa);
+    $this->db->where('b.POStatus', '5');
+    $this->db->where('b.Categorizacion', '1');
+    $this->db->where("c.EmailAddress = '".$activador."'");
+    $this->db->from('tbl_ordenes b,tbl_employees c');
+    return $this->db->get()->result();
+
+
+  }
+
+
+
+
+
+      
+
+
+
+
 
 function setSession($userId, $sessionId){
 
