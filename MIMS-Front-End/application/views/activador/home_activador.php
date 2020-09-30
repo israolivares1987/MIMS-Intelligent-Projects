@@ -363,13 +363,18 @@ if(estado === '1'){
         <div class="card-body">
           
         <div class="row">
-          <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3></h3>
+              <h3><?php echo $totalProyectos; ?></h3>
 
                 <p>Total Proyectos</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalClientes; ?></h3>
+
+                <p>Total Clientes</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -377,14 +382,21 @@ if(estado === '1'){
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
-              <div class="inner">
-                <h3><sup style="font-size: 20px"></sup></h3>
+            <div class="inner">
+              <h3><?php echo $totalLineasActivablesPlanCompras; ?></h3>
 
-                <p>Total Clientes</p>
+                <p>Total lineas Activables Compras</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalLineasActivablesPlanObra; ?></h3>
+
+                <p>Total lineas Activables Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -392,14 +404,20 @@ if(estado === '1'){
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
-              <div class="inner">
-                <h3></h3>
+            <div class="inner">
+              <h3><?php echo $totalOrdenesCompras; ?></h3>
 
-                <p>Total Ordenes</p>
+                <p>Total Ordenes Plan Compras</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalOrdenesObra; ?></h3>
+
+                <p>Total Ordenes Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -408,13 +426,19 @@ if(estado === '1'){
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+
+         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
-              <div class="inner">
-                <h3></h3>
+            <div class="inner">
+              <h3><?php echo $totalOrdenesAdminCompras; ?></h3>
 
-                <p>Total Suppliers</p>
+                <p>Total Admin MM Plan Compras </p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalOrdenesAdminObras; ?></h3>
+
+                <p>Total Admin MM Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>

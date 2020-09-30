@@ -96,6 +96,85 @@ class Ordenes extends CI_Controller{
 
   }
 
+
+
+  function obtieneOrdenesActivador(){
+
+    $idCliente       = $this->input->post('idCliente');
+    $idProyecto      = $this->input->post('idProyecto');
+    $codActivador      = $this->input->post('codActivador');
+
+    $respuesta = false;
+
+    $ordenes = $this->callexternosordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador);
+
+    $arrOrdenes = json_decode($ordenes);
+ 
+
+          $datos_ordenes = array();
+
+          if($arrOrdenes){
+            $respuesta = true;
+            
+            foreach ($arrOrdenes as $key => $value) {
+
+              $Support = '';
+
+              if(strlen($value->Support) > 0 && $value->Support !='null'  ){
+                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support_original.'"><i class="fas fa-download"></i> Descarga</a>';
+              }else{
+                $Support = '';
+              }
+
+              
+              $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
+                'PurchaseOrderID' => $value->PurchaseOrderID,
+                'idRequerimiento' => $value->idRequerimiento,
+                'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
+                'Categorizacion'  => $value->Categorizacion,
+                'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
+                'Revision'   => $value->Revision,
+                'nombreCliente'   => $value->nombreCliente,
+                "SupplierName" => $value->SupplierName,
+                'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
+                'Requestor'   => $value->Requestor,
+                'Comprador'   => $value->Comprador,
+
+                'Currency'   => $value->Currency,
+                'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
+                'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
+                'Budget'   => $this->callutil->formatoDinero($value->Budget),
+                'CostCodeBudget'   => $value->CostCodeBudget,
+                'OrderDate'   => $this->callutil->formatoFechaSalida($value->OrderDate),
+                'DateRequired'   => $this->callutil->formatoFechaSalida($value->DateRequired),
+                'DatePromised'   => $this->callutil->formatoFechaSalida($value->DatePromised),
+                'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
+                'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
+                'DateCreated'   => $this->callutil->formatoFechaSalida($value->DateCreated),
+                "POStatus" => $this->callutil->cambianull($value->POStatus),
+                'Support' =>  $Support
+              );
+
+            }
+          }
+
+
+						
+
+        $datos['ordenes'] = $datos_ordenes;
+        $datos['resp']    = $respuesta;
+
+        echo json_encode($datos);
+    
+
+  }
+
+
+
+
+
   function guardaOrden(){
 
     $or_purchase_order    = $this->input->post('or_purchase_order');

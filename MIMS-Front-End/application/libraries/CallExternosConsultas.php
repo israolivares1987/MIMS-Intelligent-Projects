@@ -24,24 +24,60 @@ class CallExternosConsultas {
         function obtieneDatosTotales($codEmpresa){
   
           $base_url_servicios =$this->obtienebaseservicios();                
-          $api_url = $base_url_servicios."Consultas/obtieneDatosTotales/".$codEmpresa;
+          $api_url = $base_url_servicios."Consultas/obtieneDatosTotales";
     
+          $form_data = array(
+            'codEmpresa'		=>$codEmpresa
+        );
+          
     
+        $client = curl_init($api_url);
     
-          $client = curl_init($api_url);
+        curl_setopt($client, CURLOPT_POST, true);
     
-          curl_setopt($client, CURLOPT_POST, true);
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
     
-          curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
     
-          $response = curl_exec($client);
+        $response = curl_exec($client);
     
-          curl_close($client);
+        curl_close($client);
     
-          return $response;
-  
+        return $response;
   
         }
+
+
+
+        function obtieneDatosTotalesxActivador($codEmpresa,$email){
+  
+          $base_url_servicios =$this->obtienebaseservicios();                
+          $api_url = $base_url_servicios."Consultas/obtieneDatosTotalesxActivador";
+    
+          $form_data = array(
+            'codEmpresa'		=>$codEmpresa,
+            'Email' => $email
+        );
+          
+    
+        $client = curl_init($api_url);
+    
+        curl_setopt($client, CURLOPT_POST, true);
+    
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+    
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+    
+        $response = curl_exec($client);
+    
+        curl_close($client);
+    
+        return $response;
+  
+        }
+
+
+
 
 function iniciosesion($user_name,$password,$cod_emp){
   
