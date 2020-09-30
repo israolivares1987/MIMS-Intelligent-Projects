@@ -185,7 +185,7 @@
                                      </div>
                   
 
-                  <div class="col-md-12" id="descripcion_todo" style="display: none;">
+                  <div class="col-md-12" id="descripcion_todo">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
@@ -383,29 +383,6 @@ $('#btn_nuevo_todo').on('click', function(){
   $('#form_nuevo_todo')[0].reset(); // reset form on modals
    $('#modal_nuevo_todo').modal('show');
    
-});
-
-
-
-$('#var_lista_todo').on('change', function(){
-
-var estado = this.value;
-
-
-if(estado === '1'){
-
-  formToggleActivar('descripcion_todo');
-  $('#var_descripcion_todo').val('');
-
-
-}else{
-
-  formToggleDesactivar('descripcion_todo');
-  $('#var_descripcion_todo').val('');
-
-
-}
-
 });
 
 
