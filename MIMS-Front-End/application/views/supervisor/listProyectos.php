@@ -44,8 +44,8 @@
                                 <thead>
                                     <tr>
                                         <th>Acciones</th>
-                                        <th>Nombre Proyecto</th>
-                                        <th>Descripcion Proyecto</th>
+                                        <th>Numeración de Proyecto</th> 
+                                        <th>Nombre de Proyecto</th> 
                                         <th>Lugar</th>
                                         <th>Estado Proyecto</th>
                                     </tr>
@@ -79,32 +79,35 @@
 							   </table>
 								<table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0" width=100%>
 						 
-							  <thead>
-								  <tr>
-								  <th>Acciones</th>
-								  <th>Orden ID</th>
-                  <th>ID Requerimiento</th>
-								  <th>Orden Number</th>
-                  <th>Categorizacion</th>
-								  <th>Orden Description</th>
-                  <th>Revision</th>
-                  <th>Nombre Cliente</th>
-								  <th>Nombre Proveedor</th>
-								  <th>Activador</th>
-								  <th>Generador de Compra</th>
-								  <th>Moneda</th>
-								  <th>Valor Neto</th>
-								  <th>Valor Total</th>
-								  <th>Presupuesto</th>
-								  <th>Codigo Presupuesto</th>
-								  <th>Fecha Orden</th>
-								  <th>Fecha Requerida</th>
-								  <th>Fecha de cierre</th>
-								  <th>Metodo Envio</th>
-								  <th>Fecha Orden Creada</th>
-								  <th>Estado</th>
-								  <th>Archivo</th>	
-								  </tr>
+                <thead>
+															<tr>
+                              <th>Acciones</th>
+                                                            <th>ID Requerimiento</th>
+                                                            <th>Categorizacion</th>
+                                                            <th>Número Orden</th>
+                                                            <th>Fecha Orden</th>
+                                                            <th>Descripcion Orden</th>
+                                                            <th>Revisión</th>
+                                                            <th>Nombre Proveedor</th>
+                                                            <th>Nombre Cliente</th>
+                                                            <th>Comprador</th>
+                                                            <th>Generador de Compra</th>
+                                                            <th>Activador</th>
+                                                            <th>Moneda</th>
+                                                            <th>Valor Neto</th>
+                                                            <th>Valor Total</th>
+                                                            <th>Presupuesto</th>
+                                                            <th>Codigo Presupuesto</th>
+                                                            <th>Fecha Orden Creada</th>
+                                                            <th>Fecha Requerida</th>
+                                                            <th>Metodo Envio</th>
+                                                            <th>Estado</th>
+                                                            <th>Fecha de cierre</th>
+                                                            <th>ID Orden</th>
+                                                            <th>Archivo</th>
+
+                                                        </tr>
+														</thead>
 							  </thead>
 							  <tbody id="datos_ordenes">
 								
@@ -142,10 +145,10 @@
 						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
                       <thead>
                         <tr>                          
-						  <th>Orden ID</th>
+						  <th>ID Orden</th>
 						  <th>Item ID</th>
 						  <th>Descripcion</th>
-						  <th>Revision</th>
+						  <th>Revisión</th>
 						  <th>Unidad</th>
 						  <th>Cantidad</th>
 						  <th>Precio Unitario</th>
@@ -186,7 +189,7 @@
                                                         <thead>
                                                             <tr>                          
                                                             <th>Acciones</th>
-                                                            <th>Orden ID</th>
+                                                            <th>ID Orden</th>
                                                             <th>ID Requerimiento</th>
                                                             <th>Disciplina</th>
                                                             <th>Instalación Definitiva</th>
@@ -587,13 +590,13 @@ $.ajax({
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#tbl_ordenes_items').DataTable({
-        "searching": false,
+        "searching": true,
         language: {
             url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
         },
         "paging": true,
         "lengthChange": false,
-        "searching": false,
+        "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": true,
@@ -651,7 +654,7 @@ $.ajax({
       },
       "paging": false,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": true,
@@ -697,33 +700,40 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
       
       $.each(result.ordenes,function(key, orden) {
         ordenes_html += '<tr>';
-        ordenes_html += '<td>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +',\''+orden.PurchaseOrderDescription+'\', this)" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Bucksheet" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>';
-          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'                                       
-          ordenes_html += '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
-        ordenes_html += '<td>' + orden.Categorizacion + '</td>';
-        ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
-        ordenes_html += '<td>' + orden.Revision + '</td>';
-        ordenes_html += '<td>' + orden.nombreCliente + '</td>';
-        ordenes_html += '<td>' + orden.SupplierName + '</td>';
-        ordenes_html += '<td>' + orden.ExpediterID + '</td>';
-        ordenes_html += '<td>' + orden.Requestor + '</td>';
-        ordenes_html += '<td>' + orden.Currency + '</td>';
-        ordenes_html += '<td>' + orden.ValorNeto + '</td>';
-        ordenes_html += '<td>' + orden.ValorTotal + '</td>';
-        ordenes_html += '<td>' + orden.Budget + '</td>';
-        ordenes_html += '<td>' + orden.CostCodeBudget + '</td>';
-        ordenes_html += '<td>' + orden.OrderDate + '</td>';
-        ordenes_html += '<td>' + orden.DateRequired + '</td>';
-        ordenes_html += '<td>' + orden.ShipDate + '</td>';
-        ordenes_html += '<td>' + orden.ShippingMethodID + '</td>';
-        ordenes_html += '<td>' + orden.DateCreated + '</td>';
-        ordenes_html += '<td>' + orden.POStatus + '</td>';
-        ordenes_html += '<td>' + orden.Support + '</td>';
-        ordenes_html += '</tr>';
+                                        ordenes_html += '<td>';
+                                        ordenes_html +=
+                                            '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' +
+                                            orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
+                                            ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'+
+                                            '<button data-toggle="tooltip" data-placement="left" title="Ver Items Orden" onclick="listar_item_ordenes(' +
+                                            orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
+                                            ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-inbox"></i></button>';
+                                            ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'    
+                                        ordenes_html += '</td>';
+                                         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+                                         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+                                         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+                                         ordenes_html += '<td>' + orden.Revision + '</td>';
+                                         ordenes_html += '<td>' + orden.SupplierName + '</td>';
+                                         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+                                         ordenes_html += '<td>' + orden.Comprador + '</td>';
+                                         ordenes_html += '<td>' + orden.Requestor+ '</td>';
+                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+                                         ordenes_html += '<td>' + orden.Currency  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
+                                         ordenes_html += '<td>' + orden.Budget  + '</td>';
+                                         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+                                         ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+                                         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+                                         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+                                         ordenes_html += '<td>' + orden.POStatus  + '</td>';
+                                         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+                                         ordenes_html += '<td>' + orden.Support  + '</td>';
+                                        ordenes_html += '</tr>';
 
         nombre_cliente = orden.nombreCliente ;
 
@@ -739,13 +749,13 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         $('[data-toggle="tooltip"]').tooltip();
 
         $('#ListOrdenes').DataTable({
-            "searching": false,
+            "searching": true,
             language: {
                 url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
             },
             "paging": true,
           "lengthChange": false,
-          "searching": false,
+          "searching": true,
           "ordering": true,
           "info": true,
           "autoWidth": true,
@@ -827,13 +837,13 @@ $.ajax({
   $('[data-toggle="tooltip"]').tooltip();
 
   $('#tbl_archivos_tecnicos').DataTable({
-      "searching": false,
+      "searching": true,
       language: {
           url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
       },
       "paging": true,
       "lengthChange": false,
-      "searching": false,
+      "searching": true,
       "ordering": true,
       "info": true,
       "autoWidth": true,

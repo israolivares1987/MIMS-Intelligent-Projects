@@ -11,6 +11,7 @@ class AdjuntoTecnico extends MY_Controller{
     $this->load->library('CallExternosDominios');
     $this->load->library('CallUtil');
     $this->load->helper('file');
+    $this->load->library('CallExternosBitacora');
     
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -126,6 +127,16 @@ class AdjuntoTecnico extends MY_Controller{
 
         $error_msg = 'Adjunto Tecnico creado correctamente.';
         $resp =  true;
+
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'INSERTA_ADJUNTO_TECNICO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'ADJUNTO_TECNICO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
 
       }else{
@@ -169,13 +180,13 @@ class AdjuntoTecnico extends MY_Controller{
           'id' => $value->id,
           'id_orden'   => $value->id_orden,
           'id_requerimiento'   => $value->id_requerimiento,
-          'select_disciplina'   => $this->obtiene_select_def_act('or_act_disciplina',$value->disciplina,'DISCIPLINA'),
-          'select_instalacion_definitiva' =>  $this->obtiene_select_def_act('or_act_instalacion_definitiva',$value->instalacion_definitiva,'SI_NO'),
+          'select_disciplina'   => $this->callutil->obtiene_select_def_act('or_act_disciplina',$value->disciplina,'DISCIPLINA'),
+          'select_instalacion_definitiva' =>  $this->callutil->obtiene_select_def_act('or_act_instalacion_definitiva',$value->instalacion_definitiva,'SI_NO'),
           'area_proyecto'       => $value->area_proyecto,
-          'select_tipo_pm' => $this->obtiene_select_def_act('or_act_tipo_pm',$value->tipo_pm,'TIPO_PM'),
-          'select_inspeccion_requerida' => $this->obtiene_select_def_act('or_act_inspeccion_requerida',$value->inspeccion_requerida,'SI_NO') ,
-          'select_nivel_inspeccion' => $this->obtiene_select_def_act('or_act_nivel_inspeccion',$value->nivel_inspeccion,'TIPO_PM'),
-          'select_documentos_antes_iniciar' => $this->obtiene_select_def_act('or_act_documentos_antes_iniciar',$value->documentos_antes_iniciar,'SI_NO'),
+          'select_tipo_pm' => $this->callutil->obtiene_select_def_act('or_act_tipo_pm',$value->tipo_pm,'TIPO_PM'),
+          'select_inspeccion_requerida' => $this->callutil->obtiene_select_def_act('or_act_inspeccion_requerida',$value->inspeccion_requerida,'SI_NO') ,
+          'select_nivel_inspeccion' => $this->callutil->obtiene_select_def_act('or_act_nivel_inspeccion',$value->nivel_inspeccion,'TIPO_PM'),
+          'select_documentos_antes_iniciar' => $this->callutil->obtiene_select_def_act('or_act_documentos_antes_iniciar',$value->documentos_antes_iniciar,'SI_NO'),
           'alcance_tecnico_trabajo' => $value->alcance_tecnico_trabajo,
           'instruccion_requirente' => $value->instruccion_requirente
         );
@@ -287,6 +298,16 @@ class AdjuntoTecnico extends MY_Controller{
         $resp = true;
         $mensaje = "Adjunto Tecnico Eliminado correctamente";
 
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_ADJUNTO_TECNICO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'ADJUNTO_TECNICO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
       }else{
 
         $resp = false;
@@ -390,6 +411,16 @@ class AdjuntoTecnico extends MY_Controller{
         $resp = true;
         $mensaje = "Adjunto Tecnico Eliminado correctamente";
 
+
+        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+        'accion'  => 'ELIMINA_ARCHIVO_ADJUNTO_TECNICO',
+        'usuario'  =>  $this->session->userdata('n_usuario'),
+        'rol' =>   $this->session->userdata('nombre_rol'),
+        'objeto'  => 'ADJUNTO_TECNICO' ,
+        'fechaCambio' =>  date_create()->format('Y-m-d'));
+
+        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
       }else{
 
         $resp = false;
@@ -488,6 +519,16 @@ class AdjuntoTecnico extends MY_Controller{
 
                 $error_msg = 'Registro cargado correctamente.';
                 $resp =  true;
+
+
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'INSERTA_ARCHIVO_ADJUNTO_TECNICO',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'ADJUNTO_TECNICO' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+        
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                 
 
               }else{

@@ -24,11 +24,24 @@ class OrdenesItem extends CI_Controller {
 	
 	function guardaOrdenItem(){
 
+		$status = false;
+
 		$data = $this->input->post();
 
-		$insert = $this->ordenesitem->guardaOrdenItem($data);
+		
 
-		echo json_encode($insert);
+		$insert = $this->ordenesitem->guardaOrdenItem($data);
+	
+		if($insert){
+
+			$status = true;
+
+		}else{
+
+			$status = false;
+		}
+
+		echo json_encode($status);
 
 	}
 

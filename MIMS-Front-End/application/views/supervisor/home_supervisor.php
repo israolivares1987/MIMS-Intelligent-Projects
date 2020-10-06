@@ -22,13 +22,18 @@
         <div class="card-body">
           
         <div class="row">
-          <div class="col-lg-3 col-6">
+        <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
-                <h3></h3>
+              <h3><?php echo $totalProyectos; ?></h3>
 
                 <p>Total Proyectos</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalClientes; ?></h3>
+
+                <p>Total Clientes</p>
               </div>
               <div class="icon">
                 <i class="ion ion-bag"></i>
@@ -36,14 +41,21 @@
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
-              <div class="inner">
-                <h3><sup style="font-size: 20px"></sup></h3>
+            <div class="inner">
+              <h3><?php echo $totalLineasActivablesPlanCompras; ?></h3>
 
-                <p>Total Clientes</p>
+                <p>Total lineas Activables Compras</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalLineasActivablesPlanObra; ?></h3>
+
+                <p>Total lineas Activables Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-stats-bars"></i>
@@ -51,14 +63,20 @@
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
           </div>
+
           <!-- ./col -->
           <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
-              <div class="inner">
-                <h3></h3>
+            <div class="inner">
+              <h3><?php echo $totalOrdenesCompras; ?></h3>
 
-                <p>Total Ordenes</p>
+                <p>Total Ordenes Plan Compras</p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalOrdenesObra; ?></h3>
+
+                <p>Total Ordenes Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
@@ -67,13 +85,19 @@
             </div>
           </div>
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+
+         <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-danger">
-              <div class="inner">
-                <h3></h3>
+            <div class="inner">
+              <h3><?php echo $totalOrdenesAdminCompras; ?></h3>
 
-                <p>Total Suppliers</p>
+                <p>Total Admin MM Plan Compras </p>
+              </div>
+              <div class="inner">
+                <h3><?php echo $totalOrdenesAdminObras; ?></h3>
+
+                <p>Total Admin MM Obra</p>
               </div>
               <div class="icon">
                 <i class="ion ion-pie-graph"></i>
@@ -119,6 +143,7 @@
   </div>
   <!-- /.content-wrapper -->
 
+  
        <!--.modal nuevo todo-->
        <div id="modal_nuevo_todo" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -143,7 +168,24 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+
+
                   <div class="col-md-12">
+                                         <div class="form-horizontal">
+                                             <div class="form-group">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-md-9">Lista Todo</label>
+                                                     <div class="col-md-12">
+                                                             <?php echo $select_listaTodo;?>
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!--.form-horizontal-->
+                                     </div>
+                  
+
+                  <div class="col-md-12" id="descripcion_todo">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
@@ -153,6 +195,10 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+         
+         
+         
+         
                   <div class="col-md-12">
                     <div class="form-horizontal">
                     <div class="form-group">
@@ -227,7 +273,25 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+
+
                   <div class="col-md-12">
+                                         <div class="form-horizontal">
+                                             <div class="form-group">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-md-9">Lista Todo</label>
+                                                     <div class="col-md-12" id="select_edit_lista_todo">
+                                                             
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!--.form-horizontal-->
+                                     </div>
+
+
+
+                  <div class="col-md-12" id="bloque_edit_descripcion_todo" style="display: none;">
                     <div class="form-horizontal">
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
@@ -283,17 +347,13 @@
             <div class="modal-footer justify-content-between">
             
            
-              <button id="btn-guardar-edit" type="button" class="btn btn-outline-primary">Guardar</button>
+              <button id="btn-guardar-edit" onclick="actualizar_todo()" type="button" class="btn btn-outline-primary">Guardar</button>
               <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
             </div>
           </div>
         </div>
       </div>
       <!--.fin modal nuevo TODO--> 
-
-
-
-
 
 
       <script>
@@ -311,6 +371,8 @@
 
 
 <script type="text/javascript">
+
+
 
 $('[data-toggle="tooltip"]').tooltip();
 
@@ -338,7 +400,7 @@ $.ajax({
   cache: 			false,
   processData: 	false,
   beforeSend: function(){
-    mostrarBlock();
+   mostrarBlock();
   },
   complete: function(){
     $.unblockUI();
@@ -348,7 +410,7 @@ $.ajax({
 
        $('#modal_nuevo_todo').modal('hide');
        toastr.success(result.mensaje);
-        sleep();
+        esperar();
         location.reload();
 
     }else{
@@ -383,7 +445,7 @@ function mostrarBlock(){
   return new Promise(resolve => setTimeout(resolve, ms));
 }
 
-async function sleep() {
+async function esperar() {
   console.log('Taking a break...');
   await sleep(2000);
   console.log('Two seconds later, showing sleep in a loop...');
@@ -476,8 +538,17 @@ function obtiene_todo(id_todo, cod_usuario){
       $('#var_edit_fecha_inicio').val(result.formulario.fecha_inicio);
       $('#var_edit_descripcion_todo').val(result.formulario.descripcion_todo);
       $('#var_edit_id_todo').val(id_todo);
+      $('#select_edit_lista_todo').html(result.formulario.select_lista_todo);
+      
+
       $('#var_edit_id_usuario').val(cod_usuario);
       
+      
+      if(result.formulario.lista_todo === '1'){
+
+      formToggleActivar('bloque_edit_descripcion_todo');
+
+      }
     
      
     $('#modal_nuevo_todo_edit').modal('show');
@@ -492,7 +563,7 @@ function obtiene_todo(id_todo, cod_usuario){
 }
 
 
-$('#btn-guardar-edit').on('click', function(){
+function actualizar_todo(){
 
 var formData = new FormData(document.getElementById("form_nuevo_todo_edit"));
 
@@ -505,7 +576,7 @@ $.ajax({
   cache: 			false,
   processData: 	false,
   beforeSend: function(){
-    mostrarBlock();
+   mostrarBlock();
   },
   complete: function(){
     $.unblockUI();
@@ -514,9 +585,9 @@ $.ajax({
     if(result.resp){
 
       toastr.success(result.mensaje);
-      $('#modal_nuevo_todo_edit').modal('hide');
-       sleep();
-        location.reload();
+     $('#modal_nuevo_todo_edit').modal('hide');
+       esperar();
+       location.reload();
 
     }else{
         
@@ -530,7 +601,7 @@ $.ajax({
      }
 });
 
-});
+}
 
 
 function eliminar_todo(id_todo, cod_usuario){
@@ -553,7 +624,8 @@ if(opcion){
 
     
         toastr.success(result.mensaje);
-       // sleep();
+       
+        esperar();
         location.reload();
 
 
@@ -574,5 +646,26 @@ if(opcion){
 }
 
 
-</script>
+function cambia_todo_edit(lista){
 
+var estado = lista.value;
+
+
+if(estado === '1'){
+
+  formToggleActivar('bloque_edit_descripcion_todo');
+  $('#var_edit_descripcion_todo').val('');
+
+
+}else{
+
+  formToggleDesactivar('bloque_edit_descripcion_todo');
+  $('#var_edit_descripcion_todo').val('');
+
+
+}
+
+}
+
+
+</script>

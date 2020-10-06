@@ -88,7 +88,7 @@
                                              <div class="col-12">
                                              <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="descarga_bucksheet()"><i class="fas fa-file-download">
-                                                     </i> Descargar BuckSheet
+                                                     </i> Descargar WPanel
                                                  </button>   
                                              </div>
                                          </th>
@@ -137,6 +137,7 @@
                                          <th>Editar</th>
                                          <th>Nombre de la Orden</th>
                                          <th>Estado Linea</th>
+                                         <th>Tipo de Linea</th>
                                          <th>Numero Linea</th>
                                          <th>Proveedor</th>
                                          <th>Item ST</th>
@@ -147,12 +148,10 @@
                                          <th>Stockcode</th>
                                          <th>Descripcion</th>
                                          <th>Plano Modelo</th>
-                                         <th>Revision</th>
+                                         <th>Revisión</th>
                                          <th>Paquete Construccion Area</th>
                                          <th>Medida Unitaria</th>
                                          <th>Peso Total</th>
-                                         <th>Fecha RAS</th>
-                                         <th>Dia sAntes RAS</th>
                                          <th>Fecha Comienzo Fabricacion</th>
                                          <th>P/A FCF</th>
                                          <th>Fecha Termino Fabricacion</th>
@@ -183,6 +182,8 @@
                                          <th>Observacion 5</th>
                                          <th>Observacion 6</th>
                                          <th>Observacion 7</th>
+                                         <th>Fecha RAS</th>
+                                         <th>Dia sAntes RAS</th>
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -238,75 +239,94 @@
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Editar BuckSheet</h4>
+                 <h4 class="modal-title">Editar WPanel</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
              <div class="modal-body">
-                 <form action="#" id="form" class="form-horizontal">
+                <form action="#" id="form" class="form-horizontal">
                      <input type="hidden" value="" name="NumeroLinea"/>
                      <input type="hidden" value="" name="PurchaseOrderID" />
-                     <div class="form-body">
+                     <input type="hidden" value="" name="idProyecto" />
+                     <input type="hidden" value="" name="idCliente" />
+                     <input type="hidden" value="" name="codEmpresa" />
+
+                     <div class="form-group" data-select2-id="89">
+                             <div class="form-group">
+                             <label class="control-label col-md-12">Tipo de Linea</label>
+                                 
+                                 <div class="col-md-12">
+                                     <select name="lineaActivable" class="form-control"
+                                         style="width: 100%;">
+                                         <option value="">Seleccionar Tipo Linea</option>
+                                         <option value="Activable">Activable</option>
+                                         <option value="No Activable">No Activable</option>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+                   
+
                          <div class="form-group">
-                             <label class="control-label col-md-9">ST Cantidad</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">ST Cantidad</label>
+                             <div class="col-md-12">
                                  <input name="STCantidad" id="STCantidad" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">TAG Number</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">TAG Number</label>
+                             <div class="col-md-12">
                                  <input name="TAGNumber" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Stockcode</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Stockcode</label>
+                             <div class="col-md-12">
                                  <input name="Stockcode" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Descripción</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Descripción</label>
+                             <div class="col-md-12">
                                  <input name="Descripcion" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Plano Modelo</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Plano Modelo</label>
+                             <div class="col-md-12">
                                  <input name="PlanoModelo" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Revisión</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Revisión</label>
+                             <div class="col-md-12">
                                  <input name="Revision" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Paquete Construccion o Area</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Paquete Construccion o Area</label>
+                             <div class="col-md-12">
                                  <input name="PaqueteConstruccionArea" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Medida Unitaria</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Medida Unitaria</label>
+                             <div class="col-md-12">
                                  <input name="PesoUnitario" id="PesoUnitario" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Peso Total</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Peso Total</label>
+                             <div class="col-md-12">
                                  <input name="PesoTotal" id="PesoTotal" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
                                  <span class="help-block"></span>
                              </div>
@@ -315,8 +335,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha RAS</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha RAS</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
@@ -332,16 +352,16 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Dias Antes RAS</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Dias Antes RAS</label>
+                             <div class="col-md-12">
                                  <input name="DiasAntesRAS"  id="DiasAntesRAS" placeholder="" class="form-control" type="text" readonly>
                                  <span class="help-block"></span>
                              </div>
                          </div>
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Comienzo Fabricacion</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Comienzo Fabricacion</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -357,9 +377,9 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Comienzo
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Comienzo
                                      Fabricacion</label>
-                                 <div class="col-md-9">
+                                 <div class="col-md-12">
                                      <select name="PAFCF" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -369,8 +389,8 @@
                          </div>
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Termino Fabricacion</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Termino Fabricacion</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -386,8 +406,8 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Termino Fabricacion</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Termino Fabricacion</label>
+                                 <div class="col-md-12">
                                      <select name="PAFTF" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -398,8 +418,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Granallado</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Granallado</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -415,8 +435,8 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Granallado</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Granallado</label>
+                                 <div class="col-md-12">
                                      <select name="PAFG" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -430,8 +450,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Pintura</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Pintura</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -447,8 +467,8 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Pintura</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Pintura</label>
+                                 <div class="col-md-12">
                                      <select name="PAFP" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -461,8 +481,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Listo Inspeccion</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Listo Inspeccion</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -479,8 +499,8 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Listo Inspeccion</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Listo Inspeccion</label>
+                                 <div class="col-md-12">
                                      <select name="PAFLI" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -493,8 +513,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Acta Liberacion Calidad</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Acta Liberacion Calidad</label>
+                             <div class="col-md-12">
                                  <input name="ActaLiberacionCalidad" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
@@ -502,8 +522,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Salida Fabrica</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Salida Fabrica</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -520,8 +540,8 @@
 
                          <div class="form-group">
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Previo - Actual Fecha Salida Fabrica</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Previo - Actual Fecha Salida Fabrica</label>
+                                 <div class="col-md-12">
                                      <select name="PAFSF" class="form-control"
                                          style="width: 100%;">
                                          <?php echo $select_ap;?>
@@ -535,8 +555,8 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Fecha Embarque</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Fecha Embarque</label>
+                             <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text">
@@ -551,84 +571,84 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-9">Packing List</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Packing List</label>
+                             <div class="col-md-12">
                                  <input name="PackingList" placeholder="PackingList" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Guia Despacho</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Guia Despacho</label>
+                             <div class="col-md-12">
                                  <input name="GuiaDespacho" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">SCN Number</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">SCN Number</label>
+                             <div class="col-md-12">
                                  <input name="SCNNumber" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Origen</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Origen</label>
+                             <div class="col-md-12">
                                  <input name="Origen" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Dias Viaje</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Dias Viaje</label>
+                             <div class="col-md-12">
                                  <input name="DiasViaje" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 1</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 1</label>
+                             <div class="col-md-12">
                                  <input name="Observacion1" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 2</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 2</label>
+                             <div class="col-md-12">
                                  <input name="Observacion2" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 3</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 3</label>
+                             <div class="col-md-12">
                                  <input name="Observacion3" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 4</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 4</label>
+                             <div class="col-md-12">
                                  <input name="Observacion4" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 5</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 5</label>
+                             <div class="col-md-12">
                                  <input name="Observacion5" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-9">Observacion 6</label>
-                             <div class="col-md-9">
+                             <label class="control-label col-md-12">Observacion 6</label>
+                             <div class="col-md-12">
                                  <input name="Observacion6" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                              <div class="form-group">
-                                 <label class="control-label col-md-9">Observacion 7</label>
-                                 <div class="col-md-9">
+                                 <label class="control-label col-md-12">Observacion 7</label>
+                                 <div class="col-md-12">
                                      <input name="Observacion7" placeholder="" class="form-control" type="text">
                                      <span class="help-block"></span>
                                  </div>
@@ -792,11 +812,12 @@
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html +=
-                             '<button data-toggle="tooltip" data-placement="left" title="Editar BuckSheet" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
-                             '<button data-toggle="tooltip" data-placement="left" title="Borrar BuckSheet" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+                             '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
+                             '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
                         bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';
@@ -811,8 +832,6 @@
                         bucksheet_html += '<td>' + bucksheets.PaqueteConstruccionArea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaComienzoFabricacion+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PAFCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaTerminoFabricacion+ '</td>';
@@ -843,6 +862,8 @@
                         bucksheet_html += '<td>' + bucksheets.Observacion5+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion6+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                         bucksheet_html += '</tr>';
 
                      });
@@ -991,7 +1012,12 @@
 
                         }
 
-                function edit_bucksheet(PurchaseOrderID ,numeroLinea) {
+ function edit_bucksheet(PurchaseOrderID ,numeroLinea) {
+
+
+    var id_proyecto = <?php echo $codProyecto;?>;
+    var id_cliente = <?php echo $idCliente;?>;
+    var codEmpresa = <?php echo $this->session->userdata('cod_emp');?>;
 
                 $('#form')[0].reset(); // reset form on modals
                 $('.form-group').removeClass('has-error'); // clear error class
@@ -1011,8 +1037,15 @@
 
             $.each(result.bucksheet, function(key, bucksheets) {
 
+
+                $('[name="idProyecto"]').val(id_proyecto);
+                $('[name="idCliente"]').val(id_cliente);   
+                $('[name="codEmpresa"]').val(codEmpresa);   
+                
+
             $('[name="PurchaseOrderID"]').val(bucksheets.PurchaseOrderID);
             $('[name="NumeroLinea"]').val(bucksheets.NumeroLinea);
+            $('[name="lineaActivable"]').val(bucksheets.lineaActivable);
             $('[name="STCantidad"]').val(bucksheets.STCantidad);
             $('[name="TAGNumber"]').val(bucksheets.TAGNumber);
             $('[name="Stockcode"]').val(bucksheets.Stockcode);
@@ -1056,7 +1089,7 @@
 
 
             $('#modal-default').modal('show'); // show bootstrap modal
-            $('.modal-title').text('Editar Bucksheet ' + PurchaseOrderID + ', Numero de Linea ' +
+            $('.modal-title').text('Editar WPanel: Orden ' + PurchaseOrderID + ', Numero de Linea ' +
                 numeroLinea); // Set title to Bootstrap modal title
 
 

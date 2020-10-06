@@ -115,6 +115,36 @@ public function obtiene_select_def_act($inputId,$selected,$domain){
 		
 		}
 
+public function obtiene_select_def($id, $domain, $name){
+
+	$CI =& get_instance();
+	$CI->load->library('CallExternosDominios');
+	
+
+	
+	$def  = $CI->callexternosdominios->obtieneDatosRef($domain); 
+			$html = '';
+	  
+			$datosdef = json_decode($def);
+	  
+			$html .= '<select name="'.$name.'" class="form-control form-control-sm" id="'.$id.'">';
+			
+			if($datosdef){
+			  foreach ($datosdef as $key => $value) {
+				$html .= '<option value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
+			  }
+			}else{
+			  $html .= '<option value="0">No existen datos</option>';
+			}
+	  
+			$html .= '</select>';
+	  
+			return $html;
+	  
+	  }
+
+
+
 
 public function validarDatosProyectos($data){
 
@@ -239,7 +269,7 @@ public function cambianull($var){
   $valor = '';
 
 
-	if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null'){
+	if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null' || $var === '0000-00-00 00:00:00' || $var ==='30-11--0001' || $var ==='01-01-1970'){
 
 		$valor = '';
 
@@ -343,11 +373,27 @@ $fecha1 = strtotime($fecha1);
 $fecha2 = strtotime($fecha2);
 $datediff = $fecha1 - $fecha2;
 
-return round($datediff / (60 * 60 * 24));
+if(round($datediff / (60 * 60 * 24) < 0)) {
+
+	$fecha_final = 0 ;
+
+}else{
+
+	$fecha_final = round($datediff / (60 * 60 * 24));
+
+}
+
+return $fecha_final;
+
   }
 
 
+  public function objectToArray ($object) {
 
+	$array = json_decode(json_encode($object), true);
+
+	return $array;
+}
 
 
 

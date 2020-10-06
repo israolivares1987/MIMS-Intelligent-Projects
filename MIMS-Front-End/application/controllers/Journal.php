@@ -13,6 +13,7 @@ class Journal extends MY_Controller{
     $this->load->library('CallUtil');
     $this->load->library('CallExternosOrdenes');
     $this->load->library('CallExternosDominios');
+    $this->load->library('CallExternosBitacora');
     
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -409,6 +410,16 @@ class Journal extends MY_Controller{
 
                 $error_msg = 'Registro cargado correctamente.';
                 $resp =  true;
+
+
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'INSERTA_JOURNAL',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'JOURNAL' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+        
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                 
 
               }else{
@@ -916,6 +927,16 @@ function enviarMail(){
                 
                                 $error_msg = 'Registro Actualizado correctamente.';
                                 $resp =  true;
+
+
+                                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                                'accion'  => 'ACTUALIZAR_JOURNAL',
+                                'usuario'  =>  $this->session->userdata('n_usuario'),
+                                'rol' =>   $this->session->userdata('nombre_rol'),
+                                'objeto'  => 'JOURNAL' ,
+                                'fechaCambio' =>  date_create()->format('Y-m-d'));
+                        
+                                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                                 
                 
                               }else{
@@ -963,6 +984,16 @@ function enviarMail(){
 
             $error_msg = 'Registro Actualizado correctamente.';
             $resp =  true;
+
+
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ACTUALIZAR_JOURNAL',
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'JOURNAL' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+    
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
 
           }else{

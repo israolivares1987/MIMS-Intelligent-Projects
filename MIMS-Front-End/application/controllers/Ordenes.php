@@ -15,6 +15,7 @@ class Ordenes extends CI_Controller{
     $this->load->library('CallExternosOrdenes');
         $this->load->library('form_validation');
     $this->load->helper('file');
+    $this->load->library('CallExternosBitacora');
     
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -61,7 +62,11 @@ class Ordenes extends CI_Controller{
                 'nombreCliente'   => $value->nombreCliente,
                 "SupplierName" => $value->SupplierName,
                 'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
                 'Requestor'   => $value->Requestor,
+                'Comprador'   => $value->Comprador,
+
                 'Currency'   => $value->Currency,
                 'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
                 'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
@@ -91,6 +96,85 @@ class Ordenes extends CI_Controller{
 
   }
 
+
+
+  function obtieneOrdenesActivador(){
+
+    $idCliente       = $this->input->post('idCliente');
+    $idProyecto      = $this->input->post('idProyecto');
+    $codActivador      = $this->input->post('codActivador');
+
+    $respuesta = false;
+
+    $ordenes = $this->callexternosordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador);
+
+    $arrOrdenes = json_decode($ordenes);
+ 
+
+          $datos_ordenes = array();
+
+          if($arrOrdenes){
+            $respuesta = true;
+            
+            foreach ($arrOrdenes as $key => $value) {
+
+              $Support = '';
+
+              if(strlen($value->Support) > 0 && $value->Support !='null'  ){
+                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support_original.'"><i class="fas fa-download"></i> Descarga</a>';
+              }else{
+                $Support = '';
+              }
+
+              
+              $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
+                'PurchaseOrderID' => $value->PurchaseOrderID,
+                'idRequerimiento' => $value->idRequerimiento,
+                'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
+                'Categorizacion'  => $value->Categorizacion,
+                'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
+                'Revision'   => $value->Revision,
+                'nombreCliente'   => $value->nombreCliente,
+                "SupplierName" => $value->SupplierName,
+                'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
+                'Requestor'   => $value->Requestor,
+                'Comprador'   => $value->Comprador,
+
+                'Currency'   => $value->Currency,
+                'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
+                'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
+                'Budget'   => $this->callutil->formatoDinero($value->Budget),
+                'CostCodeBudget'   => $value->CostCodeBudget,
+                'OrderDate'   => $this->callutil->formatoFechaSalida($value->OrderDate),
+                'DateRequired'   => $this->callutil->formatoFechaSalida($value->DateRequired),
+                'DatePromised'   => $this->callutil->formatoFechaSalida($value->DatePromised),
+                'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
+                'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
+                'DateCreated'   => $this->callutil->formatoFechaSalida($value->DateCreated),
+                "POStatus" => $this->callutil->cambianull($value->POStatus),
+                'Support' =>  $Support
+              );
+
+            }
+          }
+
+
+						
+
+        $datos['ordenes'] = $datos_ordenes;
+        $datos['resp']    = $respuesta;
+
+        echo json_encode($datos);
+    
+
+  }
+
+
+
+
+
   function guardaOrden(){
 
     $or_purchase_order    = $this->input->post('or_purchase_order');
@@ -99,6 +183,10 @@ class Ordenes extends CI_Controller{
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
     $or_revision = $this->input->post('or_revision');
     $or_select_supplier   = $this->input->post('or_select_supplier');
+    
+    $or_estado_plano   = $this->input->post('or_estado_plano');
+    $or_observacion_ep   = $this->input->post('or_observacion_ep');
+  
     $or_select_employee   = $this->input->post('or_select_employee');
     $or_select_currency   = $this->input->post('or_select_currency');
     $or_requestor         = $this->input->post('or_requestor');
@@ -171,6 +259,8 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                  'EstadoPlano' => $or_estado_plano ,
+                  'ObservacionesEp' => $or_observacion_ep,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
@@ -196,6 +286,15 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden cargada correctamente';
                   $resp =  true;
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'INSERTA_ORDEN',
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
                 }else{
                   $error_msg = 'Error en cargar Orden, favor revisar con Soporte';
@@ -248,13 +347,15 @@ class Ordenes extends CI_Controller{
         $data = array(
           'purchase_number'     => $value->PurchaseOrderNumber,
           'id_requerimiento'           => $value->idRequerimiento,
-          'select_categorizacion'     => $this->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
+          'select_categorizacion'     => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
           'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierName),
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
-          'select_currency'     => $this->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
+          'select_currency'     => $this->callutil->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
           'requestor'           => $value->Requestor,
+          'EstadoPlano'         => $value->EstadoPlano,
+          'ObservacionesEp'     => $value->ObservacionesEp,
           'valor_neto'          => $this->callutil->formatoNumero($value->ValorNeto),
           'valor_total'         => $this->callutil->formatoNumero($value->ValorTotal),
           'comprador'           => $value->Comprador,
@@ -264,8 +365,8 @@ class Ordenes extends CI_Controller{
           'date_required'       => date('d-m-Y', strtotime($value->DateRequired)),
           'date_promised'       => date('d-m-Y', strtotime($value->DatePromised)),
           'ship_date'           => date('d-m-Y', strtotime($value->ShipDate)),
-          'select_shipping'     => $this->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
-          'select_status'       => $this->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
+          'select_shipping'     => $this->callutil->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
+          'select_status'       => $this->callutil->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
           'orden_id'            => $orden_id,
           'id_proyecto'         => $id_proyecto,
           'id_cliente'          => $id_cliente
@@ -293,6 +394,10 @@ class Ordenes extends CI_Controller{
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
     $or_revision        = $this->input->post('or_act_revision');
     $or_select_supplier   = $this->input->post('or_act_select_supplier');
+
+    $or_estado_plano   = $this->input->post('or_act_estado_plano');
+    $or_observacion_ep   = $this->input->post('or_act_observacion_ep');
+
     $or_select_employee   = $this->input->post('or_act_select_employee');
     $or_select_currency   = $this->input->post('or_act_select_currency');
     $or_requestor         = $this->input->post('or_act_requestor');
@@ -341,6 +446,12 @@ class Ordenes extends CI_Controller{
     $respArchivo = $archivo['resp'];
 
 
+    if ($or_select_status === '6'){
+
+      $or_ship_date = date_create()->format('Y-m-d');
+
+
+    }
 
 
     if($respArchivo == false) {
@@ -358,6 +469,8 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                   'EstadoPlano'  => $or_estado_plano  ,
+                   'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
@@ -381,6 +494,16 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden actualizada correctamente';
                   $resp =  true;
+
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
                 }else{
                   $error_msg = 'Error en actualizar Orden, favor revisar con Soporte';
@@ -424,7 +547,10 @@ class Ordenes extends CI_Controller{
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
                   'SupplierName'                => $or_select_supplier,
+                  'EstadoPlano'  => $or_estado_plano  ,
+                  'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
+
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
                   'Currency'                  => $or_select_currency,
@@ -449,6 +575,15 @@ class Ordenes extends CI_Controller{
 
                   $error_msg = 'Orden actualizada correctamente';
                   $resp =  true;
+
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'ORDEN' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
                 }else{
                   $error_msg = 'Error en actualizar Orden, favor revisar con Soporte';
@@ -521,6 +656,15 @@ class Ordenes extends CI_Controller{
 
             $data['resp'] = true;
             $data['mensaje'] = 'Registro eliminado correctamente';
+
+            $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+            'accion'  => 'ELIMINA_ORDEN_'.$orden,
+            'usuario'  =>  $this->session->userdata('n_usuario'),
+            'rol' =>   $this->session->userdata('nombre_rol'),
+            'objeto'  => 'ORDEN' ,
+            'fechaCambio' =>  date_create()->format('Y-m-d'));
+    
+            $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
           }else{
             $data['resp'] = false;
@@ -614,23 +758,23 @@ function obtieneSelectOrden(){
   
   $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
   $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
-  $data['select_currency']  = $this->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
-  $data['select_shipping']  = $this->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
-  $data['select_status']    = $this->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
-  $data['select_categorizacion']    = $this->obtiene_select_def('or_select_categorizacion','CATEGORIZACION_ORDENES','or_select_categorizacion');
+  $data['select_currency']  = $this->callutil->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
+  $data['select_shipping']  = $this->callutil->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
+  $data['select_status']    = $this->callutil->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
+  $data['select_categorizacion']    = $this->callutil->obtiene_select_def('or_select_categorizacion','CATEGORIZACION_ORDENES','or_select_categorizacion');
   
-  $data['select_item_unidad']    = $this->obtiene_select_def('or_item_select_unidad','UNIDAD_MEDIDA','or_item_select_unidad');
-  $data['select_item_status']    = $this->obtiene_select_def('or_item_select_status','ESTADO_ITEM_ORDEN','or_item_select_status');
+  $data['select_item_unidad']    = $this->callutil->obtiene_select_def('or_item_select_unidad','UNIDAD_MEDIDA','or_item_select_unidad');
+  $data['select_item_status']    = $this->callutil->obtiene_select_def('or_item_select_status','ESTADO_ITEM_ORDEN','or_item_select_status');
  
-  $data['select_disciplina']    = $this->obtiene_select_def('or_disciplina','DISCIPLINA','or_disciplina');
-  $data['select_tipo_pm']    = $this->obtiene_select_def('or_tipo_pm','TIPO_PM','or_tipo_pm');
-  $data['select_nivel_inspeccion']    = $this->obtiene_select_def('or_nivel_inspeccion','NIVEL_INSPECCION','or_nivel_inspeccion');
+  $data['select_disciplina']    = $this->callutil->obtiene_select_def('or_disciplina','DISCIPLINA','or_disciplina');
+  $data['select_tipo_pm']    = $this->callutil->obtiene_select_def('or_tipo_pm','TIPO_PM','or_tipo_pm');
+  $data['select_nivel_inspeccion']    =$this->callutil->obtiene_select_def('or_nivel_inspeccion','NIVEL_INSPECCION','or_nivel_inspeccion');
 
   
 
-  $data['select_instalacion_definitiva']    = $this->obtiene_select_def('or_instalacion_definitiva','SI_NO','or_instalacion_definitiva');
-  $data['select_inspeccion_requerida']    = $this->obtiene_select_def('or_inspeccion_requerida','SI_NO','or_inspeccion_requerida');
-  $data['select_documentos_antes_iniciar']    = $this->obtiene_select_def('or_documentos_antes_iniciar','SI_NO','or_documentos_antes_iniciar');
+  $data['select_instalacion_definitiva']    = $this->callutil->obtiene_select_def('or_instalacion_definitiva','SI_NO','or_instalacion_definitiva');
+  $data['select_inspeccion_requerida']    =$this->callutil->obtiene_select_def('or_inspeccion_requerida','SI_NO','or_inspeccion_requerida');
+  $data['select_documentos_antes_iniciar']    =$this->callutil->obtiene_select_def('or_documentos_antes_iniciar','SI_NO','or_documentos_antes_iniciar');
 
 
 

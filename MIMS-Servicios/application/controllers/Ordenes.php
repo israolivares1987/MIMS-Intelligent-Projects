@@ -21,6 +21,21 @@ class Ordenes extends CI_Controller {
 		echo json_encode($Ordenes);
 				  	
 	}
+
+
+	function obtieneOrdenesActivador(){
+	  
+		$idProyecto 		= $this->input->post('idProyecto');
+		$idCliente	= $this->input->post('idCliente');
+		$codActivador = $this->input->post('codActivador');
+
+
+		$Ordenes = $this->ordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador);
+		echo json_encode($Ordenes);
+				  	
+	}
+
+	
 	
 
 	function obtieneOrderById(){
