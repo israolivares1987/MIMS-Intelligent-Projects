@@ -50,6 +50,10 @@
                      $.each(result.clientes, function(key, cliente) {
              
                         clientes_html += '<tr>';
+                        clientes_html += '<td>';
+                        clientes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Cliente" onclick="edit_cliente('+cliente.idCliente+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+                        clientes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Cliente" onclick="elimina_cliente('+cliente.idCliente +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                        clientes_html += '</td>';
                         clientes_html += '<td>' + cliente.nombreCliente + '</td>';
                         clientes_html += '<td>' + cliente.razonSocial + '</td>';
                         clientes_html += '<td>' + cliente.rutCliente + '</td>';
@@ -58,11 +62,7 @@
                         clientes_html += '<td>' + cliente.contacto + '</td>';
                         clientes_html += '<td>' + cliente.telefono + '</td>';
                         clientes_html += '<td>' + cliente.correo + '</td>';
-                        clientes_html += '<td>';
-                        clientes_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Cliente" onclick="edit_cliente('+cliente.idCliente+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-                        clientes_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Cliente" onclick="elimina_cliente('+cliente.idCliente +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
-                        clientes_html += '</td>';
-                        clientes_html += '</tr>';
+                       clientes_html += '</tr>';
 
                      });
 
@@ -358,9 +358,10 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table id="tbl_clientes" class="table table-striped table-bordered" cellspacing="0">
+                                                    <table id="tbl_clientes" class="table table-striped table-bordered" cellspacing="0" width=100%>
                                                             <thead>
                                                                 <tr>
+                                                                <th>Acciones</th>
                                                                 <th>Nombre</th>
                                                                 <th>Razon Social</th>
                                                                 <th>Rut</th>
@@ -369,7 +370,6 @@
                                                                 <th>Contacto</th>
                                                                 <th>Telefono</th>
                                                                 <th>Email</th>
-                                                                <th>Acciones</th>
                                                             </tr>
                                                             </thead>
                                                             <tbody id="datos_clientes">

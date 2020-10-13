@@ -69,7 +69,7 @@ class Login extends CI_Controller {
 
 				$sesdata = array(
 					'Error' => 99,
-					'DescripcionError' => 'Usuario se encuentra desabilitado, favor contactarse con el administrador'
+					'DescripcionError' => 'Usuario se encuentra deshabilitado, favor contactarse con el administrador'
 				);
 				
 			  }

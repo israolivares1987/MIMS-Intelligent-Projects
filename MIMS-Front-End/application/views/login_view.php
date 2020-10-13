@@ -12,8 +12,10 @@
 
     <!-- Disable tap highlight on IE -->
     <meta name="msapplication-tap-highlight" content="no">
-
+    <link href="assets/dist/css/font-awesome.min.css" rel="stylesheet">
     <link href="<?php echo base_url('assets/dist/css/main.login.css')?>" rel="stylesheet">
+
+   
 </head>
 
 <body>
@@ -65,6 +67,8 @@
                                             </div>
                                         </div>
 
+                                        
+
                                     </div>
                                     <div class="d-flex align-items-center">
                                         <div class="ml-auto">
@@ -73,7 +77,6 @@
 
        $arr = $this->session->flashdata();
        if(!empty($arr['msg'])){
-
          $html = '<div class="alert alert-danger">';
          $html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
          $html .= '<strong>';
@@ -87,6 +90,14 @@
    ?>
                                         </div>
                                     </div>
+                                    <!-- Olvide mi Contraseña -->
+                                    <div class="col-md-6">
+                                        <div class="position-relative form-group">
+                                            
+                                            <i class="fa fa-lock"></i>
+                                            <a href="forget_password.php"> Olvidó su contraseña? </a>
+                                        </div>
+                                    </div>
                                 </form>
                             </div>
                         </div>
@@ -95,6 +106,7 @@
             </div>
         </div>
     </div>
+    <script src="assets/script/jquery.validate.min.js"></script>
     <script type="text/javascript" src="<?php echo base_url('assets/scripts/main.login.js')?>"></script>
 </body>
 

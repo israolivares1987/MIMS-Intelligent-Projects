@@ -129,8 +129,7 @@ class Login extends CI_Controller{
 
     $dataSession = $this->callexternosconsultas->eliminarSession($this->session->userdata('cod_user'), $sessionId);
     
-    var_dump($dataSession);
-    
+       
      $this->session->sess_destroy();
 
     redirect('login');
