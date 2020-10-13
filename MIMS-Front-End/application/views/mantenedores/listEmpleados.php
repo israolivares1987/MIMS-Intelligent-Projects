@@ -1,4 +1,183 @@
-<script type="text/javascript">
+<!-- Content Wrapper. Contains page content -->
+<div class="content-wrapper">
+     <!-- Content Header (Page header) -->
+  <section class="content-header">
+         <div class="container-fluid">
+             <div class="row mb-2">
+                 <div class="col-sm-6">
+                     <h1>Mantenedor Empleados</h1>
+                 </div>
+             </div>
+         </div><!-- /.container-fluid -->
+     </section>
+
+     <!-- Main content -->
+     <section class="content">
+             <div class="col-12">
+                 <div class="card">
+                    
+  
+                             <div class="col-lg-12">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Detalle Empresa
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                         <dl class="row">
+                                             <dt class="col-sm-4">Nombre:</dt>
+                                             <dd class="col-sm-6"><?php echo urldecode($nombreEmpresa);?></dd>
+                                             <dt class="col-sm-4">Razón Social:</dt>
+                                             <dd class="col-sm-6"><?php echo urldecode($razonSocial);?>
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+
+                             </div>
+                                      
+                                            <div class="col-lg-12">
+                                                <div class="card">
+                                                    <div class="card-header">
+                                                        <h3 class="card-title">
+                                                            <i class="fas fa-text-width"></i>
+                                                            Detalle Empleados
+                                                        </h3>
+                                                    </div>
+
+                                                                <div class="card-body">
+                                                                    <br />
+                                                                    <table class="table" cellspacing="0" width="99%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    <button id="btn_recargar"  class="btn btn-outline-secondary float-right" onclick="reload_table()" >Recargar</button>
+                                                                                    <button id="btn_nuevo_registro" class="btn btn-outline-primary float-right" onclick="nuevo_empleado()">Nuevo Empleado</button>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                    <br />
+
+                                                                    <table id="tbl_empleados" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                                        <thead>
+                                                                            <tr>
+                                                                            <th>Nombre</th>
+                                                                            <th>Apellido</th>
+                                                                            <th>E-Mail</th>
+                                                                            <th>Cargo</th>
+                                                                            <th>Fono Oficina</th>
+                                                                            <th>Fono Casa</th>
+                                                                            <th>Fono Movil</th>
+                                                                            <th>Acciones</th>
+                                                                        </tr>
+                                                                        </thead>
+                                                                        <tbody id="datos_empleados">
+                                                                        </tbody>
+                                                                    </table>
+                                                                </div>
+                                                    <!-- /.card-body -->
+                                                </div>
+
+                                            </div>
+                                            <!-- /.col-md-6 -->
+                 </div>
+         </div>
+	  </section>	
+  </div>   
+
+
+
+<!-- /.modal-content -->
+						
+    <div class="modal fade" id="modal-empleado">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Agregar Empleado</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+             <form id="formEmpleado" class="form-horizontal">
+                    <input type="hidden" value="" name="ID" id="ID" />  
+                    <input type="hidden" value="<?php echo $this->session->userdata('cod_emp');?>" name="codEmpresa" id="codEmpresa" />
+                    
+                    <div class="form-body">
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Nombre</label>
+                            <div class="col-md-9">
+                                <input name="FirstName" id="FirstName" placeholder="Nombre" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Apellido</label>
+                            <div class="col-md-9">
+                                <input name="LastName" id="LastName" placeholder="Apellido" class="form-control" type="text">
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label class="control-label col-md-3">E-Mail</label>
+                            <div class="col-md-9">
+                                <div class="input-group-prepend">
+                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
+                                    <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
+                                 </div>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Cargo</label>
+                            <div class="col-md-9">
+                            <input type="text" name="JobTitle" id="JobTitle" placeholder="Cargo" class="form-control" />
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fono Oficina</label>
+                            <div class="col-md-9">
+                                <input type="text" name="BusinessPhone" id="BusinessPhone" value="" class="form-control"/>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fono Casa</label>
+                            <div class="col-md-9">
+                               <input type="text" name="HomePhone" id="HomePhone" value="" class="form-control"/>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label col-md-3">Fono Movil</label>
+                            <div class="col-md-9">
+                            <input type="text" name="MobilePhone" id="MobilePhone" value="" class="form-control"/>
+                                <span class="help-block"></span>
+                            </div>
+                        </div>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="guardar()">Actualizar</button>
+              <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+
+
+
+        <script type="text/javascript">
              $('[data-toggle="tooltip"]').tooltip();
 
              $(document).ready(function() {
@@ -274,171 +453,3 @@
                  height: 50px;
              }
 </style>
-
-<!-- Content Wrapper. Contains page content -->
- <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header">
-         <div class="container-fluid">
-             <div class="row mb-2">
-                 <div class="col-sm-6">
-                     <h1>Mantenedor Empleados</h1>
-                 </div>
-             </div>
-         </div><!-- /.container-fluid -->
-     </section>
-
-     <!-- Main content -->
-     <section class="content">
-         <div class="row">
-             <div class="col-12">
-                 <div class="card">
-                    
-                         <div class="row">
-                             <div class="col-lg-12">
-                                 <div class="card">
-                                     <div class="card-header">
-                                         <h3 class="card-title">
-                                             <i class="fas fa-text-width"></i>
-                                             Detalle Empresa
-                                         </h3>
-                                     </div>
-                                     <!-- /.card-header -->
-                                     <div class="card-body">
-                                         <dl class="row">
-                                             <dt class="col-sm-4">Nombre:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($nombreEmpresa);?></dd>
-                                             <dt class="col-sm-4">Razón Social:</dt>
-                                             <dd class="col-sm-6"><?php echo urldecode($razonSocial);?>
-                                             </dd>
-                                             </dd>
-                                         </dl>
-                                     </div>
-                                     <!-- /.card-body -->
-                                 </div>
-
-                             </div>
-                             <!-- /.col-md-6 -->
-                         </div>
-                         <!-- /.row -->
-                     
-
-
-                     <!-- /.card-header -->
-                     <div class="card-body">
-                         <br />
-                         <table class="table" cellspacing="0" width="99%">
-                             <tbody>
-                                 <tr>
-                                     <th>
-                                         <button id="btn_recargar"  class="btn btn-outline-secondary float-right" onclick="reload_table()" >Recargar</button>
-                                         <button id="btn_nuevo_registro" class="btn btn-outline-primary float-right" onclick="nuevo_empleado()">Nuevo Empleado</button>
-                                     </th>
-                                 </tr>
-                             </tbody>
-                         </table>
-
-                         <br />
-
-                         <table id="tbl_empleados" class="table table-striped table-bordered" cellspacing="0">
-                             <thead>
-                                 <tr>
-                                 <th>Nombre</th>
-                                <th>Apellido</th>
-                                <th>E-Mail</th>
-                                <th>Cargo</th>
-                                <th>Fono Oficina</th>
-                                <th>Fono Casa</th>
-                                <th>Fono Movil</th>
-                                <th>Acciones</th>
-                              </tr>
-                             </thead>
-                             <tbody id="datos_empleados">
-                             </tbody>
-                         </table>
-                     </div>
-                 </div>
-             </div>
-
-
-
-<!-- /.modal-content -->
-						
-    <div class="modal fade" id="modal-empleado">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Agregar Empleado</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-             <form id="formEmpleado" class="form-horizontal">
-                    <input type="hidden" value="" name="ID" id="ID" />  
-                    <input type="hidden" value="<?php echo $this->session->userdata('cod_emp');?>" name="codEmpresa" id="codEmpresa" />
-                    
-                    <div class="form-body">
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Nombre</label>
-                            <div class="col-md-9">
-                                <input name="FirstName" id="FirstName" placeholder="Nombre" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Apellido</label>
-                            <div class="col-md-9">
-                                <input name="LastName" id="LastName" placeholder="Apellido" class="form-control" type="text">
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="control-label col-md-3">E-Mail</label>
-                            <div class="col-md-9">
-                                <div class="input-group-prepend">
-                                    <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
-                                 </div>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Cargo</label>
-                            <div class="col-md-9">
-                            <input type="text" name="JobTitle" id="JobTitle" placeholder="Cargo" class="form-control" />
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Oficina</label>
-                            <div class="col-md-9">
-                                <input type="text" name="BusinessPhone" id="BusinessPhone" value="" class="form-control"/>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Casa</label>
-                            <div class="col-md-9">
-                               <input type="text" name="HomePhone" id="HomePhone" value="" class="form-control"/>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                        <div class="form-group">
-                            <label class="control-label col-md-3">Fono Movil</label>
-                            <div class="col-md-9">
-                            <input type="text" name="MobilePhone" id="MobilePhone" value="" class="form-control"/>
-                                <span class="help-block"></span>
-                            </div>
-                        </div>
-                    </div>
-                </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button id="btnSave" type="button" class="btn btn-block btn-outline-success" onclick="guardar()">Actualizar</button>
-              <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
-            </div>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->

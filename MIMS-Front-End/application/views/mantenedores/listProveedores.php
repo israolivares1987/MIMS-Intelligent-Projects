@@ -361,13 +361,12 @@
                                                             </tr>
                                                         </tbody>
                                                     </table>
-                                                    <table id="tbl_proveedores" class="table table-striped table-bordered" cellspacing="0">
+                                                    <table id="tbl_proveedores" class="table table-striped table-bordered" cellspacing="0" width=100%>
                                                             <thead>
                                                                 <tr>
                                                                 <th>Acciones</th>
                                                                 <th>Id Proveedor</th>
                                                                 <th>Nombre Proveedor</th>
-<th>Comprador</th>
                                                                 <th>Nombre Contacto </th>
                                                                 <th>Titulo Contacto</th>
                                                                 <th>Direccion</th>

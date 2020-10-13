@@ -145,7 +145,7 @@ class Clientes extends MY_Controller{
         'codEmpresa' => $codEmpresa,
         'nombreCliente'   => $nombreCliente,
         'razonSocial'   => $razonSocial,
-        'rutCliente' => $this->callutil->formatoNumeroMilesEntrada($value->rutCliente),
+        'rutCliente' => $this->callutil->formatoNumeroMilesEntrada( $rutCliente),
         'dvCliente'       => $dvCliente,
         'direccion' => $direccion,
         'contacto' => $contacto,
