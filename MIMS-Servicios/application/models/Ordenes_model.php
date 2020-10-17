@@ -3,49 +3,56 @@ class Ordenes_model extends CI_Model{
 
 	var $table = 'tbl_ordenes';
 
-	function obtieneOrdenes($idCliente,$idProyecto)
+	function obtieneOrdenes($idCliente,$idProyecto, $codEmpresa)
 	{
 
 	  $query = $this->db->query("SELECT a.CodEmpresa as codEmpresa,
-	  							a.PurchaseOrderID,
-	  							a.idRequerimiento,
-								a.PurchaseOrderNumber,
-								(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,
-								a.PurchaseOrderDescription,
-								a.Revision,
-								b.nombreCliente,
-								a.SupplierName,
-								a.EstadoPlano,
-								a.ObservacionesEp,
-								a.Comprador,
-								concat(c.FirstName,' ', c.LastName) as ExpediterID,
-								a.Requestor,
-								(select domain_desc from tbl_ref_codes where domain_id = a.Currency and domain = 'CURRENCY_ORDEN') as Currency,
-								a.ValorNeto,
-								a.ValorTotal,
-								a.Budget,
-								a.CostCodeBudget,
-								a.OrderDate,
-								a.DateRequired,
-								a.DatePromised,
-								a.ShipDate,
-								(select domain_desc from tbl_ref_codes where domain_id = a.ShippingMethodID and domain = 'SHIPPING_METHOD') as ShippingMethodID,
-								a.DateCreated,
-								(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
-								a.Support,
-								a.DateCreated,
-								a.Support_original       
-								FROM tbl_ordenes a ,  tbl_employees c, tbl_clientes b
-								WHERE a.idCliente = ".$idCliente."
-								AND idproyecto = ".$idProyecto."
-								and a.idCliente = b.idCliente
-								and ExpediterID = c.id");
+									a.PurchaseOrderID,
+									a.idRequerimiento,
+									a.PurchaseOrderNumber,
+									(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,
+									a.PurchaseOrderDescription,
+									a.Revision,
+									b.nombreCliente,
+									a.SupplierName,
+									a.EstadoPlano,
+									a.ObservacionesEp,
+									a.Comprador,
+									concat(c.nombres,' ', c.paterno) as ExpediterID,
+									a.Requestor,
+									(select domain_desc from tbl_ref_codes where domain_id = a.Currency and domain = 'CURRENCY_ORDEN') as Currency,
+									a.ValorNeto,
+									a.ValorTotal,
+									a.Budget,
+									a.CostCodeBudget,
+									a.OrderDate,
+									a.DateRequired,
+									a.DatePromised,
+									a.ShipDate,
+									(select domain_desc from tbl_ref_codes where domain_id = a.ShippingMethodID and domain = 'SHIPPING_METHOD') as ShippingMethodID,
+									a.DateCreated,
+									(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
+									a.Support,
+									a.DateCreated,
+									a.Support_original       
+									FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b
+									WHERE a.idCliente = ".$idCliente."
+									AND idproyecto = ".$idProyecto."
+									AND a.codEmpresa =  ".$codEmpresa."
+									and a.idCliente = b.idCliente
+									and ExpediterID = c.cod_user
+									and a.codEmpresa = c.cod_emp
+									and c.cod_emp = b.codEmpresa
+									and b.codEmpresa = a.codEmpresa");
+
+
+								
 	  $Ordenes = $query->result();
 	  return $Ordenes;
 	}
 
 
-	function obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador)
+	function obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador,$codEmpresa)
 	{
 
 	  $query = $this->db->query("SELECT a.CodEmpresa as codEmpresa,
@@ -60,7 +67,7 @@ class Ordenes_model extends CI_Model{
 								a.EstadoPlano,
 								a.ObservacionesEp,
 								a.Comprador,
-								concat(c.FirstName,' ', c.LastName) as ExpediterID,
+								concat(c.nombres,' ', c.paterno) as ExpediterID,
 								a.Requestor,
 								(select domain_desc from tbl_ref_codes where domain_id = a.Currency and domain = 'CURRENCY_ORDEN') as Currency,
 								a.ValorNeto,
@@ -77,12 +84,18 @@ class Ordenes_model extends CI_Model{
 								a.Support,
 								a.DateCreated,
 								a.Support_original       
-								FROM tbl_ordenes a ,  tbl_employees c, tbl_clientes b
+								FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b
 								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."
-								AND EmailAddress = ".$codActivador."
+								AND email = ".$codActivador."
 								and a.idCliente = b.idCliente
-								and ExpediterID = c.id");
+								and ExpediterID = c.cod_user
+								AND a.codEmpresa =  ".$codEmpresa."
+								and a.idCliente = b.idCliente
+								and ExpediterID = c.cod_user
+								and a.codEmpresa = c.cod_emp
+								and c.cod_emp = b.codEmpresa
+								and b.codEmpresa = a.codEmpresa");
 	  $Ordenes = $query->result();
 	  return $Ordenes;
 	}
@@ -118,6 +131,8 @@ class Ordenes_model extends CI_Model{
 		$this->db->where('idCliente', $id_cliente);
 		$this->db->where('idProyecto', $id_proyecto);
 		$this->db->where('PurchaseOrderID', $id_order);
+
+		//var_dump($this->db->get_compiled_select());
 
 		$query = $this->db->get();
 

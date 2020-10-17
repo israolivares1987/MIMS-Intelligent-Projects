@@ -879,7 +879,7 @@ function obtieneBucksheetDet()
    // Export data in CSV format 
    public function exportCSV($PurchaseOrderID){ 
     // file name 
-    $filename = 'bucksheet_'.$PurchaseOrderID.'_'.date('Ymd').date('H:i:s').'.csv'; 
+    $filename = 'wpanel_'.$PurchaseOrderID.'_'.date('Ymd').date('H:i:s').'.csv'; 
     header("Content-Description: File Transfer"); 
     header("Content-Disposition: attachment; filename=$filename"); 
     header("Content-Type: application/csv; ");
@@ -893,13 +893,14 @@ function obtieneBucksheetDet()
     
     // file creation 
     $file = fopen('php://output', 'w');
-  
+   
+
     $header = array("PurchaseOrderID",
     "purchaseOrdername",
-    "NumeroLinea",
-    "SupplierName",
     "EstadoLineaBucksheet",
     'lineaActivable',
+    "NumeroLinea",
+    "SupplierName",
     "ItemST",
     "SubItemST",
     "STUnidad",
@@ -943,16 +944,17 @@ function obtieneBucksheetDet()
     "Observacion4",
     "Observacion5",
     "Observacion6",
-    "Observacion7",
-    "created",
-    "modified"); 
+    "Observacion7"); 
 
     fputcsv($file, $header, ';', chr(27));
     
     foreach ($arrBucksheet as $key => $value){ 
 
 
+
+      
       $datos_bucksheet = array(
+
         'PurchaseOrderID' => $this->callutil->clean_string($value->PurchaseOrderID),
         'purchaseOrdername' => $this->callutil->clean_string($value->purchaseOrdername),
         'EstadoLineaBucksheet' => $this->callutil->clean_string($value->EstadoLineaBucksheet),
@@ -1002,9 +1004,7 @@ function obtieneBucksheetDet()
         'Observacion4' =>  $this->callutil->clean_string($value->Observacion4),
         'Observacion5' =>  $this->callutil->clean_string($value->Observacion5),
         'Observacion6' =>  $this->callutil->clean_string($value->Observacion6),
-        'Observacion7' =>  $this->callutil->clean_string($value->Observacion7),
-        'created' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->created)),
-        'modified' => $this->callutil->formatoFechaSalida($this->callutil->clean_string($value->modified))
+        'Observacion7' =>  $this->callutil->clean_string($value->Observacion7)
       );
 
 

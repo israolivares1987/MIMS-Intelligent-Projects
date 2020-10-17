@@ -341,6 +341,67 @@ public function sendEmail($email,$subject,$message,$file){
  }
 
 
+ public function sendEmailPassword($email,$subject,$message){
+
+    $CI = & get_instance();
+	$CI->load->library('email');
+
+   /* $config = array(
+      'protocol' => 'smtp',
+      'smtp_host' => 'mail.mimsprojects.com',
+      'smtp_port' => 587,
+      'smtp_user' => 'noreply@mimsprojects.com', 
+      'smtp_pass' => 'PasswordMims2020.', 
+      'mailtype' => 'html',
+      'charset' => 'utf-8',
+	  'wordwrap' => TRUE,
+	  'smtp_crypto' => 'tsl', //can be 'ssl' or 'tls' for example
+       'priority' => 1
+	);*/
+	
+$mail_config['smtp_host'] = 'mail.mimsprojects.com';
+$mail_config['smtp_port'] = '465';
+$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
+$mail_config['_smtp_auth'] = TRUE;
+$mail_config['smtp_pass'] = 'PasswordMims2020.';
+$mail_config['smtp_crypto'] = 'ssl';
+$mail_config['protocol'] = 'smtp';
+$mail_config['mailtype'] = 'html';
+$mail_config['send_multipart'] = FALSE;
+$mail_config['charset'] = 'utf-8';
+$mail_config['wordwrap'] = TRUE;
+
+
+
+
+		  $CI->email->initialize($mail_config);
+		  $CI->email->set_newline("\r\n");
+          $CI->email->from('noreply@mimsprojects.com');
+          $CI->email->to($email);
+          $CI->email->subject($subject);
+          $CI->email->message($message);
+		
+	  if($CI->email->send())
+         {
+
+          $resp= true;
+          $error_msg= $CI->email->print_debugger();
+         
+         }
+         else
+        {
+
+          $resp= false;
+          $error_msg= $CI->email->print_debugger();
+
+        }
+
+        $data['resp']        = $resp;
+        $data['mensaje']     = $error_msg;
+
+        return $data;
+ }
+
  function clean_string($string) {
 	$s = trim($string);
 	$s = iconv("UTF-8", "UTF-8//IGNORE", $s); // drop all non utf-8 characters
@@ -395,6 +456,30 @@ return $fecha_final;
 	return $array;
 }
 
+public function randomPassword() {
+	
+	$alphabet = "abcdefghijklmnopqrstuwxyzABCDEFGHIJKLMNOPQRSTUWXYZ0123456789";
+	$pass = array(); //recuerde que debe declarar $pass como un array
+	$alphaLength = strlen($alphabet) - 1; //poner la longitud -1 en caché
+	for ($i = 0; $i < 8; $i++) {
+		$n = rand(0, $alphaLength);
+		$pass[] = $alphabet[$n];
+	}
+	return implode($pass); //convertir el array en una cadena
+}
+
+
+	function horasDiffFechas($fecha1, $fecha2) {
+
+		
+		$t1 = StrToTime ( $fecha1 );
+		$t2 = StrToTime ($fecha2 );
+		$diff = $t1 - $t2;
+		$hours = $diff / ( 60 * 60 );
+
+		return round($hours);
+		
+	  }
 
 
  }

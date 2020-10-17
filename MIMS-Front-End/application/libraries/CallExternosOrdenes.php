@@ -46,7 +46,7 @@ class CallExternosOrdenes {
 
     }
 
-    function obtieneOrdenes($idProyecto,$idCliente){
+    function obtieneOrdenes($idProyecto,$idCliente,$codEmpresa){
  
         $base_url_servicios =  $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Ordenes/obtieneOrdenes";
@@ -54,7 +54,8 @@ class CallExternosOrdenes {
 
         $form_data = array(
             'idProyecto'	=> $idProyecto,
-            'idCliente'    => $idCliente
+            'idCliente'    => $idCliente,
+            'codEmpresa'   => $codEmpresa
         );
 
 
@@ -76,7 +77,7 @@ class CallExternosOrdenes {
 
     }
 
-    function obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador){
+    function obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador,$codEmpresa){
  
         $base_url_servicios =  $this->obtienebaseservicios();                
         $api_url = $base_url_servicios."Ordenes/obtieneOrdenes";
@@ -85,7 +86,8 @@ class CallExternosOrdenes {
         $form_data = array(
             'idProyecto'	=> $idProyecto,
             'idCliente'    => $idCliente,
-            'codActivador' => $codActivador
+            'codActivador' => $codActivador,
+            'codEmpresa'   => $codEmpresa
         );
 
 

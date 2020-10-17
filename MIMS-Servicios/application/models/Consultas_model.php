@@ -89,6 +89,8 @@ class Consultas_model extends CI_Model{
       $this->db->where("b.POStatus = '5'");
       $this->db->where("b.Categorizacion = '2' ");
       $this->db->from('tbl_bucksheet a, tbl_ordenes b');
+
+      //var_dump( $this->db->get_compiled_select());
       return $this->db->count_all_results();
 
 
@@ -99,7 +101,7 @@ class Consultas_model extends CI_Model{
 
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '1');
+      $this->db->where('b.Categorizacion', '2');
       $this->db->from('tbl_ordenes b');
       return $this->db->count_all_results();
 
@@ -112,7 +114,7 @@ class Consultas_model extends CI_Model{
 
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '2');
+      $this->db->where('b.Categorizacion', '1');
       $this->db->from('tbl_ordenes b');
       return $this->db->count_all_results();
 
@@ -126,8 +128,11 @@ class Consultas_model extends CI_Model{
       $this->db->select_sum('ValorNeto');
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '2');
+      $this->db->where('b.Categorizacion', '1');
       $this->db->from('tbl_ordenes b');
+
+      //var_dump( $this->db->get_compiled_select());
+
       return $this->db->get()->result();
 
 
@@ -139,7 +144,7 @@ class Consultas_model extends CI_Model{
         $this->db->select_sum('ValorNeto');
         $this->db->where('codEmpresa',$codEmpresa);
         $this->db->where('b.POStatus', '5');
-        $this->db->where('b.Categorizacion', '1');
+        $this->db->where('b.Categorizacion', '2');
         $this->db->from('tbl_ordenes b');
         return $this->db->get()->result();
 
@@ -159,13 +164,13 @@ function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
   
   $this->db->where('a.codEmpresa = b.codEmpresa');
   $this->db->where('a.NumeroProyecto = b.idProyecto');
-  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where('estadoProyecto = 1');
   $this->db->where('b.POStatus = 5');
   $this->db->where('a.codEmpresa = '.$codEmpresa);
-  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->where("c.email = '".$activador."'");
   
-  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_employees c');
+  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_user c');
 
   return $this->db->count_all_results();
 
@@ -178,14 +183,14 @@ function obtieneTotClientesxEmpActivador($codEmpresa,$activador)
   $this->db->select( ' d.nombreCliente');
   $this->db->where('a.codEmpresa = b.codEmpresa');
   $this->db->where('a.NumeroProyecto = b.idProyecto');
-  $this->db->where('c.ID = b.ExpediterID');
+  $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where('estadoProyecto = 1');
   $this->db->where('b.POStatus = 5');
   $this->db->where('a.codEmpresa = '.$codEmpresa);
-  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->where("c.email = '".$activador."'");
   $this->db->where('d.idCliente = b.idCliente');
   $this->db->where(' a.idCliente = d.idCliente');
-  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_employees c, tbl_clientes d');
+  $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_user c, tbl_clientes d');
 
   return $this->db->get()->num_rows();
 
@@ -200,10 +205,12 @@ function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
   $this->db->where("a.lineaActivable = 'Activable'");
   $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
-  $this->db->where('c.ID = b.ExpediterID');
-  $this->db->where("c.EmailAddress = '".$activador."'");
+  $this->db->where('c.cod_user = b.ExpediterID');
+  $this->db->where("c.email = '".$activador."'");
   $this->db->where("b.Categorizacion = '1' ");
-  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_employees c');
+  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
+
+ // var_dump( $this->db->get_compiled_select());
 
   return $this->db->count_all_results();
 
@@ -233,7 +240,7 @@ function obtieneDatosOrdenesObraActivador($codEmpresa,$activador)
 
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '1');
+  $this->db->where('b.Categorizacion', '2');
   $this->db->where('c.ID = b.ExpediterID');
   $this->db->where("c.EmailAddress = '".$activador."'");
   $this->db->from('tbl_ordenes b,tbl_employees c');
@@ -248,7 +255,7 @@ function obtieneDatosTotalOrdenesComprasActivador($codEmpresa,$activador)
 
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '2');
+  $this->db->where('b.Categorizacion', '1');
   $this->db->where('c.ID = b.ExpediterID');
   $this->db->where("c.EmailAddress = '".$activador."'");
   $this->db->from('tbl_ordenes b,tbl_employees c');
@@ -264,7 +271,7 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
   $this->db->select_sum('ValorNeto');
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '2');
+  $this->db->where('b.Categorizacion', '1');
   $this->db->where("c.EmailAddress = '".$activador."'");
   $this->db->from('tbl_ordenes b,tbl_employees c');
   return $this->db->get()->result();
@@ -278,21 +285,13 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
     $this->db->select_sum('ValorNeto');
     $this->db->where('b.codEmpresa',$codEmpresa);
     $this->db->where('b.POStatus', '5');
-    $this->db->where('b.Categorizacion', '1');
+    $this->db->where('b.Categorizacion', '2');
     $this->db->where("c.EmailAddress = '".$activador."'");
     $this->db->from('tbl_ordenes b,tbl_employees c');
     return $this->db->get()->result();
 
 
   }
-
-
-
-
-
-      
-
-
 
 
 
@@ -353,8 +352,57 @@ function setSession($userId, $sessionId){
       }
 
 
+      function obtiene_user($user_name,$cod_emp){
+
+        $this->db->select("*");
+        $this->db->where('email',$user_name);
+        $this->db->where('cod_emp',$cod_emp);
+        $this->db->from("tbl_user");
+        $this->db->join("tbl_empresa", "tbl_empresa.cod_empresa = tbl_user.cod_emp");
+
+        $result = $this->db->get()->result();
+    
+        return $result;
+      }
 
 
+      function actualiza_password_user($data,$where)
+        {
+          $this->db->update("tbl_user", $data, $where);
+          $this->db->affected_rows();
+          
+          if ($this->db->affected_rows() > 0 ) {
+            return true; // Or do whatever you gotta do here to raise an error
+          } else {
+            return false;
+          }
+        }
+
+        function obtiene_user_token($cod_emp,$tokenpassword){
+
+          $this->db->select("*");
+          $this->db->where('cod_emp',$cod_emp);
+          $this->db->where('tokenpassword',$tokenpassword);
+          $this->db->from("tbl_user");
+          $this->db->join("tbl_empresa", "tbl_empresa.cod_empresa = tbl_user.cod_emp");
+  
+          $result = $this->db->get()->result_array();
+      
+          return $result;
+        }
+
+        
+        function actualiza_password_new($data,$where)
+        {
+          $this->db->update("tbl_user", $data, $where);
+          $this->db->affected_rows();
+          
+          if ($this->db->affected_rows() > 0 ) {
+            return true; // Or do whatever you gotta do here to raise an error
+          } else {
+            return false;
+          }
+        }
           
   }
 ?>
