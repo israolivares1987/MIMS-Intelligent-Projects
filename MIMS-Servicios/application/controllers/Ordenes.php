@@ -15,9 +15,11 @@ class Ordenes extends CI_Controller {
 	  
 		$idProyecto 		= $this->input->post('idProyecto');
 		$idCliente	= $this->input->post('idCliente');
+		$codEmpresa	= $this->input->post('codEmpresa');
 
 
-		$Ordenes = $this->ordenes->obtieneOrdenes($idCliente,$idProyecto);
+
+		$Ordenes = $this->ordenes->obtieneOrdenes($idCliente,$idProyecto,$codEmpresa);
 		echo json_encode($Ordenes);
 				  	
 	}
@@ -28,9 +30,10 @@ class Ordenes extends CI_Controller {
 		$idProyecto 		= $this->input->post('idProyecto');
 		$idCliente	= $this->input->post('idCliente');
 		$codActivador = $this->input->post('codActivador');
+		$codEmpresa	= $this->input->post('codEmpresa');
 
 
-		$Ordenes = $this->ordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador);
+		$Ordenes = $this->ordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador,$codEmpresa);
 		echo json_encode($Ordenes);
 				  	
 	}

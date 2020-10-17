@@ -245,7 +245,125 @@ function eliminarSession($userId, $sessionId){
 
 }
 
+function obtiene_user($user_name, $cod_emp){
+  
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/obtiene_user";
 
+  $form_data = array(
+    'user_name'		=>$user_name,
+    'cod_emp'		=>$cod_emp
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+}
+
+
+function actualiza_password_user($user_name,$password, $cod_emp, $uniqidStr){
+  
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/actualiza_password_user";
+
+  $form_data = array(
+    'user_name'		=> $user_name,
+    'cod_emp'		=> $cod_emp,
+    'password'  => $password,
+    'uniqidStr' =>  $uniqidStr
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+
+}
+
+
+function obtiene_user_token($cod_emp,$tokenpassword){
+
+
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/obtiene_user_token";
+
+  $form_data = array(
+    'cod_emp'		=>$cod_emp,
+    'tokenpassword'		=>$tokenpassword
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+
+    return $response;
+  
+ 
+
+
+}
+
+function actualiza_password_new($cod_user,$password,$cod_emp){
+
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Login/actualiza_password_new";
+
+  $form_data = array(
+    'cod_user'		=>$cod_user,
+    'password'		=>$password,
+    'cod_emp' => $cod_emp
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+
+    return $response;
+  
+ 
+
+
+}
 
     
 }

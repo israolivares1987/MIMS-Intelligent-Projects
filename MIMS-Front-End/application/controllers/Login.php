@@ -5,6 +5,7 @@ class Login extends CI_Controller{
     parent::__construct(); 
     $this->load->library('CallExternosConsultas');
     $this->load->library('CallExternosDominios');
+    $this->load->library('CallUtil');
 
   }
 
@@ -134,6 +135,7 @@ class Login extends CI_Controller{
 
     redirect('login');
   }
+
 
 }
 

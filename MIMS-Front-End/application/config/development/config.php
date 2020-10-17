@@ -26,6 +26,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
 $config['BASE_SERVICIOS'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
 $config['BASE_ARCHIVOS'] = $_SERVER['DOCUMENT_ROOT'].'/MIMS-Intelligent-Projects/MIMS-Front-End/archivos/';
+date_default_timezone_set('America/Santiago'); #Línea agregada
 /*
 |--------------------------------------------------------------------------
 | Index File
@@ -159,7 +160,7 @@ $config['composer_autoload'] = FALSE;
 | DO NOT CHANGE THIS UNLESS YOU FULLY UNDERSTAND THE REPERCUSSIONS!!
 |
 */
-$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-';
+$config['permitted_uri_chars'] = 'a-z 0-9~%.:_\-@\="';
 
 /*
 |--------------------------------------------------------------------------

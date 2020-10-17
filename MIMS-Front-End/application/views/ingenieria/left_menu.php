@@ -34,13 +34,7 @@
                       </p>
                     </a>
                     <ul class="nav nav-treeview">  
-                    <li class="nav-item">
-                      <a href="<?php echo site_url('Empleados/index_empleados');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Empleados</p>
-                      </a>
-                    </li>
-
+                   
                     <li class="nav-item">
                       <a href="<?php echo site_url('Clientes/index');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>

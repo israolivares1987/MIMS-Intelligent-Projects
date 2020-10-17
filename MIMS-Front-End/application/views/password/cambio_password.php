@@ -66,8 +66,7 @@
 <script src="<?php echo base_url('assets/plugins/tempusdominus-bootstrap-4/js/tempusdominus-bootstrap-4.min.js');?>"></script>
 <!-- Bootstrap Switch -->
 <script src="<?php echo base_url('assets/plugins/bootstrap-switch/js/bootstrap-switch.min.js');?>"></script>
-<!-- AdminLTE App -->
-<script src="<?php echo base_url('assets/dist/js/adminlte.min.js');?>"></script>
+
 <!-- AdminLTE for demo purposes -->
 <script src="<?php echo base_url('assets/dist/js/demo.js');?>"></script>
 
@@ -93,8 +92,6 @@
     
     <!-- Font Awesome -->
     <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
-    <script type="text/javascript" src="<?php echo base_url('assets/scripts/login.js')?>"></script>
-
 
    
 </head>
@@ -123,67 +120,36 @@
                             <div class="app-logo"></div>
                             <h4 class="mb-0">
 <span class="d-block">Bienvenido,</span>
-<span>Favor Iniciar sesion con su cuenta.</span></h4>
+<span>Favor ingrese su nueva contraseña</span></h4>
                             <div class="divider row"></div>
                             <div>
-                                <form class="" action="<?php echo site_url('login/auth');?>" method="post">
+                                <form id="form-cambio-password" method="post" action="<?php echo base_url('index.php/CambioPassWord/cambio_password');?>">
                                     <div class="form-row">
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="user_name" class="">Username</label>
-                                                <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
+                                                <label for="password" class="">Contraseña</label>
+                                                <input name="password" id="password" placeholder="Contraseña" type="password" class="form-control">
                                             </div>
                                         </div>
 
                                         <div class="col-md-6">
                                             <div class="position-relative form-group">
-                                                <label for="password" class="">Password</label>
-                                                <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
+                                                <label for="password2" class="">Password</label>
+                                                <input name="password2" id="password2" placeholder="Confirme su contraseña" type="password" class="form-control">
                                             </div>
                                         </div>
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label for="cod_emp" class="">Código Empresa</label>
-                                                <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
-                                            </div>
                                         </div>
-
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group">
-                                            <?php
-
-                                                    $arr = $this->session->flashdata();
-                                                    if(!empty($arr['msg'])){
-                                                    $html = '<div class="alert alert-danger">';
-                                                    $html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-                                                    $html .= '<strong>';
-                                                    $html .= $arr['msg'];
-                                                    $html .= '</strong>';    
-                                                    $html .= '</div>'; 
-                                                    $html .= '</div>';
-                                                    echo $html;
-                                                    }
-
-                                            ?>
-                                            </div>
-                                        </div>
-
+                                        <input name="cod_user" id="cod_user"  type="hidden" class="form-control" value="<?php echo $cod_user;?>">
+                                        <input name="cod_emp" id="cod_emp"  type="hidden" class="form-control" value="<?php echo $cod_emp;?>">
                                     </div>
                                     <div class="d-flex">
                                         <div class="ml-auto">
-                                            <button class="btn btn-primary btn-lg">Iniciar Sesion</button>
+                                            <button class="btn btn-primary btn-lg" id="btn_cambiopassword">Cambiar Password</button>
                                         </div>
                                     </div>
                                     <!-- Olvide mi Contraseña -->
                                   
-                                </form>
-                                                </br>
-                                <div class="d-flex">
-                                        <div class="ml-auto">
-                                            <button id="btn_forget_password" class="btn btn-outline-danger float-right"><i class="fas fa-lock">  Olvidó su contraseña?</i></button>
-                                        
-                                            </div>
-                                        </div>                      
+                                </form>            
                               
                             </div>
                         </div>
@@ -192,134 +158,6 @@
             </div>
         </div>
     </div>
-
-    
-
-<!-- /.Modal Forget Password  -->
-<div class="modal fade" id="modal-forget-password">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h4 class="modal-title">Olvidé mi contraseña</h4>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-         
-              <form id="forgetpassword-form" class="form-register" role="form">
-                    <div class="form-group">
-                        <label>Correo Electrónico</label>
-
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-mail-bulk"></i></span>
-                            </div>
-                            <input id="email" name="email" type="email" class="form-control" placeholder="Correo electrónico">  
-                        </div>
-
-                    </div>
-
-
-                    <div class="form-group">
-                        <label>Codigo Empresa</label>
-
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i class="fas fa-building"></i></span>
-                            </div>
-                            <input id="cod_emppass" name="cod_emppass" type="number" class="form-control" placeholder="Código empresa">  
-                        </div>
-
-                    </div>
-
-                    </form>
-            </div>
-            <div class="modal-footer justify-content-between">
-              <button class="btn btn-outline-secondary"  id="btn_forgetpassword" data-loading-text="Restableciendo contraseña....">Restablecer Contraseña</button>
-              <button type="button" class="btn btn-outline-primary" data-dismiss="modal">Close</button>
-            </div>
-            </form>
-          </div>
-          <!-- /.modal-content -->
-        </div>
-        <!-- /.modal-dialog -->
-      </div>
-      <!-- /.modal final cambio ccd-->   
-
-      <script type="text/javascript">
-
-$('#btn_forget_password').on('click', function() {
-
-
-
-$('#forgetpassword-form')[0].reset();
-$('#modal-forget-password').modal('show');
-
-});
-
-
-$('#btn_forgetpassword').on('click', function(){
-
-var formData = new FormData(document.getElementById("forgetpassword-form"));
-
-
-
-
-$.ajax({
-  url: 		'<?php echo base_url('index.php/CambioPassWord/forgetPassword'); ?>',
-  type: 		'POST',
-  dataType: 'json',
-  data: formData,
-  contentType: 	false,
-  cache:		false,
-  processData: 	false,
-  beforeSend: function(){
-   mostrarBlock();
-  },
-  complete: function(){
-    $.unblockUI();
-  },
-  success: function(result){
-
-    if(result.resp){
-
-        $('#modal-forget-password').modal('hide');
-        toastr.success(result.mensaje);
-    
-    }else{
-        
-        toastr.error(result.mensaje);
-    }
-  },
-  error: function(request, status, err) {
-
-    toastr.error("error: " + request + status + err);
-    
-     }
-});
-
-
-
-});
-
-
-
-function mostrarBlock(){
-                    $.blockUI({ 
-                            message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
-                        css:{
-                            backgroundColor: '#0063BE',
-                            opacity: .8,
-                            '-webkit-border-radius': '10px', 
-                            '-moz-border-radius': '10px',
-                            color: '#fff'
-                        }
-                    });
-                }
-
-
-     </script>  
 
 </body>
 

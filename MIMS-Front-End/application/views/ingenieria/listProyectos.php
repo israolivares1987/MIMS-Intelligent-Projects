@@ -2776,7 +2776,7 @@ function eliminar_orden(cliente, proyecto, orden){
 
 }
 
-
+ 
 /**
   Funcion trae select para usarlos en formulario nueva orden
  */

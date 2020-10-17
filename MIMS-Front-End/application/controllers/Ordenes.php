@@ -28,10 +28,11 @@ class Ordenes extends CI_Controller{
 
     $idCliente       = $this->input->post('idCliente');
     $idProyecto      = $this->input->post('idProyecto');
+    $codEmpresa       = $this->session->userdata('cod_emp');
 
     $respuesta = false;
 
-    $ordenes = $this->callexternosordenes->obtieneOrdenes($idProyecto,$idCliente);
+    $ordenes = $this->callexternosordenes->obtieneOrdenes($idProyecto,$idCliente,$codEmpresa);
 
     $arrOrdenes = json_decode($ordenes);
  
@@ -103,10 +104,11 @@ class Ordenes extends CI_Controller{
     $idCliente       = $this->input->post('idCliente');
     $idProyecto      = $this->input->post('idProyecto');
     $codActivador      = $this->input->post('codActivador');
+    $codEmpresa       = $this->session->userdata('cod_emp');
 
     $respuesta = false;
 
-    $ordenes = $this->callexternosordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador);
+    $ordenes = $this->callexternosordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador,$codEmpresa);
 
     $arrOrdenes = json_decode($ordenes);
  
@@ -814,6 +816,7 @@ function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
 function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
 
       $employee = $this->callexternosempleados->listaActivadores($codEmpresa);
+
       $datosEmployee = json_decode($employee);
       $html = '';
 
@@ -826,13 +829,13 @@ function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
         foreach ($datosEmployee as $key => $value) {
 
           if($selected > 0){
-            $seleccionado = ($selected == $value->ID) ? 'selected' : '';
+            $seleccionado = ($selected == $value->cod_user) ? 'selected' : '';
           }
 
-          $html .= '<option value="'.$value->ID.'">'.$value->FirstName.' '.$value->LastName.'</option>';
+          $html .= '<option value="'.$value->cod_user.'">'.$value->nombres.' '.$value->paterno.'</option>';
         }
       }else{
-        $html .= '<option value="0">No existen Employee</option>';
+        $html .= '<option value="0">No existen Activadores</option>';
       }
 
       $html .= '</select>';
