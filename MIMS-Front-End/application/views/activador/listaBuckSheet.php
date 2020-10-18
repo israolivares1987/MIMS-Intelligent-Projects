@@ -194,20 +194,18 @@
              </div>
 
 
-         <!--.modal nuevo control Calidad-->
-         <div id="modal_buckSheet" class="modal fade" tabindex="-1" role="dialog">
-                 <div class="modal-dialog modal-xl" role="document">
-                     <div class="modal-content">
+             <div class="modal fade" id="modal_buckSheet">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Subir Archivo</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
 
-                         <div class="modal-header">
-                             <h5 class="modal-title">Subir Archivo</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                            <div class="modal-body">
-                                <div class="container">
-                                <form action="#" id="formBuckSheet" class="form-horizontal">
+            <form action="#" id="formBuckSheet" class="form-horizontal">
                                         <input name="idOrden" placeholder="" class="form-control" type="hidden" id="idOrden" value="<?php echo $PurchaseOrderID;?>">
                                         <input name="idCliente" placeholder="" class="form-control" type="hidden" id="idCliente" value="<?php echo $idCliente;?>">
                                         <input name="idProyecto" placeholder="" class="form-control" type="hidden" id="idProyecto" value="<?php echo $codProyecto;?>">
@@ -219,19 +217,17 @@
                                                                 </div>
                                                             </div>
                                 </form>
-
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
-                                        onclick="saveBuckSheet()">Actualizar</button>
-                                    <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                            </div>
-                          
-                            <!-- Image loader -->     
-                     </div>
-                 </div>
-             </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="btnSave" onclick="saveBuckSheet()">Grabar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 <!-- Bootstrap modal -->
 

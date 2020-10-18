@@ -63,3 +63,202 @@ function validaDvRut(T)    //digito verificador
 }
 
 
+function cargaCalendarioFechas()
+{
+
+  let date = new Date()
+
+  let day = date.getDate()
+  let month = date.getMonth() + 1
+  let year = date.getFullYear()
+  let fechaactual="";
+
+  if(month < 10){
+    fechaactual= `${day}-0${month}-${year}`;
+  }else{
+    fechaactual= `${day}-${month}-${year}`;
+  }
+
+
+  $('#var_fecha_inicio').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "locale": {
+        "format": "DD-MM-YYYY",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+          "Lun",
+          "Mar",
+          "Mie",
+          "Jue",
+          "Vie",
+          "Sab",
+          "Dom"
+        ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "firstDay": 0
+    },
+    "startDate": fechaactual,
+    "endDate": "01-01-2030",
+    "opens": "top"
+  }, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+  });
+
+
+  $('#var_fecha_termino').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "locale": {
+        "format": "DD-MM-YYYY",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+          "Lun",
+          "Mar",
+          "Mie",
+          "Jue",
+          "Vie",
+          "Sab",
+          "Dom"
+        ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "firstDay": 0
+    },
+    "startDate": fechaactual,
+    "endDate": "01-01-2030",
+    "opens": "top"
+  }, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+  });
+
+
+  $('#var_edit_fecha_inicio').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "locale": {
+        "format": "DD-MM-YYYY",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+          "Lun",
+          "Mar",
+          "Mie",
+          "Jue",
+          "Vie",
+          "Sab",
+          "Dom"
+        ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "firstDay": 0
+    },
+    "startDate": fechaactual,
+    "endDate": "01-01-2030",
+    "opens": "top"
+  }, function(start, end, label) {
+  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+  });
+
+
+
+$('#var_edit_fecha_termino').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-012030",
+  "opens": "top"
+}, function(start, end, label) {
+console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+});
+
+
+}

@@ -67,7 +67,7 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where("a.lineaActivable = 'Activable'");
+      $this->db->where("a.lineaActivable = 'ACTIVABLE'");
       $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
       $this->db->where("b.POStatus = '5'");
       $this->db->where("b.Categorizacion = '1' ");
@@ -84,7 +84,7 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where("a.lineaActivable = 'Activable'");
+      $this->db->where("a.lineaActivable = 'ACTIVABLE'");
       $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
       $this->db->where("b.POStatus = '5'");
       $this->db->where("b.Categorizacion = '2' ");
@@ -202,7 +202,7 @@ function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where("a.lineaActivable = 'Activable'");
+  $this->db->where("a.lineaActivable = 'ACTIVABLE'");
   $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
   $this->db->where('c.cod_user = b.ExpediterID');
@@ -223,7 +223,7 @@ function obtieneDatosTotalesLineasActObraActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where("a.lineaActivable = 'Activable'");
+  $this->db->where("a.lineaActivable = 'ACTIVABLE'");
   $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
   $this->db->where("b.Categorizacion = '2' ");

@@ -17,7 +17,7 @@
       <!-- Default box -->
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title">Dashboard</h3>
+          <h3 class="card-title"><i class="fas fa-chart-pie"></i> Dashboard</h3>
         </div>
         <div class="card-body">
           
@@ -112,7 +112,6 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
  <!-- TO DO List -->
  <div class="card">
               <div class="card-header">
@@ -123,11 +122,20 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-                <ul class="todo-list" data-widget="todo-list">
-                  
-                  <?php echo $listaTodo; ?>
-                
-                </ul>
+              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Acciones</th>
+                                                                    <th>Descripcion</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Fecha Inicio</th>
+                                                                    <th>Fecha Termino</th>
+                                                                    <th>Dias Restantes</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="datos_todo">
+                                                            </tbody>
+              </table>
               </div>
               <!-- /.card-body -->
               <div class="card-footer clearfix">
@@ -143,7 +151,6 @@
   </div>
   <!-- /.content-wrapper -->
 
-  
        <!--.modal nuevo todo-->
        <div id="modal_nuevo_todo" class="modal fade" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
@@ -175,8 +182,8 @@
                                              <div class="form-group">
                                                  <div class="form-group">
                                                      <label class="control-label col-md-9">Lista Todo</label>
-                                                     <div class="col-md-12">
-                                                             <?php echo $select_listaTodo;?>
+                                                     <div class="col-md-12" id="select_lista_todo">
+                                                             
                                                      </div>
                                                  </div>
                                              </div>
@@ -196,45 +203,36 @@
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
          
-         
-         
-         
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                    <div class="form-group">
-                        <label>Fecha Inicio</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input name="var_fecha_inicio" type="text" class="form-control" id="var_fecha_inicio"
-                                data-inputmask-alias="datetime"
-                                data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                im-insert="false">
+              <div class="col-md-12">
+                 <div class="form-horizontal">
+                 <div class="form-group">
+                  <label>Fecha Inicio:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                      
                     </div>
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                    <div class="form-group">
-                        <label>Fecha Termino</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input name="var_fecha_termino" type="text" class="form-control" id="var_fecha_termino"
-                                data-inputmask-alias="datetime"
-                                data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                im-insert="false">
+                </div>
+                </div><!--.form-horizontal-->
+             </div><!--.col-md-12-->
+
+
+             <div class="col-md-12">
+                 <div class="form-horizontal">
+                 <div class="form-group">
+                  <label>Fecha Termino:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                      
                     </div>
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
+                </div>
+                </div><!--.form-horizontal-->
+             </div><!--.col-md-12-->
+               
+
                 </div><!--row-->
                 </form>
               </div><!--.container-->
@@ -301,42 +299,40 @@
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
                   </div><!--.col-md-12-->
+       
+
+
                   <div class="col-md-12">
-                    <div class="form-horizontal">
-                    <div class="form-group">
-                        <label>Fecha Inicio</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input name="var_edit_fecha_inicio" type="text" class="form-control" id="var_edit_fecha_inicio"
-                                data-inputmask-alias="datetime"
-                                data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                im-insert="false">
+                 <div class="form-horizontal">
+                 <div class="form-group">
+                  <label>Fecha Inicio:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="var_edit_fecha_inicio" id="var_edit_fecha_inicio"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                      
                     </div>
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                    <div class="form-group">
-                        <label>Fecha Termino</label>
-                        <div class="input-group">
-                            <div class="input-group-prepend">
-                                <span class="input-group-text"><i
-                                        class="far fa-calendar-alt"></i></span>
-                            </div>
-                            <input name="var_edit_fecha_termino" type="text" class="form-control" id="var_edit_fecha_termino"
-                                data-inputmask-alias="datetime"
-                                data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                im-insert="false">
+                </div>
+                </div><!--.form-horizontal-->
+             </div><!--.col-md-12-->
+
+
+             <div class="col-md-12">
+                 <div class="form-horizontal">
+                 <div class="form-group">
+                  <label>Fecha Termino:</label>
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="var_edit_fecha_termino" id="var_edit_fecha_termino"/>
+                        <div class="input-group-append">
+                            <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
-                      
                     </div>
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
+                </div>
+                </div><!--.form-horizontal-->
+             </div><!--.col-md-12-->
+
+
+                
                 </div><!--row-->
                 <input id="var_edit_id_todo" name="var_edit_id_todo" type="hidden" class="form-control" value ="">
                 <input id="var_edit_id_usuario" name="var_edit_id_usuario" type="hidden" class="form-control" value ="">
@@ -356,18 +352,26 @@
       <!--.fin modal nuevo TODO--> 
 
 
-      <script>
-  $(function () {
+      <style type="text/css" class="init">
+             /* Ensure that the demo table scrolls */
+             th,
+             td {
+                 white-space: nowrap;
+             }
 
-    //Datemask dd-mm-yyyy
-    $('#datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
-    //Datemask2 mm/dd/yyyy
-    $('#datemask2').inputmask('mm-dd-yyyy', { 'placeholder': 'mm-dd-yyyy' })
-    //Money Euro
-    $('[data-mask]').inputmask()
+             div.dataTables_wrapper {
+                 margin: 0 auto;
+             }
 
-  })
-</script>
+             tr {
+                 height: 50px;
+             }
+
+             .grey {
+            background-color: rgba(128,128,128,.25)!important;
+            }
+
+             </style>
 
 
 <script type="text/javascript">
@@ -384,6 +388,10 @@ $('#btn_nuevo_todo').on('click', function(){
    $('#modal_nuevo_todo').modal('show');
    
 });
+
+
+
+
 
 
 
@@ -410,8 +418,7 @@ $.ajax({
 
        $('#modal_nuevo_todo').modal('hide');
        toastr.success(result.mensaje);
-        esperar();
-        location.reload();
+       recargaListaToDo();
 
     }else{
         
@@ -441,23 +448,15 @@ function mostrarBlock(){
 		});
   }
   
-  function sleep(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
-async function esperar() {
-  console.log('Taking a break...');
-  await sleep(2000);
-  console.log('Two seconds later, showing sleep in a loop...');
-}
 
-function actualizaEstado(codEmpresa, id_usuario,id_todo,estado){
+function actualizaEstado(codEmpresa, id_usuario,id_todo){
 
 
   var opcion = confirm("Esta seguro que quiere actualizar registro");
 
 if(opcion){
-
+  
               $.ajax({
                           url: 		'<?php echo base_url('index.php/TodoUsuarios/actualizaEstadoTodo'); ?>',
                           type: 		'POST',
@@ -465,8 +464,7 @@ if(opcion){
                           data: {
                           codEmpresa  : codEmpresa,
                           id_usuario : id_usuario,
-                          id_todo : id_todo,
-                          estado : estado
+                          id_todo : id_todo
                               },
                           beforeSend: function(){
                             mostrarBlock();
@@ -497,23 +495,6 @@ if(opcion){
 
 }
 
-function cambiarEstado(checkbox)
-{
-
-  var codEmpresa  = <?php  echo $this->session->userdata('cod_emp');?> ; 
-  var id_usuario =  <?php  echo $this->session->userdata('cod_user');?> ; ; 
-  var id_todo    = checkbox.value ; 
-
-        if (checkbox.checked)
-        {
-          actualizaEstado(codEmpresa, id_usuario,id_todo,1);
-          
-        }else{
-            
-          actualizaEstado(codEmpresa, id_usuario,id_todo,0);
-
-        }                  
-}
 
 
 
@@ -586,8 +567,7 @@ $.ajax({
 
       toastr.success(result.mensaje);
      $('#modal_nuevo_todo_edit').modal('hide');
-       esperar();
-       location.reload();
+     recargaListaToDo();
 
     }else{
         
@@ -625,9 +605,7 @@ if(opcion){
     
         toastr.success(result.mensaje);
        
-        esperar();
-        location.reload();
-
+        recargaListaToDo();
 
       }else{
 
@@ -646,26 +624,106 @@ if(opcion){
 }
 
 
-function cambia_todo_edit(lista){
-
-var estado = lista.value;
+function recargaListaToDo(){
 
 
-if(estado === '1'){
+  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+  var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+  var todo_html ='';
+  var color ="";
 
-  formToggleActivar('bloque_edit_descripcion_todo');
-  $('#var_edit_descripcion_todo').val('');
+ var tabla_todo =  $('#tbl_todo').DataTable();
+
+    tabla_todo.destroy();
+
+    
 
 
-}else{
+    $.ajax({
+      url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+        cod_usuario: cod_usuario,
+        cod_emp: cod_empresa
+        
+            },
+    }).done(function(result) {
+      
+      $.each(result.formularios,function(key, formulario) {
+        todo_html += '<tr>';
+        todo_html += '<td>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
+        todo_html += '</td>';
 
-  formToggleDesactivar('bloque_edit_descripcion_todo');
-  $('#var_edit_descripcion_todo').val('');
+        if(formulario.dias > 3){
+          color = 'badge badge-success';
 
+        }else{
+          color = 'badge badge-danger';
+        }
+        todo_html += '<td>' + formulario.descripcion_todo + '</td>';
+
+                if(formulario.estado ==='1'){
+
+                      todo_html += '<td><span class="bg-green">Activo</span></td>';  
+
+                }else{
+                  todo_html += '<td><span class="bg-red">Desactivo</span></td>';
+                }
+
+
+        todo_html += '<td>' + formulario.fecha_inicio + '</td>';
+        todo_html += '<td>' + formulario.fecha_termino + '</td>';
+        todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
+        todo_html += '</tr>';
+        $('#select_lista_todo').html(formulario.select_lista_todo);
+      });
+
+     
+      $('#datos_todo').html(todo_html);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#tbl_todo').DataTable({
+          language: {
+              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+          },
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+      //   "responsive": true,
+          "scrollY": "300px",
+          "scrollX": true,
+          "scrollCollapse": true
+      });
+
+    }).fail(function() {
+      console.log("error todo_html");
+    })
 
 }
+</script>
 
-}
+<script>
+  $(function () {
 
+    //Datemask dd-mm-yyyy
+    $('#datemask').inputmask('dd-mm-yyyy', { 'placeholder': 'dd-mm-yyyy' })
+    //Datemask2 mm/dd/yyyy
+    $('#datemask2').inputmask('mm-dd-yyyy', { 'placeholder': 'mm-dd-yyyy' })
+    //Money Euro
+    $('[data-mask]').inputmask()
 
+    cargaCalendarioFechas();
+    recargaListaToDo();
+   
+         
+
+  })
 </script>

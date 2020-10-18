@@ -256,25 +256,32 @@ class BuckSheet extends MY_Controller {
                       if($prevCount > 0){
 
                       
-                             if(!is_null($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'Actual'){
+                         // var_dump($row['FechaComienzoFabricacion']);
+                         // var_dump($row['PAFCF']);
+
+                       //   var_dump(empty($row['FechaComienzoFabricacion']));
+                      
+
+                             if(!empty($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'ACTUAL'){
 
                                 $EstadoLineaBucksheet = '2';
 
-                              }
-                              
-                             if(!is_null($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'Actual'){
+                              }else if(!empty($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'ACTUAL'){
                             
                               $EstadoLineaBucksheet = '3';
                               
-                             }
-                             if(!is_null($row['FechaListoInspeccion']) && $row['PAFLI'] == 'Actual') { 
+                             }else if(!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') { 
                             
                                 $EstadoLineaBucksheet = '4';
 
-                             }
-                             if(!is_null($row['FechaEmbarque']) && !is_null($row['PackingList'])){  
+                             }else if(!empty($row['FechaEmbarque']) && !empty($row['PackingList'])){  
                             
                              $EstadoLineaBucksheet = '5';
+
+
+                             }else{
+
+                              $EstadoLineaBucksheet = '1';
 
 
                              }
@@ -288,6 +295,10 @@ class BuckSheet extends MY_Controller {
                       }
 
                       $fecha_hoy = date_create()->format('Y-m-d');
+
+                      //var_dump($row['FechaComienzoFabricacion']);
+                     // var_dump($this->callutil->formatoFecha($row['FechaComienzoFabricacion']));
+
 
                       $memData = array(
                         'PurchaseOrderID' => $row['PurchaseOrderID'],
@@ -394,7 +405,7 @@ class BuckSheet extends MY_Controller {
 
                           // Status message with imported data count
                             $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                            $error_msg = 'BuckSheet importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
+                            $error_msg = 'WPanel importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
                             $resp = true;
 
                     }else{
@@ -695,19 +706,19 @@ function obtieneBucksheetDet()
       {
 
 
-        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'Actual'){
+        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL'){
 
           $EstadoLineaBucksheet = '2';
 
         }
         
-        if(!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'Actual'){
+        if(!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'ACTUAL'){
       
         $EstadoLineaBucksheet = '3';
         
        }
        
-       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'Actual'){ 
+       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL'){ 
       
           $EstadoLineaBucksheet = '4';
 
