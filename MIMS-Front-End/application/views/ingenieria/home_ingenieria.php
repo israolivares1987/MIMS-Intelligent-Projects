@@ -684,10 +684,17 @@ function recargaListaToDo(){
         todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
         todo_html += '</tr>';
 
-        $('#select_lista_todo').html(formulario.select_lista_todo);
+    
 
       });
 
+
+      $.each(result.select_lista_todo,function(key, formulario) {
+        
+        $('#select_lista_todo').html(formulario.select_lista_todo);
+      });
+      
+     
      
       $('#datos_todo').html(todo_html);
 
