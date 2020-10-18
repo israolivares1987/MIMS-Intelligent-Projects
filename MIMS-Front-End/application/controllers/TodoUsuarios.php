@@ -380,12 +380,15 @@ class TodoUsuarios extends MY_Controller{
     $cod_usuario = $this->input->post('cod_usuario');
     $codEmpresa = $this->session->userdata('cod_emp');
     $datos_todo = array();
+    $datos_select = array();
     $todo = $this->callexternostodo->obtieneTodoUsuarios($codEmpresa,$cod_usuario);
 
 
     $arrTodo = json_decode($todo);
 
     $select_todo = $this->callutil->obtiene_select_def('var_lista_todo','LISTA_TO_DO','var_lista_todo');
+
+    $datos_select[] = array('select_lista_todo' => $select_todo); 
 
     if($arrTodo){
       
@@ -398,7 +401,6 @@ class TodoUsuarios extends MY_Controller{
           'id_todo'     => $value->id_todo,
           'descripcion_todo'     => $value->descripcion_todo,
           'lista_todo'     => $value->lista_todo,
-          'select_lista_todo'     => $select_todo,
           'estado'        => $value->estado,
           'fecha_inicio'     => $this->callutil->formatoFechaSalida($value->fecha_inicio),
           'fecha_termino'       => $this->callutil->formatoFechaSalida($value->fecha_termino),
@@ -413,6 +415,7 @@ class TodoUsuarios extends MY_Controller{
 
     
     $datos['formularios'] = $datos_todo;
+    $datos['select_lista_todo'] = $datos_select;
 
     echo json_encode($datos);
 

@@ -628,87 +628,94 @@ if(opcion){
 function recargaListaToDo(){
 
 
-  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
-  var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
-  var todo_html ='';
-  var color ="";
+var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+var todo_html ='';
+var color ="";
 
- var tabla_todo =  $('#tbl_todo').DataTable();
+var tabla_todo =  $('#tbl_todo').DataTable();
 
-    tabla_todo.destroy();
+  tabla_todo.destroy();
 
-    
+  
 
 
-    $.ajax({
-      url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
-      type: 		'POST',
-      dataType: 'json',
-      data: {
-        cod_usuario: cod_usuario,
-        cod_emp: cod_empresa
-        
-            },
-    }).done(function(result) {
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+      cod_usuario: cod_usuario,
+      cod_emp: cod_empresa
       
-      $.each(result.formularios,function(key, formulario) {
-        todo_html += '<tr>';
-        todo_html += '<td>';
-        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
-        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
-        todo_html += '</td>';
-
-        if(formulario.dias > 3){
-          color = 'badge badge-success';
-
-        }else{
-          color = 'badge badge-danger';
-        }
-        todo_html += '<td>' + formulario.descripcion_todo + '</td>';
-
-                if(formulario.estado ==='1'){
-
-                      todo_html += '<td><span class="bg-green">Activo</span></td>';  
-
-                }else{
-                  todo_html += '<td><span class="bg-red">Desactivo</span></td>';
-                }
-
-
-        todo_html += '<td>' + formulario.fecha_inicio + '</td>';
-        todo_html += '<td>' + formulario.fecha_termino + '</td>';
-        todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
-        todo_html += '</tr>';
-
-        $('#select_lista_todo').html(formulario.select_lista_todo);
-
-      });
-
-     
-      $('#datos_todo').html(todo_html);
-
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $('#tbl_todo').DataTable({
-          language: {
-              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
           },
-          "paging": true,
-          "lengthChange": false,
-          "searching": true,
-          "ordering": true,
-          "info": true,
-          "autoWidth": true,
-      //   "responsive": true,
-          "scrollY": "300px",
-          "scrollX": true,
-          "scrollCollapse": true
-      });
+  }).done(function(result) {
+    
+    $.each(result.formularios,function(key, formulario) {
+      todo_html += '<tr>';
+      todo_html += '<td>';
+      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
+      todo_html += '</td>';
 
-    }).fail(function() {
-      console.log("error todo_html");
-    })
+      if(formulario.dias > 3){
+        color = 'badge badge-success';
+
+      }else{
+        color = 'badge badge-danger';
+      }
+      todo_html += '<td>' + formulario.descripcion_todo + '</td>';
+
+              if(formulario.estado ==='1'){
+
+                    todo_html += '<td><span class="bg-green">Activo</span></td>';  
+
+              }else{
+                todo_html += '<td><span class="bg-red">Desactivo</span></td>';
+              }
+
+
+      todo_html += '<td>' + formulario.fecha_inicio + '</td>';
+      todo_html += '<td>' + formulario.fecha_termino + '</td>';
+      todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
+      todo_html += '</tr>';
+
+  
+
+    });
+
+
+    $.each(result.select_lista_todo,function(key, formulario) {
+      
+      $('#select_lista_todo').html(formulario.select_lista_todo);
+    });
+    
+   
+   
+    $('#datos_todo').html(todo_html);
+
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#tbl_todo').DataTable({
+        language: {
+            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+        },
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+    //   "responsive": true,
+        "scrollY": "300px",
+        "scrollX": true,
+        "scrollCollapse": true
+    });
+
+  }).fail(function() {
+    console.log("error todo_html");
+  })
 
 }
 </script>
