@@ -870,7 +870,6 @@ arrayEmail.forEach(function(inputsValuesData) {
 
 }
 
-
 function Guardar() {
 
 
@@ -878,7 +877,7 @@ function Guardar() {
 var valido = false;
 var falso = 0;
 
-var data = new FormData(document.getElementById("miForm"));
+data = new FormData(document.getElementById("miForm"));
 
 var cliente = <?php echo $idCliente?>;
 var orden = <?php echo $idOrden?>;
@@ -921,16 +920,9 @@ if (!validatefecha(data.get('fecha_ingreso'))) {
 if(falso == 0 ){
 
 
-    if(save_method == 'add') {
-                        url = "<?php echo site_url('Journal/guardarJournal')?>";
-                    } else {
-                        url = "<?php echo site_url('Journal/actualizarJournal')?>";
-                    }
-
-
 
    $.ajax({
-           url:  url,
+           url: '<?php echo base_url('index.php/Journal/guardarJournal');?>',
            type: 'post',
            data: data,
            contentType: false,

@@ -219,6 +219,7 @@ function mostrarBlock(){
 
                  $('#miForm')[0].reset();
                  $('#modal_control_calidad').modal('show');
+                 $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
                  $('#name_respaldo').html("");
 
              });
@@ -271,46 +272,7 @@ function mostrarBlock(){
                 $('#name_respaldo').html(nombre);
              }
 
-             /**
-              * Función que pone el archivo en un FormData
-              * @return FormData
-              */
-             function getFiles() {
-                 var idFiles = document.getElementById("var_respaldos");
-                 // Obtenemos el listado de archivos en un array
-                 var archivos = idFiles.files;
-                 // Creamos un objeto FormData, que nos permitira enviar un formulario
-                 // Este objeto, ya tiene la propiedad multipart/form-data
-                 var data = new FormData();
-                 // Recorremos todo el array de archivos y lo vamos añadiendo all
-                 // objeto data
-                 for (var i = 0; i < archivos.length; i++) {
-                     // Al objeto data, le pasamos clave,valor
-                     data.append("archivo" + i, archivos[i]);
-                 }
-                 return data;
-             }
-
-             /**
-              * Función que recorre todo el formulario para apadir en el FormData los valores del formulario
-              * @param string id hace referencia al id del formulario
-              * @param FormData data hace referencia al FormData
-              * @return FormData
-              */
-             function getFormData(id, data) {
-                 $("#" + id).find("input,select,textarea").each(function(i, v) {
-                     if (v.type !== "file") {
-                         if (v.type === "checkbox" && v.checked === true) {
-                             data.append(v.name, "on");
-                         } else {
-                             data.append(v.name, v.value);
-                         }
-                     }
-                 });
-                 return data;
-             }
-
-
+          
              function Guardar() {
 
 
@@ -318,8 +280,7 @@ function mostrarBlock(){
                  var valido = false;
                  var falso = 0;
 
-                 var data = getFiles();
-                 data = getFormData("miForm", data);
+                 data = new FormData(document.getElementById("miForm"));
 
                  var cliente = <?php echo $idCliente?>;
                  var orden = <?php echo $idOrden?>;
@@ -569,8 +530,8 @@ if(opcion){
              </script>
 
 
-             <!--.modal nuevo control Calidad-->
-             <div id="modal_control_calidad" class="modal fade" tabindex="-1" role="dialog">
+          <!--.modal nuevo control Calidad-->
+      <div id="modal_control_calidad" class="modal fade" tabindex="-1" role="dialog">
                  <div class="modal-dialog modal-xl" role="document">
                      <div class="modal-content">
 
@@ -589,8 +550,8 @@ if(opcion){
                                              <div class="form-group">
                                                  <label class="control-label col-md-9">Nombre Empleado</label>
                                                  <div class="col-md-12">
-                                                     <input name="nombre_empleado" placeholder="" class="form-control"
-                                                         type="text" value="<?php echo $nombreEmpleador;?>" disabled>
+                                                     <input id="nombre_empleado" name="nombre_empleado" placeholder="" class="form-control"
+                                                         type="text" value="" readonly>
                                                  </div>
                                              </div>
                                          </div>
@@ -606,7 +567,7 @@ if(opcion){
                                                      <div class="col-md-12">
                                                          <select name="tipo_interaccion" id="var_tipo_interaccion"
                                                              class="form-control"
-                                                             style="width: 100%;"  tabindex="-1"
+                                                             style="width: 100%;" tabindex="-1"
                                                              aria-hidden="true">
                                                              <?php echo $select_cc;?>
                                                          </select>
@@ -617,11 +578,7 @@ if(opcion){
                                          <!--.form-horizontal-->
                                      </div>
 
-
-
                                      <div class="col-md-12">
-
-
                                          <div class="form-group">
                                              <label>Fecha Ingreso</label>
 
@@ -630,7 +587,7 @@ if(opcion){
                                                      <span class="input-group-text"><i
                                                              class="far fa-calendar-alt"></i></span>
                                                  </div>
-                                                 <input name="fecha_ingreso" type="text" class="form-control"
+                                                 <input name="fecha_ingreso"  id="fecha_ingreso"  type="text" class="form-control"
                                                      data-inputmask-alias="datetime"
                                                      data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">
@@ -648,7 +605,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Numero Referencial</label>
                                              <div class="col-md-12">
-                                                 <input name="numero_referencial" placeholder="" class="form-control"
+                                                 <input name="numero_referencial" id="numero_referencial" placeholder="" class="form-control"
                                                      type="text" id="var_numero_referencial">
                                                  <span class="help-block"></span>
                                              </div>
@@ -664,7 +621,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Solicitado por</label>
                                              <div class="col-md-12">
-                                                 <input name="solicitado_por" placeholder="" class="form-control"
+                                                 <input name="solicitado_por"  id="solicitado_por" placeholder="" class="form-control"
                                                      type="text" id="var_solicitado_por">
                                                  <span class="help-block"></span>
                                              </div>
@@ -679,7 +636,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Aprobado por</label>
                                              <div class="col-md-12">
-                                                 <input name="aprobado_por" placeholder="" class="form-control"
+                                                 <input name="aprobado_por"  id="aprobado_por" placeholder="" class="form-control"
                                                      type="text" id="var_aprobado_por">
                                                  <span class="help-block"></span>
                                              </div>
@@ -706,17 +663,13 @@ if(opcion){
                                      <div class="col-md-12">
 
 
-                                         <div class="form-group">
-                                             <label for="exampleInputFile">Respaldo</label>
-                                             <div class="custom-file">
-                                                <input type="file"  onChange="ver_archivo();" class="custom-file-input" id="var_respaldos" name="respaldos" required="">
-                                                <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
-                                             </div>
-                                             <div>
-                                                 <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
-                                             </div>
-                                         </div>
-                                     </div>
+                                     <div class="form-group">
+                                        <label for="exampleInputFile">Cargar Archivo</label>
+                                            <div class="custom-file">
+                                                <input type="file"   id="respaldos"  name="respaldos">     
+                                        </div>
+                                    </div>
+                                        
 
 
 
@@ -740,7 +693,6 @@ if(opcion){
                                          </div>
 
                                      </div>
-
                                      <input type="hidden" id="tipo" name="tipo"
                                          value="2">
                                      <input type="hidden" id="id_orden_compra" name="id_orden_compra"
@@ -751,6 +703,8 @@ if(opcion){
                                          value="<?php echo $codProyecto?>">
                                      <input type="hidden" id="id_empleado" name="id_empleado"
                                          value="<?php echo $this->session->userdata('id_usuario')?>">
+
+                                     <input type="hidden" id="id_interaccion" name="id_interaccion" value="">
 
                                      <div id="mailFrm" style="display: none;" class="col-md-12">
                                          <div class="field_wrapper">

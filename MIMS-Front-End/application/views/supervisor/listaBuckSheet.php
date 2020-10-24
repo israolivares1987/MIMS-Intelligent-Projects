@@ -166,12 +166,12 @@
                                          <th class="grey" >RE Reporte de Entrega</th>
                                          <th>Origen</th>
                                          <th>Dias Viaje</th>
-                                         <th>Observacion 1</th>
-                                         <th>Observacion 2</th>
-                                         <th>Observacion 3</th>
-                                         <th>Observacion 4</th>
-                                         <th>Observacion 5</th>
-                                         <th>Observacion 6</th>
+                                         <th>Transmittal Cliente</th>
+                                         <th>Fecha TC</th>
+                                         <th>Transmittal Vendor</th>
+                                         <th>FechaTV</th>
+                                         <th>Transmittal CF</th>
+                                         <th>Fecha CF</th>
                                          <th>Observacion 7</th>
                                          <th>Fecha RAS</th>
                                          <th>Dias Antes RAS</th>
@@ -330,12 +330,12 @@
                         bucksheet_html += '<td class="grey" >' + bucksheets.MaterialWithdrawalReport+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion1+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion2+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion3+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion4+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion5+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion6+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalCliente+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaTC+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalVendor+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
                         bucksheet_html += '</tr>';
 

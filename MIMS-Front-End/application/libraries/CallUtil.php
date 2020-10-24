@@ -295,7 +295,6 @@ public function cambianull($var){
 
 	return $valor;
 
-
  }
 
 public function formatoNumeroMilesEntrada($dato){
@@ -307,44 +306,57 @@ public function formatoNumeroMilesEntrada($dato){
 
 public function sendEmail($email,$subject,$message,$file){
 
-    $CI = & get_instance();
-	$CI->load->helper('url');
-	$CI->load->library('session');
-	$CI->config->item('base_url');
+	$CI = & get_instance();
 	$CI->load->library('email');
 
-    $config = Array(
+   /* $config = array(
       'protocol' => 'smtp',
-      'smtp_host' => 'ssl://mail.mimsprojects.com',
-      'smtp_port' => 465,
-      'smtp_user' => 'controlcalidad@mimsprojects.com', 
-      'smtp_pass' => 'r9x0ptj~y5)T', 
+      'smtp_host' => 'mail.mimsprojects.com',
+      'smtp_port' => 587,
+      'smtp_user' => 'noreply@mimsprojects.com', 
+      'smtp_pass' => 'PasswordMims2020.', 
       'mailtype' => 'html',
       'charset' => 'utf-8',
 	  'wordwrap' => TRUE,
-	 'priority' => 1
-	);
+	  'smtp_crypto' => 'tsl', //can be 'ssl' or 'tls' for example
+       'priority' => 1
+	);*/
 	
+			$mail_config['smtp_host'] = 'mail.mimsprojects.com';
+			$mail_config['smtp_port'] = '465';
+			$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
+			$mail_config['_smtp_auth'] = TRUE;
+			$mail_config['smtp_pass'] = 'PasswordMims2020.';
+			$mail_config['smtp_crypto'] = 'ssl';
+			$mail_config['protocol'] = 'smtp';
+			$mail_config['mailtype'] = 'html';
+			$mail_config['send_multipart'] = FALSE;
+			$mail_config['charset'] = 'utf-8';
+			$mail_config['wordwrap'] = TRUE;
 
-	      $CI->load->library('email', $config);
-          $CI->email->set_newline("\r\n");
-          $CI->email->from('controlcalidad@mimsprojects.com');
+
+
+
+		  $CI->email->initialize($mail_config);
+		  $CI->email->set_newline("\r\n");
+          $CI->email->from('noreply@mimsprojects.com');
           $CI->email->to($email);
           $CI->email->subject($subject);
-          $CI->email->message($message);
+		  $CI->email->message($message);
 		  $CI->email->attach($file);
-		  $CI->email->set_mailtype('html');
-          if($CI->email->send())
+		
+	  if($CI->email->send())
          {
+
           $resp= true;
-          $error_msg= 'Correo enviado correctamente';
+          $error_msg= "Email enviado correctamente, " .$email ;
          
          }
          else
         {
 
-          $resp= true;
-          $error_msg= $CI->show_error($this->email->print_debugger());
+          $resp= false;
+          $error_msg= $CI->email->print_debugger();
 
         }
 
@@ -352,6 +364,9 @@ public function sendEmail($email,$subject,$message,$file){
         $data['mensaje']     = $error_msg;
 
         return $data;
+
+
+
  }
 
 
@@ -372,18 +387,18 @@ public function sendEmail($email,$subject,$message,$file){
 	  'smtp_crypto' => 'tsl', //can be 'ssl' or 'tls' for example
        'priority' => 1
 	);*/
-	
-$mail_config['smtp_host'] = 'mail.mimsprojects.com';
-$mail_config['smtp_port'] = '465';
-$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
-$mail_config['_smtp_auth'] = TRUE;
-$mail_config['smtp_pass'] = 'PasswordMims2020.';
-$mail_config['smtp_crypto'] = 'ssl';
-$mail_config['protocol'] = 'smtp';
-$mail_config['mailtype'] = 'html';
-$mail_config['send_multipart'] = FALSE;
-$mail_config['charset'] = 'utf-8';
-$mail_config['wordwrap'] = TRUE;
+				
+			$mail_config['smtp_host'] = 'mail.mimsprojects.com';
+			$mail_config['smtp_port'] = '465';
+			$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
+			$mail_config['_smtp_auth'] = TRUE;
+			$mail_config['smtp_pass'] = 'PasswordMims2020.';
+			$mail_config['smtp_crypto'] = 'ssl';
+			$mail_config['protocol'] = 'smtp';
+			$mail_config['mailtype'] = 'html';
+			$mail_config['send_multipart'] = FALSE;
+			$mail_config['charset'] = 'utf-8';
+			$mail_config['wordwrap'] = TRUE;
 
 
 
@@ -495,6 +510,11 @@ public function randomPassword() {
 		
 	  }
 
+
+function validarFecha($date, $format = 'd-m-Y'){
+    $d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+ }
 
  }
 

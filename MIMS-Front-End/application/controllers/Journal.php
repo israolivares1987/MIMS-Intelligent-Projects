@@ -156,6 +156,7 @@ class Journal extends MY_Controller{
     $datos['idCliente'] = $idCliente;
     $datos['idOrden'] = $idOrden;
     $datos['codProyecto'] = $codProyecto;
+    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
     //Obtiene datos para cabecera
 
@@ -552,31 +553,36 @@ function enviarMail(){
           $email =$this->input->post('email');
           $codEmpresa = $this->input->post('cod_empresa'); 
           $tipo_interaccion="";
+          $tituloOrden = "";
 
           //Obtiene datos de Journal
 
           $controlCalidad = $this->callexternosjournal->obtiene_journal_x_id($id_control_calidad);
           $arrControlCalidad = json_decode($controlCalidad);
       
-       
+ 
           if($arrControlCalidad){
             
-       
-      
-                $id_orden_compra = $arrControlCalidad->id_orden_compra;
-                $id_cliente = $arrControlCalidad->id_cliente;
-                $id_proyecto = $arrControlCalidad->id_proyecto;
-                $id_empleado = $arrControlCalidad->id_empleado;
-                $nombre_empleado = $arrControlCalidad->nombre_empleado;
-                $tipo = $arrControlCalidad->tipo;
+            foreach ($arrControlCalidad as $key => $value) {
+
+             
+           
+              $id_orden_compra = $value->id_orden_compra;
+                $id_cliente = $value->id_cliente;
+                $id_proyecto = $value->id_proyecto;
+                $id_empleado = $value->id_empleado;
+                $nombre_empleado = $value->nombre_empleado;
+                $tipo = $value->tipo;
 
                 if ($tipo === '1'){
-
-                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$arrControlCalidad->tipo_interaccion);
+                  
+                  $tituloOrden = "Cambios en Control de Calidad";
+                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CC',$value->tipo_interaccion);
 
                 }else{
 
-                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$arrControlCalidad->tipo_interaccion);
+                  $tituloOrden = "Cambios en la Orden";
+                  $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$value->tipo_interaccion);
                 }
             
             
@@ -586,14 +592,18 @@ function enviarMail(){
             
                   }
                 
-                $fecha_ingreso= $arrControlCalidad->fecha_ingreso;
-                $fecha_accion= $arrControlCalidad->fecha_accion;
-                $numero_referencial= $arrControlCalidad->numero_referencial;
-                $solicitado_por= $arrControlCalidad->solicitado_por;
-                $aprobado_por= $arrControlCalidad->aprobado_por;
-                $comentarios_generales= $arrControlCalidad->comentarios_generales;
-                $respaldos= $arrControlCalidad->respaldos;
+                $fecha_ingreso= $value->fecha_ingreso;
+                $fecha_accion= $value->fecha_accion;
+                $numero_referencial= $value->numero_referencial;
+                $solicitado_por= $value->solicitado_por;
+                $aprobado_por= $value->aprobado_por;
+                $comentarios_generales= $value->comentarios_generales;
+                $respaldos= $value->respaldos;
    
+            }
+       
+      
+                
 
       
             
@@ -640,57 +650,145 @@ function enviarMail(){
            
           }
 
-
-          $htmlContent = '<h1>Proyecto: '.$DescripcionProyecto.' Orden: '.$PurchaseOrderID.' </h1>';
-          $htmlContent .= '<p>Archivo adjunto: '. $respaldos.'</p>';
-
-
-          $htmlContent .= '<table cellspacing="0">';
-          $htmlContent .= '<thead>';
-          $htmlContent .= '</thead>';
-          $htmlContent .= '<tbody>';
-          
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Orden de Compra</th>';
-          $htmlContent .= '<th>'.$id_orden_compra.'</th>';
-          $htmlContent .= '</tr>';
-
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Nombre Empleado</th>';
-          $htmlContent .= '<th>'.$nombre_empleado.'</th>';
-          $htmlContent .= '</tr>';
-          
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Fecha Ingreso</th>';
-          $htmlContent .= '<th>'.$fecha_ingreso.'</th>';
-          $htmlContent .= '</tr>';
-
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Numero Referencial</th>';
-          $htmlContent .= '<th>'.$numero_referencial.'</th>';
-          $htmlContent .= '</tr>';
-
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Tipo Interaccion</th>';
-          $htmlContent .= '<th>'.$tipo_interaccion.'</th>';
-          $htmlContent .= '</tr>';
-          $htmlContent .= '<tr>';
-
-          $htmlContent .= '<th>Solicitado por</th>';
-          $htmlContent .= '<th>'.$solicitado_por.'</th>';
-          $htmlContent .= '</tr>';
-
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Aprobado por</th>';
-          $htmlContent .= '<th>'.$aprobado_por.'</th>';
-          $htmlContent .= '</tr>';
-
-          $htmlContent .= '<tr>';
-          $htmlContent .= '<th>Comentarios Generales</th>';
-          $htmlContent .= '<th>'.$comentarios_generales.'</th>';
-          $htmlContent .= '</tr>';          
-          $htmlContent .= '</tbody>';
-          $htmlContent .= '</table>';
+$htmlContent ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+$htmlContent .='<html xmlns="http://www.w3.org/1999/xhtml">';
+$htmlContent .='<head>';
+$htmlContent .='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+$htmlContent .='<title>'.$tituloOrden.'</title>';
+$htmlContent .='</head>';
+$htmlContent .='<body>';
+$htmlContent .='<div style="display: block; padding:0 32px; margin: auto;">';
+$htmlContent .='<table cellpadding="0" cellspacing="0" border="0" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
+$htmlContent .='<thead>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='MIMS-Intelligent-Projects';
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='</thead>';
+$htmlContent .='<tbody>';
+$htmlContent .='<tr>';
+$htmlContent .='<td style="padding:36px 0 32px 0; vertical-align: top; font-size: 15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0 0 18px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Estimado cliente:';
+$htmlContent .='</p>';
+$htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
+$htmlContent .='Se ha ingresado un nuevo registro en modulo "'.$tituloOrden.'".';
+$htmlContent .='<br /><br />';
+$htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
+$htmlContent .='El detalle es el siguiente:</p><br />';
+$htmlContent .='<table cellpadding="0" cellspacing="0" border="1" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
+$htmlContent .='<thead>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Proyecto';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .= $DescripcionProyecto;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Archivo adjunto';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$respaldos;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Orden de Compra';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$id_orden_compra;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Nombre Empleado';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$nombre_empleado;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Fecha Ingreso';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$fecha_ingreso;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .= 'Número Referencial';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .= $numero_referencial;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Tipo Interacción';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$tipo_interaccion;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Solicitado por';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$solicitado_por;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Aprobado por';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$aprobado_por;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Comentarios Generales';
+$htmlContent .='</th>';
+$htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .=$comentarios_generales;
+$htmlContent .='</th>';
+$htmlContent .='</tr>';
+$htmlContent .='</thead>';
+$htmlContent .='</table>';
+$htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin:0; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='<br />';
+$htmlContent .='<br />';
+$htmlContent .='<br />';
+$htmlContent .='<i style="color: #000000;">Su equipo de MIMS-Intelligent-Projects</i>';
+$htmlContent .='</p>';
+$htmlContent .='</td>';
+$htmlContent .='</tr>';
+$htmlContent .='</tbody>';
+$htmlContent .='<tfoot>';
+$htmlContent .='<tr>';
+$htmlContent .='<td style="padding: 12px 20px 14px 20px; font-size: 11px; line-height: 16px; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #666666; background: #efefef; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='Nota: No responda a este correo electronico. Si tiene alguna duda, pongase en contacto con nosotros mediante nuestro sitio web:<br />';
+$htmlContent .='<a href="https://help.mimsprojects.com" target="_blank" style="color: #1428a0; text-decoration: underline;">';
+$htmlContent .='Ir al centro de atencion al cliente de MIMS Intelligent Projects</a>';
+$htmlContent .='</td>';
+$htmlContent .='</tr>';
+$htmlContent .='<tr>';
+$htmlContent .='<td style="padding:20px 0 20px 0; text-align: center; font-size: 11px; line-height: 1; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #acacac; vertical-align: middle; word-wrap: break-word; word-break:normal;">';
+$htmlContent .='<img src="https://mimsprojects.com/MIMS-Intelligent-Projects/MIMS-Front-End/assets/dist/img/logo-mims.png" border="0" alt="" style=" width: 100&#37;; *width:62px; max-width: 62px; vertical-align:middle; margin:0 12px;" /> ';
+$htmlContent .='Copyright@, MIMS Intelligent Projects All rights reserved';
+$htmlContent .='</td>';
+$htmlContent .='</tr>';
+$htmlContent .='</tfoot>';
+$htmlContent .='</table>';
+$htmlContent .='</div>';
+$htmlContent .='</body>';
+$htmlContent .='</html>';
 
 
         

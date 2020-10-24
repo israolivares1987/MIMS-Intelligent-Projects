@@ -29,7 +29,7 @@ class BuckSheet_model extends CI_Model{
         t1.lineaActivable,
         t1.ItemST,
         t1.SubItemST,
-        t1.STUnidad,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.STUnidad and domain = 'UNIDAD_MEDIDA') as STUnidad,
         t1.STCantidad,
         t1.TAGNumber,
         t1.Stockcode,
@@ -64,12 +64,12 @@ class BuckSheet_model extends CI_Model{
         t1.MaterialWithdrawalReport,
         t1.Origen,
         t1.DiasViaje,
-        t1.Observacion1,
-        t1.Observacion2,
-        t1.Observacion3,
-        t1.Observacion4,
-        t1.Observacion5,
-        t1.Observacion6,
+        t1.TransmittalCliente,
+        t1.FechaTC,
+        t1.TransmittalVendor,
+        t1.FechaTV,
+        t1.TransmittalCF,
+        t1.FechaCF,
         t1.Observacion7"); 
     $this->db->from('tbl_bucksheet t1');			
 	 $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
@@ -124,12 +124,12 @@ class BuckSheet_model extends CI_Model{
         t1.MaterialWithdrawalReport,
         t1.Origen,
         t1.DiasViaje,
-        t1.Observacion1,
-        t1.Observacion2,
-        t1.Observacion3,
-        t1.Observacion4,
-        t1.Observacion5,
-        t1.Observacion6,
+        t1.TransmittalCliente,
+        t1.FechaTC,
+        t1.TransmittalVendor,
+        t1.FechaTV,
+        t1.TransmittalCF,
+        t1.FechaCF,
         t1.Observacion7"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);

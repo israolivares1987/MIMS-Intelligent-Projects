@@ -161,7 +161,6 @@ function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
   $this->db->distinct();
   $this->db->select('a.*');
   $this->db->where('a.codEmpresa = b.codEmpresa');
-  
   $this->db->where('a.codEmpresa = b.codEmpresa');
   $this->db->where('a.NumeroProyecto = b.idProyecto');
   $this->db->where('c.cod_user = b.ExpediterID');

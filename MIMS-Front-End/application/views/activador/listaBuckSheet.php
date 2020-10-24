@@ -175,12 +175,12 @@
                                          <th class="grey" >RE Reporte de Entrega</th>
                                          <th>Origen</th>
                                          <th>Dias Viaje</th>
-                                         <th>Observacion 1</th>
-                                         <th>Observacion 2</th>
-                                         <th>Observacion 3</th>
-                                         <th>Observacion 4</th>
-                                         <th>Observacion 5</th>
-                                         <th>Observacion 6</th>
+                                         <th>Transmittal Cliente</th>
+                                         <th>Fecha TC</th>
+                                         <th>Transmittal Vendor</th>
+                                         <th>FechaTV</th>
+                                         <th>Transmittal CF</th>
+                                         <th>Fecha CF</th>
                                          <th>Observacion 7</th>
                                          <th>Fecha RAS</th>
                                          <th>Dia sAntes RAS</th>
@@ -256,8 +256,8 @@
                                      <select name="lineaActivable" class="form-control"
                                          style="width: 100%;">
                                          <option value="">Seleccionar Tipo Linea</option>
-                                         <option value="Activable">Activable</option>
-                                         <option value="No Activable">No Activable</option>
+                                         <option value="ACTIVABLE">Activable</option>
+                                         <option value="NO ACTIVABLE">No Activable</option>
                                      </select>
                                  </div>
                              </div>
@@ -602,44 +602,44 @@
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 1</label>
+                             <label class="control-label col-md-12">Transmittal Cliente</label>
                              <div class="col-md-12">
-                                 <input name="Observacion1" placeholder="" class="form-control" type="text">
+                                 <input name="TransmittalCliente" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 2</label>
+                             <label class="control-label col-md-12">Fecha TC</label>
                              <div class="col-md-12">
-                                 <input name="Observacion2" placeholder="" class="form-control" type="text">
+                                 <input name="FechaTC" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 3</label>
+                             <label class="control-label col-md-12">Transmittal Vendor</label>
                              <div class="col-md-12">
-                                 <input name="Observacion3" placeholder="" class="form-control" type="text">
+                                 <input name="TransmittalVendor" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 4</label>
+                             <label class="control-label col-md-12">FechaTV</label>
                              <div class="col-md-12">
-                                 <input name="Observacion4" placeholder="" class="form-control" type="text">
+                                 <input name="FechaTV" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 5</label>
+                             <label class="control-label col-md-12">Transmittal CF</label>
                              <div class="col-md-12">
-                                 <input name="Observacion5" placeholder="" class="form-control" type="text">
+                                 <input name="TransmittalCF" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                          </div>
                          <div class="form-group">
-                             <label class="control-label col-md-12">Observacion 6</label>
+                             <label class="control-label col-md-12">Fecha CF</label>
                              <div class="col-md-12">
-                                 <input name="Observacion6" placeholder="" class="form-control" type="text">
+                                 <input name="FechaCF" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
                              <div class="form-group">
@@ -851,12 +851,12 @@
                         bucksheet_html += '<td class="grey" >' + bucksheets.MaterialWithdrawalReport+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion1+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion2+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion3+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion4+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion5+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion6+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalCliente+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaTC+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalVendor+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
@@ -924,12 +924,24 @@
 
                                 if (data.resp) //if success close modal and reload ajax table
                                     {
+
+                                        if(data.error =='0'){
+
+                                            toastr.success(data.mensaje);
+
+                                        }else{
+
+                                            toastr.error(data.mensaje);
+
+                                        }
+
+
                                         $('#modal_buckSheet').modal('hide');
                                         lista_bucksheet();
-                                        toastr.success(data.mensaje);
                                         $.unblockUI();
                                     } else {
-                                        toastr.success(data.mensaje);
+                                        
+                                        toastr.error(data.mensaje);
 
                                     }
                                     $('#btnSave').text('Cargar'); //change button text
@@ -1072,12 +1084,12 @@
             $('[name="SCNNumber"]').val(bucksheets.SCNNumber);
             $('[name="Origen"]').val(bucksheets.Origen);
             $('[name="DiasViaje"]').val(bucksheets.DiasViaje);
-            $('[name="Observacion1"]').val(bucksheets.Observacion1);
-            $('[name="Observacion2"]').val(bucksheets.Observacion2);
-            $('[name="Observacion3"]').val(bucksheets.Observacion3);
-            $('[name="Observacion4"]').val(bucksheets.Observacion4);
-            $('[name="Observacion5"]').val(bucksheets.Observacion5);
-            $('[name="Observacion6"]').val(bucksheets.Observacion6);
+            $('[name="TransmittalCliente"]').val(bucksheets.TransmittalCliente);
+            $('[name="FechaTC"]').val(bucksheets.FechaTC);
+            $('[name="TransmittalVendor"]').val(bucksheets.TransmittalVendor);
+            $('[name="FechaTV"]').val(bucksheets.FechaTV);
+            $('[name="TransmittalCF"]').val(bucksheets.TransmittalCF);
+            $('[name="FechaCF"]').val(bucksheets.FechaCF);
             $('[name="Observacion7"]').val(bucksheets.Observacion7);
 
              });

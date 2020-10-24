@@ -175,6 +175,9 @@ class BuckSheet extends MY_Controller {
     $idOrden = $this->input->post('idOrden');
     $idCliente = $this->input->post('idCliente');
     $idProyecto = $this->input->post('idProyecto');
+    $estadoFechas = false;
+    $countErrorfechas=0;
+    $error =0;
 
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
@@ -234,6 +237,13 @@ class BuckSheet extends MY_Controller {
 
                foreach($csvData as $row){  
 
+              
+
+                
+                
+                
+
+
 
                 $rowCount++;
                 
@@ -246,10 +256,36 @@ class BuckSheet extends MY_Controller {
                   $revision = $row['Revision'];
                 }
 
-            
+                  //valida fechas
+
+                 
 
 
                     if($row['PurchaseOrderID'] == $idOrden){
+
+
+                      if($this->callutil->validarFecha($row['FechaRAS']) && 
+                      $this->callutil->validarFecha($row['FechaComienzoFabricacion']) &&
+                      $this->callutil->validarFecha($row['FechaTerminoFabricacion']) &&
+                      $this->callutil->validarFecha($row['FechaGranallado']) &&
+                      $this->callutil->validarFecha($row['FechaPintura']) &&
+                      $this->callutil->validarFecha($row['FechaListoInspeccion']) &&
+                      $this->callutil->validarFecha($row['FechaSalidaFabrica']) &&
+                      $this->callutil->validarFecha($row['FechaEmbarque']) &&
+                      $this->callutil->validarFecha($row['FechaTC']) &&
+                      $this->callutil->validarFecha($row['FechaTV']) &&
+                      $this->callutil->validarFecha($row['FechaCF'])){
+   
+                        
+
+   
+                     $estadoFechas = true;
+   
+                     }  
+
+                     
+
+                 
 
                       $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
                  
@@ -344,17 +380,17 @@ class BuckSheet extends MY_Controller {
                         'MaterialWithdrawalReport' => $row['MaterialWithdrawalReport'],
                         'Origen' => $row['Origen'],
                         'DiasViaje' => $row['DiasViaje'],
-                        'Observacion1' => $row['Observacion1'],
-                        'Observacion2' => $row['Observacion2'],
-                        'Observacion3' => $row['Observacion3'],
-                        'Observacion4' => $row['Observacion4'],
-                        'Observacion5' => $row['Observacion5'],
-                        'Observacion6' => $row['Observacion6'],
+                        'TransmittalCliente' => $row['TransmittalCliente'],
+                        'FechaTC' => $this->callutil->formatoFecha($row['FechaTC']),
+                        'TransmittalVendor' => $row['TransmittalVendor'],
+                        'FechaTV' => $this->callutil->formatoFecha($row['FechaTV']),
+                        'TransmittalCF' => $row['TransmittalCF'],
+                        'FechaCF' => $this->callutil->formatoFecha($row['FechaCF']),
                         'Observacion7' => $row['Observacion7'],
                     );
 
 
-                    
+                    if($estadoFechas){
                                         
                       if($prevCount > 0){
                           // Update member data
@@ -403,10 +439,34 @@ class BuckSheet extends MY_Controller {
                           }
                       }
 
+                    }else{
+                      
+                      $countErrorfechas++;
+
+                    }
+
+                      if($estadoFechas){
+
                           // Status message with imported data count
-                            $notAddCount = ($rowCount - ($insertCount + $updateCount));
-                            $error_msg = 'WPanel importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
-                            $resp = true;
+                          $notAddCount = ($rowCount - ($insertCount + $updateCount));
+                          $error_msg = 'WPanel importado correctamente. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.')';
+                          $resp = true;
+                          $error = 0;
+
+                      }else{
+
+                         // Status message with imported data count
+                         $notAddCount = ($rowCount - ($insertCount + $updateCount));
+                         $error_msg = 'WPanel importado con errores. Total registros ('.$rowCount.') | Insertados ('.$insertCount.') | Actualizados('.$updateCount.') | No insertados ('.$notAddCount.') | Error Fechas('.$countErrorfechas.')';
+                         $resp = true;
+                         $error = 1;
+
+                      }
+
+                        
+
+                
+
 
                     }else{
 
@@ -439,47 +499,10 @@ class BuckSheet extends MY_Controller {
 
     }
 
-      //Obtiene Datos Proyecto
-    
-      $Proyecto = $this->callexternosproyectos->obtieneProyecto($idProyecto, $idCliente);
-                
-
-      $arrProyecto = json_decode($Proyecto);
-
-      if($arrProyecto){
-
-        foreach ($arrProyecto as $llave => $valor) {
-                
-          $DescripcionProyecto = $valor->NombreProyecto;
-
-        }
-
-      }
-
-      // Obtiene Datos Cliente
-
-      $responseCliente = $this->callexternosclientes->obtieneCliente($idCliente);
-  
-      $arrCliente = json_decode($responseCliente);
      
-      $datos_cliente = array();
-  
-      if($arrCliente){
-        
-        foreach ($arrCliente as $key => $value) {
-  
-
-            $nombreCliente =  $value->nombreCliente;
-            $razonSocial  =   $value->razonSocial;
-          
-        }
-      }
-
-
-
-
         $data['resp']        = $resp;
         $data['mensaje']     = $error_msg;
+        $data['error']       = $error;
 
         echo json_encode($data);
 
@@ -539,6 +562,9 @@ class BuckSheet extends MY_Controller {
     
     foreach ($arrBucksheet as $key => $value) {
 
+
+     
+
       $fecha_hoy = date_create()->format('Y-m-d');
       
       $datos_bucksheet[] = array(
@@ -556,7 +582,7 @@ class BuckSheet extends MY_Controller {
         'Stockcode' => $this->callutil->cambianull($value->Stockcode),
         'Descripcion' => $value->Descripcion,
         'PlanoModelo' => $this->callutil->cambianull($value->PlanoModelo),
-        'Revision' => $this->callutil->cambianull($value->Revision),
+        'Revision' => $value->Revision,
         'PaqueteConstruccionArea' => $this->callutil->cambianull($value->PaqueteConstruccionArea),
         'PesoUnitario' => $this->callutil->cambianull($value->PesoUnitario),
         'PesoTotal' => $this->callutil->cambianull($value->PesoTotal),
@@ -585,12 +611,12 @@ class BuckSheet extends MY_Controller {
         'MaterialWithdrawalReport' => $this->callutil->cambianull($value->MaterialWithdrawalReport),
         'Origen' => $this->callutil->cambianull($value->Origen),
         'DiasViaje' => $this->callutil->cambianull($value->DiasViaje),
-        'Observacion1' => $this->callutil->cambianull($value->Observacion1),
-        'Observacion2' => $this->callutil->cambianull($value->Observacion2),
-        'Observacion3' => $this->callutil->cambianull($value->Observacion3),
-        'Observacion4' => $this->callutil->cambianull($value->Observacion4),
-        'Observacion5' => $this->callutil->cambianull($value->Observacion5),
-        'Observacion6' => $this->callutil->cambianull($value->Observacion6),
+        'TransmittalCliente' => $this->callutil->cambianull($value->TransmittalCliente),
+        'FechaTC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTC)),
+        'TransmittalVendor' => $this->callutil->cambianull($value->TransmittalVendor),
+        'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
+        'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
+        'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
         'Observacion7' => $this->callutil->cambianull($value->Observacion7)
 
       );
@@ -675,13 +701,13 @@ function obtieneBucksheetDet()
               'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
               'Origen' => $value->Origen,
               'DiasViaje' => $value->DiasViaje,
-              'Observacion1' => $value->Observacion1,
-              'Observacion2' => $value->Observacion2,
-              'Observacion3' => $value->Observacion3,
-              'Observacion4' => $value->Observacion4,
-              'Observacion5' => $value->Observacion5,
-              'Observacion6' => $value->Observacion6,
-              'Observacion7' => $value->Observacion7
+              'TransmittalCliente' => $value->TransmittalCliente,
+              'FechaTC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTC)),
+              'TransmittalVendor' => $this->callutil->cambianull($value->TransmittalVendor),
+              'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
+              'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
+              'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
+              'Observacion7' => $this->callutil->cambianull($value->Observacion7)
       
             );
       
@@ -791,12 +817,12 @@ function obtieneBucksheetDet()
           'SCNNumber' => $this->input->post('SCNNumber'),
           'Origen' => $this->input->post('Origen'),
           'DiasViaje' => $this->input->post('DiasViaje'),
-          'Observacion1' => $this->input->post('Observacion1'),
-          'Observacion2' => $this->input->post('Observacion2'),
-          'Observacion3' => $this->input->post('Observacion3'),
-          'Observacion4' => $this->input->post('Observacion4'),
-          'Observacion5' => $this->input->post('Observacion5'),
-          'Observacion6' => $this->input->post('Observacion6'),
+          'TransmittalCliente' => $this->input->post('TransmittalCliente'),
+          'FechaTC' =>  $this->callutil->formatoFecha($this->input->post('FechaTC')),
+          'TransmittalVendor' => $this->input->post('TransmittalVendor'),
+          'FechaTV' =>  $this->callutil->formatoFecha($this->input->post('FechaTV')),
+          'TransmittalCF' => $this->input->post('TransmittalCF'),
+          'FechaCF' =>  $this->callutil->formatoFecha($this->input->post('FechaCF')),
           'Observacion7' => $this->input->post('Observacion7')
         );
 
@@ -949,12 +975,12 @@ function obtieneBucksheetDet()
     "MaterialWithdrawalReport",
     "Origen",
     "DiasViaje",
-    "Observacion1",
-    "Observacion2",
-    "Observacion3",
-    "Observacion4",
-    "Observacion5",
-    "Observacion6",
+    "TransmittalCliente",
+    "FechaTC",
+    "TransmittalVendor",
+    "FechaTV",
+    "TransmittalCF",
+    "FechaCF",
     "Observacion7"); 
 
     fputcsv($file, $header, ';', chr(27));
@@ -1009,12 +1035,12 @@ function obtieneBucksheetDet()
         'MaterialWithdrawalReport' => $this->callutil->clean_string($value->MaterialWithdrawalReport),
         'Origen' => $this->callutil->clean_string($value->Origen),
         'DiasViaje' => $this->callutil->clean_string($value->DiasViaje),
-        'Observacion1' =>  $this->callutil->clean_string($value->Observacion1),
-        'Observacion2' =>  $this->callutil->clean_string($value->Observacion2),
-        'Observacion3' =>  $this->callutil->clean_string($value->Observacion3),
-        'Observacion4' =>  $this->callutil->clean_string($value->Observacion4),
-        'Observacion5' =>  $this->callutil->clean_string($value->Observacion5),
-        'Observacion6' =>  $this->callutil->clean_string($value->Observacion6),
+        'TransmittalCliente' =>  $this->callutil->clean_string($value->TransmittalCliente),
+        'FechaTC' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaTC)),
+        'TransmittalVendor' =>  $this->callutil->clean_string($value->TransmittalVendor),
+        'FechaTV' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaTV)),
+        'TransmittalCF' =>  $this->callutil->clean_string($value->TransmittalCF),
+        'FechaCF' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaCF)),
         'Observacion7' =>  $this->callutil->clean_string($value->Observacion7)
       );
 
