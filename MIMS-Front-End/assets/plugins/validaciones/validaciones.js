@@ -79,55 +79,57 @@ function cargaCalendarioFechas()
     fechaactual= `${day}-${month}-${year}`;
   }
 
-
   $('#var_fecha_inicio').daterangepicker({
+    "autoUpdateInput": false,
     "singleDatePicker": true,
     "showDropdowns": true,
     "locale": {
-        "format": "DD-MM-YYYY",
-        "separator": " - ",
-        "applyLabel": "Apply",
-        "cancelLabel": "Cancel",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-          "Lun",
-          "Mar",
-          "Mie",
-          "Jue",
-          "Vie",
-          "Sab",
-          "Dom"
-        ],
-        "monthNames": [
-          "Ene",
-          "Feb",
-          "Mar",
-          "Abr",
-          "May",
-          "Jun",
-          "Jul",
-          "Ago",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dic"
-        ],
-        "firstDay": 0
-    },
-    "startDate": fechaactual,
-    "endDate": "01-01-2030",
-    "opens": "top"
-  }, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Clear",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+  }, function(chosen_date) {
+    $('#var_fecha_inicio').val(chosen_date.format('DD-MM-YYYY'));
   });
+
 
 
   $('#var_fecha_termino').daterangepicker({
     "singleDatePicker": true,
     "showDropdowns": true,
+    "autoUpdateInput": false,
     "locale": {
         "format": "DD-MM-YYYY",
         "separator": " - ",
@@ -165,14 +167,15 @@ function cargaCalendarioFechas()
     "startDate": fechaactual,
     "endDate": "01-01-2030",
     "opens": "top"
-  }, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+  },function(chosen_date) {
+    $('#var_fecha_termino').val(chosen_date.format('DD-MM-YYYY'));
   });
 
 
   $('#var_edit_fecha_inicio').daterangepicker({
     "singleDatePicker": true,
     "showDropdowns": true,
+    "autoUpdateInput": false,
     "locale": {
         "format": "DD-MM-YYYY",
         "separator": " - ",
@@ -210,15 +213,62 @@ function cargaCalendarioFechas()
     "startDate": fechaactual,
     "endDate": "01-01-2030",
     "opens": "top"
-  }, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+  },function(chosen_date) {
+    $('#var_edit_fecha_inicio').val(chosen_date.format('DD-MM-YYYY'));
   });
 
+  
 
+
+  $('#fecha_ingreso').daterangepicker({
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "autoUpdateInput": false,
+    "locale": {
+        "format": "DD-MM-YYYY",
+        "separator": " - ",
+        "applyLabel": "Apply",
+        "cancelLabel": "Cancel",
+        "fromLabel": "From",
+        "toLabel": "To",
+        "customRangeLabel": "Custom",
+        "weekLabel": "W",
+        "daysOfWeek": [
+          "Lun",
+          "Mar",
+          "Mie",
+          "Jue",
+          "Vie",
+          "Sab",
+          "Dom"
+        ],
+        "monthNames": [
+          "Ene",
+          "Feb",
+          "Mar",
+          "Abr",
+          "May",
+          "Jun",
+          "Jul",
+          "Ago",
+          "Sep",
+          "Oct",
+          "Nov",
+          "Dic"
+        ],
+        "firstDay": 0
+    },
+    "startDate": fechaactual,
+    "endDate": "01-012030",
+    "opens": "top"
+  },function(chosen_date) {
+    $('#fecha_ingreso').val(chosen_date.format('DD-MM-YYYY'));
+  });
 
 $('#var_edit_fecha_termino').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
+  "autoUpdateInput": false,
   "locale": {
       "format": "DD-MM-YYYY",
       "separator": " - ",
@@ -256,9 +306,750 @@ $('#var_edit_fecha_termino').daterangepicker({
   "startDate": fechaactual,
   "endDate": "01-012030",
   "opens": "top"
-}, function(start, end, label) {
-console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
+},function(chosen_date) {
+  $('#var_edit_fecha_termino').val(chosen_date.format('DD-MM-YYYY'));
 });
+
+$('#or_order_date').daterangepicker({
+  "autoUpdateInput": false,
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "locale": {
+    "format": "DD-MM-YYYY",
+    "separator": " - ",
+    "applyLabel": "Apply",
+    "cancelLabel": "Clear",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "customRangeLabel": "Custom",
+    "weekLabel": "W",
+    "daysOfWeek": [
+      "Lun",
+      "Mar",
+      "Mie",
+      "Jue",
+      "Vie",
+      "Sab",
+      "Dom"
+    ],
+    "monthNames": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ],
+    "firstDay": 0
+},
+"startDate": fechaactual,
+"endDate": "01-01-2030",
+"opens": "top"
+}, function(chosen_date) {
+  $('#or_order_date').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+
+
+
+$('#or_date_required').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#or_date_required').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+
+
+$('#or_ship_date').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#or_ship_date').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#or_act_order_date').daterangepicker({
+  "autoUpdateInput": false,
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "locale": {
+    "format": "DD-MM-YYYY",
+    "separator": " - ",
+    "applyLabel": "Apply",
+    "cancelLabel": "Clear",
+    "fromLabel": "From",
+    "toLabel": "To",
+    "customRangeLabel": "Custom",
+    "weekLabel": "W",
+    "daysOfWeek": [
+      "Lun",
+      "Mar",
+      "Mie",
+      "Jue",
+      "Vie",
+      "Sab",
+      "Dom"
+    ],
+    "monthNames": [
+      "Ene",
+      "Feb",
+      "Mar",
+      "Abr",
+      "May",
+      "Jun",
+      "Jul",
+      "Ago",
+      "Sep",
+      "Oct",
+      "Nov",
+      "Dic"
+    ],
+    "firstDay": 0
+},
+"startDate": fechaactual,
+"endDate": "01-01-2030",
+"opens": "top"
+}, function(chosen_date) {
+  $('#or_act_order_date').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+
+
+
+$('#or_act_date_required').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#or_act_date_required').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+$('#or_act_ship_date').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#or_act_ship_date').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#FechaRAS').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaRAS').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+$('#FechaComienzoFabricacion').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaComienzoFabricacion').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+$('#FechaTerminoFabricacion').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaTerminoFabricacion').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#FechaGranallado').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaGranallado').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#FechaPintura').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaPintura').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+$('#FechaListoInspeccion').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaListoInspeccion').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+$('#FechaSalidaFabrica').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaSalidaFabrica').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+
+$('#FechaEmbarque').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaEmbarque').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#FechaTC').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaTC').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
+$('#FechaTV').daterangepicker({
+  "singleDatePicker": true,
+  "showDropdowns": true,
+  "autoUpdateInput": false,
+  "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Apply",
+      "cancelLabel": "Cancel",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+}, function(chosen_date) {
+  $('#FechaTV').val(chosen_date.format('DD-MM-YYYY'));
+});
+
+
 
 
 }

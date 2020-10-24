@@ -20,7 +20,6 @@ class ControlCalidadDet_model extends CI_Model{
 		$this->db->where('a.id_cliente',$id_cliente);
 		$this->db->where('a.id_proyecto',$id_proyecto);
 		$this->db->where('a.id_control_calidad = b.id_control_calidad');
-		$this->db->where('a.codEmpresa = b.codEmpresa');
 		$this->db->where('c.domain = "ESTADO_CC"');
 		$this->db->where('domain_id =  a.estado_cc_det');
 

@@ -9,8 +9,7 @@ class ControlCalidad_model extends CI_Model{
 		$this->db->select(' b.id_control_calidad as id_control_calidad,
 							b.descripcion_control_calidad as descripcion_control_calidad, 
 							b.codEmpresa as codEmpresa');
-		$this->db->from('tbl_control_calidad b');	
-		$this->db->where('b.CodEmpresa',$codEmpresa);			   
+		$this->db->from('tbl_control_calidad b');			   
 		$this->db->where('b.id_control_calidad not in (select id_control_calidad 
 														from tbl_control_calidad_det  a
 														where a.id_control_calidad = b.id_control_calidad

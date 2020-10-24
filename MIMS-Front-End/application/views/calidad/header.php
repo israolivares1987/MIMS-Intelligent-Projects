@@ -88,6 +88,7 @@
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
+  cargaCalendarioFechas();
 });
 
 

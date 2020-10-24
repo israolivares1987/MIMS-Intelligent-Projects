@@ -297,7 +297,7 @@ class ControlCalidadDet extends MY_Controller{
 
             $respaldo = $basename;
 
-            if ($estado_porc_cc_det = 100){
+            if ($estado_porc_cc_det === '100'){
 
               $estado_cc_det = '2';
 
@@ -350,7 +350,7 @@ class ControlCalidadDet extends MY_Controller{
           }
       }else{
 
-        if ($estado_porc_cc_det = 100){
+        if ($estado_porc_cc_det === '100'){
 
           $estado_cc_det = '2';
 
