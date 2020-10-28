@@ -40,7 +40,7 @@ class OrdenesItem extends CI_Controller{
     $datos_ordenesItem = array();
 
         if($arrOrdenesItem){
-          $respuesta = true;
+          $respuesta = true; 
           
           foreach ($arrOrdenesItem as $key => $value) {
             
@@ -52,7 +52,7 @@ class OrdenesItem extends CI_Controller{
               'id_item'=> $value->id_item,
               'descripcion'=> $value->descripcion,
               'revision'=> $value->revision,
-              'unidad'=> $value->unidad,
+              'unidad'=> $this->callutil->cambianull($value->unidad),
               'cantidad'=> $this->callutil->formatoNumero($value->cantidad), 
               'precio_unitario'=> $this->callutil->formatoDinero($value->precio_unitario),
               'valor_neto'=> $this->callutil->formatoDinero($value->valor_neto),

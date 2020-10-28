@@ -341,98 +341,98 @@ class Journal extends MY_Controller{
     $idInsertado=0;
 
 
-    $nameArchivo = 'respaldos';
+ 
+        if(is_uploaded_file($_FILES[$nameArchivo]['tmp_name'])) {  
 
-
-  $archivo = $this->checkFileValidation($nameArchivo);
-  $respArchivo = $archivo['resp'];
-
-  
-  if($respArchivo== false){
+          $archivo = $this->checkFileValidation($nameArchivo);
+          $respArchivo = $archivo['resp'];
+        
+          if($respArchivo == false){
 
     
 
-    $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
-    $resp = false;
-  
+            $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
+            $resp = false;
+          
+        
+          }else{ 
 
-  }else{ 
+              /* create new name file */
+              $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+              $respaldos_original   = $_FILES[$nameArchivo]["name"];
+              $extension  = pathinfo( $_FILES[$nameArchivo]["name"], PATHINFO_EXTENSION ); // jpg
+              $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
-   
- 
-        if(is_uploaded_file($_FILES['respaldos']['tmp_name'])) {   
+              $source       = $_FILES[$nameArchivo]['tmp_name'];
+              $destination  = $target_path . $basename; 
+              /* move the file */
 
-
-          /* create new name file */
-          $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
-          $respaldos_original   = $_FILES["respaldos"]["name"];
-          $extension  = pathinfo( $_FILES["respaldos"]["name"], PATHINFO_EXTENSION ); // jpg
-          $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
-
-          $source       = $_FILES['respaldos']['tmp_name'];
-          $destination  = $target_path . $basename; 
-          /* move the file */
-
-
-          if(move_uploaded_file( $source, $destination )) {
+              if(move_uploaded_file( $source, $destination )) {
              
             
-            // Comienzo Insert
+                // Comienzo Insert
+    
+                $respaldo = $basename;
+    
+                $dataInsert = array(	
+                  'tipo' => $tipo ,
+                  'id_orden_compra' => $id_orden_compra ,
+                  'id_cliente' => $id_cliente,
+                  'id_proyecto' => $id_proyecto,
+                  'id_empleado' =>  $id_empleado,
+                  'nombre_empleado' => $nombre_empleado,
+                  'tipo_interaccion' => $tipo_interaccion,
+                  'fecha_ingreso' => $fecha_ingreso,
+                  'numero_referencial' => $numero_referencial,
+                  'solicitado_por' =>  $solicitado_por,
+                  'aprobado_por' => $aprobado_por,
+                  'comentarios_generales' => $comentarios_generales,
+                  'respaldos' => $respaldo,
+                  'respaldos_original'   => $respaldos_original
+                  );
+    
+                  $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
+    
+                  $journals = json_decode($journal) ;
+            
+                  $resp =  $journals->status;
+                  $idInsertado = $journals->id_insertado;
+            
+                  
+    
+                  if($resp){
+    
+                    $error_msg = 'Registro cargado correctamente.';
+                    $resp =  true;
+    
+    
+                    $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                    'accion'  => 'INSERTA_JOURNAL',
+                    'usuario'  =>  $this->session->userdata('n_usuario'),
+                    'rol' =>   $this->session->userdata('nombre_rol'),
+                    'objeto'  => 'JOURNAL' ,
+                    'fechaCambio' =>  date_create()->format('Y-m-d'));
+            
+                    $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+                    
+    
+                  }else{
+    
+                    $error_msg = 'Inconvenientes al cargar registro, favor reintente.';
+                    $resp =  false;
+    
+                  }
+    
+                }else{
+    
+                  $error_msg = 'Archivo no cargado, favor reintentar.';
+                  $resp =  false;
+    
+                }
 
-            $respaldo = $basename;
+          }  
 
-            $dataInsert = array(	
-              'tipo' => $tipo ,
-              'id_orden_compra' => $id_orden_compra ,
-              'id_cliente' => $id_cliente,
-              'id_proyecto' => $id_proyecto,
-              'id_empleado' =>  $id_empleado,
-              'nombre_empleado' => $nombre_empleado,
-              'tipo_interaccion' => $tipo_interaccion,
-              'fecha_ingreso' => $fecha_ingreso,
-              'numero_referencial' => $numero_referencial,
-              'solicitado_por' =>  $solicitado_por,
-              'aprobado_por' => $aprobado_por,
-              'comentarios_generales' => $comentarios_generales,
-              'respaldos' => $respaldo,
-              'respaldos_original'   => $respaldos_original
-              );
-
-              $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
-
-              $journals = json_decode($journal) ;
-        
-              $resp =  $journals->status;
-              $idInsertado = $journals->id_insertado;
-        
-              
-
-              if($resp){
-
-                $error_msg = 'Registro cargado correctamente.';
-                $resp =  true;
-
-
-                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-                'accion'  => 'INSERTA_JOURNAL',
-                'usuario'  =>  $this->session->userdata('n_usuario'),
-                'rol' =>   $this->session->userdata('nombre_rol'),
-                'objeto'  => 'JOURNAL' ,
-                'fechaCambio' =>  date_create()->format('Y-m-d'));
-        
-                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
-                
-
-              }else{
-
-                $error_msg = 'Inconvenientes al cargar registro, favor reintente.';
-                $resp =  false;
-
-              }
-             
-  
-  
-          } else{
+        }else{
             
             $dataInsert = array(	
               'tipo' => $tipo ,
@@ -458,16 +458,7 @@ class Journal extends MY_Controller{
   
           
           }
-        
-        }else{
 
-          $error_msg = 'Archivo no cargado, favor reintentar.';
-          $resp =  false;
-        
-
-
-        } 
-    }   
 
 
     $data['resp']        = $resp;

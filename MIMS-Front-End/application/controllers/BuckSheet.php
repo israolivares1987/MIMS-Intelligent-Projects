@@ -545,6 +545,7 @@ class BuckSheet extends MY_Controller {
 
     function obtieneBucksheet(){
 
+      
 
       $PurchaseOrderID = $this->input->post('id_orden');
       $respuesta = false;
@@ -576,7 +577,7 @@ class BuckSheet extends MY_Controller {
         'SupplierName' => $value->SupplierName,
         'ItemST' => $value->ItemST,
         'SubItemST' => $this->callutil->cambianull($value->SubItemST),
-        'STUnidad' => $value->STUnidad,
+        'STUnidad' => $this->callutil->cambianull($value->STUnidad),
         'STCantidad' => $value->STCantidad,
         'TAGNumber' => $this->callutil->cambianull($value->TAGNumber),
         'Stockcode' => $this->callutil->cambianull($value->Stockcode),

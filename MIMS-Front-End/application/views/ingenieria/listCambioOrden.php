@@ -536,7 +536,7 @@ if(opcion){
                      <div class="modal-content">
 
                          <div class="modal-header">
-                             <h5 class="modal-title">Nuevo Registro Control Calidad</h5>
+                             <h5 class="modal-title">Nuevo Registro Cambios en la Orden</h5>
                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true">&times;</span>
                              </button>
