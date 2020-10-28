@@ -45,9 +45,18 @@ public function formatoFechaSalida($date){
 			
 
 
+	if(strlen($date) == 0  || is_null($date) || empty($date) || $date === 'null' || $date === '0000-00-00 00:00:00' || $date ==='30-11--0001' || $date ==='01-01-1970'){
 
-			$time = strtotime($date); 
+		$Fecha=null;
+
+	  }else{
+
+		$time = strtotime($date); 
 			$Fecha= date('d-m-Y',$time);
+
+
+	  }	
+		
 
 			return $Fecha;
 		}
