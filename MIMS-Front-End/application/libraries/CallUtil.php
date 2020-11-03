@@ -472,15 +472,10 @@ $fecha1 = strtotime($fecha1);
 $fecha2 = strtotime($fecha2);
 $datediff = $fecha1 - $fecha2;
 
-if(round($datediff / (60 * 60 * 24) < 0)) {
 
-	$fecha_final = 0 ;
+$fecha_final = round($datediff / (60 * 60 * 24));
 
-}else{
 
-	$fecha_final = round($datediff / (60 * 60 * 24));
-
-}
 
 return $fecha_final;
 

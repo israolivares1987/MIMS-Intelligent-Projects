@@ -276,16 +276,10 @@ class BuckSheet extends MY_Controller {
                       $this->callutil->validarFecha($row['FechaTV']) &&
                       $this->callutil->validarFecha($row['FechaCF'])){
    
-                        
-
-   
                      $estadoFechas = true;
    
                      }  
-
-                     
-
-                 
+                    
 
                       $prevCount = $this->callexternosbucksheet->getRows($idOrden,$row['NumeroLinea']); 
                  
@@ -329,10 +323,7 @@ class BuckSheet extends MY_Controller {
 
                       $fecha_hoy = date_create()->format('Y-m-d');
 
-                      //var_dump($row['FechaComienzoFabricacion']);
-                     // var_dump($this->callutil->formatoFecha($row['FechaComienzoFabricacion']));
-
-
+                     
                       $memData = array(
                         'PurchaseOrderID' => $row['PurchaseOrderID'],
                         'purchaseOrdername' => urldecode($PurchaseOrderDescription),
