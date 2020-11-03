@@ -495,6 +495,8 @@ $(document).ready(function() {
 var cliente = <?php echo $idCliente?> ;
 var orden = <?php echo $idOrden?> ;
 var proyecto = <?php echo $codProyecto?> ;
+var save_method;
+var url;
 
 recargaControlCalidad(orden, cliente);
 recargaCalidadDet(orden,cliente,proyecto);
@@ -527,6 +529,8 @@ recargaControlCalidad(orden, cliente);
 });
 
 $('#btn_nuevo_registro').on('click', function() {
+
+    save_method = 'add';
 
 var element = document.getElementById('mailFrm');
 

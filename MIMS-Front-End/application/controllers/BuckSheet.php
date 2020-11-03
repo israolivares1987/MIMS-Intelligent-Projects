@@ -920,7 +920,7 @@ function obtieneBucksheetDet()
     $filename = 'wpanel_'.$PurchaseOrderID.'_'.date('Ymd').date('H:i:s').'.csv'; 
     header("Content-Description: File Transfer"); 
     header("Content-Disposition: attachment; filename=$filename"); 
-    header("Content-Type: application/csv; ");
+    header("Content-Type: text/csv;charset=UTF-8" );
     
     // get data 
     $usersData = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
@@ -988,67 +988,64 @@ function obtieneBucksheetDet()
     
     foreach ($arrBucksheet as $key => $value){ 
 
-
-
       
       $datos_bucksheet = array(
 
-        'PurchaseOrderID' => $this->callutil->clean_string($value->PurchaseOrderID),
-        'purchaseOrdername' => $this->callutil->clean_string($value->purchaseOrdername),
-        'EstadoLineaBucksheet' => $this->callutil->clean_string($value->EstadoLineaBucksheet),
-        'lineaActivable' =>  $this->callutil->clean_string($value->lineaActivable),
-        'NumeroLinea' => $this->callutil->clean_string($value->NumeroLinea),
-        'SupplierName' => $this->callutil->clean_string($value->SupplierName),
-        'ItemST' => $this->callutil->clean_string($value->ItemST),
-        'SubItemST' => $this->callutil->clean_string($value->SubItemST),
-        'STUnidad' => $this->callutil->clean_string($value->STUnidad),
-        'STCantidad' => $this->callutil->clean_string($value->STCantidad),
-        'TAGNumber' =>  $this->callutil->clean_string($value->TAGNumber),
-        'Stockcode' =>  $this->callutil->clean_string($value->Stockcode),
-        'Descripcion' => $this->callutil->clean_string($value->Descripcion),
-        'PlanoModelo' =>  $this->callutil->clean_string($value->PlanoModelo),
-        'Revision' => $this->callutil->clean_string($value->Revision),
-        'PaqueteConstruccionArea' =>  $this->callutil->clean_string($value->PaqueteConstruccionArea),
-        'PesoUnitario' => $this->callutil->clean_string($value->PesoUnitario),
-        'PesoTotal' => $this->callutil->clean_string($value->PesoTotal),
+        'PurchaseOrderID' => $value->PurchaseOrderID,
+        'purchaseOrdername' => $value->purchaseOrdername,
+        'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
+        'lineaActivable' =>  $value->lineaActivable,
+        'NumeroLinea' => $value->NumeroLinea,
+        'SupplierName' => $value->SupplierName,
+        'ItemST' => $value->ItemST,
+        'SubItemST' => $value->SubItemST,
+        'STUnidad' => $value->STUnidad,
+        'STCantidad' => $value->STCantidad,
+        'TAGNumber' =>  $value->TAGNumber,
+        'Stockcode' =>  $value->Stockcode,
+        'Descripcion' => $value->Descripcion,
+        'PlanoModelo' =>  $value->PlanoModelo,
+        'Revision' => $value->Revision,
+        'PaqueteConstruccionArea' =>  $value->PaqueteConstruccionArea,
+        'PesoUnitario' => $value->PesoUnitario,
+        'PesoTotal' => $value->PesoTotal,
         'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
-        'DiasAntesRAS' => $this->callutil->clean_string($value->DiasAntesRAS),
+        'DiasAntesRAS' => $value->DiasAntesRAS,
         'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
-        'PAFCF' => $this->callutil->clean_string($value->PAFCF),
+        'PAFCF' => $value->PAFCF,
         'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
-        'PAFTF' => $this->callutil->clean_string($value->PAFTF),
+        'PAFTF' => $value->PAFTF,
         'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
-        'PAFG' => $this->callutil->clean_string($value->PAFG),
+        'PAFG' => $value->PAFG,
         'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
-        'PAFP' => $this->callutil->clean_string($value->PAFP),
+        'PAFP' => $value->PAFP,
         'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
-        'PAFLI' => $this->callutil->clean_string($value->PAFLI),
-        'ActaLiberacionCalidad' => $this->callutil->clean_string($value->ActaLiberacionCalidad),
+        'PAFLI' => $value->PAFLI,
+        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
         'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
-        'PAFSF' => $this->callutil->clean_string($value->PAFSF),
+        'PAFSF' => $value->PAFSF,
         'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-        'PackingList' => $this->callutil->clean_string($value->PackingList),
-        'GuiaDespacho' => $this->callutil->clean_string($value->GuiaDespacho),
-        'SCNNumber' =>  $this->callutil->clean_string($value->SCNNumber),
-        'UnidadesSolicitadas' => $this->callutil->clean_string($value->UnidadesSolicitadas),
-        'UnidadesRecibidas' => $this->callutil->clean_string($value->UnidadesRecibidas),
-        'MaterialReceivedReport' => $this->callutil->clean_string($value->MaterialReceivedReport),
-        'MaterialWithdrawalReport' => $this->callutil->clean_string($value->MaterialWithdrawalReport),
-        'Origen' => $this->callutil->clean_string($value->Origen),
-        'DiasViaje' => $this->callutil->clean_string($value->DiasViaje),
-        'TransmittalCliente' =>  $this->callutil->clean_string($value->TransmittalCliente),
-        'FechaTC' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaTC)),
-        'TransmittalVendor' =>  $this->callutil->clean_string($value->TransmittalVendor),
-        'FechaTV' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaTV)),
-        'TransmittalCF' =>  $this->callutil->clean_string($value->TransmittalCF),
-        'FechaCF' =>  $this->callutil->clean_string($this->callutil->formatoFechaSalida($value->FechaCF)),
-        'Observacion7' =>  $this->callutil->clean_string($value->Observacion7)
+        'PackingList' => $value->PackingList,
+        'GuiaDespacho' => $value->GuiaDespacho,
+        'SCNNumber' =>  $value->SCNNumber,
+        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
+        'UnidadesRecibidas' => $value->UnidadesRecibidas,
+        'MaterialReceivedReport' => $value->MaterialReceivedReport,
+        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
+        'Origen' => $value->Origen,
+        'DiasViaje' => $value->DiasViaje,
+        'TransmittalCliente' =>  $value->TransmittalCliente,
+        'FechaTC' =>  $this->callutil->formatoFechaSalida($value->FechaTC),
+        'TransmittalVendor' =>  $value->TransmittalVendor,
+        'FechaTV' =>  $this->callutil->formatoFechaSalida($value->FechaTV),
+        'TransmittalCF' =>  $value->TransmittalCF,
+        'FechaCF' =>  $this->callutil->formatoFechaSalida($value->FechaCF),
+        'Observacion7' =>  $value->Observacion7
       );
 
 
 
-
-      fputcsv($file,$datos_bucksheet, ';', chr(27));
+      $this->my_fputcsv($file, $datos_bucksheet, $delimiter = ';', $enclosure = '', $escape = '');
     }
     fclose($file); 
     
@@ -1062,21 +1059,31 @@ function obtieneBucksheetDet()
 
     $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
     
-    
-    
-    
+
     exit; 
-
-
-
-
-
-
-
 
    }
       
 
-
+   public  function my_fputcsv($handle, $fields, $delimiter = ',', $enclosure = '"', $escape = '\\')
+   {
+    $first = 1;
+    foreach ($fields as $field) {
+      if ($first == 0) fwrite($handle, $delimiter);
+  
+      $f = str_replace($enclosure, $enclosure.$enclosure, $field);
+      if ($enclosure != $escape) {
+        $f = str_replace($escape.$enclosure, $escape, $f);
+      }
+      if (strpbrk($f, " \t\n\r".$delimiter.$enclosure.$escape) || strchr($f, "\000")) {
+        fwrite($handle, $enclosure.$f.$enclosure);
+      } else {
+        fwrite($handle, $f);
+      }
+  
+      $first = 0;
+    }
+    fwrite($handle, "\n");
+  }
 
 }

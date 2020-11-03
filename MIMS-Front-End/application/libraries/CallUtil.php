@@ -448,7 +448,7 @@ public function sendEmail($email,$subject,$message,$file){
 	$s = preg_replace('/(?>[\x00-\x1F]|\xC2[\x80-\x9F]|\xE2[\x80-\x8F]{2}|\xE2\x80[\xA4-\xA8]|\xE2\x81[\x9F-\xAF])/', ' ', $s);
   
 	$s = preg_replace('/\s+/', ' ', $s); // reduce all multiple whitespace to a single space
-
+	$s = preg_replace('/[\x00-\x1F\x7F]/', ' ', $s);  
 
 
 	$string = str_replace(array(
@@ -461,7 +461,7 @@ public function sendEmail($email,$subject,$message,$file){
 		chr(127)
 	), '', $s);
 
-	$string= preg_replace('([^A-Za-z0-9])', '', $string);
+	$string= preg_replace('([^A-Za-z0-9])', ' ', $string);
   
 	return $string;
   }
@@ -521,9 +521,25 @@ public function randomPassword() {
 
 
 function validarFecha($date, $format = 'd-m-Y'){
-    $d = DateTime::createFromFormat($format, $date);
-    return $d && $d->format($format) == $date;
- }
 
+
+	if(strlen($date) == 0  || is_null($date) || empty($date) || $date === 'null' ){
+
+		return true;
+	}else{
+
+		$d = DateTime::createFromFormat($format, $date);
+    return $d && $d->format($format) == $date;
+ 
+
+	}
+    }
+
+	function escape_str($str)
+	{
+		return str_replace(array('\\', "\0", "\n", "\r", "'", '"', "\x1a"), array('\\\\', '\\0', '\\n', '\\r', "\\'", '\\"', '\\Z'), $str);
+	}
+
+	
  }
 

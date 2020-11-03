@@ -95,9 +95,6 @@
                                                             <th>Generador de Compra</th>
                                                             <th>Activador</th>
                                                             <th>Moneda</th>
-                                                            <th>Valor Neto</th>
-                                                            <th>Valor Total</th>
-                                                            <th>Presupuesto</th>
                                                             <th>Codigo Presupuesto</th>
                                                             <th>Fecha Orden Creada</th>
                                                             <th>Fecha Requerida</th>
@@ -443,9 +440,6 @@
                                          ordenes_html += '<td>' + orden.Requestor+ '</td>';
                                          ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                          ordenes_html += '<td>' + orden.Currency  + '</td>';
-                                         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
-                                         ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
-                                         ordenes_html += '<td>' + orden.Budget  + '</td>';
                                          ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
                                          ordenes_html += '<td>' + orden.DateCreated  + '</td>';
                                          ordenes_html += '<td>' + orden.DateRequired  + '</td>';

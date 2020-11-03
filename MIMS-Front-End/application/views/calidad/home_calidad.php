@@ -22,7 +22,8 @@
         <div class="card-body">
           
         <div class="row">
-        <div class="col-lg-3 col-6">
+        
+        <div class="col-lg-3 col-12">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -44,7 +45,7 @@
 
 
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-12">
             <!-- small box -->
             <div class="small-box bg-success">
             <div class="inner">
@@ -65,7 +66,7 @@
           </div>
 
           <!-- ./col -->
-          <div class="col-lg-3 col-6">
+          <div class="col-lg-3 col-12">
             <!-- small box -->
             <div class="small-box bg-warning">
             <div class="inner">
@@ -80,27 +81,6 @@
               </div>
               <div class="icon">
                 <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-          <!-- ./col -->
-
-         <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-            <div class="inner">
-              <h3><?php echo $totalOrdenesAdminCompras; ?></h3>
-
-                <p>Total Admin MM Plan Compras </p>
-              </div>
-              <div class="inner">
-                <h3><?php echo $totalOrdenesAdminObras; ?></h3>
-
-                <p>Total Admin MM Obra</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
               </div>
               <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
             </div>
