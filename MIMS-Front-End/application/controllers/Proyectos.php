@@ -283,15 +283,15 @@ function eliminaProyecto(){
   $id_cliente       = $this->input->post('id_cliente');
   $id_proyecto      = $this->input->post('id_proyecto');
   $codEmpresa       = $this->session->userdata('cod_emp');
-
+ 
 
   $data = array(
     'id_cliente'  => $id_cliente,
     'id_proyecto' => $id_proyecto,
     'codEmpresa'  => $codEmpresa
   );
-
-  $ordenes = $this->callexternosordenes->obtieneOrdenes($id_proyecto,$id_cliente);
+ 
+  $ordenes = $this->callexternosordenes->obtieneOrdenes($id_proyecto,$id_cliente,$codEmpresa);
 
   $data_ordenes = json_decode($ordenes);
 

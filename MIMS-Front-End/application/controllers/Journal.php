@@ -339,6 +339,7 @@ class Journal extends MY_Controller{
     $error_msg = "";
     $respaldo = "";
     $idInsertado=0;
+    $nameArchivo = "respaldos";
 
 
  
@@ -455,6 +456,29 @@ class Journal extends MY_Controller{
         
               $resp =  $journals->status;
               $idInsertado = $journals->id_insertado;
+
+              if($resp){
+    
+                $error_msg = 'Registro cargado correctamente.';
+                $resp =  true;
+
+
+                $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                'accion'  => 'INSERTA_JOURNAL',
+                'usuario'  =>  $this->session->userdata('n_usuario'),
+                'rol' =>   $this->session->userdata('nombre_rol'),
+                'objeto'  => 'JOURNAL' ,
+                'fechaCambio' =>  date_create()->format('Y-m-d'));
+        
+                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+                
+
+              }else{
+
+                $error_msg = 'Inconvenientes al cargar registro, favor reintente.';
+                $resp =  false;
+
+              }
   
           
           }
