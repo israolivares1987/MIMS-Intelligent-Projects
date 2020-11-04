@@ -55,6 +55,7 @@ class Ordenes extends CI_Controller{
               
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
+                'Criticidad' => $this->callutil->cambianull($value->Criticidad),
                 'idRequerimiento' => $value->idRequerimiento,
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
                 'Categorizacion'  => $value->Categorizacion,
@@ -67,7 +68,6 @@ class Ordenes extends CI_Controller{
                 'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
                 'Requestor'   => $value->Requestor,
                 'Comprador'   => $value->Comprador,
-
                 'Currency'   => $value->Currency,
                 'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
                 'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
@@ -131,6 +131,7 @@ class Ordenes extends CI_Controller{
               
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
+                'Criticidad' => $this->callutil->cambianull($value->Criticidad),
                 'idRequerimiento' => $value->idRequerimiento,
                 'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
                 'Categorizacion'  => $value->Categorizacion,
@@ -143,7 +144,6 @@ class Ordenes extends CI_Controller{
                 'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
                 'Requestor'   => $value->Requestor,
                 'Comprador'   => $value->Comprador,
-
                 'Currency'   => $value->Currency,
                 'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
                 'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
@@ -180,6 +180,7 @@ class Ordenes extends CI_Controller{
   function guardaOrden(){
 
     $or_purchase_order    = $this->input->post('or_purchase_order');
+    $or_criticidad      = $this->input->post('or_select_criticidad');
     $or_idrequerimiento      = $this->input->post('or_idrequerimiento');
     $or_select_categorizacion    = $this->input->post('or_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
@@ -256,6 +257,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderNumber'       => $or_purchase_order,
+                  'Criticidad'                => $or_criticidad,
                   'idRequerimiento'           => $or_idrequerimiento,
                   'Categorizacion'           =>  $or_select_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
@@ -349,7 +351,8 @@ class Ordenes extends CI_Controller{
         $data = array(
           'purchase_number'     => $value->PurchaseOrderNumber,
           'id_requerimiento'           => $value->idRequerimiento,
-          'select_categorizacion'     => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
+          'select_criticidad'   => $this->callutil->obtiene_select_def_act('or_act_select_criticidad',$value->Criticidad,'CRITICIDAD'),
+          'select_categorizacion' => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
           'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierName),
@@ -392,6 +395,7 @@ class Ordenes extends CI_Controller{
 
     $or_purchase_order    = $this->input->post('or_act_purchase_order');
     $or_idrequerimiento      = $this->input->post('or_act_idrequerimiento');
+    $or_criticidad      = $this->input->post('or_act_select_criticidad');
     $or_categorizacion   = $this->input->post('or_act_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
     $or_revision        = $this->input->post('or_act_revision');
@@ -465,6 +469,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderID'           => $id_order_or,
+                  'Criticidad'                => $or_criticidad ,
                   'idRequerimiento'           => $or_idrequerimiento,
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $or_categorizacion,
@@ -543,6 +548,7 @@ class Ordenes extends CI_Controller{
                   'idCliente'                 => $id_cliente_or,
                   'idProyecto'                => $id_proyecto_or,
                   'PurchaseOrderID'           => $id_order_or,
+                  'Criticidad'                => $or_criticidad ,
                   'idRequerimiento'           => $or_idrequerimiento,
                   'PurchaseOrderNumber'       => $or_purchase_order,
                   'Categorizacion'            => $$or_categorizacion,
@@ -552,7 +558,6 @@ class Ordenes extends CI_Controller{
                   'EstadoPlano'  => $or_estado_plano  ,
                   'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
-
                   'ExpediterID'                => $or_select_employee,
                   'Requestor'        => $or_requestor,
                   'Currency'                  => $or_select_currency,
@@ -761,6 +766,7 @@ function obtieneSelectOrden(){
   $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
   $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
   $data['select_currency']  = $this->callutil->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
+  $data['select_criticidad']  = $this->callutil->obtiene_select_def('or_select_criticidad','CRITICIDAD','or_select_criticidad');
   $data['select_shipping']  = $this->callutil->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
   $data['select_status']    = $this->callutil->obtiene_select_def('or_select_status','PO_STATUS','or_select_status');
   $data['select_categorizacion']    = $this->callutil->obtiene_select_def('or_select_categorizacion','CATEGORIZACION_ORDENES','or_select_categorizacion');

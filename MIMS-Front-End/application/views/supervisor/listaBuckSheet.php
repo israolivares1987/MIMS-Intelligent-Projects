@@ -10,7 +10,7 @@
              </div>
          </div><!-- /.container-fluid -->
      </section>
-
+ 
      <!-- Main content -->
      <section class="content">
          <div class="row">
@@ -172,9 +172,10 @@
                                          <th>FechaTV</th>
                                          <th>Transmittal CF</th>
                                          <th>Fecha CF</th>
+                                         <th>P/A CF</th>
                                          <th>Observacion 7</th>
                                          <th>Fecha RAS</th>
-                                         <th>Dias Antes RAS</th>
+                                         <th>Dia sAntes RAS</th>
                                         
                                      </tr>
                              </thead>
@@ -305,8 +306,6 @@
                         bucksheet_html += '<td>' + bucksheets.PaqueteConstruccionArea+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaComienzoFabricacion+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PAFCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaTerminoFabricacion+ '</td>';
@@ -336,7 +335,10 @@
                         bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                         bucksheet_html += '</tr>';
 
                      });
