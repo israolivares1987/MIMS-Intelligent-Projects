@@ -181,6 +181,7 @@
                                          <th>FechaTV</th>
                                          <th>Transmittal CF</th>
                                          <th>Fecha CF</th>
+                                         <th>P/A CF</th>
                                          <th>Observacion 7</th>
                                          <th>Fecha RAS</th>
                                          <th>Dia sAntes RAS</th>
@@ -194,20 +195,18 @@
              </div>
 
 
-         <!--.modal nuevo control Calidad-->
-         <div id="modal_buckSheet" class="modal fade" tabindex="-1" role="dialog">
-                 <div class="modal-dialog modal-xl" role="document">
-                     <div class="modal-content">
+             <div class="modal fade" id="modal_buckSheet">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h4 class="modal-title">Subir Archivo</h4>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
 
-                         <div class="modal-header">
-                             <h5 class="modal-title">Subir Archivo</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                            <div class="modal-body">
-                                <div class="container">
-                                <form action="#" id="formBuckSheet" class="form-horizontal">
+            <form action="#" id="formBuckSheet" class="form-horizontal">
                                         <input name="idOrden" placeholder="" class="form-control" type="hidden" id="idOrden" value="<?php echo $PurchaseOrderID;?>">
                                         <input name="idCliente" placeholder="" class="form-control" type="hidden" id="idCliente" value="<?php echo $idCliente;?>">
                                         <input name="idProyecto" placeholder="" class="form-control" type="hidden" id="idProyecto" value="<?php echo $codProyecto;?>">
@@ -219,19 +218,17 @@
                                                                 </div>
                                                             </div>
                                 </form>
-
-                                </div>
-                                <div class="modal-footer justify-content-between">
-                                    <button id="btnSave" type="button" class="btn btn-block btn-outline-success"
-                                        onclick="saveBuckSheet()">Actualizar</button>
-                                    <button type="button" class="btn btn-block btn-outline-danger" data-dismiss="modal">Cancel</button>
-                            </div>
-                            </div>
-                          
-                            <!-- Image loader -->     
-                     </div>
-                 </div>
-             </div>
+            </div>
+            <div class="modal-footer justify-content-between">
+              <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+              <button type="button" class="btn btn-primary" id="btnSave" onclick="saveBuckSheet()">Grabar</button>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
 
 <!-- Bootstrap modal -->
 
@@ -377,7 +374,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Comienzo
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Comienzo
                                      Fabricacion</label>
                                  <div class="col-md-12">
                                      <select name="PAFCF" class="form-control"
@@ -406,7 +403,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Termino Fabricacion</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Termino Fabricacion</label>
                                  <div class="col-md-12">
                                      <select name="PAFTF" class="form-control"
                                          style="width: 100%;">
@@ -435,7 +432,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Granallado</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Granallado</label>
                                  <div class="col-md-12">
                                      <select name="PAFG" class="form-control"
                                          style="width: 100%;">
@@ -467,7 +464,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Pintura</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Pintura</label>
                                  <div class="col-md-12">
                                      <select name="PAFP" class="form-control"
                                          style="width: 100%;">
@@ -499,7 +496,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Listo Inspeccion</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Listo Inspeccion</label>
                                  <div class="col-md-12">
                                      <select name="PAFLI" class="form-control"
                                          style="width: 100%;">
@@ -540,7 +537,7 @@
 
                          <div class="form-group">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Salida Fabrica</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Salida Fabrica</label>
                                  <div class="col-md-12">
                                      <select name="PAFSF" class="form-control"
                                          style="width: 100%;">
@@ -646,6 +643,21 @@
                                  <input name="FechaCF" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
+
+                             <div class="form-group">
+                             <div class="form-group">
+                                 <label class="control-label col-md-12">Programado - Actual Fecha CF</label>
+                                 <div class="col-md-12">
+                                     <select name="PACF" class="form-control"
+                                         style="width: 100%;">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
                              <div class="form-group">
                                  <label class="control-label col-md-12">Observacion 7</label>
                                  <div class="col-md-12">
@@ -861,6 +873,7 @@
                         bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
@@ -933,7 +946,6 @@
 
                                             toastr.success(data.mensaje);
 
-
                                         }else{
 
                                             toastr.error(data.mensaje);
@@ -949,7 +961,6 @@
                                         toastr.error(data.mensaje);
 
                                     }
-                                 
                                     $('#btnSave').text('Cargar'); //change button text
                                     $('#btnSave').attr('disabled', false); //set button enable 
 
@@ -1096,6 +1107,7 @@
             $('[name="FechaTV"]').val(bucksheets.FechaTV);
             $('[name="TransmittalCF"]').val(bucksheets.TransmittalCF);
             $('[name="FechaCF"]').val(bucksheets.FechaCF);
+            $('[name="PACF"]').val(bucksheets.PACF);
             $('[name="Observacion7"]').val(bucksheets.Observacion7);
 
              });
@@ -1178,7 +1190,7 @@ var total = 0;
 valor = replaceAll(document.getElementById('PesoUnitario').value , ".", "" ); 
 cantidad =  replaceAll(document.getElementById('STCantidad').value , ".", "" );
 
-// Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+// Aquí valido si hay un valor Programado, si no hay datos, le pongo un cero "0".
 total = (total == null || total == undefined || total == "") ? 0 : total;
 
 total = (parseInt(cantidad) * parseInt(valor));

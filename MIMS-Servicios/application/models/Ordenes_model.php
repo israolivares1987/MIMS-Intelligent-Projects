@@ -8,6 +8,7 @@ class Ordenes_model extends CI_Model{
 
 	  $query = $this->db->query("SELECT a.CodEmpresa as codEmpresa,
 									a.PurchaseOrderID,
+									(select domain_desc from tbl_ref_codes where domain_id = a.Criticidad and domain = 'CRITICIDAD') as Criticidad,
 									a.idRequerimiento,
 									a.PurchaseOrderNumber,
 									(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,
@@ -57,6 +58,7 @@ class Ordenes_model extends CI_Model{
 
 	  $query = $this->db->query("SELECT a.CodEmpresa as codEmpresa,
 	  							a.PurchaseOrderID,
+								(select domain_desc from tbl_ref_codes where domain_id = a.Criticidad and domain = 'CRITICIDAD') as Criticidad,
 	  							a.idRequerimiento,
 								a.PurchaseOrderNumber,
 								(select domain_desc from tbl_ref_codes where domain_id = a.Categorizacion and domain = 'CATEGORIZACION_ORDENES') as Categorizacion,

@@ -285,7 +285,14 @@ class BuckSheet extends MY_Controller {
                  
                       if($prevCount > 0){
 
-   
+                            
+                             if(!empty($row['FechaCF']) && $row['PACF'] == 'ACTUAL'){
+                                
+                              $EstadoLineaBucksheet = '7';
+                              
+                             }   
+
+
                              if(!empty($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'ACTUAL'){
 
                                 $EstadoLineaBucksheet = '2';
@@ -297,6 +304,14 @@ class BuckSheet extends MY_Controller {
                               $EstadoLineaBucksheet = '3';
                               
                              }
+
+                             if(!empty($row['FechaPintura']) && $row['PAFP'] == 'ACTUAL'){
+                            
+                              $EstadoLineaBucksheet = '6';
+                              
+                             }   
+                            
+
 
                              if(!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') { 
                             
@@ -314,8 +329,49 @@ class BuckSheet extends MY_Controller {
                       
                       }else{
 
-
                         $EstadoLineaBucksheet = '1';
+
+                        if(!empty($row['FechaCF']) && $row['PACF'] == 'ACTUAL'){
+                                
+                          $EstadoLineaBucksheet = '7';
+                          
+                         }   
+
+
+                         if(!empty($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'ACTUAL'){
+
+                            $EstadoLineaBucksheet = '2';
+
+                          }
+
+                          if(!empty($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'ACTUAL'){
+                        
+                          $EstadoLineaBucksheet = '3';
+                          
+                         }
+
+                         if(!empty($row['FechaPintura']) && $row['PAFP'] == 'ACTUAL'){
+                        
+                          $EstadoLineaBucksheet = '6';
+                          
+                         }   
+                        
+
+
+                         if(!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') { 
+                        
+                            $EstadoLineaBucksheet = '4';
+
+                         }
+
+                         if(!empty($row['FechaEmbarque']) && !empty($row['PackingList'])){  
+                        
+                         $EstadoLineaBucksheet = '5';
+
+
+                         }
+
+                       
 
                       }
 
@@ -372,6 +428,7 @@ class BuckSheet extends MY_Controller {
                         'FechaTV' => $this->callutil->formatoFecha($row['FechaTV']),
                         'TransmittalCF' => $row['TransmittalCF'],
                         'FechaCF' => $this->callutil->formatoFecha($row['FechaCF']),
+                        'PACF' => $row['PACF'],                        
                         'Observacion7' => $row['Observacion7'],
                     );
 
@@ -604,6 +661,7 @@ class BuckSheet extends MY_Controller {
         'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
         'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
         'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
+        'PACF' => $this->callutil->cambianull($value->PACF),
         'Observacion7' => $this->callutil->cambianull($value->Observacion7)
 
       );
@@ -694,6 +752,7 @@ function obtieneBucksheetDet()
               'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
               'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
               'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
+              'PACF' => $this->callutil->cambianull($value->PACF),              
               'Observacion7' => $this->callutil->cambianull($value->Observacion7)
       
             );
@@ -718,8 +777,14 @@ function obtieneBucksheetDet()
       function updateBuckSheet()
       {
 
+        if(!is_null($this->input->post('FechaCF')) && $this->input->post('PACF') == 'ACTUAL'){
+                                
+          $EstadoLineaBucksheet = '7';
+          
+         }   
 
-        if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL'){
+
+         if(!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL'){
 
           $EstadoLineaBucksheet = '2';
 
@@ -730,8 +795,16 @@ function obtieneBucksheetDet()
         $EstadoLineaBucksheet = '3';
         
        }
-       
-       if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL'){ 
+
+         if(!is_null($this->input->post('FechaPintura')) && $this->input->post('PAFP') == 'ACTUAL'){
+        
+          $EstadoLineaBucksheet = '6';
+          
+         }   
+        
+
+
+         if( !is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL'){ 
       
           $EstadoLineaBucksheet = '4';
 
@@ -743,6 +816,10 @@ function obtieneBucksheetDet()
 
 
         }
+
+      
+       
+     
     
         $Orden = $this->callexternosordenes->obtieneOrden($this->input->post('idProyecto'),
                                                           $this->input->post('idCliente'),
@@ -810,6 +887,7 @@ function obtieneBucksheetDet()
           'FechaTV' =>  $this->callutil->formatoFecha($this->input->post('FechaTV')),
           'TransmittalCF' => $this->input->post('TransmittalCF'),
           'FechaCF' =>  $this->callutil->formatoFecha($this->input->post('FechaCF')),
+          'PACF' => $this->input->post('PACF'),
           'Observacion7' => $this->input->post('Observacion7')
         );
 
@@ -968,6 +1046,7 @@ function obtieneBucksheetDet()
     "FechaTV",
     "TransmittalCF",
     "FechaCF",
+    "PACF",
     "Observacion7"); 
 
     fputcsv($file, $header, ';', chr(27));
@@ -1026,6 +1105,7 @@ function obtieneBucksheetDet()
         'FechaTV' =>  $this->callutil->formatoFechaSalida($value->FechaTV),
         'TransmittalCF' =>  $value->TransmittalCF,
         'FechaCF' =>  $this->callutil->formatoFechaSalida($value->FechaCF),
+        'PACF' => $value->PACF,
         'Observacion7' =>  $value->Observacion7
       );
 

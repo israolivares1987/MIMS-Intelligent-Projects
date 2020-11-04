@@ -70,6 +70,7 @@ class BuckSheet_model extends CI_Model{
         t1.FechaTV,
         t1.TransmittalCF,
         t1.FechaCF,
+        t1.PACF,
         t1.Observacion7"); 
     $this->db->from('tbl_bucksheet t1');			
 	 $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
@@ -130,6 +131,7 @@ class BuckSheet_model extends CI_Model{
         t1.FechaTV,
         t1.TransmittalCF,
         t1.FechaCF,
+        t1.PACF,
         t1.Observacion7"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);

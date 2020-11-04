@@ -82,6 +82,7 @@
 							  <thead>
 								  <tr>
 								  <th>Acciones</th>
+                  <th>Criticidad</th>
                   <th>ID Requerimiento</th>
                   <th>Categorizacion</th>
                   <th>Número Orden</th>
@@ -104,7 +105,7 @@
                   <th>Estado</th>
                   <th>Fecha de cierre</th>
                   <th>ID Orden</th>
-                  <th>Archivo</th>	
+                  <th>Archivo</th>
 								  </tr>
 							  </thead>
 							  <tbody id="datos_ordenes">
@@ -402,6 +403,16 @@
 
 
                   <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                    <label class="col-sm-12 control-label">Seleccione Criticidad</label>
+                                <div class="col-sm-12">
+                                      <div id="s_criticidad"></div>
+                                </div>
+                    </div>
+                    </div>
+
+
+                  <div class="col-12 col-sm-6">
                 <div class="form-group">
                 <label class="col-sm-12 control-label">ID Requerimiento</label>
                             <div class="col-sm-12">
@@ -692,6 +703,16 @@
                  </div>
 
                   </div>
+
+
+                  <div class="col-12 col-sm-6">
+                    <div class="form-group">
+                    <label class="col-sm-12 control-label">Seleccione Criticidad</label>
+                                <div class="col-sm-12">
+                                      <div id="s_act_criticidad"></div>
+                                </div>
+                    </div>
+                    </div>
 
                   <div class="col-12 col-sm-6">
                 <div class="form-group">
@@ -2662,6 +2683,13 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
           ordenes_html += '</td>';
+          if( orden.Criticidad ==='BAJA'){
+                 ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
+            }else if(orden.Criticidad ==='ALTA'){
+                 ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
+            }else{
+                 ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
+            }
            ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
            ordenes_html += '<td>' + orden.Categorizacion + '</td>';
            ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
@@ -2789,6 +2817,7 @@ function obtieneSelects(){
     }).done(function(result) {
 
       $('#s_supplier').html(result.select_supplier);
+      $('#s_criticidad').html(result.select_criticidad);
       $('#s_employee').html(result.select_employee);
       $('#s_currency').html(result.select_currency);
       $('#s_shipping').html(result.select_shipping);
@@ -2906,6 +2935,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#s_act_employee').html(result.formulario.select_employee);
 
       $('#s_act_currency').html(result.formulario.select_currency);
+      $('#s_act_criticidad').html(result.formulario.select_criticidad);
       $('#or_act_requestor').val(result.formulario.requestor);
 
 

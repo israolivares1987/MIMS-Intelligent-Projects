@@ -181,6 +181,7 @@
                                          <th>FechaTV</th>
                                          <th>Transmittal CF</th>
                                          <th>Fecha CF</th>
+                                         <th>P/A CF</th>
                                          <th>Observacion 7</th>
                                          <th>Fecha RAS</th>
                                          <th>Dia sAntes RAS</th>
@@ -373,7 +374,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Comienzo
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Comienzo
                                      Fabricacion</label>
                                  <div class="col-md-12">
                                      <select name="PAFCF" class="form-control"
@@ -402,7 +403,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Termino Fabricacion</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Termino Fabricacion</label>
                                  <div class="col-md-12">
                                      <select name="PAFTF" class="form-control"
                                          style="width: 100%;">
@@ -431,7 +432,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Granallado</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Granallado</label>
                                  <div class="col-md-12">
                                      <select name="PAFG" class="form-control"
                                          style="width: 100%;">
@@ -463,7 +464,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Pintura</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Pintura</label>
                                  <div class="col-md-12">
                                      <select name="PAFP" class="form-control"
                                          style="width: 100%;">
@@ -495,7 +496,7 @@
 
                          <div class="form-group" data-select2-id="89">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Listo Inspeccion</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Listo Inspeccion</label>
                                  <div class="col-md-12">
                                      <select name="PAFLI" class="form-control"
                                          style="width: 100%;">
@@ -536,7 +537,7 @@
 
                          <div class="form-group">
                              <div class="form-group">
-                                 <label class="control-label col-md-12">Previo - Actual Fecha Salida Fabrica</label>
+                                 <label class="control-label col-md-12">Programado - Actual Fecha Salida Fabrica</label>
                                  <div class="col-md-12">
                                      <select name="PAFSF" class="form-control"
                                          style="width: 100%;">
@@ -642,6 +643,21 @@
                                  <input name="FechaCF" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
+
+                             <div class="form-group">
+                             <div class="form-group">
+                                 <label class="control-label col-md-12">Programado - Actual Fecha CF</label>
+                                 <div class="col-md-12">
+                                     <select name="PACF" class="form-control"
+                                         style="width: 100%;">
+                                         <?php echo $select_ap;?>
+                                     </select>
+                                 </div>
+                             </div>
+                         </div>
+
+
+
                              <div class="form-group">
                                  <label class="control-label col-md-12">Observacion 7</label>
                                  <div class="col-md-12">
@@ -857,6 +873,7 @@
                         bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
@@ -1090,6 +1107,7 @@
             $('[name="FechaTV"]').val(bucksheets.FechaTV);
             $('[name="TransmittalCF"]').val(bucksheets.TransmittalCF);
             $('[name="FechaCF"]').val(bucksheets.FechaCF);
+            $('[name="PACF"]').val(bucksheets.PACF);
             $('[name="Observacion7"]').val(bucksheets.Observacion7);
 
              });
@@ -1172,7 +1190,7 @@ var total = 0;
 valor = replaceAll(document.getElementById('PesoUnitario').value , ".", "" ); 
 cantidad =  replaceAll(document.getElementById('STCantidad').value , ".", "" );
 
-// Aquí valido si hay un valor previo, si no hay datos, le pongo un cero "0".
+// Aquí valido si hay un valor Programado, si no hay datos, le pongo un cero "0".
 total = (total == null || total == undefined || total == "") ? 0 : total;
 
 total = (parseInt(cantidad) * parseInt(valor));

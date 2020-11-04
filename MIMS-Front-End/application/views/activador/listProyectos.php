@@ -83,6 +83,7 @@
 														<thead>
 															<tr>
                                                             <th>Acciones</th>
+                                                            <th>Criticidad</th>
                                                             <th>ID Requerimiento</th>
                                                             <th>Categorizacion</th>
                                                             <th>Número Orden</th>
@@ -434,8 +435,15 @@
                                             orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
                                             ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-inbox"></i></button>';
                                             ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
-                                         ordenes_html += '</td>';
-                                         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+                                            ordenes_html += '</td>';
+                                            if( orden.Criticidad ==='BAJA'){
+                                                     ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
+                                                }else if(orden.Criticidad ==='ALTA'){
+                                                     ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
+                                                }else{
+                                                     ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
+                                                }
+                                            ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
                                          ordenes_html += '<td>' + orden.Categorizacion + '</td>';
                                          ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
                                          ordenes_html += '<td>' + orden.OrderDate  + '</td>';
