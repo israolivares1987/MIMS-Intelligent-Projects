@@ -291,24 +291,22 @@ class BuckSheet extends MY_Controller {
                                 $EstadoLineaBucksheet = '2';
 
                               }
+
                               if(!empty($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'ACTUAL'){
                             
                               $EstadoLineaBucksheet = '3';
                               
                              }
+
                              if(!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') { 
                             
                                 $EstadoLineaBucksheet = '4';
 
                              }
+
                              if(!empty($row['FechaEmbarque']) && !empty($row['PackingList'])){  
                             
                              $EstadoLineaBucksheet = '5';
-
-
-                             }else{
-
-                              $EstadoLineaBucksheet = '1';
 
 
                              }
