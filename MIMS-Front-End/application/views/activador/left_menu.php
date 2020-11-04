@@ -16,7 +16,10 @@
         </div>
         <div class="info">
           <a href="#" class="d-block"><?php echo $this->session->userdata('nombres')." ".$this->session->userdata('paterno')." ".$this->session->userdata('materno');?></a>
+          <a href="#" class="d-block"><p><i class="fas fa-id-card"></i> ROL: <?php echo $this->session->userdata('nombre_rol');?> </p></a>
         </div>
+
+       
       </div>
 
       <!-- Sidebar Menu -->
