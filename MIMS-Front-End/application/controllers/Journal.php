@@ -498,7 +498,7 @@ class Journal extends MY_Controller{
    public function checkFileValidation($str) {   
     
 
-
+   
     $mime_types = array(
         'text/csv',
         'text/x-csv', 
@@ -515,7 +515,11 @@ class Journal extends MY_Controller{
         'application/vnd.openxmlformats officedocument.wordprocessingml.document',
         'image/jpeg',
         'application/pdf',
-        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet'
+        'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet',
+        'image/bmp',
+        'image/gif',
+        'image/png',
+        'image/tiff'
     );
 
     $fileExtArray = array(
@@ -530,7 +534,21 @@ class Journal extends MY_Controller{
       'doc',
       'docx', 
       'DOC',
-      'DOCX'
+      'DOCX',
+      'bmp',
+      'BMP',
+      'gif',
+      'GIF',
+      'jpeg',
+      'JPEG',
+      'jpg',
+      'JPG',
+      'png',
+      'PNG',
+      'tif',
+      'tiff',
+      'TIF',
+      'TIFF'
   );
     if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
         // get mime by extension
