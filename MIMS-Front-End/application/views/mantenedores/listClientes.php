@@ -435,28 +435,28 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Rut</label>
                             <div class="col-md-9">
-                            <input type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control"  onkeyup="formatoNumero(this)" onchange="validaDv(this)" />
+                            <input autocomplete="off" type="text" name="rutCliente" id="rutCliente" placeholder="" class="form-control"  onkeyup="formatoNumero(this)" onchange="validaDv(this)" />
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Digito verificador</label>
                             <div class="col-md-9">
-                                <input type="text" name="dvCliente" id="dvCliente" value="" class="form-control" readonly/>
+                                <input autocomplete="off" type="text" name="dvCliente" id="dvCliente" value="" class="form-control" readonly/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Direccion</label>
                             <div class="col-md-9">
-                               <input type="text" name="direccion" id="direccion" value="" class="form-control"/>
+                               <input autocomplete="off" type="text" name="direccion" id="direccion" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Contacto</label>
                             <div class="col-md-9">
-                            <input type="text" name="contacto" id="contacto" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="contacto" id="contacto" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -464,7 +464,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Telefono</label>
                             <div class="col-md-9">
-                            <input type="text" name="telefono" id="telefono" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="telefono" id="telefono" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -474,7 +474,7 @@
                             <div class="col-md-9">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="text" name="correo" id="correo" value="" class="form-control"/>
+                                    <input autocomplete="off" type="text" name="correo" id="correo" value="" class="form-control"/>
                                  </div>
                             </div>
                         </div>

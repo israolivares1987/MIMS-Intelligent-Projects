@@ -131,35 +131,35 @@
                             <div class="col-md-9">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
+                                    <input autocomplete="off" type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
                                  </div>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Cargo</label>
                             <div class="col-md-9">
-                            <input type="text" name="JobTitle" id="JobTitle" placeholder="Cargo" class="form-control" />
+                            <input autocomplete="off" type="text" name="JobTitle" id="JobTitle" placeholder="Cargo" class="form-control" />
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Oficina</label>
                             <div class="col-md-9">
-                                <input type="text" name="BusinessPhone" id="BusinessPhone" value="" class="form-control"/>
+                                <input autocomplete="off" type="text" name="BusinessPhone" id="BusinessPhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Casa</label>
                             <div class="col-md-9">
-                               <input type="text" name="HomePhone" id="HomePhone" value="" class="form-control"/>
+                               <input autocomplete="off" type="text" name="HomePhone" id="HomePhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Fono Movil</label>
                             <div class="col-md-9">
-                            <input type="text" name="MobilePhone" id="MobilePhone" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="MobilePhone" id="MobilePhone" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>

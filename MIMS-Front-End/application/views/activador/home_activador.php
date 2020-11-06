@@ -1,11 +1,11 @@
- <!-- Content Wrappr. Contains page content -->
+ <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
     <!-- Content Header (Page header) -->
     <section class="content-header">
       <div class="container-fluid">
         <div class="row mb-2">
           <div class="col-sm-6">
-            <h1>INICIO</h1>
+            <h1>Home</h1>
           </div>
         </div>
       </div><!-- /.container-fluid -->
@@ -21,8 +21,8 @@
         </div>
         <div class="card-body">
           
-        <div class="row">
-        <div class="col-lg-3 col-6">
+        <div class="row"> 
+          <div class="col-lg-3 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -112,7 +112,6 @@
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
  <!-- TO DO List -->
  <div class="card">
               <div class="card-header">
@@ -127,6 +126,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
+                                                                    <th>Lista To-Do</th>
                                                                     <th>Descripcion</th>
                                                                     <th>Estado</th>
                                                                     <th>Fecha Inicio</th>
@@ -198,7 +198,7 @@
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
                         <div class="col-sm-12">
-                          <input id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
+                        <input autocomplete="off" id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
                         </div><!--.col-sm-9-->
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
@@ -209,7 +209,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -224,7 +224,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -308,7 +308,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_edit_fecha_inicio" id="var_edit_fecha_inicio"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_edit_fecha_inicio" id="var_edit_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -323,7 +323,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_edit_fecha_termino" id="var_edit_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_edit_fecha_termino" id="var_edit_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -628,94 +628,90 @@ if(opcion){
 function recargaListaToDo(){
 
 
-var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
-var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
-var todo_html ='';
-var color ="";
+  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+  var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+  var todo_html ='';
+  var color ="";
+  var select_todo = "";
 
-var tabla_todo =  $('#tbl_todo').DataTable();
+ var tabla_todo =  $('#tbl_todo').DataTable();
 
-  tabla_todo.destroy();
+    tabla_todo.destroy();
 
-  
+    
 
 
-  $.ajax({
-    url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
-    type: 		'POST',
-    dataType: 'json',
-    data: {
-      cod_usuario: cod_usuario,
-      cod_emp: cod_empresa
-      
+    $.ajax({
+      url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+        cod_usuario: cod_usuario,
+        cod_emp: cod_empresa
+        
+            },
+    }).done(function(result) {
+      select_todo = result.select_lista_todo;
+      $.each(result.formularios,function(key, formulario) {
+        todo_html += '<tr>';
+        todo_html += '<td>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
+        todo_html += '</td>';
+        todo_html += '<td>' + formulario.lista_todo + '</td>';
+        if(formulario.dias > 3){
+          color = 'badge badge-success';
+
+        }else{
+          color = 'badge badge-danger';
+        }
+        todo_html += '<td>' + formulario.descripcion_todo + '</td>';
+
+                if(formulario.estado ==='1'){
+
+                      todo_html += '<td><span class="bg-green">Activo</span></td>';  
+
+                }else{
+                  todo_html += '<td><span class="bg-red">Desactivo</span></td>';
+                }
+
+
+        todo_html += '<td>' + formulario.fecha_inicio + '</td>';
+        todo_html += '<td>' + formulario.fecha_termino + '</td>';
+        todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
+        todo_html += '</tr>';
+
+        
+
+      });
+        
+        $('#select_lista_todo').html(select_todo);
+
+     
+      $('#datos_todo').html(todo_html);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+        $('#tbl_todo').DataTable({
+          language: {
+              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
           },
-  }).done(function(result) {
-    
-    $.each(result.formularios,function(key, formulario) {
-      todo_html += '<tr>';
-      todo_html += '<td>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
-      todo_html += '</td>';
+          "paging": true,
+          "lengthChange": false,
+          "searching": true,
+          "ordering": true,
+          "info": true,
+          "autoWidth": true,
+      //   "responsive": true,
+          "scrollY": "300px",
+          "scrollX": true,
+          "scrollCollapse": true
+      });
 
-      if(formulario.dias > 3){
-        color = 'badge badge-success';
-
-      }else{
-        color = 'badge badge-danger';
-      }
-      todo_html += '<td>' + formulario.descripcion_todo + '</td>';
-
-              if(formulario.estado ==='1'){
-
-                    todo_html += '<td><span class="bg-green">Activo</span></td>';  
-
-              }else{
-                todo_html += '<td><span class="bg-red">Desactivo</span></td>';
-              }
-
-
-      todo_html += '<td>' + formulario.fecha_inicio + '</td>';
-      todo_html += '<td>' + formulario.fecha_termino + '</td>';
-      todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
-      todo_html += '</tr>';
-
-  
-
-    });
-
-
-    $.each(result.select_lista_todo,function(key, formulario) {
-      
-      $('#select_lista_todo').html(formulario.select_lista_todo);
-    });
-    
-   
-   
-    $('#datos_todo').html(todo_html);
-
-      $('[data-toggle="tooltip"]').tooltip();
-
-      $('#tbl_todo').DataTable({
-        language: {
-            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
-        },
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-    //   "responsive": true,
-        "scrollY": "300px",
-        "scrollX": true,
-        "scrollCollapse": true
-    });
-
-  }).fail(function() {
-    console.log("error todo_html");
-  })
+    }).fail(function() {
+      console.log("error todo_html");
+    })
 
 }
 </script>

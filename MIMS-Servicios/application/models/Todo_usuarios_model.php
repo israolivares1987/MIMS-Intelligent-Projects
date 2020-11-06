@@ -9,11 +9,16 @@ class Todo_usuarios_model extends CI_Model{
 
 		
 		
-		$this->db->select("a.*,
-						  DATEDIFF(fecha_termino,date(sysdate())) as dias, CONCAT(
-			( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif,
-			(select domain_desc from tbl_ref_codes where domain_id = a.lista_todo and domain = 'LISTA_TO_DO ') as lista_todo
-			");
+		$this->db->select("a.codEmpresa,
+		a.id_usuario,
+		a.id_todo,
+		(select domain_desc from tbl_ref_codes where domain_id = a.lista_todo and domain = 'LISTA_TO_DO') as lista_todo,
+		a.descripcion_todo,
+		a.fecha_inicio,
+		a.fecha_termino,
+		a.estado,
+						   DATEDIFF(fecha_termino,date(sysdate())) as dias, CONCAT(
+			 ( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif");
         $this->db->where('codEmpresa', $codEmpresa);
 		$this->db->where('id_usuario', $codUsuario);
 		$this->db->from('tbl_todo_usuario a');
@@ -52,8 +57,16 @@ function obtieneTodoUsuario($codEmpresa,$codUsuario, $id_todo){
 
 		
 		
-	$this->db->select("a.*, CONCAT(
-		FLOOR(HOUR(TIMEDIFF(SYSDATE(), fecha_termino)) / 24), ' Dias ') as dif");
+	$this->db->select("a.codEmpresa,
+	a.id_usuario,
+	a.id_todo,
+	(select domain_desc from tbl_ref_codes where domain_id = a.lista_todo and domain = 'LISTA_TO_DO') as lista_todo,
+	a.descripcion_todo,
+	a.fecha_inicio,
+	a.fecha_termino,
+	a.estado,
+					   DATEDIFF(fecha_termino,date(sysdate())) as dias, CONCAT(
+		 ( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif");
 	$this->db->where('codEmpresa', $codEmpresa);
 	$this->db->where('id_usuario', $codUsuario);
 	$this->db->where('id_todo', $id_todo);
