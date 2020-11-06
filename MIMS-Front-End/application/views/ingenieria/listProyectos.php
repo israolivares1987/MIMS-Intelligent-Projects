@@ -499,7 +499,7 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Ingeniero Requestor</label>
                             <div class="col-sm-12">
-                              <input type="text" name="or_requestor" id="or_requestor" class="form-control form-control-sm">
+                              <input autocomplete="off" type="text" name="or_requestor" id="or_requestor" class="form-control form-control-sm">
                               <!--div id="s_ingeniero"></div-->
                             </div>
                     </div>
@@ -796,7 +796,7 @@
                     <div class="form-group">
                             <label class="col-sm-12 control-label">Ingeniero Requestor</label>
                             <div class="col-sm-12">
-                              <input type="text" name="or_act_requestor" id="or_act_requestor" class="form-control form-control-sm">
+                              <input autocomplete="off" type="text" name="or_act_requestor" id="or_act_requestor" class="form-control form-control-sm">
                               <!--div id="s_ingeniero"></div-->
                             </div>
                     </div>

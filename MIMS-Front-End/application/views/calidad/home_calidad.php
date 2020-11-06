@@ -22,7 +22,6 @@
         <div class="card-body">
           
         <div class="row">
-        
         <div class="col-lg-3 col-12">
             <!-- small box -->
             <div class="small-box bg-info">
@@ -107,6 +106,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
+                                                                    <th>Lista To-Do</th>
                                                                     <th>Descripcion</th>
                                                                     <th>Estado</th>
                                                                     <th>Fecha Inicio</th>
@@ -178,7 +178,7 @@
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
                         <div class="col-sm-12">
-                          <input id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
+                          <input autocomplete="off" id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
                         </div><!--.col-sm-9-->
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
@@ -189,7 +189,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -204,7 +204,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -288,7 +288,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_edit_fecha_inicio" id="var_edit_fecha_inicio"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_edit_fecha_inicio" id="var_edit_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -303,7 +303,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input type="text" class="form-control" name="var_edit_fecha_termino" id="var_edit_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control" name="var_edit_fecha_termino" id="var_edit_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -612,6 +612,7 @@ var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ;
 var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
 var todo_html ='';
 var color ="";
+var select_todo="";
 
 var tabla_todo =  $('#tbl_todo').DataTable();
 
@@ -630,6 +631,8 @@ var tabla_todo =  $('#tbl_todo').DataTable();
       
           },
   }).done(function(result) {
+
+    select_todo = result.select_lista_todo;
     
     $.each(result.formularios,function(key, formulario) {
       todo_html += '<tr>';
@@ -638,6 +641,8 @@ var tabla_todo =  $('#tbl_todo').DataTable();
       todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
       todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
       todo_html += '</td>';
+      todo_html += '<td>' + formulario.lista_todo + '</td>';
+      
 
       if(formulario.dias > 3){
         color = 'badge badge-success';
@@ -659,17 +664,13 @@ var tabla_todo =  $('#tbl_todo').DataTable();
       todo_html += '<td>' + formulario.fecha_inicio + '</td>';
       todo_html += '<td>' + formulario.fecha_termino + '</td>';
       todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
-      todo_html += '</tr>';
+      todo_html += '</tr>';  
+
+  });
+
 
   
-
-    });
-
-
-    $.each(result.select_lista_todo,function(key, formulario) {
-      
-      $('#select_lista_todo').html(formulario.select_lista_todo);
-    });
+   $('#select_lista_todo').html(select_todo);
     
    
    

@@ -52,10 +52,10 @@ class TodoUsuarios extends MY_Controller{
       $insert= array(
         'codEmpresa'  => $codEmpresa,  
         'id_usuario'      => $cod_usuario,
+        'lista_todo'      => $var_lista_todo,
         'descripcion_todo'  => $descripcion_todo,
         'fecha_inicio'           => $var_fecha_inicio,
-        'fecha_termino'       => $var_fecha_termino,
-        'lista_todo'          => $var_lista_todo
+        'fecha_termino'       => $var_fecha_termino
       );
 
       $todo = $this->callexternostodo->guardarTodoUsuario($insert);
@@ -208,7 +208,7 @@ class TodoUsuarios extends MY_Controller{
     $datos        = array();
 
     $todo        =  $this->callexternostodo->obtieneTodoUsuario($codEmpresa,$id_usuario,$id_todo);
-    $select_todo   = '<select class="form-control" onchange="cambia_todo_edit(this)" id="edit_var_lista_todo" name="edit_var_lista_todo">'; 
+    $select_todo   = '<select class="form-control" id="edit_var_lista_todo" name="edit_var_lista_todo">'; 
     if($todo){
 
       foreach (json_decode($todo) as $key => $value) {
@@ -219,7 +219,7 @@ class TodoUsuarios extends MY_Controller{
 
            foreach (json_decode($datoap) as $llave => $valor) {
       
-              $selected = ($valor->domain_id == $value->lista_todo) ? 'selected' : '';
+              $selected = ($valor->domain_desc == $value->lista_todo) ? 'selected' : '';
               $select_todo .='<option '.$selected.' value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
     
         }
@@ -382,14 +382,12 @@ class TodoUsuarios extends MY_Controller{
     $datos_todo = array();
     $datos_select = array();
     $todo = $this->callexternostodo->obtieneTodoUsuarios($codEmpresa,$cod_usuario);
+    $rol_id = $this->session->userdata('rol_id');
 
 
     $arrTodo = json_decode($todo);
 
-    $select_todo = $this->callutil->obtiene_select_def('var_lista_todo','LISTA_TO_DO','var_lista_todo');
-
-    $datos_select[] = array('select_lista_todo' => $select_todo); 
-
+  
     if($arrTodo){
       
       
@@ -413,9 +411,33 @@ class TodoUsuarios extends MY_Controller{
       }
     }
 
+    $select_todo   = '<select class="form-control"  id="var_lista_todo" name="var_lista_todo">'; 
+   
+        $datoap   = $this->callexternosdominios->obtieneDatosRef('LISTA_TO_DO');
+          foreach (json_decode($datoap) as $llave => $valor) {
+      
+            
+
+            if ($this->session->userdata('rol_id')==='202' || $this->session->userdata('rol_id')==='203'){
+
+              if($valor->rol_id ===$this->session->userdata('rol_id'))
+              {
+                $select_todo .='<option  value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+
+              }     
+          
+            }else{
+          
+              $select_todo .='<option  value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    
+            }           
+        }
+        
+  $select_todo .= '</select>';
+
     
     $datos['formularios'] = $datos_todo;
-    $datos['select_lista_todo'] = $datos_select;
+    $datos['select_lista_todo'] = $select_todo;
 
     echo json_encode($datos);
 

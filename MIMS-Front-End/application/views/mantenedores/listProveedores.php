@@ -447,7 +447,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Titulo Contacto</label>
                             <div class="col-md-12">
-                            <input type="text" name="ContactTitle" id="ContactTitle" placeholder="" class="form-control" />
+                            <input autocomplete="off" type="text" name="ContactTitle" id="ContactTitle" placeholder="" class="form-control" />
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -455,14 +455,14 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Direccion</label>
                             <div class="col-md-12">
-                                <input type="text" name="Address" id="Address" value="" class="form-control"/>
+                                <input autocomplete="off" type="text" name="Address" id="Address" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
                             <label class="control-label col-md-3">Cuidad</label>
                             <div class="col-md-12">
-                               <input type="text" name="City" id="City" value="" class="form-control"/>
+                               <input autocomplete="off" type="text" name="City" id="City" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -470,7 +470,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Pais</label>
                             <div class="col-md-12">
-                            <input type="text" name="Country" id="Country" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="Country" id="Country" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -478,7 +478,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Provincia</label>
                             <div class="col-md-12">
-                            <input type="text" name="StateOrProvince" id="StateOrProvince" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="StateOrProvince" id="StateOrProvince" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -486,7 +486,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Codigo Postal</label>
                             <div class="col-md-12">
-                            <input type="text" name="PostalCode" id="PostalCode" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="PostalCode" id="PostalCode" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -495,7 +495,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Telefono</label>
                             <div class="col-md-12">
-                            <input type="text" name="PhoneNumber" id="PhoneNumber" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="PhoneNumber" id="PhoneNumber" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -503,7 +503,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Fax</label>
                             <div class="col-md-12">
-                            <input type="text" name="FaxNumber" id="FaxNumber" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="FaxNumber" id="FaxNumber" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -511,7 +511,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Terminos de Pago</label>
                             <div class="col-md-12">
-                            <input type="text" name="PaymentTerms" id="PaymentTerms" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="PaymentTerms" id="PaymentTerms" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>
@@ -521,7 +521,7 @@
                             <div class="col-md-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
-                                    <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
+                                    <input autocomplete="off" type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
                                  </div>
                             </div>
                         </div>
@@ -531,7 +531,7 @@
                         <div class="form-group">
                             <label class="control-label col-md-3">Notas</label>
                             <div class="col-md-12">
-                            <input type="text" name="Notes" id="Notes" value="" class="form-control"/>
+                            <input autocomplete="off" type="text" name="Notes" id="Notes" value="" class="form-control"/>
                                 <span class="help-block"></span>
                             </div>
                         </div>

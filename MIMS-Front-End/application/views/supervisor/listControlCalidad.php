@@ -179,7 +179,7 @@ tr {
                             var fieldHTML = '<div col-md-12>' +
                                 '<div class="input-group-prepend">' +
                                 '<span class="input-group-text"><i class="fas fa-envelope"></i></span>' +
-                                '<input type="text" name="var_email" value="" class="form-control varEmail"/>' +
+                                '<input autocomplete="off" type="text" name="var_email" value="" class="form-control varEmail"/>' +
                                 '<a href="javascript:void(0);" class="btn btn-block btn-outline-danger btn-sm remove_button" title="Add field"><i class="far fa-envelope"></i> Eliminar Mail</a>' +
                                 '</div>' +
                                 '</div>'; //New input field html 
