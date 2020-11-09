@@ -170,6 +170,33 @@ class BuckSheet extends CI_Controller {
 
 		 }
 
+
+		 function obtieneBuckSheetError(){
+
+			
+			$this->bucksheet->setPurchaseOrderID($this->input->post('PurchaseOrderID'));
+			$this->bucksheet->setidError($this->input->post('idError'));
+	
+			$BuckSheets = $this->bucksheet->obtieneBuckSheetError();
+		
+					
+			//output to json format
+			echo json_encode($BuckSheets);
+		}
+
+		function insertError(){
+
+		
+	
+			$form_data = $this->input->post();
+	
+		
+	
+			$insert = $this->bucksheet->insertError($form_data);
+			
+			echo json_encode($insert);
+		}
+
 	}
 
     
