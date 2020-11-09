@@ -276,6 +276,60 @@ class CallExternosBuckSheet {
   
       }
 
+      function obtieneBuckSheetError($idError,$PurchaseOrderID){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetError";
+  
+  
+            
+        $form_data = array(
+                    'PurchaseOrderID'		=>$PurchaseOrderID,
+                    'idError' => $idError
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
     
-      
+      function insertError($memData){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();;                
+        $api_url = $base_url_servicios."BuckSheet/insertError";
+
+        $form_data = $memData ;
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+  
+      }
 }
