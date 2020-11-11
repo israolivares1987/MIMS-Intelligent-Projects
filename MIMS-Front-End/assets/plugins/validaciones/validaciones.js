@@ -68,7 +68,7 @@ function cargaCalendarioFechas()
 
   let date = new Date()
 
-  let day = date.getDate()
+  let day = date.getDate() -1
   let month = date.getMonth() + 1
   let year = date.getFullYear()
   let fechaactual="";
@@ -259,7 +259,7 @@ function cargaCalendarioFechas()
         "firstDay": 0
     },
     "startDate": fechaactual,
-    "endDate": "01-012030",
+    "endDate": "01-01-2030",
     "opens": "top"
   },function(chosen_date) {
     $('#fecha_ingreso').val(chosen_date.format('DD-MM-YYYY'));
@@ -304,7 +304,7 @@ $('#var_edit_fecha_termino').daterangepicker({
       "firstDay": 0
   },
   "startDate": fechaactual,
-  "endDate": "01-012030",
+  "endDate": "01-01-2030",
   "opens": "top"
 },function(chosen_date) {
   $('#var_edit_fecha_termino').val(chosen_date.format('DD-MM-YYYY'));

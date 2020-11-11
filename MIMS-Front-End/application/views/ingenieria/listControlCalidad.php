@@ -495,6 +495,8 @@ $(document).ready(function() {
 var cliente = <?php echo $idCliente?> ;
 var orden = <?php echo $idOrden?> ;
 var proyecto = <?php echo $codProyecto?> ;
+var save_method;
+var url;
 
 recargaControlCalidad(orden, cliente);
 recargaCalidadDet(orden,cliente,proyecto);
@@ -527,6 +529,8 @@ recargaControlCalidad(orden, cliente);
 });
 
 $('#btn_nuevo_registro').on('click', function() {
+
+    save_method = 'add';
 
 var element = document.getElementById('mailFrm');
 
@@ -870,6 +874,7 @@ arrayEmail.forEach(function(inputsValuesData) {
 
 }
 
+
 function Guardar() {
 
 
@@ -877,7 +882,7 @@ function Guardar() {
 var valido = false;
 var falso = 0;
 
-data = new FormData(document.getElementById("miForm"));
+var data = new FormData(document.getElementById("miForm"));
 
 var cliente = <?php echo $idCliente?>;
 var orden = <?php echo $idOrden?>;
@@ -920,9 +925,16 @@ if (!validatefecha(data.get('fecha_ingreso'))) {
 if(falso == 0 ){
 
 
+    if(save_method == 'add') {
+                        url = "<?php echo site_url('Journal/guardarJournal')?>";
+                    } else {
+                        url = "<?php echo site_url('Journal/actualizarJournal')?>";
+                    }
+
+
 
    $.ajax({
-           url: '<?php echo base_url('index.php/Journal/guardarJournal');?>',
+           url:  url,
            type: 'post',
            data: data,
            contentType: false,

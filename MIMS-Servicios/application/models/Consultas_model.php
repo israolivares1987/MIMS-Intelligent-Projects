@@ -42,6 +42,8 @@ class Consultas_model extends CI_Model{
     }
 
 
+    // Obtiene datos totales
+
      function obtieneDatosTotalesProyectos($codEmpresa)
     {
 
@@ -153,11 +155,9 @@ class Consultas_model extends CI_Model{
 
 // Funciones por Activador
 
-
-
-
 function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
 {
+
   $this->db->distinct();
   $this->db->select('a.*');
   $this->db->where('a.codEmpresa = b.codEmpresa');
@@ -178,6 +178,7 @@ function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
 
 function obtieneTotClientesxEmpActivador($codEmpresa,$activador)
 {
+
   $this->db->distinct();
   $this->db->select( ' d.nombreCliente');
   $this->db->where('a.codEmpresa = b.codEmpresa');
@@ -190,9 +191,7 @@ function obtieneTotClientesxEmpActivador($codEmpresa,$activador)
   $this->db->where('d.idCliente = b.idCliente');
   $this->db->where(' a.idCliente = d.idCliente');
   $this->db->from('tbl_proyectos a, tbl_ordenes b, tbl_user c, tbl_clientes d');
-
-  return $this->db->get()->num_rows();
-
+  return $this->db->count_all_results();
 }
 
 
@@ -209,8 +208,6 @@ function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
   $this->db->where("b.Categorizacion = '1' ");
   $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
 
- // var_dump( $this->db->get_compiled_select());
-
   return $this->db->count_all_results();
 
 
@@ -226,9 +223,9 @@ function obtieneDatosTotalesLineasActObraActivador($codEmpresa,$activador)
   $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
   $this->db->where("b.Categorizacion = '2' ");
-  $this->db->where('c.ID = b.ExpediterID');
-  $this->db->where("c.EmailAddress = '".$activador."'");
-  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_employees c');
+  $this->db->where('c.cod_user = b.ExpediterID');
+  $this->db->where("c.email = '".$activador."'");
+  $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
   return $this->db->count_all_results();
 
 
@@ -238,11 +235,11 @@ function obtieneDatosOrdenesObraActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '2');
-  $this->db->where('c.ID = b.ExpediterID');
-  $this->db->where("c.EmailAddress = '".$activador."'");
-  $this->db->from('tbl_ordenes b,tbl_employees c');
+  $this->db->where("b.POStatus = '5'");
+  $this->db->where("b.Categorizacion = '2' ");
+  $this->db->where('c.cod_user = b.ExpediterID');
+  $this->db->where("c.email = '".$activador."'");
+  $this->db->from('tbl_ordenes b,tbl_user c');
   return $this->db->count_all_results();
 
 
@@ -255,11 +252,10 @@ function obtieneDatosTotalOrdenesComprasActivador($codEmpresa,$activador)
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where('b.POStatus', '5');
   $this->db->where('b.Categorizacion', '1');
-  $this->db->where('c.ID = b.ExpediterID');
-  $this->db->where("c.EmailAddress = '".$activador."'");
-  $this->db->from('tbl_ordenes b,tbl_employees c');
+  $this->db->where('c.cod_user = b.ExpediterID');
+  $this->db->where("c.email = '".$activador."'");
+  $this->db->from(' tbl_ordenes b,tbl_user c');
   return $this->db->count_all_results();
-
 
 }
 
@@ -271,8 +267,9 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where('b.POStatus', '5');
   $this->db->where('b.Categorizacion', '1');
-  $this->db->where("c.EmailAddress = '".$activador."'");
-  $this->db->from('tbl_ordenes b,tbl_employees c');
+  $this->db->where('c.cod_user = b.ExpediterID');
+  $this->db->where("c.email = '".$activador."'");
+  $this->db->from(' tbl_ordenes b,tbl_user c');
   return $this->db->get()->result();
 
 
@@ -285,8 +282,9 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
     $this->db->where('b.codEmpresa',$codEmpresa);
     $this->db->where('b.POStatus', '5');
     $this->db->where('b.Categorizacion', '2');
-    $this->db->where("c.EmailAddress = '".$activador."'");
-    $this->db->from('tbl_ordenes b,tbl_employees c');
+    $this->db->where('c.cod_user = b.ExpediterID');
+    $this->db->where("c.email = '".$activador."'");
+    $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
     return $this->db->get()->result();
 
 

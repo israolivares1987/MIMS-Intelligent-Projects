@@ -519,7 +519,8 @@ class Journal extends MY_Controller{
         'image/bmp',
         'image/gif',
         'image/png',
-        'image/tiff'
+        'image/tiff',
+        'message/rfc822'
     );
 
     $fileExtArray = array(
@@ -548,7 +549,9 @@ class Journal extends MY_Controller{
       'tif',
       'tiff',
       'TIF',
-      'TIFF'
+      'TIFF',
+      'EML',
+      'eml'
   );
     if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
         // get mime by extension
@@ -993,7 +996,7 @@ $htmlContent .='</html>';
   
 
                 
-                            $archivo = $this->checkFileValidation($nameArchivo);
+                            $archivo = $this->checkFileValidation($_FILES['respaldos']['tmp_name']);
                             $respArchivo = $archivo['resp'];
 
                             
