@@ -219,6 +219,7 @@ function mostrarBlock(){
 
                  $('#miForm')[0].reset();
                  $('#modal_control_calidad').modal('show');
+                 $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
                  $('#name_respaldo').html("");
 
              });
@@ -581,7 +582,7 @@ if(opcion){
                                      <div class="col-md-12">
 
 
-                                         <div class="form-group">
+                                     <div class="form-group">
                                              <label>Fecha Ingreso</label>
 
                                              <div class="input-group">
@@ -589,7 +590,7 @@ if(opcion){
                                                      <span class="input-group-text"><i
                                                              class="far fa-calendar-alt"></i></span>
                                                  </div>
-                                                 <input name="fecha_ingreso" type="text" class="form-control"
+                                                 <input name="fecha_ingreso"  id="fecha_ingreso"  type="text" class="form-control"
                                                      data-inputmask-alias="datetime"
                                                      data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
                                                      im-insert="false">

@@ -1,5 +1,5 @@
  <!-- Content Wrapper. Contains page content -->
-  <div class="content-wrapper">
+ <div class="content-wrapper">
      <!-- Content Header (Page header) -->
      <section class="content-header">
          <div class="container-fluid">
@@ -69,7 +69,65 @@
                          </div>
                          <!-- /.row -->
                      
+              <div class="container-fluid">
+        <h5 class="mb-2">Información Wpanel</h5>
+        <div class="row">
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
 
+              <div class="info-box-content">
+                <span class="info-box-text">ADVERTENCIA DE ACTIVACION</span>
+                <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
+                <span class="info-box-number"><div id="countDespachos"></div> </span>
+              </div>
+              <!-- /.info-box-content --> 
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">ATRASOS</span>
+                <span class="info-box-number"><div id="countAtrasados"></div> </span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
+                <span class="info-box-number"><div id="countAdverCalidad"></div></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+
+        <br/>
 
                      <!-- /.card-header -->
                      <div class="card-body">
@@ -643,8 +701,9 @@
                                  <input name="FechaCF" placeholder="" class="form-control" type="text">
                                  <span class="help-block"></span>
                              </div>
+                             </div>
+                
 
-                             <div class="form-group">
                              <div class="form-group">
                                  <label class="control-label col-md-12">Programado - Actual Fecha CF</label>
                                  <div class="col-md-12">
@@ -654,7 +713,7 @@
                                      </select>
                                  </div>
                              </div>
-                         </div>
+                        
 
 
 
@@ -797,6 +856,38 @@
                  return data;
              }
 
+             function recargaconsultasDatosWpanel(orden, cliente) {
+
+
+
+var  id_orden = '<?php echo $PurchaseOrderID;?>';
+var   bucksheet_html = "";
+
+$.ajax({
+    url: '<?php echo site_url('Consultas/consultasDatosWpanel')?>',
+    type: 'POST',
+    dataType: 'JSON',
+    data: {
+        id_orden_compra: orden,
+        id_cliente: cliente
+    },
+}).done(function(result) {
+    
+  
+
+    $('#countAdverActivacion').html(result.countAdverActivacion);
+    $('#countAtrasados').html(result.countAtrasados);
+    $('#countDespachos').html(result.countDespachos + '/' + result.countTotalWpanel);
+    $('#countAdverCalidad').html(result.countAdverCalidad);
+
+   
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
+
 
              function recargaBuckSheet(orden, cliente) {
 
@@ -804,6 +895,7 @@
                  var tabla_bucksheet = $('#tbl_bucksheet').DataTable();
 
                  
+                 recargaconsultasDatosWpanel(orden, cliente);
 
                  tabla_bucksheet.destroy();
 

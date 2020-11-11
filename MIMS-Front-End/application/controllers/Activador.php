@@ -46,7 +46,6 @@ class Activador extends MY_Controller{
   $datosTotales = $this->callexternosconsultas->obtieneDatosTotalesxActivador($codEmpresa,$email);
 
 
-
   $arrTotalessss = json_decode($datosTotales);
 
   $arrTotales = $this->callutil->objectToArray($arrTotalessss);

@@ -14,7 +14,8 @@ class Journal_model extends CI_Model{
 	t1.comentarios_generales,
 	t1.respaldos,
 	t1.respaldos_original,
-	t2.domain_desc AS tipo_interaccion');
+	t2.domain_desc AS tipo_interaccion,
+    t1.tipo_interaccion as cod_tipo_interaccion');
 $this->db->from('tbl_journal t1, tbl_ref_codes t2');				   
 $this->db->where('tipo',$tipo);
 $this->db->where('estado',1);
@@ -40,7 +41,7 @@ return $this->db->get()->result();
     }
      
 
-   function count_all($tipo,$id_cliente)
+   function count_all($tipo,$id_orden_compra)
 	{
 		$this->db->from($this->table);
 		$this->db->where('id_orden_compra',$id_orden_compra);

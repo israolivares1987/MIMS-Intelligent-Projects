@@ -125,67 +125,79 @@
 <span class="d-block">Bienvenido,</span>
 <span>Favor Iniciar sesion con su cuenta.</span></h4>
                             <div class="divider row"></div>
-                            <div>
-                                <form class="" action="<?php echo site_url('login/auth');?>" method="post">
-                                    <div class="form-row">
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label for="user_name" class="">Username</label>
-                                                <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label for="password" class="">Password</label>
-                                                <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
-                                            </div>
-                                        </div>
-                                        <div class="col-md-6">
-                                            <div class="position-relative form-group">
-                                                <label for="cod_emp" class="">Código Empresa</label>
-                                                <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
-                                            </div>
-                                        </div>
 
-                                        <div class="col-md-12">
-                                            <div class="position-relative form-group">
-                                            <?php
+                            <div class="card-body login-card-body">
 
-                                                    $arr = $this->session->flashdata();
-                                                    if(!empty($arr['msg'])){
-                                                    $html = '<div class="alert alert-danger">';
-                                                    $html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-                                                    $html .= '<strong>';
-                                                    $html .= $arr['msg'];
-                                                    $html .= '</strong>';    
-                                                    $html .= '</div>'; 
-                                                    $html .= '</div>';
-                                                    echo $html;
-                                                    }
+                            <form class="" action="<?php echo site_url('login/auth');?>" method="post">
+  <div class="input-group mb-3">
+  <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
+    <div class="input-group-append">
+      <div class="input-group-text">
+        <span class="fas fa-envelope"></span>
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+  <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
+    <div class="input-group-append">
+      <div class="input-group-text">
+        <span class="fas fa-lock"></span>
+      </div>
+    </div>
+  </div>
 
-                                            ?>
-                                            </div>
-                                        </div>
+  <div class="input-group mb-3">
+  <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
+    <div class="input-group-append">
+      <div class="input-group-text">
+        <span class="fas fa-building"></span>
+      </div>
+    </div>
+  </div>
+  <div class="input-group mb-3">
+   <div class="input-group-append">
 
-                                    </div>
-                                    <div class="d-flex">
-                                        <div class="ml-auto">
-                                            <button class="btn btn-primary btn-lg">Iniciar Sesion</button>
-                                        </div>
-                                    </div>
-                                    <!-- Olvide mi Contraseña -->
-                                  
-                                </form>
-                                                </br>
-                                <div class="d-flex">
-                                        <div class="ml-auto">
-                                            <button id="btn_forget_password" class="btn btn-outline-danger float-right"><i class="fas fa-lock">  Olvidó su contraseña?</i></button>
-                                        
-                                            </div>
-                                        </div>                      
-                              
-                            </div>
+      <?php
+
+$arr = $this->session->flashdata();
+if(!empty($arr['msg'])){
+$html = '<div class="alert alert-danger">';
+$html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+$html .= '<strong>';
+$html .= $arr['msg'];
+$html .= '</strong>';    
+$html .= '</div>'; 
+$html .= '</div>';
+echo $html;
+}
+
+?>
+      
+    </div>
+  </div>
+  <div class="row">
+    <div class="col-8">
+      <div class="icheck-primary">
+        <input type="checkbox" id="remember">
+        <label for="remember">
+        Recordarme
+        </label>
+      </div>
+    </div>
+    <!-- /.col -->
+    <div class="col-4">
+      <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+    </div>
+    <!-- /.col -->
+  </div>
+</form>
+
+<p class="mb-1">
+<button id="btn_forget_password" class="btn btn-outline-danger float-right"><i class="fas fa-lock">  Olvidó su contraseña?</i></button>
+</p>
+</div>    
+
                         </div>
                     </div>
                 </div>

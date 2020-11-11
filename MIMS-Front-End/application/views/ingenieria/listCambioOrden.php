@@ -272,8 +272,7 @@ function mostrarBlock(){
                 $('#name_respaldo').html(nombre);
              }
 
-          
-             function Guardar() {
+                         function Guardar() {
 
 
                  // validar campos
@@ -530,8 +529,8 @@ if(opcion){
              </script>
 
 
-          <!--.modal nuevo control Calidad-->
-      <div id="modal_control_calidad" class="modal fade" tabindex="-1" role="dialog">
+             <!--.modal nuevo control Calidad-->
+             <div id="modal_control_calidad" class="modal fade" tabindex="-1" role="dialog">
                  <div class="modal-dialog modal-xl" role="document">
                      <div class="modal-content">
 
@@ -550,8 +549,8 @@ if(opcion){
                                              <div class="form-group">
                                                  <label class="control-label col-md-9">Nombre Empleado</label>
                                                  <div class="col-md-12">
-                                                     <input id="nombre_empleado" name="nombre_empleado" placeholder="" class="form-control"
-                                                         type="text" value="" readonly>
+                                                     <input name="nombre_empleado" placeholder="" class="form-control"
+                                                         type="text" value="<?php echo $nombreEmpleador;?>" readonly>
                                                  </div>
                                              </div>
                                          </div>
@@ -567,7 +566,7 @@ if(opcion){
                                                      <div class="col-md-12">
                                                          <select name="tipo_interaccion" id="var_tipo_interaccion"
                                                              class="form-control"
-                                                             style="width: 100%;" tabindex="-1"
+                                                             style="width: 100%;"  tabindex="-1"
                                                              aria-hidden="true">
                                                              <?php echo $select_cc;?>
                                                          </select>
@@ -578,8 +577,12 @@ if(opcion){
                                          <!--.form-horizontal-->
                                      </div>
 
+
+
                                      <div class="col-md-12">
-                                         <div class="form-group">
+
+
+                                     <div class="form-group">
                                              <label>Fecha Ingreso</label>
 
                                              <div class="input-group">
@@ -605,7 +608,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Numero Referencial</label>
                                              <div class="col-md-12">
-                                                 <input name="numero_referencial" id="numero_referencial" placeholder="" class="form-control"
+                                                 <input name="numero_referencial" placeholder="" class="form-control"
                                                      type="text" id="var_numero_referencial">
                                                  <span class="help-block"></span>
                                              </div>
@@ -621,7 +624,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Solicitado por</label>
                                              <div class="col-md-12">
-                                                 <input name="solicitado_por"  id="solicitado_por" placeholder="" class="form-control"
+                                                 <input name="solicitado_por" placeholder="" class="form-control"
                                                      type="text" id="var_solicitado_por">
                                                  <span class="help-block"></span>
                                              </div>
@@ -636,7 +639,7 @@ if(opcion){
                                          <div class="form-group">
                                              <label class="control-label col-md-3">Aprobado por</label>
                                              <div class="col-md-12">
-                                                 <input name="aprobado_por"  id="aprobado_por" placeholder="" class="form-control"
+                                                 <input name="aprobado_por" placeholder="" class="form-control"
                                                      type="text" id="var_aprobado_por">
                                                  <span class="help-block"></span>
                                              </div>
@@ -663,13 +666,17 @@ if(opcion){
                                      <div class="col-md-12">
 
 
-                                     <div class="form-group">
-                                        <label for="exampleInputFile">Cargar Archivo</label>
-                                            <div class="custom-file">
-                                                <input type="file"   id="respaldos"  name="respaldos">     
-                                        </div>
-                                    </div>
-                                        
+                                         <div class="form-group">
+                                             <label for="exampleInputFile">Respaldo</label>
+                                             <div class="custom-file">
+                                                <input type="file"  onChange="ver_archivo();" class="custom-file-input" id="var_respaldos" name="respaldos" required="">
+                                                <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
+                                             </div>
+                                             <div>
+                                                 <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
+                                             </div>
+                                         </div>
+                                     </div>
 
 
 
@@ -693,6 +700,7 @@ if(opcion){
                                          </div>
 
                                      </div>
+
                                      <input type="hidden" id="tipo" name="tipo"
                                          value="2">
                                      <input type="hidden" id="id_orden_compra" name="id_orden_compra"
@@ -703,8 +711,6 @@ if(opcion){
                                          value="<?php echo $codProyecto?>">
                                      <input type="hidden" id="id_empleado" name="id_empleado"
                                          value="<?php echo $this->session->userdata('id_usuario')?>">
-
-                                     <input type="hidden" id="id_interaccion" name="id_interaccion" value="">
 
                                      <div id="mailFrm" style="display: none;" class="col-md-12">
                                          <div class="field_wrapper">

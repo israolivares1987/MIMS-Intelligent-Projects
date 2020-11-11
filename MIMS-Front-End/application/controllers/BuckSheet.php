@@ -42,6 +42,12 @@ class BuckSheet extends MY_Controller
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
     $menu = $this->callutil->armaMenuClientes($response);
     $datos['arrClientes'] = $menu;
+    $countAdverCalidad = 0;
+    $countDespachos = 0;
+    $countTotalWpanel= 0;
+    $fecha_hoy = date_create()->format('Y-m-d');
+    $countAtrasados =0;
+    $countAdverActivacion = 0;
 
 
 
@@ -84,8 +90,6 @@ class BuckSheet extends MY_Controller
 
       $arrCliente = json_decode($responseCliente);
 
-      $datos_cliente = array();
-
       if ($arrCliente) {
 
         foreach ($arrCliente as $key => $value) {
@@ -112,7 +116,105 @@ class BuckSheet extends MY_Controller
         $select_ap .= '<option value="' . $valor->domain_id . '">' . $valor->domain_desc . '</option>';
       }
 
+    //contar advertencias de calidad
+      $journal = $this->callexternosjournal->obtienejournal($PurchaseOrderID,1,$id_cliente);
+      $arrJournal = json_decode($journal);     
+       if ($arrJournal) {
+           foreach ($arrJournal as $key => $value) {
+            if($value->cod_tipo_interaccion === '16'){
+              $countAdverCalidad++;
+            }
+            
+          }
+       }
 
+         //contar advertencias de activacion
+      $journalactivacion = $this->callexternosjournal->obtienejournal($PurchaseOrderID,2,$id_cliente);
+      $arrJournalActivacion = json_decode($journalactivacion);     
+       if ($arrJournalActivacion) {
+           foreach ($arrJournalActivacion as $key => $value) {
+            if($value->cod_tipo_interaccion === '14'){
+              $countAdverActivacion++;
+            }
+            
+          }
+       }
+
+
+       //contar despachos, atrasos
+       
+       $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+
+
+       $arrBucksheet = json_decode($bucksheet);
+   
+
+       if ($arrBucksheet) {
+   
+         foreach ($arrBucksheet as $key => $value) {
+   
+          if ($value->lineaActivable==='ACTIVABLE') {
+
+            $countTotalWpanel++;
+          }
+          if (!empty($value->FechaEmbarque) && !empty($value->PackingList)) {
+
+            $countDespachos++;
+          }
+
+
+        
+
+          if ( $this->callutil->diasDiffFechaswpanel($value->FechaCF,$fecha_hoy) < 0 && $value->PACF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+  
+          if ( $this->callutil->diasDiffFechaswpanel($value->FechaComienzoFabricacion,$fecha_hoy)  < 0 && $value->PAFCF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+      
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FechaTerminoFabricacion,$fecha_hoy)  < 0 &&  $value->PAFTF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+            $countAtrasados++;
+          }
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FechaPintura,$fecha_hoy) < 0  && $value->PAFP == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FechaListoInspeccion,$fecha_hoy)  < 0  && $value->PAFLI == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FechaGranallado,$fecha_hoy)  < 0  && $value->PAFG == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FechaSalidaFabrica,$fecha_hoy)  < 0  && $value->PAFSF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+
+          
+
+         }
+       } 
+
+
+
+       
+      $datos['countAdverActivacion'] = $countAdverActivacion; 
+      $datos['countAtrasados'] = $countAtrasados; 
+      $datos['countTotalWpanel'] = $countTotalWpanel; 
+      $datos['countDespachos'] = $countDespachos;
+      $datos['countAdverCalidad'] = $countAdverCalidad;
       $datos['select_ap'] = $select_ap;
       $datos['nombreArchivoEjemplo'] = $nombreArchivoEjemplo;
       $datos['PurchaseOrderID'] = $PurchaseOrderID;
@@ -694,7 +796,7 @@ class BuckSheet extends MY_Controller
         $datos_bucksheet[] = array(
           'PurchaseOrderID' => $value->PurchaseOrderID,
           'purchaseOrdername' => $value->purchaseOrdername,
-          'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
+          'EstadoLineaBucksheet' => $this->callutil->cambianull($value->EstadoLineaBucksheet),
           'lineaActivable' => $value->lineaActivable,
           'NumeroLinea' => $value->NumeroLinea,
           'SupplierName' => $value->SupplierName,
@@ -751,6 +853,7 @@ class BuckSheet extends MY_Controller
       $respuesta = false;
     }
 
+  
     $datos['bucksheets'] = $datos_bucksheet;
     $datos['resp']      = $respuesta;
 
@@ -762,6 +865,7 @@ class BuckSheet extends MY_Controller
 
     $PurchaseOrderID = $this->input->post('id_orden');
     $NumeroLinea = $this->input->post('numero_linea');
+    $fecha_hoy = date_create()->format('Y-m-d');
 
     $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID, $NumeroLinea);
 
@@ -797,7 +901,7 @@ class BuckSheet extends MY_Controller
           'PesoUnitario' => $value->PesoUnitario,
           'PesoTotal' => $value->PesoTotal,
           'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
-          'DiasAntesRAS' => $value->DiasAntesRAS,
+          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaRAS, $fecha_hoy),
           'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
           'PAFCF' => $this->callutil->cambianull($value->PAFCF),
           'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
@@ -847,41 +951,42 @@ class BuckSheet extends MY_Controller
   function updateBuckSheet()
   {
 
-    if (!is_null($this->input->post('FechaCF')) && $this->input->post('PACF') == 'ACTUAL') {
+
+     $EstadoLineaBucksheet = '1';
+
+
+    if (!empty($this->input->post('FechaCF')) &&  $this->input->post('PACF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '7';
     }
 
 
-    if (!is_null($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL') {
+    if (!empty($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '2';
     }
 
-    if (!is_null($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'ACTUAL') {
+    if (!empty($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '3';
     }
 
-    if (!is_null($this->input->post('FechaPintura')) && $this->input->post('PAFP') == 'ACTUAL') {
+    if (!empty($this->input->post('FechaPintura')) && $this->input->post('PAFP') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '6';
     }
 
 
 
-    if (!is_null($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL') {
+    if (!empty($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '4';
     }
 
-    if (!is_null($this->input->post('FechaEmbarque')) &&  !is_null($this->input->post('PackingList'))) {
+    if (!empty($this->input->post('FechaEmbarque')) &&  !empty($this->input->post('PackingList'))) {
 
       $EstadoLineaBucksheet = '5';
     }
-
-
-
 
 
     $Orden = $this->callexternosordenes->obtieneOrden(
@@ -900,8 +1005,6 @@ class BuckSheet extends MY_Controller
       foreach ($arrOrden as $llave => $valor) {
 
         $SupplierName = $valor->SupplierName;
-        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
-        $PurchaseOrderID = $valor->PurchaseOrderID;
         $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
       }
     }

@@ -481,6 +481,26 @@ return $fecha_final;
 
   }
 
+  function diasDiffFechaswpanel($fecha1, $fecha2) {
+
+	if (empty($fecha1)){
+		$fecha1 = date_create()->format('Y-m-d');
+	}
+
+
+	$fecha1 = strtotime($fecha1);
+	$fecha2 = strtotime($fecha2);
+	$datediff = $fecha1 - $fecha2;
+	
+	
+	$fecha_final = round($datediff / (60 * 60 * 24));
+	
+	
+	
+	return $fecha_final;
+	
+	  }
+
 
   public function objectToArray ($object) {
 
