@@ -16,7 +16,7 @@
    </li>
       
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url('index.php/supervisor/index_supervisor');?>" class="nav-link">Home</a>
+        <a href="<?php echo base_url('index.php/calidad/index_calidad');?>" class="nav-link">Home</a>
       </li>
       <li class="nav-item d-none d-sm-inline-block">
         <a href="<?php echo site_url('login/logout');?>" class="nav-link">Cerrar Sesión</a>
