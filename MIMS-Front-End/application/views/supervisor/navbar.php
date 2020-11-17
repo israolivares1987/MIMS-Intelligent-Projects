@@ -16,7 +16,7 @@
       </li>
       
       <li class="nav-item d-none d-sm-inline-block">
-        <a href="<?php echo base_url('index.php/ingenieria/index_ingenieria');?>" class="nav-link">Home</a>
+        <a href="<?php echo base_url('index.php/supervisor/index_supervisor');?>" class="nav-link">Home</a>
       </li>
 
 
