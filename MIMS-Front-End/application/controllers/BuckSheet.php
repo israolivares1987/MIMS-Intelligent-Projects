@@ -325,6 +325,7 @@ class BuckSheet extends MY_Controller
           $handle = fopen($filename, "r");
           $data = fgetcsv($handle, 500, ";");
           $ids = array();
+          $repetidos[]= null;
 
           $i = 0;
           while (($data = fgetcsv($handle, 500, ";")) !== FALSE) {
@@ -505,7 +506,8 @@ class BuckSheet extends MY_Controller
 
                     if ($prevCount > 0) {
 
-
+                      $EstadoLineaBucksheet = '1';
+                      
                       if (!empty($row['FechaCF']) && $row['PACF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '7';
