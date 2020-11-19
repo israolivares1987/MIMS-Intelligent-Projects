@@ -439,7 +439,7 @@
                                                 }else{
                                                      ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
                                                 }
-                                         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+                                                 ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
                                          ordenes_html += '<td>' + orden.Categorizacion + '</td>';
                                          ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
                                          ordenes_html += '<td>' + orden.OrderDate  + '</td>';
@@ -451,6 +451,9 @@
                                          ordenes_html += '<td>' + orden.Requestor+ '</td>';
                                          ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                          ordenes_html += '<td>' + orden.Currency  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+                                         ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
+                                         ordenes_html += '<td>' + orden.Budget  + '</td>';
                                          ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
                                          ordenes_html += '<td>' + orden.DateCreated  + '</td>';
                                          ordenes_html += '<td>' + orden.DateRequired  + '</td>';
@@ -460,6 +463,8 @@
                                          ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
                                          ordenes_html += '<td>' + orden.Support  + '</td>';
                                         ordenes_html += '</tr>';
+
+                                       
 
                                                     
             });
