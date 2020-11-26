@@ -71,8 +71,58 @@
                     </a>
             </li>
           
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon  fas fa-shopping-cart"></i>
+                      <p>COMPRAS</p>
+                    </a>
+            </li>
+
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon  fas fa-tachometer-alt"></i>
+                      <p>
+                          ACTIVACIÓN
+                      </p>
+                    </a>
+            </li>
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon  fab fa-searchengin"></i>
+                      <p>
+                          CONTROL CALIDAD
+                        
+                      </p>
+                    </a>
+            </li>
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon  fas fa-shipping-fast"></i>
+                      <p>
+                          LOGISTICA
+                      </p>
+                    </a>
+            </li>
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon fas fa-warehouse"></i>
+                      <p>
+                          BODEGA
+                      </p>
+                    </a>
+            </li>
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="nav-icon fas fa-hard-hat"></i>
+                      <p>
+                      MATERIALS MANAGEMENT
+                      </p>
+                    </a>
+            </li>
                      
         </ul>
+
+        
       </nav>
       <!-- /.sidebar-menu -->
     </div>
