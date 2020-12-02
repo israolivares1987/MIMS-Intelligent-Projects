@@ -10,6 +10,17 @@ class MY_Controller extends CI_Controller {
 	 * @param array $nav
      * @return void
      */
+
+	public function plantilla_admin($view, $datos = array()){
+
+		$this->load->view('Admin/Adminheader');
+		$this->load->view('Admin/navbar');
+        $this->load->view('Admin/Adminleft_menu',$datos);
+        $this->load->view($view, $datos);
+        $this->load->view('Admin/Adminfooter'); 
+	}
+
+
     public function plantilla_ingenieria($view, $datos = array()){
 
 		$this->load->view('ingenieria/header');
