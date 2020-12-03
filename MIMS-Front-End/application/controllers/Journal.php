@@ -520,7 +520,8 @@ class Journal extends MY_Controller{
         'image/gif',
         'image/png',
         'image/tiff',
-        'message/rfc822'
+        'message/rfc822',
+        'video/mp4'
     );
 
     $fileExtArray = array(
@@ -551,7 +552,9 @@ class Journal extends MY_Controller{
       'TIF',
       'TIFF',
       'EML',
-      'eml'
+      'eml',
+      'MP4',
+      'mp4'
   );
     if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
         // get mime by extension
@@ -617,7 +620,7 @@ function enviarMail(){
 
                 }else{
 
-                  $tituloOrden = "Cambios en la Orden";
+                  $tituloOrden = "Registro de Activación";
                   $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$value->tipo_interaccion);
                 }
             

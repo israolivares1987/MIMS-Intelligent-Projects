@@ -17,6 +17,17 @@ class Page extends CI_Controller{
 
   }
 
+  function adminFull(){
+    //Allowing akses to staff only
+    if($this->session->userdata('rol_id')==='200'){
+      $this->load->view('administrador/header');
+      $this->load->view('administrador/navbar');
+      $this->load->view('administrador/footer');
+    }else{
+        echo "Access Denied";
+    }
+  }
+
   function admin(){
     //Allowing akses to staff only
     if($this->session->userdata('rol_id')==='202'){
@@ -24,6 +35,18 @@ class Page extends CI_Controller{
       $this->load->view('administrador/header');
       $this->load->view('administrador/navbar');
       $this->load->view('administrador/footer');
+    }else{
+        echo "Access Denied";
+    }
+  }
+
+  function staff(){
+    //Allowing akses to staff only
+    if($this->session->userdata('rol_id')==='202'){
+
+      $this->load->view('activador/header');
+      $this->load->view('activador/navbar');
+      $this->load->view('activador/footer');
     }else{
         echo "Access Denied";
     }
