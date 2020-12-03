@@ -59,6 +59,16 @@ class MY_Controller extends CI_Controller {
         $this->load->view('calidad/footer'); 
 	}
 
+	public function plantilla_bodega($view, $datos = array()){
+
+		$this->load->view('bodega/header');
+        $this->load->view('bodega/navbar');
+        $this->load->view('bodega/left_menu');
+        $this->load->view($view, $datos);
+        $this->load->view('bodega/footer'); 
+	}
+
+
 	public function creaDirectorio($directorio)
 	{
 		$retorno = false;
