@@ -19,7 +19,7 @@ class Login extends CI_Controller{
     }else{
         if($this->session->userdata('rol_id')==='200'){
           redirect('Activador/index_activador');
-        elseif($this->session->userdata('rol_id')==='201'){
+        }elseif($this->session->userdata('rol_id')==='201'){
           redirect('Activador/index_activador');
         }elseif ($this->session->userdata('rol_id')==='202') {
           redirect('Activador/index_activador');
@@ -29,7 +29,9 @@ class Login extends CI_Controller{
           redirect('Ingenieria/index_ingenieria');
         }elseif ($this->session->userdata('rol_id')==='205') {
           redirect('Supervisor/index_supervisor');
-        }  
+        }elseif ($this->session->userdata('rol_id')==='206') {
+          redirect('Bodega/index_bodega');
+        }    
 
       }
   }
