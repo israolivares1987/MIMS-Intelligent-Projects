@@ -42,22 +42,22 @@
                         <p>Crear RR</p>
                       </a>
                     </li>
-
+                    
                     <li class="nav-item">
-                      <a href="<#" class="nav-link">
+                    <a href="<?php echo site_url('Bodega/crearRE');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Crear RE</p>
                       </a>
                     </li>
 
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                    <a href="<?php echo site_url('Bodega/crearEXB');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Crear EXB</p>
                       </a>
                     </li>
                     <li class="nav-item">
-                      <a href="#" class="nav-link">
+                    <a href="<?php echo site_url('Bodega/crearEI');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Crear EI</p>
                       </a>

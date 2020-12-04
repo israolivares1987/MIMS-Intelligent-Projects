@@ -235,4 +235,235 @@ $datos['listaTodo'] = $listaTodo ;
 
 
 
+
+public function crearRR(){
+
+
+  $number = 0; 
+  $codEmpresa = $this->session->userdata('cod_emp');
+ 
+  
+
+
+    // Obtiene select Clientes
+
+    $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+
+    $arrClientes = json_decode($clientes);
+
+    $htmlclientes = "";
+    
+    $htmlclientes .= '<select class="form-control" id="clientes">';
+    $htmlclientes .= '<option value="0">Seleccione</option>';
+    
+    foreach ($arrClientes as $key => $value) {
+
+      $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+    
+    }
+
+    $htmlclientes .= '</select>';
+    $datos['select_clientes'] = $htmlclientes;
+
+
+    // Obtiene select Proyectos
+
+    $htmlproyectos = "";
+
+    $htmlproyectos .= '<select class="form-control" id="proyectos">';
+    $htmlproyectos .= '<option value="0">Seleccione</option>';
+    $htmlproyectos .= '</select>';
+    $datos['select_proyectos'] = $htmlproyectos;
+
+
+
+    // Obtiene select Ordenes
+
+    $htmlordenes = "";
+
+    $htmlordenes .= '<select class="form-control" id="ordenes">';
+    $htmlordenes .= '<option value="0">Seleccione</option>';
+    $htmlordenes .= '</select>';
+    $datos['select_ordenes'] = $htmlordenes;
+
+
+
+    $this->plantilla_bodega('bodega/crearRR', $datos);
+
+
+  }
+
+
+  
+
+public function crearRE(){
+
+
+  $number = 0; 
+  $codEmpresa = $this->session->userdata('cod_emp');
+ 
+  
+
+
+    // Obtiene select Clientes
+
+    $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+
+    $arrClientes = json_decode($clientes);
+
+    $htmlclientes = "";
+    
+    $htmlclientes .= '<select class="form-control" id="clientes">';
+    $htmlclientes .= '<option value="0">Seleccione</option>';
+    
+    foreach ($arrClientes as $key => $value) {
+
+      $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+    
+    }
+
+    $htmlclientes .= '</select>';
+    $datos['select_clientes'] = $htmlclientes;
+
+
+    // Obtiene select Proyectos
+
+    $htmlproyectos = "";
+
+    $htmlproyectos .= '<select class="form-control" id="proyectos">';
+    $htmlproyectos .= '<option value="0">Seleccione</option>';
+    $htmlproyectos .= '</select>';
+    $datos['select_proyectos'] = $htmlproyectos;
+
+
+
+    // Obtiene select Ordenes
+
+    $htmlordenes = "";
+
+    $htmlordenes .= '<select class="form-control" id="ordenes">';
+    $htmlordenes .= '<option value="0">Seleccione</option>';
+    $htmlordenes .= '</select>';
+    $datos['select_ordenes'] = $htmlordenes;
+
+
+
+    $this->plantilla_bodega('bodega/crearRE', $datos);
+
+
+  }
+
+
+  public function crearEXB(){
+
+
+    $number = 0; 
+    $codEmpresa = $this->session->userdata('cod_emp');
+   
+    
+  
+  
+      // Obtiene select Clientes
+  
+      $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+  
+      $arrClientes = json_decode($clientes);
+  
+      $htmlclientes = "";
+      
+      $htmlclientes .= '<select class="form-control" id="clientes">';
+      $htmlclientes .= '<option value="0">Seleccione</option>';
+      
+      foreach ($arrClientes as $key => $value) {
+  
+        $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+      
+      }
+  
+      $htmlclientes .= '</select>';
+      $datos['select_clientes'] = $htmlclientes;
+  
+  
+      // Obtiene select Proyectos
+  
+      $htmlproyectos = "";
+  
+      $htmlproyectos .= '<select class="form-control" id="proyectos">';
+      $htmlproyectos .= '<option value="0">Seleccione</option>';
+      $htmlproyectos .= '</select>';
+      $datos['select_proyectos'] = $htmlproyectos;
+  
+  
+  
+      // Obtiene select Ordenes
+  
+      $htmlordenes = "";
+  
+      $htmlordenes .= '<select class="form-control" id="ordenes">';
+      $htmlordenes .= '<option value="0">Seleccione</option>';
+      $htmlordenes .= '</select>';
+      $datos['select_ordenes'] = $htmlordenes;
+  
+  
+  
+      $this->plantilla_bodega('bodega/crearEXB', $datos);
+  
+  
+    }
+    public function crearEI(){
+
+
+      $number = 0; 
+      $codEmpresa = $this->session->userdata('cod_emp');
+     
+      
+    
+    
+        // Obtiene select Clientes
+    
+        $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+    
+        $arrClientes = json_decode($clientes);
+    
+        $htmlclientes = "";
+        
+        $htmlclientes .= '<select class="form-control" id="clientes">';
+        $htmlclientes .= '<option value="0">Seleccione</option>';
+        
+        foreach ($arrClientes as $key => $value) {
+    
+          $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+        
+        }
+    
+        $htmlclientes .= '</select>';
+        $datos['select_clientes'] = $htmlclientes;
+    
+    
+        // Obtiene select Proyectos
+    
+        $htmlproyectos = "";
+    
+        $htmlproyectos .= '<select class="form-control" id="proyectos">';
+        $htmlproyectos .= '<option value="0">Seleccione</option>';
+        $htmlproyectos .= '</select>';
+        $datos['select_proyectos'] = $htmlproyectos;
+    
+    
+    
+        // Obtiene select Ordenes
+    
+        $htmlordenes = "";
+    
+        $htmlordenes .= '<select class="form-control" id="ordenes">';
+        $htmlordenes .= '<option value="0">Seleccione</option>';
+        $htmlordenes .= '</select>';
+        $datos['select_ordenes'] = $htmlordenes;
+    
+    
+    
+        $this->plantilla_bodega('bodega/crearEI', $datos);
+    
+    
+      } 
 }
