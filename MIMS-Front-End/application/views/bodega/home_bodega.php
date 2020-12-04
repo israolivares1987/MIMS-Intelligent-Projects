@@ -149,8 +149,12 @@
                              <thead>
                              <tr>
                                          <th>Número de Línea</th>
+                                         <th>TAG Number</th>
                                          <th>Stock Code</th>
-                                         <th>Cantidad ST</th>
+                                         <th>ST Cantidad Elementos</th>
+                                         <th>ST Cantidad Unitaria</th>
+                                         <th>ST Unidad</th>
+                                         <th>ST Cantidad  Total</th>
                                          <th>Guia Despacho</th>
                                          <th>Packing List</th>
                                          <th class="grey">Cantidad Recibida</th>
@@ -939,16 +943,22 @@ function recargaListaToDo(){
                          bucksheet_html += '<tr>';
                        
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';                        
-                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';    
+                        
+                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>'; 
+
                         bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
-                        bucksheet_html += '<td class="grey" >100</td>';
-                        bucksheet_html += '<td class="grey" >50</td>';
+                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
+                        bucksheet_html += '<td class="grey" >1</td>';
+                        bucksheet_html += '<td class="grey" >1</td>';
                         bucksheet_html += '<td>RECIBIDO PARCIALMENTE</td>';
                         bucksheet_html += '<td>4567898 - MATERIAL DE FERRETER</td>';
-                        bucksheet_html += '<td>12344</td>';
-                        bucksheet_html += '<td>RE-123</td>';
+                        bucksheet_html += '<td>' + bucksheets.PurchaseOrderID+ '</td>';
+                        bucksheet_html += '<td>RR-123</td>';
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td>01-10-2020 15:20:36</td>';
