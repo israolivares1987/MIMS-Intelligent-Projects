@@ -104,7 +104,7 @@
                     </a>
             </li>
             <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link text-sm">
+            <a href="<?php echo base_url();?>index.php/bodega/index_bodega" class="nav-link text-sm">
                     <i class="nav-icon fas fa-warehouse"></i>
                       <p>
                           BODEGA

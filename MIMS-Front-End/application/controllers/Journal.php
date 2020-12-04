@@ -832,7 +832,7 @@ $htmlContent .='</html>';
 
         
 
-          $subject="Nuevo registro Control de calidad Orden: ".$PurchaseOrderNumber." ".$PurchaseOrderDescription;
+          $subject="Nuevo registro ".$tituloOrden." Orden: ".$PurchaseOrderNumber." ".$PurchaseOrderDescription;
 
           $file = $this->config->item('BASE_ARCHIVOS')."controlcalidad/".$respaldos;
 
