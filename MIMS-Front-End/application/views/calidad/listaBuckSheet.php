@@ -440,22 +440,51 @@ $.ajax({
                      $('#datos_bucksheet').html(bucksheet_html);
 
                      $('#tbl_bucksheet').DataTable({
-                        "searching": true,
                         language: {
-                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
-                        },
-                        "paging": false,
-                        "lengthChange": false,
-                        "searching": true,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": true,
-                      //  "responsive": true,
-                        "scrollY": "600px",
-                        "scrollX": "200px",
-                        "scrollCollapse": true
-                     });
-
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
+          "paging": false,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            }
+    ]
+                        }).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
+                    
                  }).fail(function() {
                      console.log("error change cliente");
                  })

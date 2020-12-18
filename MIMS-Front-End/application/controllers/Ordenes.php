@@ -293,10 +293,11 @@ class Ordenes extends CI_Controller{
 
                   $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                   'accion'  => 'INSERTA_ORDEN',
+                  'id_registro' =>  '0',
                   'usuario'  =>  $this->session->userdata('n_usuario'),
                   'rol' =>   $this->session->userdata('nombre_rol'),
                   'objeto'  => 'ORDEN' ,
-                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+                  'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
           
                   $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
@@ -504,11 +505,12 @@ class Ordenes extends CI_Controller{
 
 
                   $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'accion'  => 'ACTUALIZA_ORDEN',
+                  'id_registro' =>  $id_order_or,
                   'usuario'  =>  $this->session->userdata('n_usuario'),
                   'rol' =>   $this->session->userdata('nombre_rol'),
                   'objeto'  => 'ORDEN' ,
-                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+                  'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
           
                   $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -584,11 +586,12 @@ class Ordenes extends CI_Controller{
                   $resp =  true;
 
                   $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-                  'accion'  => 'ACTUALIZA_ORDEN_'.$id_order_or,
+                  'accion'  => 'ACTUALIZA_ORDEN',
+                  'id_registro' =>  $id_order_or,
                   'usuario'  =>  $this->session->userdata('n_usuario'),
                   'rol' =>   $this->session->userdata('nombre_rol'),
                   'objeto'  => 'ORDEN' ,
-                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+                  'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
           
                   $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             
@@ -665,11 +668,12 @@ class Ordenes extends CI_Controller{
             $data['mensaje'] = 'Registro eliminado correctamente';
 
             $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-            'accion'  => 'ELIMINA_ORDEN_'.$orden,
+            'accion'  => 'ELIMINA_ORDEN',
+            'id_registro' =>  $orden,
             'usuario'  =>  $this->session->userdata('n_usuario'),
             'rol' =>   $this->session->userdata('nombre_rol'),
             'objeto'  => 'ORDEN' ,
-            'fechaCambio' =>  date_create()->format('Y-m-d'));
+            'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
     
             $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 

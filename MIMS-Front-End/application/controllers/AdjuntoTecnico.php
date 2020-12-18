@@ -131,10 +131,11 @@ class AdjuntoTecnico extends MY_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'INSERTA_ADJUNTO_TECNICO',
+        'id_registro' => $idInsertado,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'ADJUNTO_TECNICO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -301,10 +302,11 @@ class AdjuntoTecnico extends MY_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ELIMINA_ADJUNTO_TECNICO',
+        'id_registro' => $id,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'ADJUNTO_TECNICO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -414,10 +416,11 @@ class AdjuntoTecnico extends MY_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ELIMINA_ARCHIVO_ADJUNTO_TECNICO',
+        'id_registro' => $id,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'ADJUNTO_TECNICO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -523,10 +526,11 @@ class AdjuntoTecnico extends MY_Controller{
 
                 $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                 'accion'  => 'INSERTA_ARCHIVO_ADJUNTO_TECNICO',
+                'id_registro' => $idInsertado,
                 'usuario'  =>  $this->session->userdata('n_usuario'),
                 'rol' =>   $this->session->userdata('nombre_rol'),
                 'objeto'  => 'ADJUNTO_TECNICO' ,
-                'fechaCambio' =>  date_create()->format('Y-m-d'));
+                'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
         
                 $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                 

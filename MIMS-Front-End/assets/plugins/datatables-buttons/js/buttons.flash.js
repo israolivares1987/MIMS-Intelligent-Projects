@@ -1141,10 +1141,10 @@ DataTable.ext.buttons.copyFlash = $.extend( {}, flashButton, {
 		this.processing( false );
 
 		dt.buttons.info(
-			dt.i18n( 'buttons.copyTitle', 'Copy to clipboard' ),
+			dt.i18n( 'buttons.copyTitle', 'Copiado al portapapeles' ),
 			dt.i18n( 'buttons.copySuccess', {
-				_: 'Copied %d rows to clipboard',
-				1: 'Copied 1 row to clipboard'
+				_: 'copiados %d registros al portapapeles',
+				1: 'Copied 1 registros al portapapeles'
 			}, data.rows ),
 			3000
 		);
@@ -1235,7 +1235,9 @@ DataTable.ext.buttons.excelFlash = $.extend( {}, flashButton, {
 					}
 				}
 
-				row[i] = $.trim( row[i] );
+				row[i] = typeof row[i].trim === 'function'
+					? row[i].trim()
+					: row[i];
 
 				// Special number formatting options
 				for ( var j=0, jen=_excelSpecials.length ; j<jen ; j++ ) {

@@ -170,9 +170,10 @@ class Clientes extends MY_Controller{
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'INSERTA_CLIENTE',
         'usuario'  =>  $this->session->userdata('n_usuario'),
+        'id_registro' =>  $idInsertado,
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'CLIENTE' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -292,9 +293,10 @@ class Clientes extends MY_Controller{
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ACTUALIZA_CLIENTE',
         'usuario'  =>  $this->session->userdata('n_usuario'),
+        'id_registro' =>  $idCliente,
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'CLIENTE' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -336,10 +338,11 @@ class Clientes extends MY_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ELIMINA_CLIENTE',
+        'id_registro' =>  $idCliente,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'CLIENTE' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 

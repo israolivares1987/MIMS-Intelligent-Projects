@@ -49,13 +49,16 @@ class TodoUsuarios extends MY_Controller{
 
     }else{
 
+      $color = substr(md5(time()), 0, 6);
+
       $insert= array(
         'codEmpresa'  => $codEmpresa,  
         'id_usuario'      => $cod_usuario,
         'lista_todo'      => $var_lista_todo,
         'descripcion_todo'  => $descripcion_todo,
         'fecha_inicio'           => $var_fecha_inicio,
-        'fecha_termino'       => $var_fecha_termino
+        'fecha_termino'       => $var_fecha_termino,
+        'color'               =>    $color 
       );
 
       $todo = $this->callexternostodo->guardarTodoUsuario($insert);
@@ -77,7 +80,7 @@ class TodoUsuarios extends MY_Controller{
       'usuario'  =>  $this->session->userdata('n_usuario'),
       'rol' =>   $this->session->userdata('nombre_rol'),
       'objeto'  => 'TO-DO' ,
-      'fechaCambio' =>  date_create()->format('Y-m-d'));
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
       $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -171,10 +174,11 @@ class TodoUsuarios extends MY_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ACTUALIZA_ESTADO_TO-DO',
+        'id_registro' => $id_todo,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'TO-DO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
   
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -302,7 +306,7 @@ class TodoUsuarios extends MY_Controller{
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'TO-DO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
   
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -349,7 +353,7 @@ class TodoUsuarios extends MY_Controller{
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'TO-DO' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
  
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -443,5 +447,47 @@ class TodoUsuarios extends MY_Controller{
 
 
   }
+
+
+  function obtieneTodoCalendario(){
+
+    $cod_usuario = $this->input->post('cod_usuario');
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $datos_todo = array();
+    $datos_select = array();
+    $todo = $this->callexternostodo->obtieneTodoUsuarios($codEmpresa,$cod_usuario);
+    $rol_id = $this->session->userdata('rol_id');
+
+
+    $arrTodo = json_decode($todo);
+
+  
+    if($arrTodo){
+      
+      
+      foreach ($arrTodo as $key => $value) {
+
+       
+
+
+        $datos_todo[] = array(
+          'title'           => $value->descripcion_todo,
+          'start'           =>  $this->callutil->formatoFechaInicioYMD($value->fecha_inicio),
+          'end'             =>  $this->callutil->formatoFechaFinYMD($value->fecha_termino),
+          'backgroundColor' =>  '#'.$value->color , //red
+          'borderColor'     =>  '#'.$value->color , //red
+          'allDay'          =>  'true'
+        ); 
+      }
+    }
+
+  
+   
+    echo json_encode($datos_todo);
+
+
+  }
+
+
 
 }

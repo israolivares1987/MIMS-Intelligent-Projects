@@ -15,7 +15,7 @@ body,
 .wrapper {
   position: relative;
 
-  & .content-wrapper {
+  .content-wrapper {
     min-height: calc(100vh - #{$main-header-height} - #{$main-footer-height});
   }
 
@@ -28,7 +28,7 @@ body,
       max-width: $boxed-layout-max-width;
     }
 
-    & .main-sidebar {
+    .main-sidebar {
       left: inherit;
     }
   }
@@ -347,9 +347,7 @@ body,
     .control-sidebar {
       bottom: 0;
     }
-  }
 
-  .layout-footer-fixed & {
     .main-footer {
       bottom: 0;
       left: 0;
@@ -376,9 +374,7 @@ body,
         .control-sidebar {
           bottom: 0;
         }
-      }
 
-      .layout#{$infix}-footer-fixed & {
         .main-footer {
           bottom: 0;
           left: 0;
@@ -403,7 +399,7 @@ body,
   .layout-top-nav & {
     margin-left: 0;
 
-    .main-header {    
+    .main-header {
       .brand-image {
         margin-top: -.5rem;
         margin-right: .2rem;
@@ -411,14 +407,14 @@ body,
       }
     }
 
-    & .main-sidebar {
+    .main-sidebar {
       bottom: inherit;
       height: inherit;
     }
 
-    & .content-wrapper,
-    & .main-header,
-    & .main-footer {
+    .content-wrapper,
+    .main-header,
+    .main-footer {
       margin-left: 0;
     }
   }
@@ -483,7 +479,7 @@ body:not(.sidebar-mini-md) {
 }
 
 .content-wrapper {
-  background: $main-bg;
+  background-color: $main-bg;
 
   > .content {
     padding: $content-padding-y $content-padding-x;
@@ -577,7 +573,7 @@ body:not(.sidebar-mini-md) {
 }
 
 .main-footer {
-  background: $main-footer-bg;
+  background-color: $main-footer-bg;
   border-top: $main-footer-border-top;
   color: lighten($gray-700, 25%);
   padding: $main-footer-padding;
@@ -605,7 +601,7 @@ body:not(.sidebar-mini-md) {
   }
 
   .breadcrumb {
-    background: transparent;
+    background-color: transparent;
     line-height: 1.8rem;
     margin-bottom: 0;
     padding: 0;
@@ -615,7 +611,6 @@ body:not(.sidebar-mini-md) {
     }
   }
 }
-
 
 
 .hold-transition {
@@ -628,5 +623,29 @@ body:not(.sidebar-mini-md) {
   .main-footer {
     transition: none !important;
     animation-duration: 0s !important;
+  }
+}
+
+.dark-mode {
+  background-color: lighten($dark, 7.5%) !important;
+  color: $white;
+
+  .breadcrumb-item {
+    &.active,
+    + .breadcrumb-item::before {
+      color: $gray-500;
+    }
+  }
+  .main-footer {
+    background-color: $dark;
+    border-color: lighten($dark, 10%);
+  }
+  .content-wrapper {
+    background-color: lighten($dark, 7.5%);
+    color: $white;
+
+    .content-header {
+      color: $white;
+    }
   }
 }

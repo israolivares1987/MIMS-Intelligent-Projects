@@ -1,23 +1,26 @@
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header">
-         <div class="container-fluid">
-             <div class="row mb-2">
-                 <div class="col-sm-6">
-                     <h1>Administracion de ordenes y contratos</h1>
-                 </div>
-             </div>
-         </div><!-- /.container-fluid -->
-     </section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1>Administración de ordenes y contratos</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-     <!-- Main content -->
-     <section class="content">
-         <div class="row">
-             <div class="col-12">
-                 <div class="card">
-                         <div class="row">
-                             <div class="col-lg-6">
+    <!-- Main content -->
+ <section class="content">
+
+      <!-- Default box -->
+    <div class="card">
+        
+      <div class="card-body">
+        
+           <div class="row">
+                 <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -28,21 +31,20 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                           <dl class="row">
-                                             <dt class="col-sm-12">Order ID:</dt>
-                                             <dd class="col-sm-10"><?php echo $PurchaseOrderID;?></dd>
-                                             <dt class="col-sm-12">Descripción:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-12">PurchaseOrderNumber:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
+                                             <dt class="col-sm-8">Order ID:</dt>
+                                             <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-8">Descripción:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-
-                             </div>
-                             <!-- /.col-md-6 -->
-                             <div class="col-lg-6">
+                    </div>
+                            
+                             <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -64,74 +66,110 @@
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-                             </div>
-                             <!-- /.col-md-6 -->
-                         </div>
-                         <!-- /.row -->
-                     
-                         <div class="container-fluid">
-        <h5 class="mb-2">Información Wpanel</h5>
+                            </div>
+
+
+                             <div class="col-sm-6">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Información Wpanel
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                     <div class="row">
+
+
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIA DE ACTIVACIÓN</span>
+                                                        <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
+                                                        <span class="info-box-number"><div id="countDespachos"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content --> 
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+
+                                                </div>
+                                                <div class="row">
+                                                <!-- /.col -->
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <div class="info-box">
+                                                            <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+
+                                                            <div class="info-box-content">
+                                                                <span class="info-box-text">ATRASOS</span>
+                                                                <span class="info-box-number"><div id="countAtrasados"></div> </span>
+                                                            </div>
+                                                            <!-- /.info-box-content -->
+                                                            </div>
+                                                            <!-- /.info-box -->
+                                                        </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
+                                                        <span class="info-box-number"><div id="countAdverCalidad"></div></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                </div>
+
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                                 </div>
+                            
+             </div>
+           <!-- /.row -->
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+ </section>
+
+
+ <section class="content">
+ <!-- TO DO List -->
+ <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIA DE ACTIVACION</span>
-                <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+       
+          <div class="col-md-12">
+             
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Opciones
+                </h3>
               </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
-                <span class="info-box-number"><div id="countDespachos"></div> </span>
-              </div>
-              <!-- /.info-box-content --> 
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ATRASOS</span>
-                <span class="info-box-number"><div id="countAtrasados"></div> </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
-                <span class="info-box-number"><div id="countAdverCalidad"></div></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-        <br/>
-
-                     <!-- /.card-header -->
-                     <div class="card-body">
-                     <table class="" cellspacing="0" width="100%">
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
                                          <th>
@@ -169,8 +207,25 @@
                                      </tr>
                                  </tbody>
                              </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
+            <!-- /.card -->
 
-                         <table class="table" cellspacing="0" width="99%">
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Detalle Wpanel
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -188,7 +243,6 @@
                                  </tr>
                              </tbody>
                          </table>
-
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
@@ -248,12 +302,30 @@
                              <tbody id="datos_bucksheet">
                              </tbody>
                          </table>
-                     </div>
-                 </div>
-             </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
 
 
-             <div class="modal fade" id="modal_buckSheet">
+
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+
+  
+     <!-- /.content -->
+
+    </div>
+  <!-- /.content-wrapper -->
+  </section>
+
+  <div class="modal fade" id="modal_buckSheet">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
@@ -287,7 +359,6 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
 <!-- Bootstrap modal -->
 
 <div class="modal fade" id="modal-default">
@@ -975,20 +1046,50 @@ $.ajax({
                      $('#datos_bucksheet').html(bucksheet_html);
 
                      $('#tbl_bucksheet').DataTable({
-                        "searching": true,
+                        
                         language: {
-                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
-                        },
-                        "paging": false,
-                        "lengthChange": false,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": true,
-                        //"responsive": true,
-                        "scrollY": "400px",
-                        "scrollX": "200px",
-                        "scrollCollapse": true
-                     });
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
+          "paging": false,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            }
+    ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
                      console.log("error change cliente");

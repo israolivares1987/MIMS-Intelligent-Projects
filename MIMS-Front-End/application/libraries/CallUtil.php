@@ -60,7 +60,50 @@ public function formatoFechaSalida($date){
 
 			return $Fecha;
 		}
+
 		
+		public function formatoFechaInicioYMD($date){
+			
+
+
+			if(strlen($date) == 0  || is_null($date) || empty($date) || $date === 'null' || $date === '0000-00-00 00:00:00' || $date ==='30-11--0001' || $date ==='01-01-1970'){
+		
+				$Fecha=null;
+		
+			  }else{
+		
+				$time = strtotime($date);  
+					$Fecha= date('Y-m-d',$time);
+		
+		
+			  }	
+				
+		
+					return $Fecha;
+				}
+			
+
+				public function formatoFechaFinYMD($date){
+			
+
+
+					if(strlen($date) == 0  || is_null($date) || empty($date) || $date === 'null' || $date === '0000-00-00 00:00:00' || $date ==='30-11--0001' || $date ==='01-01-1970'){
+				
+						$Fecha=null;
+				
+					  }else{
+				
+						$time = strtotime($date."+ 1 days"); 
+							$Fecha= date('Y-m-d',$time);
+				
+				
+					  }	
+						
+				
+							return $Fecha;
+						}
+
+				 
 		
 function armaMenuClientes($response){
 

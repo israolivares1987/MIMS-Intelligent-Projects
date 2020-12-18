@@ -16,6 +16,7 @@ class Todo_usuarios_model extends CI_Model{
 		a.descripcion_todo,
 		a.fecha_inicio,
 		a.fecha_termino,
+		a.color,
 		a.estado,
 						   DATEDIFF(fecha_termino,date(sysdate())) as dias, CONCAT(
 			 ( DATEDIFF(fecha_termino,date(sysdate()))), ' Dias ') as dif");

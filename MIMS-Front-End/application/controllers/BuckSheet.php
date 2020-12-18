@@ -312,6 +312,7 @@ class BuckSheet extends MY_Controller
           $insert_bitacora = array(
             'codEmpresa' => $this->session->userdata('cod_emp'),
             'accion'  => 'SUBE_WPANEL',
+            'id_registro' => '0',
             'usuario'  =>  $this->session->userdata('n_usuario'),
             'rol' =>   $this->session->userdata('nombre_rol'),
             'objeto'  => 'WPANEL',
@@ -648,7 +649,8 @@ class BuckSheet extends MY_Controller
 
                         $insert_bitacora = array(
                           'codEmpresa' => $this->session->userdata('cod_emp'),
-                          'accion'  => 'ACTUALIZA_WPANEL_LINEA_' . $row['NumeroLinea'],
+                          'accion'  => 'ACTUALIZA_WPANEL_LINEA',
+                          'id_registro' => $row['NumeroLinea'],
                           'usuario'  =>  $this->session->userdata('n_usuario'),
                           'rol' =>   $this->session->userdata('nombre_rol'),
                           'objeto'  => 'WPANEL',
@@ -668,6 +670,7 @@ class BuckSheet extends MY_Controller
                         $insert_bitacora = array(
                           'codEmpresa' => $this->session->userdata('cod_emp'),
                           'accion'  => 'INSERTA_WPANEL_LINEA_' . $row['NumeroLinea'],
+                          'id_registro' => $row['NumeroLinea'],
                           'usuario'  =>  $this->session->userdata('n_usuario'),
                           'rol' =>   $this->session->userdata('nombre_rol'),
                           'objeto'  => 'WPANEL',
@@ -1072,7 +1075,8 @@ class BuckSheet extends MY_Controller
 
       $insert_bitacora = array(
         'codEmpresa' => $this->session->userdata('cod_emp'),
-        'accion'  => 'ACTUALIZA_WPANEL_LINEA_' . $this->input->post('NumeroLinea'),
+        'accion'  => 'ACTUALIZA_WPANEL_LINEA',
+        'id_registro' =>  $this->input->post('NumeroLinea'),
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'WPANEL',
@@ -1112,7 +1116,8 @@ class BuckSheet extends MY_Controller
 
       $insert_bitacora = array(
         'codEmpresa' => $this->session->userdata('cod_emp'),
-        'accion'  => 'ELIMINA_WPANEL_LINEA_' . $numeroLinea,
+        'accion'  => 'ELIMINA_WPANEL_LINEA'  ,
+        'id_registro' =>  $numeroLinea,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'WPANEL',
@@ -1282,6 +1287,7 @@ class BuckSheet extends MY_Controller
     $insert_bitacora = array(
       'codEmpresa' => $this->session->userdata('cod_emp'),
       'accion'  => 'DESCARGA_WPANEL',
+      'id_registro' =>  '0',
       'usuario'  =>  $this->session->userdata('n_usuario'),
       'rol' =>   $this->session->userdata('nombre_rol'),
       'objeto'  => 'WPANEL',
