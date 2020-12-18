@@ -71,8 +71,8 @@
                         empleados_html += '<td>' + empresaTO.correo + '</td>';
                         
                         empleados_html += '<td>';
-                        empleados_html += '<button data-toggle="tooltip" data-placement="top" title="Editar Empleado" onclick="edit_empresa('+empresaTO.cod_empresa+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-                        empleados_html += '<button data-toggle="tooltip" data-placement="top" title="Eliminar Empleado" onclick="elimina_empresa('+empresaTO.cod_empresa +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                        empleados_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Empleado" onclick="edit_empresa('+empresaTO.cod_empresa+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+                        empleados_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Empleado" onclick="elimina_empresa('+empresaTO.cod_empresa +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
                         empleados_html += '</td>';
                         empleados_html += '</tr>';
 
@@ -84,20 +84,57 @@
                      $('#tbl_empleados').DataTable({
 
                         language: {
-                            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
-                        },
-                        "paging": true,
-                        "lengthChange": false,
-                        "searching": false,
-                        "ordering": true,
-                        "info": true,
-                        "autoWidth": true,
-                    // "responsive": true,
-                        "scrollY": "600px",
-                        "scrollX": true,
-                        "scrollCollapse": true
-           
-                     });
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+                        }).buttons().container().appendTo('#tbl_empleados_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
                      console.log("error change cliente");

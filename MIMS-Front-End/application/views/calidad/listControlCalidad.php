@@ -631,10 +631,10 @@ $.ajax({
     $.each(result.journals, function(key, journal) {
         calidad_html += '<tr>';
         calidad_html += '<td>';
-        calidad_html +='<button data-toggle="tooltip" data-placement="top" title="Desactiva Registro" ' +
+        calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
                         'onclick="desactiva_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
                         'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
-                        '<button data-toggle="tooltip" data-placement="top" title="Desactiva Registro" ' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
                         'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
                         'class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
         calidad_html += '</td>';
@@ -652,20 +652,59 @@ $.ajax({
 
 
     $('#datos_ccalidad').html(calidad_html);
-    $('#tbl_ccalidad').DataTable({language: {
-        url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
-        },
+    $('#tbl_ccalidad').DataTable({
+        language: {
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
         "paging": true,
         "lengthChange": false,
         "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": true,
-    //    "responsive": true,
         "scrollY": "600px",
-    "scrollX": true,
-    "scrollCollapse": true
-    });
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+                        }).buttons().container().appendTo('#tbl_ccalidad_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
     console.log("error change cliente");
@@ -764,20 +803,59 @@ calidad_det_html += '</tr>';
     $('#datos_controlcalidaddet').html(calidad_det_html);
 
     $('#tbl_controlcalidaddet').DataTable({
+      
         language: {
-            url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'	
-        },
-        "paging": false,
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
+        "paging": true,
         "lengthChange": false,
         "searching": true,
         "ordering": true,
         "info": true,
         "autoWidth": true,
-    //   "responsive": true,
-        "scrollY": "300px",
+        "scrollY": "600px",
         "scrollX": true,
-        "scrollCollapse": true
-    });
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+                        }).buttons().container().appendTo('#tbl_controlcalidaddet_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {
     console.log("error change ccdet");

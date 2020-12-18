@@ -137,11 +137,12 @@ $validar = $this->callutil->validarDatosProyectos($valida);
 
 
       $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-      'accion'  => 'INSERTA_PROVEEDORES',
+      'accion'  => 'INSERTA_PROYECTO',
+      'id_registro' =>  '0',
       'usuario'  =>  $this->session->userdata('n_usuario'),
       'rol' =>   $this->session->userdata('nombre_rol'),
       'objeto'  => 'PROYECTOS' ,
-      'fechaCambio' =>  date_create()->format('Y-m-d'));
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
       $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -248,11 +249,12 @@ function actualizaProyecto(){
 
 
       $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-      'accion'  => 'ACTUALIZA_PROVEEDORES',
+      'accion'  => 'ACTUALIZA_PROYECTO',
+      'id_registro' =>  $id_proyecto,
       'usuario'  =>  $this->session->userdata('n_usuario'),
       'rol' =>   $this->session->userdata('nombre_rol'),
       'objeto'  => 'PROYECTOS' ,
-      'fechaCambio' =>  date_create()->format('Y-m-d'));
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
       $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -311,11 +313,12 @@ function eliminaProyecto(){
 
 
       $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-      'accion'  => 'ELIMINA_PROVEEDORES',
+      'accion'  => 'ELIMINA_PROYECTO',
+      'id_registro' =>  $id_proyecto,
       'usuario'  =>  $this->session->userdata('n_usuario'),
       'rol' =>   $this->session->userdata('nombre_rol'),
       'objeto'  => 'PROYECTOS' ,
-      'fechaCambio' =>  date_create()->format('Y-m-d'));
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
       $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 

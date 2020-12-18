@@ -188,7 +188,7 @@ class Proveedores extends MY_Controller{
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'PROVEEDORES' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -327,7 +327,7 @@ class Proveedores extends MY_Controller{
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'PROVEEDORES' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
         
@@ -373,7 +373,7 @@ class Proveedores extends MY_Controller{
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'PROVEEDORES' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 

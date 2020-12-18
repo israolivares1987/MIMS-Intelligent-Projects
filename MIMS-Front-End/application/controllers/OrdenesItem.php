@@ -146,10 +146,11 @@ class OrdenesItem extends CI_Controller{
                 
                 $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                 'accion'  => 'INSERTA_ORDEN_ITEM',
+                'id_registro' =>  '0',
                 'usuario'  =>  $this->session->userdata('n_usuario'),
                 'rol' =>   $this->session->userdata('nombre_rol'),
                 'objeto'  => 'ORDEN_ITEM' ,
-                'fechaCambio' =>  date_create()->format('Y-m-d'));
+                'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
         
                 $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -263,10 +264,11 @@ class OrdenesItem extends CI_Controller{
 
                   $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                   'accion'  => 'ACTUALIZA_ORDEN_ITEM',
+                  'id_registro' =>  $id_orden_item,
                   'usuario'  =>  $this->session->userdata('n_usuario'),
                   'rol' =>   $this->session->userdata('nombre_rol'),
                   'objeto'  => 'ORDEN_ITEM' ,
-                  'fechaCambio' =>  date_create()->format('Y-m-d'));
+                  'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
           
                   $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -312,10 +314,11 @@ class OrdenesItem extends CI_Controller{
 
         $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
         'accion'  => 'ELIMINA_ORDEN_ITEM',
+        'id_registro' =>  $orden_item,
         'usuario'  =>  $this->session->userdata('n_usuario'),
         'rol' =>   $this->session->userdata('nombre_rol'),
         'objeto'  => 'ORDEN_ITEM' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d'));
+        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
 
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -421,11 +424,12 @@ public function save() {
 
 
                                           $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-                                          'accion'  => 'ACTUALIZA_ORDEN_ITEM_'.$row['id_item'],
+                                          'accion'  => 'ACTUALIZA_ORDEN_ITEM',
+                                          'id_registro' =>  $row['id_item'],
                                           'usuario'  =>  $this->session->userdata('n_usuario'),
                                           'rol' =>   $this->session->userdata('nombre_rol'),
                                           'objeto'  => 'ORDEN_ITEM' ,
-                                          'fechaCambio' =>  date_create()->format('Y-m-d'));
+                                          'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
                                   
                                           $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 
@@ -472,11 +476,12 @@ public function save() {
 
                                       
                                           $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-                                          'accion'  => 'INSERTA_ORDEN_ITEM_'.$row['id_item'],
+                                          'accion'  => 'INSERTA_ORDEN_ITEM',
+                                          'id_registro' =>  $row['id_item'],
                                           'usuario'  =>  $this->session->userdata('n_usuario'),
                                           'rol' =>   $this->session->userdata('nombre_rol'),
                                           'objeto'  => 'ORDEN_ITEM' ,
-                                          'fechaCambio' =>  date_create()->format('Y-m-d'));
+                                          'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
                                   
                                           $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
 

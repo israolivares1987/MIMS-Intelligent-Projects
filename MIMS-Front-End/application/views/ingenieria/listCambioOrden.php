@@ -436,7 +436,7 @@ function mostrarBlock(){
                          calidad_html += '<td>' + journal.respaldos + '</td>';
                          calidad_html += '<td>';
                          calidad_html +=
-                             '<button data-toggle="tooltip" data-placement="top" title="Desactiva Registro" onclick="desactiva_registro_cc(' +
+                             '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" onclick="desactiva_registro_cc(' +
                              journal.id_interaccion +','+ orden + ',' + cliente +
                              ')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
                          calidad_html += '</td>';
@@ -446,20 +446,59 @@ function mostrarBlock(){
 
 
                      $('#datos_corden').html(calidad_html);
-                     $('#tbl_corden').DataTable({language: {
-                          url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js');?>'
-                         },
-                         "paging": true,
-                         "lengthChange": false,
-                         "searching": true,
-                         "ordering": true,
-                         "info": true,
-                         "autoWidth": true,
-                         //"responsive": true,
-                         "scrollY": "600px",
-                        "scrollX": true,
-                        "scrollCollapse": true
-                     });
+                     $('#tbl_corden').DataTable({
+                        language: {
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+          },
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
+          "autoWidth": true,
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+                        }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
                      console.log("error change cliente");

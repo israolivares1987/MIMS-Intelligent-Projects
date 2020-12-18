@@ -409,10 +409,11 @@ class Journal extends MY_Controller{
     
                     $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                     'accion'  => 'INSERTA_JOURNAL',
+                    'id_registro' =>  $idInsertado,
                     'usuario'  =>  $this->session->userdata('n_usuario'),
                     'rol' =>   $this->session->userdata('nombre_rol'),
                     'objeto'  => 'JOURNAL' ,
-                    'fechaCambio' =>  date_create()->format('Y-m-d'));
+                    'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
             
                     $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                     
@@ -465,10 +466,11 @@ class Journal extends MY_Controller{
 
                 $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                 'accion'  => 'INSERTA_JOURNAL',
+                'id_registro' =>  $idInsertado,
                 'usuario'  =>  $this->session->userdata('n_usuario'),
                 'rol' =>   $this->session->userdata('nombre_rol'),
                 'objeto'  => 'JOURNAL' ,
-                'fechaCambio' =>  date_create()->format('Y-m-d'));
+                'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
         
                 $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                 
@@ -1068,10 +1070,11 @@ $htmlContent .='</html>';
 
                                 $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                                 'accion'  => 'ACTUALIZAR_JOURNAL',
+                                'id_registro' =>  $idInsertado,
                                 'usuario'  =>  $this->session->userdata('n_usuario'),
                                 'rol' =>   $this->session->userdata('nombre_rol'),
                                 'objeto'  => 'JOURNAL' ,
-                                'fechaCambio' =>  date_create()->format('Y-m-d'));
+                                'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
                         
                                 $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
                                 
@@ -1125,10 +1128,11 @@ $htmlContent .='</html>';
 
             $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
             'accion'  => 'ACTUALIZAR_JOURNAL',
+            'id_registro' =>  $idInsertado,
             'usuario'  =>  $this->session->userdata('n_usuario'),
             'rol' =>   $this->session->userdata('nombre_rol'),
             'objeto'  => 'JOURNAL' ,
-            'fechaCambio' =>  date_create()->format('Y-m-d'));
+            'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
     
             $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
             

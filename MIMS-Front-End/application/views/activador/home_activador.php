@@ -117,7 +117,7 @@
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                 Lista To-Do
+                 Gestor de Tarea
                 </h3>
               </div>
               <!-- /.card-header -->
@@ -126,7 +126,7 @@
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
-                                                                    <th>Lista To-Do</th>
+                                                                    <th>Gestor de Tarea</th>
                                                                     <th>Descripcion</th>
                                                                     <th>Estado</th>
                                                                     <th>Fecha Inicio</th>
@@ -695,19 +695,58 @@ function recargaListaToDo(){
 
         $('#tbl_todo').DataTable({
           language: {
-              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
-          "paging": true,
-          "lengthChange": false,
-          "searching": true,
-          "ordering": true,
-          "info": true,
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
           "autoWidth": true,
-      //   "responsive": true,
-          "scrollY": "300px",
-          "scrollX": true,
-          "scrollCollapse": true
-      });
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+          }).buttons().container().appendTo('#tbl_todo_wrapper .col-md-6:eq(0)');
+
 
     }).fail(function() {
       console.log("error todo_html");

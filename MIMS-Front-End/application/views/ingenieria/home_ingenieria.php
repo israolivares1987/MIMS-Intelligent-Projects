@@ -113,20 +113,26 @@
       </div>
       <!-- /.card -->
  <!-- TO DO List -->
- <div class="card">
+
+ <div class="container-fluid">
+        <div class="row">
+       
+          <div class="col-md-8">
+             
+          <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
-                 Lista To-Do
+                 Gestor de Tarea
                 </h3>
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
+              <table id="tbl_todo" class="table table-bordered table-hover" cellspacing="0" width=100%>
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
-                                                                    <th>Lista To-Do</th>
+                                                                    <th>Gestor de Tarea</th>
                                                                     <th>Descripcion</th>
                                                                     <th>Estado</th>
                                                                     <th>Fecha Inicio</th>
@@ -144,11 +150,19 @@
               </div>
             </div>
             <!-- /.card -->
+          </div>
+          <!-- /.col -->
 
-
+          <div class="col-md-4">
+             <div id="calendar"></div>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
 
     </section>
     <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -420,6 +434,7 @@ $.ajax({
        $('#modal_nuevo_todo').modal('hide');
        toastr.success(result.mensaje);
        recargaListaToDo();
+       recargaCalendario();
 
     }else{
         
@@ -569,6 +584,7 @@ $.ajax({
       toastr.success(result.mensaje);
      $('#modal_nuevo_todo_edit').modal('hide');
      recargaListaToDo();
+     recargaCalendario();
 
     }else{
         
@@ -607,6 +623,7 @@ if(opcion){
         toastr.success(result.mensaje);
        
         recargaListaToDo();
+        recargaCalendario();
 
       }else{
 
@@ -633,6 +650,8 @@ function recargaListaToDo(){
   var todo_html ='';
   var color ="";
   var select_todo = "";
+  var lista_todo = "";  
+  var descripcion_todo = "";
 
  var tabla_todo =  $('#tbl_todo').DataTable();
 
@@ -653,33 +672,63 @@ function recargaListaToDo(){
     }).done(function(result) {
       select_todo = result.select_lista_todo;
       $.each(result.formularios,function(key, formulario) {
+
+
+        if(formulario.estado ==='1'){
+
+          lista_todo = formulario.lista_todo ;  
+          descripcion_todo = formulario.descripcion_todo; 
+
+          }else{
+            lista_todo = '<strike>' + formulario.lista_todo + '</strike>';  
+            descripcion_todo = '<strike>'+formulario.descripcion_todo+'</strike>'; 
+          }
+
+
+
         todo_html += '<tr>';
         todo_html += '<td>';
         todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
         todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
         todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
         todo_html += '</td>';
-        todo_html += '<td>' + formulario.lista_todo + '</td>';
-        if(formulario.dias > 3){
+        todo_html += '<td>' + lista_todo + '</td>';
+
+        if(formulario.dias > 3 ){
+
           color = 'badge badge-success';
 
+        }else if(formulario.dias <= 3 && formulario.dias >= 0 ){
+          
+          color = 'badge badge-warning';
+         
+
         }else{
+
           color = 'badge badge-danger';
         }
-        todo_html += '<td>' + formulario.descripcion_todo + '</td>';
 
-                if(formulario.estado ==='1'){
+      
 
-                      todo_html += '<td><span class="bg-green">Activo</span></td>';  
+        todo_html += '<td>' + descripcion_todo + '</td>';
 
-                }else{
-                  todo_html += '<td><span class="bg-red">Desactivo</span></td>';
-                }
 
+        if(formulario.dias > 3 ){
+
+          todo_html += '<td><span class="bg-green">En tiempo</span></td>';  
+
+        }else if(formulario.dias <= 3 && formulario.dias >= 0 ){
+
+          todo_html += '<td><span class="bg-yellow">Por vencer</span></td>';  
+
+        }else{
+
+          todo_html += '<td><span class="bg-red">Atrasada</span></td>';  
+        }
 
         todo_html += '<td>' + formulario.fecha_inicio + '</td>';
         todo_html += '<td>' + formulario.fecha_termino + '</td>';
-        todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
+        todo_html += '<td><medium class="'+color+'"><i class="far fa-clock"></i> <p>'+formulario.dif+'</medium></td>';
         todo_html += '</tr>';
 
         
@@ -693,27 +742,123 @@ function recargaListaToDo(){
 
         $('[data-toggle="tooltip"]').tooltip();
 
+
         $('#tbl_todo').DataTable({
           language: {
-              url: '<?php echo base_url('assets/plugins/datatables/lang/esp.js'); ?>'	
+              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
-          "paging": true,
-          "lengthChange": false,
-          "searching": true,
-          "ordering": true,
-          "info": true,
+        "paging": true,
+        "lengthChange": false,
+        "searching": true,
+        "ordering": true,
+        "info": true,
+        "autoWidth": true,
+        "scrollY": "600px",
+        "scrollX": true,
+        "colReorder": true,
+        "scrollCollapse": true,
+          "responsive": false,
+          "lengthChange": true, 
           "autoWidth": true,
-      //   "responsive": true,
-          "scrollY": "300px",
-          "scrollX": true,
-          "scrollCollapse": true
-      });
+          "dom": 'Bfrtip',
+          "lengthMenu": [
+            [ 10, 25, 50, -1 ],
+            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+        ],
+          "buttons": [
+            {
+            "extend": 'copy',
+            "text": 'Copiar'
+            },
+            {
+            "extend": 'csv',
+            "text": 'csv'
+            },
+            {
+            "extend": 'excel',
+            "text": 'excel'
+            },
+            {
+            "extend": 'pdf',
+            "text": 'pdf'
+            },
+            {
+            "extend": 'print',
+            "text": 'Imprimir'
+            },
+            {
+            "extend": 'colvis',
+            "text": 'Columnas Visibles'
+            },
+            {
+            "extend": 'pageLength',
+            "text": 'Mostrar Registros'
+            }
+    ]
+
+
+
+        }).buttons().container().appendTo('#tbl_todo_wrapper .col-md-6:eq(0)');
+
+        recargaCalendario();
 
     }).fail(function() {
       console.log("error todo_html");
     })
 
 }
+
+
+function recargaCalendario(){
+
+
+  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+    var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+  
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+ 
+    var Calendar = FullCalendar.Calendar;
+    var calendarEl = document.getElementById('calendar');
+
+
+    var calendar = new Calendar(calendarEl, {
+      headerToolbar: {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      locale: 'es',
+      themeSystem: 'bootstrap',
+      //Random default events
+      eventSources: [
+
+          // your event source
+          {
+            url: '<?php echo base_url('index.php/TodoUsuarios/obtieneTodoCalendario'); ?>',
+            method: 'POST',
+            extraParams: {
+              cod_usuario: cod_usuario,
+              cod_emp: cod_empresa
+            },
+            failure: function() {
+              alert('there was an error while fetching events!');
+            }
+          }
+
+          // any other sources...
+
+          ]
+
+    });
+
+    calendar.render();
+    // $('#calendar').fullCalendar()
+
+
+
+}
+
 </script>
 
 <script>
@@ -728,8 +873,8 @@ function recargaListaToDo(){
 
     cargaCalendarioFechas();
     recargaListaToDo();
-   
-         
+    recargaCalendario();
+
 
   })
 </script>
