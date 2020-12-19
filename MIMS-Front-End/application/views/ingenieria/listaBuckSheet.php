@@ -990,6 +990,7 @@ $.ajax({
                              '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
                         bucksheet_html += '<td><?php echo $PurchaseOrderNumber;?></td>';
+                        bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
