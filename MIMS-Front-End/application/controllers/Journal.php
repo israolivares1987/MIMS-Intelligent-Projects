@@ -622,7 +622,7 @@ function enviarMail(){
 
                 }else{
 
-                  $tituloOrden = "Registro de Activación";
+                  $tituloOrden = "Gestión de Activación";
                   $datosEstados  = $this->callexternosdominios->obtieneDatoRef('TIPO_INTERACCION_CO',$value->tipo_interaccion);
                 }
             

@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Registro de Activación</h1>
+                     <h1>Gestión de Activación</h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -68,7 +68,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Actividades de Registro de Activación
+                                Actividades de Gestión de Activación
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -562,7 +562,7 @@ if(opcion){
                      <div class="modal-content">
 
                          <div class="modal-header">
-                             <h5 class="modal-title">Nuevo Registro Cambios en la Orden</h5>
+                             <h5 class="modal-title">Nuevo Registro Gestión de Activación</h5>
                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                                  <span aria-hidden="true">&times;</span>
                              </button>
