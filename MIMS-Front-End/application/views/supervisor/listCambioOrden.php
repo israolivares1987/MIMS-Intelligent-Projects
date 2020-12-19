@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Registro de Activación</h1>
+                     <h1>Gestión de Activación</h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -68,7 +68,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Actividades de Registro de Activación
+                                Actividades de Gestión de Activación
                             </h3>
                         </div>
                         <!-- /.card-header -->

@@ -200,7 +200,7 @@
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="cambiosenorden()"><i class="fas fa-file-download">
-                                                     </i> Cambios en la orden
+                                                     </i> Gestión de Activación
                                                  </button>
                                              </div>
                                          </th>
@@ -247,6 +247,7 @@
                              <thead>
                              <tr>
                                          <th>Editar</th>
+                                         <th>Número de la orden</th>
                                          <th>Nombre de la Orden</th>
                                          <th>Estado Linea</th>
                                          <th>Tipo de Linea</th>
@@ -258,28 +259,28 @@
                                          <th>ST Cantidad</th>
                                          <th>TAG Number</th>
                                          <th>Stockcode</th>
-                                         <th>Descripcion</th>
+                                         <th>Descripción</th>
                                          <th>Plano Modelo</th>
                                          <th>Revisión</th>
-                                         <th>Paquete Construccion Area</th>
+                                         <th>Paquete Construcción Area</th>
                                          <th>Medida Unitaria</th>
                                          <th>Peso Total</th>
-                                         <th>Fecha Comienzo Fabricacion</th>
+                                         <th>Fecha Comienzo Fabricación</th>
                                          <th>P/A FCF</th>
-                                         <th>Fecha Termino Fabricacion</th>
+                                         <th>Fecha Termino Fabricación</th>
                                          <th>P/A FTF</th>
                                          <th>Fecha Granallado</th>
                                          <th>P/A FG</th>
                                          <th>Fecha Pintura</th>
                                          <th>P/A FP</th>
-                                         <th>Fecha Listo Inspeccion</th>
+                                         <th>Fecha Listo Inspección</th>
                                          <th>P/A FLI</th>
-                                         <th>Acta Liberacion Calidad</th>
+                                         <th>Acta Liberación Calidad</th>
                                          <th>Fecha Salida Fabrica</th>
                                          <th>P/A FSF</th>
                                          <th>Fecha Embarque</th>
                                          <th>Packing List</th>
-                                         <th>Guia Despacho</th>
+                                         <th>Guiá Despacho</th>
                                          <th>SCN Number</th>
                                          <th class="grey" >Unidades Solicitadas</th>
                                          <th class="grey" >Unidades Recibidas</th>
@@ -294,9 +295,9 @@
                                          <th>Transmittal CF</th>
                                          <th>Fecha CF</th>
                                          <th>P/A CF</th>
-                                         <th>Observacion 7</th>
-                                         <th>Fecha RAS</th>
-                                         <th>Dia sAntes RAS</th>
+                                         <th>Observación 7</th>
+                                         <th>Fecha Linea Base</th>
+                                         <th>Días Antes Linea Base</th>
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -461,13 +462,13 @@
 
 
                          <div class="form-group">
-                             <label class="control-label col-md-12">Fecha RAS</label>
+                             <label class="control-label col-md-12">Fecha Linea Base</label>
                              <div class="col-md-12">
                                  <div class="input-group">
                                      <div class="input-group-prepend">
                                          <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
                                      </div>
-                                     <input name="FechaRAS" type="text" class="form-control" id="FechaRAS"
+                                     <input name="FechaLineaBase" type="text" class="form-control" id="FechaLineaBase"
                                          data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
                                          data-mask="" im-insert="false" onchange="mostrarDiaAntesRAS(this)">
                                  </div>
@@ -988,7 +989,7 @@ $.ajax({
                              '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
                              '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
-                        bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
+                        bucksheet_html += '<td><?php echo $PurchaseOrderNumber;?></td>';
                         bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
@@ -1036,7 +1037,7 @@ $.ajax({
                         bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaLineaBase+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                         bucksheet_html += '</tr>';
 
@@ -1271,7 +1272,7 @@ $.ajax({
             $('[name="PaqueteConstruccionArea"]').val(bucksheets.PaqueteConstruccionArea);
             $('[name="PesoUnitario"]').val(bucksheets.PesoUnitario);
             $('[name="PesoTotal"]').val(bucksheets.PesoTotal);
-            $('[name="FechaRAS"]').val(bucksheets.FechaRAS);
+            $('[name="FechaLineaBase"]').val(bucksheets.FechaLineaBase);
             $('[name="DiasAntesRAS"]').val(bucksheets.DiasAntesRAS);
             $('[name="FechaComienzoFabricacion"]').val(bucksheets.FechaComienzoFabricacion);
             $('[name="PAFCF"]').val(bucksheets.PAFCF);
@@ -1395,7 +1396,7 @@ function mostrarDiaAntesRAS(input){
 
    
 // Here are the two dates to compare
-var date1 = replaceAll(document.getElementById('FechaRAS').value , ".", "" );
+var date1 = replaceAll(document.getElementById('FechaLineaBase').value , ".", "" );
 var date2 = replaceAll(document.getElementById('FechaSalidaFabrica').value , ".", "" );
 
 // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day

@@ -593,7 +593,7 @@ $('#or_act_ship_date').daterangepicker({
 });
 
 
-$('#FechaRAS').daterangepicker({
+$('#FechaLineaBase').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -635,7 +635,7 @@ $('#FechaRAS').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaRAS').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FechaLineaBase').val(chosen_date.format('DD-MM-YYYY'));
 });
 
 $('#FechaComienzoFabricacion').daterangepicker({

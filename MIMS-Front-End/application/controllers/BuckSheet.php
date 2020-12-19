@@ -369,12 +369,12 @@ class BuckSheet extends MY_Controller
                 $errorCount++;
             }else{
            
-              if ($this->callutil->validarFecha($row['FechaRAS'])){
+              if ($this->callutil->validarFecha($row['FechaLineaBase'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaRAS', $row);
+                $this->insertar_error($idError, $idmensaje,'FechaLineaBase', $row);
                 $error++;
                 $errorCount++;
 
@@ -599,8 +599,8 @@ class BuckSheet extends MY_Controller
                       'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
                       'PesoUnitario' => $row['PesoUnitario'],
                       'PesoTotal' => $row['PesoTotal'],
-                      'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
-                      'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaRAS'], $fecha_hoy),
+                      'FechaLineaBase' => $this->callutil->formatoFecha($row['FechaLineaBase']),
+                      'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaLineaBase'], $fecha_hoy),
                       'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
                       'PAFCF' => $row['PAFCF'],
                       'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
@@ -817,8 +817,8 @@ class BuckSheet extends MY_Controller
           'PaqueteConstruccionArea' => $this->callutil->cambianull($value->PaqueteConstruccionArea),
           'PesoUnitario' => $this->callutil->cambianull($value->PesoUnitario),
           'PesoTotal' => $this->callutil->cambianull($value->PesoTotal),
-          'FechaRAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaRAS)),
-          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaRAS, $fecha_hoy),
+          'FechaLineaBase' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaLineaBase)),
+          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaLineaBase, $fecha_hoy),
           'FechaComienzoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion)),
           'PAFCF' => $this->callutil->cambianull($value->PAFCF),
           'FechaTerminoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion)),
@@ -905,8 +905,8 @@ class BuckSheet extends MY_Controller
           'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
           'PesoUnitario' => $value->PesoUnitario,
           'PesoTotal' => $value->PesoTotal,
-          'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
-          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaRAS, $fecha_hoy),
+          'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
+          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaLineaBase, $fecha_hoy),
           'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
           'PAFCF' => $this->callutil->cambianull($value->PAFCF),
           'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
@@ -1032,7 +1032,7 @@ class BuckSheet extends MY_Controller
       'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
       'PesoUnitario' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoUnitario')),
       'PesoTotal' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoTotal')),
-      'FechaRAS' => $this->callutil->formatoFecha($this->input->post('FechaRAS')),
+      'FechaLineaBase' => $this->callutil->formatoFecha($this->input->post('FechaLineaBase')),
       'DiasAntesRAS' => $this->input->post('DiasAntesRAS'),
       'FechaComienzoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaComienzoFabricacion')),
       'PAFCF' => $this->input->post('PAFCF'),
@@ -1183,7 +1183,7 @@ class BuckSheet extends MY_Controller
       "PaqueteConstruccionArea",
       "PesoUnitario",
       "PesoTotal",
-      "FechaRAS",
+      "FechaLineaBase",
       "DiasAntesRAS",
       "FechaComienzoFabricacion",
       "PAFCF",
@@ -1242,7 +1242,7 @@ class BuckSheet extends MY_Controller
         'PaqueteConstruccionArea' =>  $value->PaqueteConstruccionArea,
         'PesoUnitario' => $value->PesoUnitario,
         'PesoTotal' => $value->PesoTotal,
-        'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
+        'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
         'DiasAntesRAS' => $value->DiasAntesRAS,
         'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
         'PAFCF' => $value->PAFCF,
@@ -1330,7 +1330,7 @@ class BuckSheet extends MY_Controller
       'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
       'PesoUnitario' => $row['PesoUnitario'],
       'PesoTotal' => $row['PesoTotal'],
-      'FechaRAS' => $this->callutil->formatoFecha($row['FechaRAS']),
+      'FechaLineaBase' => $this->callutil->formatoFecha($row['FechaLineaBase']),
       'DiasAntesRAS' => '',
       'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
       'PAFCF' => $row['PAFCF'],
@@ -1411,7 +1411,7 @@ class BuckSheet extends MY_Controller
       "PaqueteConstruccionArea",
       "PesoUnitario",
       "PesoTotal",
-      "FechaRAS",
+      "FechaLineaBase",
       "DiasAntesRAS",
       "FechaComienzoFabricacion",
       "PAFCF",
@@ -1473,7 +1473,7 @@ class BuckSheet extends MY_Controller
         'PaqueteConstruccionArea' =>  $value->PaqueteConstruccionArea,
         'PesoUnitario' => $value->PesoUnitario,
         'PesoTotal' => $value->PesoTotal,
-        'FechaRAS' => $this->callutil->formatoFechaSalida($value->FechaRAS),
+        'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
         'DiasAntesRAS' => $value->DiasAntesRAS,
         'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
         'PAFCF' => $value->PAFCF,

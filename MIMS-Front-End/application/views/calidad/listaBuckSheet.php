@@ -211,8 +211,8 @@
                                          <th>Fecha CF</th>
                                          <th>P/A CF</th>
                                          <th>Observacion 7</th>
-                                         <th>Fecha RAS</th>
-                                         <th>Dia sAntes RAS</th>
+                                         <th>Fecha Linea Base</th>
+                                         <th>Dias Antes Linea Base</th>
                                       
                                      </tr>
                              </thead>
@@ -429,7 +429,7 @@ $.ajax({
                         bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaRAS+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.FechaLineaBase+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
                      
                         bucksheet_html += '</tr>';

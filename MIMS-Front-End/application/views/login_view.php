@@ -104,77 +104,78 @@
         <div class="app-container">
             <div class="h-100">
                 <div class="h-100 no-gutters row">
-                    <div class="d-none d-lg-block col-lg-4">
+                    <div class="d-none d-lg-block col-lg-3">
                         <div class="slider-light">
+                        
                             <div class="slick-slider">
                                 <div>
                                     <div class="position-relative h-100 d-flex justify-content-center align-items-center bg-plum-plate" tabindex="-1">
-                                        <div class="slide-img-bg"></div>
+                                    
                                         <div class="slider-content"><img src="<?php echo base_url('assets/dist/img/logo-mims.png');?>" width="300" height="150"></div>
+                                        
                                     </div>
                                 </div>
-                               
-                             
                             </div>
+                            
                         </div>
                     </div>
-                    <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-8">
+                    
+                    <div class="h-100 d-flex bg-white justify-content-center align-items-center col-md-12 col-lg-9">
                         <div class="mx-auto app-login-box col-sm-12 col-md-10 col-lg-9">
-                            <div class="app-logo"></div>
                             <h4 class="mb-0">
-<span class="d-block">Bienvenido,</span>
-<span>Favor Iniciar sesion con su cuenta.</span></h4>
-                            <div class="divider row"></div>
+                                <span class="d-block">Bienvenido,</span>
+                                <span>Favor Iniciar sesión con su cuenta.</span></h4>
+                                                            <div class="divider row"></div>
 
 
                             <div class="card-body login-card-body">
 
                             <form class="" action="<?php echo site_url('login/auth');?>" method="post">
-  <div class="input-group mb-3">
-  <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
-    <div class="input-group-append">
-      <div class="input-group-text">
-        <span class="fas fa-envelope"></span>
-      </div>
-    </div>
-  </div>
-  <div class="input-group mb-3">
-  <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
-    <div class="input-group-append">
-      <div class="input-group-text">
-        <span class="fas fa-lock"></span>
-      </div>
-    </div>
-  </div>
+                              <div class="input-group mb-3">
+                              <input name="user_name" id="user_name" placeholder="Nombre de Usuario..." type="text" class="form-control">
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-envelope"></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                              <input name="password" id="password" placeholder="Password aqui ..." type="password" class="form-control">
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-lock"></span>
+                                  </div>
+                                </div>
+                              </div>
 
-  <div class="input-group mb-3">
-  <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
-    <div class="input-group-append">
-      <div class="input-group-text">
-        <span class="fas fa-building"></span>
-      </div>
-    </div>
-  </div>
-  <div class="input-group mb-3">
-   <div class="input-group-append">
+                              <div class="input-group mb-3">
+                              <input name="cod_emp" id="cod_emp" placeholder="Código Empresa ..." type="text" class="form-control">
+                                <div class="input-group-append">
+                                  <div class="input-group-text">
+                                    <span class="fas fa-building"></span>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="input-group mb-3">
+                              <div class="input-group-append">
 
-      <?php
+                                      <?php
 
-$arr = $this->session->flashdata();
-if(!empty($arr['msg'])){
-$html = '<div class="alert alert-danger">';
-$html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
-$html .= '<strong>';
-$html .= $arr['msg'];
-$html .= '</strong>';    
-$html .= '</div>'; 
-$html .= '</div>';
-echo $html;
-}
+                                $arr = $this->session->flashdata();
+                                if(!empty($arr['msg'])){
+                                $html = '<div class="alert alert-danger">';
+                                $html .= '<a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>';
+                                $html .= '<strong>';
+                                $html .= $arr['msg'];
+                                $html .= '</strong>';    
+                                $html .= '</div>'; 
+                                $html .= '</div>';
+                                echo $html;
+                                }
 
-?>
+                                ?>
       
-    </div>
+         </div>
   </div>
   <div class="row">
     <div class="col-8">
@@ -187,14 +188,14 @@ echo $html;
     </div>
     <!-- /.col -->
     <div class="col-4">
-      <button type="submit" class="btn btn-primary btn-block">Iniciar Sesion</button>
+      <button type="submit" class="btn btn-primary btn-block">Iniciar Sesión</button>
     </div>
     <!-- /.col -->
   </div>
 </form>
 
 <p class="mb-1">
-<button id="btn_forget_password" class="btn btn-outline-danger float-right"><i class="fas fa-lock">  Olvidó su contraseña?</i></button>
+<button id="btn_forget_password" class="btn btn-outline-danger float-right"><i class="fas fa-lock"> Olvidó su contraseña?</i></button>
 </p>
 </div>    
 
@@ -234,7 +235,7 @@ echo $html;
 
 
                     <div class="form-group">
-                        <label>Codigo Empresa</label>
+                        <label>Código Empresa</label>
 
                         <div class="input-group">
                             <div class="input-group-prepend">
