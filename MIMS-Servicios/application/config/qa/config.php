@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | WITH a trailing slash:
 |
 |	http://example.com/
-|
+| 
 | WARNING: You MUST set this value!
 |
 | If it is not set, then CodeIgniter will try guess the protocol and path
@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
-$config['BASE_SERVICIOS_HOME'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
+$config['BASE_SERVICIOS_HOME'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End/";
 
 /*
 |--------------------------------------------------------------------------
