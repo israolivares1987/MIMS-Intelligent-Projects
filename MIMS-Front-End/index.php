@@ -67,7 +67,7 @@ if($_SERVER['SERVER_NAME']){
 
 		#AMBIENTE QA
 		case 'ec2-34-221-109-153.us-west-2.compute.amazonaws.com':
-			define('ENVIRONMENT', 'production');
+			define('ENVIRONMENT', 'qa');
 			break;
 
 		#AMBIENTE PRODUCCIÓN
@@ -93,7 +93,11 @@ switch (ENVIRONMENT)
 		ini_set('display_errors', 1);
 	break;
 
-	case 'testing':
+	case 'qa':
+		error_reporting(-1);
+		ini_set('display_errors', 1);
+		break;
+		
 	case 'production':
 		ini_set('display_errors', 0);
 		if (version_compare(PHP_VERSION, '5.3', '>='))
