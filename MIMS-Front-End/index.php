@@ -66,8 +66,8 @@ if($_SERVER['SERVER_NAME']){
 			break;
 
 		#AMBIENTE QA
-		case '':
-			define('ENVIRONMENT', 'testing');
+		case 'ec2-34-221-109-153.us-west-2.compute.amazonaws.com':
+			define('ENVIRONMENT', 'production');
 			break;
 
 		#AMBIENTE PRODUCCIÓN
