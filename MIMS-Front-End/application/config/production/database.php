@@ -75,10 +75,10 @@ $query_builder = TRUE;
 
 $db['default'] = array(
 	'dsn'	=> '',
-	'hostname' => '131.72.236.194',
+	'hostname' => 'mimsproj-mims.csub1bndxzgq.us-west-2.rds.amazonaws.com',
 	'username' => 'mimsproj_mimspro',
 	'password' => 'Mims.2020!.',
-	'database' => 'mimsproj_mims',
+	'database' => 'mimsproj-mims',
 	'dbdriver' => 'mysqli',
 	'dbprefix' => '',
 	'pconnect' => FALSE,
