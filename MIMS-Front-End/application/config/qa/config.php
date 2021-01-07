@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
-$config['BASE_SERVICIOS'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
+$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
+$config['BASE_SERVICIOS'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
 $config['BASE_ARCHIVOS'] = $_SERVER['DOCUMENT_ROOT'].'/MIMS-Intelligent-Projects/MIMS-Front-End/archivos/';
 
 /*
