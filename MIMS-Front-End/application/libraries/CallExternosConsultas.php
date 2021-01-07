@@ -82,7 +82,7 @@ class CallExternosConsultas {
 function iniciosesion($user_name,$password,$cod_emp){
   
           $base_url_servicios =$this->obtienebaseservicios();                
-          $api_url = $base_url_servicios."index.php/Login/validateUser";
+          $api_url = $base_url_servicios."Login/validateUser";
     
           $form_data = array(
             'user_name'		=>$user_name,
