@@ -69,8 +69,8 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where("a.lineaActivable = 'ACTIVABLE'");
-      $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+      $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
+      $this->db->where('a.ID_OC = b.PurchaseOrderID');
       $this->db->where("b.POStatus = '5'");
       $this->db->where("b.Categorizacion = '1' ");
       $this->db->from('tbl_bucksheet a, tbl_ordenes b');
@@ -86,8 +86,8 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where("a.lineaActivable = 'ACTIVABLE'");
-      $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+      $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
+      $this->db->where('a.ID_OC = b.PurchaseOrderID');
       $this->db->where("b.POStatus = '5'");
       $this->db->where("b.Categorizacion = '2' ");
       $this->db->from('tbl_bucksheet a, tbl_ordenes b');
@@ -200,8 +200,8 @@ function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where("a.lineaActivable = 'ACTIVABLE'");
-  $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+  $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
+  $this->db->where('a.ID_OC = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
@@ -219,8 +219,8 @@ function obtieneDatosTotalesLineasActObraActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where("a.lineaActivable = 'ACTIVABLE'");
-  $this->db->where('a.PurchaseOrderID = b.PurchaseOrderID');
+  $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
+  $this->db->where('a.ID_OC = b.PurchaseOrderID');
   $this->db->where("b.POStatus = '5'");
   $this->db->where("b.Categorizacion = '2' ");
   $this->db->where('c.cod_user = b.ExpediterID');
@@ -284,7 +284,7 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
     $this->db->where('b.Categorizacion', '2');
     $this->db->where('c.cod_user = b.ExpediterID');
     $this->db->where("c.email = '".$activador."'");
-    $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
+    $this->db->from('tbl_ordenes b,tbl_user c');
     return $this->db->get()->result();
 
 

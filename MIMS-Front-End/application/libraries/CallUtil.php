@@ -148,7 +148,21 @@ function formatoNumero($dato){
 			return $dinero;
 		}
 
+		
+		public function obtieneDatoRef($dominio,$dato){
 
+	
+			$CI =& get_instance();
+			$CI->load->library('CallExternosDominios');
+			
+	
+			
+			$def  = $CI->callexternosdominios->obtieneDatoRef($dominio,$dato); 
+			
+			
+			return $def;
+			
+			}
 public function obtiene_select_def_act($inputId,$selected,$domain){
 
 	
@@ -162,7 +176,7 @@ public function obtiene_select_def_act($inputId,$selected,$domain){
 		
 		$datosdef = json_decode($def);
 		
-		$html .= '<select name="'.$inputId.'" class="form-control form-control-sm" id="'.$inputId.'">';
+		$html .= '<select name="'.$inputId.'" class="form-control" id="'.$inputId.'">';
 		
 		if($datosdef){
 		foreach ($datosdef as $key => $value) {
@@ -172,7 +186,7 @@ public function obtiene_select_def_act($inputId,$selected,$domain){
 			$html .= '<option '.$seleccionado.' value="'.$value->domain_id.'">'.$value->domain_desc.'</option>';
 		}
 		}else{
-		$html .= '<option value="0">No existen datos</option>';
+		$html .= '<option value="">No existen datos</option>';
 		}
 		
 		$html .= '</select>';
@@ -193,7 +207,7 @@ public function obtiene_select_def($id, $domain, $name){
 	  
 			$datosdef = json_decode($def);
 	  
-			$html .= '<select name="'.$name.'" class="form-control form-control-sm" id="'.$id.'">';
+			$html .= '<select name="'.$name.'" class="form-control" id="'.$id.'">';
 			
 			if($datosdef){
 			  foreach ($datosdef as $key => $value) {

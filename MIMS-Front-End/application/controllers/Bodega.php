@@ -230,7 +230,93 @@ $datos['listaTodo'] = $listaTodo ;
 		}else{
 			show_404();
 		}
-	}
+  }
+  
+
+  public function JSON_Ordenes_Guias(){
+
+		if($this->input->is_ajax_request()){
+
+        $id_orden  = $this->input->post('orden');
+
+        // Obtiene select Ordenes
+
+        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuias($id_orden);
+
+        $arrBucksheet = json_decode($bucksheet);
+
+        $htmlbucksheet = "";
+        
+        $htmlbucksheet .= '<select class="form-control" id="guias">';
+        $htmlbucksheet .= '<option value="0">Seleccione Guia</option>';
+        
+        foreach ($arrBucksheet as $key => $value) {
+
+          $htmlbucksheet .= '<option data-name="'.trim($value->GuiaDespacho).'" value="'.$value->GuiaDespacho.'">'.$value->GuiaDespacho.'</option>';
+        
+        }
+
+        $htmlbucksheet .= '</select>';
+
+
+			$todo = array(	
+							'guias' 	=> $htmlbucksheet
+						);
+			
+			echo json_encode($todo);
+		}else{
+			show_404();
+		}
+  }
+  
+
+  public function JSON_Wpanel(){
+
+
+		if($this->input->is_ajax_request()){
+
+        $datos  = $this->input->post('datos');
+        $PurchaseOrderID  = $this->input->post('orden');
+         
+        $datos_bucksheet = array();
+
+        foreach ($datos as $v) {
+          $i = 1;
+     
+          $NumeroLinea =$v[$i];
+
+          $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID, $NumeroLinea);
+
+          $arrBucksheet = json_decode($response);
+        
+            foreach ($arrBucksheet as $key => $value) {
+      
+              $datos_bucksheet[] = array(
+
+                'NumeroLinea' => $value->NumeroLinea,
+                'STCantidad' => $value->STCantidad,
+                'TAGNumber' => $value->TAGNumber,
+                'Stockcode' => $value->Stockcode,
+                'PackingList' => $value->PackingList,
+                'GuiaDespacho' => $value->GuiaDespacho,
+              );
+            }
+          
+   
+          $i++;
+
+        }
+
+        $datos['bucksheets'] = $datos_bucksheet;
+
+			
+      echo json_encode($datos);
+      
+		}else{
+			show_404();
+		}
+  }
+  
 
 
 
@@ -285,6 +371,16 @@ public function crearRR(){
     $htmlordenes .= '<option value="0">Seleccione</option>';
     $htmlordenes .= '</select>';
     $datos['select_ordenes'] = $htmlordenes;
+
+
+    // Obtiene select Ordenes
+
+    $htmlguias = "";
+
+    $htmlguias .= '<select class="form-control" id="guias">';
+    $htmlguias .= '<option value="0">Seleccione</option>';
+    $htmlguias .= '</select>';
+    $datos['select_guias'] = $htmlguias;
 
 
 

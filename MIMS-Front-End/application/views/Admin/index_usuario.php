@@ -128,7 +128,7 @@
                      $('#tbl_usuarios').DataTable({
 
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -404,7 +404,7 @@
                                         <div class="icon">
                                           <!--<i class="ion ion-bag"></i>-->
                                         </div>
-                                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="#" class="small-box-footer"> <i class="fa fa-arrow-circle-right"></i></a>
                                       </div>
                                     </div>
                                      <!-- /.card-body -->
@@ -429,17 +429,17 @@
 
                          <br />
 
-                         <table id="tbl_usuarios" class="table table-striped table-bordered" cellspacing="0">
+                         <table id="tbl_usuarios" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                                  <tr>
-                                    <th style="width: 120px;">Codigo empresa</th>
+                                    <th>Codigo empresa</th>
                                     <th>Nombre</th>
                                     <th>Apellido Paterno</th>
-                                    <th >Apellido Materno</th>
+                                    <th>Apellido Materno</th>
                                     <th>Rol</th>
-                                    <th >Usuario</th>
+                                    <th>Usuario</th>
                                     <th>E-mail</th>
-                                    <th style="width: 80px;">Acciones</th>
+                                    <th>Acciones</th>
                               </tr>
                              </thead>
                              <tbody id="datos_usuarios">
@@ -480,23 +480,23 @@
                    
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Nombres</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Nombres</label>
+                            <div class="col-md-12">
                                 <input name="nombreusuario" id="nombreusuario" placeholder="Nombre usuario" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Apellido paterno</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Apellido paterno</label>
+                            <div class="col-md-12">
                                 <input name="apellidoPaterno" id="apellidoPaterno" placeholder="Apellido paterno" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Apellido materno</label>
-                            <div class="col-md-9">
+                            <label class="control-labe">Apellido materno</label>
+                            <div class="col-md-12">
                                 <input name="apellidoMaterno" id="apellidoMaterno" placeholder="Apellido materno" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
@@ -504,16 +504,16 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">usuario</label>
-                            <div class="col-md-9">
+                            <label class="control-label">usuario</label>
+                            <div class="col-md-12">
                                 <input name="usuario" id="usuario" placeholder="Usuario" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         
                         <div class="form-group">
-                            <label class="control-label col-md-3">E-Mail</label>
-                            <div class="col-md-9">
+                            <label class="control-label">E-Mail</label>
+                            <div class="col-md-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>
@@ -522,8 +522,8 @@
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Password</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Password</label>
+                            <div class="col-md-12">
                             <input type="password" class="form-control" name="inputPassword3" id="inputPassword3" placeholder="Password">
                                 <span class="help-block"></span>
                             </div>
@@ -531,8 +531,8 @@
 
                         <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Empresa</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Empresa</label>
+                            <div class="col-md-12">
                                 <select class="form-control" id="empresaSelect" name="empresaSelect"></select>
                                 <span class="help-block"></span>
                             </div>
@@ -541,8 +541,8 @@
 
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">ROL</label>
-                            <div class="col-md-9">
+                            <label class="control-label">ROL</label>
+                            <div class="col-md-12">
                                 <select class="form-control" id="rolesSelect" name="rolesSelect"></select>
                                 <span class="help-block"></span>
                             </div>

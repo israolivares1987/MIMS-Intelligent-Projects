@@ -21,8 +21,8 @@
         </div>
         <div class="card-body">
           
-        <div class="row">
-        <div class="col-lg-3 col-12">
+        <div class="row"> 
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-info">
               <div class="inner">
@@ -44,7 +44,7 @@
 
 
           <!-- ./col -->
-          <div class="col-lg-3 col-12">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-success">
             <div class="inner">
@@ -65,7 +65,7 @@
           </div>
 
           <!-- ./col -->
-          <div class="col-lg-3 col-12">
+          <div class="col-lg-4 col-6">
             <!-- small box -->
             <div class="small-box bg-warning">
             <div class="inner">
@@ -85,15 +85,21 @@
             </div>
           </div>
           <!-- ./col -->
+          <!-- ./col -->
         </div>
         <!-- /.row -->
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
-
  <!-- TO DO List -->
- <div class="card">
+
+ <div class="container-fluid">
+        <div class="row">
+       
+          <div class="col-md-8">
+             
+          <div class="card">
               <div class="card-header">
                 <h3 class="card-title">
                   <i class="ion ion-clipboard mr-1"></i>
@@ -102,7 +108,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
+              <table id="tbl_todo" class="table table-bordered table-hover" cellspacing="0" width=100%>
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
@@ -124,11 +130,19 @@
               </div>
             </div>
             <!-- /.card -->
+          </div>
+          <!-- /.col -->
 
-
+          <div class="col-md-4">
+             <div id="calendar"></div>
+          </div>
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
 
     </section>
     <!-- /.content -->
+
   </div>
   <!-- /.content-wrapper -->
 
@@ -178,7 +192,7 @@
                       <div class="form-group">
                         <label class="col-sm-12 control-label">Descripcion To-Do</label>
                         <div class="col-sm-12">
-                          <input autocomplete="off" id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
+                        <input autocomplete="off" id="var_descripcion_todo" name="var_descripcion_todo" type="text" class="form-control">
                         </div><!--.col-sm-9-->
                       </div><!--.form-group-->
                     </div><!--.form-horizontal-->
@@ -357,10 +371,25 @@
 
 <script type="text/javascript">
 
-
+$(document).ready(function() {
 
 $('[data-toggle="tooltip"]').tooltip();
 
+//set input/textarea/select event when change value, remove class error and remove text help block 
+$("input").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("textarea").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("select").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+
+});
 
 $('#btn_nuevo_todo').on('click', function(){
  
@@ -400,6 +429,7 @@ $.ajax({
        $('#modal_nuevo_todo').modal('hide');
        toastr.success(result.mensaje);
        recargaListaToDo();
+       recargaCalendario();
 
     }else{
         
@@ -549,6 +579,7 @@ $.ajax({
       toastr.success(result.mensaje);
      $('#modal_nuevo_todo_edit').modal('hide');
      recargaListaToDo();
+     recargaCalendario();
 
     }else{
         
@@ -587,6 +618,7 @@ if(opcion){
         toastr.success(result.mensaje);
        
         recargaListaToDo();
+        recargaCalendario();
 
       }else{
 
@@ -608,80 +640,113 @@ if(opcion){
 function recargaListaToDo(){
 
 
-var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
-var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
-var todo_html ='';
-var color ="";
-var select_todo="";
+  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+  var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+  var todo_html ='';
+  var color ="";
+  var select_todo = "";
+  var lista_todo = "";  
+  var descripcion_todo = "";
 
-var tabla_todo =  $('#tbl_todo').DataTable();
+ var tabla_todo =  $('#tbl_todo').DataTable();
 
-  tabla_todo.destroy();
+    tabla_todo.destroy();
 
-  
-
-
-  $.ajax({
-    url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
-    type: 		'POST',
-    dataType: 'json',
-    data: {
-      cod_usuario: cod_usuario,
-      cod_emp: cod_empresa
-      
-          },
-  }).done(function(result) {
-
-    select_todo = result.select_lista_todo;
     
-    $.each(result.formularios,function(key, formulario) {
-      todo_html += '<tr>';
-      todo_html += '<td>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
-      todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
-      todo_html += '</td>';
-      todo_html += '<td>' + formulario.lista_todo + '</td>';
-      
-
-      if(formulario.dias > 3){
-        color = 'badge badge-success';
-
-      }else{
-        color = 'badge badge-danger';
-      }
-      todo_html += '<td>' + formulario.descripcion_todo + '</td>';
-
-              if(formulario.estado ==='1'){
-
-                    todo_html += '<td><span class="bg-green">Activo</span></td>';  
-
-              }else{
-                todo_html += '<td><span class="bg-red">Desactivo</span></td>';
-              }
 
 
-      todo_html += '<td>' + formulario.fecha_inicio + '</td>';
-      todo_html += '<td>' + formulario.fecha_termino + '</td>';
-      todo_html += '<td><small class="'+color+'"><i class="far fa-clock"></i> '+formulario.dif+'</small></td>';
-      todo_html += '</tr>';  
-
-  });
-
-
-  
-   $('#select_lista_todo').html(select_todo);
-    
-   
-   
-    $('#datos_todo').html(todo_html);
-
-      $('[data-toggle="tooltip"]').tooltip();
-
-      $('#tbl_todo').DataTable({
+    $.ajax({
+      url: 		'<?php echo base_url('index.php/TodoUsuarios/obtieneTodoUsuarios'); ?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+        cod_usuario: cod_usuario,
+        cod_emp: cod_empresa
         
-        language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+            },
+    }).done(function(result) {
+      select_todo = result.select_lista_todo;
+      $.each(result.formularios,function(key, formulario) {
+
+
+       
+        lista_todo = formulario.lista_todo ;  
+        descripcion_todo = formulario.descripcion_todo; 
+
+        todo_html += '<tr>';
+        todo_html += '<td>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Editar"  onclick="obtiene_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar" onclick="eliminar_todo('+ formulario.id_todo +','+formulario.id_usuario+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+        todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
+        todo_html += '</td>';
+        todo_html += '<td>' + lista_todo + '</td>';
+
+
+      if(formulario.estado == '1'){ 
+
+        if(formulario.dias > 3 ){
+
+          color = 'badge badge-success';
+
+        }else if(formulario.dias <= 3 && formulario.dias >= 0 ){
+          
+          color = 'badge badge-warning';
+         
+
+        }else{
+
+          color = 'badge badge-danger';
+        }
+
+      
+
+        todo_html += '<td>' + descripcion_todo + '</td>';
+
+
+        if(formulario.dias > 3 ){
+
+          todo_html += '<td><span class="bg-green">En tiempo</span></td>';  
+
+        }else if(formulario.dias <= 3 && formulario.dias >= 0 ){
+
+          todo_html += '<td><span class="bg-yellow">Por vencer</span></td>';  
+
+        }else{
+
+          todo_html += '<td><span class="bg-red">Atrasada</span></td>';  
+        }
+      }else{
+        todo_html += '<td>' + descripcion_todo + '</td>';
+        todo_html += '<td><span class="bg-red">Terminado</span></td>'; 
+      }
+
+        todo_html += '<td>' + formulario.fecha_inicio + '</td>';
+        todo_html += '<td>' + formulario.fecha_termino + '</td>';
+
+        if(formulario.estado == '1'){ 
+        todo_html += '<td><medium class="'+color+'"><i class="far fa-clock"></i> <p>'+formulario.dif+'</medium></td>';
+        }else{
+
+          todo_html += '<td></td>';
+
+        }
+        todo_html += '</tr>';
+
+        
+
+      });
+        
+        $('#select_lista_todo').html(select_todo);
+
+     
+      $('#datos_todo').html(todo_html);
+
+        $('[data-toggle="tooltip"]').tooltip();
+
+
+        $('#tbl_todo').DataTable({
+          language: {
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -731,13 +796,70 @@ var tabla_todo =  $('#tbl_todo').DataTable();
             "text": 'Mostrar Registros'
             }
     ]
-                        }).buttons().container().appendTo('#tbl_todo_wrapper .col-md-6:eq(0)');
 
-  }).fail(function() {
-    console.log("error todo_html");
-  })
+
+
+        }).buttons().container().appendTo('#tbl_todo_wrapper .col-md-6:eq(0)');
+
+        recargaCalendario();
+
+    }).fail(function() {
+      console.log("error todo_html");
+    })
 
 }
+
+
+function recargaCalendario(){
+
+
+  var cod_empresa  = <?php echo $this->session->userdata('cod_emp');?> ; 
+    var cod_usuario =  <?php echo $this->session->userdata('cod_user');?> ;
+  
+    /* initialize the calendar
+     -----------------------------------------------------------------*/
+ 
+    var Calendar = FullCalendar.Calendar;
+    var calendarEl = document.getElementById('calendar');
+
+
+    var calendar = new Calendar(calendarEl, {
+      headerToolbar: {
+        left  : 'prev,next today',
+        center: 'title',
+        right : 'dayGridMonth,timeGridWeek,timeGridDay'
+      },
+      locale: 'es',
+      themeSystem: 'bootstrap',
+      //Random default events
+      eventSources: [
+
+          // your event source
+          {
+            url: '<?php echo base_url('index.php/TodoUsuarios/obtieneTodoCalendario'); ?>',
+            method: 'POST',
+            extraParams: {
+              cod_usuario: cod_usuario,
+              cod_emp: cod_empresa
+            },
+            failure: function() {
+              alert('there was an error while fetching events!');
+            }
+          }
+
+          // any other sources...
+
+          ]
+
+    });
+
+    calendar.render();
+    // $('#calendar').fullCalendar()
+
+
+
+}
+
 </script>
 
 <script>
@@ -750,10 +872,12 @@ var tabla_todo =  $('#tbl_todo').DataTable();
     //Money Euro
     $('[data-mask]').inputmask()
 
+    $('[data-toggle="tooltip"]').tooltip();
+
     cargaCalendarioFechas();
     recargaListaToDo();
-   
-         
+    recargaCalendario();
+
 
   })
 </script>

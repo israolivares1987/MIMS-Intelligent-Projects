@@ -35,9 +35,46 @@ function formatoNumero(input)
 {
 var num = input.value.replace(/\./g,'');
 if(!isNaN(num)){
-num = num.toString().split('').reverse().join('').replace(/(?=\d*\.?)(\d{3})/g,'$1.');
-num = num.split('').reverse().join('').replace(/^[\.]/,'');
-input.value = num;
+  
+
+  var n = num, prec = 0;
+
+    var toFixedFix = function (n,prec) {
+        var k = Math.pow(10,prec);
+        return (Math.round(n*k)/k).toString();
+    };
+
+    n = !isFinite(+n) ? 0 : +n;
+    prec = !isFinite(+prec) ? 0 : Math.abs(prec);
+    var sep = '.';
+    var dec = ',' ;
+
+    var s = (prec > 0) ? toFixedFix(n, prec) : toFixedFix(Math.round(n), prec); 
+    //fix for IE parseFloat(0.55).toFixed(0) = 0;
+
+    var abs = toFixedFix(Math.abs(n), prec);
+    var _, i;
+
+    if (abs >= 1000) {
+        _ = abs.split(/\D/);
+        i = _[0].length % 3 || 3;
+
+        _[0] = s.slice(0,i + (n < 0)) +
+               _[0].slice(i).replace(/(\d{3})/g, sep+'$1');
+        s = _.join(dec);
+    } else {
+        s = s.replace('.', dec);
+    }
+
+    var decPos = s.indexOf(dec);
+    if (prec >= 1 && decPos !== -1 && (s.length-decPos-1) < prec) {
+        s += new Array(prec-(s.length-decPos-1)).join(0)+'0';
+    }
+    else if (prec >= 1 && decPos === -1) {
+        s += dec+new Array(prec).join(0)+'0';
+    }
+
+input.value = s;
 }
  
 else{ alert('Solo se permiten numeros');
@@ -593,7 +630,7 @@ $('#or_act_ship_date').daterangepicker({
 });
 
 
-$('#FechaLineaBase').daterangepicker({
+$('#FECHA_TC').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -635,10 +672,10 @@ $('#FechaLineaBase').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaLineaBase').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_TC').val(chosen_date.format('DD-MM-YYYY'));
 });
 
-$('#FechaComienzoFabricacion').daterangepicker({
+$('#FECHA_TP').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -680,10 +717,10 @@ $('#FechaComienzoFabricacion').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaComienzoFabricacion').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_TP').val(chosen_date.format('DD-MM-YYYY'));
 });
 
-$('#FechaTerminoFabricacion').daterangepicker({
+$('#FECHA_TCF').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -725,11 +762,14 @@ $('#FechaTerminoFabricacion').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaTerminoFabricacion').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_TCF').val(chosen_date.format('DD-MM-YYYY'));
 });
 
 
-$('#FechaGranallado').daterangepicker({
+
+
+
+$('#FECHA_COMIENZO_FABRICACION').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -771,11 +811,10 @@ $('#FechaGranallado').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaGranallado').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_COMIENZO_FABRICACION').val(chosen_date.format('DD-MM-YYYY'));
 });
 
-
-$('#FechaPintura').daterangepicker({
+$('#FECHA_TERMINO_FABRICACION').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -817,10 +856,10 @@ $('#FechaPintura').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaPintura').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_TERMINO_FABRICACION').val(chosen_date.format('DD-MM-YYYY'));
 });
 
-$('#FechaListoInspeccion').daterangepicker({
+$('#FECHA_GRANALLADO').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -862,10 +901,12 @@ $('#FechaListoInspeccion').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaListoInspeccion').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_GRANALLADO').val(chosen_date.format('DD-MM-YYYY'));
 });
 
-$('#FechaSalidaFabrica').daterangepicker({
+
+
+$('#FECHA_PINTURA').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -907,12 +948,11 @@ $('#FechaSalidaFabrica').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaSalidaFabrica').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_PINTURA').val(chosen_date.format('DD-MM-YYYY'));
 });
 
 
-
-$('#FechaEmbarque').daterangepicker({
+$('#FECHA_LISTO_INSPECCION').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -954,11 +994,11 @@ $('#FechaEmbarque').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaEmbarque').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_LISTO_INSPECCION').val(chosen_date.format('DD-MM-YYYY'));
 });
 
 
-$('#FechaTC').daterangepicker({
+$('#FECHA_SALIDA_FABRICA').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -1000,11 +1040,11 @@ $('#FechaTC').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaTC').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_SALIDA_FABRICA').val(chosen_date.format('DD-MM-YYYY'));
 });
 
 
-$('#FechaTV').daterangepicker({
+$('#FECHA_EMBARQUE').daterangepicker({
   "singleDatePicker": true,
   "showDropdowns": true,
   "autoUpdateInput": false,
@@ -1046,9 +1086,8 @@ $('#FechaTV').daterangepicker({
   "endDate": "01-01-2030",
   "opens": "top"
 }, function(chosen_date) {
-  $('#FechaTV').val(chosen_date.format('DD-MM-YYYY'));
+  $('#FECHA_EMBARQUE').val(chosen_date.format('DD-MM-YYYY'));
 });
-
 
 
 

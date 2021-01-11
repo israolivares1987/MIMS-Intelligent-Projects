@@ -68,7 +68,6 @@ class Login extends CI_Controller{
             
               }
 
-
               $hora = time();
 
               $sesdata = array(

@@ -7,7 +7,7 @@
 
   <title>MIMS Intelligent Projects</title>
 
-  
+
   <!-- Font Awesome -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fontawesome-free/css/all.min.css');?>">
   <!-- Ionicons -->
@@ -30,6 +30,9 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 
+  <!-- fullCalendar -->
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/fullcalendar/main.css');?>">
+
 
 
   <!-- Toastr -->
@@ -37,11 +40,15 @@
 
   <script src="<?php echo base_url('assets/plugins/validaciones/validaciones.js');?>"></script>
 
-
-
   <!-- DataTables -->
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-bs4/css/dataTables.bootstrap4.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-responsive/css/responsive.bootstrap4.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-buttons/css/buttons.dataTables.min.css');?>">
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-colreorder/css/colReorder.bootstrap4.min.css');?>">
+  
+
+
+
 
 <!-- jQuery -->
 <script src="<?php echo base_url('assets/plugins/jquery/jquery.min.js');?>"></script>
@@ -72,25 +79,62 @@
 <!-- Toastr -->
 <script src="<?php echo base_url('assets/plugins/toastr/toastr.min.js');?>"></script>
 
-<!-- DataTables -->
+<!-- DataTables  & Plugins -->
 <script src="<?php echo base_url('assets/plugins/datatables/jquery.dataTables.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+
+<script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.flash.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js');?>"></script>
+
+<script src="<?php echo base_url('assets/plugins/datatables-colreorder/js/dataTables.colReorder.min.js');?>"></script>
+
+<script src="<?php echo base_url('assets/plugins/jszip/jszip.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/pdfmake/pdfmake.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/pdfmake/vfs_fonts.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.html5.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.print.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.colVis.min.js');?>"></script>
+
 
 <!-- bs-custom-file-input -->
 <script src="<?php echo base_url('assets/plugins/bs-custom-file-input/bs-custom-file-input.min.js');?>"></script>
 <!-- Page script -->
 
 
+<!-- fullCalendar 2.2.5 -->
+<script src="<?php echo base_url('assets/plugins/moment/moment.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/fullcalendar/main.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/fullcalendar/locales/es.js');?>"></script>
+
+<!-- jQuery UI -->
+<script src="<?php echo base_url('assets/plugins/jquery-ui/jquery-ui.min.js');?>"></script>
 
 
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
+  cargaCalendarioFechas();
 });
+
+
+function ActualizarReloj() {
+
+mensaje ='<?php $hora = time(); $hace = $hora - $this->session->userdata('inicio'); 
+                                       echo "Inició sesión hace ". floor($hace / 60) .
+                                       " minutos y " . ($hace % 60) . " segundos";?>';
+
+document.getElementById('datos_sesion').innerHTML='<a href="#" class="nav-link">'+ mensaje +'</a>';
+
+setTimeout('ActualizarReloj()',1000);
+
+}
+
 </script>
 
+
+
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm" onload="ActualizarReloj()">
 <div class="wrapper">

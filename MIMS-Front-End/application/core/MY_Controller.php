@@ -13,11 +13,11 @@ class MY_Controller extends CI_Controller {
 
 	public function plantilla_admin($view, $datos = array()){
 
-		$this->load->view('Admin/Adminheader');
-		$this->load->view('Admin/navbar');
-        $this->load->view('Admin/Adminleft_menu',$datos);
+		$this->load->view('admin/header');
+		$this->load->view('admin/navbar');
+        $this->load->view('admin/left_menu',$datos);
         $this->load->view($view, $datos);
-        $this->load->view('Admin/Adminfooter'); 
+        $this->load->view('admin/footer'); 
 	}
 
 

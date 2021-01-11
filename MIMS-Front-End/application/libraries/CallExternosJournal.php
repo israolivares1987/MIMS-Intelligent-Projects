@@ -162,7 +162,33 @@ function actualizarControlCalidad($memData){
 
 }
 
-    
+function obtienejournalAdvertencias($id_orden_compra,$tipo,$id_cliente){
+
+        
+    $base_url_servicios =$this->obtienebaseservicios();                
+    $api_url = $base_url_servicios."Journal/obtienejournalAdvertencias";
+
+    $form_data = array(
+                'id_orden_compra'		=>$id_orden_compra,
+                'tipo'              	=>$tipo,
+                'id_cliente'            =>$id_cliente
+    );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+    return $response;
+
+}  
 
 
     
