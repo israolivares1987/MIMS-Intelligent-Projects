@@ -15,7 +15,8 @@ class BuckSheet extends CI_Controller {
 	function obtieneBuckSheet(){
 
 
-		$this->bucksheet->setPurchaseOrderID($this->input->post('PurchaseOrderID'));
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
 
 		$BuckSheets = $this->bucksheet->obtieneBuckSheet();
 	
@@ -24,10 +25,44 @@ class BuckSheet extends CI_Controller {
 		echo json_encode($BuckSheets);
 	}
 
+
+	function obtieneBuckSheetBodega(){
+
+
+		$this->bucksheet->setPurchaseOrderID($this->input->post('ID_OC'));
+		$this->bucksheet->setGuia($this->input->post('GuiaDespacho'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetBodega();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+
+	function obtieneBuckSheetGuias(){
+
+
+		$this->bucksheet->setPurchaseOrderID($this->input->post('ID_OC'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetGuias();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+
+
+
+
 	function obtieneBucksheetDet(){ 
 
-		$this->bucksheet->setPurchaseOrderID($this->input->post('PurchaseOrderID'));
-		$this->bucksheet->setNumeroLinea($this->input->post('NumeroLinea'));
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
+		$this->bucksheet->setNumeroLinea($this->input->post('NUMERO_DE_LINEA'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
 
 		$datas = $this->bucksheet->obtieneBucksheetDet();
 
@@ -38,14 +73,15 @@ class BuckSheet extends CI_Controller {
 
 	 function getRows(){
 
-		$PurchaseOrderID = $this->input->post('PurchaseOrderID');
-		$NumeroLinea = $this->input->post('NumeroLinea');
+		$ID_OC = $this->input->post('ID_OC');
+		$NumeroLinea = $this->input->post('NUMERO_DE_LINEA');
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
 
 
 		$con = array(
 			'where' => array(
-				'PurchaseOrderID' => $PurchaseOrderID,
-				'NumeroLinea' => $NumeroLinea
+				'ID_OC' => $ID_OC,
+				'NUMERO_DE_LINEA' => $NumeroLinea
 			),
 			'returnType' => 'count'
 		);
@@ -62,7 +98,7 @@ class BuckSheet extends CI_Controller {
 				// Update member data
 				$form_data = $this->input->post();
 
-	            $update = $this->bucksheet->update($form_data,$this->input->post('PurchaseOrderID'),$this->input->post('NumeroLinea'));
+	            $update = $this->bucksheet->update($form_data,$this->input->post('codEmpresa'),$this->input->post('ID_OC'),$this->input->post('NUMERO_DE_LINEA'));
 		
 	echo $update;
 	 }
@@ -90,7 +126,7 @@ class BuckSheet extends CI_Controller {
 		$form_data = $this->input->post();
 		
 
-		$update = $this->bucksheet->update($form_data,$this->input->post('PurchaseOrderID'),$this->input->post('NumeroLinea'));
+		$update = $this->bucksheet->update($form_data,$this->input->post('COD_EMPRESA'),$this->input->post('ID_OC'),$this->input->post('NUMERO_DE_LINEA'));
 		echo json_encode($update);
 
 
@@ -99,14 +135,11 @@ class BuckSheet extends CI_Controller {
 
 		function eliminaBuckSheet(){
 
-			$PurchaseOrderID = $this->input->post('PurchaseOrderID');
-			$numeroLinea = $this->input->post('numeroLinea');
+			$ID_OC = $this->input->post('ID_OC');
+			$numeroLinea = $this->input->post('NUMERO_DE_LINEA');
+			$codEmpresa = $this->input->post('COD_EMPRESA');
 	
-	
-		
-	
-	
-			$delete = $this->bucksheet->eliminaBuckSheet($PurchaseOrderID,$numeroLinea);
+			$delete = $this->bucksheet->eliminaBuckSheet($codEmpresa,$ID_OC,$numeroLinea);
 			
 			
 			echo json_encode($delete);
@@ -116,11 +149,12 @@ class BuckSheet extends CI_Controller {
 
 
 
-			$PurchaseOrderID = $this->input->post('PurchaseOrderID');
+			$ID_OC = $this->input->post('ID_OC');
 			$codEmpresa = $this->input->post('codEmpresa');
 			$id_proyecto = $this->input->post('id_proyecto');
+			$codEmpresa = $this->input->post('codEmpresa');
 
-			$numeroLinea = $this->bucksheet->obtieneNumeroLinea($PurchaseOrderID,$codEmpresa,$id_proyecto);
+			$numeroLinea = $this->bucksheet->obtieneNumeroLinea($codEmpresa,$ID_OC,$codEmpresa,$id_proyecto);
 
 			echo json_encode($numeroLinea);
 		 }
@@ -129,12 +163,13 @@ class BuckSheet extends CI_Controller {
 		 function insertOrderItem(){
 
 			
-			$var = $this->input->post('NumeroLinea');
+			$var = $this->input->post('NUMERO_DE_LINEA');
+			$codEmpresa = $this->input->post('codEmpresa');
 
 
 			if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null'){
 	
-				$valor = $this->bucksheet->obtieneNumeroLinea($this->input->post('PurchaseOrderID'));
+				$valor = $this->bucksheet->obtieneNumeroLinea($codEmpresa,$this->input->post('ID_OC'));
 		
 			}else{
 		
@@ -174,8 +209,9 @@ class BuckSheet extends CI_Controller {
 		 function obtieneBuckSheetError(){
 
 			
-			$this->bucksheet->setPurchaseOrderID($this->input->post('PurchaseOrderID'));
+			$this->bucksheet->setidOc($this->input->post('ID_OC'));
 			$this->bucksheet->setidError($this->input->post('idError'));
+			$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
 	
 			$BuckSheets = $this->bucksheet->obtieneBuckSheetError();
 		

@@ -18,29 +18,14 @@
           <a href="#" class="d-block"><?php echo $this->session->userdata('nombres')." ".$this->session->userdata('paterno')." ".$this->session->userdata('materno');?></a>
           <a href="#" class="d-block"><p><i class="fas fa-id-card"></i> ROL: <?php echo $this->session->userdata('nombre_rol');?> </p></a>
         </div>
-
-       
       </div>
 
       <!-- Sidebar Menu -->
       <nav class="mt-2">
-        <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
+      <ul class="nav nav-pills nav-sidebar flex-column nav-flat" data-widget="treeview" role="menu" data-accordion="false">
           <!-- Add icons to the links using the .nav-icon class
                with font-awesome or any other icon font library -->
-               <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link text-sm">
-                      <i class="nav-icon fas fa-user-tie"></i>
-                      <p>
-                          CLIENTES
-                        <i class="right fas fa-angle-left"></i>
-                      </p>
-                    </a>
-                    <ul class="nav nav-treeview">  
-                    <?php echo $arrClientes?> 
-                   </ul>
-            </li>
-
-            <li class="nav-item has-treeview">
+          <li class="nav-item has-treeview">
                     <a href="#" class="nav-link text-sm">
                     <i class="nav-icon  fas fa-shopping-cart"></i>
                       <p>COMPRAS</p>
@@ -48,7 +33,7 @@
             </li>
 
             <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link text-sm">
+                  <a href="<?php echo base_url();?>index.php/activador/proyectos" class="nav-link text-sm">
                     <i class="nav-icon  fas fa-tachometer-alt"></i>
                       <p>
                           ACTIVACIÓN
@@ -88,7 +73,7 @@
                       </p>
                     </a>
             </li>
-
+                     
         </ul>
       </nav>
       <!-- /.sidebar-menu -->

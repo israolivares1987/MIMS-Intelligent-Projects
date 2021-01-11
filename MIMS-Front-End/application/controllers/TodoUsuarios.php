@@ -467,8 +467,8 @@ class TodoUsuarios extends MY_Controller{
       
       foreach ($arrTodo as $key => $value) {
 
-       
-
+      
+      if($value->estado === '1'){
 
         $datos_todo[] = array(
           'title'           => $value->descripcion_todo,
@@ -478,6 +478,10 @@ class TodoUsuarios extends MY_Controller{
           'borderColor'     =>  '#'.$value->color , //red
           'allDay'          =>  'true'
         ); 
+       }
+      
+      
+      
       }
     }
 

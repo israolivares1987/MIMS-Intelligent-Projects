@@ -458,7 +458,7 @@ function recargaProyectos(cliente){
         $('#tbl_proyectos').DataTable({
         
           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -631,7 +631,7 @@ $.ajax({
 
     $('#tbl_ordenes_items').DataTable({
       language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -728,7 +728,7 @@ $.ajax({
     $('#tbl_control_calidad').DataTable({
      
       language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -873,7 +873,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
 
         $('#ListOrdenes').DataTable({
           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -998,7 +998,7 @@ $.ajax({
 
   $('#tbl_archivos_tecnicos').DataTable({
     language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -1120,7 +1120,7 @@ $.ajax({
     $('#tbl_archivos_tecnicos_subidos').DataTable({
     
       language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

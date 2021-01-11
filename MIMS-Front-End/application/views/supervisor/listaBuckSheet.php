@@ -1,23 +1,26 @@
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header">
-         <div class="container-fluid">
-             <div class="row mb-2">
-                 <div class="col-sm-6">
-                     <h1>Administracion de ordenes y contratos</h1>
-                 </div>
-             </div>
-         </div><!-- /.container-fluid -->
-     </section>
- 
-     <!-- Main content -->
-     <section class="content">
-         <div class="row">
-             <div class="col-12">
-                 <div class="card">
-                         <div class="row">
-                             <div class="col-lg-6">
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1>Administración de ordenes y contratos</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
+
+    <!-- Main content -->
+ <section class="content">
+
+      <!-- Default box -->
+    <div class="card">
+        
+      <div class="card-body">
+        
+           <div class="row">
+                 <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -28,21 +31,20 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                           <dl class="row">
-                                             <dt class="col-sm-12">Order ID:</dt>
-                                             <dd class="col-sm-10"><?php echo $PurchaseOrderID;?></dd>
-                                             <dt class="col-sm-12">Descripción:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-12">PurchaseOrderNumber:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
+                                             <dt class="col-sm-8">Order ID:</dt>
+                                             <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-8">Descripción:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-
-                             </div>
-                             <!-- /.col-md-6 -->
-                             <div class="col-lg-6">
+                    </div>
+                            
+                             <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -64,78 +66,113 @@
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-                             </div>
-                             <!-- /.col-md-6 -->
-                         </div>
-                         <!-- /.row -->
-       
-                         <div class="container-fluid">
-        <h5 class="mb-2">Información Wpanel</h5>
+                            </div>
+
+
+                             <div class="col-sm-6">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Información Wpanel
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                     <div class="row">
+
+
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIA DE ACTIVACIÓN</span>
+                                                        <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
+                                                        <span class="info-box-number"><div id="countDespachos"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content --> 
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+
+                                                </div>
+                                                <div class="row">
+                                                <!-- /.col -->
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <div class="info-box">
+                                                            <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+
+                                                            <div class="info-box-content">
+                                                                <span class="info-box-text">ATRASOS</span>
+                                                                <span class="info-box-number"><div id="countAtrasados"></div> </span>
+                                                            </div>
+                                                            <!-- /.info-box-content -->
+                                                            </div>
+                                                            <!-- /.info-box -->
+                                                        </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
+                                                        <span class="info-box-number"><div id="countAdverCalidad"></div></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                </div>
+
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                                 </div>
+                            
+             </div>
+           <!-- /.row -->
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+ </section>
+
+
+ <section class="content">
+ <!-- TO DO List -->
+ <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIA DE ACTIVACION</span>
-                <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+       
+          <div class="col-md-12">
+             
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Opciones
+                </h3>
               </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
-                <span class="info-box-number"><div id="countDespachos"></div> </span>
-              </div>
-              <!-- /.info-box-content --> 
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ATRASOS</span>
-                <span class="info-box-number"><div id="countAtrasados"></div> </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
-                <span class="info-box-number"><div id="countAdverCalidad"></div></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-        <br/>
-
-
-                     <!-- /.card-header -->
-                     <div class="card-body">
-                     <table class="" cellspacing="0" width="100%">
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
-                                        <th>
+                                         <th>
                                              <div class="col-12">
                                              <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="descarga_bucksheet()"><i class="fas fa-file-download">
@@ -146,7 +183,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="controldecalidad()"><i class="fas fa-file-download">
+                                                     onclick="controldecalidad(0)"><i class="fas fa-file-download">
                                                      </i> Control de calidad
                                                  </button>
                                              </div>
@@ -154,7 +191,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="cambiosenorden()"><i class="fas fa-file-download">
+                                                     onclick="cambiosenorden(0)"><i class="fas fa-file-download">
                                                      </i> Gestión de Activación
                                                  </button>
                                              </div>
@@ -162,8 +199,25 @@
                                      </tr>
                                  </tbody>
                              </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
+            <!-- /.card -->
 
-                         <table class="table" cellspacing="0" width="99%">
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Detalle Wpanel
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -181,69 +235,102 @@
                                  </tr>
                              </tbody>
                          </table>
-
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                                         <th>Nombre de la Orden</th>
-                                         <th>Estado Linea</th>
-                                         <th>Tipo de Linea</th>
-                                         <th>Numero Linea</th>
-                                         <th>Proveedor</th>
-                                         <th>Item ST</th>
-                                         <th>SubItem ST</th>
-                                         <th>ST Unidad</th>
-                                         <th>ST Cantidad</th>
-                                         <th>TAG Number</th>
-                                         <th>Stockcode</th>
-                                         <th>Descripcion</th>
-                                         <th>Plano Modelo</th>
-                                         <th>Revisión</th>
-                                         <th>Paquete Construccion Area</th>
-                                         <th>Medida Unitaria</th>
-                                         <th>Peso Total</th>
-                                         <th>Fecha Comienzo Fabricacion</th>
-                                         <th>P/A FCF</th>
-                                         <th>Fecha Termino Fabricacion</th>
-                                         <th>P/A FTF</th>
-                                         <th>Fecha Granallado</th>
-                                         <th>P/A FG</th>
-                                         <th>Fecha Pintura</th>
-                                         <th>P/A FP</th>
-                                         <th>Fecha Listo Inspeccion</th>
-                                         <th>P/A FLI</th>
-                                         <th>Acta Liberacion Calidad</th>
-                                         <th>Fecha Salida Fabrica</th>
-                                         <th>P/A FSF</th>
-                                         <th>Fecha Embarque</th>
-                                         <th>Packing List</th>
-                                         <th>Guia Despacho</th>
-                                         <th>SCN Number</th>
-                                         <th class="grey" >Unidades Solicitadas</th>
-                                         <th class="grey" >Unidades Recibidas</th>
-                                         <th class="grey" >RR Reporte de Recepción</th>
-                                         <th class="grey" >RE Reporte de Entrega</th>
-                                         <th>Origen</th>
-                                         <th>Dias Viaje</th>
-                                         <th>Transmittal Cliente</th>
-                                         <th>Fecha TC</th>
-                                         <th>Transmittal Vendor</th>
-                                         <th>FechaTV</th>
-                                         <th>Transmittal CF</th>
-                                         <th>Fecha CF</th>
-                                         <th>P/A CF</th>
-                                         <th>Observacion 7</th>
-                                         <th>Fecha Linea Base</th>
-                                         <th>Dias Antes Linea Base</th>
-                                        
+                                <th colspan="6" style="text-align:center; background-color:#FFE699">DESCRIPCIÓN ORDEN DE COMPRA</th>
+                                <th colspan="6" style="text-align:center; background-color:#DBDBDB">DETALLE  LÍNEA</th>
+                                <th colspan="4" style="text-align:center; background-color:#2E002E; color:#FFFFFF">CANTIDADES / UNIDADES SOLICITUD TÉCNICA</th>
+                                <th colspan="10" style="text-align:center; background-color:#FF5050; color:#FFFFFF">ACTIVACIÓN INGENIERÍA</th>
+                                <th colspan="2" style="text-align:center; background-color:#333F4F; color:#FFFFFF">MEDICIÓN</th> 
+                                <th colspan="13" style="text-align:center; background-color:#FFCC00">PROGRAMA DE PROYECTO</th> 
+                                <th colspan="6" style="text-align:center; background-color:#007A37; color:#FFFFFF">LOGÍSTICA</th>
+                                <th colspan="6" style="text-align:center; background-color:#351805; color:#FFFFFF">DETALLE BODEGA</th> 
+                                <th colspan="1" style="text-align:center; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th> 
+                            </tr> 
+                             <tr>
+                                        <th style="text-align:left; background-color:#FFE699">ID OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">ITEM OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">SUB-ITEM OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">PROVEEDOR</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">TIPO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">ESTADO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE TAG</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">STOCKCODE</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">DESCRIPCIÓN LÍNEA</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">NÚMERO DE ELEMENTOS</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD UNITARIA</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD TOTAL</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTALCLIENTE</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TC</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL PROVEEDOR</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TP</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL CLIENTE FINAL</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TCF</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PA TCF</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
+                                        <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">FECHA LINEA BASE</th>
+                                        <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">DIAS ANTES LB</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFCF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA TERMINO FABRICACION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFTF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA GRANALLADO</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFG</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFP</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFLI</th>
+                                        <th style="text-align:left; background-color:#FFCC00">ACTA LIBERACION CALIDAD</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFSF</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">GUIA DESPACHO</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">NÚMERO DE VIAJE</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">ORIGEN</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES SOLICITADAS</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE ENTREGA (RE)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
+
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
                              </tbody>
                          </table>
-                     </div>
-                 </div>
-             </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
+
+
+
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+
+  
+     <!-- /.content -->
+
+    </div>
+  <!-- /.content-wrapper -->
+  </section>
 
 
              <style type="text/css" class="init">
@@ -322,12 +409,54 @@
             }
 
 
-            function recargaconsultasDatosWpanel(orden, cliente) {
+            
+             /**
+              * Función que pone el archivo en un FormData
+              * @return FormData
+              */
+             function getFiles(id) {
+                 var idFiles = document.getElementById(id);
+                 // Obtenemos el listado de archivos en un array
+                 var archivos = idFiles.files;
+                 // Creamos un objeto FormData, que nos permitira enviar un formulario
+                 // Este objeto, ya tiene la propiedad multipart/form-data
+                 var data = new FormData();
+                 // Recorremos todo el array de archivos y lo vamos añadiendo all
+                 // objeto data
+                 for (var i = 0; i < archivos.length; i++) {
+                     // Al objeto data, le pasamos clave,valor
+                     data.append("archivo" + i, archivos[i]);
+                 }
+                 return data;
+             }
+
+             /**
+              * Función que recorre todo el formulario para apadir en el FormData los valores del formulario
+              * @param string id hace referencia al id del formulario
+              * @param FormData data hace referencia al FormData
+              * @return FormData
+              */
+             function getFormData(id, data) {
+                 $("#" + id).find("input,select,textarea").each(function(i, v) {
+                     if (v.type !== "file") {
+                         if (v.type === "checkbox" && v.checked === true) {
+                             data.append(v.name, "on");
+                         } else {
+                             data.append(v.name, v.value);
+                         }
+                     }
+                 });
+                 return data;
+             }
+
+             function recargaconsultasDatosWpanel(orden, cliente) {
 
 
 
 var  id_orden = '<?php echo $PurchaseOrderID;?>';
 var   bucksheet_html = "";
+var   activacion_html = "";
+var   calidad_html = "";
 
 $.ajax({
     url: '<?php echo site_url('Consultas/consultasDatosWpanel')?>',
@@ -339,12 +468,37 @@ $.ajax({
     },
 }).done(function(result) {
     
-  
 
-    $('#countAdverActivacion').html(result.countAdverActivacion);
+console.log(parseInt(result.countAdverActivacion));
+
+    if(parseInt(result.countAdverActivacion) > 0){
+
+        activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
+
+    }else{
+
+        activacion_html = result.countAdverActivacion;
+
+    }
+
+    console.log(parseInt(result.countAdverCalidad));
+    if(parseInt(result.countAdverCalidad) > 0){
+
+        calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
+
+    }else{
+
+        calidad_html = result.countAdverActivacion;
+
+    }
+
+
+
+
+    $('#countAdverActivacion').html(activacion_html);
     $('#countAtrasados').html(result.countAtrasados);
     $('#countDespachos').html(result.countDespachos + '/' + result.countTotalWpanel);
-    $('#countAdverCalidad').html(result.countAdverCalidad);
+    $('#countAdverCalidad').html(calidad_html);
 
    
 
@@ -352,8 +506,8 @@ $.ajax({
     console.log("error change cliente");
 })
 
-}   
-           
+}
+
              function recargaBuckSheet(orden, cliente) {
 
 
@@ -379,56 +533,62 @@ $.ajax({
 
                      $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
-                         bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SubItemST+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Descripcion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PlanoModelo+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Revision+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PaqueteConstruccionArea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaComienzoFabricacion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTerminoFabricacion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFTF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaGranallado+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFG+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaPintura+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFP+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaListoInspeccion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFLI+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.ActaLiberacionCalidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaSalidaFabrica+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFSF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaEmbarque+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SCNNumber+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesSolicitadas+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesRecibidas+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialReceivedReport+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialWithdrawalReport+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalCliente+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTC+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalVendor+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaLineaBase+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
+                       bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ID_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.NUMERO_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.DESCRIPCION_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.SUB_ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.TIPO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.ESTADO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_TAG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.STOCKCODE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.DESCRIPCION_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_UNITARIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_TOTAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.UNIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE_FINAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.NUMERO_DE_PLANO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.REVISION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.FECHA_LINEA_BASE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.DIAS_ANTES_LB + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FCF + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_TERMINO_FABRICACION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FTF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_GRANALLADO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_PINTURA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_LISTO_INSPECCION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FLI+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.ACTA_LIBERACION_CALIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FSF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.FECHA_EMBARQUE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.PACKINGLIST+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.ORIGEN+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.DIAS_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF6600; color:#FFFFFF">' + bucksheets.OBSERVACION+ '</td>';
+
+
                         bucksheet_html += '</tr>';
 
                      });
@@ -437,8 +597,9 @@ $.ajax({
                      $('#datos_bucksheet').html(bucksheet_html);
 
                      $('#tbl_bucksheet').DataTable({
+                        
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
           "paging": false,
         "lengthChange": false,
@@ -479,8 +640,7 @@ $.ajax({
             "extend": 'colvis',
             "text": 'Columnas Visibles'
             }
-    ]
-                        }).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
+    ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
                      console.log("error change cliente");
@@ -488,17 +648,15 @@ $.ajax({
 
              }
 
-            
-               
 
                 function descargaArchivoPrueba() {
 
                 window.open('<?php echo base_url('assets/'.$nombreArchivoEjemplo);?>', '_blank');
                 }
 
-                function controldecalidad() {
+                function controldecalidad(filtro) {
 
-                window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
+                window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
                 }
 
                 function descarga_bucksheet() {
@@ -506,14 +664,10 @@ $.ajax({
                 window.open('<?php echo site_url('BuckSheet/exportCSV/'.$PurchaseOrderID)?>', '_blank');
                 }
 
-                function cambiosenorden() {
+                function cambiosenorden(filtro) {
 
-                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
+                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro,'_blank');
                 }
-
-               
-
-
 
              </script>
 

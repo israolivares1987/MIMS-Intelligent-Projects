@@ -300,7 +300,7 @@ $.ajax({
     $('#datos_ccalidad').html(calidad_html);
     $('#tbl_ccalidad').DataTable({
         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -400,7 +400,7 @@ calidad_det_html += '</tr>';
     $('#tbl_controlcalidaddet').DataTable({
        
         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

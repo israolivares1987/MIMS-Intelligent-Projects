@@ -1,20 +1,30 @@
 <?php
 class BuckSheet_model extends CI_Model{
 
-    private $_PurchaseOrderID; 
-    private $_NumeroLinea; 
+    private $_ID_OC; 
+    private $_NUMERO_DE_LINEA; 
+    private $_Guia; 
     private $_idError;
+    private $_codEmpresa;
 
-    public function setPurchaseOrderID($PurchaseOrderID) {
-        $this->_PurchaseOrderID = $PurchaseOrderID;
+    public function setidOc($ID_OC) {
+        $this->_ID_OC = $ID_OC;
     }
 
-    public function setNumeroLinea($NumeroLinea) {
-        $this->_NumeroLinea = $NumeroLinea;
+    public function setNumeroLinea($NUMERO_DE_LINEA) {
+        $this->_NUMERO_DE_LINEA = $NUMERO_DE_LINEA;
+    }
+
+    public function setGuia($Guia) {
+        $this->_Guia = $Guia;
     }
 
     public function setidError($idError) {
         $this->_idError = $idError;
+    }
+
+    public function setcodEmpresa($codEmpresa) {
+        $this->_codEmpresa = $codEmpresa;
     }
 
 
@@ -28,121 +38,217 @@ class BuckSheet_model extends CI_Model{
 	function obtieneBuckSheet()
 	{
 
-    	$this->db->select(" t1.PurchaseOrderID,
-        t1.purchaseOrdername,
-        t1.NumeroLinea,
-        t1.SupplierName,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
-        t1.lineaActivable,
-        t1.ItemST,
-        t1.SubItemST,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.STUnidad and domain = 'UNIDAD_MEDIDA') as STUnidad,
-        t1.STCantidad,
-        t1.TAGNumber,
-        t1.Stockcode,
-        t1.Descripcion,
-        t1.PlanoModelo,
-        t1.Revision,
-        t1.PaqueteConstruccionArea,
-        t1.PesoUnitario,
-        t1.PesoTotal,
-        t1.FechaLineaBase,
-        t1.DiasAntesRAS,
-        t1.FechaComienzoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.PAFCF and domain = 'ACTUAL_PREVIO ') as PAFCF,
-        t1.FechaTerminoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFTF and domain = 'ACTUAL_PREVIO ') as PAFTF,
-        t1.FechaGranallado,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFG and domain = 'ACTUAL_PREVIO ') as PAFG,
-        t1.FechaPintura,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFP and domain = 'ACTUAL_PREVIO ') as PAFP, 
-        t1.FechaListoInspeccion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFLI and domain = 'ACTUAL_PREVIO ') as PAFLI, 
-        t1.ActaLiberacionCalidad,
-        t1.FechaSalidaFabrica,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFSF and domain = 'ACTUAL_PREVIO ') as PAFSF, 
-        t1.FechaEmbarque,
-        t1.PackingList,
-        t1.GuiaDespacho,
-        t1.SCNNumber,
-        t1.UnidadesSolicitadas,
-        t1.UnidadesRecibidas,
-        t1.MaterialReceivedReport,
-        t1.MaterialWithdrawalReport,
-        t1.Origen,
-        t1.DiasViaje,
-        t1.TransmittalCliente,
-        t1.FechaTC,
-        t1.TransmittalVendor,
-        t1.FechaTV,
-        t1.TransmittalCF,
-        t1.FechaCF,
-        t1.PACF,
-        t1.Observacion7"); 
+    	$this->db->select("t1.ID_OC,
+                            t1.NUMERO_OC,
+                            t1.DESCRIPCION_OC,
+                            t1.ITEM_OC,
+                            t1.SUB_ITEM_OC,
+                            t1.PROVEEDOR,
+                            t1.NUMERO_DE_LINEA,
+                            t1.TIPO_DE_LINEA,
+                            t1.ESTADO_DE_LINEA,
+                            t1.NUMERO_DE_TAG,
+                            t1.STOCKCODE,
+                            t1.DESCRIPCION_LINEA,
+                            t1.NUMERO_DE_ELEMENTOS,
+                            t1.CANTIDAD_UNITARIA,
+                            t1.CANTIDAD_TOTAL,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+                            t1.TRANSMITTAL_CLIENTE,
+                            t1.FECHA_TC,
+                            t1.TRANSMITTAL_PROVEEDOR,
+                            t1.FECHA_TP,
+                            t1.TRANSMITTAL_CLIENTE_FINAL,
+                            t1.FECHA_TCF,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_TCF and domain = 'ACTUAL_PREVIO ') as PA_TCF,
+                            t1.NUMERO_DE_PLANO,
+                            t1.REVISION,
+                            t1.PAQUETE_DE_CONSTRUCCION_AREA,
+                            t1.FECHA_LINEA_BASE,
+                            t1.DIAS_ANTES_LB,
+                            t1.FECHA_COMIENZO_FABRICACION,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FCF and domain = 'ACTUAL_PREVIO ') as PA_FCF,
+                            t1.FECHA_TERMINO_FABRICACION,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FTF and domain = 'ACTUAL_PREVIO ') as PA_FTF,
+                            t1.FECHA_GRANALLADO,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FG and domain = 'ACTUAL_PREVIO ') as PA_FG,
+                            t1.FECHA_PINTURA,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FP and domain = 'ACTUAL_PREVIO ') as PA_FP,
+                            t1.FECHA_LISTO_INSPECCION,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FLI and domain = 'ACTUAL_PREVIO ') as PA_FLI,
+                            t1.ACTA_LIBERACION_CALIDAD,
+                            t1.FECHA_SALIDA_FABRICA,
+                            (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FSF and domain = 'ACTUAL_PREVIO ') as PA_FSF,
+                            t1.FECHA_EMBARQUE,
+                            t1.PACKINGLIST,
+                            t1.GUIA_DESPACHO,
+                            t1.NUMERO_DE_VIAJE,
+                            t1.ORIGEN,
+                            t1.DIAS_VIAJE,
+                            t1.UNIDADES_SOLICITADAS,
+                            t1.UNIDADES_RECIBIDAS,
+                            t1.REPORTE_DE_RECEPCION_RR,
+                            t1.REPORTE_DE_ENTREGA_RE,
+                            t1.REPORTE_DE_EXCEPCION_EXB,
+                            t1.INSPECCION_DE_INGENIERIA,
+                            t1.OBSERVACION"); 
     $this->db->from('tbl_bucksheet t1');			
-	 $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+    
 	
 
 	 return $this->db->get()->result();    
     }
     
+
+
+    function obtieneBuckSheetBodega()
+	{
+        $this->db->select("t1.ID_OC,
+        t1.NUMERO_OC,
+        t1.DESCRIPCION_OC,
+        t1.ITEM_OC,
+        t1.SUB_ITEM_OC,
+        t1.PROVEEDOR,
+        t1.NUMERO_DE_LINEA,
+        t1.TIPO_DE_LINEA,
+        t1.ESTADO_DE_LINEA,
+        t1.NUMERO_DE_TAG,
+        t1.STOCKCODE,
+        t1.DESCRIPCION_LINEA,
+        t1.NUMERO_DE_ELEMENTOS,
+        t1.CANTIDAD_UNITARIA,
+        t1.CANTIDAD_TOTAL,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+        t1.TRANSMITTAL_CLIENTE,
+        t1.FECHA_TC,
+        t1.TRANSMITTAL_PROVEEDOR,
+        t1.FECHA_TP,
+        t1.TRANSMITTAL_CLIENTE_FINAL,
+        t1.FECHA_TCF,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_TCF and domain = 'ACTUAL_PREVIO ') as PA_TCF,
+        t1.NUMERO_DE_PLANO,
+        t1.REVISION,
+        t1.PAQUETE_DE_CONSTRUCCION_AREA,
+        t1.FECHA_LINEA_BASE,
+        t1.DIAS_ANTES_LB,
+        t1.FECHA_COMIENZO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FCF and domain = 'ACTUAL_PREVIO ') as PA_FCF,
+        t1.FECHA_TERMINO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FTF and domain = 'ACTUAL_PREVIO ') as PA_FTF,
+        t1.FECHA_GRANALLADO,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FG and domain = 'ACTUAL_PREVIO ') as PA_FG,
+        t1.FECHA_PINTURA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FP and domain = 'ACTUAL_PREVIO ') as PA_FP,
+        t1.FECHA_LISTO_INSPECCION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FLI and domain = 'ACTUAL_PREVIO ') as PA_FLI,
+        t1.ACTA_LIBERACION_CALIDAD,
+        t1.FECHA_SALIDA_FABRICA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FSF and domain = 'ACTUAL_PREVIO ') as PA_FSF,
+        t1.FECHA_EMBARQUE,
+        t1.PACKINGLIST,
+        t1.GUIA_DESPACHO,
+        t1.NUMERO_DE_VIAJE,
+        t1.ORIGEN,
+        t1.DIAS_VIAJE,
+        t1.UNIDADES_SOLICITADAS,
+        t1.UNIDADES_RECIBIDAS,
+        t1.REPORTE_DE_RECEPCION_RR,
+        t1.REPORTE_DE_ENTREGA_RE,
+        t1.REPORTE_DE_EXCEPCION_EXB,
+        t1.INSPECCION_DE_INGENIERIA,
+        t1.OBSERVACION"); 
+    $this->db->from('tbl_bucksheet t1');			
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+     $this->db->where('t1.GUIADESPACHO' , $this->_Guia);
+	
+     
+
+	 return $this->db->get()->result();    
+    }
+
+
+
+    function obtieneBuckSheetGuias()
+	{
+     
+     $this->db->distinct();
+     $this->db->select("t1.GUIADESPACHO"); 
+     $this->db->from('tbl_bucksheet t1');			
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+     $this->db->where('t1.GUIADESPACHO' , $this->_Guia);
+	
+     
+
+	 return $this->db->get()->result();    
+    }
+
     function obtieneBucksheetDet()
 	{
 
-        $this->db->select(" t1.PurchaseOrderID,
-        t1.purchaseOrdername,
-        t1.NumeroLinea,
-        t1.lineaActivable,
-        t1.SupplierName,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
-        t1.ItemST,
-        t1.SubItemST,
-        t1.STUnidad,
-        t1.STCantidad,
-        t1.TAGNumber,
-        t1.Stockcode,
-        t1.Descripcion,
-        t1.PlanoModelo,
-        t1.Revision,
-        t1.PaqueteConstruccionArea,
-        t1.PesoUnitario,
-        t1.PesoTotal,
-        t1.FechaLineaBase,
-        t1.DiasAntesRAS,
-        t1.FechaComienzoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.PAFCF and domain = 'ACTUAL_PREVIO ') as PAFCF,
-        t1.FechaTerminoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFTF and domain = 'ACTUAL_PREVIO ') as PAFTF,
-        t1.FechaGranallado,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFG and domain = 'ACTUAL_PREVIO ') as PAFG,
-        t1.FechaPintura,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFP and domain = 'ACTUAL_PREVIO ') as PAFP, 
-        t1.FechaListoInspeccion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFLI and domain = 'ACTUAL_PREVIO ') as PAFLI, 
-        t1.ActaLiberacionCalidad,
-        t1.FechaSalidaFabrica,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFSF and domain = 'ACTUAL_PREVIO ') as PAFSF, 
-        t1.FechaEmbarque,
-        t1.PackingList,
-        t1.GuiaDespacho,
-        t1.SCNNumber,
-        t1.UnidadesSolicitadas,
-        t1.UnidadesRecibidas,
-        t1.MaterialReceivedReport,
-        t1.MaterialWithdrawalReport,
-        t1.Origen,
-        t1.DiasViaje,
-        t1.TransmittalCliente,
-        t1.FechaTC,
-        t1.TransmittalVendor,
-        t1.FechaTV,
-        t1.TransmittalCF,
-        t1.FechaCF,
-        t1.PACF,
-        t1.Observacion7"); 
+        $this->db->select("t1.ID_OC,
+        t1.NUMERO_OC,
+        t1.DESCRIPCION_OC,
+        t1.ITEM_OC,
+        t1.SUB_ITEM_OC,
+        t1.PROVEEDOR,
+        t1.NUMERO_DE_LINEA,
+        t1.TIPO_DE_LINEA,
+        t1.ESTADO_DE_LINEA,
+        t1.NUMERO_DE_TAG,
+        t1.STOCKCODE,
+        t1.DESCRIPCION_LINEA,
+        t1.NUMERO_DE_ELEMENTOS,
+        t1.CANTIDAD_UNITARIA,
+        t1.CANTIDAD_TOTAL,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+        t1.TRANSMITTAL_CLIENTE,
+        t1.FECHA_TC,
+        t1.TRANSMITTAL_PROVEEDOR,
+        t1.FECHA_TP,
+        t1.TRANSMITTAL_CLIENTE_FINAL,
+        t1.FECHA_TCF,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_TCF and domain = 'ACTUAL_PREVIO ') as PA_TCF,
+        t1.NUMERO_DE_PLANO,
+        t1.REVISION,
+        t1.PAQUETE_DE_CONSTRUCCION_AREA,
+        t1.FECHA_LINEA_BASE,
+        t1.DIAS_ANTES_LB,
+        t1.FECHA_COMIENZO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FCF and domain = 'ACTUAL_PREVIO ') as PA_FCF,
+        t1.FECHA_TERMINO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FTF and domain = 'ACTUAL_PREVIO ') as PA_FTF,
+        t1.FECHA_GRANALLADO,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FG and domain = 'ACTUAL_PREVIO ') as PA_FG,
+        t1.FECHA_PINTURA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FP and domain = 'ACTUAL_PREVIO ') as PA_FP,
+        t1.FECHA_LISTO_INSPECCION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FLI and domain = 'ACTUAL_PREVIO ') as PA_FLI,
+        t1.ACTA_LIBERACION_CALIDAD,
+        t1.FECHA_SALIDA_FABRICA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FSF and domain = 'ACTUAL_PREVIO ') as PA_FSF,
+        t1.FECHA_EMBARQUE,
+        t1.PACKINGLIST,
+        t1.GUIA_DESPACHO,
+        t1.NUMERO_DE_VIAJE,
+        t1.ORIGEN,
+        t1.DIAS_VIAJE,
+        t1.UNIDADES_SOLICITADAS,
+        t1.UNIDADES_RECIBIDAS,
+        t1.REPORTE_DE_RECEPCION_RR,
+        t1.REPORTE_DE_ENTREGA_RE,
+        t1.REPORTE_DE_EXCEPCION_EXB,
+        t1.INSPECCION_DE_INGENIERIA,
+        t1.OBSERVACION"); 
     $this->db->from('tbl_bucksheet t1');			
-     $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
-     $this->db->where('NumeroLinea',$this->_NumeroLinea);
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('NUMERO_DE_LINEA',$this->_NUMERO_DE_LINEA);
 	
  return $this->db->get()->result();   
     }
@@ -166,10 +272,10 @@ class BuckSheet_model extends CI_Model{
 
            
         }else{
-            if(array_key_exists("PurchaseOrderID", $params) && array_key_exists("NumeroLinea", $params)){
+            if(array_key_exists("ID_OC", $params) && array_key_exists("NUMERO_DE_LINEA", $params)){
 
-                $this->db->where('PurchaseOrderID', $params['PurchaseOrderID']);
-                $this->db->where('NumeroLinea', $params['NumeroLinea']);
+                $this->db->where('ID_OC', $params['ID_OC']);
+                $this->db->where('NUMERO_DE_LINEA', $params['NUMERO_DE_LINEA']);
                 $query = $this->db->get();
                 $result = $query->row_array();
 
@@ -177,7 +283,7 @@ class BuckSheet_model extends CI_Model{
             
             }else{
                 
-                $this->db->order_by('NumeroLinea', 'asc');
+                $this->db->order_by('NUMERO_DE_LINEA', 'asc');
                 if(array_key_exists("start",$params) && array_key_exists("limit",$params)){
                     $this->db->limit($params['limit'],$params['start']);
                 }elseif(!array_key_exists("start",$params) && array_key_exists("limit",$params)){
@@ -221,7 +327,7 @@ class BuckSheet_model extends CI_Model{
      * @param $data array to be update based on the passed parameters
      * @param $condition array filter data
      */
-    public function update($data,$PurchaseOrderID,$NumeroLinea ) {
+    public function update($data,$codEmpresa,$ID_OC,$NUMERO_DE_LINEA ) {
 
         if(!empty($data)){
             // Add modified date if not included
@@ -230,7 +336,7 @@ class BuckSheet_model extends CI_Model{
             }
            
             // Update member data
-            $update = $this->db->update($this->tableName, $data, array('PurchaseOrderID' => $PurchaseOrderID, 'NumeroLinea' => $NumeroLinea));
+            $update = $this->db->update($this->tableName, $data, array('COD_EMPRESA' => $codEmpresa, 'ID_OC' => $ID_OC, 'NUMERO_DE_LINEA' => $NUMERO_DE_LINEA));
             
             // Return the status
             return $update?true:false;
@@ -240,11 +346,12 @@ class BuckSheet_model extends CI_Model{
 
 
 
-    function eliminaBuckSheet($PurchaseOrderID,$numeroLinea)
+    function eliminaBuckSheet($codEmpresa,$ID_OC,$NUMERO_DE_LINEA)
 	{
 
-        $this->db->where('PurchaseOrderID', $PurchaseOrderID);
-        $this->db->where('NumeroLinea', $numeroLinea);
+        $this->db->where('ID_OC', $ID_OC);
+        $this->db->where('NUMERO_DE_LINEA', $NUMERO_DE_LINEA);
+        $this->db->where('COD_EMPRESA', $codEmpresa);
 
 		$delete = $this->db->delete($this->tableName);
 		return $delete;
@@ -252,9 +359,9 @@ class BuckSheet_model extends CI_Model{
     
     function obtieneNumeroLinea($PurchaseOrderID,$codEmpresa,$id_proyecto){
 
-        $this->db->select(" IFNULL(max(NumeroLinea),0) + 1 as NumeroLinea"); 
+        $this->db->select(" IFNULL(max(NUMERO_DE_LINEA),0) + 1 as NumeroLinea"); 
         $this->db->from('tbl_bucksheet t1');			
-        $this->db->where('PurchaseOrderID', $PurchaseOrderID);
+        $this->db->where('ID_OC', $ID_OC);
 
 
         return $this->db->get()->result();   
@@ -283,62 +390,65 @@ class BuckSheet_model extends CI_Model{
     function obtieneBuckSheetError()
 	{
 
-        $this->db->select(" t1.idError,
-        t1.mensajeError,
-        t1.PurchaseOrderID,
-        t1.purchaseOrdername,
-        t1.NumeroLinea,
-        t1.SupplierName,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.EstadoLineaBucksheet and domain = 'ESTADO_BUCKSHEET') as EstadoLineaBucksheet,
-        t1.lineaActivable,
-        t1.ItemST,
-        t1.SubItemST,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.STUnidad and domain = 'UNIDAD_MEDIDA') as STUnidad,
-        t1.STCantidad,
-        t1.TAGNumber,
-        t1.Stockcode,
-        t1.Descripcion,
-        t1.PlanoModelo,
-        t1.Revision,
-        t1.PaqueteConstruccionArea,
-        t1.PesoUnitario,
-        t1.PesoTotal,
-        t1.FechaLineaBase,
-        t1.DiasAntesRAS,
-        t1.FechaComienzoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id = t1.PAFCF and domain = 'ACTUAL_PREVIO ') as PAFCF,
-        t1.FechaTerminoFabricacion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFTF and domain = 'ACTUAL_PREVIO ') as PAFTF,
-        t1.FechaGranallado,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFG and domain = 'ACTUAL_PREVIO ') as PAFG,
-        t1.FechaPintura,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFP and domain = 'ACTUAL_PREVIO ') as PAFP, 
-        t1.FechaListoInspeccion,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFLI and domain = 'ACTUAL_PREVIO ') as PAFLI, 
-        t1.ActaLiberacionCalidad,
-        t1.FechaSalidaFabrica,
-        (select domain_desc from tbl_ref_codes where domain_id =  t1.PAFSF and domain = 'ACTUAL_PREVIO ') as PAFSF, 
-        t1.FechaEmbarque,
-        t1.PackingList,
-        t1.GuiaDespacho,
-        t1.SCNNumber,
-        t1.UnidadesSolicitadas,
-        t1.UnidadesRecibidas,
-        t1.MaterialReceivedReport,
-        t1.MaterialWithdrawalReport,
-        t1.Origen,
-        t1.DiasViaje,
-        t1.TransmittalCliente,
-        t1.FechaTC,
-        t1.TransmittalVendor,
-        t1.FechaTV,
-        t1.TransmittalCF,
-        t1.FechaCF,
-        t1.PACF,
-        t1.Observacion7"); 
+        $this->db->select(" t1.ID_ERROR,
+        t1.MENSAJE_ERROR,
+        t1.ID_OC,
+        t1.NUMERO_OC,
+        t1.DESCRIPCION_OC,
+        t1.ITEM_OC,
+        t1.SUB_ITEM_OC,
+        t1.PROVEEDOR,
+        t1.NUMERO_DE_LINEA,
+        t1.TIPO_DE_LINEA,
+        t1.ESTADO_DE_LINEA,
+        t1.NUMERO_DE_TAG,
+        t1.STOCKCODE,
+        t1.DESCRIPCION_LINEA,
+        t1.NUMERO_DE_ELEMENTOS,
+        t1.CANTIDAD_UNITARIA,
+        t1.CANTIDAD_TOTAL,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+        t1.TRANSMITTAL_CLIENTE,
+        t1.FECHA_TC,
+        t1.TRANSMITTAL_PROVEEDOR,
+        t1.FECHA_TP,
+        t1.TRANSMITTAL_CLIENTE_FINAL,
+        t1.FECHA_TCF,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_TCF and domain = 'ACTUAL_PREVIO ') as PA_TCF,
+        t1.NUMERO_DE_PLANO,
+        t1.REVISION,
+        t1.PAQUETE_DE_CONSTRUCCION_AREA,
+        t1.FECHA_LINEA_BASE,
+        t1.DIAS_ANTES_LB,
+        t1.FECHA_COMIENZO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FCF and domain = 'ACTUAL_PREVIO ') as PA_FCF,
+        t1.FECHA_TERMINO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FTF and domain = 'ACTUAL_PREVIO ') as PA_FTF,
+        t1.FECHA_GRANALLADO,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FG and domain = 'ACTUAL_PREVIO ') as PA_FG,
+        t1.FECHA_PINTURA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FP and domain = 'ACTUAL_PREVIO ') as PA_FP,
+        t1.FECHA_LISTO_INSPECCION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FLI and domain = 'ACTUAL_PREVIO ') as PA_FLI,
+        t1.ACTA_LIBERACION_CALIDAD,
+        t1.FECHA_SALIDA_FABRICA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FSF and domain = 'ACTUAL_PREVIO ') as PA_FSF,
+        t1.FECHA_EMBARQUE,
+        t1.PACKINGLIST,
+        t1.GUIA_DESPACHO,
+        t1.NUMERO_DE_VIAJE,
+        t1.ORIGEN,
+        t1.DIAS_VIAJE,
+        t1.UNIDADES_SOLICITADAS,
+        t1.UNIDADES_RECIBIDAS,
+        t1.REPORTE_DE_RECEPCION_RR,
+        t1.REPORTE_DE_ENTREGA_RE,
+        t1.REPORTE_DE_EXCEPCION_EXB,
+        t1.INSPECCION_DE_INGENIERIA,
+        t1.OBSERVACION"); 
     $this->db->from('tbl_bucksheet_error t1');			
-     $this->db->where('PurchaseOrderID',$this->_PurchaseOrderID);
-     $this->db->where('idError', $this->_idError);
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('ID_ERROR', $this->_idError);
 	
 
 	 return $this->db->get()->result();    

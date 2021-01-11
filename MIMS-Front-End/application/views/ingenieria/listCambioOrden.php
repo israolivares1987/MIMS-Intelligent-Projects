@@ -419,7 +419,8 @@ function mostrarBlock(){
                      dataType: 'json',
                      data: {
                          id_orden_compra: orden,
-                         id_cliente: cliente
+                         id_cliente: cliente,
+                         filtro: <?php echo $filtro;?>
                      },
                  }).done(function(result) {
 
@@ -448,7 +449,7 @@ function mostrarBlock(){
                      $('#datos_corden').html(calidad_html);
                      $('#tbl_corden').DataTable({
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

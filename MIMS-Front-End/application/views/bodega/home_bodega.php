@@ -141,7 +141,7 @@
                                      </tr>
                                  </tbody>
                              </table>
-                        </div>
+                        </div> 
 
                         <div class="card-body">
                         
@@ -786,7 +786,7 @@ function recargaListaToDo(){
         $('#tbl_todo').DataTable({
          
           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -954,7 +954,7 @@ function recargaListaToDo(){
 	});
 
 
-
+ 
 
 
              function recargaBuckSheet(orden, cliente) {
@@ -969,7 +969,7 @@ function recargaListaToDo(){
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetBodega')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
@@ -1014,7 +1014,7 @@ function recargaListaToDo(){
 
                      $('#tbl_rr').DataTable({
                       language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

@@ -22,7 +22,7 @@ class CallExternosBuckSheet {
 }
      
   
-      function obtieneBucksheet($PurchaseOrderID){
+      function obtieneBucksheet($codEmpresa, $ID_OC){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
@@ -31,7 +31,8 @@ class CallExternosBuckSheet {
   
             
         $form_data = array(
-                    'PurchaseOrderID'		=>$PurchaseOrderID
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' => $codEmpresa
         );
   
         $client = curl_init($api_url);
@@ -53,7 +54,76 @@ class CallExternosBuckSheet {
   
       }
 
-      function obtieneBucksheetDet($PurchaseOrderID,$NumeroLinea)
+
+      function obtieneBuckSheetBodega($ID_OC,$GuiaDespacho){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetBodega";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC,
+                    'GuiaDespacho'		=>$GuiaDespacho,
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+
+      function obtieneBuckSheetGuias($ID_OC){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetGuias";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+
+
+      function obtieneBucksheetDet($codEmpresa,$ID_OC,$NumeroLinea)
       {
   
   
@@ -63,8 +133,9 @@ class CallExternosBuckSheet {
   
             
         $form_data = array(
-                    'PurchaseOrderID'		=>$PurchaseOrderID,
-                    'NumeroLinea'		=>$NumeroLinea
+                    'ID_OC'		=>$ID_OC,
+                    'NUMERO_DE_LINEA'		=>$NumeroLinea,
+                    'codEmpresa' => $codEmpresa
         );
   
         $client = curl_init($api_url);
@@ -85,7 +156,7 @@ class CallExternosBuckSheet {
       }
 
 
-    function getRows($PurchaseOrderID,$NumeroLinea){
+    function getRows($ID_OC,$NUMERO_DE_LINEA){
   
   
         $base_url_servicios =$this->obtienebaseservicios();;                
@@ -93,8 +164,8 @@ class CallExternosBuckSheet {
         
 
         $form_data = array(
-          'PurchaseOrderID'		=>$PurchaseOrderID,
-          'NumeroLinea'		=>$NumeroLinea
+          'ID_OC'		=>$ID_OC,
+          'NUMERO_DE_LINEA'		=>$NUMERO_DE_LINEA
         );
   
         $client = curl_init($api_url);
@@ -192,7 +263,7 @@ class CallExternosBuckSheet {
       }
 
 
-      function eliminaBuckSheet($PurchaseOrderID,$numeroLinea){
+      function eliminaBuckSheet($codEmpresa,$ID_OC,$NUMERO_DE_LINEA){
   
   
         $base_url_servicios =$this->obtienebaseservicios();;                
@@ -200,8 +271,9 @@ class CallExternosBuckSheet {
         
 
         $form_data = array(
-          'PurchaseOrderID'		=>$PurchaseOrderID,
-          'numeroLinea'		=>$numeroLinea
+          'ID_OC'		=>$ID_OC,
+          'NUMERO_DE_LINEA'		=>$NUMERO_DE_LINEA,
+          'COD_EMPRESA' => $codEmpresa
         );
   
         $client = curl_init($api_url);
@@ -229,7 +301,7 @@ class CallExternosBuckSheet {
         
 
         $form_data = array(
-          'PurchaseOrderID'		=>$id_order_item,
+          'ID_OC'		=>$id_order_item,
           'codEmpresa'		=>$codEmpresa,
           'id_proyecto'		=>$id_orden_item_proyecto
         );
@@ -276,7 +348,7 @@ class CallExternosBuckSheet {
   
       }
 
-      function obtieneBuckSheetError($idError,$PurchaseOrderID){
+      function obtieneBuckSheetError($codEmpresa,$idError,$ID_OC){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
@@ -285,8 +357,9 @@ class CallExternosBuckSheet {
   
             
         $form_data = array(
-                    'PurchaseOrderID'		=>$PurchaseOrderID,
-                    'idError' => $idError
+                    'ID_OC'		=>$ID_OC,
+                    'idError' => $idError,
+                    'codEmpresa' => $codEmpresa
         );
   
         $client = curl_init($api_url);
