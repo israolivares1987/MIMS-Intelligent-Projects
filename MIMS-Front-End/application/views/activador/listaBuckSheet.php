@@ -246,18 +246,6 @@
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                                <th colspan="1">EDITAR</th>
-                                <th colspan="6" style="text-align:center; background-color:#FFE699">DESCRIPCIÓN ORDEN DE COMPRA</th>
-                                <th colspan="6" style="text-align:center; background-color:#DBDBDB">DETALLE  LÍNEA</th>
-                                <th colspan="4" style="text-align:center; background-color:#2E002E; color:#FFFFFF">CANTIDADES / UNIDADES SOLICITUD TÉCNICA</th>
-                                <th colspan="10" style="text-align:center; background-color:#FF5050; color:#FFFFFF">ACTIVACIÓN INGENIERÍA</th>
-                                <th colspan="2" style="text-align:center; background-color:#333F4F; color:#FFFFFF">MEDICIÓN</th> 
-                                <th colspan="13" style="text-align:center; background-color:#FFCC00">PROGRAMA DE PROYECTO</th> 
-                                <th colspan="6" style="text-align:center; background-color:#007A37; color:#FFFFFF">LOGÍSTICA</th>
-                                <th colspan="6" style="text-align:center; background-color:#351805; color:#FFFFFF">DETALLE BODEGA</th> 
-                                <th colspan="1" style="text-align:center; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th> 
-                            </tr> 
-                             <tr>
                                         <th>EDITAR</th>
                                         <th style="text-align:left; background-color:#FFE699">ID OC</th>
                                         <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
