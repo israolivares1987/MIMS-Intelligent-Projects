@@ -8,5 +8,13 @@ MIMS-Front-End/archivos/controlcalidaddet/*
 
 MIMS-Ticket/
 MIMS-Front-End/application/config/development/database.php
+
 MIMS-Front-End/application/config/production/database.php
+
 MIMS-Front-End/application/config/qa/database.php
+
+MIMS-Servicios/application/config/development/database.php
+
+MIMS-Servicios/application/config/production/database.php
+
+MIMS-Servicios/application/config/qa/database.php
