@@ -247,7 +247,7 @@
                              <thead>
                              <tr>
                                         <th>EDITAR</th>
-                                        <th style="text-align:left; background-color:#FFE699">ID OC</th>
+                                        <th style="text-align:left; background-color:#FFE699; border: solid black">ID OC</th>
                                         <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
                                         <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
                                         <th style="text-align:left; background-color:#FFE699">ITEM OC</th>
@@ -779,6 +779,12 @@
              .grey {
             background-color: rgba(128,128,128,.25)!important;
             }
+            table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    width: 100%;
+                    border: 5px solid #000;
+                    }
 
              </style>
 
