@@ -10,7 +10,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | WITH a trailing slash:
 |
 |	http://example.com/
-| 
+|
 | WARNING: You MUST set this value!
 |
 | If it is not set, then CodeIgniter will try guess the protocol and path
@@ -23,8 +23,8 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
-$config['BASE_SERVICIOS'] = 'http://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
+$config['base_url'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
+$config['BASE_SERVICIOS'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
 $config['BASE_ARCHIVOS'] = $_SERVER['DOCUMENT_ROOT'].'/MIMS-Intelligent-Projects/MIMS-Front-End/archivos/';
 date_default_timezone_set('America/Santiago'); #Línea agregada
 /*
@@ -379,9 +379,10 @@ $config['encryption_key'] = '';
 | except for 'cookie_prefix' and 'cookie_httponly', which are ignored here.
 |
 */
+
 $config['sess_driver'] = 'database';
 $config['sess_cookie_name'] = 'ci_session';
-$config['sess_expiration'] = 60000;
+$config['sess_expiration'] = 600;
 $config['sess_save_path'] = 'ci_sessions';
 $config['sess_match_ip'] = FALSE;
 $config['sess_time_to_update'] = 30;
@@ -390,8 +391,7 @@ $config['sess_regenerate_destroy'] = FALSE;
 
 ini_set( 'session.gc_probability',  0 );
 ini_set( 'session.gc_divisor',      20 );
-ini_set( 'session.gc_maxlifetime',      6000 );
-
+ini_set( 'session.gc_maxlifetime',      600 );
 /*
 |--------------------------------------------------------------------------
 | Cookie Related Variables
@@ -439,7 +439,7 @@ $config['standardize_newlines'] = FALSE;
 |          for backwards compatibility purposes!
 |
 */
-$config['global_xss_filtering'] = TRUE;
+$config['global_xss_filtering'] = FALSE;
 
 /*
 |--------------------------------------------------------------------------
@@ -528,5 +528,3 @@ $config['rewrite_short_tags'] = FALSE;
 | Array:		array('10.0.1.200', '192.168.5.0/24')
 */
 $config['proxy_ips'] = '';
-
-
