@@ -339,7 +339,7 @@ $('#btn_nuevo_todo').on('click', function(){
                           },
                           lengthMenu: [[1, 2, 3, -1], [1, 2, 3, "All"]],
                           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

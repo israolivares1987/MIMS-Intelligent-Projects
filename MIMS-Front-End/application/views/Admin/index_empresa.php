@@ -84,7 +84,7 @@
                      $('#tbl_empleados').DataTable({
 
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -353,7 +353,7 @@
                                         <div class="icon">
                                           <!--<i class="ion ion-bag"></i>-->
                                         </div>
-                                        <a href="#" class="small-box-footer">More info <i class="fa fa-arrow-circle-right"></i></a>
+                                        <a href="#" class="small-box-footer"><i class="fa fa-arrow-circle-right"></i></a>
                                       </div>
                                     </div>
                                      <!-- /.card-body -->
@@ -366,7 +366,7 @@
                      <!-- /.card-header -->
                      <div class="card-body">
                          <br />
-                         <table class="table" cellspacing="0" width="99%">
+                         <table class="table" cellspacing="0" width="100%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -378,17 +378,17 @@
 
                          <br />
 
-                         <table id="tbl_empleados" class="table table-striped table-bordered" cellspacing="0">
+                         <table id="tbl_empleados" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                                  <tr>
-                                    <th style="width: 120px;">Codigo empresa</th>
+                                    <th>Codigo empresa</th>
                                     <th>Nombre</th>
                                     <th>Razon social</th>
-                                    <th style="width: 120px;">Rut empresa</th>
+                                    <th>Rut empresa</th>
                                     <th>Dirección</th>
-                                    <th style="width: 80px;">telefono</th>
+                                    <th>telefono</th>
                                     <th>E-mail</th>
-                                    <th style="width: 80px;">Acciones</th>
+                                    <th>Acciones</th>
                               </tr>
                              </thead>
                              <tbody id="datos_empleados">
@@ -418,31 +418,31 @@
                     
                     <div class="form-body">
                         <div class="form-group">
-                            <label class="control-label col-md-3">Nombre empresa</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Nombre empresa</label>
+                            <div class="col-md-12">
                                 <input name="nombreEmpresa" id="nombreEmpresa" placeholder="Nombre empresa" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="control-label col-md-3">Razon social</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Razon social</label>
+                            <div class="col-md-12">
                                 <input name="razonsocial" id="razonsocial" placeholder="Razon social" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">RUT Empresa</label>
-                            <div class="col-md-9">
+                            <label class="control-label">RUT Empresa</label>
+                            <div class="col-md-12">
                                 <input name="rutempresa" id="rutempresa" placeholder="RUT" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Dirección</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Dirección</label>
+                            <div class="col-md-12">
                                 <input name="direccion" id="direccion" placeholder="Dirección" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
@@ -450,16 +450,16 @@
 
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">Telefono</label>
-                            <div class="col-md-9">
+                            <label class="control-label">Telefono</label>
+                            <div class="col-md-12">
                                 <input name="telefono" id="telefono" placeholder="Telefono" class="form-control" type="text">
                                 <span class="help-block"></span>
                             </div>
                         </div>
 
                         <div class="form-group">
-                            <label class="control-label col-md-3">E-Mail</label>
-                            <div class="col-md-9">
+                            <label class="control-label">E-Mail</label>
+                            <div class="col-md-12">
                                 <div class="input-group-prepend">
                                     <span class="input-group-text"><i class="fas fa-envelope"></i></span>
                                     <input type="text" name="EmailAddress" id="EmailAddress" value="" class="form-control"/>

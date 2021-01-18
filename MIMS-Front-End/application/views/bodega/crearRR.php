@@ -42,6 +42,16 @@
                                                     <?php echo $select_ordenes;?>
                                             </div>
                                         </div>
+                                        </th>
+                                        <th>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                    <label>Seleccione Guia de Despacho</label>
+                                                    <?php echo $select_guias;?>
+                                            </div>
+                                        </div>
+
+
                                          </th>
                                          <th>
                                              <div class="col-12">
@@ -59,10 +69,13 @@
                         <div class="card-body">
                         <form action="#" method="post" id="form">
                         <input type="button" class="btn btn-warning" name="vender" value="Crear RR" id="vender">
+                        </br>
+                        </br>
+                        </br>
                          <table id="tbl_rr" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                             <th><i class="fa fa-check"></i>&nbsp;Selección articulo</th>
+                             <th>Selección articulo</th>
                                          <th>Número de Línea</th>
                                          <th>TAG Number</th>
                                          <th>Stock Code</th>
@@ -72,10 +85,6 @@
                                          <th>ST Cantidad  Total</th>
                                          <th>Guia Despacho</th>
                                          <th>Packing List</th>
-                                         <th class="grey">Cantidad Recibida</th>
-                                         <th class="grey" >Saldo Material</th>
-                                         <th>Estado</th>
-                                         <th>O.C Proveedor</th>
                                          <th>ID MIMS</th>
                                          </tr>
                              </thead>
@@ -89,6 +98,67 @@
 
                      </section>
                      </div>
+
+
+ <!--.modal rr-->
+ <div class="modal fade" id="modal_rr">
+        <div class="modal-dialog modal-xl">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div class="modal-body">
+
+                                <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      <h3 class="card-title">
+                                      <i class="fas fa-clipboard-list"></i>
+                                        Crear RR
+                                      </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                         <form id="form-creacion-rr">   
+                                            <table id="tbl_creacion_rr" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                <thead>
+                                                    <tr>
+                                                      <th>Numero Linea</th>
+                                                      <th>STCantidad</th>
+                                                      <th>TAGNumber</th>
+                                                      <th>Stockcode</th>
+                                                      <th>PackingList</th>
+                                                      <th>GuiaDespacho</th>
+                                                      <th>Cantidad</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="datos_creacion_rr">
+                                                </tbody>
+                                            </table>
+                                      </div>
+                                     </form>
+                                    <!-- /.card-body -->
+                            </div>
+
+                        
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button id="btn_agregar_rr" type="button" class="btn btn-primary"  onclick="saveRR()">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!--. modal control de calidad-->
 
              <style type="text/css" class="init">
              /* Ensure that the demo table scrolls */
@@ -120,24 +190,103 @@
 
             $(document).ready(function() {
 
-            
+            var table_rr = $('#tbl_creacion_rr').DataTable();
+
               $('#vender').on('click', function (event) {
 
+                var rr_html = '';
+
                 var table = $('#tbl_rr').DataTable();
+
+               
+                table_rr.destroy();
 
                         event.preventDefault();
                         
                         $('#form').find('input[type="hidden"]').remove();
                         var seleccionados = table.rows({ selected: true });
+                        var array = table.rows({ selected: true }).data().toArray();
+                        var orden = $('#ordenes').val();
+                        var num = 0;
                         
                         if(!seleccionados.data().length)
                           alert("No ha seleccionado ningún registro");
                         else{
-                          seleccionados.every(function(key,data){
-                            console.log(this.data());
-                          });
                         }
-                    });
+
+
+                        $.ajax({
+                                    url: '<?php echo base_url();?>'+'index.php/Bodega/JSON_Wpanel',
+                                    type: 'POST',
+                                    dataType: 'JSON',
+                                    data: {
+                                        datos: array,
+                                        orden: orden
+                                        }
+                                })
+                                .done(function(respuesta) {
+
+                                    $('#form-creacion-rr')[0].reset();
+                                    
+                                
+                                $.each(respuesta.bucksheets, function(key, bucksheets) {
+                                    num  = num + 1;
+                                    rr_html += '<tr>';
+                                    rr_html += '<td>'+ bucksheets.NumeroLinea +'</td>';
+                                    rr_html += '<td>' + bucksheets.STCantidad + '</td>';
+                                    rr_html += '<td>' + bucksheets.TAGNumber + '</td>';
+                                    rr_html += '<td>' + bucksheets.Stockcode + '</td>';
+                                    rr_html += '<td>' + bucksheets.PackingList + '</td>';
+                                    rr_html += '<td>' + bucksheets.GuiaDespacho + '</td>';
+                                    rr_html += '<td><input type="text" id="row-'+num+'-cantidad" name="row-'+num+'-cantidad" value=""></td>';
+                                    rr_html += '</tr>';
+
+                     });
+
+                     $('#datos_creacion_rr').html(rr_html);
+                     
+                     $('#tbl_creacion_rr').DataTable(
+                         {
+                         "paging": true,
+                         "lengthChange": false,
+                         "searching": false,
+                         "ordering": true,
+                         "info": true,
+                         "autoWidth": true,
+                         //"responsive": true,
+                         "scrollY": "600px",
+                        "scrollX": true,
+                        "scrollCollapse": true,
+                        "lengthChange": false, 
+                        "autoWidth": false,
+                        "columns": [
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    null,
+                                    { "orderDataType": "dom-text-numeric" }
+                                   ]
+                        }
+                        
+                        );
+
+                    
+
+                    $('#modal_rr').modal('show'); // show bootstrap modal
+                                  
+                            
+                                    
+                                })
+                                .fail(function() {
+                                    console.log("error");
+                                })
+                                .always(function() {
+                                    console.log("complete");
+                                });
+
+                            });
 
                 recargaBuckSheet(0, 0);
 
@@ -162,15 +311,6 @@
 
                     $('[data-toggle="tooltip"]').tooltip();
 
-
-$('#btn_nuevo_todo').on('click', function(){
- 
-
-  $('#form_nuevo_todo')[0].reset(); // reset form on modals
-   $('#modal_nuevo_todo').modal('show');
-   
-});
-
         function mostrarBlock(){
                 $.blockUI({ 
                         message: '<h5><img style="width: 12px;" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
@@ -184,10 +324,33 @@ $('#btn_nuevo_todo').on('click', function(){
                 });
             }
 
+
+            function saveRR() {
+
+                var table_rr = $('#tbl_creacion_rr').DataTable();
+                var miArray = table_rr.rows().data().toArray();
+
+                for (var i = 0; i < miArray.length; i+=1) {
+                    console.log("En el índice '" + i + "' hay este valor: " + miArray[i]);
+
+                    for (var a = 0; a < miArray[i].length; a+=1) {
+                        
+                        console.log("En el índice '" + a + "' hay este valor: " + miArray[i][a]);
+
+                    }
+
+
+
+                    }
+               
+               
+                }
+
             function aplicaFiltro(){
 
                 var cliente = $('#clientes').val();
                 var orden = $('#ordenes').val();
+                var guia = $('#guias').val();
 
                 if($('#clientes').val() == 0) {
                         alert('Debe seleccionar cliente');
@@ -200,15 +363,22 @@ $('#btn_nuevo_todo').on('click', function(){
                         if($('#ordenes').val() == 0) {
                             alert('Debe seleccionar Orden');
                         }else{
-                        recargaBuckSheet(orden, cliente);
-                    }
-                    }
+
+                        if($('#guias').val() == 0) {
+                            alert('Debe seleccionar guia de despacho');
+                        }else{
 
 
+                            recargaBuckSheet(orden, cliente, guia);
+                        
+                    
+                        }   
+
+
+                    }
+                    }
 
                 }
-
-               
 
 
             }
@@ -229,7 +399,7 @@ $('#btn_nuevo_todo').on('click', function(){
 			dataType: 'JSON',
 			data: {
                    id_clientes: cliente
-				},
+				}
 		})
 		.done(function(respuesta) {
 			$("#proyectos").html(respuesta.proyectos);
@@ -243,12 +413,7 @@ $('#btn_nuevo_todo').on('click', function(){
 		});
 
     });
-    
 
-    function form_crea_rr(){
-
-      $('#modal_nuevo_rr').modal('show');
-    }
 
     $('select#proyectos').on('change', function() {
 
@@ -283,10 +448,41 @@ $('#btn_nuevo_todo').on('click', function(){
 	});
 
 
+    $('select#ordenes').on('change', function() {
+
+
+            var cliente = $('#clientes').val();
+            var proyecto = $('#proyectos').val();
+            var orden = $('#ordenes').val();
+
+
+            $('#guias').val('');
+            $('#guias').change();
+
+            $.ajax({
+                url: '<?php echo base_url();?>'+'index.php/Bodega/JSON_Ordenes_Guias',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    orden: orden
+                    },
+            })
+            .done(function(respuesta) {
+                $("#guias").html(respuesta.guias);
+                
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
+            });
+
+            });
 
 
 
-             function recargaBuckSheet(orden, cliente) {
+             function recargaBuckSheet(orden, cliente, guia) {
 
 
                  var tabla_bucksheet = $('#tbl_rr').DataTable();
@@ -298,11 +494,12 @@ $('#btn_nuevo_todo').on('click', function(){
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetBodega')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
-                        id_orden: id_orden
+                        id_orden: id_orden,
+                        guia: guia
                      },
                  }).done(function(result) {
 
@@ -322,10 +519,6 @@ $('#btn_nuevo_todo').on('click', function(){
 
                         bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
-                        bucksheet_html += '<td class="grey" >1</td>';
-                        bucksheet_html += '<td class="grey" >1</td>';
-                        bucksheet_html += '<td>RECIBIDO PARCIALMENTE</td>';
-                        bucksheet_html += '<td>4567898 - MATERIAL DE FERRETER</td>';
                         bucksheet_html += '<td>' + bucksheets.PurchaseOrderID+ '</td>';
                         
                 
@@ -348,56 +541,64 @@ $('#btn_nuevo_todo').on('click', function(){
                           },
                           lengthMenu: [[1, 2, 3, -1], [1, 2, 3, "All"]],
                           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
-          },
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
-        "autoWidth": true,
-        "scrollY": "600px",
-        "scrollX": true,
-        "colReorder": true,
-        "scrollCollapse": true,
-          "responsive": false,
-          "lengthChange": true, 
-          "autoWidth": true,
-          "dom": 'Bfrtip',
-          "lengthMenu": [
-            [ 10, 25, 50, -1 ],
-            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
-        ],
-          "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                                },
+                                "paging": false,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                "autoWidth": true,
+                                "scrollY": "600px",
+                                "scrollX": true,
+                                "colReorder": true,
+                                "scrollCollapse": true,
+                                "responsive": false,
+                                "lengthChange": true, 
+                                "autoWidth": true,
+                                "dom": 'Bfrtip',
+                                "lengthMenu": [
+                                    [ 10, 25, 50, -1 ],
+                                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                                ],
+                                "buttons": [
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'Copiar'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'csv'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'excel'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'pdf'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'Imprimir'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'Columnas Visibles'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'Mostrar Registros'
+                                    },
+                                    {
+                                    "extend":'selectAll',
+                                    "text": 'Seleccionar todos'         
+                                    },
+                                    {
+                                    "extend":'selectNone',
+                                    "text": 'Seleccionar Ninguno'         
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_rr_wrapper .col-md-6:eq(0)');
 
 
@@ -410,24 +611,6 @@ $('#btn_nuevo_todo').on('click', function(){
           
              </script>
 
-             <script>
-             $(function() {
-                 //Initialize Select2 Elements
-
-
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
-
-             })
-             </script>
-
+           
 
     

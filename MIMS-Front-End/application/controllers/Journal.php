@@ -25,19 +25,20 @@ class Journal extends MY_Controller{
  
 
 
-   function controlCalidad($idCliente,$idOrden,$codProyecto){
+   function controlCalidad($idCliente,$idOrden,$codProyecto,$filtro){
 
       
     $codEmpresa = $this->session->userdata('cod_emp');
 
     $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
     $menu = $this->callutil->armaMenuClientes($response);
+    $tipo = 1;
     $datos['arrClientes'] = $menu ;
 
     $datos['idCliente'] = $idCliente;
     $datos['idOrden'] = $idOrden;
     $datos['codProyecto'] = $codProyecto;
-
+    
     //Obtiene datos para cabecera
 
       //Obtiene Datos Proyecto
@@ -101,26 +102,25 @@ class Journal extends MY_Controller{
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
     }
 
-   
-   
+
    //llena arreglo con datos
 
    $datos['idCliente'] = $idCliente;
    $datos['idOrden'] = $idOrden;
+   $datos['tipoJournal'] = $tipo;
    $datos['codProyecto'] = $codProyecto;
    $datos['DescripcionProyecto'] = $DescripcionProyecto;
    $datos['nombreCliente'] = $nombreCliente;
    $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
-   $datos['select_cc'] = $select_cc;
+   $datos['select_cc'] = $select_cc;   
+   $datos['filtro'] = $filtro;
    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
 
    if ($this->session->userdata('rol_id')==='202'){
 
-
     $this->plantilla_activador('activador/listControlCalidad', $datos);
     
-
   }elseif($this->session->userdata('rol_id')==='203'){
 
     $this->plantilla_calidad('calidad/listControlCalidad', $datos);
@@ -144,7 +144,7 @@ class Journal extends MY_Controller{
 
 
 
-  function cambiosOrden($idCliente,$idOrden,$codProyecto){
+  function cambiosOrden($idCliente,$idOrden,$codProyecto,$filtro){
 
       
     $codEmpresa = $this->session->userdata('cod_emp');
@@ -232,6 +232,7 @@ class Journal extends MY_Controller{
    $datos['nombreCliente'] = $nombreCliente;
    $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
    $datos['select_cc'] = $select_cc;
+   $datos['filtro'] = $filtro;
    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
 
@@ -269,7 +270,8 @@ class Journal extends MY_Controller{
 
     $id_orden_compra = $this->input->post('id_orden_compra');
 		$tipo = 1;
-		$id_cliente = $this->input->post('id_cliente');
+    $id_cliente = $this->input->post('id_cliente');
+    $filtro =  $this->input->post('filtro');
     $respuesta = false;
 
   $journal = $this->callexternosjournal->obtienejournal($id_orden_compra,$tipo,$id_cliente);
@@ -293,18 +295,43 @@ class Journal extends MY_Controller{
         $respaldo = '';
       }
 
+      if( $filtro === '1'){
+
+        if($value->cod_tipo_interaccion === '16' && $value->id_interaccion_ref === '0' ){
+       
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+
+        }
+
+
+      }else{
+
+        $datos_journal[] = array(
+          'id_interaccion' => $value->id_interaccion,
+          'nombre_empleado'   => $value->nombre_empleado,
+          'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+          'numero_referencial' => $value->numero_referencial,
+          'solicitado_por' => $value->solicitado_por,
+          'aprobado_por' => $value->aprobado_por,
+          'comentarios_generales' => $value->comentarios_generales,
+          'respaldos' =>  $respaldo ,
+          'tipo_interaccion' => $value->tipo_interaccion,
+        );
+
+
+      }
+
       
-      $datos_journal[] = array(
-        'id_interaccion' => $value->id_interaccion,
-        'nombre_empleado'   => $value->nombre_empleado,
-        'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
-        'numero_referencial' => $value->numero_referencial,
-        'solicitado_por' => $value->solicitado_por,
-        'aprobado_por' => $value->aprobado_por,
-        'comentarios_generales' => $value->comentarios_generales,
-        'respaldos' =>  $respaldo ,
-        'tipo_interaccion' => $value->tipo_interaccion,
-      );
 
     }
   }
@@ -329,6 +356,9 @@ class Journal extends MY_Controller{
     $id_empleado = $this->input->post('id_empleado');
     $nombre_empleado = $this->input->post('nombre_empleado');
     $tipo_interaccion = $this->input->post('tipo_interaccion');
+    $id_interaccion_ref = $this->input->post('id_interaccion_ref');
+
+
     $fecha_ingreso = $this->callutil->formatoFecha($this->input->post('fecha_ingreso'));
     $numero_referencial = $this->input->post('numero_referencial');
     $solicitado_por = $this->input->post('solicitado_por');
@@ -389,7 +419,8 @@ class Journal extends MY_Controller{
                   'aprobado_por' => $aprobado_por,
                   'comentarios_generales' => $comentarios_generales,
                   'respaldos' => $respaldo,
-                  'respaldos_original'   => $respaldos_original
+                  'respaldos_original'   => $respaldos_original,
+                  'id_interaccion_ref' => $id_interaccion_ref
                   );
     
                   $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
@@ -448,7 +479,8 @@ class Journal extends MY_Controller{
               'numero_referencial' => $numero_referencial,
               'solicitado_por' =>  $solicitado_por,
               'aprobado_por' => $aprobado_por,
-              'comentarios_generales' => $comentarios_generales
+              'comentarios_generales' => $comentarios_generales,
+              'id_interaccion_ref' => $id_interaccion_ref
               );
 
               $journal = $this->callexternosjournal->agregarControlCalidad($dataInsert);
@@ -490,6 +522,17 @@ class Journal extends MY_Controller{
     $data['resp']        = $resp;
     $data['mensaje']     = $error_msg;
     $data['idInsertado'] = $idInsertado;
+
+
+    // actualiza ID para referenciar advertencia
+
+    $dataUpdate = array(	
+      'id_interaccion' => $id_interaccion_ref ,
+      'id_interaccion_ref' => $idInsertado
+      );
+
+      $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
+
  
 
     echo json_encode($data);
@@ -881,6 +924,7 @@ $htmlContent .='</html>';
 
       $id_orden_compra = $this->input->post('id_orden_compra');
       $tipo = 2;
+      $filtro = $id_cliente = $this->input->post('filtro');
       $id_cliente = $this->input->post('id_cliente');
       $respuesta = false;
   
@@ -905,18 +949,43 @@ $htmlContent .='</html>';
           $respaldo = '';
         }
   
+        if( $filtro === '1'){
+
+          if($value->cod_tipo_interaccion === '14' && $value->id_interaccion_ref === '0' ){
+         
+            $datos_journal[] = array(
+              'id_interaccion' => $value->id_interaccion,
+              'nombre_empleado'   => $value->nombre_empleado,
+              'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+              'numero_referencial' => $value->numero_referencial,
+              'solicitado_por' => $value->solicitado_por,
+              'aprobado_por' => $value->aprobado_por,
+              'comentarios_generales' => $value->comentarios_generales,
+              'respaldos' =>  $respaldo ,
+              'tipo_interaccion' => $value->tipo_interaccion,
+            );
+  
+          }
+  
+  
+        }else{
+  
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+  
+  
+        }
         
-        $datos_journal[] = array(
-          'id_interaccion' => $value->id_interaccion,
-          'nombre_empleado'   => $value->nombre_empleado,
-          'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
-          'numero_referencial' => $value->numero_referencial,
-          'solicitado_por' => $value->solicitado_por,
-          'aprobado_por' => $value->aprobado_por,
-          'comentarios_generales' => $value->comentarios_generales,
-          'respaldos' =>  $respaldo ,
-          'tipo_interaccion' => $value->tipo_interaccion,
-        );
+        
   
       }
     }

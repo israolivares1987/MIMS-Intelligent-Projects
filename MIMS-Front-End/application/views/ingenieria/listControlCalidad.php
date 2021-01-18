@@ -249,6 +249,21 @@
                                      </div>
 
 
+                                     <div class="col-md-12" style="display: none;" id="interaction_ref">
+                                         <div class="form-horizontal">
+                                             <div class="form-group">
+                                                 <div class="form-group">
+                                                     <label class="control-label col-md-9">Interaccion para Levantar</label>
+                                                     <div class="col-md-12" id="select_interaction_ref">
+                                                       
+                                                     </div>
+                                                 </div>
+                                             </div>
+                                         </div>
+                                         <!--.form-horizontal-->
+                                     </div>
+
+
 
                                      <div class="col-md-12">
 
@@ -500,6 +515,7 @@ var url;
 
 recargaControlCalidad(orden, cliente);
 recargaCalidadDet(orden,cliente,proyecto);
+formToggleDesactivar('interaction_ref');
 
 
 //set input/textarea/select event when change value, remove class error and remove text help block 
@@ -517,6 +533,28 @@ $("select").change(function() {
 });
 
 });   
+
+
+$('#var_tipo_interaccion').on('change', function(){
+
+var tipo_interaccion = this.value;
+
+if (tipo_interaccion=='17'){
+
+    formToggleActivar('interaction_ref');
+
+}else{
+
+    formToggleDesactivar('interaction_ref');
+
+}
+
+
+
+});
+
+
+
 
 
 $('#btn_recargar').on('click', function() {
@@ -542,6 +580,8 @@ $('#miForm')[0].reset();
 $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
 $('#modal_control_calidad').modal('show');
 $('#name_respaldo').html("");
+obtieneSelects();
+formToggleDesactivar('interaction_ref');
 
 });
 
@@ -623,7 +663,8 @@ $.ajax({
     dataType: 'json',
     data: {
         id_orden_compra: orden,
-        id_cliente: cliente
+        id_cliente: cliente,
+        filtro: <?php echo $filtro;?>
     },
 }).done(function(result) {
 
@@ -654,7 +695,7 @@ $.ajax({
     $('#datos_ccalidad').html(calidad_html);
     $('#tbl_ccalidad').DataTable({
         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -804,7 +845,7 @@ calidad_det_html += '</tr>';
 
     $('#tbl_controlcalidaddet').DataTable({
         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -1124,6 +1165,42 @@ if(opcion){
 
 }
              
-             }
+}
+
+
+function obtieneSelects(){
+
+
+var cliente = <?php echo $idCliente?>;
+var orden = <?php echo $idOrden?>;
+var tipo =<?php echo $tipoJournal?>;
+
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/Consultas/obtieneSelect'); ?>',
+  type: 		'POST',
+  data:{
+    id_orden_compra: orden,
+    tipo: tipo,
+    id_cliente: cliente
+  },
+  dataType: 'json'
+  }).done(function(result) {
+
+   
+    $('#select_interaction_ref').html(result.select_cc_ref);
+
+
+
+  }).fail(function() {
+  console.log("error eliminar order");
+  })
+
+
+}
+
+
+
+
 
 </script>

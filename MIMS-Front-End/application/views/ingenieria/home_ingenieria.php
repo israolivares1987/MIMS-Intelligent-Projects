@@ -391,10 +391,25 @@
 
 <script type="text/javascript">
 
-
+$(document).ready(function() {
 
 $('[data-toggle="tooltip"]').tooltip();
 
+//set input/textarea/select event when change value, remove class error and remove text help block 
+$("input").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("textarea").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("select").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+
+});
 
 $('#btn_nuevo_todo').on('click', function(){
  
@@ -674,17 +689,9 @@ function recargaListaToDo(){
       $.each(result.formularios,function(key, formulario) {
 
 
-        if(formulario.estado ==='1'){
-
-          lista_todo = formulario.lista_todo ;  
-          descripcion_todo = formulario.descripcion_todo; 
-
-          }else{
-            lista_todo = '<strike>' + formulario.lista_todo + '</strike>';  
-            descripcion_todo = '<strike>'+formulario.descripcion_todo+'</strike>'; 
-          }
-
-
+       
+        lista_todo = formulario.lista_todo ;  
+        descripcion_todo = formulario.descripcion_todo; 
 
         todo_html += '<tr>';
         todo_html += '<td>';
@@ -693,6 +700,9 @@ function recargaListaToDo(){
         todo_html += '<button data-toggle="tooltip" data-placement="left" title="Cambiar Estado" onclick="actualizaEstado('+ formulario.codEmpresa +','+formulario.id_usuario+','+formulario.id_todo+','+formulario.estado+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-ban"></i></button>';
         todo_html += '</td>';
         todo_html += '<td>' + lista_todo + '</td>';
+
+
+      if(formulario.estado == '1'){ 
 
         if(formulario.dias > 3 ){
 
@@ -725,10 +735,21 @@ function recargaListaToDo(){
 
           todo_html += '<td><span class="bg-red">Atrasada</span></td>';  
         }
+      }else{
+        todo_html += '<td>' + descripcion_todo + '</td>';
+        todo_html += '<td><span class="bg-red">Terminado</span></td>'; 
+      }
 
         todo_html += '<td>' + formulario.fecha_inicio + '</td>';
         todo_html += '<td>' + formulario.fecha_termino + '</td>';
+
+        if(formulario.estado == '1'){ 
         todo_html += '<td><medium class="'+color+'"><i class="far fa-clock"></i> <p>'+formulario.dif+'</medium></td>';
+        }else{
+
+          todo_html += '<td></td>';
+
+        }
         todo_html += '</tr>';
 
         
@@ -745,7 +766,7 @@ function recargaListaToDo(){
 
         $('#tbl_todo').DataTable({
           language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -870,6 +891,8 @@ function recargaCalendario(){
     $('#datemask2').inputmask('mm-dd-yyyy', { 'placeholder': 'mm-dd-yyyy' })
     //Money Euro
     $('[data-mask]').inputmask()
+
+    $('[data-toggle="tooltip"]').tooltip();
 
     cargaCalendarioFechas();
     recargaListaToDo();

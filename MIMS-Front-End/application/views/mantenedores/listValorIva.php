@@ -61,7 +61,7 @@
 
                      $('#tbl_iva').DataTable({
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,

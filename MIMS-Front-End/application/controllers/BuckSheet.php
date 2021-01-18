@@ -117,7 +117,7 @@ class BuckSheet extends MY_Controller
       }
 
     //contar advertencias de calidad
-      $journal = $this->callexternosjournal->obtienejournal($PurchaseOrderID,1,$id_cliente);
+      $journal = $this->callexternosjournal->obtienejournal($id_orden_compra,1,$id_cliente);
       $arrJournal = json_decode($journal);     
        if ($arrJournal) {
            foreach ($arrJournal as $key => $value) {
@@ -129,7 +129,7 @@ class BuckSheet extends MY_Controller
        }
 
          //contar advertencias de activacion
-      $journalactivacion = $this->callexternosjournal->obtienejournal($PurchaseOrderID,2,$id_cliente);
+      $journalactivacion = $this->callexternosjournal->obtienejournal($id_orden_compra,2,$id_cliente);
       $arrJournalActivacion = json_decode($journalactivacion);     
        if ($arrJournalActivacion) {
            foreach ($arrJournalActivacion as $key => $value) {
@@ -143,7 +143,7 @@ class BuckSheet extends MY_Controller
 
        //contar despachos, atrasos
        
-       $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+       $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$id_orden_compra);
 
 
        $arrBucksheet = json_decode($bucksheet);
@@ -153,11 +153,11 @@ class BuckSheet extends MY_Controller
    
          foreach ($arrBucksheet as $key => $value) {
    
-          if ($value->lineaActivable==='ACTIVABLE') {
+          if ($value->TIPO_DE_LINEA==='ACTIVABLE') {
 
             $countTotalWpanel++;
           }
-          if (!empty($value->FechaEmbarque) && !empty($value->PackingList)) {
+          if (!empty($value->FECHA_EMBARQUE) && !empty($value->PACKINGLIST)) {
 
             $countDespachos++;
           }
@@ -165,38 +165,38 @@ class BuckSheet extends MY_Controller
 
         
 
-          if ( $this->callutil->diasDiffFechaswpanel($value->FechaCF,$fecha_hoy) < 0 && $value->PACF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PATCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
   
-          if ( $this->callutil->diasDiffFechaswpanel($value->FechaComienzoFabricacion,$fecha_hoy)  < 0 && $value->PAFCF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_COMIENZO_FABRICACION,$fecha_hoy)  < 0 && $value->PA_FCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
 
       
 
-          if ($this->callutil->diasDiffFechaswpanel($value->FechaTerminoFabricacion,$fecha_hoy)  < 0 &&  $value->PAFTF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_TERMINO_FABRICACION,$fecha_hoy)  < 0 &&  $value->PA_FTF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
             $countAtrasados++;
           }
 
-          if ($this->callutil->diasDiffFechaswpanel($value->FechaPintura,$fecha_hoy) < 0  && $value->PAFP == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FechaListoInspeccion,$fecha_hoy)  < 0  && $value->PAFLI == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_PINTURA,$fecha_hoy) < 0  && $value->PA_FP == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
 
-          if ($this->callutil->diasDiffFechaswpanel($value->FechaGranallado,$fecha_hoy)  < 0  && $value->PAFG == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_LISTO_INSPECCION,$fecha_hoy)  < 0  && $value->PA_FLI == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
 
-          if ($this->callutil->diasDiffFechaswpanel($value->FechaSalidaFabrica,$fecha_hoy)  < 0  && $value->PAFSF == 'PROGRAMADO' && $value->lineaActivable == 'ACTIVABLE') {
+          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_GRANALLADO,$fecha_hoy)  < 0  && $value->PA_FG == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
+
+            $countAtrasados++;
+          }
+
+          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_SALIDA_FABRICA,$fecha_hoy)  < 0  && $value->PA_FSF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
@@ -286,6 +286,7 @@ class BuckSheet extends MY_Controller
         $SupplierName = $valor->SupplierName;
         $PurchaseOrderID = $valor->PurchaseOrderID;
         $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
       }
     }
 
@@ -332,10 +333,10 @@ class BuckSheet extends MY_Controller
           while (($data = fgetcsv($handle, 500, ";")) !== FALSE) {
             $i++;
 
-            if (!in_array($data[4], $ids)) {
-              $ids[] = $data[4];
+            if (!in_array($data[6], $ids)) {
+              $ids[] = $data[6];
             } else {
-              $repetidos[] = $data[4];
+              $repetidos[] = $data[6];
             }
           }
           fclose($handle);
@@ -349,150 +350,150 @@ class BuckSheet extends MY_Controller
 
             $rowCount++;
 
-            if (strlen($row['Revision']) < 1 || $row['Revision'] === "" || isset($row['Revision']) || empty($row['Revision']) || is_null($row['Revision'])) {
+            if (strlen($row['REVISION']) < 1 || $row['REVISION'] === "" || isset($row['REVISION']) || empty($row['REVISION']) || is_null($row['Revision'])) {
 
               $revision = '0';
             } else {
 
-              $revision = $row['Revision'];
+              $revision = $row['REVISION'];
             }
 
             //valida fechas
 
 
-            if ($row['PurchaseOrderID'] != $idOrden) {
+            if ($row['ID_OC'] != $idOrden) {
                 $idmensaje = 3;
 
                
-                $this->insertar_error($idError, $idmensaje, 'PurchaseOrderID', $row);
+                $this->insertar_error($idError, $idmensaje, 'ID_OC', $row);
                 $error++;
                 $errorCount++;
             }else{
            
-              if ($this->callutil->validarFecha($row['FechaLineaBase'])){
+              if ($this->callutil->validarFecha($row['FECHA_LINEA_BASE'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaLineaBase', $row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_LINEA_BASE', $row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaComienzoFabricacion'])){
+              if ($this->callutil->validarFecha($row['FECHA_COMIENZO_FABRICACION'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaComienzoFabricacion', $row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_COMIENZO_FABRICACION', $row);
                 $error++;
                 $errorCount++;
 
               }
-              if ($this->callutil->validarFecha($row['FechaTerminoFabricacion'])){
+              if ($this->callutil->validarFecha($row['FECHA_TERMINO_FABRICACION'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FechaTerminoFabricacion',$row);
-                $error++;
-                $errorCount++;
-
-              }
-
-              if ($this->callutil->validarFecha($row['FechaGranallado'])){
-            
-              } else {
-                $idmensaje = 2;
-
-                $this->insertar_error($idError, $idmensaje,'FechaGranallado', $row);
+                $this->insertar_error($idError, $idmensaje, 'FECHA_TERMINO_FABRICACION',$row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaPintura'])){
+              if ($this->callutil->validarFecha($row['FECHA_GRANALLADO'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FechaPintura',$row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_GRANALLADO', $row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaListoInspeccion'])){
+              if ($this->callutil->validarFecha($row['FECHA_PINTURA'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaListoInspeccion', $row);
-                $error++;
-                $errorCount++;
-
-              }
-              if ($this->callutil->validarFecha($row['FechaSalidaFabrica'])){
-            
-              } else {
-                $idmensaje = 2;
-
-                $this->insertar_error($idError, $idmensaje,'FechaSalidaFabrica', $row);
+                $this->insertar_error($idError, $idmensaje, 'FECHA_PINTURA',$row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaEmbarque'])){
+              if ($this->callutil->validarFecha($row['FECHA_LISTO_INSPECCION'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaEmbarque', $row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_LISTO_INSPECCION', $row);
+                $error++;
+                $errorCount++;
+
+              }
+              if ($this->callutil->validarFecha($row['FECHA_SALIDA_FABRICA'])){
+            
+              } else {
+                $idmensaje = 2;
+
+                $this->insertar_error($idError, $idmensaje,'FECHA_SALIDA_FABRICA', $row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaTC'])){
+              if ($this->callutil->validarFecha($row['FECHA_EMBARQUE'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FechaTC',$row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_EMBARQUE', $row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaTV'])){
+              if ($this->callutil->validarFecha($row['FECHA_TC'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaTV', $row);
+                $this->insertar_error($idError, $idmensaje, 'FECHA_TC',$row);
                 $error++;
                 $errorCount++;
 
               }
 
-              if ($this->callutil->validarFecha($row['FechaCF'])){
+              if ($this->callutil->validarFecha($row['FECHA_TP'])){
             
               } else {
                 $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FechaCF',$row);
+                $this->insertar_error($idError, $idmensaje,'FECHA_TP', $row);
+                $error++;
+                $errorCount++;
+
+              }
+
+              if ($this->callutil->validarFecha($row['FECHA_TCF'])){
+            
+              } else {
+                $idmensaje = 2;
+
+                $this->insertar_error($idError, $idmensaje,'FECHA_TCF',$row);
                 $error++;
                 $errorCount++;
 
               }
 
 
-          if (in_array($row['NumeroLinea'], $repetidos)) {
+          if (in_array($row['NUMERO_DE_LINEA'], $repetidos)) {
 
                   $idmensaje = 1;
-                  $this->insertar_error($idError, $idmensaje,'NumeroLinea', $row);
+                  $this->insertar_error($idError, $idmensaje,'NUMERO_DE_LINEA', $row);
                   $error++;
                   $errorCount++;
                 } else {
@@ -501,7 +502,7 @@ class BuckSheet extends MY_Controller
 
                   if ($error == 0) {
 
-                    $prevCount = $this->callexternosbucksheet->getRows($idOrden, $row['NumeroLinea']);
+                    $prevCount = $this->callexternosbucksheet->getRows($idOrden, $row['NUMERO_DE_LINEA']);
 
           
 
@@ -509,136 +510,139 @@ class BuckSheet extends MY_Controller
 
                       $EstadoLineaBucksheet = '1';
                       
-                      if (!empty($row['FechaCF']) && $row['PACF'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '7';
                       }
 
 
-                      if (!empty($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'ACTUAL') {
+                      if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '2';
                       }
 
-                      if (!empty($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '3';
                       }
 
-                      if (!empty($row['FechaPintura']) && $row['PAFP'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '6';
                       }
 
 
 
-                      if (!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '4';
                       }
 
-                      if (!empty($row['FechaEmbarque']) && !empty($row['PackingList'])) {
+                      if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
 
                         $EstadoLineaBucksheet = '5';
                       }
                      } else {
 
                       $EstadoLineaBucksheet = '1';
-
-                      if (!empty($row['FechaCF']) && $row['PACF'] == 'ACTUAL') {
+                      
+                      if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '7';
                       }
 
 
-                      if (!empty($row['FechaComienzoFabricacion']) && $row['PAFCF'] == 'ACTUAL') {
+                      if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '2';
                       }
 
-                      if (!empty($row['FechaTerminoFabricacion']) && $row['PAFTF'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '3';
                       }
 
-                      if (!empty($row['FechaPintura']) && $row['PAFP'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '6';
                       }
 
 
 
-                      if (!empty($row['FechaListoInspeccion']) && $row['PAFLI'] == 'ACTUAL') {
+                      if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
 
                         $EstadoLineaBucksheet = '4';
                       }
 
-                      if (!empty($row['FechaEmbarque']) && !empty($row['PackingList'])) {
+                      if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
 
                         $EstadoLineaBucksheet = '5';
                       }
                     }
 
-
                     $memData = array(
-                      'PurchaseOrderID' => $row['PurchaseOrderID'],
-                      'purchaseOrdername' => urldecode($PurchaseOrderDescription),
-                      'SupplierName' => urldecode($SupplierName),
-                      'EstadoLineaBucksheet' => $EstadoLineaBucksheet,
-                      'lineaActivable' => $row['lineaActivable'],
-                      'NumeroLinea' => $row['NumeroLinea'],
-                      'ItemST' => $row['ItemST'],
-                      'SubItemST' => $row['SubItemST'],
-                      'STUnidad' => $row['STUnidad'],
-                      'STCantidad' => $row['STCantidad'],
-                      'TAGNumber' => $row['TAGNumber'],
-                      'Stockcode' => $row['Stockcode'],
-                      'Descripcion' => $row['Descripcion'],
-                      'PlanoModelo' => $row['PlanoModelo'],
-                      'Revision' =>  $revision,
-                      'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
-                      'PesoUnitario' => $row['PesoUnitario'],
-                      'PesoTotal' => $row['PesoTotal'],
-                      'FechaLineaBase' => $this->callutil->formatoFecha($row['FechaLineaBase']),
-                      'DiasAntesRAS' => $this->callutil->diasDiffFechas($row['FechaLineaBase'], $fecha_hoy),
-                      'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
-                      'PAFCF' => $row['PAFCF'],
-                      'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
-                      'PAFTF' => $row['PAFTF'],
-                      'FechaGranallado' => $this->callutil->formatoFecha($row['FechaGranallado']),
-                      'PAFG' => $row['PAFG'],
-                      'FechaPintura' => $this->callutil->formatoFecha($row['FechaPintura']),
-                      'PAFP' => $row['PAFP'],
-                      'FechaListoInspeccion' => $this->callutil->formatoFecha($row['FechaListoInspeccion']),
-                      'PAFLI' => $row['PAFLI'],
-                      'ActaLiberacionCalidad' => $row['ActaLiberacionCalidad'],
-                      'FechaSalidaFabrica' => $this->callutil->formatoFecha($row['FechaSalidaFabrica']),
-                      'PAFSF' => $row['PAFSF'],
-                      'FechaEmbarque' => $this->callutil->formatoFecha($row['FechaEmbarque']),
-                      'PackingList' => $row['PackingList'],
-                      'GuiaDespacho' => $row['GuiaDespacho'],
-                      'SCNNumber' => $row['SCNNumber'],
-                      'UnidadesSolicitadas' => $row['UnidadesSolicitadas'],
-                      'UnidadesRecibidas' => $row['UnidadesRecibidas'],
-                      'MaterialReceivedReport' => $row['MaterialReceivedReport'],
-                      'MaterialWithdrawalReport' => $row['MaterialWithdrawalReport'],
-                      'Origen' => $row['Origen'],
-                      'DiasViaje' => $row['DiasViaje'],
-                      'TransmittalCliente' => $row['TransmittalCliente'],
-                      'FechaTC' => $this->callutil->formatoFecha($row['FechaTC']),
-                      'TransmittalVendor' => $row['TransmittalVendor'],
-                      'FechaTV' => $this->callutil->formatoFecha($row['FechaTV']),
-                      'TransmittalCF' => $row['TransmittalCF'],
-                      'FechaCF' => $this->callutil->formatoFecha($row['FechaCF']),
-                      'PACF' => $row['PACF'],
-                      'Observacion7' => $row['Observacion7'],
+                      'COD_EMPRESA' =>  $codEmpresa,
+                      'ID_OC' => $row['ID_OC'],
+                      'NUMERO_OC' => urldecode($PurchaseOrderNumber),
+                      'DESCRIPCION_OC' => urldecode($PurchaseOrderDescription),
+                      'ITEM_OC' => $row['ITEM_OC'],
+                      'SUB_ITEM_OC' => $row['SUB_ITEM_OC'],
+                      'PROVEEDOR' => urldecode($SupplierName),
+                      'NUMERO_DE_LINEA' => $row['NUMERO_DE_LINEA'],
+                      'TIPO_DE_LINEA' => $row['TIPO_DE_LINEA'],
+                      'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+                      'NUMERO_DE_TAG' => $row['NUMERO_DE_TAG'],
+                      'STOCKCODE' => $row['STOCKCODE'],
+                      'DESCRIPCION_LINEA' => $row['DESCRIPCION_LINEA'],
+                      'NUMERO_DE_ELEMENTOS' => $row['NUMERO_DE_ELEMENTOS'],
+                      'CANTIDAD_UNITARIA' => $row['CANTIDAD_UNITARIA'],
+                      'CANTIDAD_TOTAL' => $row['CANTIDAD_TOTAL'],
+                      'UNIDAD' => $row['UNIDAD'],
+                      'TRANSMITTAL_CLIENTE' => $row['TRANSMITTAL_CLIENTE'],
+                      'FECHA_TC' => $this->callutil->formatoFecha($row['FECHA_TC']),
+                      'TRANSMITTAL_PROVEEDOR' => $row['TRANSMITTAL_PROVEEDOR'],
+                      'FECHA_TP' => $this->callutil->formatoFecha($row['FECHA_TP']),
+                      'TRANSMITTAL_CLIENTE_FINAL' => $row['TRANSMITTAL_CLIENTE_FINAL'],
+                      'FECHA_TCF' => $this->callutil->formatoFecha($row['FECHA_TCF']),
+                      'PA_TCF' => $row['PA_TCF'],
+                      'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
+                      'REVISION' => $row['REVISION'],
+                      'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
+                      'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
+                      'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $fecha_hoy),
+                      'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
+                      'PA_FCF' => $row['PA_FCF'],
+                      'FECHA_TERMINO_FABRICACION' =>$this->callutil->formatoFecha($row['FECHA_TERMINO_FABRICACION']),
+                      'PA_FTF' => $row['PA_FTF'],
+                      'FECHA_GRANALLADO' => $this->callutil->formatoFecha($row['FECHA_GRANALLADO']),
+                      'PA_FG' => $row['PA_FG'],
+                      'FECHA_PINTURA' => $this->callutil->formatoFecha($row['FECHA_PINTURA']),
+                      'PA_FP' => $row['PA_FP'],
+                      'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
+                      'PA_FLI' => $row['PA_FLI'],
+                      'ACTA_LIBERACION_CALIDAD' => $row['ACTA_LIBERACION_CALIDAD'],
+                      'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
+                      'PA_FSF' => $row['PA_FSF'],
+                      'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
+                      'PACKINGLIST' => $row['PACKINGLIST'],
+                      'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
+                      'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
+                      'ORIGEN' => $row['ORIGEN'],
+                      'DIAS_VIAJE' => $row['DIAS_VIAJE'],
+                      'UNIDADES_SOLICITADAS' => $row['UNIDADES_SOLICITADAS'],
+                      'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
+                      'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
+                      'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
+                      'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
+                      'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
+                      'OBSERVACION' => $row['OBSERVACION']
                     );
 
 
                     if ($prevCount > 0) {
                       // Update member data
 
-                      $update = $this->callexternosbucksheet->update($memData, $idOrden, $row['NumeroLinea']);
+                      $update = $this->callexternosbucksheet->update($memData, $idOrden, $row['NUMERO_DE_LINEA']);
 
                       if ($update) {
                         $updateCount++;
@@ -650,7 +654,7 @@ class BuckSheet extends MY_Controller
                         $insert_bitacora = array(
                           'codEmpresa' => $this->session->userdata('cod_emp'),
                           'accion'  => 'ACTUALIZA_WPANEL_LINEA',
-                          'id_registro' => $row['NumeroLinea'],
+                          'id_registro' => $row['NUMERO_DE_LINEA'],
                           'usuario'  =>  $this->session->userdata('n_usuario'),
                           'rol' =>   $this->session->userdata('nombre_rol'),
                           'objeto'  => 'WPANEL',
@@ -663,14 +667,16 @@ class BuckSheet extends MY_Controller
                       // Insert member data
                       $insert = $this->callexternosbucksheet->insert($memData);
 
+                      var_dump($insert);
+
                       if ($insert) {
 
                         $insertCount++;
 
                         $insert_bitacora = array(
                           'codEmpresa' => $this->session->userdata('cod_emp'),
-                          'accion'  => 'INSERTA_WPANEL_LINEA_' . $row['NumeroLinea'],
-                          'id_registro' => $row['NumeroLinea'],
+                          'accion'  => 'INSERTA_WPANEL_LINEA_' . $row['NUMERO_DE_LINEA'],
+                          'id_registro' => $row['NUMERO_DE_LINEA'],
                           'usuario'  =>  $this->session->userdata('n_usuario'),
                           'rol' =>   $this->session->userdata('nombre_rol'),
                           'objeto'  => 'WPANEL',
@@ -776,11 +782,123 @@ class BuckSheet extends MY_Controller
   {
 
 
-
+    $codEmpresa = $this->session->userdata('cod_emp');
     $PurchaseOrderID = $this->input->post('id_orden');
     $respuesta = false;
 
-    $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+    $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
+
+    $arrBucksheet = json_decode($bucksheet);
+
+
+    $datos_bucksheet = array();
+
+    if ($arrBucksheet) {
+      $respuesta = true;
+
+      foreach ($arrBucksheet as $key => $value) {
+
+
+
+
+        $fecha_hoy = date_create()->format('Y-m-d');
+
+        $datosEstados  = $this->callutil->obtieneDatoRef('ESTADO_BUCKSHEET',$value->ESTADO_DE_LINEA);
+
+        foreach (json_decode($datosEstados) as $llave => $valor) {
+                    
+          $estado_bucksheet = $valor->domain_desc;
+  
+        }
+
+
+        $datos_bucksheet[] = array(
+
+              'ID_OC' => $value->ID_OC,
+              'NUMERO_OC' => $value->NUMERO_OC,
+              'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+              'ITEM_OC' => $value->ITEM_OC,
+              'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+              'PROVEEDOR' => $value->PROVEEDOR,
+              'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+              'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+              'ESTADO_DE_LINEA' => $this->callutil->cambianull($estado_bucksheet),
+              'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+              'STOCKCODE' => $value->STOCKCODE,
+              'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+              'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+              'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+              'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+              'UNIDAD' => $value->UNIDAD,
+              'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+              'FECHA_TC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TC)),
+              'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+              'FECHA_TP' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TP)),
+              'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+              'FECHA_TCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TCF)),
+              'PA_TCF' => $this->callutil->cambianull($value->PA_TCF),
+              'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+              'REVISION' => $value->REVISION,
+              'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
+              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
+              'PA_FCF' => $this->callutil->cambianull($value->PA_FCF),
+              'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
+              'PA_FTF' => $this->callutil->cambianull($value->PA_FTF),
+              'FECHA_GRANALLADO' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO)),
+              'PA_FG' => $this->callutil->cambianull($value->PA_FG),
+              'FECHA_PINTURA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA)),
+              'PA_FP' => $this->callutil->cambianull($value->PA_FP),
+              'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
+              'PA_FLI' => $this->callutil->cambianull($value->PA_FLI),
+              'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+              'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
+              'PA_FSF' => $this->callutil->cambianull($value->PA_FSF),
+              'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'PACKINGLIST' => $value->PACKINGLIST,
+              'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+              'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+              'ORIGEN' => $value->ORIGEN,
+              'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+              'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+              'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+              'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+              'OBSERVACION' => $value->OBSERVACION
+              
+
+
+
+        );
+      }
+    } else {
+
+      $respuesta = false;
+    }
+
+  
+    $datos['bucksheets'] = $datos_bucksheet;
+    $datos['resp']      = $respuesta;
+
+    echo json_encode($datos);
+  }
+
+
+  function obtieneBuckSheetBodega()
+  {
+
+
+
+    $PurchaseOrderID = $this->input->post('id_orden');
+    $GuiaDespacho = $this->input->post('guia');
+
+
+    $respuesta = false;
+
+    $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($PurchaseOrderID,$GuiaDespacho);
 
 
     $arrBucksheet = json_decode($bucksheet);
@@ -802,7 +920,7 @@ class BuckSheet extends MY_Controller
           'PurchaseOrderID' => $value->PurchaseOrderID,
           'purchaseOrdername' => $value->purchaseOrdername,
           'EstadoLineaBucksheet' => $this->callutil->cambianull($value->EstadoLineaBucksheet),
-          'lineaActivable' => $value->lineaActivable,
+          'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
           'NumeroLinea' => $value->NumeroLinea,
           'SupplierName' => $value->SupplierName,
           'ItemST' => $value->ItemST,
@@ -819,9 +937,9 @@ class BuckSheet extends MY_Controller
           'PesoTotal' => $this->callutil->cambianull($value->PesoTotal),
           'FechaLineaBase' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaLineaBase)),
           'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaLineaBase, $fecha_hoy),
-          'FechaComienzoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion)),
+          'FECHACOMIENZOFABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHACOMIENZOFABRICACION)),
           'PAFCF' => $this->callutil->cambianull($value->PAFCF),
-          'FechaTerminoFabricacion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion)),
+          'FECHATERMINOFABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHATERMINOFABRICACION)),
           'PAFTF' => $this->callutil->cambianull($value->PAFTF),
           'FechaGranallado' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaGranallado)),
           'PAFG' => $this->callutil->cambianull($value->PAFG),
@@ -863,7 +981,8 @@ class BuckSheet extends MY_Controller
     $datos['resp']      = $respuesta;
 
     echo json_encode($datos);
-  }
+  } 
+
 
   function obtieneBucksheetDet()
   {
@@ -871,9 +990,12 @@ class BuckSheet extends MY_Controller
     $PurchaseOrderID = $this->input->post('id_orden');
     $NumeroLinea = $this->input->post('numero_linea');
     $fecha_hoy = date_create()->format('Y-m-d');
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $select_unidad = "";
 
-    $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID, $NumeroLinea);
+    $response = $this->callexternosbucksheet->obtieneBucksheetDet($codEmpresa,$PurchaseOrderID, $NumeroLinea);
 
+ 
     $arrBucksheet = json_decode($response);
 
 
@@ -887,59 +1009,78 @@ class BuckSheet extends MY_Controller
 
 
         $datos_bucksheet[] = array(
-          'PurchaseOrderID' => $value->PurchaseOrderID,
-          'purchaseOrdername' => $value->purchaseOrdername,
-          'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
-          'lineaActivable' => $value->lineaActivable,
-          'NumeroLinea' => $value->NumeroLinea,
-          'SupplierName' => $value->SupplierName,
-          'ItemST' => $value->ItemST,
-          'SubItemST' => $value->SubItemST,
-          'STUnidad' => $value->STUnidad,
-          'STCantidad' => $value->STCantidad,
-          'TAGNumber' => $value->TAGNumber,
-          'Stockcode' => $value->Stockcode,
-          'Descripcion' => $value->Descripcion,
-          'PlanoModelo' => $value->PlanoModelo,
-          'Revision' => $this->callutil->cambianull($value->Revision),
-          'PaqueteConstruccionArea' => $value->PaqueteConstruccionArea,
-          'PesoUnitario' => $value->PesoUnitario,
-          'PesoTotal' => $value->PesoTotal,
-          'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
-          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaLineaBase, $fecha_hoy),
-          'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
-          'PAFCF' => $this->callutil->cambianull($value->PAFCF),
-          'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
-          'PAFTF' => $this->callutil->cambianull($value->PAFTF),
-          'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
-          'PAFG' => $this->callutil->cambianull($value->PAFG),
-          'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
-          'PAFP' => $this->callutil->cambianull($value->PAFP),
-          'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
-          'PAFLI' => $this->callutil->cambianull($value->PAFLI),
-          'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
-          'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
-          'PAFSF' => $this->callutil->cambianull($value->PAFSF),
-          'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-          'PackingList' => $value->PackingList,
-          'GuiaDespacho' => $value->GuiaDespacho,
-          'SCNNumber' => $value->SCNNumber,
-          'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
-          'UnidadesRecibidas' => $value->UnidadesRecibidas,
-          'MaterialReceivedReport' => $value->MaterialReceivedReport,
-          'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
-          'Origen' => $value->Origen,
-          'DiasViaje' => $value->DiasViaje,
-          'TransmittalCliente' => $value->TransmittalCliente,
-          'FechaTC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTC)),
-          'TransmittalVendor' => $this->callutil->cambianull($value->TransmittalVendor),
-          'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
-          'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
-          'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
-          'PACF' => $this->callutil->cambianull($value->PACF),
-          'Observacion7' => $this->callutil->cambianull($value->Observacion7)
 
+              'ID_OC' => $value->ID_OC,
+              'NUMERO_OC' => $value->NUMERO_OC,
+              'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+              'ITEM_OC' => $value->ITEM_OC,
+              'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+              'PROVEEDOR' => $value->PROVEEDOR,
+              'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+              'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+              'ESTADO_DE_LINEA' =>  $value->ESTADO_DE_LINEA,
+              'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+              'STOCKCODE' => $value->STOCKCODE,
+              'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+              'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+              'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+              'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+              'UNIDAD' => $value->UNIDAD,
+              'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+              'FECHA_TC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TC)),
+              'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+              'FECHA_TP' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TP)),
+              'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+              'FECHA_TCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TCF)),
+              'PA_TCF' => $this->callutil->cambianull($value->PA_TCF),
+              'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+              'REVISION' => $value->REVISION,
+              'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
+              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
+              'PA_FCF' => $this->callutil->cambianull($value->PA_FCF),
+              'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
+              'PA_FTF' => $this->callutil->cambianull($value->PA_FTF),
+              'FECHA_GRANALLADO' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO)),
+              'PA_FG' => $this->callutil->cambianull($value->PA_FG),
+              'FECHA_PINTURA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA)),
+              'PA_FP' => $this->callutil->cambianull($value->PA_FP),
+              'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
+              'PA_FLI' => $this->callutil->cambianull($value->PA_FLI),
+              'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+              'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
+              'PA_FSF' => $this->callutil->cambianull($value->PA_FSF),
+              'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'PACKINGLIST' => $value->PACKINGLIST,
+              'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+              'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+              'ORIGEN' => $value->ORIGEN,
+              'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+              'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+              'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+              'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+              'OBSERVACION' => $value->OBSERVACION
         );
+
+        $select_unidad = $this->callutil->obtiene_select_def_act('UNIDAD',$value->UNIDAD,'UNIDAD_MEDIDA');
+        $select_patcf = $this->callutil->obtiene_select_def_act('PA_TCF',$value->PA_TCF,'ACTUAL_PREVIO');
+       
+        $select_pafcf = $this->callutil->obtiene_select_def_act('PA_FCF',$value->PA_FCF,'ACTUAL_PREVIO');
+        $select_paftf = $this->callutil->obtiene_select_def_act('PA_FTF',$value->PA_FTF,'ACTUAL_PREVIO');
+        $select_pafg = $this->callutil->obtiene_select_def_act('PA_FG',$value->PA_FG,'ACTUAL_PREVIO');
+        $select_pafp = $this->callutil->obtiene_select_def_act('PA_FP',$value->PA_FP,'ACTUAL_PREVIO');
+        $select_pafli = $this->callutil->obtiene_select_def_act('PA_FLI',$value->PA_FLI,'ACTUAL_PREVIO');
+        $select_pafsf = $this->callutil->obtiene_select_def_act('PA_FSF',$value->PA_FSF,'ACTUAL_PREVIO');
+
+        $select_pafsf = $this->callutil->obtiene_select_def_act('PA_FSF',$value->PA_FSF,'ACTUAL_PREVIO');
+      
+        $select_tipo_linea = $this->callutil->obtiene_select_def_act('TIPO_DE_LINEA',$value->TIPO_DE_LINEA,'ESTADO_LINEA_WPANEL');
+        $select_estado_linea = $this->callutil->obtiene_select_def_act('ESTADO_DE_LINEA',$value->ESTADO_DE_LINEA,'ESTADO_BUCKSHEET');
+       
       }
     } else {
 
@@ -948,6 +1089,23 @@ class BuckSheet extends MY_Controller
 
     $datos['bucksheet'] = $datos_bucksheet;
     $datos['resp']      = $respuesta;
+    $datos['select_unidad'] = $select_unidad;
+    $datos['select_patcf'] = $select_patcf;
+
+    $datos['select_pafcf'] = $select_pafcf;
+    $datos['select_paftf'] = $select_paftf;
+    $datos['select_pafg'] = $select_pafg;
+    $datos['select_pafp'] = $select_pafp;
+    $datos['select_pafli'] = $select_pafli;
+    $datos['select_pafsf'] = $select_pafsf;
+
+    
+    $datos['select_tipo_linea'] = $select_tipo_linea;
+    $datos['select_estado_linea'] = $select_estado_linea;
+
+
+
+    
 
     echo json_encode($datos);
   }
@@ -956,49 +1114,49 @@ class BuckSheet extends MY_Controller
   function updateBuckSheet()
   {
 
-
-     $EstadoLineaBucksheet = '1';
-
-
-    if (!empty($this->input->post('FechaCF')) &&  $this->input->post('PACF') == 'ACTUAL') {
+    $codEmpresa = $this->session->userdata('cod_emp');
+      $EstadoLineaBucksheet = '1';
+                      
+    if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '7';
     }
 
 
-    if (!empty($this->input->post('FechaComienzoFabricacion')) && $this->input->post('PAFCF') == 'ACTUAL') {
+    if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '2';
     }
 
-    if (!empty($this->input->post('FechaTerminoFabricacion')) && $this->input->post('PAFTF') == 'ACTUAL') {
+    if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '3';
     }
 
-    if (!empty($this->input->post('FechaPintura')) && $this->input->post('PAFP') == 'ACTUAL') {
+    if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '6';
     }
 
 
 
-    if (!empty($this->input->post('FechaListoInspeccion')) && $this->input->post('PAFLI') == 'ACTUAL') {
+    if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '4';
     }
 
-    if (!empty($this->input->post('FechaEmbarque')) &&  !empty($this->input->post('PackingList'))) {
+    if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
 
       $EstadoLineaBucksheet = '5';
     }
 
 
+
     $Orden = $this->callexternosordenes->obtieneOrden(
       $this->input->post('idProyecto'),
       $this->input->post('idCliente'),
-      $this->input->post('PurchaseOrderID'),
-      $this->input->post('codEmpresa')
+      $this->input->post('ID_OC'),
+      $codEmpresa
     );
 
 
@@ -1011,59 +1169,75 @@ class BuckSheet extends MY_Controller
 
         $SupplierName = $valor->SupplierName;
         $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+        $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
       }
     }
 
 
 
     $memData = array(
-      'PurchaseOrderID' => $this->input->post('PurchaseOrderID'),
-      'purchaseOrdername' => urldecode($PurchaseOrderDescription),
-      'SupplierName' => urldecode($SupplierName),
-      'EstadoLineaBucksheet' =>  $EstadoLineaBucksheet,
-      'NumeroLinea' => $this->input->post('NumeroLinea'),
-      'lineaActivable' => $this->input->post('lineaActivable'),
-      'STCantidad' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('STCantidad')),
-      'TAGNumber' => $this->input->post('TAGNumber'),
-      'Stockcode' => $this->input->post('Stockcode'),
-      'Descripcion' => $this->input->post('Descripcion'),
-      'PlanoModelo' => $this->input->post('PlanoModelo'),
-      'Revision' => $this->input->post('Revision'),
-      'PaqueteConstruccionArea' => $this->input->post('PaqueteConstruccionArea'),
-      'PesoUnitario' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoUnitario')),
-      'PesoTotal' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('PesoTotal')),
-      'FechaLineaBase' => $this->callutil->formatoFecha($this->input->post('FechaLineaBase')),
-      'DiasAntesRAS' => $this->input->post('DiasAntesRAS'),
-      'FechaComienzoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaComienzoFabricacion')),
-      'PAFCF' => $this->input->post('PAFCF'),
-      'FechaTerminoFabricacion' => $this->callutil->formatoFecha($this->input->post('FechaTerminoFabricacion')),
-      'PAFTF' => $this->input->post('PAFTF'),
-      'FechaGranallado' => $this->callutil->formatoFecha($this->input->post('FechaGranallado')),
-      'PAFG' => $this->input->post('PAFG'),
-      'FechaPintura' => $this->callutil->formatoFecha($this->input->post('FechaPintura')),
-      'PAFP' => $this->input->post('PAFP'),
-      'FechaListoInspeccion' => $this->callutil->formatoFecha($this->input->post('FechaListoInspeccion')),
-      'PAFLI' => $this->input->post('PAFLI'),
-      'ActaLiberacionCalidad' => $this->input->post('ActaLiberacionCalidad'),
-      'FechaSalidaFabrica' => $this->callutil->formatoFecha($this->input->post('FechaSalidaFabrica')),
-      'PAFSF' => $this->input->post('PAFSF'),
-      'FechaEmbarque' => $this->callutil->formatoFecha($this->input->post('FechaEmbarque')),
-      'PackingList' => $this->input->post('PackingList'),
-      'GuiaDespacho' => $this->input->post('GuiaDespacho'),
-      'SCNNumber' => $this->input->post('SCNNumber'),
-      'Origen' => $this->input->post('Origen'),
-      'DiasViaje' => $this->input->post('DiasViaje'),
-      'TransmittalCliente' => $this->input->post('TransmittalCliente'),
-      'FechaTC' =>  $this->callutil->formatoFecha($this->input->post('FechaTC')),
-      'TransmittalVendor' => $this->input->post('TransmittalVendor'),
-      'FechaTV' =>  $this->callutil->formatoFecha($this->input->post('FechaTV')),
-      'TransmittalCF' => $this->input->post('TransmittalCF'),
-      'FechaCF' =>  $this->callutil->formatoFecha($this->input->post('FechaCF')),
-      'PACF' => $this->input->post('PACF'),
-      'Observacion7' => $this->input->post('Observacion7')
+      'COD_EMPRESA' => $codEmpresa,
+      'ID_OC' => $this->input->post('ID_OC'),
+      'NUMERO_OC' => urldecode($PurchaseOrderNumber),
+      'DESCRIPCION_OC' => urldecode($PurchaseOrderDescription),
+      'ITEM_OC' => $this->input->post('ITEM_OC'),
+      'SUB_ITEM_OC' => $this->input->post('SUB_ITEM_OC'),
+      'PROVEEDOR' => $this->input->post('PROVEEDOR'),
+      'NUMERO_DE_LINEA' => $this->input->post('NUMERO_DE_LINEA'),
+      'TIPO_DE_LINEA' => $this->input->post('TIPO_DE_LINEA'),
+      'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+      'NUMERO_DE_TAG' => $this->input->post('NUMERO_DE_TAG'),
+      'STOCKCODE' => $this->input->post('STOCKCODE'),
+      'DESCRIPCION_LINEA' => $this->input->post('DESCRIPCION_LINEA'),
+      'NUMERO_DE_ELEMENTOS' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('NUMERO_DE_ELEMENTOS')),
+      'CANTIDAD_UNITARIA' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('CANTIDAD_UNITARIA')),
+      'CANTIDAD_TOTAL' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('CANTIDAD_TOTAL')),
+      'UNIDAD' => $this->input->post('UNIDAD'),
+      'TRANSMITTAL_CLIENTE' => $this->input->post('TRANSMITTAL_CLIENTE'),
+      'FECHA_TC' =>  $this->callutil->formatoFecha($this->input->post('FECHA_TC')),
+      'TRANSMITTAL_PROVEEDOR' => $this->input->post('TRANSMITTAL_PROVEEDOR'),
+      'FECHA_TP' =>  $this->callutil->formatoFecha($this->input->post('FECHA_TP')),
+      'TRANSMITTAL_CLIENTE_FINAL' => $this->input->post('TRANSMITTAL_CLIENTE_FINAL'),
+      'FECHA_TCF' =>  $this->callutil->formatoFecha($this->input->post('FECHA_TCF')),
+      'PA_TCF' => $this->input->post('PA_TCF'),
+      'NUMERO_DE_PLANO' => $this->input->post('NUMERO_DE_PLANO'),
+      'REVISION' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('REVISION')),
+      'PAQUETE_DE_CONSTRUCCION_AREA' => $this->input->post('PAQUETE_DE_CONSTRUCCION_AREA'),
+      'FECHA_LINEA_BASE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_LINEA_BASE')),
+      'DIAS_ANTES_LB' => $this->input->post('DIAS_ANTES_LB'),
+      'FECHA_COMIENZO_FABRICACION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_COMIENZO_FABRICACION')),
+      'PA_FCF' => $this->input->post('PA_FCF'),
+      'FECHA_TERMINO_FABRICACION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_TERMINO_FABRICACION')),
+      'PA_FTF' => $this->input->post('PA_FTF'),
+      'FECHA_GRANALLADO' =>  $this->callutil->formatoFecha($this->input->post('FECHA_GRANALLADO')),
+      'PA_FG' => $this->input->post('PA_FG'),
+      'FECHA_PINTURA' =>  $this->callutil->formatoFecha($this->input->post('FECHA_PINTURA')),
+      'PA_FP' => $this->input->post('PA_FP'),
+      'FECHA_LISTO_INSPECCION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_LISTO_INSPECCION')),
+      'PA_FLI' => $this->input->post('PA_FLI'),
+      'ACTA_LIBERACION_CALIDAD' =>  $this->callutil->formatoFecha($this->input->post('ACTA_LIBERACION_CALIDAD')),
+      'FECHA_SALIDA_FABRICA' =>  $this->callutil->formatoFecha($this->input->post('FECHA_SALIDA_FABRICA')),
+      'PA_FSF' => $this->input->post('PA_FSF'),
+      'FECHA_EMBARQUE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_EMBARQUE')),
+      'PACKINGLIST' => $this->input->post('PACKINGLIST'),
+      'GUIA_DESPACHO' => $this->input->post('GUIA_DESPACHO'),
+      'NUMERO_DE_VIAJE' => $this->input->post('NUMERO_DE_VIAJE'),
+      'ORIGEN' => $this->input->post('ORIGEN'),
+      'DIAS_VIAJE' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('DIAS_VIAJE')),
+      'UNIDADES_SOLICITADAS' => $this->input->post('UNIDADES_SOLICITADAS'),
+      'UNIDADES_RECIBIDAS' => $this->input->post('UNIDADES_RECIBIDAS'),
+      'REPORTE_DE_RECEPCION_RR' => $this->input->post('REPORTE_DE_RECEPCION_RR'),
+      'REPORTE_DE_ENTREGA_RE' => $this->input->post('REPORTE_DE_ENTREGA_RE'),
+      'REPORTE_DE_EXCEPCION_EXB' => $this->input->post('REPORTE_DE_EXCEPCION_EXB'),
+      'INSPECCION_DE_INGENIERIA' => $this->input->post('INSPECCION_DE_INGENIERIA'),
+      'OBSERVACION' => $this->input->post('OBSERVACION'),
+      
     );
 
     $response = $this->callexternosbucksheet->updateBuckSheetLinea($memData);
+    
+
+    
     $data = array();
 
     if ($response) {
@@ -1100,12 +1274,14 @@ class BuckSheet extends MY_Controller
 
     $PurchaseOrderID       = $this->input->post('PurchaseOrderID');
     $numeroLinea       = $this->input->post('numeroLinea');
+    $codEmpresa = $this->session->userdata('cod_emp');
     $resp = false;
     $mensaje = "";
 
 
 
-    $bucksheet = $this->callexternosbucksheet->eliminaBuckSheet($PurchaseOrderID, $numeroLinea);
+    $bucksheet = $this->callexternosbucksheet->eliminaBuckSheet($codEmpresa,$PurchaseOrderID, $numeroLinea);
+
 
     if ($bucksheet) {
 
@@ -1153,8 +1329,10 @@ class BuckSheet extends MY_Controller
     header("Content-Disposition: attachment; filename=$filename");
     header("Content-Type: text/csv;charset=UTF-8");
 
+    $codEmpresa = $this->session->userdata('cod_emp');
+
     // get data 
-    $usersData = $this->callexternosbucksheet->obtieneBucksheet($PurchaseOrderID);
+    $usersData = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
 
 
     $arrBucksheet = json_decode($usersData);
@@ -1165,57 +1343,61 @@ class BuckSheet extends MY_Controller
 
 
     $header = array(
-      "PurchaseOrderID",
-      "purchaseOrdername",
-      "EstadoLineaBucksheet",
-      'lineaActivable',
-      "NumeroLinea",
-      "SupplierName",
-      "ItemST",
-      "SubItemST",
-      "STUnidad",
-      "STCantidad",
-      "TAGNumber",
-      "Stockcode",
-      "Descripcion",
-      "PlanoModelo",
-      "Revision",
-      "PaqueteConstruccionArea",
-      "PesoUnitario",
-      "PesoTotal",
-      "FechaLineaBase",
-      "DiasAntesRAS",
-      "FechaComienzoFabricacion",
-      "PAFCF",
-      "FechaTerminoFabricacion",
-      "PAFTF",
-      "FechaGranallado",
-      "PAFG",
-      "FechaPintura",
-      "PAFP",
-      "FechaListoInspeccion",
-      "PAFLI",
-      "ActaLiberacionCalidad",
-      "FechaSalidaFabrica",
-      "PAFSF",
-      "FechaEmbarque",
-      "PackingList",
-      "GuiaDespacho",
-      "SCNNumber",
-      "UnidadesSolicitadas",
-      "UnidadesRecibidas",
-      "MaterialReceivedReport",
-      "MaterialWithdrawalReport",
-      "Origen",
-      "DiasViaje",
-      "TransmittalCliente",
-      "FechaTC",
-      "TransmittalVendor",
-      "FechaTV",
-      "TransmittalCF",
-      "FechaCF",
-      "PACF",
-      "Observacion7"
+      "ID_OC",
+      "NUMERO_OC",
+      "DESCRIPCION_OC",
+      "ITEM_OC",
+      "SUB_ITEM_OC",
+      "PROVEEDOR",
+      "NUMERO_DE_LINEA",
+      "TIPO_DE_LINEA",
+      "ESTADO_DE_LINEA",
+      "NUMERO_DE_TAG",
+      "STOCKCODE",
+      "DESCRIPCION_LINEA",
+      "NUMERO_DE_ELEMENTOS",
+      "CANTIDAD_UNITARIA",
+      "CANTIDAD_TOTAL",
+      "UNIDAD",
+      "TRANSMITTAL_CLIENTE",
+      "FECHA_TC",
+      "TRANSMITTAL_PROVEEDOR",
+      "FECHA_TP",
+      "TRANSMITTAL_CLIENTE_FINAL",
+      "FECHA_TCF",
+      "PA_TCF",
+      "NUMERO_DE_PLANO",
+      "REVISION",
+      "PAQUETE_DE_CONSTRUCCION_AREA",
+      "FECHA_LINEA_BASE",
+      "DIAS_ANTES_LB",
+      "FECHA_COMIENZO_FABRICACION",
+      "PA_FCF",
+      "FECHA_TERMINO_FABRICACION",
+      "PA_FTF",
+      "FECHA_GRANALLADO",
+      "PA_FG",
+      "FECHA_PINTURA",
+      "PA_FP",
+      "FECHA_LISTO_INSPECCION",
+      "PA_FLI",
+      "ACTA_LIBERACION_CALIDAD",
+      "FECHA_SALIDA_FABRICA",
+      "PA_FSF",
+      "FECHA_EMBARQUE",
+      "PACKINGLIST",
+      "GUIA_DESPACHO",
+      "NUMERO_DE_VIAJE",
+      "ORIGEN",
+      "DIAS_VIAJE",
+      "UNIDADES_SOLICITADAS",
+      "UNIDADES_RECIBIDAS",
+      "REPORTE_DE_RECEPCION_RR",
+      "REPORTE_DE_ENTREGA_RE",
+      "REPORTE_DE_EXCEPCION_EXB",
+      "INSPECCION_DE_INGENIERIA",
+      "OBSERVACION"
+
     );
 
     fputcsv($file, $header, ';', chr(27));
@@ -1224,57 +1406,61 @@ class BuckSheet extends MY_Controller
 
 
       $datos_bucksheet = array(
-        'PurchaseOrderID' => $value->PurchaseOrderID,
-        'purchaseOrdername' => $value->purchaseOrdername,
-        'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
-        'lineaActivable' =>  $value->lineaActivable,
-        'NumeroLinea' => $value->NumeroLinea,
-        'SupplierName' => $value->SupplierName,
-        'ItemST' => $value->ItemST,
-        'SubItemST' => $value->SubItemST,
-        'STUnidad' => $value->STUnidad,
-        'STCantidad' => $value->STCantidad,
-        'TAGNumber' =>  $value->TAGNumber,
-        'Stockcode' =>  $value->Stockcode,
-        'Descripcion' => $value->Descripcion,
-        'PlanoModelo' =>  $value->PlanoModelo,
-        'Revision' => $value->Revision,
-        'PaqueteConstruccionArea' =>  $value->PaqueteConstruccionArea,
-        'PesoUnitario' => $value->PesoUnitario,
-        'PesoTotal' => $value->PesoTotal,
-        'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
-        'DiasAntesRAS' => $value->DiasAntesRAS,
-        'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
-        'PAFCF' => $value->PAFCF,
-        'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
-        'PAFTF' => $value->PAFTF,
-        'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
-        'PAFG' => $value->PAFG,
-        'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
-        'PAFP' => $value->PAFP,
-        'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
-        'PAFLI' => $value->PAFLI,
-        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
-        'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
-        'PAFSF' => $value->PAFSF,
-        'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-        'PackingList' => $value->PackingList,
-        'GuiaDespacho' => $value->GuiaDespacho,
-        'SCNNumber' =>  $value->SCNNumber,
-        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
-        'UnidadesRecibidas' => $value->UnidadesRecibidas,
-        'MaterialReceivedReport' => $value->MaterialReceivedReport,
-        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
-        'Origen' => $value->Origen,
-        'DiasViaje' => $value->DiasViaje,
-        'TransmittalCliente' =>  $value->TransmittalCliente,
-        'FechaTC' =>  $this->callutil->formatoFechaSalida($value->FechaTC),
-        'TransmittalVendor' =>  $value->TransmittalVendor,
-        'FechaTV' =>  $this->callutil->formatoFechaSalida($value->FechaTV),
-        'TransmittalCF' =>  $value->TransmittalCF,
-        'FechaCF' =>  $this->callutil->formatoFechaSalida($value->FechaCF),
-        'PACF' => $value->PACF,
-        'Observacion7' =>  $value->Observacion7
+
+            'ID_OC' => $value->ID_OC,
+            'NUMERO_OC' => $value->NUMERO_OC,
+            'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+            'ITEM_OC' => $value->ITEM_OC,
+            'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+            'PROVEEDOR' => $value->PROVEEDOR,
+            'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+            'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+            'ESTADO_DE_LINEA' => $value->ESTADO_DE_LINEA,
+            'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+            'STOCKCODE' => $value->STOCKCODE,
+            'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+            'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+            'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+            'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+            'UNIDAD' => $value->UNIDAD,
+            'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+            'FECHA_TC' => $value->FECHA_TC,
+            'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+            'FECHA_TP' => $this->callutil->formatoFechaSalida($value->FECHA_TP),
+            'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+            'FECHA_TCF' => $this->callutil->formatoFechaSalida($value->FECHA_TCF),
+            'PA_TCF' => $value->PA_TCF,
+            'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+            'REVISION' => $value->REVISION,
+            'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+            'FECHA_LINEA_BASE' => $this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE),
+            'DIAS_ANTES_LB' => $value->DIAS_ANTES_LB,
+            'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION),
+            'PA_FCF' => $value->PA_FCF,
+            'FECHA_TERMINO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION),
+            'PA_FTF' => $value->PA_FTF,
+            'FECHA_GRANALLADO' => $this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO),
+            'PA_FG' => $value->PA_FG,
+            'FECHA_PINTURA' => $this->callutil->formatoFechaSalida($value->FECHA_PINTURA),
+            'PA_FP' => $value->PA_FP,
+            'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION),
+            'PA_FLI' => $value->PA_FLI,
+            'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+            'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
+            'PA_FSF' => $value->PA_FSF,
+            'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
+            'PACKINGLIST' => $value->PACKINGLIST,
+            'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+            'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+            'ORIGEN' => $value->ORIGEN,
+            'DIAS_VIAJE' => $value->DIAS_VIAJE,
+            'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+            'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+            'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+            'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+            'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+            'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+            'OBSERVACION' => $value->OBSERVACION
       );
 
 
@@ -1303,6 +1489,7 @@ class BuckSheet extends MY_Controller
 
   function insertar_error($idError, $idmensaje,$campo, $row)
   {
+    $codEmpresa = $this->session->userdata('cod_emp');
 
     $datoarchivo     = $this->callexternosdominios->obtieneDatoRef('MENSAJE_ERROR_WPANEL', $idmensaje);
 
@@ -1312,68 +1499,75 @@ class BuckSheet extends MY_Controller
     }
 
     $memData = array(
-      'idError' => $idError,
-      'mensajeError' => $valorMensaje.', campo: '.$campo,
-      'PurchaseOrderID' => $row['PurchaseOrderID'],
-      'EstadoLineaBucksheet' => '',
-      'lineaActivable' => $row['lineaActivable'],
-      'NumeroLinea' => $row['NumeroLinea'],
-      'ItemST' => $row['ItemST'],
-      'SubItemST' => $row['SubItemST'],
-      'STUnidad' => $row['STUnidad'],
-      'STCantidad' => $row['STCantidad'],
-      'TAGNumber' => $row['TAGNumber'],
-      'Stockcode' => $row['Stockcode'],
-      'Descripcion' => $row['Descripcion'],
-      'PlanoModelo' => $row['PlanoModelo'],
-      'Revision' =>  $row['Revision'],
-      'PaqueteConstruccionArea' => $row['PaqueteConstruccionArea'],
-      'PesoUnitario' => $row['PesoUnitario'],
-      'PesoTotal' => $row['PesoTotal'],
-      'FechaLineaBase' => $this->callutil->formatoFecha($row['FechaLineaBase']),
-      'DiasAntesRAS' => '',
-      'FechaComienzoFabricacion' => $this->callutil->formatoFecha($row['FechaComienzoFabricacion']),
-      'PAFCF' => $row['PAFCF'],
-      'FechaTerminoFabricacion' => $this->callutil->formatoFecha($row['FechaTerminoFabricacion']),
-      'PAFTF' => $row['PAFTF'],
-      'FechaGranallado' => $this->callutil->formatoFecha($row['FechaGranallado']),
-      'PAFG' => $row['PAFG'],
-      'FechaPintura' => $this->callutil->formatoFecha($row['FechaPintura']),
-      'PAFP' => $row['PAFP'],
-      'FechaListoInspeccion' => $this->callutil->formatoFecha($row['FechaListoInspeccion']),
-      'PAFLI' => $row['PAFLI'],
-      'ActaLiberacionCalidad' => $row['ActaLiberacionCalidad'],
-      'FechaSalidaFabrica' => $this->callutil->formatoFecha($row['FechaSalidaFabrica']),
-      'PAFSF' => $row['PAFSF'],
-      'FechaEmbarque' => $this->callutil->formatoFecha($row['FechaEmbarque']),
-      'PackingList' => $row['PackingList'],
-      'GuiaDespacho' => $row['GuiaDespacho'],
-      'SCNNumber' => $row['SCNNumber'],
-      'UnidadesSolicitadas' => $row['UnidadesSolicitadas'],
-      'UnidadesRecibidas' => $row['UnidadesRecibidas'],
-      'MaterialReceivedReport' => $row['MaterialReceivedReport'],
-      'MaterialWithdrawalReport' => $row['MaterialWithdrawalReport'],
-      'Origen' => $row['Origen'],
-      'DiasViaje' => $row['DiasViaje'],
-      'TransmittalCliente' => $row['TransmittalCliente'],
-      'FechaTC' => $this->callutil->formatoFecha($row['FechaTC']),
-      'TransmittalVendor' => $row['TransmittalVendor'],
-      'FechaTV' => $this->callutil->formatoFecha($row['FechaTV']),
-      'TransmittalCF' => $row['TransmittalCF'],
-      'FechaCF' => $this->callutil->formatoFecha($row['FechaCF']),
-      'PACF' => $row['PACF'],
-      'Observacion7' => $row['Observacion7'],
+      'ID_ERROR' => $idError,
+      'MENSAJE_ERROR' => $valorMensaje.', campo: '.$campo,
+      'COD_EMPRESA' =>  $codEmpresa,
+      'ID_OC' => $row['ID_OC'],
+      'NUMERO_OC' => $row['NUMERO_OC'],
+      'DESCRIPCION_OC' => $row['DESCRIPCION_OC'],
+      'ITEM_OC' => $row['ITEM_OC'],
+      'SUB_ITEM_OC' => $row['SUB_ITEM_OC'],
+      'PROVEEDOR' => $row['PROVEEDOR'],
+      'NUMERO_DE_LINEA' => $row['NUMERO_DE_LINEA'],
+      'TIPO_DE_LINEA' => $row['TIPO_DE_LINEA'],
+      'ESTADO_DE_LINEA' => $row['ESTADO_DE_LINEA'],
+      'NUMERO_DE_TAG' => $row['NUMERO_DE_TAG'],
+      'STOCKCODE' => $row['STOCKCODE'],
+      'DESCRIPCION_LINEA' => $row['DESCRIPCION_LINEA'],
+      'NUMERO_DE_ELEMENTOS' => $row['NUMERO_DE_ELEMENTOS'],
+      'CANTIDAD_UNITARIA' => $row['CANTIDAD_UNITARIA'],
+      'CANTIDAD_TOTAL' => $row['CANTIDAD_TOTAL'],
+      'UNIDAD' => $row['UNIDAD'],
+      'TRANSMITTAL_CLIENTE' => $row['TRANSMITTAL_CLIENTE'],
+      'FECHA_TC' => $this->callutil->formatoFecha($row['FECHA_TC']),
+      'TRANSMITTAL_PROVEEDOR' => $row['TRANSMITTAL_PROVEEDOR'],
+      'FECHA_TP' => $this->callutil->formatoFecha($row['FECHA_TP']),
+      'TRANSMITTAL_CLIENTE_FINAL' => $row['TRANSMITTAL_CLIENTE_FINAL'],
+      'FECHA_TCF' => $this->callutil->formatoFecha($row['FECHA_TCF']),
+      'PA_TCF' => $row['PA_TCF'],
+      'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
+      'REVISION' => $row['REVISION'],
+      'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
+      'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
+      'DIAS_ANTES_LB' => $row['DIAS_ANTES_LB'],
+      'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
+      'PA_FCF' => $row['PA_FCF'],
+      'FECHA_TERMINO_FABRICACION' =>$this->callutil->formatoFecha($row['FECHA_TERMINO_FABRICACION']),
+      'PA_FTF' => $row['PA_FTF'],
+      'FECHA_GRANALLADO' => $this->callutil->formatoFecha($row['FECHA_GRANALLADO']),
+      'PA_FG' => $row['PA_FG'],
+      'FECHA_PINTURA' => $this->callutil->formatoFecha($row['FECHA_PINTURA']),
+      'PA_FP' => $row['PA_FP'],
+      'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
+      'PA_FLI' => $row['PA_FLI'],
+      'ACTA_LIBERACION_CALIDAD' => $row['ACTA_LIBERACION_CALIDAD'],
+      'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
+      'PA_FSF' => $row['PA_FSF'],
+      'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
+      'PACKINGLIST' => $row['PACKINGLIST'],
+      'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
+      'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
+      'ORIGEN' => $row['ORIGEN'],
+      'DIAS_VIAJE' => $row['DIAS_VIAJE'],
+      'UNIDADES_SOLICITADAS' => $row['UNIDADES_SOLICITADAS'],
+      'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
+      'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
+      'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
+      'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
+      'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
+      'OBSERVACION' => $row['OBSERVACION']
     );
 
 
     $exito =$this->callexternosbucksheet->insertError($memData);
 
-    //var_dump('Error: '.$exito);
   }
 
 
   public function exportCSVErrores($idError, $PurchaseOrderID)
   {
+
+    $codEmpresa = $this->session->userdata('cod_emp');
     // file name 
     $filename = 'wpanel_errores_' . $PurchaseOrderID . '_' . date('Ymd') . date('H:i:s') . '.csv';
     header("Content-Description: File Transfer");
@@ -1381,8 +1575,9 @@ class BuckSheet extends MY_Controller
     header("Content-Type: text/csv;charset=UTF-8");
 
     // get data 
-    $usersData = $this->callexternosbucksheet->obtieneBuckSheetError($idError, $PurchaseOrderID);
+    $usersData = $this->callexternosbucksheet->obtieneBuckSheetError($codEmpresa,$idError, $PurchaseOrderID);
 
+ 
     $arrBucksheet = json_decode($usersData);
 
 
@@ -1391,59 +1586,62 @@ class BuckSheet extends MY_Controller
 
    
     $header = array(
-      "idError",
-      "mensajeError",
-      "PurchaseOrderID",
-      "purchaseOrdername",
-      "EstadoLineaBucksheet",
-      'lineaActivable',
-      "NumeroLinea",
-      "SupplierName",
-      "ItemST",
-      "SubItemST",
-      "STUnidad",
-      "STCantidad",
-      "TAGNumber",
-      "Stockcode",
-      "Descripcion",
-      "PlanoModelo",
-      "Revision",
-      "PaqueteConstruccionArea",
-      "PesoUnitario",
-      "PesoTotal",
-      "FechaLineaBase",
-      "DiasAntesRAS",
-      "FechaComienzoFabricacion",
-      "PAFCF",
-      "FechaTerminoFabricacion",
-      "PAFTF",
-      "FechaGranallado",
-      "PAFG",
-      "FechaPintura",
-      "PAFP",
-      "FechaListoInspeccion",
-      "PAFLI",
-      "ActaLiberacionCalidad",
-      "FechaSalidaFabrica",
-      "PAFSF",
-      "FechaEmbarque",
-      "PackingList",
-      "GuiaDespacho",
-      "SCNNumber",
-      "UnidadesSolicitadas",
-      "UnidadesRecibidas",
-      "MaterialReceivedReport",
-      "MaterialWithdrawalReport",
-      "Origen",
-      "DiasViaje",
-      "TransmittalCliente",
-      "FechaTC",
-      "TransmittalVendor",
-      "FechaTV",
-      "TransmittalCF",
-      "FechaCF",
-      "PACF",
-      "Observacion7"
+      "ID_ERROR",
+      "MENSAJE_ERROR",
+      "ID_OC",
+      "NUMERO_OC",
+      "DESCRIPCION_OC",
+      "ITEM_OC",
+      "SUB_ITEM_OC",
+      "PROVEEDOR",
+      "NUMERO_DE_LINEA",
+      "TIPO_DE_LINEA",
+      "ESTADO_DE_LINEA",
+      "NUMERO_DE_TAG",
+      "STOCKCODE",
+      "DESCRIPCION_LINEA",
+      "NUMERO_DE_ELEMENTOS",
+      "CANTIDAD_UNITARIA",
+      "CANTIDAD_TOTAL",
+      "UNIDAD",
+      "TRANSMITTAL_CLIENTE",
+      "FECHA_TC",
+      "TRANSMITTAL_PROVEEDOR",
+      "FECHA_TP",
+      "TRANSMITTAL_CLIENTE_FINAL",
+      "FECHA_TCF",
+      "PA_TCF",
+      "NUMERO_DE_PLANO",
+      "REVISION",
+      "PAQUETE_DE_CONSTRUCCION_AREA",
+      "FECHA_LINEA_BASE",
+      "DIAS_ANTES_LB",
+      "FECHA_COMIENZO_FABRICACION",
+      "PA_FCF",
+      "FECHA_TERMINO_FABRICACION",
+      "PA_FTF",
+      "FECHA_GRANALLADO",
+      "PA_FG",
+      "FECHA_PINTURA",
+      "PA_FP",
+      "FECHA_LISTO_INSPECCION",
+      "PA_FLI",
+      "ACTA_LIBERACION_CALIDAD",
+      "FECHA_SALIDA_FABRICA",
+      "PA_FSF",
+      "FECHA_EMBARQUE",
+      "PACKINGLIST",
+      "GUIA_DESPACHO",
+      "NUMERO_DE_VIAJE",
+      "ORIGEN",
+      "DIAS_VIAJE",
+      "UNIDADES_SOLICITADAS",
+      "UNIDADES_RECIBIDAS",
+      "REPORTE_DE_RECEPCION_RR",
+      "REPORTE_DE_ENTREGA_RE",
+      "REPORTE_DE_EXCEPCION_EXB",
+      "INSPECCION_DE_INGENIERIA",
+      "OBSERVACION"
     );
 
   fputcsv($file, $header, ';', chr(27));
@@ -1453,59 +1651,62 @@ class BuckSheet extends MY_Controller
 
       $datos_bucksheet = array(
 
-        "idError" => $value->idError,
-        "mensajeError" => $value->mensajeError,
-        'PurchaseOrderID' => $value->PurchaseOrderID,
-        'purchaseOrdername' => $value->purchaseOrdername,
-        'EstadoLineaBucksheet' => $value->EstadoLineaBucksheet,
-        'lineaActivable' =>  $value->lineaActivable,
-        'NumeroLinea' => $value->NumeroLinea,
-        'SupplierName' => $value->SupplierName,
-        'ItemST' => $value->ItemST,
-        'SubItemST' => $value->SubItemST,
-        'STUnidad' => $value->STUnidad,
-        'STCantidad' => $value->STCantidad,
-        'TAGNumber' =>  $value->TAGNumber,
-        'Stockcode' =>  $value->Stockcode,
-        'Descripcion' => $value->Descripcion,
-        'PlanoModelo' =>  $value->PlanoModelo,
-        'Revision' => $value->Revision,
-        'PaqueteConstruccionArea' =>  $value->PaqueteConstruccionArea,
-        'PesoUnitario' => $value->PesoUnitario,
-        'PesoTotal' => $value->PesoTotal,
-        'FechaLineaBase' => $this->callutil->formatoFechaSalida($value->FechaLineaBase),
-        'DiasAntesRAS' => $value->DiasAntesRAS,
-        'FechaComienzoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaComienzoFabricacion),
-        'PAFCF' => $value->PAFCF,
-        'FechaTerminoFabricacion' => $this->callutil->formatoFechaSalida($value->FechaTerminoFabricacion),
-        'PAFTF' => $value->PAFTF,
-        'FechaGranallado' => $this->callutil->formatoFechaSalida($value->FechaGranallado),
-        'PAFG' => $value->PAFG,
-        'FechaPintura' => $this->callutil->formatoFechaSalida($value->FechaPintura),
-        'PAFP' => $value->PAFP,
-        'FechaListoInspeccion' => $this->callutil->formatoFechaSalida($value->FechaListoInspeccion),
-        'PAFLI' => $value->PAFLI,
-        'ActaLiberacionCalidad' => $value->ActaLiberacionCalidad,
-        'FechaSalidaFabrica' => $this->callutil->formatoFechaSalida($value->FechaSalidaFabrica),
-        'PAFSF' => $value->PAFSF,
-        'FechaEmbarque' => $this->callutil->formatoFechaSalida($value->FechaEmbarque),
-        'PackingList' => $value->PackingList,
-        'GuiaDespacho' => $value->GuiaDespacho,
-        'SCNNumber' =>  $value->SCNNumber,
-        'UnidadesSolicitadas' => $value->UnidadesSolicitadas,
-        'UnidadesRecibidas' => $value->UnidadesRecibidas,
-        'MaterialReceivedReport' => $value->MaterialReceivedReport,
-        'MaterialWithdrawalReport' => $value->MaterialWithdrawalReport,
-        'Origen' => $value->Origen,
-        'DiasViaje' => $value->DiasViaje,
-        'TransmittalCliente' =>  $value->TransmittalCliente,
-        'FechaTC' =>  $this->callutil->formatoFechaSalida($value->FechaTC),
-        'TransmittalVendor' =>  $value->TransmittalVendor,
-        'FechaTV' =>  $this->callutil->formatoFechaSalida($value->FechaTV),
-        'TransmittalCF' =>  $value->TransmittalCF,
-        'FechaCF' =>  $this->callutil->formatoFechaSalida($value->FechaCF),
-        'PACF' => $value->PACF,
-        'Observacion7' =>  $value->Observacion7
+        "ID_ERROR" => $value->ID_ERROR,
+        "MENSAJE_ERROR" => $value->MENSAJE_ERROR,
+        'ID_OC' => $value->ID_OC,
+            'NUMERO_OC' => $value->NUMERO_OC,
+            'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+            'ITEM_OC' => $value->ITEM_OC,
+            'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+            'PROVEEDOR' => $value->PROVEEDOR,
+            'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+            'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+            'ESTADO_DE_LINEA' => $value->ESTADO_DE_LINEA,
+            'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+            'STOCKCODE' => $value->STOCKCODE,
+            'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+            'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+            'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+            'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+            'UNIDAD' => $value->UNIDAD,
+            'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+            'FECHA_TC' => $value->FECHA_TC,
+            'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+            'FECHA_TP' => $this->callutil->formatoFechaSalida($value->FECHA_TP),
+            'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+            'FECHA_TCF' => $this->callutil->formatoFechaSalida($value->FECHA_TCF),
+            'PA_TCF' => $value->PA_TCF,
+            'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+            'REVISION' => $value->REVISION,
+            'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+            'FECHA_LINEA_BASE' => $this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE),
+            'DIAS_ANTES_LB' => $value->DIAS_ANTES_LB,
+            'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION),
+            'PA_FCF' => $value->PA_FCF,
+            'FECHA_TERMINO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION),
+            'PA_FTF' => $value->PA_FTF,
+            'FECHA_GRANALLADO' => $this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO),
+            'PA_FG' => $value->PA_FG,
+            'FECHA_PINTURA' => $this->callutil->formatoFechaSalida($value->FECHA_PINTURA),
+            'PA_FP' => $value->PA_FP,
+            'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION),
+            'PA_FLI' => $value->PA_FLI,
+            'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+            'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
+            'PA_FSF' => $value->PA_FSF,
+            'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
+            'PACKINGLIST' => $value->PACKINGLIST,
+            'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+            'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+            'ORIGEN' => $value->ORIGEN,
+            'DIAS_VIAJE' => $value->DIAS_VIAJE,
+            'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+            'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+            'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+            'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+            'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+            'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+            'OBSERVACION' => $value->OBSERVACION
       );
 
 

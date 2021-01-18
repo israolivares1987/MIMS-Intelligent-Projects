@@ -157,7 +157,6 @@ class Ingenieria extends MY_Controller{
   $datosTotales = $this->callexternosconsultas->obtieneDatosTotales($codEmpresa);
 
 
-
   $arrTotalessss = json_decode($datosTotales);
 
   $arrTotales = $this->callutil->objectToArray($arrTotalessss);

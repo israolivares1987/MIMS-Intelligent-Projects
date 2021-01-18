@@ -1,23 +1,26 @@
  <!-- Content Wrapper. Contains page content -->
  <div class="content-wrapper">
-     <!-- Content Header (Page header) -->
-     <section class="content-header">
-         <div class="container-fluid">
-             <div class="row mb-2">
-                 <div class="col-sm-6">
-                     <h1>Administracion de ordenes y contratos</h1>
-                 </div>
-             </div>
-         </div><!-- /.container-fluid -->
-     </section>
+    <!-- Content Header (Page header) -->
+    <section class="content-header">
+      <div class="container-fluid">
+        <div class="row mb-2">
+          <div class="col-sm-6">
+          <h1>Administración de ordenes y contratos</h1>
+          </div>
+        </div>
+      </div><!-- /.container-fluid -->
+    </section>
 
-     <!-- Main content -->
-     <section class="content">
-         <div class="row">
-             <div class="col-12">
-                 <div class="card">
-                         <div class="row">
-                             <div class="col-lg-6">
+    <!-- Main content -->
+ <section class="content">
+
+      <!-- Default box -->
+    <div class="card">
+        
+      <div class="card-body">
+        
+           <div class="row">
+                 <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -28,21 +31,20 @@
                                      <!-- /.card-header -->
                                      <div class="card-body">
                                           <dl class="row">
-                                             <dt class="col-sm-12">Order ID:</dt>
-                                             <dd class="col-sm-10"><?php echo $PurchaseOrderID;?></dd>
-                                             <dt class="col-sm-12">Descripción:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-12">PurchaseOrderNumber:</dt>
-                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
+                                             <dt class="col-sm-8">Order ID:</dt>
+                                             <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
+                                             <dt class="col-sm-8">Descripción:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
+                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
+                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-
-                             </div>
-                             <!-- /.col-md-6 -->
-                             <div class="col-lg-6">
+                    </div>
+                            
+                             <div class="col-sm-3">
                                  <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
@@ -64,74 +66,110 @@
                                      </div>
                                      <!-- /.card-body -->
                                  </div>
-                             </div>
-                             <!-- /.col-md-6 -->
-                         </div>
-                         <!-- /.row -->
-                     
-              <div class="container-fluid">
-        <h5 class="mb-2">Información Wpanel</h5>
+                            </div>
+
+
+                             <div class="col-sm-6">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             Información Wpanel
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                     <div class="row">
+
+
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIA DE ACTIVACIÓN</span>
+                                                        <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
+                                                        <span class="info-box-number"><div id="countDespachos"></div> </span>
+                                                    </div>
+                                                    <!-- /.info-box-content --> 
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+
+                                                </div>
+                                                <div class="row">
+                                                <!-- /.col -->
+                                                        <div class="col-md-6 col-sm-6 col-12">
+                                                            <div class="info-box">
+                                                            <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
+
+                                                            <div class="info-box-content">
+                                                                <span class="info-box-text">ATRASOS</span>
+                                                                <span class="info-box-number"><div id="countAtrasados"></div> </span>
+                                                            </div>
+                                                            <!-- /.info-box-content -->
+                                                            </div>
+                                                            <!-- /.info-box -->
+                                                        </div>
+                                                <!-- /.col -->
+                                                <div class="col-md-6 col-sm-6 col-12">
+                                                    <div class="info-box">
+                                                    <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
+
+                                                    <div class="info-box-content">
+                                                        <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
+                                                        <span class="info-box-number"><div id="countAdverCalidad"></div></span>
+                                                    </div>
+                                                    <!-- /.info-box-content -->
+                                                    </div>
+                                                    <!-- /.info-box -->
+                                                </div>
+                                                <!-- /.col -->
+                                                </div>
+
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                                 </div>
+                            
+             </div>
+           <!-- /.row -->
+        <!-- /.card-body -->
+      </div>
+      <!-- /.card -->
+    </div>
+ </section>
+
+
+ <section class="content">
+ <!-- TO DO List -->
+ <div class="container-fluid">
         <div class="row">
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-info"><i class="far fa-envelope"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIA DE ACTIVACION</span>
-                <span class="info-box-number"><div id="countAdverActivacion"></div> </span>
+       
+          <div class="col-md-12">
+             
+          <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Opciones
+                </h3>
               </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-success"><i class="far fa-flag"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">DESPACHADOS / TOTAL ACTIVABLES</span>
-                <span class="info-box-number"><div id="countDespachos"></div> </span>
-              </div>
-              <!-- /.info-box-content --> 
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-warning"><i class="far fa-copy"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ATRASOS</span>
-                <span class="info-box-number"><div id="countAtrasados"></div> </span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-          <div class="col-md-3 col-sm-6 col-12">
-            <div class="info-box">
-              <span class="info-box-icon bg-danger"><i class="far fa-star"></i></span>
-
-              <div class="info-box-content">
-                <span class="info-box-text">ADVERTENCIAS DE CALIDAD</span>
-                <span class="info-box-number"><div id="countAdverCalidad"></div></span>
-              </div>
-              <!-- /.info-box-content -->
-            </div>
-            <!-- /.info-box -->
-          </div>
-          <!-- /.col -->
-        </div>
-        <!-- /.row -->
-
-        <br/>
-
-                     <!-- /.card-header -->
-                     <div class="card-body">
-                     <table class="" cellspacing="0" width="100%">
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
                                          <th>
@@ -153,7 +191,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="controldecalidad()"><i class="fas fa-file-download">
+                                                     onclick="controldecalidad(0)"><i class="fas fa-file-download">
                                                      </i> Control de calidad
                                                  </button>
                                              </div>
@@ -161,7 +199,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="cambiosenorden()"><i class="fas fa-file-download">
+                                                     onclick="cambiosenorden(0)"><i class="fas fa-file-download">
                                                      </i> Gestión de Activación
                                                  </button>
                                              </div>
@@ -169,8 +207,25 @@
                                      </tr>
                                  </tbody>
                              </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
+            <!-- /.card -->
 
-                         <table class="table" cellspacing="0" width="99%">
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Detalle Wpanel
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table class="table" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -188,72 +243,94 @@
                                  </tr>
                              </tbody>
                          </table>
-
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                                         <th>Editar</th>
-                                         <th>Nombre de la Orden</th>
-                                         <th>Estado Linea</th>
-                                         <th>Tipo de Linea</th>
-                                         <th>Numero Linea</th>
-                                         <th>Proveedor</th>
-                                         <th>Item ST</th>
-                                         <th>SubItem ST</th>
-                                         <th>ST Unidad</th>
-                                         <th>ST Cantidad</th>
-                                         <th>TAG Number</th>
-                                         <th>Stockcode</th>
-                                         <th>Descripcion</th>
-                                         <th>Plano Modelo</th>
-                                         <th>Revisión</th>
-                                         <th>Paquete Construccion Area</th>
-                                         <th>Medida Unitaria</th>
-                                         <th>Peso Total</th>
-                                         <th>Fecha Comienzo Fabricacion</th>
-                                         <th>P/A FCF</th>
-                                         <th>Fecha Termino Fabricacion</th>
-                                         <th>P/A FTF</th>
-                                         <th>Fecha Granallado</th>
-                                         <th>P/A FG</th>
-                                         <th>Fecha Pintura</th>
-                                         <th>P/A FP</th>
-                                         <th>Fecha Listo Inspeccion</th>
-                                         <th>P/A FLI</th>
-                                         <th>Acta Liberacion Calidad</th>
-                                         <th>Fecha Salida Fabrica</th>
-                                         <th>P/A FSF</th>
-                                         <th>Fecha Embarque</th>
-                                         <th>Packing List</th>
-                                         <th>Guia Despacho</th>
-                                         <th>SCN Number</th>
-                                         <th class="grey" >Unidades Solicitadas</th>
-                                         <th class="grey" >Unidades Recibidas</th>
-                                         <th class="grey" >RR Reporte de Recepción</th>
-                                         <th class="grey" >RE Reporte de Entrega</th>
-                                         <th>Origen</th>
-                                         <th>Dias Viaje</th>
-                                         <th>Transmittal Cliente</th>
-                                         <th>Fecha TC</th>
-                                         <th>Transmittal Vendor</th>
-                                         <th>FechaTV</th>
-                                         <th>Transmittal CF</th>
-                                         <th>Fecha CF</th>
-                                         <th>P/A CF</th>
-                                         <th>Observacion 7</th>
-                                         <th>Fecha Linea Base</th>
-                                         <th>Dias Antes Linea Base</th>
+                                        <th>EDITAR</th>
+                                        <th style="text-align:left; background-color:#FFE699; border: solid black">ID OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">ITEM OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">SUB-ITEM OC</th>
+                                        <th style="text-align:left; background-color:#FFE699">PROVEEDOR</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">TIPO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">ESTADO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE TAG</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">STOCKCODE</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">DESCRIPCIÓN LÍNEA</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">NÚMERO DE ELEMENTOS</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD UNITARIA</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD TOTAL</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTALCLIENTE</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TC</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL PROVEEDOR</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TP</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL CLIENTE FINAL</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TCF</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PA TCF</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
+                                        <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">FECHA LINEA BASE</th>
+                                        <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">DIAS ANTES LB</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFCF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA TERMINO FABRICACION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFTF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA GRANALLADO</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFG</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFP</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFLI</th>
+                                        <th style="text-align:left; background-color:#FFCC00">ACTA LIBERACION CALIDAD</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
+                                        <th style="text-align:left; background-color:#FFCC00">PAFSF</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">GUIA DESPACHO</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">NÚMERO DE VIAJE</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">ORIGEN</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES SOLICITADAS</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE ENTREGA (RE)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
+                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
+
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
                              </tbody>
                          </table>
-                     </div>
-                 </div>
-             </div>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+               
+              </div>
+            </div>
 
 
-             <div class="modal fade" id="modal_buckSheet">
+
+
+          </div>
+          <!-- /.col -->
+        </div>
+        <!-- /.row -->
+      </div><!-- /.container-fluid -->
+
+  
+     <!-- /.content -->
+
+    </div>
+  <!-- /.content-wrapper -->
+  </section>
+
+  <div class="modal fade" id="modal_buckSheet">
         <div class="modal-dialog modal-xl">
           <div class="modal-content">
             <div class="modal-header">
@@ -287,444 +364,388 @@
         <!-- /.modal-dialog -->
       </div>
       <!-- /.modal -->
-
 <!-- Bootstrap modal -->
 
 <div class="modal fade" id="modal-default">
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-                 <h4 class="modal-title">Editar WPanel</h4>
+             <h4 class="modal-title">Editar Linea Wpanel</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
              </div>
              <div class="modal-body">
                 <form action="#" id="form" class="form-horizontal">
-                     <input type="hidden" value="" name="NumeroLinea"/>
-                     <input type="hidden" value="" name="PurchaseOrderID" />
                      <input type="hidden" value="" name="idProyecto" />
                      <input type="hidden" value="" name="idCliente" />
                      <input type="hidden" value="" name="codEmpresa" />
 
-                     <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                             <label class="control-label col-md-12">Tipo de Linea</label>
-                                 
-                                 <div class="col-md-12">
-                                     <select name="lineaActivable" class="form-control"
-                                         style="width: 100%;">
-                                         <option value="">Seleccionar Tipo Linea</option>
-                                         <option value="ACTIVABLE">Activable</option>
-                                         <option value="NO ACTIVABLE">No Activable</option>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
-                   
+                     <section class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">DESCRIPCIÓN ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">ST Cantidad</label>
-                             <div class="col-md-12">
-                                 <input name="STCantidad" id="STCantidad" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">TAG Number</label>
-                             <div class="col-md-12">
-                                 <input name="TAGNumber" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Stockcode</label>
-                             <div class="col-md-12">
-                                 <input name="Stockcode" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Descripción</label>
-                             <div class="col-md-12">
-                                 <input name="Descripcion" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Plano Modelo</label>
-                             <div class="col-md-12">
-                                 <input name="PlanoModelo" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Revisión</label>
-                             <div class="col-md-12">
-                                 <input name="Revision" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Paquete Construccion o Area</label>
-                             <div class="col-md-12">
-                                 <input name="PaqueteConstruccionArea" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Medida Unitaria</label>
-                             <div class="col-md-12">
-                                 <input name="PesoUnitario" id="PesoUnitario" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="mostrarPesoTotal(this)">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Peso Total</label>
-                             <div class="col-md-12">
-                                 <input name="PesoTotal" id="PesoTotal" placeholder="" class="form-control" type="text" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="ID OC">ID OC</label><input type="text" id="ID_OC" class="form-control" name="ID_OC" readonly></div>
+                                                            <div class="form-group"><label for="NÚMERO OC">NÚMERO OC</label><input type="text" id="NUMERO_OC" class="form-control" name="NUMERO_OC" readonly></div>
+                                                            <div class="form-group"><label for="DESCRIPCIÓN OC">DESCRIPCIÓN OC</label><input type="text" id="DESCRIPCION_OC" class="form-control" name="DESCRIPCION_OC" readonly></div>
+                                                    
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                          <div class="form-group"><label for="ITEM OC">ITEM OC</label><input type="text" id="ITEM_OC" class="form-control" name="ITEM_OC"></div>
+                                                          <div class="form-group"><label for="SUB-ITEM OC">SUB-ITEM OC</label><input type="text" id="SUB_ITEM_OC" class="form-control" name="SUB_ITEM_OC"></div>
+                                                          <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="PROVEEDOR" class="form-control" name="PROVEEDOR"></div>
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">DETALLE LÍNEA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                               
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="NÚMERO DE LÍNEA">NÚMERO DE LÍNEA</label><input type="text" id="NUMERO_DE_LINEA" class="form-control" name="NUMERO_DE_LINEA" readonly></div>
+                                                            <div class="form-group"><label for="TIPO DE LÍNEA">TIPO DE LÍNEA</label>
+                                                            <div id="select_tipo_linea"> </div>
+                                                            </div>
 
 
+                                                            <div class="form-group">
+                                                               <label for="ESTADO DE LÍNEA">ESTADO DE LÍNEA</label> 
+                                                               <div id="select_estado_linea"> </div>
+                                                               </div>
+                                                              
+                                                        </div>
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Linea Base</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text"><i class="far fa-calendar-alt"></i></span>
-                                     </div>
-                                     <input name="FechaLineaBase" type="text" class="form-control" id="FechaLineaBase"
-                                         data-inputmask-alias="datetime" data-inputmask-inputformat="dd-mm-yyyy"
-                                         data-mask="" im-insert="false" onchange="mostrarDiaAntesRAS(this)">
-                                 </div>
-                             </div>
-                         </div>
+                                                        <div class="col-md-6">
+                                                             <div class="form-group"><label for="NÚMERO DE TAG">NÚMERO DE TAG</label><input type="text" id="NUMERO_DE_TAG" class="form-control" name="NUMERO_DE_TAG"></div>
+                                                             <div class="form-group"><label for="STOCKCODE">STOCKCODE</label><input type="text" id="STOCKCODE" class="form-control" name="STOCKCODE"></div>
+                                                             <div class="form-group"><label for="DESCRIPCIÓN LÍNEA">DESCRIPCIÓN LÍNEA</label><input type="text" id="DESCRIPCION_LINEA" class="form-control" name="DESCRIPCION_LINEA"></div>
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>  
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">CANTIDADES / UNIDADES SOLICITUD TÉCNICA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
+                                               
+                                                        <div class="col-md-6">
 
+                                                         <div class="form-group"><label for="NÚMERO DE ELEMENTOS">NÚMERO DE ELEMENTOS</label><input onchange="mostrarPesoTotal(this)" onkeyup="formatoNumero(this)" type="text" id="NUMERO_DE_ELEMENTOS" class="form-control" name="NUMERO_DE_ELEMENTOS"></div>
+                                                         <div class="form-group"><label for="CANTIDAD UNITARIA">CANTIDAD UNITARIA</label><input onchange="mostrarPesoTotal(this)" onkeyup="formatoNumero(this)" type="text" id="CANTIDAD_UNITARIA" class="form-control" name="CANTIDAD_UNITARIA"></div>
+ 
+                                                            
+                                                        </div>
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Dias Antes RAS</label>
-                             <div class="col-md-12">
-                                 <input name="DiasAntesRAS"  id="DiasAntesRAS" placeholder="" class="form-control" type="text" readonly>
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
+                                                        <div class="col-md-6">
+                                                        <div class="form-group"><label for="CANTIDAD TOTAL">CANTIDAD TOTAL</label><input onchange="formatoNumero(this)" type="text" id="CANTIDAD_TOTAL" class="form-control" name="CANTIDAD_TOTAL" readonly></div>
+                                                        <div class="form-group"><label for="UNIDAD">UNIDAD</label>
+                                                        <div id="select_unidad"> </div>
+                                                        
+                                                        
+                                                        </div>
+ 
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Comienzo Fabricacion</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaComienzoFabricacion" type="text" class="form-control float-right"
-                                         id="FechaComienzoFabricacion">
-                                 </div>
-                             </div>
-                         </div>
-
-
-                         <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Comienzo
-                                     Fabricacion</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFCF" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
-
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Termino Fabricacion</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaTerminoFabricacion" type="text" class="form-control float-right"
-                                         id="FechaTerminoFabricacion">
-                                 </div>
-                             </div>
-                         </div>
-
-
-                         <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Termino Fabricacion</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFTF" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ACTIVACIÓN INGENIERÍA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Granallado</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaGranallado" type="text" class="form-control float-right"
-                                         id="FechaGranallado">
-                                 </div>
-                             </div>
-                         </div>
+                                               
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="TRANSMITTAL CLIENTE">TRANSMITTAL CLIENTE</label><input type="text" id="TRANSMITTAL_CLIENTE" class="form-control" name="TRANSMITTAL_CLIENTE"></div>
+                                                            <div class="form-group"><label for="FECHA TC">FECHA TC</label><input type="text" id="FECHA_TC" class="form-control" name="FECHA_TC"></div>
+                                                            <div class="form-group"><label for="TRANSMITTAL PROVEEDOR">TRANSMITTAL PROVEEDOR</label><input type="text" id="TRANSMITTAL_PROVEEDOR" class="form-control" name="TRANSMITTAL_PROVEEDOR"></div>
+                                                            <div class="form-group"><label for="FECHA TP">FECHA TP</label><input type="text" id="FECHA_TP" class="form-control" name="FECHA_TP"></div>
+                                                            <div class="form-group"><label for="TRANSMITTAL CLIENTE FINAL">TRANSMITTAL CLIENTE FINAL</label><input type="text" id="TRANSMITTAL_CLIENTE_FINAL" class="form-control" name="TRANSMITTAL_CLIENTE_FINAL"></div>
+   
+                                                        </div>
 
-
-                         <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Granallado</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFG" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="FECHA TCF">FECHA TCF</label><input type="text" id="FECHA_TCF" class="form-control" name="FECHA_TCF"></div>
+                                                            <div class="form-group"><label for="PA TCF">PA TCF</label>
+                                                              <div id="select_patcf"></div>
+                                                              </div>
+                                                           
+                                                            <div class="form-group"><label for="NÚMERO DE PLANO">NÚMERO DE PLANO</label><input type="text" id="NUMERO_DE_PLANO" class="form-control" name="NUMERO_DE_PLANO"></div>
+                                                            <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input onkeyup="formatoNumero(this)" type="text" id="REVISION" class="form-control" name="REVISION"></div>
+                                                            <div class="form-group"><label for="PAQUETE DE CONSTRUCCIÓN / ÁREA">PAQUETE DE CONSTRUCCIÓN / ÁREA</label><input type="text" id="PAQUETE_DE_CONSTRUCCION_AREA" class="form-control" name="PAQUETE_DE_CONSTRUCCION_AREA"></div>
+ 
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
 
 
 
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">MEDICIÓN</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Pintura</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaPintura" type="text" class="form-control float-right"
-                                         id="FechaPintura">
-                                 </div>
-                             </div>
-                         </div>
+                                               
+                                                        <div class="col-md-6">
+                                                           <div class="form-group"><label for="FECHA LINEA BASE">FECHA LINEA BASE</label><input onchange="mostrarDiaAntesRAS()" type="text" id="FECHA_LINEA_BASE" class="form-control" name="FECHA_LINEA_BASE"></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="DIAS ANTES LB">DIAS ANTES LB</label><input type="text" id="DIAS_ANTES_LB" class="form-control" name="DIAS_ANTES_LB" readonly></div>
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
 
 
-                         <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Pintura</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFP" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">PROGRAMA DE PROYECTO</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
 
+                                               
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="FECHA COMIENZO FABRICACION">FECHA COMIENZO FABRICACION</label><input type="text" id="FECHA_COMIENZO_FABRICACION" class="form-control" name="FECHA_COMIENZO_FABRICACION"></div>
+                                                            <div class="form-group"><label for="PA FCF">PA FCF</label>
+                                                            <div id="select_pafcf"></div>
+                                                              </div>
+
+                                                          
 
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Listo Inspeccion</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaListoInspeccion" type="text" class="form-control float-right"
-                                         id="FechaListoInspeccion">
-                                 </div>
-                             </div>
-                         </div>
-
-
-
-                         <div class="form-group" data-select2-id="89">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Listo Inspeccion</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFLI" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
-
-
-
-
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Acta Liberacion Calidad</label>
-                             <div class="col-md-12">
-                                 <input name="ActaLiberacionCalidad" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-
-
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Salida Fabrica</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaSalidaFabrica" type="text" class="form-control float-right"
-                                         id="FechaSalidaFabrica" onchange="mostrarDiaAntesRAS(this)">
-                                 </div>
-                             </div>
-                         </div>
+                                                            <div class="form-group"><label for="FECHA TERMINO FABRICACION">FECHA TERMINO FABRICACION</label><input type="text" id="FECHA_TERMINO_FABRICACION" class="form-control" name="FECHA_TERMINO_FABRICACION"></div>
+                                                            <div class="form-group"><label for="PA FTF">PA FTF</label>
+                                                            <div id="select_paftf"></div>
+                                                              </div>
 
 
 
-                         <div class="form-group">
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha Salida Fabrica</label>
-                                 <div class="col-md-12">
-                                     <select name="PAFSF" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                         </div>
+                                                            <div class="form-group"><label for="FECHA GRANALLADO">FECHA GRANALLADO</label><input type="text" id="FECHA_GRANALLADO" class="form-control" name="FECHA_GRANALLADO"></div>
+                                                            <div class="form-group"><label for="PA FG">PA FG</label>
+                                                            <div id="select_pafg"></div>
+                                                              </div>
+
+                                                            
+                                                         </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="FECHA PINTURA">FECHA PINTURA</label><input type="text" id="FECHA_PINTURA" class="form-control" name="FECHA_PINTURA"></div>
+                                                            <div class="form-group"><label for="PA FP">PA FP</label>
+                                                            <div id="select_pafp"></div>
+                                                              </div>
+                                                           
+                                                            <div class="form-group"><label for="FECHA LISTO INSPECCION">FECHA LISTO INSPECCION</label><input type="text" id="FECHA_LISTO_INSPECCION" class="form-control" name="FECHA_LISTO_INSPECCION"></div>
+                                                            <div class="form-group"><label for="PA FLI">PA FLI</label>
+                                                            <div id="select_pafli"></div>
+                                                              </div>
+                                                      
+                                                            
+                                                            
+                                                            
+                                                            
+                                                            <div class="form-group"><label for="ACTA LIBERACION CALIDAD">ACTA LIBERACION CALIDAD</label><input type="text" id="ACTA_LIBERACION_CALIDAD" class="form-control" name="ACTA_LIBERACION_CALIDAD"></div>
+                                                            <div class="form-group"><label for="FECHA SALIDA FABRICA">FECHA SALIDA FABRICA</label><input type="text" id="FECHA_SALIDA_FABRICA" class="form-control" name="FECHA_SALIDA_FABRICA"></div>
+                                                            <div class="form-group"><label for="PA FSF">PA FSF</label>
+                                                            <div id="select_pafsf"></div>
+                                                              </div>
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">LOGÍSTICA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                              
+                                               
+                                                        <div class="col-md-6">
+                                                           <div class="form-group"><label for="FECHA EMBARQUE">FECHA EMBARQUE</label><input type="text" id="FECHA_EMBARQUE" class="form-control" name="FECHA_EMBARQUE"></div>
+                                                           <div class="form-group"><label for="PACKINGLIST">PACKINGLIST</label><input type="text" id="PACKINGLIST" class="form-control" name="PACKINGLIST"></div>
+                                                           <div class="form-group"><label for="GUIA DESPACHO">GUIA DESPACHO</label><input type="text" id="GUIA_DESPACHO" class="form-control" name="GUIA_DESPACHO"></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                        <div class="form-group"><label for="NÚMERO DE VIAJE">NÚMERO DE VIAJE</label><input type="text" id="NUMERO_DE_VIAJE" class="form-control" name="NUMERO_DE_VIAJE"></div>
+                                                            <div class="form-group"><label for="ORIGEN">ORIGEN</label><input type="text" id="ORIGEN" class="form-control" name="ORIGEN"></div>
+                                                            <div class="form-group"><label for="DIAS VIAJE">DIAS VIAJE</label><input type="text" id="DIAS_VIAJE" class="form-control" name="DIAS_VIAJE"></div>
+                                                       </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">DETALLE BODEGA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                            
+                                               
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="UNIDADES SOLICITADAS">UNIDADES SOLICITADAS</label><input type="text" id="UNIDADES_SOLICITADAS" class="form-control" name="UNIDADES_SOLICITADAS"></div>
+                                                            <div class="form-group"><label for="UNIDADES RECIBIDAS">UNIDADES RECIBIDAS</label><input type="text" id="UNIDADES_RECIBIDAS" class="form-control" name="UNIDADES_RECIBIDAS"></div>
+                                                            <div class="form-group"><label for="REPORTE DE RECEPCIÓN (RR)">REPORTE DE RECEPCIÓN (RR)</label><input type="text" id="REPORTE_DE_RECEPCION_RR" class="form-control" name="REPORTE_DE_RECEPCION_RR"></div>
+                                                            
+                                                         </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="REPORTE DE ENTREGA (RE)">REPORTE DE ENTREGA (RE)</label><input type="text" id="REPORTE_DE_ENTREGA_RE" class="form-control" name="REPORTE_DE_ENTREGA_RE"></div>
+                                                            <div class="form-group"><label for="REPORTE DE EXCEPCIÓN (EXB)">REPORTE DE EXCEPCIÓN (EXB)</label><input type="text" id="REPORTE_DE_EXCEPCION_EXB" class="form-control" name="REPORTE_DE_EXCEPCION_EXB"></div>
+                                                            <div class="form-group"><label for="INSPECCIÓN DE INGENIERÍA">INSPECCIÓN DE INGENIERÍA</label><input type="text" id="INSPECCION_DE_INGENIERIA" class="form-control" name="INSPECCION_DE_INGENIERIA"></div>
+
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
 
 
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">OBSERVACIÓN</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
 
+                                               
+                                                        <div class="col-md-6">
+                                                           <div class="form-group"><label for="OBSERVACIÓN">OBSERVACIÓN</label><input type="text" id="OBSERVACION" class="form-control" name="OBSERVACION"></div>
 
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha Embarque</label>
-                             <div class="col-md-12">
-                                 <div class="input-group">
-                                     <div class="input-group-prepend">
-                                         <span class="input-group-text">
-                                             <i class="far fa-calendar-alt"></i>
-                                         </span>
-                                     </div>
-                                     <input name="FechaEmbarque" type="text" class="form-control float-right"
-                                         id="FechaEmbarque">
-                                 </div>
-                             </div>
-                         </div>
+                                                        </div>
 
-
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Packing List</label>
-                             <div class="col-md-12">
-                                 <input name="PackingList" placeholder="PackingList" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Guia Despacho</label>
-                             <div class="col-md-12">
-                                 <input name="GuiaDespacho" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">SCN Number</label>
-                             <div class="col-md-12">
-                                 <input name="SCNNumber" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Origen</label>
-                             <div class="col-md-12">
-                                 <input name="Origen" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Dias Viaje</label>
-                             <div class="col-md-12">
-                                 <input name="DiasViaje" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Transmittal Cliente</label>
-                             <div class="col-md-12">
-                                 <input name="TransmittalCliente" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha TC</label>
-                             <div class="col-md-12">
-                                 <input name="FechaTC" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Transmittal Vendor</label>
-                             <div class="col-md-12">
-                                 <input name="TransmittalVendor" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">FechaTV</label>
-                             <div class="col-md-12">
-                                 <input name="FechaTV" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Transmittal CF</label>
-                             <div class="col-md-12">
-                                 <input name="TransmittalCF" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                         </div>
-                         <div class="form-group">
-                             <label class="control-label col-md-12">Fecha CF</label>
-                             <div class="col-md-12">
-                                 <input name="FechaCF" placeholder="" class="form-control" type="text">
-                                 <span class="help-block"></span>
-                             </div>
-                             </div>
-                
-
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Programado - Actual Fecha CF</label>
-                                 <div class="col-md-12">
-                                     <select name="PACF" class="form-control"
-                                         style="width: 100%;">
-                                         <?php echo $select_ap;?>
-                                     </select>
-                                 </div>
-                             </div>
-                        
+                                                        <div class="col-md-6">
+                                                       </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
 
 
+                    </section>
 
-                             <div class="form-group">
-                                 <label class="control-label col-md-12">Observacion 7</label>
-                                 <div class="col-md-12">
-                                     <input name="Observacion7" placeholder="" class="form-control" type="text">
-                                     <span class="help-block"></span>
-                                 </div>
-                             </div>
-
+                     
                  </form>
              </div>
 
@@ -758,6 +779,12 @@
              .grey {
             background-color: rgba(128,128,128,.25)!important;
             }
+            table {
+                    border-collapse: collapse;
+                    border-spacing: 0;
+                    width: 100%;
+                    border: 5px solid #000;
+                    }
 
              </style>
 
@@ -862,6 +889,8 @@
 
 var  id_orden = '<?php echo $PurchaseOrderID;?>';
 var   bucksheet_html = "";
+var   activacion_html = "";
+var   calidad_html = "";
 
 $.ajax({
     url: '<?php echo site_url('Consultas/consultasDatosWpanel')?>',
@@ -873,12 +902,37 @@ $.ajax({
     },
 }).done(function(result) {
     
-  
 
-    $('#countAdverActivacion').html(result.countAdverActivacion);
+console.log(parseInt(result.countAdverActivacion));
+
+    if(parseInt(result.countAdverActivacion) > 0){
+
+        activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="cambiosenorden(1)">' +result.countAdverActivacion+'</button>';
+
+    }else{
+
+        activacion_html = result.countAdverActivacion;
+
+    }
+
+    console.log(parseInt(result.countAdverCalidad));
+    if(parseInt(result.countAdverCalidad) > 0){
+
+        calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdvercountAdverCalidadCalidad+'</button>';
+
+    }else{
+
+        calidad_html = result.countAdverCalidad;
+
+    }
+
+
+
+
+    $('#countAdverActivacion').html(activacion_html);
     $('#countAtrasados').html(result.countAtrasados);
     $('#countDespachos').html(result.countDespachos + '/' + result.countTotalWpanel);
-    $('#countAdverCalidad').html(result.countAdverCalidad);
+    $('#countAdverCalidad').html(calidad_html);
 
    
 
@@ -887,7 +941,6 @@ $.ajax({
 })
 
 }
-
 
              function recargaBuckSheet(orden, cliente) {
 
@@ -916,59 +969,65 @@ $.ajax({
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html +=
-                             '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
-                             '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.PurchaseOrderID+','+bucksheets.NumeroLinea+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+                             '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
+                             '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
                         bucksheet_html += '</td>';
-                        bucksheet_html += '<td>' + bucksheets.purchaseOrdername+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.EstadoLineaBucksheet+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.lineaActivable+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SupplierName+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.ItemST+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SubItemST+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Descripcion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PlanoModelo+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Revision+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PaqueteConstruccionArea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaComienzoFabricacion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTerminoFabricacion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFTF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaGranallado+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFG+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaPintura+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFP+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaListoInspeccion+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFLI+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.ActaLiberacionCalidad+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaSalidaFabrica+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PAFSF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaEmbarque+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.SCNNumber+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesSolicitadas+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.UnidadesRecibidas+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialReceivedReport+ '</td>';
-                        bucksheet_html += '<td class="grey" >' + bucksheets.MaterialWithdrawalReport+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Origen+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasViaje+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalCliente+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTC+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalVendor+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaTV+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TransmittalCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaCF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PACF+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Observacion7+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.FechaLineaBase+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.DiasAntesRAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ID_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.NUMERO_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.DESCRIPCION_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.SUB_ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.TIPO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.ESTADO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_TAG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.STOCKCODE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.DESCRIPCION_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_UNITARIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_TOTAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.UNIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE_FINAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.NUMERO_DE_PLANO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.REVISION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.FECHA_LINEA_BASE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.DIAS_ANTES_LB + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FCF + '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_TERMINO_FABRICACION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FTF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_GRANALLADO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_PINTURA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_LISTO_INSPECCION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FLI+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.ACTA_LIBERACION_CALIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FSF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.FECHA_EMBARQUE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.PACKINGLIST+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.ORIGEN+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.DIAS_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left; background-color:#FF6600; color:#FFFFFF">' + bucksheets.OBSERVACION+ '</td>';
+
+
                         bucksheet_html += '</tr>';
 
                      });
@@ -977,8 +1036,9 @@ $.ajax({
                      $('#datos_bucksheet').html(bucksheet_html);
 
                      $('#tbl_bucksheet').DataTable({
+                        
                         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
           "paging": false,
         "lengthChange": false,
@@ -1019,9 +1079,7 @@ $.ajax({
             "extend": 'colvis',
             "text": 'Columnas Visibles'
             }
-    ]
-                        }).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
-                
+    ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
                      console.log("error change cliente");
@@ -1108,9 +1166,9 @@ $.ajax({
                 window.open('<?php echo base_url('assets/'.$nombreArchivoEjemplo);?>', '_blank');
                 }
 
-                function controldecalidad() {
+                function controldecalidad(filtro) {
 
-                window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
+                window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
                 }
 
                 function descarga_bucksheet() {
@@ -1118,9 +1176,9 @@ $.ajax({
                 window.open('<?php echo site_url('BuckSheet/exportCSV/'.$PurchaseOrderID)?>', '_blank');
                 }
 
-                function cambiosenorden() {
+                function cambiosenorden(filtro) {
 
-                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto)?>', '_blank');
+                window.open('<?php echo site_url('Journal/cambiosOrden/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro,'_blank');
                 }
 
                 function eliminar_bucksheet(PurchaseOrderID ,numeroLinea){
@@ -1166,6 +1224,19 @@ $.ajax({
     var id_proyecto = <?php echo $codProyecto;?>;
     var id_cliente = <?php echo $idCliente;?>;
     var codEmpresa = <?php echo $this->session->userdata('cod_emp');?>;
+    var select_unidad = "";
+    var select_patcf = "";
+    var select_pafcf = "";
+    var select_paftf = "";
+    var select_pafg = "";
+    var select_pafp = "";
+    var select_pafli = "";
+    var select_pafsf = "";
+    var select_tipo_linea = "";
+    var select_estado_linea = "";
+
+
+
 
                 $('#form')[0].reset(); // reset form on modals
                 $('.form-group').removeClass('has-error'); // clear error class
@@ -1183,59 +1254,101 @@ $.ajax({
         dataType: "JSON",
         success: function(result) {
 
+            select_unidad = result.select_unidad;
+            select_patcf = result.select_patcf;
+            select_pafcf = result.select_pafcf;
+            select_paftf = result.select_paftf;
+            select_pafg = result.select_pafg;
+            select_pafp = result.select_pafp;
+            select_pafli = result.select_pafli;
+            select_pafsf = result.select_pafsf;
+            select_tipo_linea = result.select_tipo_linea;
+            select_estado_linea = result.select_estado_linea;
+
+
             $.each(result.bucksheet, function(key, bucksheets) {
+
+
+                $('#ID_OC').val(bucksheets.ID_OC);
+                $('#NUMERO_OC').val(bucksheets.NUMERO_OC);
+                $('#DESCRIPCION_OC').val(bucksheets.DESCRIPCION_OC);
+                $('#ITEM_OC').val(bucksheets.ITEM_OC);
+                $('#SUB_ITEM_OC').val(bucksheets.SUB_ITEM_OC);
+                $('#PROVEEDOR').val(bucksheets.PROVEEDOR);
+                $('#NUMERO_DE_LINEA').val(bucksheets.NUMERO_DE_LINEA);
+                $('#TIPO_DE_LINEA').val(bucksheets.TIPO_DE_LINEA);
+                $('#NUMERO_DE_TAG').val(bucksheets.NUMERO_DE_TAG);
+                $('#STOCKCODE').val(bucksheets.STOCKCODE);
+                $('#DESCRIPCION_LINEA').val(bucksheets.DESCRIPCION_LINEA);
+                $('#NUMERO_DE_ELEMENTOS').val(bucksheets.NUMERO_DE_ELEMENTOS);
+                $('#CANTIDAD_UNITARIA').val(bucksheets.CANTIDAD_UNITARIA);
+                $('#CANTIDAD_TOTAL').val(bucksheets.CANTIDAD_TOTAL);
+                $('#UNIDAD').val(bucksheets.UNIDAD);
+                $('#TRANSMITTAL_CLIENTE').val(bucksheets.TRANSMITTAL_CLIENTE);
+                $('#FECHA_TC').val(bucksheets.FECHA_TC);
+                $('#TRANSMITTAL_PROVEEDOR').val(bucksheets.TRANSMITTAL_PROVEEDOR);
+                $('#FECHA_TP').val(bucksheets.FECHA_TP);
+                $('#TRANSMITTAL_CLIENTE_FINAL').val(bucksheets.TRANSMITTAL_CLIENTE_FINAL);
+                $('#FECHA_TCF').val(bucksheets.FECHA_TCF);
+                $('#PA_TCF').val(bucksheets.PA_TCF);
+                $('#NUMERO_DE_PLANO').val(bucksheets.NUMERO_DE_PLANO);
+                $('#REVISION').val(bucksheets.REVISION);
+                $('#PAQUETE_DE_CONSTRUCCION_AREA').val(bucksheets.PAQUETE_DE_CONSTRUCCION_AREA);
+                $('#FECHA_LINEA_BASE').val(bucksheets.FECHA_LINEA_BASE);
+                $('#DIAS_ANTES_LB').val(bucksheets.DIAS_ANTES_LB);
+                $('#FECHA_COMIENZO_FABRICACION').val(bucksheets.FECHA_COMIENZO_FABRICACION);
+                $('#PA_FCF').val(bucksheets.PA_FCF);
+                $('#FECHA_TERMINO_FABRICACION').val(bucksheets.FECHA_TERMINO_FABRICACION);
+                $('#PA_FTF').val(bucksheets.PA_FTF);
+                $('#FECHA_GRANALLADO').val(bucksheets.FECHA_GRANALLADO);
+                $('#PA_FG').val(bucksheets.PA_FG);
+                $('#FECHA_PINTURA').val(bucksheets.FECHA_PINTURA);
+                $('#PA_FP').val(bucksheets.PA_FP);
+                $('#FECHA_LISTO_INSPECCION').val(bucksheets.FECHA_LISTO_INSPECCION);
+                $('#PA_FLI').val(bucksheets.PA_FLI);
+                $('#ACTA_LIBERACION_CALIDAD').val(bucksheets.ACTA_LIBERACION_CALIDAD);
+                $('#FECHA_SALIDA_FABRICA').val(bucksheets.FECHA_SALIDA_FABRICA);
+                $('#PA_FSF').val(bucksheets.PA_FSF);
+                $('#FECHA_EMBARQUE').val(bucksheets.FECHA_EMBARQUE);
+                $('#PACKINGLIST').val(bucksheets.PACKINGLIST);
+                $('#GUIA_DESPACHO').val(bucksheets.GUIA_DESPACHO);
+                $('#NUMERO_DE_VIAJE').val(bucksheets.NUMERO_DE_VIAJE);
+                $('#ORIGEN').val(bucksheets.ORIGEN);
+                $('#DIAS_VIAJE').val(bucksheets.DIAS_VIAJE);
+                $('#UNIDADES_SOLICITADAS').val(bucksheets.UNIDADES_SOLICITADAS);
+                $('#UNIDADES_RECIBIDAS').val(bucksheets.UNIDADES_RECIBIDAS);
+                $('#REPORTE_DE_RECEPCION_RR').val(bucksheets.REPORTE_DE_RECEPCION_RR);
+                $('#REPORTE_DE_ENTREGA_RE').val(bucksheets.REPORTE_DE_ENTREGA_RE);
+                $('#REPORTE_DE_EXCEPCION_EXB').val(bucksheets.REPORTE_DE_EXCEPCION_EXB);
+                $('#INSPECCION_DE_INGENIERIA').val(bucksheets.INSPECCION_DE_INGENIERIA);
+                $('#OBSERVACION').val(bucksheets.OBSERVACION);
+
+                
+
+       
+             });
 
 
                 $('[name="idProyecto"]').val(id_proyecto);
                 $('[name="idCliente"]').val(id_cliente);   
-                $('[name="codEmpresa"]').val(codEmpresa);   
-                
+                $('[name="codEmpresa"]').val(codEmpresa); 
 
-            $('[name="PurchaseOrderID"]').val(bucksheets.PurchaseOrderID);
-            $('[name="NumeroLinea"]').val(bucksheets.NumeroLinea);
-            $('[name="lineaActivable"]').val(bucksheets.lineaActivable);
-            $('[name="STCantidad"]').val(bucksheets.STCantidad);
-            $('[name="TAGNumber"]').val(bucksheets.TAGNumber);
-            $('[name="Stockcode"]').val(bucksheets.Stockcode);
-            $('[name="Descripcion"]').val(bucksheets.Descripcion);
-            $('[name="PlanoModelo"]').val(bucksheets.PlanoModelo);
-            $('[name="Revision"]').val(bucksheets.Revision);
-            $('[name="PaqueteConstruccionArea"]').val(bucksheets.PaqueteConstruccionArea);
-            $('[name="PesoUnitario"]').val(bucksheets.PesoUnitario);
-            $('[name="PesoTotal"]').val(bucksheets.PesoTotal);
-            $('[name="FechaLineaBase"]').val(bucksheets.FechaLineaBase);
-            $('[name="DiasAntesRAS"]').val(bucksheets.DiasAntesRAS);
-            $('[name="FechaComienzoFabricacion"]').val(bucksheets.FechaComienzoFabricacion);
-            $('[name="PAFCF"]').val(bucksheets.PAFCF);
-            $('[name="FechaTerminoFabricacion"]').val(bucksheets.FechaTerminoFabricacion);
-            $('[name="PAFTF"]').val(bucksheets.PAFTF);
-            $('[name="FechaGranallado"]').val(bucksheets.FechaGranallado);
-            $('[name="PAFG"]').val(bucksheets.PAFG);
-            $('[name="FechaPintura"]').val(bucksheets.FechaPintura);
-            $('[name="PAFP"]').val(bucksheets.PAFP);
-            $('[name="FechaListoInspeccion"]').val(bucksheets.FechaListoInspeccion);
-            $('[name="PAFLI"]').val(bucksheets.PAFLI);
-            $('[name="ActaLiberacionCalidad"]').val(bucksheets.ActaLiberacionCalidad);
-            $('[name="FechaSalidaFabrica"]').val(bucksheets.FechaSalidaFabrica);
-            $('[name="PAFSF"]').val(bucksheets.PAFSF);
-            $('[name="FechaEmbarque"]').val(bucksheets.FechaEmbarque);
-            $('[name="PackingList"]').val(bucksheets.PackingList);
-            $('[name="GuiaDespacho"]').val(bucksheets.GuiaDespacho);
-            $('[name="SCNNumber"]').val(bucksheets.SCNNumber);
-            $('[name="Origen"]').val(bucksheets.Origen);
-            $('[name="DiasViaje"]').val(bucksheets.DiasViaje);
-            $('[name="TransmittalCliente"]').val(bucksheets.TransmittalCliente);
-            $('[name="FechaTC"]').val(bucksheets.FechaTC);
-            $('[name="TransmittalVendor"]').val(bucksheets.TransmittalVendor);
-            $('[name="FechaTV"]').val(bucksheets.FechaTV);
-            $('[name="TransmittalCF"]').val(bucksheets.TransmittalCF);
-            $('[name="FechaCF"]').val(bucksheets.FechaCF);
-            $('[name="PACF"]').val(bucksheets.PACF);
-            $('[name="Observacion7"]').val(bucksheets.Observacion7);
+             $('#select_unidad').html(select_unidad);
+             $('#select_patcf').html(select_patcf);
 
-             });
+             $('#select_pafcf').html(select_pafcf);
+             $('#select_paftf').html(select_paftf);
+             $('#select_pafg').html(select_pafg);
+             $('#select_pafp').html(select_pafp);
+             $('#select_pafli').html(select_pafli);
+             $('#select_pafsf').html(select_pafsf);
+             $('#select_tipo_linea').html(select_tipo_linea);
+             $('#select_estado_linea').html(select_estado_linea);
+
+             
 
 
+             
 
             $('#modal-default').modal('show'); // show bootstrap modal
             $('.modal-title').text('Editar WPanel: Orden ' + PurchaseOrderID + ', Numero de Linea ' +
@@ -1310,29 +1423,36 @@ function mostrarPesoTotal(input){
 
 var total = 0;	
 
-valor = replaceAll(document.getElementById('PesoUnitario').value , ".", "" ); 
-cantidad =  replaceAll(document.getElementById('STCantidad').value , ".", "" );
+valor = replaceAll(document.getElementById('NUMERO_DE_ELEMENTOS').value , ".", "" ); 
+cantidad =  replaceAll(document.getElementById('CANTIDAD_UNITARIA').value , ".", "" );
 
 // Aquí valido si hay un valor Programado, si no hay datos, le pongo un cero "0".
-total = (total == null || total == undefined || total == "") ? 0 : total;
+total = (total == null || total == undefined || total == "" || total =="NaN" ) ? 0 : total;
 
 total = (parseInt(cantidad) * parseInt(valor));
 
-$('#PesoTotal').val( +(Math.round(total + "e+2")  + "e-2"));
+$('#CANTIDAD_TOTAL').val( +(Math.round(total + "e+2")  + "e-2"));
 
 
 }
 
-function mostrarDiaAntesRAS(input){
+function mostrarDiaAntesRAS(){
 
    
 // Here are the two dates to compare
-var date1 = replaceAll(document.getElementById('FechaLineaBase').value , ".", "" );
-var date2 = replaceAll(document.getElementById('FechaSalidaFabrica').value , ".", "" );
+
+var date1 = $('#FECHA_LINEA_BASE').val();
+console.log(date1);
+
+var f = new Date();
+
+var date2 = f.getDate() + "-" + (f.getMonth() +1) + "-" + f.getFullYear();
 
 // First we split the values to arrays date1[0] is the year, [1] the month and [2] the day
 date1 = date1.split('-');
 date2 = date2.split('-');
+
+console.log(date1[2]);
 
 // Now we convert the array to a Date object, which has several helpful methods
 date1 = new Date(date1[2], date1[1], date1[0]);
@@ -1352,7 +1472,7 @@ var timeDifferenceInHours = timeDifference / 60 / 60;
 var timeDifferenceInDays = timeDifferenceInHours  / 24;
 
 
-$('#DiasAntesRAS').val(Math.round(timeDifferenceInDays));
+$('#DIAS_ANTES_LB').val(Math.round(timeDifferenceInDays));
 
 
 }

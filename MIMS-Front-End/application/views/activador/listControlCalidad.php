@@ -64,11 +64,12 @@
                          </div>
                          <!-- /.row -->
                      <!-- /.card-header -->
+
                      <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Actividades de control de Calidad
+                               Registro de Calidad
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -77,7 +78,7 @@
                              <tbody>
                                  <tr>
                                      <th>
-                                     <button id="btn_recargar"
+                                         <button id="btn_recargar"
                                              class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
                                                      </i>  Actualizar</button>
                                     </th>
@@ -87,6 +88,7 @@
                          <table id="tbl_ccalidad" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
+                                     <th>Acciones</th>
                                      <th>Nombre Empleado</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -107,7 +109,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                Control de Calidad (Dossier)
+                                Control de Calidad
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -115,6 +117,7 @@
                             <table id="tbl_controlcalidaddet" class="table table-striped table-bordered" cellspacing="0" width=%100>
                             <thead>
                                 <tr>
+                                    <th>Acciones</th>
                                     <th>Id Orden</th>
                                     <th>Id Control</th>
                                     <th>Descripcion Control</th>
@@ -131,53 +134,40 @@
                     </div>
                  </div>
 
+<style type="text/css" class="init">
+/* Ensure that the demo table scrolls */
+th,
+td {
+    white-space: nowrap;
+}
 
-             <style type="text/css" class="init">
-             /* Ensure that the demo table scrolls */
-             th,
-             td {
-                 white-space: nowrap;
-             }
+div.dataTables_wrapper {
+    margin: 0 auto;
+}
 
-             div.dataTables_wrapper {
-                 margin: 0 auto;
-             }
-
-             tr {
-                 height: 50px;
-             }
-             </style>
-
+tr {
+    height: 50px;
+}
+</style>
 
 
-             <script type="text/javascript">
-
-                            $(document).ready(function() {
-
-                            var cliente = <?php echo $idCliente?> ;
-                            var orden = <?php echo $idOrden?> ;
-                            var proyecto = <?php echo $codProyecto?> ;
-
-                            recargaControlCalidad(orden, cliente);
-                            recargaCalidadDet(orden,cliente,proyecto);
+<script>
+             $(function() {
+                 //Initialize Select2 Elements
 
 
+                 //Datemask dd-mm-yyyy
+                 $('#datemask').inputmask('dd-mm-yyyy', {
+                     'placeholder': 'dd-mm-yyyy'
+                 })
+                 //Datemask2 mm/dd/yyyy
+                 $('#datemask2').inputmask('mm/dd/yyyy', {
+                     'placeholder': 'mm/dd/yyyy'
+                 })
+                 //Money Euro
+                 $('[data-mask]').inputmask()
 
-                            //set input/textarea/select event when change value, remove class error and remove text help block 
-                            $("input").change(function() {
-                                $(this).parent().parent().removeClass('has-error');
-                                $(this).next().empty();
-                            });
-                            $("textarea").change(function() {
-                                $(this).parent().parent().removeClass('has-error');
-                                $(this).next().empty();
-                            });
-                            $("select").change(function() {
-                                $(this).parent().parent().removeClass('has-error');
-                                $(this).next().empty();
-                            });
-
-                            var x = 1; //Initial field counter is 1 
+                 var x = 1; //Initial field counter is 1 
                             var maxField = 10; //Input fields increment limitation
                             var addButton = $('.add_button'); //Add button selector
                             var wrapper = $('.field_wrapper'); //Input field wrapper
@@ -208,66 +198,158 @@
                             });
 
 
+             })
+             </script>
 
 
-                            });   
+<script type="text/javascript">
+
+
+
+
+$(document).ready(function() {
+
+var cliente = <?php echo $idCliente?> ;
+var orden = <?php echo $idOrden?> ;
+var proyecto = <?php echo $codProyecto?> ;
+var save_method;
+var url;
+
+recargaControlCalidad(orden, cliente);
+recargaCalidadDet(orden,cliente,proyecto);
+formToggleDesactivar('interaction_ref');
+
+
+//set input/textarea/select event when change value, remove class error and remove text help block 
+$("input").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("textarea").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+$("select").change(function() {
+    $(this).parent().parent().removeClass('has-error');
+    $(this).next().empty();
+});
+
+});   
+
+
+$('#var_tipo_interaccion').on('change', function(){
+
+var tipo_interaccion = this.value;
+
+if (tipo_interaccion=='17'){
+
+    formToggleActivar('interaction_ref');
+
+}else{
+
+    formToggleDesactivar('interaction_ref');
+
+}
+
+
+
+});
+
+
+
+
+
+$('#btn_recargar').on('click', function() {
+
+var cliente = <?php echo $idCliente?> ;
+var orden = <?php echo $idOrden?>;
+
+recargaControlCalidad(orden, cliente);
+
+});
+
+$('#btn_nuevo_registro').on('click', function() {
+
+    save_method = 'add';
+
+var element = document.getElementById('mailFrm');
+
+if (element.style.display === "block") {
+    element.style.display = "none";
+}
+
+$('#miForm')[0].reset();
+$('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
+$('#modal_control_calidad').modal('show');
+$('#name_respaldo').html("");
+obtieneSelects();
+formToggleDesactivar('interaction_ref');
+
+});
 
 
 function mostrarBlock(){
-		$.blockUI({ 
-                message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
-            css:{
-				backgroundColor: '#0063BE',
-				opacity: .8,
-				'-webkit-border-radius': '10px', 
-	            '-moz-border-radius': '10px',
-	            color: '#fff'
-			}
-		});
-	}
+                    $.blockUI({ 
+                            message: '<h5><img style=\"width: 12px;\" src="<?php echo base_url('assets/dist/img/loader.gif');?>" />&nbsp;Espere un momento...</h5>',
+                        css:{
+                            backgroundColor: '#0063BE',
+                            opacity: .8,
+                            '-webkit-border-radius': '10px', 
+                            '-moz-border-radius': '10px',
+                            color: '#fff'
+                        }
+                    });
+                }
 
+function recargaControlCalidad(orden, cliente) {
 
-          
-             function recargaControlCalidad(orden, cliente) {
+var calidad_html = '';
 
-                 var calidad_html = '';
-
-                 var tabla_calidad = $('#tbl_ccalidad').DataTable();
+var tabla_calidad = $('#tbl_ccalidad').DataTable();
 
 
 
-                 tabla_calidad.destroy();
+tabla_calidad.destroy();
 
-                 $.ajax({
-                     url: '<?php echo base_url('index.php/Journal/obtienejournalCalidad'); ?>',
-                     type: 'POST',
-                     dataType: 'json',
-                     data: {
-                         id_orden_compra: orden,
-                         id_cliente: cliente
-                     },
-                 }).done(function(result) {
-
-
-                     $.each(result.journals, function(key, journal) {
-                         calidad_html += '<tr>';
-                         calidad_html += '<td>' + journal.nombre_empleado + '</td>';
-                         calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
-                         calidad_html += '<td>' + journal.numero_referencial + '</td>';
-                         calidad_html += '<td>' + journal.tipo_interaccion + '</td>';
-                         calidad_html += '<td>' + journal.solicitado_por + '</td>';
-                         calidad_html += '<td>' + journal.aprobado_por + '</td>';
-                         calidad_html += '<td>' + journal.comentarios_generales + '</td>';
-                         calidad_html += '<td>' + journal.respaldos + '</td>';
-                         calidad_html += '</tr>';
-
-                     });
+$.ajax({
+    url: '<?php echo base_url('index.php/Journal/obtienejournalCalidad'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        id_orden_compra: orden,
+        id_cliente: cliente,
+        filtro: <?php echo $filtro;?>
+    },
+}).done(function(result) {
 
 
-                     $('#datos_ccalidad').html(calidad_html);
-                     $('#tbl_ccalidad').DataTable({
-                        language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+    $.each(result.journals, function(key, journal) {
+        calidad_html += '<tr>';
+        calidad_html += '<td>';
+        calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        calidad_html += '</td>';
+        calidad_html += '<td>' + journal.nombre_empleado + '</td>';
+        calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
+        calidad_html += '<td>' + journal.numero_referencial + '</td>';
+        calidad_html += '<td>' + journal.tipo_interaccion + '</td>';
+        calidad_html += '<td>' + journal.solicitado_por + '</td>';
+        calidad_html += '<td>' + journal.aprobado_por + '</td>';
+        calidad_html += '<td>' + journal.comentarios_generales + '</td>';
+        calidad_html += '<td>' + journal.respaldos + '</td>';
+        calidad_html += '</tr>';
+
+    });
+
+
+    $('#datos_ccalidad').html(calidad_html);
+    $('#tbl_ccalidad').DataTable({
+        language: {
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -318,13 +400,13 @@ function mostrarBlock(){
             }
     ]
                         }).buttons().container().appendTo('#tbl_ccalidad_wrapper .col-md-6:eq(0)');
-                    
 
-                 }).fail(function() {
-                     console.log("error change cliente");
-                 })
+}).fail(function() {
+    console.log("error change cliente");
+})
 
-             }
+}
+
 
 function recargaCalidadDet(id_orden,id_cliente,id_proyecto){
 
@@ -350,6 +432,10 @@ data: {
 
 $.each(result.datos_calidad_det,function(key, dato_calidad_det) {
 calidad_det_html += '<tr>';
+calidad_det_html += '<td>';
+calidad_det_html += '<button data-nombre="'+ dato_calidad_det.id_control_calidad_det +'" data-toggle="tooltip" data-placement="left" title="Actualizar Control de Calidad" '+
+'onclick="mostrar_ccd('+dato_calidad_det.id_control_calidad +','+ dato_calidad_det.id_control_calidad_det +','+ id_orden +','+id_cliente+','+id_proyecto+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list"></i></button>';
+calidad_det_html += '</td>';
 calidad_det_html += '<td>' + id_orden+ '</td>';
 calidad_det_html += '<td>' + dato_calidad_det.id_control_calidad + '</td>';
 calidad_det_html += '<td>' + dato_calidad_det.descripcion_control_calidad + '</td>';
@@ -364,9 +450,8 @@ calidad_det_html += '</tr>';
     $('#datos_controlcalidaddet').html(calidad_det_html);
 
     $('#tbl_controlcalidaddet').DataTable({
-      
         language: {
-              url: '<?echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
         "paging": true,
         "lengthChange": false,
@@ -425,24 +510,49 @@ calidad_det_html += '</tr>';
 
 }
 
-             </script>
-             <script>
-             $(function() {
-                 //Initialize Select2 Elements
 
-
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+function mostrar_ccd(id_control_calidad,id_control_calidad_det,id_orden,id_cliente,id_proyecto){
 
 
 
-             })
-             </script>
+$.ajax({
+url: 		'<?php echo base_url('index.php/ControlCalidadDet/obtieneControlCalidadDetxId'); ?>',
+type: 		'POST',
+dataType: 'json',
+data: {
+    id_control_calidad : id_control_calidad,
+    id_control_calidad_det : id_control_calidad_det,
+    id_orden : id_orden,
+    id_cliente : id_cliente,
+    id_proyecto : id_proyecto
+      },
+}).done(function(result) {
+  
+
+$('#id_order_cc').val(id_orden); 
+$('#id_proyecto_cc').val(id_proyecto); 
+$('#id_cliente_cc').val(id_cliente); 
+$('#id_cc_det').val(id_control_calidad_det); 
+$('#id_cc').val(id_control_calidad); 
+
+$('#input_range_ccd').html(result.estado_porc_cc_det); 
+$('#s_estado_ccd').html(result.select_estadoccd); 
+
+const $valueSpan = $('.valueSpan2');
+    const $value = $('#estado_porc_cc_det');
+    $valueSpan.html($value.val());
+    $value.on('input change', () => {
+        $valueSpan.html($value.val());
+    });
+
+
+$('#modal-control-det').modal('show'); 
+
+
+}).fail(function() {
+console.log("error obtener cc det");
+})
+
+}
+
+</script>
