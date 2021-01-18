@@ -24,7 +24,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 |
 */
 $config['base_url'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Front-End";
-$config['BASE_SERVICIOS'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/";
+$config['BASE_SERVICIOS'] = 'https://'.$_SERVER['HTTP_HOST']."/MIMS-Intelligent-Projects/MIMS-Servicios/index.php/";
 $config['BASE_ARCHIVOS'] = $_SERVER['DOCUMENT_ROOT'].'/MIMS-Intelligent-Projects/MIMS-Front-End/archivos/';
 date_default_timezone_set('America/Santiago'); #Línea agregada
 /*
