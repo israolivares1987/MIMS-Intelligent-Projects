@@ -105,9 +105,119 @@
                          </table>
                         </div>
                         <!-- /.card-body -->
+
+
+                        <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                 EDP
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                        <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <td>
+                                     <dl class="row">
+                                             <dt class="col-sm-8">ORDEN DE COMPRA:</dt>
+                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dt class="col-sm-8">MONTO ORDEN DE COMPRA:</dt>
+                                             <dd class="col-sm-9"><?php echo urldecode($montoOrden);?>
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                    </td>
+                                    <td>
+                                    
+                                    </td>
+                                    <td>
+                                     <button id="btn_recargar_edp"
+                                             class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
+                                                     </i>  Actualizar</button>
+                                         <button id="btn_nuevo_registro_edp"
+                                             class="btn btn-outline-primary float-right">Nuevo Registro</button>
+                                    </td>
+                                 </tr>
+
+                                 
+                             </tbody>
+                         </table>
+                         <table id="tbl_edp" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                             <tr>
+                                <th>ACCIONES</th>
+                                <th>NOMBRE EMPLEADO</th>
+                                <th>FECHA INGRESO EDP</th>
+                                <th>N° EDP</th>
+                                <th>ESTADO</th>
+                                <th>FECHA DE PAGO</th>
+                                <th>ACTUAL / PROGRAMADO</th>
+                                <th>PROVEEDOR</th>
+                                <th>IMPORTE EDP</th>
+                                <th>SALDO INSOLUTO O.C</th>
+                                <th>RESPALDO</th>
+                                <th>COMENTARIOS</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_edp">
+                             </tbody>
+                         </table>
+                        </div>
+
+
+                        <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                 GARANTIAS
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                        <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <th>
+                                     <button id="btn_recargar_gara"
+                                             class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
+                                                     </i>  Actualizar</button>
+                                         <button id="btn_nuevo_registro_gara"
+                                             class="btn btn-outline-primary float-right">Nuevo Registro</button>
+                                    </th>
+                                 </tr>
+                             </tbody>
+                         </table>
+                         <table id="tbl_garantias" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                                 <tr>
+                                 <th>ACCION</th>
+                                 <th>NOMBRE EMPLEADO</th>
+                                 <th>FECHA DE EMISIÓN</th>
+                                 <th>N° DOCUMENTO</th>
+                                 <th>TIPO DE GARANTÍA</th>
+                                 <th>REFERENCIA</th>
+                                 <th>MONTO</th>
+                                 <th>VENCIMIENTO</th>
+                                 <th>DÍAS ANTES DEL VENCIMIENTO</th>
+                                 <th>RESPALDO</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_garantias">
+                             </tbody>
+                         </table>
+                        </div>
+
+
+
+                        
                     </div>
                  </div>
-
+                 
+                 
+                </div><!-- /.container-fluid -->
+     </section>
 
              <style type="text/css" class="init">
              /* Ensure that the demo table scrolls */
@@ -136,6 +246,10 @@
                             var proyecto = <?php echo $codProyecto?> ;
 
                             recargaControlOrden(orden, cliente);
+
+                            recargaEdp(orden, cliente, proyecto);
+
+                            recargaGarantias(orden, cliente, proyecto);
 
                             //set input/textarea/select event when change value, remove class error and remove text help block 
                             $("input").change(function() {
@@ -209,13 +323,37 @@ function mostrarBlock(){
 
              });
 
+             $('#btn_recargar_edp').on('click', function() {
+
+                var cliente = <?php echo $idCliente?> ;
+                var orden = <?php echo $idOrden?>;
+                var proyecto = <?php echo $codProyecto?>;
+
+                recargaEdp(orden, cliente, proyecto);
+
+                });
+
+
+                $('#btn_recargar_gara').on('click', function() {
+
+                    var cliente = <?php echo $idCliente?> ;
+                    var orden = <?php echo $idOrden?>;
+                    var proyecto = <?php echo $codProyecto?>;
+
+                    recargaGarantias(orden, cliente, proyecto);
+
+                    });
+                
+
              $('#btn_nuevo_registro').on('click', function() {
 
-                 var element = document.getElementById('mailFrm');
+                var element = document.getElementById('mailFrm');
 
-                 if (element.style.display === "block") {
-                     element.style.display = "none";
-                 }
+                    if (element.style.display === "block") {
+                        element.style.display = "none";
+                    }
+
+               
 
                  $('#miForm')[0].reset();
                  $('#modal_control_calidad').modal('show');
@@ -223,6 +361,35 @@ function mostrarBlock(){
                  $('#name_respaldo').html("");
 
              });
+
+                 $('#btn_nuevo_registro_edp').on('click', function() {
+ 
+              
+                    $('#formEdp')[0].reset();
+                    $('#modal_edp').modal('show');
+                    $('#ID_EMPLEADO').val('<?php echo $nombreEmpleador;?>');
+                    $('#ID_CLIENTE').val('<?php echo $idCliente;?>');
+                    $('#ID_PROYECTO').val('<?php echo $codProyecto;?>');
+                    $('#ID_ORDEN').val('<?php echo $idOrden;?>');
+                   // $('#name_respaldo').html("");
+
+                    });
+
+                    $('#btn_nuevo_registro_gara').on('click', function() {
+ 
+              
+                        $('#formGarantias')[0].reset();
+                        $('#modal_garantias').modal('show');
+                        $('#ID_EMPLEADO_GARA').val('<?php echo $nombreEmpleador;?>');
+                        $('#ID_CLIENTE_GARA').val('<?php echo $idCliente;?>');
+                        $('#ID_PROYECTO_GARA').val('<?php echo $codProyecto;?>');
+                        $('#ID_ORDEN_GARA').val('<?php echo $idOrden;?>');
+                        // $('#name_respaldo').html("");
+
+                        });
+
+
+                    
 
              function envioCorreo(idInsertado) {
 
@@ -272,7 +439,7 @@ function mostrarBlock(){
                 $('#name_respaldo').html(nombre);
              }
 
-                         function Guardar() {
+           function Guardar() {
 
 
                  // validar campos
@@ -401,7 +568,117 @@ function mostrarBlock(){
 
              }
 
+             
 
+
+             function recargaEdp(orden, cliente, proyecto) {
+
+                    var edp_html = '';
+
+                    var tabla_edp = $('#tbl_edp').DataTable();
+
+                    var cod_empresa = '<?php echo $this->session->userdata('cod_emp');?>'
+
+                    tabla_edp.destroy();
+
+                    $.ajax({
+                        url: '<?php echo base_url('index.php/Edp/listasEdp'); ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            codEmpresa: cod_empresa,
+                            idCliente: cliente,
+                            idProyecto: proyecto,
+                            idOrden: orden
+
+                        },
+                    }).done(function(result) {
+
+                   
+                        $.each(result.edps, function(key, edp) {
+                            edp_html += '<tr>';
+                            edp_html += '<td>';
+                            edp_html +=
+                                '<button data-toggle="tooltip" data-placement="left" title="Elimina Registro" onclick="elimina_edp(' +
+                                edp.ID_EDP +','+ orden + ',' + cliente + ',' +  proyecto +
+                                ')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+                            edp_html += '</td>';
+                            edp_html += '<td>' + edp.ID_EMPLEADO + '</td>';
+                            edp_html += '<td>' + edp.FECHA_INGRESO + '</td>';
+                            edp_html += '<td>' + edp.NUM_EDP + '</td>';
+                            edp_html += '<td>' + edp.ESTADO_EDP + '</td>';
+                            edp_html += '<td>' + edp.FECHA_PAGO + '</td>';
+                            edp_html += '<td>' + edp.AP_PROVEEDOR + '</td>';
+                            edp_html += '<td>' + edp.PROVEEDOR + '</td>';
+                            edp_html += '<td>' + edp.IMPORTE_EDP + '</td>';
+                            edp_html += '<td>' + edp.SALDO_INSOLUTO_EDP + '</td>';
+                            edp_html += '<td>' + edp.RESPALDO + '</td>';
+                            edp_html += '<td>' + edp.COMENTARIOS + '</td>';
+                            edp_html += '</tr>';
+
+                        });
+
+
+                        $('#datos_edp').html(edp_html);
+                        $('#tbl_edp').DataTable({
+                        language: {
+                    url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                    },
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "scrollY": "600px",
+                    "scrollX": true,
+                    "colReorder": true,
+                    "scrollCollapse": true,
+                    "responsive": false,
+                    "lengthChange": true, 
+                    "autoWidth": true,
+                    "dom": 'Bfrtip',
+                    "lengthMenu": [
+                    [ 10, 25, 50, -1 ],
+                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                    ],
+                    "buttons": [
+                    {
+                    "extend": 'copy',
+                    "text": 'Copiar'
+                    },
+                    {
+                    "extend": 'csv',
+                    "text": 'csv'
+                    },
+                    {
+                    "extend": 'excel',
+                    "text": 'excel'
+                    },
+                    {
+                    "extend": 'pdf',
+                    "text": 'pdf'
+                    },
+                    {
+                    "extend": 'print',
+                    "text": 'Imprimir'
+                    },
+                    {
+                    "extend": 'colvis',
+                    "text": 'Columnas Visibles'
+                    },
+                    {
+                    "extend": 'pageLength',
+                    "text": 'Mostrar Registros'
+                    }
+                    ]
+                        }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
+
+                    }).fail(function() {
+                        console.log("error change cliente");
+                    })
+
+                    }
 
              function recargaControlOrden(orden, cliente) {
 
@@ -419,7 +696,8 @@ function mostrarBlock(){
                      dataType: 'json',
                      data: {
                          id_orden_compra: orden,
-                         id_cliente: cliente
+                         id_cliente: cliente,
+                         filtro: <?php echo $filtro;?>
                      },
                  }).done(function(result) {
 
@@ -543,9 +821,263 @@ if(opcion){
 }     
              }
 
+             function Guardar_Edp() {
 
+
+// validar campos
+var valido = false;
+var falso = 0;
+
+data = new FormData(document.getElementById("formEdp"));
+
+var cliente = <?php echo $idCliente?> ;
+                var orden = <?php echo $idOrden?>;
+                var proyecto = <?php echo $codProyecto?>;
+
+             
+   $.ajax({
+           url: '<?php echo base_url('index.php/Edp/guardarEdp');?>',
+           type: 'post',
+           data: data,
+           contentType: false,
+           processData: false,
+           dataType: "JSON",
+           beforeSend: function(){
+           mostrarBlock();
+           },
+           success: function(result){
+
+               if (result.resp) {
+
+                       $('#modal_edp').modal('hide');
+                       recargaEdp(orden, cliente, proyecto);
+
+                       toastr.success(result.mensaje);
+
+
+                       }else{
+
+                       toastr.warning(result.mensaje);
+                       }
+
+           },
+           complete:function(result){
+               $.unblockUI();
+           },
+           error: function(request, status, err) {
+
+           toastr.error("error: " + request + status + err);
+
+}
+           });
+
+
+}
+
+
+
+function elimina_edp(ID_EDP ,orden, cliente,proyecto){
+
+var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+if(opcion){
+
+    $.ajax({
+    url: 		'<?php echo base_url('index.php/Edp/eliminaEdp'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+        ID_EDP  : ID_EDP
+            },
+    }).done(function(result) {
+
+    if(result.resp){
+
+        recargaEdp(orden, cliente, proyecto);
+        toastr.success(result.mensaje);
+
+    }else{
+
+        toastr.error(result.mensaje);
+
+    }
+        
+
+    }).fail(function() {
+    console.log("error eliminar bucksheet");
+    })
+
+
+}
+
+}
+
+
+function recargaGarantias(orden, cliente, proyecto) {
+
+var garantias_html = '';
+
+var tabla_garantias = $('#tbl_garantias').DataTable();
+
+var cod_empresa = '<?php echo $this->session->userdata('cod_emp');?>'
+
+tabla_garantias.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/Garantias/listasGarantias'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        codEmpresa: cod_empresa,
+        idCliente: cliente,
+        idProyecto: proyecto,
+        idOrden: orden
+
+    },
+}).done(function(result) {
+
+
+    $.each(result.garantias, function(key, garantia) {
+        garantias_html += '<tr>';
+        garantias_html += '<td>';
+        garantias_html +=
+            '<button data-toggle="tooltip" data-placement="left" title="Elimina Registro" onclick="elimina_garantia(' +
+            garantia.ID_GARANTIA +','+ orden + ',' + cliente + ',' +  proyecto +
+            ')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+            garantias_html += '</td>';
+        garantias_html += '<td>' + garantia.ID_EMPLEADO, + '</td>';
+        garantias_html += '<td>' + garantia.FECHA_EMISION, + '</td>';
+        garantias_html += '<td>' + garantia.NUMERO_DOCTO, + '</td>';
+        garantias_html += '<td>' + garantia.TIPO_GARANTIA, + '</td>';
+        garantias_html += '<td>' + garantia.REFERENCIA, + '</td>';
+        garantias_html += '<td>' + garantia.MONTO, + '</td>';
+        garantias_html += '<td>' + garantia.VENCIMIENTO, + '</td>';
+        garantias_html += '<td>' + garantia.DIAS_VENCIMIENTO, + '</td>';
+        garantias_html += '<td>' + garantia.RESPALDO, + '</td>';
+
+        garantias_html += '</tr>';
+
+    });
+
+
+    $('#datos_garantias').html(garantias_html);
+    $('#tbl_garantias').DataTable({
+    language: {
+url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+},
+"paging": true,
+"lengthChange": false,
+"searching": true,
+"ordering": true,
+"info": true,
+"autoWidth": true,
+"scrollY": "600px",
+"scrollX": true,
+"colReorder": true,
+"scrollCollapse": true,
+"responsive": false,
+"lengthChange": true, 
+"autoWidth": true,
+"dom": 'Bfrtip',
+"lengthMenu": [
+[ 10, 25, 50, -1 ],
+[ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+],
+"buttons": [
+{
+"extend": 'copy',
+"text": 'Copiar'
+},
+{
+"extend": 'csv',
+"text": 'csv'
+},
+{
+"extend": 'excel',
+"text": 'excel'
+},
+{
+"extend": 'pdf',
+"text": 'pdf'
+},
+{
+"extend": 'print',
+"text": 'Imprimir'
+},
+{
+"extend": 'colvis',
+"text": 'Columnas Visibles'
+},
+{
+"extend": 'pageLength',
+"text": 'Mostrar Registros'
+}
+]
+    }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
+
+
+function Guardar_Garantias() {
+
+
+// validar campos
+var valido = false;
+var falso = 0;
+
+data = new FormData(document.getElementById("formGarantias"));
+
+var cliente = <?php echo $idCliente?> ;
+                var orden = <?php echo $idOrden?>;
+                var proyecto = <?php echo $codProyecto?>;
+
+             
+   $.ajax({
+           url: '<?php echo base_url('index.php/Garantias/guardarGarantias');?>',
+           type: 'post',
+           data: data,
+           contentType: false,
+           processData: false,
+           dataType: "JSON",
+           beforeSend: function(){
+           mostrarBlock();
+           },
+           success: function(result){
+
+               if (result.resp) {
+
+                       $('#modal_garantias').modal('hide');
+                       recargaGarantias(orden, cliente, proyecto);
+
+                       toastr.success(result.mensaje);
+
+
+                       }else{
+
+                       toastr.warning(result.mensaje);
+                       }
+
+           },
+           complete:function(result){
+               $.unblockUI();
+           },
+           error: function(request, status, err) {
+
+           toastr.error("error: " + request + status + err);
+
+}
+           });
+
+
+}
 
              </script>
+
+
              <script>
              $(function() {
                  //Initialize Select2 Elements
@@ -784,3 +1316,121 @@ if(opcion){
                      </div>
                  </div>
              </div>
+    
+
+
+             <!--.modal nuevo control Calidad-->
+             <div id="modal_edp" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                             <h5 class="modal-title">Nuevo Registro EDP</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         <div class="modal-body">
+                             <div class="container">
+                                 <form id="formEdp" class="form-horizontal" enctype="multipart/form-data" method="post">
+                                
+                                <input type="hidden" id="ID_CLIENTE" class="form-control" name="ID_CLIENTE">
+                                <input type="hidden" id="ID_PROYECTO" class="form-control" name="ID_PROYECTO">
+                                <input type="hidden" id="ID_ORDEN" class="form-control" name="ID_ORDEN">
+
+                                
+                                <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label><input type="text" id="ID_EMPLEADO" class="form-control" name="ID_EMPLEADO"></div>
+                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="FECHA_INGRESO" class="form-control" name="FECHA_INGRESO"></div>
+                                <div class="form-group"><label for="ESTADO EDP">ESTADO EDP</label>
+                                <select name="ESTADO_EDP" id="ESTADO_EDP" class="form-control">
+                                                             <?php echo $select_edp;?>
+                                                         </select></div>
+                                <div class="form-group"><label for="FECHA PAGO">FECHA PAGO</label><input type="text" id="FECHA_PAGO" class="form-control" name="FECHA_PAGO"></div>
+                                <div class="form-group"><label for="AP PROVEEDOR">AP PROVEEDOR</label> 
+                                 <select name="AP_PROVEEDOR" id="AP_PROVEEDOR" class="form-control">
+                                                             <?php echo $select_apedp;?>
+                                                         </select></div>
+                                <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="PROVEEDOR" class="form-control" name="PROVEEDOR"></div>
+                                <div class="form-group"><label for="IMPORTE EDP">IMPORTE EDP</label>
+                                <input type="text" id="IMPORTE_EDP" class="form-control" name="IMPORTE_EDP" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div> 
+                                <div class="form-group"><label for="COMENTARIOS">COMENTARIOS</label><input type="textarea" id="COMENTARIOS" class="form-control" name="COMENTARIOS"></div>
+                                <div class="form-group"><label for="RESPALDO">RESPALDO</label>
+                                <div class="custom-file"> <input type="file" id="RESPALDO" name="RESPALDO"> </div>
+                                </div>
+                                 
+
+
+
+                                 </form>
+
+                             </div>
+                         </div>
+                         <div class="modal-footer justify-content-between">
+                             <button onclick="Guardar_Edp();" type="button"
+                                 class="btn btn-outline-primary">Guardar</button>
+                             <button type="button" class="btn btn-outline-secondary"
+                                 data-dismiss="modal">Cerrar</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
+
+
+              <!--.modal nuevo control Calidad-->
+              <div id="modal_garantias" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                             <h5 class="modal-title">Nuevo Registro Garantia</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         <div class="modal-body">
+                             <div class="container">
+                                 <form id="formGarantias" class="form-horizontal" enctype="multipart/form-data" method="post">
+                                
+                                <input type="hidden" id="ID_CLIENTE_GARA" class="form-control" name="ID_CLIENTE_GARA">
+                                <input type="hidden" id="ID_PROYECTO_GARA" class="form-control" name="ID_PROYECTO_GARA">
+                                <input type="hidden" id="ID_ORDEN_GARA" class="form-control" name="ID_ORDEN_GARA">
+
+                                <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label>
+                                <input type="text" id="ID_EMPLEADO_GARA" class="form-control" name="ID_EMPLEADO_GARA" readonly>
+                                </div>
+                                <div class="form-group"><label for="FECHA EMISION">FECHA EMISION</label><input type="text" id="FECHA_EMISION" class="form-control" name="FECHA_EMISION"></div>
+                                <div class="form-group"><label for="NUMERO DOCTO">NUMERO DOCTO</label><input type="text" id="NUMERO_DOCTO" class="form-control" name="NUMERO_DOCTO"></div>
+                                <div class="form-group"><label for="TIPO GARANTIA">TIPO GARANTIA</label>
+                                
+                               <select name="TIPO_GARANTIA" id="TIPO_GARANTIA" class="form-control">
+                                                             <?php echo $select_tipoGarantia;?>
+                                                         </select>
+                                
+                                </div>
+                                
+                                <div class="form-group"><label for="REFERENCIA">REFERENCIA</label><input type="text" id="REFERENCIA" class="form-control" name="REFERENCIA"></div>
+                                
+                                <div class="form-group"><label for="VENCIMIENTO">VENCIMIENTO</label><input type="text" id="VENCIMIENTO" class="form-control" name="VENCIMIENTO"></div>
+                              
+                                <div class="form-group"><label for="RESPALDO">RESPALDO</label>
+                                <div class="custom-file"> <input type="file" id="RESPALDO_GARA" name="RESPALDO_GARA"> </div>
+                                </div>
+                                 
+
+
+
+                                 </form>
+
+                             </div>
+                         </div>
+                         <div class="modal-footer justify-content-between">
+                             <button onclick="Guardar_Garantias();" type="button"
+                                 class="btn btn-outline-primary">Guardar</button>
+                             <button type="button" class="btn btn-outline-secondary"
+                                 data-dismiss="modal">Cerrar</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
+
