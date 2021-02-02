@@ -62,8 +62,12 @@
                              </div>
                              <!-- /.col-md-6 -->
                          </div>
+                         </div>
                          <!-- /.row -->
                      <!-- /.card-header -->
+                    
+                     </div>
+                     <div class="col-12">  
                      <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -104,8 +108,9 @@
                              </tbody>
                          </table>
                         </div>
+                        </div>
                         <!-- /.card-body -->
-
+                        <div class="col-12">  
 
                         <div class="card">
                         <div class="card-header">
@@ -165,7 +170,8 @@
                              </tbody>
                          </table>
                         </div>
-
+                        </div>
+                        <div class="col-12">  
 
                         <div class="card">
                         <div class="card-header">
@@ -214,9 +220,9 @@
                         
                     </div>
                  </div>
+                 </div> 
                  
-                 
-                </div><!-- /.container-fluid -->
+
      </section>
 
              <style type="text/css" class="init">

@@ -165,6 +165,12 @@ class Edp extends MY_Controller{
                 }
               }
 
+              if($AP_PROVEEDOR ==='ACTUAL'){
+                
+                $ESTADO_EDP = '1';
+
+              }     
+
               if($ESTADO_EDP === '1'){
               
                 $MontoInsoluto = $montoOrden -  $IMPORTE_EDP - $totalSaldo ;    
@@ -172,11 +178,7 @@ class Edp extends MY_Controller{
               }
               
 
-                if($AP_PROVEEDOR ==='ACTUAL'){
-                
-                  $ESTADO_EDP = '1';
-
-                }     
+              
 
 
 

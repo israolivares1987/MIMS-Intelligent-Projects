@@ -165,7 +165,7 @@ class BuckSheet extends MY_Controller
 
         
 
-          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PATCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
+          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PA_TCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
@@ -667,8 +667,7 @@ class BuckSheet extends MY_Controller
                       // Insert member data
                       $insert = $this->callexternosbucksheet->insert($memData);
 
-                      var_dump($insert);
-
+                      
                       if ($insert) {
 
                         $insertCount++;
