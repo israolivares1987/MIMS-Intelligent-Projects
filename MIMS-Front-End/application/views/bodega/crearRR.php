@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Crear RR<h1>
+                     <h1>CREAR REPORTE DE RECEPCIÓN(RR)<h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -68,7 +68,7 @@
 
                         <div class="card-body">
                         <form action="#" method="post" id="form">
-                        <input type="button" class="btn btn-warning" name="vender" value="Crear RR" id="vender">
+                        <input type="button" class="btn btn-warning" name="vender" value="Crear RR" id="crearRR">
                         </br>
                         </br>
                         </br>
@@ -185,14 +185,13 @@
 
   <script type="text/javascript">
 
-
-
-
             $(document).ready(function() {
 
             var table_rr = $('#tbl_creacion_rr').DataTable();
 
-              $('#vender').on('click', function (event) {
+
+
+              $('#crearRR').on('click', function (event) {
 
                 var rr_html = '';
 
@@ -207,6 +206,9 @@
                         var seleccionados = table.rows({ selected: true });
                         var array = table.rows({ selected: true }).data().toArray();
                         var orden = $('#ordenes').val();
+                        var guia_despacho = $('#guias').val();
+                        var cliente = $('#clientes').val();
+                        var proyecto = $('#proyectos').val();
                         var num = 0;
                         
                         if(!seleccionados.data().length)
@@ -221,63 +223,23 @@
                                     dataType: 'JSON',
                                     data: {
                                         datos: array,
-                                        orden: orden
+                                        orden: orden,
+                                        guia_despacho: guia_despacho,
+                                        cliente: cliente,
+                                        proyecto: proyecto
                                         }
                                 })
                                 .done(function(respuesta) {
 
-                                    $('#form-creacion-rr')[0].reset();
-                                    
-                                
-                                $.each(respuesta.bucksheets, function(key, bucksheets) {
-                                    num  = num + 1;
-                                    rr_html += '<tr>';
-                                    rr_html += '<td>'+ bucksheets.NumeroLinea +'</td>';
-                                    rr_html += '<td>' + bucksheets.STCantidad + '</td>';
-                                    rr_html += '<td>' + bucksheets.TAGNumber + '</td>';
-                                    rr_html += '<td>' + bucksheets.Stockcode + '</td>';
-                                    rr_html += '<td>' + bucksheets.PackingList + '</td>';
-                                    rr_html += '<td>' + bucksheets.GuiaDespacho + '</td>';
-                                    rr_html += '<td><input type="text" id="row-'+num+'-cantidad" name="row-'+num+'-cantidad" value=""></td>';
-                                    rr_html += '</tr>';
-
-                     });
-
-                     $('#datos_creacion_rr').html(rr_html);
-                     
-                     $('#tbl_creacion_rr').DataTable(
-                         {
-                         "paging": true,
-                         "lengthChange": false,
-                         "searching": false,
-                         "ordering": true,
-                         "info": true,
-                         "autoWidth": true,
-                         //"responsive": true,
-                         "scrollY": "600px",
-                        "scrollX": true,
-                        "scrollCollapse": true,
-                        "lengthChange": false, 
-                        "autoWidth": false,
-                        "columns": [
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    null,
-                                    { "orderDataType": "dom-text-numeric" }
-                                   ]
-                        }
-                        
-                        );
-
-                    
-
-                    $('#modal_rr').modal('show'); // show bootstrap modal
                                   
+                         if (respuesta.respuesta){
                             
-                                    
+                           var  idrr = respuesta.idInsertado;
+
+                            window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_blank');
+               
+                         }       
+
                                 })
                                 .fail(function() {
                                     console.log("error");
@@ -286,7 +248,7 @@
                                     console.log("complete");
                                 });
 
-                            });
+                    });
 
                 recargaBuckSheet(0, 0);
 
@@ -504,22 +466,22 @@
                  }).done(function(result) {
 
 
-                     $.each(result.bucksheets, function(key, bucksheets) {
+                     $.each(result.bucksheets, function(key, bucksheet) {
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html += '</td>';
-                        bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_TAG+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.STOCKCODE+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_ELEMENTOS+ '</td>';    
                         
-                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>'; 
-                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>'; 
-                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.CANTIDAD_UNITARIA+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.UNIDAD+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.CANTIDAD_TOTAL+ '</td>'; 
 
-                        bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PurchaseOrderID+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.PACKINGLIST+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.ID_OC+ '</td>';
                         
                 
                         bucksheet_html += '</tr>';

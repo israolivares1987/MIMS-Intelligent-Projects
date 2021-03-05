@@ -103,9 +103,115 @@
                          </table>
                         </div>
                         <!-- /.card-body -->
+
+
+                        <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                 EDP
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                        <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <td>
+                                     <dl class="row">
+                                             <dt class="col-sm-8">ORDEN DE COMPRA:</dt>
+                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dt class="col-sm-8">MONTO ORDEN DE COMPRA:</dt>
+                                             <dd class="col-sm-9"><?php echo urldecode($montoOrden);?>
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                    </td>
+                                    <td>
+                                    
+                                    </td>
+                                    <td>
+                                     <button id="btn_recargar_edp"
+                                             class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
+                                                     </i>  Actualizar</button>
+                                      
+                                    </td>
+                                 </tr>
+
+                                 
+                             </tbody>
+                         </table>
+                         <table id="tbl_edp" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                             <tr>
+                                <th>NOMBRE EMPLEADO</th>
+                                <th>FECHA INGRESO EDP</th>
+                                <th>N° EDP</th>
+                                <th>ESTADO</th>
+                                <th>FECHA DE PAGO</th>
+                                <th>ACTUAL / PROGRAMADO</th>
+                                <th>PROVEEDOR</th>
+                                <th>IMPORTE EDP</th>
+                                <th>SALDO INSOLUTO O.C</th>
+                                <th>RESPALDO</th>
+                                <th>COMENTARIOS</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_edp">
+                             </tbody>
+                         </table>
+                        </div>
+
+
+                        <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                                 GARANTIAS
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                        <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <th>
+                                     <button id="btn_recargar_gara"
+                                             class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
+                                                     </i>  Actualizar</button>
+                                        
+                                    </th>
+                                 </tr>
+                             </tbody>
+                         </table>
+                         <table id="tbl_garantias" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                                 <tr>
+                                 <th>NOMBRE EMPLEADO</th>
+                                 <th>FECHA DE EMISIÓN</th>
+                                 <th>N° DOCUMENTO</th>
+                                 <th>TIPO DE GARANTÍA</th>
+                                 <th>REFERENCIA</th>
+                                 <th>MONTO</th>
+                                 <th>VENCIMIENTO</th>
+                                 <th>DÍAS ANTES DEL VENCIMIENTO</th>
+                                 <th>RESPALDO</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_garantias">
+                             </tbody>
+                         </table>
+                        </div>
+
+
+
+                        
                     </div>
                  </div>
-
+                 
+                 
+                </div><!-- /.container-fluid -->
+     </section>
 
              <style type="text/css" class="init">
              /* Ensure that the demo table scrolls */
@@ -134,6 +240,10 @@
                             var proyecto = <?php echo $codProyecto?> ;
 
                             recargaControlOrden(orden, cliente);
+
+                            recargaEdp(orden, cliente, proyecto);
+
+                            recargaGarantias(orden, cliente, proyecto);
 
                             //set input/textarea/select event when change value, remove class error and remove text help block 
                             $("input").change(function() {
@@ -207,7 +317,134 @@ function mostrarBlock(){
 
              });
 
-           
+             $('#btn_recargar_edp').on('click', function() {
+
+                var cliente = <?php echo $idCliente?> ;
+                var orden = <?php echo $idOrden?>;
+                var proyecto = <?php echo $codProyecto?>;
+
+                recargaEdp(orden, cliente, proyecto);
+
+                });
+
+
+                $('#btn_recargar_gara').on('click', function() {
+
+                    var cliente = <?php echo $idCliente?> ;
+                    var orden = <?php echo $idOrden?>;
+                    var proyecto = <?php echo $codProyecto?>;
+
+                    recargaGarantias(orden, cliente, proyecto);
+
+                    });
+                
+
+            
+
+
+             function recargaEdp(orden, cliente, proyecto) {
+
+                    var edp_html = '';
+
+                    var tabla_edp = $('#tbl_edp').DataTable();
+
+                    var cod_empresa = '<?php echo $this->session->userdata('cod_emp');?>'
+
+                    tabla_edp.destroy();
+
+                    $.ajax({
+                        url: '<?php echo base_url('index.php/Edp/listasEdp'); ?>',
+                        type: 'POST',
+                        dataType: 'json',
+                        data: {
+                            codEmpresa: cod_empresa,
+                            idCliente: cliente,
+                            idProyecto: proyecto,
+                            idOrden: orden
+
+                        },
+                    }).done(function(result) {
+
+                   
+                        $.each(result.edps, function(key, edp) {
+                            edp_html += '<tr>';
+                            edp_html += '<td>' + edp.ID_EMPLEADO + '</td>';
+                            edp_html += '<td>' + edp.FECHA_INGRESO + '</td>';
+                            edp_html += '<td>' + edp.NUM_EDP + '</td>';
+                            edp_html += '<td>' + edp.ESTADO_EDP + '</td>';
+                            edp_html += '<td>' + edp.FECHA_PAGO + '</td>';
+                            edp_html += '<td>' + edp.AP_PROVEEDOR + '</td>';
+                            edp_html += '<td>' + edp.PROVEEDOR + '</td>';
+                            edp_html += '<td>' + edp.IMPORTE_EDP + '</td>';
+                            edp_html += '<td>' + edp.SALDO_INSOLUTO_EDP + '</td>';
+                            edp_html += '<td>' + edp.RESPALDO + '</td>';
+                            edp_html += '<td>' + edp.COMENTARIOS + '</td>';
+                            edp_html += '</tr>';
+
+                        });
+
+
+                        $('#datos_edp').html(edp_html);
+                        $('#tbl_edp').DataTable({
+                        language: {
+                    url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                    },
+                    "paging": true,
+                    "lengthChange": false,
+                    "searching": true,
+                    "ordering": true,
+                    "info": true,
+                    "autoWidth": true,
+                    "scrollY": "600px",
+                    "scrollX": true,
+                    "colReorder": true,
+                    "scrollCollapse": true,
+                    "responsive": false,
+                    "lengthChange": true, 
+                    "autoWidth": true,
+                    "dom": 'Bfrtip',
+                    "lengthMenu": [
+                    [ 10, 25, 50, -1 ],
+                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                    ],
+                    "buttons": [
+                    {
+                    "extend": 'copy',
+                    "text": 'Copiar'
+                    },
+                    {
+                    "extend": 'csv',
+                    "text": 'csv'
+                    },
+                    {
+                    "extend": 'excel',
+                    "text": 'excel'
+                    },
+                    {
+                    "extend": 'pdf',
+                    "text": 'pdf'
+                    },
+                    {
+                    "extend": 'print',
+                    "text": 'Imprimir'
+                    },
+                    {
+                    "extend": 'colvis',
+                    "text": 'Columnas Visibles'
+                    },
+                    {
+                    "extend": 'pageLength',
+                    "text": 'Mostrar Registros'
+                    }
+                    ]
+                        }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
+
+                    }).fail(function() {
+                        console.log("error change cliente");
+                    })
+
+                    }
+
              function recargaControlOrden(orden, cliente) {
 
                  var calidad_html = '';
@@ -224,7 +461,8 @@ function mostrarBlock(){
                      dataType: 'json',
                      data: {
                          id_orden_compra: orden,
-                         id_cliente: cliente
+                         id_cliente: cliente,
+                         filtro: <?php echo $filtro;?>
                      },
                  }).done(function(result) {
 
@@ -306,8 +544,113 @@ function mostrarBlock(){
              }
 
 
-            
+
+function recargaGarantias(orden, cliente, proyecto) {
+
+var garantias_html = '';
+
+var tabla_garantias = $('#tbl_garantias').DataTable();
+
+var cod_empresa = '<?php echo $this->session->userdata('cod_emp');?>'
+
+tabla_garantias.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/Garantias/listasGarantias'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        codEmpresa: cod_empresa,
+        idCliente: cliente,
+        idProyecto: proyecto,
+        idOrden: orden
+
+    },
+}).done(function(result) {
+
+
+    $.each(result.garantias, function(key, garantia) {
+        garantias_html += '<tr>';
+        garantias_html += '<td>' + garantia.ID_EMPLEADO, + '</td>';
+        garantias_html += '<td>' + garantia.FECHA_EMISION, + '</td>';
+        garantias_html += '<td>' + garantia.NUMERO_DOCTO, + '</td>';
+        garantias_html += '<td>' + garantia.TIPO_GARANTIA, + '</td>';
+        garantias_html += '<td>' + garantia.REFERENCIA, + '</td>';
+        garantias_html += '<td>' + garantia.MONTO, + '</td>';
+        garantias_html += '<td>' + garantia.VENCIMIENTO, + '</td>';
+        garantias_html += '<td>' + garantia.DIAS_VENCIMIENTO, + '</td>';
+        garantias_html += '<td>' + garantia.RESPALDO, + '</td>';
+
+        garantias_html += '</tr>';
+
+    });
+
+
+    $('#datos_garantias').html(garantias_html);
+    $('#tbl_garantias').DataTable({
+    language: {
+url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+},
+"paging": true,
+"lengthChange": false,
+"searching": true,
+"ordering": true,
+"info": true,
+"autoWidth": true,
+"scrollY": "600px",
+"scrollX": true,
+"colReorder": true,
+"scrollCollapse": true,
+"responsive": false,
+"lengthChange": true, 
+"autoWidth": true,
+"dom": 'Bfrtip',
+"lengthMenu": [
+[ 10, 25, 50, -1 ],
+[ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+],
+"buttons": [
+{
+"extend": 'copy',
+"text": 'Copiar'
+},
+{
+"extend": 'csv',
+"text": 'csv'
+},
+{
+"extend": 'excel',
+"text": 'excel'
+},
+{
+"extend": 'pdf',
+"text": 'pdf'
+},
+{
+"extend": 'print',
+"text": 'Imprimir'
+},
+{
+"extend": 'colvis',
+"text": 'Columnas Visibles'
+},
+{
+"extend": 'pageLength',
+"text": 'Mostrar Registros'
+}
+]
+    }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
+
+
              </script>
+
+
              <script>
              $(function() {
                  //Initialize Select2 Elements

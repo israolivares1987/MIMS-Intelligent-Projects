@@ -157,6 +157,7 @@ class Journal extends MY_Controller{
     $datos['idOrden'] = $idOrden;
     $datos['codProyecto'] = $codProyecto;
     $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
+    $montoOrden = 0;
 
     //Obtiene datos para cabecera
 
@@ -190,6 +191,7 @@ class Journal extends MY_Controller{
             $PurchaseOrderID = $valor->PurchaseOrderID;
             $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
             $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+            $montoOrden =  $this->callutil->formatoDinero($valor->ValorTotal);
 
           }
         }
@@ -221,7 +223,29 @@ class Journal extends MY_Controller{
       $select_cc .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
     }
 
+
+    $datosestadoedp    = $this->callexternosdominios->obtieneDatosRef('ESTADO_EDP');
+    $select_edp = "";
+    foreach (json_decode($datosestadoedp) as $llave => $valor) {
+      $select_edp .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    }
+
+
+    $datosapedp    = $this->callexternosdominios->obtieneDatosRef('ACTUAL_PREVIO');
+    $select_apedp = "";
+    foreach (json_decode($datosapedp) as $llave => $valor) {
+      $select_apedp .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    }
+    
+    
+    $datosgaran    = $this->callexternosdominios->obtieneDatosRef('TIPO_GARANTIA');
+    $select_tipoGarantia = "";
+    foreach (json_decode($datosgaran) as $llave => $valor) {
+      $select_tipoGarantia .='<option value="'.$valor->domain_id.'">'.$valor->domain_desc.'</option>';
+    }
    
+
+    
    
    //llena arreglo con datos
 
@@ -232,7 +256,11 @@ class Journal extends MY_Controller{
    $datos['nombreCliente'] = $nombreCliente;
    $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
    $datos['select_cc'] = $select_cc;
+   $datos['select_edp'] = $select_edp;
+   $datos['select_apedp'] = $select_apedp;
+   $datos['select_tipoGarantia'] = $select_tipoGarantia;
    $datos['filtro'] = $filtro;
+   $datos['montoOrden'] = $montoOrden;
    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
 
 

@@ -127,7 +127,7 @@ class OrdenesItem extends CI_Controller{
                         
                         foreach ($arrnumerolinea as $key => $value) {
                           
-                          $numerolinea = $value->NumeroLinea;
+                          $numerolinea = $value->NUMERO_DE_LINEA;
               
                         }
 
@@ -598,6 +598,7 @@ public function save() {
     $PurchaseOrderNumber = "";
     $PurchaseOrderID = "";
     $PurchaseOrderDescription = "";
+    $codEmpresa = $this->session->userdata('cod_emp');
 
 
       //Obtiene Datos Orden
@@ -624,16 +625,17 @@ public function save() {
       $EstadoLineaBucksheet = '1';
               
       $memData = array(
-        'PurchaseOrderID' => $PurchaseOrderID,
-        'purchaseOrdername' => urldecode($PurchaseOrderDescription),
-        'SupplierName' => urldecode($SupplierName),
-        'EstadoLineaBucksheet' => $EstadoLineaBucksheet,
-        'NumeroLinea' => $numerolinea,
-        'ItemST' => $OrdenItemID,
-        'STUnidad' => $Unidad,
-        'STCantidad' => $Cantidad,
-        'Descripcion' => $Descripcion,
-        'Revision' =>  '1'
+        'COD_EMPRESA' =>   $codEmpresa,
+        'ID_OC' => $PurchaseOrderID,
+        'NUMERO_OC' => urldecode($PurchaseOrderDescription),
+        'PROVEEDOR' => urldecode($SupplierName),
+        'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+        'NUMERO_DE_LINEA' => $numerolinea,
+        'NUMERO_DE_ELEMENTOS' => $OrdenItemID,
+        'UNIDAD' => $Unidad,
+        'CANTIDAD_UNITARIA' => $Cantidad,
+        'DESCRIPCION_LINEA' => $Descripcion,
+        'REVISION' =>  '1'
     );
 
 

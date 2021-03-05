@@ -44,13 +44,6 @@
                     </li>
 
                     <li class="nav-item">
-                      <a href="<?php echo site_url('Proveedores/index');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
-                        <p>Proveedores</p>
-                      </a>
-                    </li>
-
-                    <li class="nav-item">
                       <a href="<?php echo site_url('Dominios/index_iva');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Valor IVA</p>

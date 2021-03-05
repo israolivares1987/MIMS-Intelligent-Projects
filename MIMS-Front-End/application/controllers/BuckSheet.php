@@ -165,7 +165,7 @@ class BuckSheet extends MY_Controller
 
         
 
-          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PATCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
+          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PA_TCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
 
             $countAtrasados++;
           }
@@ -667,8 +667,7 @@ class BuckSheet extends MY_Controller
                       // Insert member data
                       $insert = $this->callexternosbucksheet->insert($memData);
 
-                      var_dump($insert);
-
+                      
                       if ($insert) {
 
                         $insertCount++;
@@ -894,11 +893,13 @@ class BuckSheet extends MY_Controller
 
     $PurchaseOrderID = $this->input->post('id_orden');
     $GuiaDespacho = $this->input->post('guia');
+    $codEmpresa = $this->session->userdata('cod_emp');
 
 
     $respuesta = false;
 
-    $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($PurchaseOrderID,$GuiaDespacho);
+    $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($codEmpresa,$PurchaseOrderID,$GuiaDespacho);
+
 
 
     $arrBucksheet = json_decode($bucksheet);
@@ -909,65 +910,76 @@ class BuckSheet extends MY_Controller
     if ($arrBucksheet) {
       $respuesta = true;
 
+    
+
       foreach ($arrBucksheet as $key => $value) {
 
+        $datosEstados  = $this->callutil->obtieneDatoRef('ESTADO_BUCKSHEET',$value->ESTADO_DE_LINEA);
 
-
-
+        foreach (json_decode($datosEstados) as $llave => $valor) {
+                    
+          $estado_bucksheet = $valor->domain_desc;
+  
+        }
         $fecha_hoy = date_create()->format('Y-m-d');
 
         $datos_bucksheet[] = array(
-          'PurchaseOrderID' => $value->PurchaseOrderID,
-          'purchaseOrdername' => $value->purchaseOrdername,
-          'EstadoLineaBucksheet' => $this->callutil->cambianull($value->EstadoLineaBucksheet),
-          'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
-          'NumeroLinea' => $value->NumeroLinea,
-          'SupplierName' => $value->SupplierName,
-          'ItemST' => $value->ItemST,
-          'SubItemST' => $this->callutil->cambianull($value->SubItemST),
-          'STUnidad' => $this->callutil->cambianull($value->STUnidad),
-          'STCantidad' => $value->STCantidad,
-          'TAGNumber' => $this->callutil->cambianull($value->TAGNumber),
-          'Stockcode' => $this->callutil->cambianull($value->Stockcode),
-          'Descripcion' => $value->Descripcion,
-          'PlanoModelo' => $this->callutil->cambianull($value->PlanoModelo),
-          'Revision' => $value->Revision,
-          'PaqueteConstruccionArea' => $this->callutil->cambianull($value->PaqueteConstruccionArea),
-          'PesoUnitario' => $this->callutil->cambianull($value->PesoUnitario),
-          'PesoTotal' => $this->callutil->cambianull($value->PesoTotal),
-          'FechaLineaBase' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaLineaBase)),
-          'DiasAntesRAS' => $this->callutil->diasDiffFechas($value->FechaLineaBase, $fecha_hoy),
-          'FECHACOMIENZOFABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHACOMIENZOFABRICACION)),
-          'PAFCF' => $this->callutil->cambianull($value->PAFCF),
-          'FECHATERMINOFABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHATERMINOFABRICACION)),
-          'PAFTF' => $this->callutil->cambianull($value->PAFTF),
-          'FechaGranallado' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaGranallado)),
-          'PAFG' => $this->callutil->cambianull($value->PAFG),
-          'FechaPintura' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaPintura)),
-          'PAFP' => $this->callutil->cambianull($value->PAFP),
-          'FechaListoInspeccion' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaListoInspeccion)),
-          'PAFLI' => $this->callutil->cambianull($value->PAFLI),
-          'ActaLiberacionCalidad' => $this->callutil->cambianull($value->ActaLiberacionCalidad),
-          'FechaSalidaFabrica' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaSalidaFabrica)),
-          'PAFSF' => $this->callutil->cambianull($value->PAFSF),
-          'FechaEmbarque' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaEmbarque)),
-          'PackingList' => $this->callutil->cambianull($value->PackingList),
-          'GuiaDespacho' => $this->callutil->cambianull($value->GuiaDespacho),
-          'SCNNumber' => $this->callutil->cambianull($value->SCNNumber),
-          'UnidadesSolicitadas' => $this->callutil->cambianull($value->UnidadesSolicitadas),
-          'UnidadesRecibidas' => $this->callutil->cambianull($value->UnidadesRecibidas),
-          'MaterialReceivedReport' => $this->callutil->cambianull($value->MaterialReceivedReport),
-          'MaterialWithdrawalReport' => $this->callutil->cambianull($value->MaterialWithdrawalReport),
-          'Origen' => $this->callutil->cambianull($value->Origen),
-          'DiasViaje' => $this->callutil->cambianull($value->DiasViaje),
-          'TransmittalCliente' => $this->callutil->cambianull($value->TransmittalCliente),
-          'FechaTC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTC)),
-          'TransmittalVendor' => $this->callutil->cambianull($value->TransmittalVendor),
-          'FechaTV' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaTV)),
-          'TransmittalCF' => $this->callutil->cambianull($value->TransmittalCF),
-          'FechaCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaCF)),
-          'PACF' => $this->callutil->cambianull($value->PACF),
-          'Observacion7' => $this->callutil->cambianull($value->Observacion7)
+
+
+              'ID_OC' => $value->ID_OC,
+              'NUMERO_OC' => $value->NUMERO_OC,
+              'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+              'ITEM_OC' => $value->ITEM_OC,
+              'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+              'PROVEEDOR' => $value->PROVEEDOR,
+              'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+              'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+              'ESTADO_DE_LINEA' => $this->callutil->cambianull($estado_bucksheet),
+              'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+              'STOCKCODE' => $value->STOCKCODE,
+              'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+              'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+              'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+              'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+              'UNIDAD' => $value->UNIDAD,
+              'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+              'FECHA_TC' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TC)),
+              'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+              'FECHA_TP' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TP)),
+              'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+              'FECHA_TCF' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TCF)),
+              'PA_TCF' => $this->callutil->cambianull($value->PA_TCF),
+              'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+              'REVISION' => $value->REVISION,
+              'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
+              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
+              'PA_FCF' => $this->callutil->cambianull($value->PA_FCF),
+              'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
+              'PA_FTF' => $this->callutil->cambianull($value->PA_FTF),
+              'FECHA_GRANALLADO' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO)),
+              'PA_FG' => $this->callutil->cambianull($value->PA_FG),
+              'FECHA_PINTURA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA)),
+              'PA_FP' => $this->callutil->cambianull($value->PA_FP),
+              'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
+              'PA_FLI' => $this->callutil->cambianull($value->PA_FLI),
+              'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+              'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
+              'PA_FSF' => $this->callutil->cambianull($value->PA_FSF),
+              'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'PACKINGLIST' => $value->PACKINGLIST,
+              'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+              'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+              'ORIGEN' => $value->ORIGEN,
+              'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+              'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+              'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+              'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+              'OBSERVACION' => $value->OBSERVACION
 
         );
       }
