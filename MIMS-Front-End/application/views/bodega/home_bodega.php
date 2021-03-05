@@ -981,22 +981,22 @@ function recargaListaToDo(){
                      $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
                        
-                        bucksheet_html += '<td>' + bucksheets.NumeroLinea+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.TAGNumber+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.Stockcode+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.STCantidad+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_TAG+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.STOCKCODE+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';    
                         
-                        bucksheet_html += '<td>' + bucksheets.PesoUnitario+ '</td>'; 
-                        bucksheet_html += '<td>' + bucksheets.STUnidad+ '</td>'; 
-                        bucksheet_html += '<td>' + bucksheets.PesoTotal+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheets.CANTIDAD_UNITARIA+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheets.UNIDAD+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheets.CANTIDAD_TOTAL+ '</td>'; 
 
-                        bucksheet_html += '<td>' + bucksheets.GuiaDespacho+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.PackingList+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td class="grey" >1</td>';
                         bucksheet_html += '<td class="grey" >1</td>';
                         bucksheet_html += '<td>RECIBIDO PARCIALMENTE</td>';
                         bucksheet_html += '<td>4567898 - MATERIAL DE FERRETER</td>';
-                        bucksheet_html += '<td>' + bucksheets.PurchaseOrderID+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.ID_OC+ '</td>';
                         bucksheet_html += '<td>RR-123</td>';
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td></td>';
@@ -1007,6 +1007,7 @@ function recargaListaToDo(){
                 
                         bucksheet_html += '</tr>';
 
+                     
                      });
 
 

@@ -15,8 +15,11 @@ class Bodega extends MY_Controller{
     $this->load->library('CallExternosDominios');
     $this->load->library('CallExternosEmpleados');
     $this->load->library('CallExternosOrdenes');
-        $this->load->library('form_validation');
-        $this->load->library('CallExternosTodo');
+    $this->load->library('form_validation');
+    $this->load->library('CallExternosTodo');
+    $this->load->library('CallExternosReporteRecepcion');
+    $this->load->library('CallExternosBitacora');
+        
     $this->load->helper('file');
     
 
@@ -238,10 +241,11 @@ $datos['listaTodo'] = $listaTodo ;
 		if($this->input->is_ajax_request()){
 
         $id_orden  = $this->input->post('orden');
+        $codEmpresa = $this->session->userdata('cod_emp');
 
         // Obtiene select Ordenes
 
-        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuias($id_orden);
+        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuias($codEmpresa,$id_orden);
 
         $arrBucksheet = json_decode($bucksheet);
 
@@ -252,7 +256,7 @@ $datos['listaTodo'] = $listaTodo ;
         
         foreach ($arrBucksheet as $key => $value) {
 
-          $htmlbucksheet .= '<option data-name="'.trim($value->GuiaDespacho).'" value="'.$value->GuiaDespacho.'">'.$value->GuiaDespacho.'</option>';
+          $htmlbucksheet .= '<option data-name="'.trim($value->GUIA_DESPACHO).'" value="'.$value->GUIA_DESPACHO.'">'.$value->GUIA_DESPACHO.'</option>';
         
         }
 
@@ -276,38 +280,156 @@ $datos['listaTodo'] = $listaTodo ;
 		if($this->input->is_ajax_request()){
 
         $datos  = $this->input->post('datos');
-        $PurchaseOrderID  = $this->input->post('orden');
+        $id_orden_compra  = $this->input->post('orden');
+        $guia_despacho  = $this->input->post('guia_despacho');
+        $codEmpresa = $this->session->userdata('cod_emp');
+        $id_cliente  = $this->input->post('cliente');
+        $id_proyecto  = $this->input->post('proyecto');
+        $respuesta = false;
          
         $datos_bucksheet = array();
 
-        foreach ($datos as $v) {
+                 //Obtiene Datos Proyecto
+
+                 $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+                 $arrProyecto = json_decode($Proyecto);
+             
+                 if($arrProyecto){
+       
+                   foreach ($arrProyecto as $llave => $valor) {
+                           
+                     $DescripcionProyecto = $valor->NombreProyecto;
+             
+                   }
+               
+                 }
+          
+                 //Obtiene Datos Orden
+                 
+                 $Orden = $this->callexternosordenes->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
+                 
+       
+                 $arrOrden = json_decode($Orden);
+             
+                 
+                 if($arrOrden){
+                   
+                   foreach ($arrOrden as $llave => $valor) {
+                           
+                     $PurchaseOrderID = $valor->PurchaseOrderID;
+                     $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+                     $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+                     $proveedor = $valor->SupplierName;
+             
+                   }
+                 }
+
+                // Obtiene Datos Cliente
+
+                $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
+                $arrCliente = json_decode($responseCliente);
+               
+                $datos_cliente = array();
+            
+                if($arrCliente){
+                  
+                  foreach ($arrCliente as $key => $value) {
+                      $nombreCliente= $value->nombreCliente;
+                  }
+                }
+
+
+          //Crea Cabecera RR
+
+          $insertcab= array(
+            'cod_empresa' => $codEmpresa ,
+            'fecha_creacion' =>  date_create()->format('Y-m-d H:i:s'),
+            'usuario_creacion' => $this->session->userdata('n_usuario'),
+            'id_cliente' => $nombreCliente ,
+            'id_proyecto' => $DescripcionProyecto ,
+            'id_orden_compra' => $PurchaseOrderID ,
+            'id_orden_cliente' => $PurchaseOrderNumber ,
+            'descripcion_orden' => $PurchaseOrderDescription ,
+            'guia_despacho' => $guia_despacho ,
+            'proveedor' => $proveedor
+          );
+
+
+          $rrcab = $this->callexternosreporterecepcion->agregarRR($insertcab);
+          $rrins = json_decode($rrcab) ;
+        
+          $resp =  $rrins->resp;
+          $idInsertado = $rrins->id_insertado;
+
           $i = 1;
-     
+          $num = 1;
+
+          foreach ($datos as $v) {
+          
+           
           $NumeroLinea =$v[$i];
 
-          $response = $this->callexternosbucksheet->obtieneBucksheetDet($PurchaseOrderID, $NumeroLinea);
+
+          $response = $this->callexternosbucksheet->obtieneBucksheetDet($codEmpresa,$PurchaseOrderID, $NumeroLinea);
 
           $arrBucksheet = json_decode($response);
         
             foreach ($arrBucksheet as $key => $value) {
-      
-              $datos_bucksheet[] = array(
 
-                'NumeroLinea' => $value->NumeroLinea,
-                'STCantidad' => $value->STCantidad,
-                'TAGNumber' => $value->TAGNumber,
-                'Stockcode' => $value->Stockcode,
-                'PackingList' => $value->PackingList,
-                'GuiaDespacho' => $value->GuiaDespacho,
-              );
+               
+      
+              $rr_det=array(
+                'cod_empresa' =>  $codEmpresa ,
+                'numero_linea_det' => $num,
+                'numero_linea_wpanel' => $value->NUMERO_DE_LINEA,
+                'id_rr_cab' => $idInsertado ,
+                'id_orden_compra' => $PurchaseOrderID ,
+                'tag_number' => $value->NUMERO_DE_TAG ,
+                'stockcode' => $value->STOCKCODE ,
+                'descripcion' => $value->DESCRIPCION_LINEA ,
+                'id_orden_cliente' => $PurchaseOrderNumber  ,
+                'packing_list' => $value->PACKINGLIST ,
+                'guia_despacho' => $value->GUIA_DESPACHO ,
+                'st_cantidad' => $value->NUMERO_DE_ELEMENTOS ,
+                'st_cantidad_recibida' => '0',
+                'id_bodega' => "",
+                'id_carpa' => "" ,
+                'id_patio' => "" ,
+                'id_posicion' => "" ,
+                'observacion' => ""
+                );
+
+                $num++; 
+           
+                $rrdet = $this->callexternosreporterecepcion->agregarRRDet($rr_det);
+                $rrdetins = json_decode($rrdet) ;
+                $respdet =  $rrdetins->resp;
+                $idInsertadodet = $rrdetins->id_insertado;
+                $respuesta= true;
             }
-          
-   
-          $i++;
+
+
+
+
+            
 
         }
 
-        $datos['bucksheets'] = $datos_bucksheet;
+
+         // actualiza CABECERA
+
+        
+
+     $dataUpdate = array(	
+      'id_rr_recepcion' => 'RR-'.$idInsertado ,
+      'id_rr' => $idInsertado
+      );
+
+      $edp= $this->callexternosreporterecepcion->actualizarCabeceraRR($dataUpdate);
+
+        $datos['respuesta'] = $respuesta;
+        $datos['idInsertado'] = $idInsertado;
+
 
 			
       echo json_encode($datos);
@@ -318,139 +440,107 @@ $datos['listaTodo'] = $listaTodo ;
   }
   
 
-
-
-
-
-public function crearRR(){
-
-
-  $number = 0; 
-  $codEmpresa = $this->session->userdata('cod_emp');
- 
   
+public function crearRRDet($NumRR){
 
 
-    // Obtiene select Clientes
+  $rrcab = $this->callexternosreporterecepcion->obtieneCabeceraRR($NumRR);
 
-    $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+  $arrRRcab = json_decode($rrcab);
+ 
 
-    $arrClientes = json_decode($clientes);
-
-    $htmlclientes = "";
+  if($arrRRcab){
+ 
     
-    $htmlclientes .= '<select class="form-control" id="clientes">';
-    $htmlclientes .= '<option value="0">Seleccione</option>';
-    
-    foreach ($arrClientes as $key => $value) {
+    foreach ($arrRRcab as $key => $value) {
 
-      $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
-    
+      $cod_empresa = $value->cod_empresa;
+      $id_rr_recepcion = $value->id_rr_recepcion;
+      $id_rr = $value->id_rr;
+      $fecha_creacion = $value->fecha_creacion;
+      $usuario_creacion = $value->usuario_creacion;
+      $id_cliente  = $value->id_cliente;
+      $id_proyecto = $value->id_proyecto;
+      $id_orden_compra = $value->id_orden_compra;
+      $id_orden_cliente = $value->id_orden_cliente;
+      $descripcion_orden = $value->descripcion_orden;
+      $guia_despacho = $value->guia_despacho;
+      $proveedor = $value->proveedor;  
     }
-
-    $htmlclientes .= '</select>';
-    $datos['select_clientes'] = $htmlclientes;
+  }
 
 
-    // Obtiene select Proyectos
+  $datos['id_rr'] = $id_rr;
+  $datos['id_rr_recepcion'] = $id_rr_recepcion;
+  $datos['fecha_creacion'] = $fecha_creacion;
+  $datos['usuario_creacion'] = $usuario_creacion;
+  $datos['id_cliente'] = $id_cliente;
+  $datos['id_proyecto'] = $id_proyecto;
+  $datos['id_orden_compra'] = $id_orden_compra;
+  $datos['id_orden_cliente'] = $id_orden_cliente;
+  $datos['descripcion_orden'] = $descripcion_orden;
+  $datos['guia_despacho'] = $guia_despacho;
+  $datos['proveedor'] = $proveedor;
 
-    $htmlproyectos = "";
-
-    $htmlproyectos .= '<select class="form-control" id="proyectos">';
-    $htmlproyectos .= '<option value="0">Seleccione</option>';
-    $htmlproyectos .= '</select>';
-    $datos['select_proyectos'] = $htmlproyectos;
-
-
-
-    // Obtiene select Ordenes
-
-    $htmlordenes = "";
-
-    $htmlordenes .= '<select class="form-control" id="ordenes">';
-    $htmlordenes .= '<option value="0">Seleccione</option>';
-    $htmlordenes .= '</select>';
-    $datos['select_ordenes'] = $htmlordenes;
-
-
-    // Obtiene select Ordenes
-
-    $htmlguias = "";
-
-    $htmlguias .= '<select class="form-control" id="guias">';
-    $htmlguias .= '<option value="0">Seleccione</option>';
-    $htmlguias .= '</select>';
-    $datos['select_guias'] = $htmlguias;
-
-
-
-    $this->plantilla_bodega('bodega/crearRR', $datos);
+    $this->plantilla_bodega('bodega/crearRRDet', $datos);
 
 
   }
 
 
-  
-
-public function crearRE(){
+  function listaRRDet(){
 
 
-  $number = 0; 
-  $codEmpresa = $this->session->userdata('cod_emp');
- 
-  
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $id_rr_cab = $this->input->post('id_rr_cab');
+    $responserrdet = $this->callexternosreporterecepcion->listaRRDet($codEmpresa,$id_rr_cab);
+    $respuesta = false;
 
+    $arrRRDet = json_decode($responserrdet);
+   
+    $datos_rrdet = array();
 
-    // Obtiene select Clientes
+    if($arrRRDet){
+      $respuesta = true;
+      
+      foreach ($arrRRDet as $key => $value) {
 
-    $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
-
-    $arrClientes = json_decode($clientes);
-
-    $htmlclientes = "";
-    
-    $htmlclientes .= '<select class="form-control" id="clientes">';
-    $htmlclientes .= '<option value="0">Seleccione</option>';
-    
-    foreach ($arrClientes as $key => $value) {
-
-      $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
-    
+        $datos_rrdet[] = array(
+          'id_rr_det' => $value->id_rr_det,
+          'cod_empresa' => $value->cod_empresa,
+          'numero_linea_det' => $value->numero_linea_det,
+          'numero_linea_wpanel' => $value->numero_linea_wpanel,
+          'id_rr_cab' => $value->id_rr_cab,
+          'id_orden_compra' => $value->id_orden_compra,
+          'tag_number' => $value->tag_number,
+          'stockcode' => $value->stockcode,
+          'descripcion' => $value->descripcion,
+          'id_orden_cliente' => $value->id_orden_cliente,
+          'packing_list' => $value->packing_list,
+          'guia_despacho' => $value->guia_despacho,
+          'st_cantidad' => $value->st_cantidad,
+          'st_cantidad_recibida' => $value->st_cantidad_recibida,
+          'id_bodega' => $value->id_bodega,
+          'id_carpa' => $value->id_carpa,
+          'id_patio' => $value->id_patio,
+          'id_posicion' => $value->id_posicion,
+          'observacion' => $value->observacion
+        );
+        
+      }
     }
 
-    $htmlclientes .= '</select>';
-    $datos['select_clientes'] = $htmlclientes;
+    $datos['rr_dets'] = $datos_rrdet;
+    $datos['resp']      = $respuesta;
 
-
-    // Obtiene select Proyectos
-
-    $htmlproyectos = "";
-
-    $htmlproyectos .= '<select class="form-control" id="proyectos">';
-    $htmlproyectos .= '<option value="0">Seleccione</option>';
-    $htmlproyectos .= '</select>';
-    $datos['select_proyectos'] = $htmlproyectos;
-
-
-
-    // Obtiene select Ordenes
-
-    $htmlordenes = "";
-
-    $htmlordenes .= '<select class="form-control" id="ordenes">';
-    $htmlordenes .= '<option value="0">Seleccione</option>';
-    $htmlordenes .= '</select>';
-    $datos['select_ordenes'] = $htmlordenes;
-
-
-
-    $this->plantilla_bodega('bodega/crearRE', $datos);
-
-
+    echo json_encode($datos);
+    
+  
   }
 
 
-  public function crearEXB(){
+
+  public function crearRR(){
 
 
     $number = 0; 
@@ -501,65 +591,460 @@ public function crearRE(){
       $datos['select_ordenes'] = $htmlordenes;
   
   
+      // Obtiene select Ordenes
   
-      $this->plantilla_bodega('bodega/crearEXB', $datos);
+      $htmlguias = "";
+  
+      $htmlguias .= '<select class="form-control" id="guias">';
+      $htmlguias .= '<option value="0">Seleccione</option>';
+      $htmlguias .= '</select>';
+      $datos['select_guias'] = $htmlguias;
+  
+  
+  
+      $this->plantilla_bodega('bodega/crearRR', $datos);
   
   
     }
-    public function crearEI(){
 
 
-      $number = 0; 
+    function obtieneRRDet(){
+
+
       $codEmpresa = $this->session->userdata('cod_emp');
+      $id_rr_cab = $this->input->post('id_rr_recepcion');
+      $id_rr_det = $this->input->post('id_rr_det');
+      $responserrdet = $this->callexternosreporterecepcion->obtieneRRDet($codEmpresa,$id_rr_det,$id_rr_cab);
+      $respuesta = false;
+
+   
+      $arrRRDet = json_decode($responserrdet);
      
+      $datos_rrdet = array();
+  
+      if($arrRRDet){
+        $respuesta = true;
+        
+        foreach ($arrRRDet as $key => $value) {
+  
+          $datos_rrdet = array(
+            'id_rr_det' => $value->id_rr_det,
+            'cod_empresa' => $value->cod_empresa,
+            'numero_linea_wpanel' => $value->numero_linea_wpanel,
+            'numero_linea_det' => $value->numero_linea_det,
+            'id_rr_cab' => $value->id_rr_cab,
+            'id_orden_compra' => $value->id_orden_compra,
+            'tag_number' => $value->tag_number,
+            'stockcode' => $value->stockcode,
+            'descripcion' => $value->descripcion,
+            'id_orden_cliente' => $value->id_orden_cliente,
+            'packing_list' => $value->packing_list,
+            'guia_despacho' => $value->guia_despacho,
+            'st_cantidad' => $value->st_cantidad,
+            'st_cantidad_recibida' => $value->st_cantidad_recibida,
+            'id_bodega' => $value->id_bodega,
+            'id_carpa' => $value->id_carpa,
+            'id_patio' => $value->id_patio,
+            'id_posicion' => $value->id_posicion,
+            'observacion' => $value->observacion
+          );
+          
+        }
+      }
+  
+  
+      echo json_encode($datos_rrdet);
       
     
+    }
+  
+
+    function ActualizaRRDet(){  
+
+     
+      $id_rr_det = $this->input->post('id_rr_det');
+      $cod_empresa = $this->session->userdata('cod_emp');
+      $id_rr_cab = $this->input->post('id_rr_cab');
+      $st_cantidad = $this->input->post('st_cantidad');
+      $st_cantidad_recibida = $this->input->post('st_cantidad_recibida');
+      $id_bodega = $this->input->post('id_bodega');
+      $id_carpa = $this->input->post('id_carpa');
+      $id_patio = $this->input->post('id_patio');
+      $id_posicion = $this->input->post('id_posicion');
+      $observacion = $this->input->post('observacion');
+      $id_orden_compra = $this->input->post('id_orden_compra');
+      $numero_linea_wpanel = $this->input->post('numero_linea_wpanel');
+      $boton_activo ="";
+
+
+      $resp = false;
+      $mensaje = "";
+  
+  
+      $data = array();
+  
+      $st_cantidad_recibida_valida = $this->form_validation->set_rules('st_cantidad_recibida', 'st_cantidad_recibida', 'required|trim');
+      
+      if(!$st_cantidad_recibida_valida->run()){
+          
+  
+        $error_msg = 'Campos faltantes, favor revisar.';
+        $resp =  false;
+  
+      
+  
+      }else{
+
+        if($st_cantidad_recibida > $st_cantidad){
+
+          $error_msg = 'Cantidad recibida es mayor a la cantidad solicitada.';
+          $resp =  false;
+
+
+        }else{
+
+
+
+          if($st_cantidad_recibida <=0){
+
+          $error_msg = 'Cantidad recibida debe ser mayor a 0.';
+          $resp =  false;
+
+          }else{
+
+            $update= array(
+  
+              'id_rr_det' => $id_rr_det ,
+              'cod_empresa' => $cod_empresa ,
+              'numero_linea_wpanel' => $numero_linea_wpanel,
+              'id_rr_cab' => $id_rr_cab ,
+              'st_cantidad' => $st_cantidad ,
+              'st_cantidad_recibida' => $st_cantidad_recibida ,
+              'id_bodega' => $id_bodega ,
+              'id_carpa' => $id_carpa ,
+              'id_patio' => $id_patio ,
+              'id_posicion' => $id_posicion ,
+              'observacion' => $observacion
     
-        // Obtiene select Clientes
-    
-        $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
-    
-        $arrClientes = json_decode($clientes);
-    
-        $htmlclientes = "";
+            );
+      
+            $rrdet = $this->callexternosreporterecepcion->ActualizaRRDet($update);
         
-        $htmlclientes .= '<select class="form-control" id="clientes">';
-        $htmlclientes .= '<option value="0">Seleccione</option>';
-        
-        foreach ($arrClientes as $key => $value) {
+      
+                    if($rrdet){
+              
+                      $error_msg = 'Linea RR actualizado correctamente.';
+                      $resp =  true;
+              
+              
+                      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                      'accion'  => 'ACTUALIZA_RR',
+                      'usuario'  =>  $this->session->userdata('n_usuario'),
+                      'id_registro' =>  $id_rr_det,
+                      'rol' =>   $this->session->userdata('nombre_rol'),
+                      'objeto'  => 'RR' ,
+                      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+              
+                      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+                      // crea nueva linea en wpanel si cantidad recibida es menor a la cantidad solicitada
+
+                      if($st_cantidad_recibida < $st_cantidad){
+
+                      $diferencia = $st_cantidad - $st_cantidad_recibida;
+
+
+                      $numerolineaResponse = $this->callexternosbucksheet->obtieneNumeroLinea($id_orden_compra,$cod_empresa, 0);
+
+                      
+                      $arrnumerolinea = json_decode($numerolineaResponse);
+     
+                          if($arrnumerolinea){
+                            
+                            foreach ($arrnumerolinea as $key => $value) {
+                              
+                              $numerolinea = $value->NumeroLinea;
+                  
+                            }
     
-          $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
-        
+                          }  
+
+                        //  var_dump($numerolinea);
+                          // Obtiene datos del wpanel
+
+
+                          $response = $this->callexternosbucksheet->obtieneBucksheetDet($cod_empresa,$id_orden_compra, $numero_linea_wpanel);
+
+                    
+                          $arrBucksheet = json_decode($response);
+                      
+                      
+                                               
+                          if ($arrBucksheet) {
+                            $respuesta = true;
+                      
+                            foreach ($arrBucksheet as $key => $value) {
+                      
+                      
+                      
+                              $datos_bucksheet = array(
+                                'COD_EMPRESA' => $cod_empresa,
+                                'ID_OC' => $value->ID_OC,
+                                'NUMERO_OC' => $value->NUMERO_OC,
+                                'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+                                'ITEM_OC' => $value->ITEM_OC,
+                                'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+                                'PROVEEDOR' => $value->PROVEEDOR,
+                                'NUMERO_DE_LINEA' => $numerolinea,
+                                'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+                                'ESTADO_DE_LINEA' =>  $value->ESTADO_DE_LINEA,
+                                'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+                                'STOCKCODE' => $value->STOCKCODE,
+                                'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+                                'NUMERO_DE_ELEMENTOS' => $diferencia,
+                                'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+                                'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+                                'UNIDAD' => $value->UNIDAD,
+                                'TRANSMITTAL_CLIENTE' => $value->TRANSMITTAL_CLIENTE,
+                                'FECHA_TC' => $value->FECHA_TC,
+                                'TRANSMITTAL_PROVEEDOR' => $value->TRANSMITTAL_PROVEEDOR,
+                                'FECHA_TP' => $value->FECHA_TP,
+                                'TRANSMITTAL_CLIENTE_FINAL' => $value->TRANSMITTAL_CLIENTE_FINAL,
+                                'FECHA_TCF' => $value->FECHA_TCF,
+                                'PA_TCF' => $value->PA_TCF,
+                                'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+                                'REVISION' => $value->REVISION,
+                                'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+                                'FECHA_LINEA_BASE' => $value->FECHA_LINEA_BASE,
+                                'DIAS_ANTES_LB' => $value->DIAS_ANTES_LB,
+                                'FECHA_COMIENZO_FABRICACION' => $value->FECHA_COMIENZO_FABRICACION,
+                                'PA_FCF' => $value->PA_FCF,
+                                'FECHA_TERMINO_FABRICACION' => $value->FECHA_TERMINO_FABRICACION,
+                                'PA_FTF' => $value->PA_FTF,
+                                'FECHA_GRANALLADO' => $value->FECHA_GRANALLADO,
+                                'PA_FG' => $value->PA_FG,
+                                'FECHA_PINTURA' => $value->FECHA_PINTURA,
+                                'PA_FP' => $value->PA_FP,
+                                'FECHA_LISTO_INSPECCION' => $value->FECHA_LISTO_INSPECCION,
+                                'PA_FLI' => $value->PA_FLI,
+                                'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
+                                'FECHA_SALIDA_FABRICA' => $value->FECHA_SALIDA_FABRICA,
+                                'PA_FSF' => $value->PA_FSF,
+                                'FECHA_EMBARQUE' => $value->FECHA_EMBARQUE,
+                                'PACKINGLIST' => $value->PACKINGLIST,
+                                'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+                                'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
+                                'ORIGEN' => $value->ORIGEN,
+                                'DIAS_VIAJE' => $value->DIAS_VIAJE,
+                                'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+                                'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+                                'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+                                'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+                                'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+                                'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
+                                'OBSERVACION' => $value->OBSERVACION 
+                              );   
+                            }
+
+                               // Insert member data
+                              $insert = $this->callexternosbucksheet->insert($datos_bucksheet);
+
+                            
+                      if ($insert) {
+
+                         $insert_bitacora = array(
+                          'codEmpresa' => $this->session->userdata('cod_emp'),
+                          'accion'  => 'RR_INSERTA_WPANEL_LINEA_' . $numerolinea,
+                          'id_registro' => $numerolinea,
+                          'usuario'  =>  $this->session->userdata('n_usuario'),
+                          'rol' =>   $this->session->userdata('nombre_rol'),
+                          'objeto'  => 'RR_WPANEL',
+                          'fechaCambio' =>  date_create()->format('Y-m-d')
+                        );
+
+                        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+                      }
+
+
+                          } 
+
+                      
+                        
+                      }
+
+
+
+
+
+                    }else{
+                  
+                          $error_msg = 'Inconvenientes al actualizar RR, favor reintente.';
+                          $resp =  false;
+                  
+                        }
+
+          }
+
+         
+  
         }
+
+      }
     
-        $htmlclientes .= '</select>';
-        $datos['select_clientes'] = $htmlclientes;
+  
+      $data['resp']        = $resp;
+      $data['mensaje']     = $error_msg;
+      $data['botonActivo'] = $boton_activo;
+   
+  
+      echo json_encode($data);
+  
+
+
+    }
+
+
+    function creaPDF(){
+
+      
+      $htmlContent ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
+      $htmlContent .='<html xmlns="http://www.w3.org/1999/xhtml">';
+      $htmlContent .='<head>';
+      $htmlContent .='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
+      $htmlContent .='</head>';
+      $htmlContent .='<body>';
+      $htmlContent .='<div style="display: block; padding:0 32px; margin: auto;">';
+      $htmlContent .='<table cellpadding="0" cellspacing="0" border="0" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
+      $htmlContent .='<thead>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='MIMS-Intelligent-Projects';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='</thead>';
+      $htmlContent .='<tbody>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<td style="padding:36px 0 32px 0; vertical-align: top; font-size: 15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0 0 18px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Estimado cliente:';
+      $htmlContent .='</p>';
+      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
+      $htmlContent .='<br /><br />';
+      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
+      $htmlContent .='El detalle es el siguiente:</p><br />';
+      $htmlContent .='<table cellpadding="0" cellspacing="0" border="1" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
+      $htmlContent .='<thead>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Proyecto';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Archivo adjunto';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Orden de Compra';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Nombre Empleado';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Fecha Ingreso';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .= 'Número Referencial';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Tipo Interacción';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Solicitado por';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Aprobado por';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Comentarios Generales';
+      $htmlContent .='</th>';
+      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='</th>';
+      $htmlContent .='</tr>';
+      $htmlContent .='</thead>';
+      $htmlContent .='</table>';
+      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin:0; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='<br />';
+      $htmlContent .='<br />';
+      $htmlContent .='<br />';
+      $htmlContent .='<i style="color: #000000;">Su equipo de MIMS-Intelligent-Projects</i>';
+      $htmlContent .='</p>';
+      $htmlContent .='</td>';
+      $htmlContent .='</tr>';
+      $htmlContent .='</tbody>';
+      $htmlContent .='<tfoot>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<td style="padding: 12px 20px 14px 20px; font-size: 11px; line-height: 16px; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #666666; background: #efefef; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='Nota: No responda a este correo electronico. Si tiene alguna duda, pongase en contacto con nosotros mediante nuestro sitio web:<br />';
+      $htmlContent .='<a href="https://help.mimsprojects.com" target="_blank" style="color: #1428a0; text-decoration: underline;">';
+      $htmlContent .='Ir al centro de atencion al cliente de MIMS Intelligent Projects</a>';
+      $htmlContent .='</td>';
+      $htmlContent .='</tr>';
+      $htmlContent .='<tr>';
+      $htmlContent .='<td style="padding:20px 0 20px 0; text-align: center; font-size: 11px; line-height: 1; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #acacac; vertical-align: middle; word-wrap: break-word; word-break:normal;">';
+      $htmlContent .='<img src="https://mimsprojects.com/MIMS-Intelligent-Projects/MIMS-Front-End/assets/dist/img/logo-mims.png" border="0" alt="" style=" width: 100&#37;; *width:62px; max-width: 62px; vertical-align:middle; margin:0 12px;" /> ';
+      $htmlContent .='Copyright@, MIMS Intelligent Projects All rights reserved';
+      $htmlContent .='</td>';
+      $htmlContent .='</tr>';
+      $htmlContent .='</tfoot>';
+      $htmlContent .='</table>';
+      $htmlContent .='</div>';
+      $htmlContent .='</body>';
+      $htmlContent .='</html>';
+      //finamos un nombre para el archivo. No es necesario agregar la extension .pdf
+      $filename = "asasas";
+      // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
+      
+      $this->callutil->generatePDF($htmlContent, $filename, true, 'Letter', 'portrait');
+
+
+    }
+
     
     
-        // Obtiene select Proyectos
-    
-        $htmlproyectos = "";
-    
-        $htmlproyectos .= '<select class="form-control" id="proyectos">';
-        $htmlproyectos .= '<option value="0">Seleccione</option>';
-        $htmlproyectos .= '</select>';
-        $datos['select_proyectos'] = $htmlproyectos;
-    
-    
-    
-        // Obtiene select Ordenes
-    
-        $htmlordenes = "";
-    
-        $htmlordenes .= '<select class="form-control" id="ordenes">';
-        $htmlordenes .= '<option value="0">Seleccione</option>';
-        $htmlordenes .= '</select>';
-        $datos['select_ordenes'] = $htmlordenes;
-    
-    
-    
-        $this->plantilla_bodega('bodega/crearEI', $datos);
-    
-    
-      } 
+
 }

@@ -53,9 +53,9 @@ class CallExternosBuckSheet {
   
   
       }
+ 
 
-
-      function obtieneBuckSheetBodega($ID_OC,$GuiaDespacho){
+      function obtieneBuckSheetBodega($codEmpresa,$ID_OC,$GuiaDespacho){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
@@ -66,6 +66,7 @@ class CallExternosBuckSheet {
         $form_data = array(
                     'ID_OC'		=>$ID_OC,
                     'GuiaDespacho'		=>$GuiaDespacho,
+                    'codEmpresa' => $codEmpresa
                     
         );
   
@@ -89,7 +90,7 @@ class CallExternosBuckSheet {
       }
 
 
-      function obtieneBuckSheetGuias($ID_OC){
+      function obtieneBuckSheetGuias($codEmpresa,$ID_OC){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
@@ -98,7 +99,8 @@ class CallExternosBuckSheet {
   
             
         $form_data = array(
-                    'ID_OC'		=>$ID_OC
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' =>$codEmpresa
                     
         );
   
@@ -302,7 +304,7 @@ class CallExternosBuckSheet {
 
         $form_data = array(
           'ID_OC'		=>$id_order_item,
-          'codEmpresa'		=>$codEmpresa,
+          'COD_EMPRESA'		=>$codEmpresa,
           'id_proyecto'		=>$id_orden_item_proyecto
         );
   
