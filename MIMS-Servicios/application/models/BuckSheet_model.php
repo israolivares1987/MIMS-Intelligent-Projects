@@ -163,7 +163,8 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('t1.GUIADESPACHO' , $this->_Guia);
+     $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
+     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
 	
      
 
@@ -176,12 +177,12 @@ class BuckSheet_model extends CI_Model{
 	{
      
      $this->db->distinct();
-     $this->db->select("t1.GUIADESPACHO"); 
+     $this->db->select("t1.GUIA_DESPACHO"); 
      $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('t1.GUIADESPACHO' , $this->_Guia);
+     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
 	
      
 
@@ -357,11 +358,12 @@ class BuckSheet_model extends CI_Model{
 		return $delete;
     }
     
-    function obtieneNumeroLinea($PurchaseOrderID,$codEmpresa,$id_proyecto){
+    function obtieneNumeroLinea($codEmpresa,$ID_OC,$id_proyecto){
 
         $this->db->select(" IFNULL(max(NUMERO_DE_LINEA),0) + 1 as NumeroLinea"); 
-        $this->db->from('tbl_bucksheet t1');			
+        $this->db->from('tbl_bucksheet');			
         $this->db->where('ID_OC', $ID_OC);
+        $this->db->where('COD_EMPRESA', $codEmpresa);
 
 
         return $this->db->get()->result();   
