@@ -1,51 +1,16 @@
 <?php
 class Proyectos_model extends CI_Model{
 
-	var $table = 'tbl_Purchase_Orders';
-
-	function obtieneExpediting($idCliente,$idProyecto)
-	{
-
-	  $query = $this->db->query("SELECT a.* , 
-								(select SupplierName from tbl_Suppliers where SupplierID = a.SupplierID) as Supplier, 
-								(select CONCAT(FirstName, ' ', LastName)  from tbl_employees where ID = a.EmployeeID) as Employee 
-								FROM tbl_Purchase_Orders a
-								WHERE idCliente =".$idCliente." 
-								AND idproyecto =".$idProyecto
-							);
-	  $Expediting = $query->result();
-	  return $Expediting;
-	}
-
-	function obtienePurchaseOrders($idProyecto,$idCliente){
-
-        $this->db->where('idCliente',$idCliente);
-        $this->db->where('idProyecto',$idProyecto);
-        $PurchaseOrders = $this->db->get('tbl_Purchase_Orders');
-        
-        return $PurchaseOrders;
-
-	  }
-	  
-	  function count_all_Expediting($idCliente)
-	{
-
-	  $query = $this->db->query("SELECT a.* , 
-								(select SupplierName from tbl_Suppliers where SupplierID = a.SupplierID) as Supplier, 
-								(select CONCAT(FirstName, ' ', LastName)  from tbl_employees where ID = a.EmployeeID) as Employee 
-								FROM tbl_Purchase_Orders a
-								WHERE idCliente =".$idCliente
-								);
-
-    	return $this->db->count_all_results();
-	}
-
 	function obtieneProyectos($idCliente){
 
 		$this->db->select('t1.idCliente AS idCliente,
 						   t1.NumeroProyecto AS codigo_proyecto,
 						   t1.DescripcionProyecto AS descripcion_proyecto,
-						   t2.domain_desc AS estado_proyecto');
+						   t2.domain_desc AS estado_proyecto,
+						   t1.id_bodega as id_bodega,
+						   t1.id_carpa as id_carpa,
+						   t1.id_patio as id_patio,
+						   t1.id_posicion as id_posicion');
 		$this->db->from('tbl_proyectos t1, tbl_ref_codes t2');				   
 		$this->db->where('idCliente',$idCliente);
 		$this->db->where('estadoProyecto',1);
@@ -74,7 +39,11 @@ class Proyectos_model extends CI_Model{
 						   t1.DescripcionProyecto AS DescripcionProyecto,
 						   t1.Lugar AS Lugar,
 						   t2.domain_desc AS estadoProyecto,
-						   t1.idCliente as idCliente');
+						   t1.idCliente as idCliente,
+						   t1.id_bodega as id_bodega,
+						   t1.id_carpa as id_carpa,
+						   t1.id_patio as id_patio,
+						   t1.id_posicion as id_posicion');
 		$this->db->from('tbl_proyectos t1,
 						 tbl_ref_codes t2');				   
 		$this->db->where('idCliente',$idCliente);
@@ -87,7 +56,7 @@ class Proyectos_model extends CI_Model{
 
 	}
 
-	function guardaProyecto($data){
+	function guardaProyecto($data = array()){
 
 		$insert = $this->db->insert('tbl_proyectos', $data);
 
@@ -125,7 +94,11 @@ class Proyectos_model extends CI_Model{
 							t1.Lugar as Lugar,
 							t1.estadoProyecto AS estado_proyecto,
 							t3.domain_id AS domain_id,
-							t3.domain_desc AS domain_desc');
+							t3.domain_desc AS domain_desc,
+							t1.id_bodega as id_bodega,
+							t1.id_carpa as id_carpa,
+							t1.id_patio as id_patio,
+							t1.id_posicion as id_posicion');
 		$this->db->from('tbl_proyectos t1,
 						 tbl_clientes  t2,
 						 tbl_ref_codes t3');

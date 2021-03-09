@@ -26,7 +26,7 @@ class Admin extends MY_Controller{
     $datos['nombreEmpresa'] = "2";
     $datos['razonSocial'] = "3";
     
-    $this->plantilla_admin('Admin/Index_admin', $datos);
+    $this->plantilla_admin('administrador/index_admin', $datos);
   }
 
   function index_empresa(){
@@ -35,7 +35,7 @@ class Admin extends MY_Controller{
     $datos['nombreEmpresa'] = "2";
     $datos['razonSocial'] = "3";
     
-    $this->plantilla_admin('Admin/index_empresa', $datos);
+    $this->plantilla_admin('administrador/index_empresa', $datos);
   }
 
   function index_usuario(){
@@ -44,7 +44,7 @@ class Admin extends MY_Controller{
     $datos['nombreEmpresa'] = "2";
     $datos['razonSocial'] = "3";
     
-    $this->plantilla_admin('Admin/index_usuario', $datos);
+    $this->plantilla_admin('administrador/index_usuario', $datos);
   }
 
 }

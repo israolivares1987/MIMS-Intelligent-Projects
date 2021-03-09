@@ -17,7 +17,9 @@ class Bodega extends MY_Controller{
     $this->load->library('CallExternosOrdenes');
     $this->load->library('form_validation');
     $this->load->library('CallExternosTodo');
+    $this->load->library('CallExternosBodegas');
     $this->load->library('CallExternosReporteRecepcion');
+    $this->load->library('CallExternosEmpresas');
     $this->load->library('CallExternosBitacora');
         
     $this->load->helper('file');
@@ -245,7 +247,7 @@ $datos['listaTodo'] = $listaTodo ;
 
         // Obtiene select Ordenes
 
-        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuias($codEmpresa,$id_orden);
+        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuiasWpanel($codEmpresa,$id_orden);
 
         $arrBucksheet = json_decode($bucksheet);
 
@@ -272,6 +274,46 @@ $datos['listaTodo'] = $listaTodo ;
 			show_404();
 		}
   }
+
+
+  public function JSON_Ordenes_Packinglist(){
+
+		if($this->input->is_ajax_request()){
+
+        $id_orden  = $this->input->post('orden');
+        $codEmpresa = $this->session->userdata('cod_emp');
+
+        // Obtiene select Ordenes
+
+        $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetPackingListWpanel($codEmpresa,$id_orden);
+
+        $arrBucksheet = json_decode($bucksheet);
+
+        $htmlbucksheet = "";
+        
+        $htmlbucksheet .= '<select class="form-control" id="packinglist">';
+        $htmlbucksheet .= '<option value="0">Seleccione Packinglist</option>';
+        
+        foreach ($arrBucksheet as $key => $value) {
+
+          $htmlbucksheet .= '<option data-name="'.trim($value->PACKINGLIST).'" value="'.$value->PACKINGLIST.'">'.$value->PACKINGLIST.'</option>';
+        
+        }
+
+        $htmlbucksheet .= '</select>';
+
+
+			$todo = array(	
+							'packinglist' 	=> $htmlbucksheet
+						);
+			
+			echo json_encode($todo);
+		}else{
+			show_404();
+		}
+  }
+
+  
   
 
   public function JSON_Wpanel(){
@@ -285,6 +327,7 @@ $datos['listaTodo'] = $listaTodo ;
         $codEmpresa = $this->session->userdata('cod_emp');
         $id_cliente  = $this->input->post('cliente');
         $id_proyecto  = $this->input->post('proyecto');
+        $packinglist = $this->input->post('packinglist');
         $respuesta = false;
          
         $datos_bucksheet = array();
@@ -591,7 +634,7 @@ public function crearRRDet($NumRR){
       $datos['select_ordenes'] = $htmlordenes;
   
   
-      // Obtiene select Ordenes
+      // Obtiene select Guias
   
       $htmlguias = "";
   
@@ -599,6 +642,16 @@ public function crearRRDet($NumRR){
       $htmlguias .= '<option value="0">Seleccione</option>';
       $htmlguias .= '</select>';
       $datos['select_guias'] = $htmlguias;
+
+
+      // Obtiene select PackingList
+  
+        $htmlpackinglist = "";
+  
+        $htmlpackinglist .= '<select class="form-control" id="packinglist">';
+        $htmlpackinglist .= '<option value="0">Seleccione</option>';
+        $htmlpackinglist .= '</select>';
+        $datos['select_packinglist'] = $htmlpackinglist;
   
   
   
@@ -1044,7 +1097,333 @@ public function crearRRDet($NumRR){
 
     }
 
+//////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+
+function index_man_bodega(){
+
+
+  $codEmpresa = $this->session->userdata('cod_emp');
+  $response = $this->callexternosproyectos->obtieneMenuProyectos($codEmpresa);
+
+  $menu = $this->callutil->armaMenuClientes($response);
+
+ 
+  $datos['arrClientes'] = $menu ;
+
+
+    // Datos Empresas
+
+    $responseEmpresas = $this->callexternosempresas->obtieneEmpresas($codEmpresa);
+    $respuesta = false;
+
+    $arrEmpresas = json_decode($responseEmpresas);
+
+    if($arrEmpresas){
+      $respuesta = true;
+      
+      foreach ($arrEmpresas as $key => $value) {
+
+        $nombreEmpresa = $value->nombre;
+        $razonSocial = $value->razon_social;
+        
+      }
+    }
+
+
+
+
+
+    $datos['nombreEmpresa'] = $nombreEmpresa;
+    $datos['razonSocial'] = $razonSocial;
+
+    if ($this->session->userdata('rol_id')==='202'){
+
+
+      $this->plantilla_activador('mantenedores/listBodegas', $datos);
+
+    }elseif($this->session->userdata('rol_id')==='204'){
+
+      $this->plantilla_ingenieria('mantenedores/listBodegas', $datos);
+
     
+    }elseif($this->session->userdata('rol_id')==='206'){
+
+      $this->plantilla_ingenieria('mantenedores/listBodegas', $datos);
+
+    }
+
+  
+
+}
+
+
+function obtieneBodegas(){
+
+
+  $codEmpresa = $this->input->post('codEmpresa');
+  $responseBodegas = $this->callexternosbodegas->obtieneBodegas($codEmpresa);
+
+
+  $datos_bodegas=array();
+  $respuesta = false;
+
+  $arrBodegas= json_decode($responseBodegas);
+ 
+  if($arrBodegas){
+    $respuesta = true;
+    
+    foreach ($arrBodegas as $key => $value) {
+
+      $datos_bodegas[] = array(
+        'codEmpresa'=> $this->callutil->cambianull($value->codEmpresa),
+        'id_bodega'=> $this->callutil->cambianull($value->id_bodega),
+        'nombre_bodega'=> $this->callutil->cambianull($value->nombre_bodega),
+      );
+    }
+  }
+
+  $datos['bodegas'] = $datos_bodegas;
+  $datos['resp']      = $respuesta;
+
+  echo json_encode($datos);
+  
+
+}
+
+function agregarBodega(){  
+
+  
+  $codEmpresa  = $this->input->post('codEmpresa');  
+  $nombre_bodega      = $this->input->post('nombre_bodega');
+
+  
+  $resp = false;
+  $mensaje = "";
+
+
+
+
+  $data = array();
+
+  $nombre = $this->form_validation->set_rules('nombre_bodega', 'Nombre Bodega', 'required|trim');
+ 
+  
+  if(!$nombre->run()){
+      
+    $data['resp']     = false;
+    $data['mensaje']  = "Campos faltantes, favor revisar.";
+  
+
+  }else{
+
+    $insert= array(
+      'codEmpresa'  => $codEmpresa,  
+      'nombre_bodega'      => $nombre_bodega
+    );
+
+    $bodega = $this->callexternosbodegas->agregarBodega($insert);
+    $bodegains = json_decode($bodega) ;
+      
+    $resp =  $bodegains->resp;
+    $idInsertado = $bodegains->id_insertado;
+
+    
+
+    if($resp){
+
+      $error_msg = 'Bodega creado correctamente.';
+      $resp =  true;
+
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'INSERTA_BODEGA',
+      'id_registro' =>  $idInsertado,
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'BODEGA' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+      
+
+    }else{
+
+      $error_msg = 'Inconvenientes al crear bodega, favor reintente.';
+      $resp =  false;
+
+    }
+
+}
+
+  $data['resp']        = $resp;
+  $data['mensaje']     = $error_msg;
+  $data['idInsertado'] = $idInsertado;
+
+
+  echo json_encode($data);
+
+}
+
+function obtieneBodega(){
+
+  $id_bodega = $this->input->post('id_bodega');
+  $codEmpresa = $this->session->userdata('cod_emp');
+
+  $responseBodega= $this->callexternosbodegas->obtieneBodega($codEmpresa,$id_bodega);
+  $respuesta = false;
+
+  $arrBodega = json_decode($responseBodega);
+ 
+  $datos_bodega = array();
+
+  if($arrBodega){
+    
+    foreach ($arrBodega as $key => $value) {
+
+      $datos_bodega = array(
+        'codEmpresa'=> $this->callutil->cambianull($value->codEmpresa),
+        'id_bodega'=> $this->callutil->cambianull($value->id_bodega),
+        'nombre_bodega'=> $this->callutil->cambianull($value->nombre_bodega),
+      );
+      
+      
+    }
+  }
+
+  echo json_encode($datos_bodega);
+
+
+
+}
+
+
+function editarBodega(){  
+
+  $codEmpresa  = $this->input->post('codEmpresa');  
+  $id_bodega = $this->input->post('id_bodega');  
+  $nombre_bodega      = $this->input->post('nombre_bodega');
+
+  $resp = false;
+  $mensaje = "";
+
+
+  $data = array();
+
+  $nombre = $this->form_validation->set_rules('nombre_bodega', 'Nombre Bodega', 'required|trim');
+ 
+  
+  if(!$nombre->run()){
+      
+
+    $error_msg = 'Campos faltantes, favor revisar.';
+    $resp =  false;
+
+  
+
+  }else{
+
+    $update= array(
+
+      'codEmpresa'  => $codEmpresa,  
+      'id_bodega'  => $id_bodega,  
+      'nombre_bodega'      => $nombre_bodega
+    );
+
+    $bodega = $this->callexternosbodegas->editarBodega($update);
+
+
+    if($bodega){
+
+      $error_msg = 'Bodega actualizado correctamente.';
+      $resp =  true;
+
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'ACTUALIZA_BODEGA',
+      'id_registro' =>  $id_bodega,
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'BODEGA' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+      
+
+    }else{
+
+      $error_msg = 'Inconvenientes al actualizar bodega, favor reintente.';
+      $resp =  false;
+
+    }
+
+}
+
+  $data['resp']        = $resp;
+  $data['mensaje']     = $error_msg;
+
+
+  echo json_encode($data);
+
+}
+
+function eliminaBodega(){  
+
+
+  $id_bodega = $this->input->post('id_bodega');  
+  $codEmpresa = $this->session->userdata('cod_emp');
+  $resp = false;
+  $mensaje = "";
+
+
+ 
+    $proveedor = $this->callexternosbodegas->eliminaBodega($codEmpresa,$id_bodega);
+  
+
+    if($proveedor){
+
+      $resp = true;
+      $mensaje = "Bodega Eliminado correctamente";
+
+
+      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+      'accion'  => 'ELIMINA_BODEGA',
+      'id_registro' =>  $id_bodega,
+      'usuario'  =>  $this->session->userdata('n_usuario'),
+      'rol' =>   $this->session->userdata('nombre_rol'),
+      'objeto'  => 'BODEGA' ,
+      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+
+
+      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+    }else{
+
+      $resp = false;
+      $mensaje = "Error al Eliminar proveedor, datos sin actualizar";
+    }
+
+
+
+    $data['resp']       = $resp;
+    $data['mensaje']    = $mensaje;
+    
+    
+
+
+   
+  echo json_encode($data);
+
+
+
+}
+
+
+
+
+
+
     
 
 }

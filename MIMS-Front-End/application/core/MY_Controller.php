@@ -13,11 +13,11 @@ class MY_Controller extends CI_Controller {
 
 	public function plantilla_admin($view, $datos = array()){
 
-		$this->load->view('admin/header');
-		$this->load->view('admin/navbar');
-        $this->load->view('admin/left_menu',$datos);
+		$this->load->view('administrador/header');
+		$this->load->view('administrador/navbar');
+        $this->load->view('administrador/left_menu',$datos);
         $this->load->view($view, $datos);
-        $this->load->view('admin/footer'); 
+        $this->load->view('administrador/footer'); 
 	}
 
 
@@ -29,7 +29,7 @@ class MY_Controller extends CI_Controller {
         $this->load->view($view, $datos);
         $this->load->view('ingenieria/footer'); 
 	}
-	
+	 
 
 	public function plantilla_supervisor($view, $datos = array()){
 

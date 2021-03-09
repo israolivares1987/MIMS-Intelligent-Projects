@@ -48,6 +48,10 @@
                                         <th>Nombre de Proyecto</th> 
                                         <th>Lugar</th>
                                         <th>Estado Proyecto</th>
+                                        <th>Bodega</th>
+                                        <th>Carpa</th>
+                                        <th>Patio</th>
+                                        <th>Posición</th>
                                     </tr>
                                 </thead>
                                 <tbody id="datos_proyectos">
@@ -211,148 +215,142 @@
 
    </div>
 
-        <!--.modal nuevo proyecto-->
-        <div id="modal_nuevo_proyecto" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Nuevo Proyecto</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Cliente</label>
-                        <div class="col-sm-12">
-                          <input id="var_nombre_cliente" type="text" class="form-control" readonly >
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Nombre proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="var_nombre_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Descripcion Proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="var_descripcion_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Lugar</label>
-                        <div class="col-sm-12">
-                          <input id="var_lugar_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                </div><!--row-->
-              </div><!--.container-->
-            </div><!--.modal-body-->
-            <div class="modal-footer justify-content-between">
-              <input type="hidden" id="var_cliente">
-              <button id="btn-guardar" type="button" class="btn btn-outline-primary">Guardar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--.fin modal nuevo proyecto--> 
 
-       <!--.modal edita proyecto-->
-       <div id="modal_edita_proyecto" class="modal fade" tabindex="-1" role="dialog">
-        <div class="modal-dialog" role="document">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Edita Proyecto</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <div class="row">
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Cliente</label>
-                        <div class="col-sm-12">
-                          <input id="act_nombre_cliente" type="text" class="form-control" readonly >
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Nombre proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="act_nombre_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Descripcion Proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="act_descripcion_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Lugar proyecto</label>
-                        <div class="col-sm-12">
-                          <input id="act_lugar_proyecto" type="text" class="form-control">
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                  <div class="col-md-12">
-                    <div class="form-horizontal">
-                      <div class="form-group">
-                        <label class="col-sm-12 control-label">Seleccione estado</label>
-                        <div class="col-sm-12">
-                          <div id="s_estado"></div>
-                        </div><!--.col-sm-9-->
-                      </div><!--.form-group-->
-                    </div><!--.form-horizontal-->
-                  </div><!--.col-md-12-->
-                </div><!--row-->
-              </div><!--.container-->
-            </div><!--.modal-body-->
-            <div class="modal-footer justify-content-between">
-              <input type="hidden" id="act_id_proyecto">
-              <input type="hidden" id="act_id_cliente">
-              <button id="btn-actualizar-proy" type="button" class="btn btn-outline-primary">Actualizar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-            </div>
-          </div>
-        </div>
-      </div>
-      <!--.fin modal edita proyecto--> 
+
+   <div class="modal fade" id="modal_nuevo_proyecto">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">Nuevo Proyecto</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="formproyectonuevo" class="form-horizontal">
+                     <section class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title"></h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+                                      <div class="col-md-6">
+                                      <input type="hidden" type="text" name="var_cliente" id="var_cliente">
+                                                        
+                                                                <div class="form-group"><label for="var_nombre_cliente">CLIENTE</label><input type="text" id="var_nombre_cliente" class="form-control" value="" name="var_nombre_cliente" readonly></div>
+                                                                <div class="form-group"><label for="var_nombre_proyecto">NOMBRE PROYECTO</label><input type="text" id="var_nombre_proyecto" class="form-control" value="" name="var_nombre_proyecto"></div>
+                                                                <div class="form-group"><label for="var_descripcion_proyecto">DESCRIPCIÓN PROYECTO</label><input type="text" id="var_descripcion_proyecto" class="form-control" name="var_descripcion_proyecto" value=""></div>
+                                                                <div class="form-group"><label for="var_lugar_proyecto">LUGAR</label><input type="text" id="var_lugar_proyecto" class="form-control" name="var_lugar_proyecto" value=""></div>
+                                                        
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                                
+                                                                <div class="form-group"><label for="id bodega">BODEGA</label><input type="text" id="var_id_bodega" class="form-control" name="var_id_bodega" value=""></div>
+                                                                <div class="form-group"><label for="id carpa">CARPA</label><input type="text" id="var_id_carpa" class="form-control" name="var_id_carpa" value=""></div>
+                                                                <div class="form-group"><label for="id patio">PATIO</label><input type="text" id="var_id_patio" class="form-control" name="var_id_patio" value=""></div>
+                                                                <div class="form-group"><label for="id posicion">POSICIÓN</label><input type="text" id="var_id_posicion" class="form-control" name="var_id_posicion" value=""></div>
+                                                                
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                                  <!-- /.card-body -->
+                                              </div>
+                                          </div>
+                                      </div>
+                              </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn-guardar" type="button" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>                 
+
+
+ <div class="modal fade" id="modal_edita_proyecto">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">Edita Proyecto</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="formproyectoactualizar" class="form-horizontal">
+                     <section class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title"></h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+                                      <div class="col-md-6">
+                                      <input type="hidden" name="act_id_proyecto" id="act_id_proyecto">
+                                      <input type="hidden" name="act_id_cliente" id="act_id_cliente">
+                                                        
+                                                                <div class="form-group"><label for="act_nombre_cliente">CLIENTE</label><input type="text" id="act_nombre_cliente" class="form-control" value="" name="act_nombre_cliente" readonly></div>
+                                                                <div class="form-group"><label for="act_nombre_proyecto">NOMBRE PROYECTO</label><input type="text" id="act_nombre_proyecto" class="form-control" value="" name="act_nombre_proyecto"></div>
+                                                                <div class="form-group"><label for="act_descripcion_proyecto">DESCRIPCIÓN PROYECTO</label><input type="text" id="act_descripcion_proyecto" class="form-control" name="act_descripcion_proyecto" value=""></div>
+                                                                <div class="form-group"><label for="act_lugar_proyecto">LUGAR</label><input type="text" id="act_lugar_proyecto" class="form-control" name="act_lugar_proyecto" value=""></div>
+                                                                <div class="form-group"><label for="act_lugar_proyecto">ESTADO PROYECTO</label><div id="s_estado"></div></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                                
+                                                                <div class="form-group"><label for="id bodega">BODEGA</label><input type="text" id="act_id_bodega" class="form-control" name="act_id_bodega" value=""></div>
+                                                                <div class="form-group"><label for="id carpa">CARPA</label><input type="text" id="act_id_carpa" class="form-control" name="act_id_carpa" value=""></div>
+                                                                <div class="form-group"><label for="id patio">PATIO</label><input type="text" id="act_id_patio" class="form-control" name="act_id_patio" value=""></div>
+                                                                <div class="form-group"><label for="id posicion">POSICIÓN</label><input type="text" id="act_id_posicion" class="form-control" name="act_id_posicion" value=""></div>
+                                                                
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                                  <!-- /.card-body -->
+                                              </div>
+                                          </div>
+                                      </div>
+                              </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn-actualizar-proy" type="button" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>                 
+
 
       <!--.modal nuevo orden-->
       <div id="modal_new_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
@@ -2086,28 +2084,19 @@ $('#btn_orden_item').on('click', function(){
 
 $('#btn-guardar').on('click', function(){
 
-  let id_cliente      = $('#var_cliente').val();
-  let nombre_proyecto = $('#var_nombre_proyecto').val(); 
-  let descripcion_proyecto = $('#var_descripcion_proyecto').val(); 
-  let lugar_proyecto = $('#var_lugar_proyecto').val(); 
+  data = new FormData(document.getElementById("formproyectonuevo"));
 
   $.ajax({
     url: 		'<?php echo base_url('index.php/Proyectos/guardarProyecto'); ?>',
     type: 		'POST',
-    dataType: 'json',
-    data: {
-            id_cliente : id_cliente,
-            nombre_proyecto: nombre_proyecto,
-            descripcion_proyecto: descripcion_proyecto,
-            lugar_proyecto: lugar_proyecto
-          },
+    data: data,
+    contentType: false,
+    processData: false,
+    dataType: "JSON",
   }).done(function(result) {
 
     if(result.resp){
-      recargaProyectos(id_cliente);
-      $('#var_descripcion_proyecto').val('')
-      $('#var_nombre_proyecto').val('')
-      $('#var_lugar_proyecto').val('')
+      recargaProyectos(data.get("var_cliente"));
       $('#modal_nuevo_proyecto').modal('hide');
       toastr.success(result.mensaje);
     }else{
@@ -2156,7 +2145,10 @@ function recargaProyectos(cliente){
         }else{
             proyectos_html += '<td><span class="bg-red">'+ proyecto.estadoProyecto +'</span></td>';
         }
-         
+        proyectos_html += '<td>' + proyecto.id_bodega + '</td>';
+        proyectos_html += '<td>' + proyecto.id_carpa + '</td>';
+        proyectos_html += '<td>' + proyecto.id_patio + '</td>';
+        proyectos_html += '<td>' + proyecto.id_posicion + '</td>';
         proyectos_html += '</tr>';
 
         id_proyecto = proyecto.NumeroProyecto;
@@ -2250,9 +2242,13 @@ function edita_proyecto(id_proyecto, id_cliente){
     $('#act_nombre_proyecto').val(result.nombre_proyecto);
     $('#act_descripcion_proyecto').val(result.descripcion_proyecto);
     $('#act_lugar_proyecto').val(result.lugar_proyecto);
+    $('#act_id_bodega').val(result.id_bodega);
+    $('#act_id_carpa').val(result.id_carpa);
+    $('#act_id_patio').val(result.id_patio);
+    $('#act_id_posicion').val(result.id_posicion);
     $('#s_estado').empty();
     $('#s_estado').html(result.select_estado);
-    $('#act_id_proyecto').val(result.id_proyecto);
+    $('#act_id_proyecto').val(id_proyecto);
     $('#act_id_cliente').val(id_cliente);
 
     $('#modal_edita_proyecto').modal('show');
@@ -2376,31 +2372,20 @@ var id_orden = $('#id_order_cc').val();
 
 $('#btn-actualizar-proy').on('click', function(){
 
-  let id_cliente      = $('#act_id_cliente').val();
-  let id_proyecto     = $('#act_id_proyecto').val();
-  let nombre_proyecto = $('#act_nombre_proyecto').val();
-  let estado          = $('#act_estado').val();
-  let descripcion_proyecto = $('#act_descripcion_proyecto').val();
-  let lugar_proyecto =  $('#act_lugar_proyecto').val();
- 
+  data = new FormData(document.getElementById("formproyectoactualizar"));
 
   $.ajax({
     url: 		'<?php echo base_url('index.php/Proyectos/actualizaProyecto'); ?>',
     type: 		'POST',
-    dataType: 'json',
-    data: {
-            id_cliente  : id_cliente,
-            id_proyecto : id_proyecto,
-            nombre_proyecto: nombre_proyecto,
-            descripcion_proyecto: descripcion_proyecto,
-            lugar_proyecto: lugar_proyecto,
-            estado : estado
-          },
+    data: data,
+    contentType: false,
+    processData: false,
+    dataType: "JSON",
   }).done(function(result) {
 
     if(result.resp){
 
-      recargaProyectos(id_cliente);
+      recargaProyectos(data.get("act_id_cliente"));
       $('#modal_edita_proyecto').modal('hide');
       toastr.success(result.mensaje);
 

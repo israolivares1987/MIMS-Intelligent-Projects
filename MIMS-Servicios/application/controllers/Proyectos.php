@@ -38,22 +38,8 @@ class Proyectos extends CI_Controller {
 
 	function guardaProyecto(){
 
-		$id_cliente 		= $this->input->post('id_cliente');
-		$nombre_proyecto 	= $this->input->post('nombre_proyecto');
-		$codEmpresa 	= $this->input->post('codEmpresa');
-
-		$descripcion_proyecto 	= $this->input->post('descripcion_proyecto');
-		$lugar_proyecto 	= $this->input->post('lugar_proyecto');
-
-
-		$data = array(
-			'codEmpresa' 			=> $codEmpresa,
-			'idCliente'  			=> $id_cliente,
-			'NombreProyecto'	=> $nombre_proyecto,
-			'DescripcionProyecto' => $descripcion_proyecto,
-			'Lugar' => $lugar_proyecto,
-			'estadoProyecto'		=> 1
-		);
+		$data = $this->input->post();
+		$data['estadoProyecto'] = 1;
 
 		$insert = $this->Proyectos_model->guardaProyecto($data);
 
@@ -74,26 +60,10 @@ class Proyectos extends CI_Controller {
 	}
 	function actualizaProyecto(){
 
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
-		$cod_empresa = $this->input->post('codEmpresa');
-		$nombre_proyecto = $this->input->post('nombre_proyecto');
-		$estado = $this->input->post('estado');
-		$lugar_proyecto=  $this->input->post('lugar_proyecto');
-		$descripcion_proyecto = $this->input->post('descripcion_proyecto');
+		$up = $this->input->post();
 
 		$resp = false;
-
-
-
-		$up = array(
-			'DescripcionProyecto'	=> $descripcion_proyecto,
-			'estadoProyecto'		=> $estado,
-			'NombreProyecto'		=> $nombre_proyecto,
-			'Lugar'		=> $lugar_proyecto,
-		);
-
-		$update = $this->Proyectos_model->actualizaProyecto($up, $id_cliente, $id_proyecto,$cod_empresa);
+		$update = $this->Proyectos_model->actualizaProyecto($up, $this->input->post('idCliente'), $this->input->post('NumeroProyecto'),$this->input->post('codEmpresa'));
 
 
 		if($update){
@@ -110,8 +80,9 @@ class Proyectos extends CI_Controller {
 
 	function eliminaProyecto(){
 
-		$id_cliente  = $this->input->post('id_cliente');
-		$id_proyecto = $this->input->post('id_proyecto');
+
+		$id_cliente  = $this->input->post('idCliente');
+		$id_proyecto = $this->input->post('NumeroProyecto');
 		$cod_empresa = $this->input->post('codEmpresa');
 
 		$delete = $this->Proyectos_model->eliminaProyecto($id_cliente, $id_proyecto,$cod_empresa);
