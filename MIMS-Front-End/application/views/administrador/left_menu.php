@@ -36,14 +36,14 @@
                     </a>
                     <ul class="nav nav-treeview">  
                     <li class="nav-item">
-                      <a href="<?php echo site_url('admin/index_empresa');?>" class="nav-link">
+                      <a href="<?php echo site_url('administrador/index_empresa');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Empresas</p>
                       </a>
                     </li>
 
                     <li class="nav-item">
-                      <a href="<?php echo site_url('admin/index_usuario');?>" class="nav-link">
+                      <a href="<?php echo site_url('administrador/index_usuario');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Usuarios</p>
                       </a>
