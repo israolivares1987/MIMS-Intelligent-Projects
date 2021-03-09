@@ -15,7 +15,7 @@ class MY_Controller extends CI_Controller {
 
 		$this->load->view('administrador/header');
 		$this->load->view('administrador/navbar');
-        $this->load->view('administrador/left_menu',$datos);
+        $this->load->view('administrador/left_menu');
         $this->load->view($view, $datos);
         $this->load->view('administrador/footer'); 
 	}
