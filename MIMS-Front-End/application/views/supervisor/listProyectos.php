@@ -48,6 +48,10 @@
                                         <th>Nombre de Proyecto</th> 
                                         <th>Lugar</th>
                                         <th>Estado Proyecto</th>
+                                        <th>Bodega</th>
+                                        <th>Carpa</th>
+                                        <th>Patio</th>
+                                        <th>Posición</th>
                                     </tr>
                                 </thead>
                                 <tbody id="datos_proyectos">
@@ -446,6 +450,10 @@ function recargaProyectos(cliente){
             proyectos_html += '<td><span class="bg-red">'+ proyecto.estadoProyecto +'</span></td>';
         }
          
+        proyectos_html += '<td>' + proyecto.id_bodega + '</td>';
+        proyectos_html += '<td>' + proyecto.id_carpa + '</td>';
+        proyectos_html += '<td>' + proyecto.id_patio + '</td>';
+        proyectos_html += '<td>' + proyecto.id_posicion + '</td>';
         proyectos_html += '</tr>';
 
         id_proyecto = proyecto.NumeroProyecto;

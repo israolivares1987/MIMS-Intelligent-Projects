@@ -886,7 +886,7 @@ class BuckSheet extends MY_Controller
   }
 
 
-  function obtieneBuckSheetBodega()
+  function obtieneBuckSheetRR()
   {
 
 
@@ -894,12 +894,27 @@ class BuckSheet extends MY_Controller
     $PurchaseOrderID = $this->input->post('id_orden');
     $GuiaDespacho = $this->input->post('guia');
     $codEmpresa = $this->session->userdata('cod_emp');
+    $packinglist = $this->input->post('packinglist');
 
 
     $respuesta = false;
 
-    $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($codEmpresa,$PurchaseOrderID,$GuiaDespacho);
+ 
+    if ($GuiaDespacho != "0") {
+    
+      $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuia($codEmpresa,$PurchaseOrderID,$GuiaDespacho);
 
+    }else if ($packinglist != "0") {
+  
+ 
+      $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetPackingList($codEmpresa,$PurchaseOrderID,$packinglist);
+
+    }else{
+      
+      $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($codEmpresa,$PurchaseOrderID);
+
+    }
+    
 
 
     $arrBucksheet = json_decode($bucksheet);

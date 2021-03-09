@@ -26,11 +26,25 @@ class BuckSheet extends CI_Controller {
 	}
 
 
-	function obtieneBuckSheetBodega(){
+	function obtieneBuckSheetGuia(){
 
 
 		$this->bucksheet->setidOc($this->input->post('ID_OC'));
 		$this->bucksheet->setGuia($this->input->post('GuiaDespacho'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetGuia();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+
+	function obtieneBuckSheetBodega(){
+
+
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
 		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
 
 		$BuckSheets = $this->bucksheet->obtieneBuckSheetBodega();
@@ -40,20 +54,55 @@ class BuckSheet extends CI_Controller {
 		echo json_encode($BuckSheets);
 	}
 
-
-	function obtieneBuckSheetGuias(){
+	function obtieneBuckSheetPackingList(){
 
 
 		$this->bucksheet->setidOc($this->input->post('ID_OC'));
 		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+		$this->bucksheet->setPackingList($this->input->post('PackingList'));
 
-		$BuckSheets = $this->bucksheet->obtieneBuckSheetGuias();
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetPackingList();
 	
 				
 		//output to json format
 		echo json_encode($BuckSheets);
 	}
 
+
+	
+	
+
+	function obtieneBuckSheetGuiasWpanel(){
+
+
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetGuiasWpanel();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+
+	function obtieneBuckSheetPackingListWpanel(){
+
+
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetPackingListWpanel();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+	
+
+
+	
 
 
 

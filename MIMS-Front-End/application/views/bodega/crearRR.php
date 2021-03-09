@@ -43,11 +43,24 @@
                                             </div>
                                         </div>
                                         </th>
-                                        <th>
+                                        
+                                     </tr>
+                                     <tr>
+                                     <th>
                                         <div class="col-12">
                                             <div class="form-group">
                                                     <label>Seleccione Guia de Despacho</label>
                                                     <?php echo $select_guias;?>
+                                            </div>
+                                        </div>
+
+
+                                         </th>
+                                         <th>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                    <label>Seleccione PackingList</label>
+                                                    <?php echo $select_packinglist;?>
                                             </div>
                                         </div>
 
@@ -59,18 +72,21 @@
                                                      onclick="aplicaFiltro()"><i class="fas fa-filter"></i>
                                                      Aplicar Filtro
                                                  </button>
+                                                 <button class="btn btn-block btn-outline-warning btn-sm" name="vender" id="crearRR"
+                                                     ><i class="fas fa-file-alt"></i>
+                                                     Crear RR
+                                                 </button>
                                              </div>
                                          </th>
-                                     </tr>
+                                    </tr>
+                                  
                                  </tbody>
                              </table>
                         </div>
 
                         <div class="card-body">
                         <form action="#" method="post" id="form">
-                        <input type="button" class="btn btn-warning" name="vender" value="Crear RR" id="crearRR">
-                        </br>
-                        </br>
+
                         </br>
                          <table id="tbl_rr" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
@@ -207,6 +223,7 @@
                         var array = table.rows({ selected: true }).data().toArray();
                         var orden = $('#ordenes').val();
                         var guia_despacho = $('#guias').val();
+                        var packinglist = $('#packinglist').val();
                         var cliente = $('#clientes').val();
                         var proyecto = $('#proyectos').val();
                         var num = 0;
@@ -226,7 +243,8 @@
                                         orden: orden,
                                         guia_despacho: guia_despacho,
                                         cliente: cliente,
-                                        proyecto: proyecto
+                                        proyecto: proyecto,
+                                        packinglist: packinglist
                                         }
                                 })
                                 .done(function(respuesta) {
@@ -250,7 +268,7 @@
 
                     });
 
-                recargaBuckSheet(0, 0);
+                recargaBuckSheet(0, 0,0,0);
 
                     //set input/textarea/select event when change value, remove class error and remove text help block 
                     $("input").change(function() {
@@ -313,6 +331,7 @@
                 var cliente = $('#clientes').val();
                 var orden = $('#ordenes').val();
                 var guia = $('#guias').val();
+                var packinglist = $('#packinglist').val();
 
                 if($('#clientes').val() == 0) {
                         alert('Debe seleccionar cliente');
@@ -326,15 +345,8 @@
                             alert('Debe seleccionar Orden');
                         }else{
 
-                        if($('#guias').val() == 0) {
-                            alert('Debe seleccionar guia de despacho');
-                        }else{
 
-
-                            recargaBuckSheet(orden, cliente, guia);
-                        
-                    
-                        }   
+                            recargaBuckSheet(orden, cliente, guia, packinglist);
 
 
                     }
@@ -344,6 +356,7 @@
 
 
             }
+
 
             $('select#clientes').on('change', function() {
             var cliente = $('#clientes').val();
@@ -375,6 +388,20 @@
 		});
 
     });
+
+
+    $('select#packinglist').on('change', function() {
+          
+		$('#guias').val('0');
+
+    });
+
+    $('select#guias').on('change', function() {
+          
+          $('#packinglist').val('0');
+  
+      });
+
 
 
     $('select#proyectos').on('change', function() {
@@ -418,7 +445,7 @@
             var orden = $('#ordenes').val();
 
 
-            $('#guias').val('');
+            $('#guias').val('0');
             $('#guias').change();
 
             $.ajax({
@@ -440,28 +467,56 @@
                 console.log("complete");
             });
 
+            $('#packinglist').val('0');
+            $('#packinglist').change();
+
+            $.ajax({
+                url: '<?php echo base_url();?>'+'index.php/Bodega/JSON_Ordenes_Packinglist',
+                type: 'POST',
+                dataType: 'JSON',
+                data: {
+                    orden: orden
+                    },
+            })
+            .done(function(respuesta) {
+                $("#packinglist").html(respuesta.packinglist);
+                
+            })
+            .fail(function() {
+                console.log("error");
+            })
+            .always(function() {
+                console.log("complete");
             });
 
 
 
-             function recargaBuckSheet(orden, cliente, guia) {
+
+
+
+            });
+
+
+
+             function recargaBuckSheet(orden, cliente, guia, packinglist) {
 
 
                  var tabla_bucksheet = $('#tbl_rr').DataTable();
 
-                 
+
                  tabla_bucksheet.destroy();
 
                  var  id_orden = orden; 
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetBodega')?>',
+                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetRR')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
                         id_orden: id_orden,
-                        guia: guia
+                        guia: guia,
+                        packinglist: packinglist 
                      },
                  }).done(function(result) {
 

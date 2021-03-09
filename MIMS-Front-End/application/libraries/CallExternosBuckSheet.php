@@ -55,11 +55,11 @@ class CallExternosBuckSheet {
       }
  
 
-      function obtieneBuckSheetBodega($codEmpresa,$ID_OC,$GuiaDespacho){
+      function obtieneBuckSheetGuia($codEmpresa,$ID_OC,$GuiaDespacho){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetBodega";
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetGuia";
   
   
             
@@ -89,12 +89,117 @@ class CallExternosBuckSheet {
   
       }
 
-
-      function obtieneBuckSheetGuias($codEmpresa,$ID_OC){
+      function obtieneBuckSheetBodega($codEmpresa,$ID_OC){
   
   
         $base_url_servicios =$this->obtienebaseservicios();                
-        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetGuias";
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetBodega";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' => $codEmpresa
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+      function obtieneBuckSheetPackingList($codEmpresa,$ID_OC,$PackingList){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetPackingList";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' => $codEmpresa,
+                    'PackingList' => $PackingList
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+      
+
+
+      function obtieneBuckSheetGuiasWpanel($codEmpresa,$ID_OC){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetGuiasWpanel";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' =>$codEmpresa
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+
+
+
+      function obtieneBuckSheetPackingListWpanel($codEmpresa,$ID_OC){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetPackingListWpanel";
   
   
             

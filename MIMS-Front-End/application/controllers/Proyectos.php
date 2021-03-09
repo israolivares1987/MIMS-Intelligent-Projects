@@ -10,6 +10,7 @@ class Proyectos extends MY_Controller{
     $this->load->library('CallExternosDominios');
     $this->load->library('CallUtil');
     $this->load->library('CallExternosBitacora');
+    $this->load->library('form_validation');
 
     if($this->session->userdata('logged_in') !== TRUE){
       redirect('login');
@@ -86,7 +87,11 @@ class Proyectos extends MY_Controller{
           'DescripcionProyecto'  => $value->DescripcionProyecto,
           'estadoProyecto'       => $value->estadoProyecto,
           'Lugar'       => $value->Lugar,
-          'idCliente'       => $value->idCliente
+          'idCliente'       => $value->idCliente,
+          'id_bodega' => $this->callutil->cambianull($value->id_bodega),
+          'id_carpa' => $this->callutil->cambianull($value->id_carpa),
+          'id_patio' => $this->callutil->cambianull($value->id_patio),
+          'id_posicion' => $this->callutil->cambianull($value->id_posicion)
         );
        
       }
@@ -104,18 +109,27 @@ function guardarProyecto(){
 
   $this->load->library('form_validation');
 
-  $id_cliente       = $this->input->post('id_cliente');
-  $nombre_proyecto  = $this->input->post('nombre_proyecto');
-  $descripcion_proyecto  = $this->input->post('descripcion_proyecto');
-  $lugar_proyecto  = $this->input->post('lugar_proyecto');
+  $id_cliente       = $this->input->post('var_cliente');
+  $nombre_proyecto  = $this->input->post('var_nombre_proyecto');
+  $descripcion_proyecto  = $this->input->post('var_descripcion_proyecto');
+  $lugar_proyecto  = $this->input->post('var_lugar_proyecto');
+
+  $var_id_bodega  = $this->input->post('var_id_bodega');
+  $var_id_carpa  = $this->input->post('var_id_carpa');
+  $var_id_patio  = $this->input->post('var_id_patio');
+  $var_id_posicion  = $this->input->post('var_id_posicion');
+
   $codEmpresa       = $this->session->userdata('cod_emp');
   
   
   $valida = array(
             'nombre_proyecto' => $nombre_proyecto,
             'descripcion_proyecto' => $descripcion_proyecto,
-            'lugar_proyecto' => $lugar_proyecto
-    
+            'lugar_proyecto' => $lugar_proyecto,
+            'id_bodega' => $var_id_bodega,
+            'id_carpa' => $var_id_carpa,
+            'id_patio' => $var_id_patio,
+            'id_posicion' => $var_id_posicion
 );
 
 $validar = $this->callutil->validarDatosProyectos($valida);
@@ -127,7 +141,22 @@ $validar = $this->callutil->validarDatosProyectos($valida);
   
   }else{
 
-    $proyectos = $this->callexternosproyectos->guardaProyecto($id_cliente, $nombre_proyecto,$descripcion_proyecto ,$lugar_proyecto,$codEmpresa);
+
+    $insert = array(
+      'codEmpresa'=> $codEmpresa,
+      'idCliente' => $id_cliente,
+      'NombreProyecto'=> $nombre_proyecto,
+      'DescripcionProyecto' => $descripcion_proyecto,
+      'Lugar'=> $lugar_proyecto,
+      'id_bodega' => $var_id_bodega,
+      'id_carpa' => $var_id_carpa,
+      'id_patio' => $var_id_patio,
+      'id_posicion' => $var_id_posicion
+);
+
+
+
+    $proyectos = $this->callexternosproyectos->guardaProyecto($insert);
 
 
     if($proyectos){
@@ -165,7 +194,7 @@ function editarProyecto(){
 
   $proyecto         = $this->callexternosproyectos->obtieneProyecto($id_proyecto,$id_cliente);
   $datosEstados     = $this->callexternosdominios->obtieneDatosRef('ESTADO_PROYECTO');
-  $select_estados   = '<select class="form-control" id="act_estado">'; 
+  $select_estados   = '<select class="form-control" name="act_estado" id="act_estado">'; 
   $nombre_proyecto  = '';
   $data = array();
 
@@ -175,6 +204,11 @@ function editarProyecto(){
     $nombre_proyecto = $value->NombreProyecto;
     $descripcion_proyecto = $value->DescripcionProyecto;
     $lugar_proyecto = $value->Lugar;
+
+    $id_bodega = $value->id_bodega;
+    $id_carpa = $value->id_carpa;
+    $id_patio = $value->id_patio;
+    $id_posicion = $value->id_posicion;
 
     foreach (json_decode($datosEstados) as $llave => $valor) {
       
@@ -192,7 +226,10 @@ function editarProyecto(){
   $data['descripcion_proyecto']    = $descripcion_proyecto;
   $data['lugar_proyecto']    = $lugar_proyecto;
   $data['select_estado']      = $select_estados;
-  $data['id_proyecto']        = $id_proyecto;
+  $data['id_bodega']        = $id_bodega;
+  $data['id_carpa']        = $id_carpa;
+  $data['id_patio']        = $id_patio;
+  $data['id_posicion']        = $id_posicion;
 
 
   echo json_encode($data);
@@ -204,16 +241,21 @@ function editarProyecto(){
 
 function actualizaProyecto(){
 
-  $this->load->library('form_validation');
+  
 
-  $id_cliente       = $this->input->post('id_cliente');
-  $id_proyecto      = $this->input->post('id_proyecto');
-  $nombre_proyecto  = $this->input->post('nombre_proyecto');
-  $estado           = $this->input->post('estado');
+  $id_cliente       = $this->input->post('act_id_cliente');
+  $id_proyecto      = $this->input->post('act_id_proyecto');
+  $nombre_proyecto  = $this->input->post('act_nombre_proyecto');
+  $estado           = $this->input->post('act_estado');
   $codEmpresa       = $this->session->userdata('cod_emp');
-  $descripcion_proyecto  = $this->input->post('descripcion_proyecto');
-  $lugar_proyecto  = $this->input->post('lugar_proyecto');
+  $descripcion_proyecto  = $this->input->post('act_descripcion_proyecto');
+  $lugar_proyecto  = $this->input->post('act_lugar_proyecto');
 
+
+  $var_id_bodega  = $this->input->post('act_id_bodega');
+  $var_id_carpa = $this->input->post('act_id_carpa');
+  $var_id_patio = $this->input->post('act_id_patio');
+  $var_id_posicion  = $this->input->post('act_id_posicion');
 
   $resp = false;
   $mensaje = "";
@@ -221,7 +263,7 @@ function actualizaProyecto(){
 
   $data = array();
 
-  $this->form_validation->set_rules('nombre_proyecto', 'Nombre proyecto', 'required|trim');
+  $this->form_validation->set_rules('act_nombre_proyecto', 'Nombre proyecto', 'required|trim');
 
   if(!$this->form_validation->run()){
       
@@ -230,17 +272,25 @@ function actualizaProyecto(){
   
   }else{
 
+
+
     $update = array(
-      'id_cliente'        => $id_cliente,
-      'id_proyecto'       => $id_proyecto,
-      'nombre_proyecto'  => $nombre_proyecto,
-      'lugar_proyecto' => $lugar_proyecto ,
-      'descripcion_proyecto' => $descripcion_proyecto ,
-      'estado'            => $estado,
-      'codEmpresa'        => $codEmpresa
-    );
+      'codEmpresa'=> $codEmpresa,
+      'idCliente' => $id_cliente,
+      'NumeroProyecto' => $id_proyecto,
+      'NombreProyecto'=> $nombre_proyecto,
+      'DescripcionProyecto' => $descripcion_proyecto,
+      'Lugar'=> $lugar_proyecto,
+      'estadoProyecto'            => $estado,
+      'id_bodega' => $var_id_bodega,
+      'id_carpa' => $var_id_carpa,
+      'id_patio' => $var_id_patio,
+      'id_posicion' => $var_id_posicion
+);
+
 
     $proyectos = $this->callexternosproyectos->actualizaProyecto($update);
+
 
     if($proyectos){
 
@@ -304,7 +354,14 @@ function eliminaProyecto(){
 
   }else{
 
-    $delete = $this->callexternosproyectos->actualizaProyecto($data);
+    
+    $data = array(
+      'codEmpresa'=> $codEmpresa,
+      'idCliente' => $id_cliente,
+      'NumeroProyecto' => $id_proyecto
+    );
+
+    $delete = $this->callexternosproyectos->eliminaProyecto($data);
 
     if($delete){
 

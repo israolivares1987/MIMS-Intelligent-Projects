@@ -101,6 +101,38 @@
 
              </div>
 
+<!-- TO DO List -->
+<div class="card-body">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <i class="ion ion-clipboard mr-1"></i>
+                 Gestor de Tarea
+                </h3>
+              </div>
+              <!-- /.card-header -->
+              <div class="card-body">
+              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                            <thead>
+                                                                <tr>
+                                                                    <th>Acciones</th>
+                                                                    <th>Gestor de Tarea</th>
+                                                                    <th>Descripcion</th>
+                                                                    <th>Estado</th>
+                                                                    <th>Fecha Inicio</th>
+                                                                    <th>Fecha Termino</th>
+                                                                    <th>Dias Restantes</th>
+                                                                </tr>
+                                                            </thead>
+                                                            <tbody id="datos_todo">
+                                                            </tbody>
+              </table>
+              </div>
+              <!-- /.card-body -->
+              <div class="card-footer clearfix">
+                <button type="button" id="btn_nuevo_todo" class="btn btn-info float-right"><i class="fas fa-plus"></i> Agregar To-Do</button>
+              </div>
+    </div>
+            <!-- /.card -->
 
                      <div class="card-body">
                             <table class="" cellspacing="0" width="100%">
@@ -176,39 +208,6 @@
                          </table>
                      </div>
                      </div>
-
- <!-- TO DO List -->
- <div class="card-body">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="ion ion-clipboard mr-1"></i>
-                 Gestor de Tarea
-                </h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>Acciones</th>
-                                                                    <th>Gestor de Tarea</th>
-                                                                    <th>Descripcion</th>
-                                                                    <th>Estado</th>
-                                                                    <th>Fecha Inicio</th>
-                                                                    <th>Fecha Termino</th>
-                                                                    <th>Dias Restantes</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="datos_todo">
-                                                            </tbody>
-              </table>
-              </div>
-              <!-- /.card-body -->
-              <div class="card-footer clearfix">
-                <button type="button" id="btn_nuevo_todo" class="btn btn-info float-right"><i class="fas fa-plus"></i> Agregar To-Do</button>
-              </div>
-    </div>
-            <!-- /.card -->
 
 
 
@@ -969,7 +968,7 @@ function recargaListaToDo(){
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetBodega')?>',
+                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetRR')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
