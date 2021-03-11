@@ -88,6 +88,20 @@ class ReporteRecepcion extends CI_Controller {
 			}	
 
 
+			function ActualizarBodegaDet()
+			{
+				
+		
+				$update = $this->input->post();
+		
+			
+					$updateEdp = $this->rr->actualizarDetalleRR($update,array('id_rr_cab' =>$this->input->post('id_rr_cab')));
+		
+					echo json_encode(array("status" => $updateEdp));
+		
+				}	
+
+
 			function listaRRDet(){
 
 				$codEmpresa = $this->input->post('codEmpresa');

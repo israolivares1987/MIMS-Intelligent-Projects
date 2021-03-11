@@ -85,10 +85,13 @@ class ReporteRecepcion_model extends CI_Model{
 									id_carpa,
 									id_patio,
 									id_posicion,
-									observacion
+									observacion,
+									observacion_exb,
+									inspeccion_requerida,
+									estado_rr_det
 							FROM tbl_rr_detalle
 							where cod_empresa = ". $codEmpresa." 
-							and   id_rr_cab = ".$id_rr_cab);
+							AND   id_rr_cab = ".$id_rr_cab);
 	  $CabeceraRR = $query->result();
 	  return $CabeceraRR;
 	}	
@@ -116,7 +119,9 @@ function obtieneRRDet($codEmpresa,$id_rr_det,$id_rr_cab){
 	id_carpa,
 	id_patio,
 	id_posicion,
-	observacion
+	observacion,
+	observacion_exb,
+	inspeccion_requerida
 FROM tbl_rr_detalle
 where cod_empresa = ". $codEmpresa." 
 and   id_rr_cab = ".$id_rr_cab."
