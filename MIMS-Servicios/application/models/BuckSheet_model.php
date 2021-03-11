@@ -171,7 +171,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
-	
+	$this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
      
 
 	 return $this->db->get()->result();    

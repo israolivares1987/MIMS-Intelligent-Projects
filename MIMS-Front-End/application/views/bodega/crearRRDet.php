@@ -76,6 +76,41 @@
                          <!-- /.row -->
                      <!-- /.card-header -->
 
+                     <div class="row">
+                             <div class="col-lg-12">
+                                 <div class="card">
+                                     <div class="card-header">
+                                         <h3 class="card-title">
+                                             <i class="fas fa-text-width"></i>
+                                             SELECCIONAR BODEGA
+                                         </h3>
+                                     </div>
+                                     <!-- /.card-header -->
+                                     <div class="card-body">
+                                     <form action="#" id="formactbodega" class="form-horizontal">
+                   
+                                                        <div class="col-md-12">
+                                                        
+                                                                <input type="hidden" id="id_rr_cab_bod" class="form-control" name="id_rr_cab_bod" value="<?php echo $id_rr?>"> 
+                                                                <div class="form-group"><label for="id bodega">BODEGA</label><?php echo $select_bodegas;?></div>
+                                                                <div class="form-group"><label for="id carpa">CARPA</label><input type="text" id="id_carpa_cab" class="form-control" name="id_carpa_cab" value=""></div>
+                                                                <div class="form-group"><label for="id patio">PATIO</label><input type="text" id="id_patio_cab" class="form-control" name="id_patio_cab" value=""></div>
+                                                                <div class="form-group"><label for="id posicion">POSICIÓN</label><input type="text" id="id_posicion_cab" class="form-control" name="id_posicion_cab" value=""></div>
+                                                         </div>
+
+                                    </form>
+                                     </div>
+                                     <!-- /.card-body -->
+                                 </div>
+                             </div>
+                             <div class="modal-footer justify-content-between">
+                                <button id="btnSaveBodega" type="button" class="btn btn-primary" onclick="ActualizaBodegaRRDet()">Actualizar Bodega</button>
+
+                            </div>
+                         </div>
+                         <!-- /.row -->
+                     <!-- /.card-header -->
+
                      <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
@@ -92,7 +127,13 @@
                                          <button id="btn_recargar"
                                              class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
                                                      </i>  Actualizar</button>
+                                                     <button style="display: none;" id="btn_cerrar_rr"
+                                             class="btn btn-outline-primary float-right"><i class="fas fa-times-circle"></i>
+                                               Cerrar RR</button>
                                     </th>
+                                   
+                                       
+                                    
                                  </tr>
                              </tbody>
                          </table>
@@ -115,6 +156,8 @@
                                      <th>PATIO</th>
                                      <th>POSICION</th>
                                      <th>OBSERVACION</th>
+                                     <th>OBSERVACION EXB</th>
+                                     <th>INSPECCIÓN EI</th>
                                  </tr>
                              </thead>
                              <tbody id="datos_rrdet">
@@ -167,16 +210,27 @@
                                                         
                                                                 <div class="form-group"><label for="st cantidad">CANTIDAD SOLICITADA</label><input type="text" id="st_cantidad" class="form-control" value="" name="st_cantidad" readonly></div>
                                                                 <div class="form-group"><label for="st cantidad recibida">CANTIDAD RECIBIDA</label><input type="text" id="st_cantidad_recibida" class="form-control" value="" name="st_cantidad_recibida"></div>
-                                                                <div class="form-group"><label for="id bodega">BODEGA</label><input type="text" id="id_bodega" class="form-control" name="id_bodega" value=""></div>
+                                                                <div class="form-group">
+                                                                   <label for="id bodega">BODEGA</label>
+                                                                      <div id="select_bodega">
+                                                                      </div>
+                                                                </div>
                                                                 <div class="form-group"><label for="id carpa">CARPA</label><input type="text" id="id_carpa" class="form-control" name="id_carpa" value=""></div>
-                                                        
+                                                                <div class="form-group"><label for="id carpa">INSPECCIÓN EI</label>  <select name="inspeccion_requerida" id="inspeccion_requerida"
+                                                                                            class="form-control">
+                                                                                            <option value="" selected></option>
+                                                                                            <option value="S">SI</option>
+                                                                                            <option value="N">NO</option></select> </div>
+                                                            
                                                         </div>
 
                                                         <div class="col-md-6">
                                                                 <div class="form-group"><label for="id patio">PATIO</label><input type="text" id="id_patio" class="form-control" name="id_patio" value=""></div>
                                                                 <div class="form-group"><label for="id posicion">POSICIÓN</label><input type="text" id="id_posicion" class="form-control" name="id_posicion" value=""></div>
                                                                 <div class="form-group"><label for="observacion">OBSERVACIÓN</label><input type="text" id="observacion" class="form-control" name="observacion" value=""></div>
-                                                        </div>
+                                                                <div class="form-group"><label for="observacion">OBSERVACIÓN EXB</label><input type="text" id="observacion_exb" class="form-control" name="observacion_exb" value=""></div>
+                                                               
+                                                                </div>
                                                   </div>
                                               </div>
                                     
@@ -274,12 +328,53 @@ $("select").change(function() {
 
 
 
+$('#btn_cerrar_rr').on('click', function() {
+
+var id_rr_recepcion = <?php echo $id_rr?> ;
+var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
+
+             
+   $.ajax({
+           url: '<?php echo base_url('index.php/Bodega/cerrarRR');?>',
+           type: 'post',
+           data: {
+            id_rr : id_rr_recepcion
+           },
+           dataType: "JSON",
+           beforeSend: function(){
+           mostrarBlock();
+           },
+           success: function(result){
+
+               if (result.resp) {
+
+                       
+                       toastr.success(result.mensaje);
+
+                       }else{
+
+                       toastr.warning(result.mensaje);
+                       }
+
+           },
+           complete:function(result){
+               $.unblockUI();
+           },
+           error: function(request, status, err) {
+
+           toastr.error("error: " + request + status + err);
+
+}
+           });
+
+});
+
+
 $('#btn_recargar').on('click', function() {
 
 var id_rr_recepcion = <?php echo $id_rr?> ;
 var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
 
-recargaRRDet(id_rr_recepcion, cod_empresa);
 
 });
 
@@ -339,10 +434,18 @@ $.ajax({
         rr_det_html += '<td>' + rr_det.id_patio + '</td>';
         rr_det_html += '<td>' + rr_det.id_posicion + '</td>';
         rr_det_html += '<td>' + rr_det.observacion + '</td>';
+        rr_det_html += '<td>' + rr_det.observacion_exb + '</td>';
+        rr_det_html += '<td>' + rr_det.inspeccion_requerida + '</td>';
         rr_det_html += '</tr>';
 
     });
 
+    if(result.botonCierre){
+
+        formToggleActivar('btn_cerrar_rr');
+    }else{
+        formToggleDesactivar('btn_cerrar_rr');
+    }
 
     $('#datos_rrdet').html(rr_det_html);
     $('#tbl_rr_det').DataTable({
@@ -427,13 +530,17 @@ $('#id_rr_det').val(result.id_rr_det);
 $('#id_rr_cab').val(result.id_rr_cab); 
 $('#st_cantidad').val(result.st_cantidad); 
 $('#st_cantidad_recibida').val(result.st_cantidad_recibida); 
-$('#id_bodega').val(result.id_bodega); 
+$('#select_bodega').html(result.select_bodega); 
 $('#id_carpa').val(result.id_carpa); 
 $('#id_patio').val(result.id_patio); 
 $('#id_posicion').val(result.id_posicion); 
 $('#observacion').val(result.observacion); 
 $('#id_orden_compra').val(result.id_orden_compra); 
 $('#numero_linea_wpanel').val(result.numero_linea_wpanel); 
+$('#observacion_exb').val(result.observacion_exb); 
+$('#inspeccion_requerida').val(result.inspeccion_requerida); 
+
+
 
 $('#modal-rrdet').modal('show');
 
@@ -444,6 +551,8 @@ console.log("error " + error);
 })
 
 }
+
+
 
 
 function ActualizaRRDet() {
@@ -469,6 +578,52 @@ data = new FormData(document.getElementById("formrrdet"));
                if (result.resp) {
 
                        $('#modal-rrdet').modal('hide');
+                       recargaRRDet(id_rr_recepcion, cod_empresa);
+
+                       toastr.success(result.mensaje);
+
+                       }else{
+
+                       toastr.warning(result.mensaje);
+                       }
+
+           },
+           complete:function(result){
+               $.unblockUI();
+           },
+           error: function(request, status, err) {
+
+           toastr.error("error: " + request + status + err);
+
+}
+           });
+
+
+}
+
+
+function ActualizaBodegaRRDet() {
+
+
+var id_rr_recepcion = <?php echo $id_rr?> ;
+var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
+
+data = new FormData(document.getElementById("formactbodega"));
+             
+   $.ajax({
+           url: '<?php echo base_url('index.php/Bodega/ActualizarBodegaDet');?>',
+           type: 'post',
+           data: data,
+           contentType: false,
+           processData: false,
+           dataType: "JSON",
+           beforeSend: function(){
+           mostrarBlock();
+           },
+           success: function(result){
+
+               if (result.resp) {
+
                        recargaRRDet(id_rr_recepcion, cod_empresa);
 
                        toastr.success(result.mensaje);

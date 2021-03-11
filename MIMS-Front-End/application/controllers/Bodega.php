@@ -439,7 +439,9 @@ $datos['listaTodo'] = $listaTodo ;
                 'id_carpa' => "" ,
                 'id_patio' => "" ,
                 'id_posicion' => "" ,
-                'observacion' => ""
+                'observacion' => "",
+                'observacion_exb' => "",
+                'inspeccion_requerida' => ""
                 );
 
                 $num++; 
@@ -486,10 +488,12 @@ $datos['listaTodo'] = $listaTodo ;
   
 public function crearRRDet($NumRR){
 
-
+  //Obtiene cabecera
   $rrcab = $this->callexternosreporterecepcion->obtieneCabeceraRR($NumRR);
 
   $arrRRcab = json_decode($rrcab);
+
+  $codEmpresa = $this->session->userdata('cod_emp');
  
 
   if($arrRRcab){
@@ -513,6 +517,27 @@ public function crearRRDet($NumRR){
   }
 
 
+     // Obtiene select Bodega
+  
+     $bodegas = $this->callexternosbodegas->obtieneBodegas($codEmpresa);
+  
+     $arrBodegas = json_decode($bodegas);
+ 
+     $htmlbodegas = "";
+     
+     $htmlbodegas .= '<select class="form-control" name="id_bodegas_cab" id="id_bodegas_cab">';
+     $htmlbodegas .= '<option value="0">Seleccione Bodega</option>';
+     
+     foreach ($arrBodegas as $key => $value) {
+ 
+       $htmlbodegas .= '<option data-name="'.trim($value->nombre_bodega).'" value="'.$value->nombre_bodega.'">'.$value->nombre_bodega.'</option>';
+     
+     }
+
+     $htmlbodegas .= '</select>';
+
+
+  $datos['select_bodegas'] = $htmlbodegas;  
   $datos['id_rr'] = $id_rr;
   $datos['id_rr_recepcion'] = $id_rr_recepcion;
   $datos['fecha_creacion'] = $fecha_creacion;
@@ -538,6 +563,9 @@ public function crearRRDet($NumRR){
     $id_rr_cab = $this->input->post('id_rr_cab');
     $responserrdet = $this->callexternosreporterecepcion->listaRRDet($codEmpresa,$id_rr_cab);
     $respuesta = false;
+    $boton_activo  = false;
+    $count = 0;
+    $count_estados= 0;
 
     $arrRRDet = json_decode($responserrdet);
    
@@ -547,6 +575,8 @@ public function crearRRDet($NumRR){
       $respuesta = true;
       
       foreach ($arrRRDet as $key => $value) {
+        
+        $count = $count +1;
 
         $datos_rrdet[] = array(
           'id_rr_det' => $value->id_rr_det,
@@ -567,13 +597,32 @@ public function crearRRDet($NumRR){
           'id_carpa' => $value->id_carpa,
           'id_patio' => $value->id_patio,
           'id_posicion' => $value->id_posicion,
-          'observacion' => $value->observacion
+          'observacion' => $value->observacion,
+          'observacion_exb' => $this->callutil->cambianull($value->observacion_exb),
+          'inspeccion_requerida' =>$value->inspeccion_requerida
         );
+
+        if ($value->estado_rr_det === '1'){
+
+          $count_estados = $count_estados + 1;
+
+        }
+        
         
       }
     }
 
+    if($count_estados == $count){
+
+      $boton_activo= true;
+
+    }else{
+
+      $boton_activo= false;
+    }
+
     $datos['rr_dets'] = $datos_rrdet;
+    $datos['botonCierre'] = $boton_activo;
     $datos['resp']      = $respuesta;
 
     echo json_encode($datos);
@@ -668,7 +717,9 @@ public function crearRRDet($NumRR){
       $id_rr_cab = $this->input->post('id_rr_recepcion');
       $id_rr_det = $this->input->post('id_rr_det');
       $responserrdet = $this->callexternosreporterecepcion->obtieneRRDet($codEmpresa,$id_rr_det,$id_rr_cab);
+
       $respuesta = false;
+      $selected = 1;
 
    
       $arrRRDet = json_decode($responserrdet);
@@ -679,7 +730,33 @@ public function crearRRDet($NumRR){
         $respuesta = true;
         
         foreach ($arrRRDet as $key => $value) {
-  
+
+          $responseBodegas = $this->callexternosbodegas->obtieneBodegas($codEmpresa);
+    
+          $datosBodegas = json_decode($responseBodegas);
+          $html = '';
+    
+          $html .= '<select name="id_bodega" class="form-control" id="id_bodega">'; 
+    
+          if($datosBodegas){
+    
+            $seleccionado = '';
+    
+            foreach ($datosBodegas as $key1 => $value1) {
+    
+              if($selected > 0){
+                $seleccionado = ($value->id_bodega == $value1->nombre_bodega) ? 'selected' : '';
+              }
+    
+              $html .= '<option '.$seleccionado.' value="'.$value1->nombre_bodega.'">'.$value1->nombre_bodega.'</option>';
+            }
+    
+          }else{
+            $html .= '<option value="0">No existen Bodegas</option>';
+          }
+    
+          $html .= '</select>';
+   
           $datos_rrdet = array(
             'id_rr_det' => $value->id_rr_det,
             'cod_empresa' => $value->cod_empresa,
@@ -695,11 +772,13 @@ public function crearRRDet($NumRR){
             'guia_despacho' => $value->guia_despacho,
             'st_cantidad' => $value->st_cantidad,
             'st_cantidad_recibida' => $value->st_cantidad_recibida,
-            'id_bodega' => $value->id_bodega,
+            'select_bodega' => $html,
             'id_carpa' => $value->id_carpa,
             'id_patio' => $value->id_patio,
             'id_posicion' => $value->id_posicion,
-            'observacion' => $value->observacion
+            'observacion' => $value->observacion,
+            'observacion_exb' => $value->observacion_exb,
+            'inspeccion_requerida' =>$value->inspeccion_requerida
           );
           
         }
@@ -727,6 +806,10 @@ public function crearRRDet($NumRR){
       $observacion = $this->input->post('observacion');
       $id_orden_compra = $this->input->post('id_orden_compra');
       $numero_linea_wpanel = $this->input->post('numero_linea_wpanel');
+
+
+      $observacion_exb = $this->input->post('observacion_exb');
+      $inspeccion_requerida =  $this->input->post('inspeccion_requerida');
       $boton_activo ="";
 
 
@@ -777,7 +860,10 @@ public function crearRRDet($NumRR){
               'id_carpa' => $id_carpa ,
               'id_patio' => $id_patio ,
               'id_posicion' => $id_posicion ,
-              'observacion' => $observacion
+              'observacion' => $observacion,
+              'observacion_exb' => $observacion_exb,
+              'inspeccion_requerida' =>  $inspeccion_requerida,
+              'estado_rr_det'=> '1'
     
             );
       
@@ -944,11 +1030,11 @@ public function crearRRDet($NumRR){
         }
 
       }
-    
-  
+
+
       $data['resp']        = $resp;
       $data['mensaje']     = $error_msg;
-      $data['botonActivo'] = $boton_activo;
+   
    
   
       echo json_encode($data);
@@ -957,6 +1043,156 @@ public function crearRRDet($NumRR){
 
     }
 
+
+    function ActualizarBodegaDet(){  
+
+     
+      $cod_empresa = $this->session->userdata('cod_emp');
+      $id_rr_cab = $this->input->post('id_rr_cab_bod');
+      $id_bodega = $this->input->post('id_bodegas_cab');
+      $id_carpa = $this->input->post('id_carpa_cab');
+      $id_patio = $this->input->post('id_patio_cab');
+      $id_posicion = $this->input->post('id_posicion_cab');
+     
+      $resp = false;
+      $mensaje = "";
+  
+  
+      $data = array();
+  
+      $st_cantidad_recibida_valida = $this->form_validation->set_rules('id_bodegas_cab', 'id_bodegas_cab', 'required|trim');
+      
+      if(!$st_cantidad_recibida_valida->run()){
+          
+  
+        $error_msg = 'Campos faltantes, favor revisar.';
+        $resp =  false;
+  
+      
+  
+      }else{
+
+      
+            $update= array(
+
+              'cod_empresa' => $cod_empresa ,
+              'id_rr_cab' => $id_rr_cab ,
+              'id_bodega' => $id_bodega ,
+              'id_carpa' => $id_carpa ,
+              'id_patio' => $id_patio ,
+              'id_posicion' => $id_posicion
+  
+            );
+      
+            $rrdet = $this->callexternosreporterecepcion->ActualizarBodegaDet($update);
+        
+      
+                    if($rrdet){
+              
+                      $error_msg = 'Bodega actualizada correctamente.';
+                      $resp =  true;
+              
+              
+                      $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                      'accion'  => 'ACTUALIZA_RR_BODEGA',
+                      'usuario'  =>  $this->session->userdata('n_usuario'),
+                      'id_registro' =>  $id_rr_cab,
+                      'rol' =>   $this->session->userdata('nombre_rol'),
+                      'objeto'  => 'RR' ,
+                      'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+              
+                      $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+
+                     
+                    }else{
+                  
+                          $error_msg = 'Inconvenientes al actualizar RR, favor reintente.';
+                          $resp =  false;
+                  
+                        }
+
+      }
+    
+  
+      $data['resp']        = $resp;
+      $data['mensaje']     = $error_msg;
+  
+      echo json_encode($data);
+  
+
+    }
+
+
+    function cerrarRR(){
+
+      $codEmpresa = $this->session->userdata('cod_emp');
+      $id_rr = $this->input->post('id_rr');
+
+    // actualiza estado Cabecera
+
+     $dataUpdate = array(	
+      'estado_rr' => '1' ,
+      'id_rr' => $id_rr
+      );
+
+      $cabrr= $this->callexternosreporterecepcion->actualizarCabeceraRR($dataUpdate);
+      
+    // Actualiza Linea de Wpanel
+    
+    
+    $responserrdet = $this->callexternosreporterecepcion->listaRRDet($codEmpresa,$id_rr);
+    $arrRRDet = json_decode($responserrdet);
+
+    if($arrRRDet){
+     
+      foreach ($arrRRDet as $key => $value) {
+        
+        if(strlen($value->observacion_exb) < 1 || $value->observacion_exb === "" || isset($value->observacion_exb) || empty($value->observacion_exb) || is_null($value->observacion_exb)){
+          $observacion_exb = 'N';
+        }else{
+          $observacion_exb = 'S';  
+        }
+
+
+        if($observacion_exb === 'N' &&  $value->inspeccion_requerida === 'N'){
+          
+          $estado_linea_wpanel = '8';
+        
+        }else{
+
+          $estado_linea_wpanel = '9';
+        
+        }
+
+        $memData = array(
+          'COD_EMPRESA' => $value->cod_empresa,
+          'ID_OC' =>  $value->id_orden_compra,
+          'ESTADO_DE_LINEA' => $estado_linea_wpanel,
+          'NUMERO_DE_LINEA' =>  $value->numero_linea_wpanel,
+          'REPORTE_DE_RECEPCION_RR' =>  'RR-'.$value->id_rr_cab,
+          'REPORTE_DE_EXCEPCION_EXB' => $observacion_exb,
+          'INSPECCION_DE_INGENIERIA' => $value->inspeccion_requerida
+          
+        );
+
+        
+        $response = $this->callexternosbucksheet->updateBuckSheetLinea($memData);
+       
+
+        }
+
+   
+      }
+
+      $data['resp']        = true;
+      $data['mensaje']     = 'RR Creada correctamente';
+  
+      echo json_encode($data);
+
+
+
+
+    }
 
     function creaPDF(){
 
