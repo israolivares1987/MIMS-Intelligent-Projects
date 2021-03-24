@@ -351,620 +351,250 @@
      <!-- /.modal-dialog -->
  </div>                 
 
+  <!--.modal nuevo orden-->
+ <div class="modal fade" id="modal_new_orden">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">NUEVA ORDEN</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_orden" class="form-horizontal">
+                <input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
+				       	<input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
 
-      <!--.modal nuevo orden-->
-      <div id="modal_new_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Nuevo Orden</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form id="form_orden">
-                  <div class="card-body">
-                     <div class="row">
+                     <section class="content">
 
-              <div class="col-12 col-sm-6">
-                
-                <div class="form-group">
-                   <label class="col-sm-12 control-label">Nombre Proyecto</label>
-                            <div class="col-sm-12">
-                              <input id="or_nombre_proyecto" type="text" value="" class="form-control form-control-sm" readonly >
-                            </div> 
-                </div>
-                </div>
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
 
-                <div class="col-12 col-sm-6">
-                
-                <div class="form-group">
-                   <label class="col-sm-12 control-label">Nombre Cliente</label>
-                            <div class="col-sm-12">
-                              <input id="or_nombre_cliente" type="text" value="" class="form-control form-control-sm" readonly >
-                            </div> 
-                </div>
-                </div>
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="NOMBRE PROYECTO">NOMBRE PROYECTO</label><input type="text" id="or_nombre_proyecto" class="form-control" name="or_nombre_proyecto" readonly></div>
+                                                            <div class="form-group"><label for="NOMBRE CLIENTE">NOMBRE CLIENTE</label><input type="text" id="or_nombre_cliente" class="form-control" name="or_nombre_cliente" readonly></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">NÚMERO ORDEN DE COMPRA</label><input type="text" id="or_purchase_order" class="form-control" name="or_purchase_order"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CRITICIDAD</label><div id="s_criticidad"></div></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">ID REQUERIMIENTO</label><input type="text" id="or_idrequerimiento" class="form-control" name="or_idrequerimiento"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CATEGORIZACION</label><div id="s_categorizacion"></div></div>
+                                                        </div>
 
-
-                <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Numero Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_purchase_order" name="or_purchase_order" type="text" class="form-control form-control-sm">
-                            </div>
-                 </div>
-
-                  </div>
-
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Criticidad</label>
-                                <div class="col-sm-12">
-                                      <div id="s_criticidad"></div>
-                                </div>
-                    </div>
-                    </div>
-
-
-                  <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">ID Requerimiento</label>
-                            <div class="col-sm-12">
-                              <input id="or_idrequerimiento" name="or_idrequerimiento" type="text" class="form-control form-control-sm">
-                            </div>
-                 </div>
-
-                  </div>
-
-
-                  
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Categorizacion</label>
-                                <div class="col-sm-12">
-                                  <div id="s_categorizacion"></div>
-                                </div>
-                  
-                  </div>
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    
-                    <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
-                                <div class="col-sm-12">
-                                  <input id="or_purchase_desc" name="or_purchase_desc" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                    </div>
-
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    
-                    <label class="col-sm-12 control-label">Revision</label>
-                                <div class="col-sm-12">
-                                  <input id="or_revision" name="or_revision" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                    </div>
-
-
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Proveedor</label>
-                                <div class="col-sm-12">
-                                  <div id="s_supplier"></div>
-                                </div>
-                  
-                  </div>
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label class="col-sm-12 control-label">Comprador</label>
-                                <div class="col-sm-12">
-                                  <input id="or_comprador" name="or_comprador" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                  </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Activador</label>
-                                <div class="col-sm-12">
-                                      <div id="s_employee"></div>
-                                </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Moneda</label>
-                            <div class="col-sm-12">
-                              <div id="s_currency"></div>
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Ingeniero Requestor</label>
-                            <div class="col-sm-12">
-                              <input autocomplete="off" type="text" name="or_requestor" id="or_requestor" class="form-control form-control-sm">
-                              <!--div id="s_ingeniero"></div-->
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor neto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_purchase_desc" class="form-control" name="or_purchase_desc"></div>
+                                                            <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_revision" class="form-control" name="or_revision"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="or_supplier" class="form-control" name="or_supplier"></div>
+                                                            <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_comprador" class="form-control" name="or_comprador"></div>
+                                                            <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_employee"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_currency"></div></div>
+                                                            <div class="form-group"><label for="INGENIERO REQUESTOR">INGENIERO REQUESTOR</label><input type="text" id="or_requestor" class="form-control" name="or_requestor"></div>
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
                                     </div>
-                               <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)">
+                                </div>
                             </div>
-                    </div>
-                    </div>
 
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor total</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">VALORES ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
+                                                            <div class="form-group"><label for="VALOR TOTAL">VALOR TOTAL</label><input id="or_valor_total" name="or_valor_total" type="text" class="form-control" onkeyup="formatoNumero(this)" readonly></div>
+                                                            <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_budget" name="or_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
+                                                            <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_costcodebudget" name="or_costcodebudget" class="form-control" ></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_order_date" type="text" class="form-control" id="or_order_date"></div>
+                                                            
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control" id="or_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_ship_date" type="text" class="form-control" id="or_ship_date"></div>
+                                                            <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_shipping"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_status"></div></div>
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_support" name="or_support" type="file" class="form-control form-control-file"></div>
+                                                            
+                                                            
+                                                            
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
                                     </div>
-                              <input id="or_valor_total" name="or_valor_total" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" readonly>
+                                </div>
                             </div>
-                          </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Presupuesto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                              <input id="or_budget" name="or_budget" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
-                            </div>
-                          </div>
-                    </div>
 
 
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Codigo Presupuesto</label>
-                            <div class="col-sm-12">
-                              <input id="or_costcodebudget" name="or_costcodebudget" class="form-control form-control-sm" >
-                            </div>
-                          </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha emision orden de compra</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_order_date" type="text" class="form-control" id="or_order_date"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                           </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha requerida</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_date_required" type="text" class="form-control" id="or_date_required"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                                         </div>
-                                      </div>
 
 
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha de cierre de orden de compra</label>
+                    </section>
 
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_ship_date" type="text" class="form-control" id="or_ship_date"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                                         </div>
-                   </div>
+                     
+                 </form>
+             </div>
 
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Metodo envio</label>
-                            <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i class="fas fa-shipping-fast"></i></span>
-                                                 </div>
-                              <div id="s_shipping"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_orden" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                   
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Estado orden</label>
-                            <div class="col-sm-12">
-                              <div id="s_status"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Archivo respaldo</label>
-                            <div class="col-sm-12">
-                              <input id="or_support" name="or_support" type="file" class="form-control form-control-file">
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-					<input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
-					<input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
-
-
-            </div>
-					  <div class="modal-footer justify-content-between">
-						  <button id="btn_orden" type="button" class="btn btn-outline-primary">Guardar</button>
-						  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-					  </div>
-        
-			      </div>
-                 
-                </form>
-              </div><!--.container-->
-            </div><!--.modal-body-->
-         
-          </div><!--.modal-content-->
-        </div><!--.modal-dialog-->
-      </div><!--.modal-->
-      <!--.fin modal nuevo orden-->
-
-
- <!--.modal edita orden-->
-      <div id="modal_edit_orden" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Actualiza Orden</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form id="form_orden_act">
-                  <div class="card-body">
-                     <div class="row">
-
-
-               <div class="col-12 col-sm-6">
-                
-                <div class="form-group">
-                   <label class="col-sm-12 control-label">Nombre Proyecto</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_nombre_proyecto" type="text" class="form-control form-control-sm" readonly >
-                            </div> 
                 </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
+
+
+
+
+  <!--.modal nuevo orden-->
+  <div class="modal fade" id="modal_edit_orden">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">ACTUALIZAR ORDEN</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_orden_act" class="form-horizontal">
+
+             	 <input type="hidden" id="id_act_order" name="id_act_order" value="">
+					     <input type="hidden" id="id_act_proyecto" name="id_act_proyecto" value=""> 
+					     <input type="hidden" id="id_act_cliente" name="id_act_cliente" value="">
+
+                     <section class="content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="NOMBRE PROYECTO">NOMBRE PROYECTO</label><input type="text" id="or_act_nombre_proyecto" class="form-control" name="or_act_nombre_proyecto" readonly></div>
+                                                            <div class="form-group"><label for="NOMBRE CLIENTE">NOMBRE CLIENTE</label><input type="text" id="or_act_nombre_cliente" class="form-control" name="or_act_nombre_cliente" readonly></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">NÚMERO ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_order" class="form-control" name="or_act_purchase_order"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CRITICIDAD</label><div id="s_act_criticidad"></div></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">ID REQUERIMIENTO</label><input type="text" id="or_act_idrequerimiento" class="form-control" name="or_act__idrequerimiento"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CATEGORIZACION</label><div id="s_act_categorizacion"></div></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_desc" class="form-control" name="or_act_purchase_desc"></div>
+                                                            <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_act_revision" class="form-control" name="or_act_revision"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="or_act_supplier" class="form-control" name="or_act_supplier"></div>
+                                                            <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_act_comprador" class="form-control" name="or_act_comprador"></div>
+                                                            <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_act_employee"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_act_currency"></div></div>
+                                                            <div class="form-group"><label for="INGENIERO REQUESTOR">INGENIERO REQUESTOR</label><input type="text" id="or_act_requestor" class="form-control" name="or_act_requestor"></div>
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">VALORES ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
+                                                            <div class="form-group"><label for="VALOR TOTAL">VALOR TOTAL</label><input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control" onkeyup="formatoNumero(this)" readonly></div>
+                                                            <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_act_budget" name="or_act_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
+                                                            <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control" ></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control" id="or_act_order_date"></div>
+                                                            
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_date_required" type="text" class="form-control" id="or_act_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control" id="or_act_ship_date"></div>
+                                                            <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_act_shipping"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_act_status"></div></div>
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
+                                                            
+                                                            
+                                                            
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_act_orden" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
                 </div>
-
-
-                <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Numero Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_purchase_order" name="or_act_purchase_order" type="text" class="form-control form-control-sm">
-                            </div>
-                 </div>
-
-                  </div>
-
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Criticidad</label>
-                                <div class="col-sm-12">
-                                      <div id="s_act_criticidad"></div>
-                                </div>
-                    </div>
-                    </div>
-
-                  <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">ID Requerimiento</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_idrequerimiento" name="or_act_idrequerimiento" type="text" class="form-control form-control-sm" readonly>
-                            </div>
-                 </div>
-
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Categorizacion</label>
-                                <div class="col-sm-12">
-                                  <div id="s_act_categorizacion"></div>
-                                </div>
-                  
-                  </div>
-                  </div>
-
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    
-                    <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
-                                <div class="col-sm-12">
-                                  <input id="or_act_purchase_desc" name="or_act_purchase_desc" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    
-                    <label class="col-sm-12 control-label">Revision</label>
-                                <div class="col-sm-12">
-                                  <input id="or_act_revision" name="or_act_revision" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Proveedor</label>
-                                <div class="col-sm-12">
-                                  <div id="s_act_supplier"></div>
-                                </div>
-                  
-                  </div>
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                      <label class="col-sm-12 control-label">Comprador</label>
-                                <div class="col-sm-12">
-                                  <input id="or_act_comprador" name="or_act_comprador" type="text" class="form-control form-control-sm">
-                                </div>
-                    </div>
-                  </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                    <label class="col-sm-12 control-label">Seleccione Activador</label>
-                                <div class="col-sm-12">
-                                      <div id="s_act_employee"></div>
-                                </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Moneda</label>
-                            <div class="col-sm-12">
-                              <div id="s_act_currency"></div>
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Ingeniero Requestor</label>
-                            <div class="col-sm-12">
-                              <input autocomplete="off" type="text" name="or_act_requestor" id="or_act_requestor" class="form-control form-control-sm">
-                              <!--div id="s_ingeniero"></div-->
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor neto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalAct(this)">
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor total</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                              <input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control form-control-sm"  onkeyup="formatoNumero(this)" readonly>
-                            </div>
-                          </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Presupuesto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                              <input id="or_act_budget" name="or_act_budget" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)">
-                            </div>
-                          </div>
-                    </div>
-
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Codigo Presupuesto</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control form-control-sm">
-                            </div>
-                          </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha emision orden de compra</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_act_order_date" type="text" class="form-control" id="or_act_order_date"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                           </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha requerida</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_act_date_required" type="text" class="form-control" id="or_act_date_required"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                                         </div>
-                                      </div>
-
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                                             <label>Fecha de cierre de orden de compra<</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="or_act_ship_date" type="text" class="form-control" id="or_act_ship_date"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                                         </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Metodo envio</label>
-                            <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i class="fas fa-shipping-fast"></i></span>
-                                                 </div>
-                              <div id="s_act_shipping"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-                   
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Estado orden</label>
-                            <div class="col-sm-12">
-                              <div id="s_act_status"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Archivo respaldo</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file">
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-
-
-
-              </div>
-
-					 <input type="hidden" id="id_act_order" name="id_act_order" value="">
-					  <input type="hidden" id="id_act_proyecto" name="id_act_proyecto" value=""> 
-					  <input type="hidden" id="id_act_cliente" name="id_act_cliente" value="">
-
-
-                   </div>
-			      <div class="modal-footer justify-content-between">
-							  <button id="btn_act_orden" type="button" class="btn btn-outline-primary">Guardar</button>
-							  <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-						</div>
-                
-                </form>
-              </div><!--.container-->
-            </div><!--.modal-body-->
-         
-          </div><!--.modal-content-->
-        </div><!--.modal-dialog-->
-      </div><!--.modal-->
-      <!--.fin modal edita orden-->
-
-
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
   <!--.modal nueva oden item-->
   <div id="modal_nuevo_orden_item" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
         <div class="modal-dialog modal-xl">
@@ -2953,7 +2583,6 @@ function obtieneSelects(){
     dataType: 'json'
     }).done(function(result) {
 
-      $('#s_supplier').html(result.select_supplier);
       $('#s_criticidad').html(result.select_criticidad);
       $('#s_employee').html(result.select_employee);
       $('#s_currency').html(result.select_currency);
@@ -3068,7 +2697,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#or_act_revision').val(result.formulario.revision);
 
       $('#or_act_comprador').val(result.formulario.comprador);
-      $('#s_act_supplier').html(result.formulario.select_supplier);
+      $('#or_act_supplier').val(result.formulario.supplier);
       $('#s_act_employee').html(result.formulario.select_employee);
 
       $('#s_act_currency').html(result.formulario.select_currency);
@@ -3087,6 +2716,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#or_act_ship_date').val(result.formulario.ship_date);
       $('#s_act_shipping').html(result.formulario.select_shipping);
       $('#s_act_status').html(result.formulario.select_status);
+      $('#or_act_nombre_proyecto').val(result.formulario.nombre_proyecto);
 
       $('#id_act_order').val(order_id);
       $('#id_act_proyecto').val(id_proyecto);

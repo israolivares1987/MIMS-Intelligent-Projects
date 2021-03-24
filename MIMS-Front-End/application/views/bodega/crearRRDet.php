@@ -33,12 +33,16 @@
                                              <dd class="col-sm-9"><?php echo $id_rr_recepcion;?></dd>
                                              <dt class="col-sm-8">Fecha Creacion:</dt>
                                              <dd class="col-sm-9"><?php echo $fecha_creacion;?></dd>
+                                             <dt class="col-sm-8">Fecha Entrega:</dt>
+                                             <dd class="col-sm-9"><?php echo $fecha_entrega;?></dd>
                                              <dt class="col-sm-8">Usuario creacion:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($usuario_creacion);?>
                                              <dt class="col-sm-8">Cliente:</dt>
-                                             <dd class="col-sm-9"><?php echo urldecode($id_cliente);?>
+                                             <dd class="col-sm-9"><?php echo urldecode($descripcion_cliente);?>
                                              <dt class="col-sm-8">Proyecto:</dt>
-                                             <dd class="col-sm-9"><?php echo urldecode($id_proyecto);?>
+                                             <dd class="col-sm-9"><?php echo urldecode($descripcion_proyecto);?>
+
+                                             
                                              
                                          </dl>
                                      </div>
@@ -66,6 +70,8 @@
                                              <dd class="col-sm-9"><?php echo urldecode($guia_despacho);?></dd>
                                              <dt class="col-sm-8">Proveedor:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($proveedor);?></dd>
+                                             <dt class="col-sm-8">&nbsp;</dt>
+                                             <dd class="col-sm-9">&nbsp;</dd>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
@@ -149,6 +155,7 @@
                                      <th>ID ORDEN CLIENTE</th>
                                      <th>PACKING LIST</th>
                                      <th>GUIA DESPACHO</th>
+                                     <th>NUMERO DE VIAJE</th>
                                      <th>ST CANTIDAD</th>
                                      <th>ST CANTIDAD RECIBIDA</th>
                                      <th>BODEGA</th>
@@ -351,6 +358,8 @@ var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
                        
                        toastr.success(result.mensaje);
 
+                       window.open('<?php echo site_url('Bodega/creaPDFRR/')?>' + id_rr_recepcion,'_self');
+
                        }else{
 
                        toastr.warning(result.mensaje);
@@ -375,6 +384,7 @@ $('#btn_recargar').on('click', function() {
 var id_rr_recepcion = <?php echo $id_rr?> ;
 var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
 
+recargaRRDet(id_rr_recepcion, cod_empresa);
 
 });
 
@@ -427,6 +437,7 @@ $.ajax({
         rr_det_html += '<td>' + rr_det.id_orden_cliente + '</td>';
         rr_det_html += '<td>' + rr_det.packing_list + '</td>';
         rr_det_html += '<td>' + rr_det.guia_despacho + '</td>';
+        rr_det_html += '<td>' + rr_det.numero_viaje + '</td>';
         rr_det_html += '<td>' + rr_det.st_cantidad + '</td>';
         rr_det_html += '<td>' + rr_det.st_cantidad_recibida + '</td>';
         rr_det_html += '<td>' + rr_det.id_bodega + '</td>';
@@ -452,7 +463,7 @@ $.ajax({
         language: {
               url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
           },
-        "paging": true,
+        "paging": false,
         "lengthChange": false,
         "searching": true,
         "ordering": true,

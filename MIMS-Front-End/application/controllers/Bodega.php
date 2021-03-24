@@ -21,6 +21,7 @@ class Bodega extends MY_Controller{
     $this->load->library('CallExternosReporteRecepcion');
     $this->load->library('CallExternosEmpresas');
     $this->load->library('CallExternosBitacora');
+    $this->load->library('ciqrcode'); 
         
     $this->load->helper('file');
     
@@ -328,11 +329,23 @@ $datos['listaTodo'] = $listaTodo ;
         $id_cliente  = $this->input->post('cliente');
         $id_proyecto  = $this->input->post('proyecto');
         $packinglist = $this->input->post('packinglist');
+        $fecha_entrega = $this->input->post('fecha_entrega');
         $respuesta = false;
+        $mensaje_error = "";
          
         $datos_bucksheet = array();
 
-                 //Obtiene Datos Proyecto
+        if (strlen($fecha_entrega) < 1 || $fecha_entrega === ""){
+
+        $respuesta= false;
+        $idInsertado = 0;
+        $mensaje_error = "Fecha de Entrega es Obligatorio";
+  
+
+        }else{  
+          
+          
+          //Obtiene Datos Proyecto
 
                  $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
                  $arrProyecto = json_decode($Proyecto);
@@ -388,8 +401,11 @@ $datos['listaTodo'] = $listaTodo ;
             'cod_empresa' => $codEmpresa ,
             'fecha_creacion' =>  date_create()->format('Y-m-d H:i:s'),
             'usuario_creacion' => $this->session->userdata('n_usuario'),
-            'id_cliente' => $nombreCliente ,
-            'id_proyecto' => $DescripcionProyecto ,
+            'fecha_entrega' => $this->callutil->formatoFecha($fecha_entrega),
+            'id_cliente' => $id_cliente ,
+            'descripcion_cliente' => $nombreCliente ,
+            'id_proyecto' => $id_proyecto ,
+            'descripcion_proyecto' => $DescripcionProyecto ,
             'id_orden_compra' => $PurchaseOrderID ,
             'id_orden_cliente' => $PurchaseOrderNumber ,
             'descripcion_orden' => $PurchaseOrderDescription ,
@@ -434,6 +450,7 @@ $datos['listaTodo'] = $listaTodo ;
                 'packing_list' => $value->PACKINGLIST ,
                 'guia_despacho' => $value->GUIA_DESPACHO ,
                 'st_cantidad' => $value->NUMERO_DE_ELEMENTOS ,
+                'numero_viaje' => $value->NUMERO_DE_VIAJE,
                 'st_cantidad_recibida' => '0',
                 'id_bodega' => "",
                 'id_carpa' => "" ,
@@ -472,8 +489,11 @@ $datos['listaTodo'] = $listaTodo ;
 
       $edp= $this->callexternosreporterecepcion->actualizarCabeceraRR($dataUpdate);
 
+    }
+
         $datos['respuesta'] = $respuesta;
         $datos['idInsertado'] = $idInsertado;
+        $datos['error'] = $mensaje_error;
 
 
 			
@@ -504,10 +524,11 @@ public function crearRRDet($NumRR){
       $cod_empresa = $value->cod_empresa;
       $id_rr_recepcion = $value->id_rr_recepcion;
       $id_rr = $value->id_rr;
+      $fecha_entrega = $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_entrega));
       $fecha_creacion = $value->fecha_creacion;
       $usuario_creacion = $value->usuario_creacion;
-      $id_cliente  = $value->id_cliente;
-      $id_proyecto = $value->id_proyecto;
+      $descripcion_cliente  = $value->descripcion_cliente;
+      $descripcion_proyecto = $value->descripcion_proyecto;
       $id_orden_compra = $value->id_orden_compra;
       $id_orden_cliente = $value->id_orden_cliente;
       $descripcion_orden = $value->descripcion_orden;
@@ -542,11 +563,12 @@ public function crearRRDet($NumRR){
   $datos['id_rr_recepcion'] = $id_rr_recepcion;
   $datos['fecha_creacion'] = $fecha_creacion;
   $datos['usuario_creacion'] = $usuario_creacion;
-  $datos['id_cliente'] = $id_cliente;
-  $datos['id_proyecto'] = $id_proyecto;
+  $datos['descripcion_cliente'] = $descripcion_cliente;
+  $datos['descripcion_proyecto'] = $descripcion_proyecto;
   $datos['id_orden_compra'] = $id_orden_compra;
   $datos['id_orden_cliente'] = $id_orden_cliente;
   $datos['descripcion_orden'] = $descripcion_orden;
+  $datos['fecha_entrega'] = $fecha_entrega;
   $datos['guia_despacho'] = $guia_despacho;
   $datos['proveedor'] = $proveedor;
 
@@ -590,6 +612,7 @@ public function crearRRDet($NumRR){
           'descripcion' => $value->descripcion,
           'id_orden_cliente' => $value->id_orden_cliente,
           'packing_list' => $value->packing_list,
+          'numero_viaje' => $value->numero_viaje,
           'guia_despacho' => $value->guia_despacho,
           'st_cantidad' => $value->st_cantidad,
           'st_cantidad_recibida' => $value->st_cantidad_recibida,
@@ -1171,7 +1194,8 @@ public function crearRRDet($NumRR){
           'NUMERO_DE_LINEA' =>  $value->numero_linea_wpanel,
           'REPORTE_DE_RECEPCION_RR' =>  'RR-'.$value->id_rr_cab,
           'REPORTE_DE_EXCEPCION_EXB' => $observacion_exb,
-          'INSPECCION_DE_INGENIERIA' => $value->inspeccion_requerida
+          'INSPECCION_DE_INGENIERIA' => $value->inspeccion_requerida,
+          'UNIDADES_RECIBIDAS'  => $value->st_cantidad_recibida
           
         );
 
@@ -1180,7 +1204,6 @@ public function crearRRDet($NumRR){
        
 
         }
-
    
       }
 
@@ -1194,148 +1217,543 @@ public function crearRRDet($NumRR){
 
     }
 
-    function creaPDF(){
+    function muestraPDFRR($NumRR){
+
+   // Obtiene todos los datos
+
+      $archivo_qr = base_url()."archivos/reporterecepcion/qr/QR_".$NumRR.".png"; 
+      $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
+
+      //Obtiene cabecera
+      $rrcab = $this->callexternosreporterecepcion->obtieneCabeceraRR($NumRR);
+
+      $arrRRcab = json_decode($rrcab);
+
+      $codEmpresa = $this->session->userdata('cod_emp');
+
+
+      if($arrRRcab){
+
+        
+        foreach ($arrRRcab as $key => $value) {
+
+          $cod_empresa = $value->cod_empresa;
+          $id_rr_recepcion = $value->id_rr_recepcion;
+          $id_rr = $value->id_rr;
+          $fecha_creacion = $value->fecha_creacion;
+          $fecha_entrega =  $value->fecha_entrega;
+          $usuario_creacion = $value->usuario_creacion;
+          $id_cliente  = $value->id_cliente;
+          $descripcion_cliente  = $value->descripcion_cliente;
+          $descripcion_proyecto = $value->descripcion_proyecto;
+          $id_proyecto = $value->id_proyecto;
+          $id_orden_compra = $value->id_orden_compra;
+          $id_orden_cliente = $value->id_orden_cliente;
+          $descripcion_orden = $value->descripcion_orden;
+          $guia_despacho = $value->guia_despacho;
+          $proveedor = $value->proveedor;  
+        }
+      }
+
+
+  //Obtiene Datos Proyecto
+
+  $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+
+
+  $arrProyecto = json_decode($Proyecto);
+
+  if($arrProyecto){
+
+    foreach ($arrProyecto as $llave => $valor) {
+            
+      $DescripcionProyecto = $valor->NombreProyecto;
+
+    }
+
+  }
+
+
+  //Obtiene Datos Orden
+  
+  $Orden = $this->callexternosordenes->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
+  
+
+  $arrOrden = json_decode($Orden);
+
+  
+  if($arrOrden){
+    
+    foreach ($arrOrden as $llave => $valor) {
+            
+      $PurchaseOrderID = $valor->PurchaseOrderID;
+      $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+      $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+    }   
+   
+  }
+
+       // Obtiene Datos Cliente
+      
+       $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
+  
+       $arrCliente = json_decode($responseCliente);
+      
+       $datos_cliente = array();
+   
+       if($arrCliente){
+         
+         foreach ($arrCliente as $key => $value) {
+   
+  
+             $nombreCliente =  $value->nombreCliente;
+             $razonSocial  =   $value->razonSocial;
+           
+         }
+       }
+
+
+      $archivo_template = $this->config->item('BASE_ARCHIVOS')."templates/ReporteRRMIMS.html";
+      //$archivo_final = $this->config->item('BASE_ARCHIVOS')."/reporterecepcion/".$id_rr_recepcion.".pdf";
+
+      # Reemplazamos los valores del template
+
+      $contenidoOriginal = file_get_contents($archivo_template);
+      $contenidoRemplazado =  str_replace("[CLIENTE]",$nombreCliente,$contenidoOriginal);
+      $contenidoRemplazado =  str_replace("[PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr_recepcion,$contenidoRemplazado);
+
+      $contenidoRemplazado =  str_replace("[NOMBRE_PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ORDEN_COMPRA_CLIENTE]",$PurchaseOrderNumber,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[DESC_ORDEN_COMPRA_CLIENTE]",$PurchaseOrderDescription,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_ORDEN_COMPRA]",$PurchaseOrderID,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_USUARIO]",$this->session->userdata('nombres')." ".$this->session->userdata('paterno')." ".$this->session->userdata('materno'),$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[FECHA_EMISION]", date_create()->format('Y-m-d H:i:s'),$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[GUIA_DESPACHO]",$guia_despacho,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR]",$proveedor,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[FECHA_ENTREGA]",$fecha_entrega,$contenidoRemplazado);
+
+
+      // obtiene detalles de RR
+
+
+      $responserrdet = $this->callexternosreporterecepcion->listaRRDet($codEmpresa,$NumRR);
+      $arrRRDet = json_decode($responserrdet);
+
+      $det_rr ="";
+      
+      if($arrRRDet){
+        
+        foreach ($arrRRDet as $key => $value) {
+          
+          $det_rr .="<tr>";
+          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+          <span lang=ES>".$value->numero_linea_det."</span>
+        </p>
+      </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+          <span lang=ES>".$value->tag_number."</span>
+        </p>
+      </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                <span lang=ES>".$value->stockcode."</span>
+              </p>
+            </td>";
+
+            $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+            border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                    <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+            margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                      <span lang=ES>".$value->descripcion."</span>
+                    </p>
+                  </td>";
+
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->numero_viaje."</span>
+                          </p>
+                        </td>";      
+                  
+            
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->st_cantidad."</span>
+                          </p>
+                        </td>";      
+
+            
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->st_cantidad_recibida."</span>
+                          </p>
+                        </td>";  
+                        
+                        $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                        border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                        margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                  <span lang=ES>".$value->id_bodega."</span>
+                                </p>
+                              </td>"; 
+
+                              $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                              border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                      <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                              margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                        <span lang=ES>".$value->id_carpa."</span>
+                                      </p>
+                                    </td>"; 
+
+                                    $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                    border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                            <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                    margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                              <span lang=ES>".$value->id_patio."</span>
+                                            </p>
+                                          </td>"; 
+                                          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                    border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                            <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                    margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                              <span lang=ES>".$value->id_posicion."</span>
+                                            </p>
+                                          </td>"; 
+                                          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                          border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                  <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                          margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                    <span lang=ES>".$value->observacion."</span>
+                                                  </p>
+                                                </td>"; 
+
+                                                $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                                border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                                margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                          <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
+                                                        </p>
+                                                      </td>"; 
+                                                      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                                      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                                      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                                <span lang=ES>".$value->inspeccion_requerida."</span>
+                                                              </p>
+                                                            </td>"; 
+
+        $det_rr .="</tr>";                                              
+          
+        }
+      }
 
       
-      $htmlContent ='<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">';
-      $htmlContent .='<html xmlns="http://www.w3.org/1999/xhtml">';
-      $htmlContent .='<head>';
-      $htmlContent .='<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />';
-      $htmlContent .='</head>';
-      $htmlContent .='<body>';
-      $htmlContent .='<div style="display: block; padding:0 32px; margin: auto;">';
-      $htmlContent .='<table cellpadding="0" cellspacing="0" border="0" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
-      $htmlContent .='<thead>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='MIMS-Intelligent-Projects';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='</thead>';
-      $htmlContent .='<tbody>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<td style="padding:36px 0 32px 0; vertical-align: top; font-size: 15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0 0 18px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Estimado cliente:';
-      $htmlContent .='</p>';
-      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
-      $htmlContent .='<br /><br />';
-      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin: 0; word-wrap: break-word; word-break:normal; ">';
-      $htmlContent .='El detalle es el siguiente:</p><br />';
-      $htmlContent .='<table cellpadding="0" cellspacing="0" border="1" width="100&#37;" align="center" style="width: 100&#37;; *width: 520px; max-width:520px; margin:32px auto;">';
-      $htmlContent .='<thead>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Proyecto';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Archivo adjunto';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Orden de Compra';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Nombre Empleado';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Fecha Ingreso';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .= 'Número Referencial';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Tipo Interacción';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Solicitado por';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Aprobado por';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Comentarios Generales';
-      $htmlContent .='</th>';
-      $htmlContent .='<th style="text-align: center; border-top:1px solid #cccccc; border-bottom:1px solid #cccccc; font-size: 22px; line-height: 1.4; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #000; letter-spacing:-1px; padding:11px 0 9px 0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='</th>';
-      $htmlContent .='</tr>';
-      $htmlContent .='</thead>';
-      $htmlContent .='</table>';
-      $htmlContent .='<p style="font-size:15px; line-height: 18px; color: #666666; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; padding: 0; margin:0; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='<br />';
-      $htmlContent .='<br />';
-      $htmlContent .='<br />';
-      $htmlContent .='<i style="color: #000000;">Su equipo de MIMS-Intelligent-Projects</i>';
-      $htmlContent .='</p>';
-      $htmlContent .='</td>';
-      $htmlContent .='</tr>';
-      $htmlContent .='</tbody>';
-      $htmlContent .='<tfoot>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<td style="padding: 12px 20px 14px 20px; font-size: 11px; line-height: 16px; font-weight: normal; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #666666; background: #efefef; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='Nota: No responda a este correo electronico. Si tiene alguna duda, pongase en contacto con nosotros mediante nuestro sitio web:<br />';
-      $htmlContent .='<a href="https://help.mimsprojects.com" target="_blank" style="color: #1428a0; text-decoration: underline;">';
-      $htmlContent .='Ir al centro de atencion al cliente de MIMS Intelligent Projects</a>';
-      $htmlContent .='</td>';
-      $htmlContent .='</tr>';
-      $htmlContent .='<tr>';
-      $htmlContent .='<td style="padding:20px 0 20px 0; text-align: center; font-size: 11px; line-height: 1; font-family: Helvetica, Arial, Verdana,&#39;sans-serif&#39;,&#39;Malgun Gothic&#39;,&#39;NanumGothic&#39;; color: #acacac; vertical-align: middle; word-wrap: break-word; word-break:normal;">';
-      $htmlContent .='<img src="https://mimsprojects.com/MIMS-Intelligent-Projects/MIMS-Front-End/assets/dist/img/logo-mims.png" border="0" alt="" style=" width: 100&#37;; *width:62px; max-width: 62px; vertical-align:middle; margin:0 12px;" /> ';
-      $htmlContent .='Copyright@, MIMS Intelligent Projects All rights reserved';
-      $htmlContent .='</td>';
-      $htmlContent .='</tr>';
-      $htmlContent .='</tfoot>';
-      $htmlContent .='</table>';
-      $htmlContent .='</div>';
-      $htmlContent .='</body>';
-      $htmlContent .='</html>';
-      //finamos un nombre para el archivo. No es necesario agregar la extension .pdf
-      $filename = "asasas";
-      // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
+      //file_put_contents($archivo_template, $contenidoRemplazado);
       
-      $this->callutil->generatePDF($htmlContent, $filename, true, 'Letter', 'portrait');
+
+      $contenidoRemplazado =  str_replace("[DETALLE_RR]",$det_rr,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[CODIGO_QR]",$archivo_qr,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[LOGO_MIMS]",$archivo_mims,$contenidoRemplazado);
+      
+
+      echo $contenidoRemplazado;
 
 
     }
 
+    function creaPDFRR($NumRR){
+
+      $archivo_qr = base_url()."archivos/reporterecepcion/qr/QR_".$NumRR.".png"; 
+      $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
+      $this->generateQRRR($NumRR);
+
+      // Obtiene todos los datos
+
+      //Obtiene cabecera
+      $rrcab = $this->callexternosreporterecepcion->obtieneCabeceraRR($NumRR);
+
+      $arrRRcab = json_decode($rrcab);
+
+      $codEmpresa = $this->session->userdata('cod_emp');
+
+
+      if($arrRRcab){
+
+        
+        foreach ($arrRRcab as $key => $value) {
+
+          $cod_empresa = $value->cod_empresa;
+          $id_rr_recepcion = $value->id_rr_recepcion;
+          $id_rr = $value->id_rr;
+          $fecha_creacion = $value->fecha_creacion;
+          $fecha_entrega =  $value->fecha_entrega;
+          $usuario_creacion = $value->usuario_creacion;
+          $id_cliente  = $value->id_cliente;
+          $descripcion_cliente  = $value->descripcion_cliente;
+          $descripcion_proyecto = $value->descripcion_proyecto;
+          $id_proyecto = $value->id_proyecto;
+          $id_orden_compra = $value->id_orden_compra;
+          $id_orden_cliente = $value->id_orden_cliente;
+          $descripcion_orden = $value->descripcion_orden;
+          $guia_despacho = $value->guia_despacho;
+          $proveedor = $value->proveedor;  
+        }
+      }
+
+
+  //Obtiene Datos Proyecto
+
+  $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+
+
+  $arrProyecto = json_decode($Proyecto);
+
+  if($arrProyecto){
+
+    foreach ($arrProyecto as $llave => $valor) {
+            
+      $DescripcionProyecto = $valor->NombreProyecto;
+
+    }
+
+  }
+
+
+  //Obtiene Datos Orden
+  
+  $Orden = $this->callexternosordenes->obtieneOrden($id_proyecto,$id_cliente,$id_orden_compra,$codEmpresa);
+  
+
+  $arrOrden = json_decode($Orden);
+
+  
+  if($arrOrden){
+    
+    foreach ($arrOrden as $llave => $valor) {
+            
+      $PurchaseOrderID = $valor->PurchaseOrderID;
+      $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
+      $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
+
+    }   
+   
+  }
+
+       // Obtiene Datos Cliente
+      
+       $responseCliente = $this->callexternosclientes->obtieneCliente($id_cliente);
+  
+       $arrCliente = json_decode($responseCliente);
+      
+       $datos_cliente = array();
+   
+       if($arrCliente){
+         
+         foreach ($arrCliente as $key => $value) {
+   
+  
+             $nombreCliente =  $value->nombreCliente;
+             $razonSocial  =   $value->razonSocial;
+           
+         }
+       }
+
+
+      $archivo_template = $this->config->item('BASE_ARCHIVOS')."templates/ReporteRRMIMS.html";
+      //$archivo_final = $this->config->item('BASE_ARCHIVOS')."/reporterecepcion/".$id_rr_recepcion.".pdf";
+
+      # Reemplazamos los valores del template
+
+      $contenidoOriginal = file_get_contents($archivo_template);
+      $contenidoRemplazado =  str_replace("[CLIENTE]",$nombreCliente,$contenidoOriginal);
+      $contenidoRemplazado =  str_replace("[PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr_recepcion,$contenidoRemplazado);
+
+      $contenidoRemplazado =  str_replace("[NOMBRE_PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ORDEN_COMPRA_CLIENTE]",$PurchaseOrderNumber,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[DESC_ORDEN_COMPRA_CLIENTE]",$PurchaseOrderDescription,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_ORDEN_COMPRA]",$PurchaseOrderID,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_USUARIO]",$this->session->userdata('nombres')." ".$this->session->userdata('paterno')." ".$this->session->userdata('materno'),$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[FECHA_EMISION]", date_create()->format('Y-m-d H:i:s'),$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[GUIA_DESPACHO]",$guia_despacho,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR]",$proveedor,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[FECHA_ENTREGA]",$fecha_entrega,$contenidoRemplazado);
+
+
+      // obtiene detalles de RR
+
+
+      $responserrdet = $this->callexternosreporterecepcion->listaRRDet($codEmpresa,$NumRR);
+      $arrRRDet = json_decode($responserrdet);
+
+      $det_rr ="";
+      
+      if($arrRRDet){
+        
+        foreach ($arrRRDet as $key => $value) {
+          
+          $det_rr .="<tr>";
+          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+          <span lang=ES>".$value->numero_linea_det."</span>
+        </p>
+      </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+          <span lang=ES>".$value->tag_number."</span>
+        </p>
+      </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                <span lang=ES>".$value->stockcode."</span>
+              </p>
+            </td>";
+
+            $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+            border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                    <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+            margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                      <span lang=ES>".$value->descripcion."</span>
+                    </p>
+                  </td>";
+
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->numero_viaje."</span>
+                          </p>
+                        </td>";
+                  
+            
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->st_cantidad."</span>
+                          </p>
+                        </td>";      
+
+            
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->st_cantidad_recibida."</span>
+                          </p>
+                        </td>";  
+                        
+                        $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                        border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                        margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                  <span lang=ES>".$value->id_bodega."</span>
+                                </p>
+                              </td>"; 
+
+                              $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                              border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                      <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                              margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                        <span lang=ES>".$value->id_carpa."</span>
+                                      </p>
+                                    </td>"; 
+
+                                    $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                    border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                            <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                    margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                              <span lang=ES>".$value->id_patio."</span>
+                                            </p>
+                                          </td>"; 
+                                          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                    border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                            <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                    margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                              <span lang=ES>".$value->id_posicion."</span>
+                                            </p>
+                                          </td>"; 
+                                          $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                          border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                  <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                          margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                    <span lang=ES>".$value->observacion."</span>
+                                                  </p>
+                                                </td>"; 
+
+                                                $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                                border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                        <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                                margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                          <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
+                                                        </p>
+                                                      </td>"; 
+                                                      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                                                      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                                                              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                                                      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                                                                <span lang=ES>".$value->inspeccion_requerida."</span>
+                                                              </p>
+                                                            </td>"; 
+
+        $det_rr .="</tr>";                                              
+          
+        }
+      }
+
+      
+      //file_put_contents($archivo_template, $contenidoRemplazado);
+      
+
+      $contenidoRemplazado =  str_replace("[DETALLE_RR]",$det_rr,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[CODIGO_QR]",$archivo_qr,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[LOGO_MIMS]",$archivo_mims,$contenidoRemplazado);
+
+     
+      //finamos un nombre para el archivo. No es necesario agregar la extension .pdf
+      $filename   = $NumRR . "-" . time(); // 5dab1961e93a7-1571494241
+      // generamos el PDF. Pasemos por encima de la configuración general y definamos otro tipo de papel
+      
+      $this->callutil->generatePDF($NumRR,$contenidoRemplazado, $filename, true, 'legal', 'landscape', 1);
+
+
+
+
+    }
+
+    public function generateQRRR($num)
+    {
+  
+    $archivo_qr = $this->config->item('BASE_ARCHIVOS')."reporterecepcion/qr/";  
+    $params['data'] = base_url() . 'index.php/Bodega/muestraPDFRR/'.$num;
+    $params['size'] = 10;
+    $params['savename'] = $archivo_qr.'QR_'.$num.'.png';
+    $this->ciqrcode->generate($params);
+  
+    }
+
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-
 function index_man_bodega(){
 
 

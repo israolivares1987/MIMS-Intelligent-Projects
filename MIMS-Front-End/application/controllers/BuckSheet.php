@@ -885,6 +885,89 @@ class BuckSheet extends MY_Controller
     echo json_encode($datos);
   }
 
+    
+
+
+
+  function obtieneBuckSheetRRInicial()
+  {
+
+
+
+    $PurchaseOrderID = $this->input->post('id_orden');
+    $GuiaDespacho = $this->input->post('guia');
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $packinglist = $this->input->post('packinglist');
+
+
+    $respuesta = false;
+
+    $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetRRInicial($codEmpresa,$PurchaseOrderID);
+
+  
+
+
+    $arrBucksheet = json_decode($bucksheet);
+
+
+    $datos_bucksheet = array();
+
+    if ($arrBucksheet) {
+      $respuesta = true;
+
+    
+
+      foreach ($arrBucksheet as $key => $value) {
+
+        $datosEstados  = $this->callutil->obtieneDatoRef('ESTADO_BUCKSHEET',$value->ESTADO_DE_LINEA);
+
+        foreach (json_decode($datosEstados) as $llave => $valor) {
+                    
+          $estado_bucksheet = $valor->domain_desc;
+  
+        }
+        $fecha_hoy = date_create()->format('Y-m-d');
+
+        $datos_bucksheet[] = array(
+        'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+        'ESTADO_DE_LINEA' => $this->callutil->cambianull($value->ESTADO_DE_LINEA),
+        'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+        'STOCKCODE' => $value->STOCKCODE,
+        'NUMERO_DE_ELEMENTOS' => $value->NUMERO_DE_ELEMENTOS,
+        'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+        'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+        'UNIDAD' => $value->UNIDAD,
+        'ID_OC' => $value->ID_OC,
+        'NUMERO_OC' => $value->NUMERO_OC,
+        'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+        'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
+        'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
+        'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
+        'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
+        'PACKINGLIST' => $value->PACKINGLIST,
+        'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
+        'FECHA_CREACION' =>$value->fecha_creacion
+               
+
+        );
+      }
+    } else {
+
+      $respuesta = false;
+    }
+
+  
+    $datos['bucksheets'] = $datos_bucksheet;
+    $datos['resp']      = $respuesta;
+
+    echo json_encode($datos);
+  } 
+
+
+
+
+
+
 
   function obtieneBuckSheetRR()
   {
@@ -939,7 +1022,7 @@ class BuckSheet extends MY_Controller
         $fecha_hoy = date_create()->format('Y-m-d');
 
         $datos_bucksheet[] = array(
-
+ 
 
               'ID_OC' => $value->ID_OC,
               'NUMERO_OC' => $value->NUMERO_OC,

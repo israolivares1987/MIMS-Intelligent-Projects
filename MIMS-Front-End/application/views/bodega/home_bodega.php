@@ -968,7 +968,7 @@ function recargaListaToDo(){
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetRR')?>',
+                     url: '<?php echo site_url('BuckSheet/obtieneBuckSheetRRInicial')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
@@ -993,13 +993,13 @@ function recargaListaToDo(){
                         bucksheet_html += '<td>' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td class="grey" >1</td>';
                         bucksheet_html += '<td class="grey" >1</td>';
-                        bucksheet_html += '<td>RECIBIDO PARCIALMENTE</td>';
-                        bucksheet_html += '<td>4567898 - MATERIAL DE FERRETER</td>';
+                        bucksheet_html += '<td>' + bucksheets.ESTADO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.NUMERO_OC+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.ID_OC+ '</td>';
-                        bucksheet_html += '<td>RR-123</td>';
+                        bucksheet_html += '<td>' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td></td>';
-                        bucksheet_html += '<td>01-10-2020 15:20:36</td>';
+                        bucksheet_html += '<td>' + bucksheets.FECHA_CREACION+ '</td>';;
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td></td>';
                         bucksheet_html += '<td></td>';

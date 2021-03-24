@@ -122,6 +122,43 @@ class CallExternosBuckSheet {
   
       }
 
+
+      function obtieneBuckSheetRRInicial($codEmpresa,$ID_OC){
+  
+  
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."BuckSheet/obtieneBuckSheetRRInicial";
+  
+  
+            
+        $form_data = array(
+                    'ID_OC'		=>$ID_OC,
+                    'codEmpresa' => $codEmpresa
+                    
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+
+     
+        return $response;
+        
+  
+  
+      }
+
+
+      
+
       function obtieneBuckSheetPackingList($codEmpresa,$ID_OC,$PackingList){
   
   

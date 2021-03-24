@@ -414,7 +414,7 @@ class Journal extends MY_Controller{
             $resp = false;
           
         
-          }else{ 
+          }else{  
 
               /* create new name file */
               $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241

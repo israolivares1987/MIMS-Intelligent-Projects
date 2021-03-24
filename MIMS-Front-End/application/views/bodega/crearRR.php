@@ -43,7 +43,18 @@
                                             </div>
                                         </div>
                                         </th>
-                                        
+                                        <th rowspan="2">
+                                             <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-warning btn-sm"
+                                                     onclick="aplicaFiltro()"><i class="fas fa-filter"></i>
+                                                     Aplicar Filtro
+                                                 </button>
+                                                 <button class="btn btn-block btn-outline-warning btn-sm" name="vender" id="crearRR"
+                                                     ><i class="fas fa-file-alt"></i>
+                                                     Crear RR
+                                                 </button>
+                                             </div>
+                                         </th>
                                      </tr>
                                      <tr>
                                      <th>
@@ -55,7 +66,7 @@
                                         </div>
 
 
-                                         </th>
+                                     </th>
                                          <th>
                                         <div class="col-12">
                                             <div class="form-group">
@@ -63,20 +74,19 @@
                                                     <?php echo $select_packinglist;?>
                                             </div>
                                         </div>
+                                        </th>
+                                        <th>
+                                        <div class="col-12">
+                                            <div class="form-group">
+                                                <form id="rrfechaenrega" name="rrfechaenrega">
+                                                    <label>Ingrese Fecha de Entrega</label>
+                                                    <input name="fecha_entrega"  id="fecha_entrega" placeholder="" class="form-control"
+                                                     type="text">
+                                                </form>     
+                                            </div>
+                                        </div>
 
 
-                                         </th>
-                                         <th>
-                                             <div class="col-12">
-                                                 <button class="btn btn-block btn-outline-warning btn-sm"
-                                                     onclick="aplicaFiltro()"><i class="fas fa-filter"></i>
-                                                     Aplicar Filtro
-                                                 </button>
-                                                 <button class="btn btn-block btn-outline-warning btn-sm" name="vender" id="crearRR"
-                                                     ><i class="fas fa-file-alt"></i>
-                                                     Crear RR
-                                                 </button>
-                                             </div>
                                          </th>
                                     </tr>
                                   
@@ -100,6 +110,7 @@
                                          <th>ST Unidad</th>
                                          <th>ST Cantidad  Total</th>
                                          <th>Guia Despacho</th>
+                                         <th>Numero de Viaje</th>
                                          <th>Packing List</th>
                                          <th>ID MIMS</th>
                                          </tr>
@@ -203,17 +214,25 @@
 
             $(document).ready(function() {
 
+            
+
             var table_rr = $('#tbl_creacion_rr').DataTable();
 
 
 
               $('#crearRR').on('click', function (event) {
 
-                var rr_html = '';
+
+                if($('#guias').val() == 0) {
+                            alert('Debe seleccionar Guia de Despacho para crear RR');
+                }else{
+
+
+                    var rr_html = '';
 
                 var table = $('#tbl_rr').DataTable();
 
-               
+
                 table_rr.destroy();
 
                         event.preventDefault();
@@ -226,10 +245,11 @@
                         var packinglist = $('#packinglist').val();
                         var cliente = $('#clientes').val();
                         var proyecto = $('#proyectos').val();
+                        var fecha_entrega = $('#fecha_entrega').val();
                         var num = 0;
                         
                         if(!seleccionados.data().length)
-                          alert("No ha seleccionado ningún registro");
+                        alert("No ha seleccionado ningún registro");
                         else{
                         }
 
@@ -244,19 +264,23 @@
                                         guia_despacho: guia_despacho,
                                         cliente: cliente,
                                         proyecto: proyecto,
-                                        packinglist: packinglist
+                                        packinglist: packinglist,
+                                        fecha_entrega: fecha_entrega
                                         }
                                 })
                                 .done(function(respuesta) {
 
-                                  
-                         if (respuesta.respuesta){
+                                
+                        if (respuesta.respuesta){
                             
-                           var  idrr = respuesta.idInsertado;
+                        var  idrr = respuesta.idInsertado;
 
                             window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_blank');
-               
-                         }       
+
+                        }else{
+
+                            toastr.warning(respuesta.error);
+                        }       
 
                                 })
                                 .fail(function() {
@@ -265,6 +289,10 @@
                                 .always(function() {
                                     console.log("complete");
                                 });
+
+
+                                }
+
 
                     });
 
@@ -344,7 +372,6 @@
                         if($('#ordenes').val() == 0) {
                             alert('Debe seleccionar Orden');
                         }else{
-
 
                             recargaBuckSheet(orden, cliente, guia, packinglist);
 
@@ -535,6 +562,8 @@
                         bucksheet_html += '<td>' + bucksheet.CANTIDAD_TOTAL+ '</td>'; 
 
                         bucksheet_html += '<td>' + bucksheet.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_VIAJE+ '</td>';
+                        
                         bucksheet_html += '<td>' + bucksheet.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.ID_OC+ '</td>';
                         
