@@ -159,8 +159,41 @@ function enviarMail($email,$uniqidStr,$cod_emp){
   $subject="Restablecer contraseña MIMS-Intelligent-Projects";
 
 
+      //obtiene datos de servidor SMTP
 
-  $respuesta =$this->callutil->sendEmailPassword($email,$subject,$htmlContent);
+        //SMTP_HOST
+        //SMTP_PASS
+        //SMTP_PORT
+        //SMTP_USER
+
+        $datosap     = $this->callexternosdominios->obtieneDatosRef('SMTP_HOST');
+        $smtp_host = "";
+        foreach (json_decode($datosap) as $llave => $valor) {
+          $smtp_host =$valor->domain_desc;
+        }
+
+        $datosap     = $this->callexternosdominios->obtieneDatosRef('SMTP_PASS');
+        $smtp_pass = "";
+        foreach (json_decode($datosap) as $llave => $valor) {
+          $smtp_pass =$valor->domain_desc;
+        }
+
+        $datosap     = $this->callexternosdominios->obtieneDatosRef('SMTP_PORT');
+        $smtp_port = "";
+        foreach (json_decode($datosap) as $llave => $valor) {
+          $smtp_port =$valor->domain_desc;
+        }
+
+        $datosap     = $this->callexternosdominios->obtieneDatosRef('SMTP_USER');
+        $smtp_user = "";
+        foreach (json_decode($datosap) as $llave => $valor) {
+          $smtp_user =$valor->domain_desc;
+        }
+
+
+
+
+  $respuesta =$this->callutil->sendEmailPassword($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$subject,$htmlContent);
 
 
   return json_encode($respuesta);
