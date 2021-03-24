@@ -52,7 +52,7 @@ class Ordenes extends CI_Controller{
                 $Support = '';
               }
 
-              
+               
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'Criticidad' => $this->callutil->cambianull($value->Criticidad),
@@ -185,7 +185,7 @@ class Ordenes extends CI_Controller{
     $or_select_categorizacion    = $this->input->post('or_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
     $or_revision = $this->input->post('or_revision');
-    $or_select_supplier   = $this->input->post('or_select_supplier');
+    $or_select_supplier   = $this->input->post('or_supplier');
     
     $or_estado_plano   = $this->input->post('or_estado_plano');
     $or_observacion_ep   = $this->input->post('or_observacion_ep');
@@ -356,7 +356,7 @@ class Ordenes extends CI_Controller{
           'select_categorizacion' => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
-          'select_supplier'     => $this->obtiene_select_supplier($codEmpresa,'or_act_select_supplier',$value->SupplierName),
+          'supplier'     => $value->SupplierName,
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
           'select_currency'     => $this->callutil->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
           'requestor'           => $value->Requestor,
@@ -375,7 +375,8 @@ class Ordenes extends CI_Controller{
           'select_status'       => $this->callutil->obtiene_select_def_act('or_act_select_status',$value->POStatus,'PO_STATUS'),
           'orden_id'            => $orden_id,
           'id_proyecto'         => $id_proyecto,
-          'id_cliente'          => $id_cliente
+          'id_cliente'          => $id_cliente,
+          'nombre_proyecto'     => $id_cliente
         );
 
       }
@@ -400,7 +401,7 @@ class Ordenes extends CI_Controller{
     $or_categorizacion   = $this->input->post('or_act_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_act_purchase_desc');
     $or_revision        = $this->input->post('or_act_revision');
-    $or_select_supplier   = $this->input->post('or_act_select_supplier');
+    $or_supplier   = $this->input->post('or_act_supplier');
 
     $or_estado_plano   = $this->input->post('or_act_estado_plano');
     $or_observacion_ep   = $this->input->post('or_act_observacion_ep');
@@ -476,7 +477,7 @@ class Ordenes extends CI_Controller{
                   'Categorizacion'            => $or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'  => $or_revision,
-                  'SupplierName'                => $or_select_supplier,
+                  'SupplierName'                => $or_supplier,
                    'EstadoPlano'  => $or_estado_plano  ,
                    'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
@@ -764,10 +765,8 @@ function obtieneSelectOrden(){
   $data = array();
   
 
-  $supplier = $this->callexternosproveedores->obtieneSupplier($codEmpresa);
-  
-  
-  $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
+ 
+
   $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
   $data['select_currency']  = $this->callutil->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
   $data['select_criticidad']  = $this->callutil->obtiene_select_def('or_select_criticidad','CRITICIDAD','or_select_criticidad');
@@ -794,34 +793,6 @@ function obtieneSelectOrden(){
 
 }
 
-function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
-
-      $supplier = $this->callexternosproveedores->obtieneSupplier($codEmpresa);
-      $datosSupplier = json_decode($supplier);
-      $html = '';
-
-      $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'">'; 
-
-      if($datosSupplier){
-
-        $seleccionado = '';
-
-        foreach ($datosSupplier as $key => $value) {
-
-          if($selected > 0){
-            $seleccionado = ($selected == $value->SupplierName) ? 'selected' : '';
-          }
-
-          $html .= '<option '.$seleccionado.' value="'.$value->SupplierName.'">'.$value->SupplierName.'</option>';
-        }
-
-      }else{
-        $html .= '<option value="0">No existen Proveedores</option>';
-      }
-
-      $html .= '</select>';
-      return $html;
-}
 
 function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
 

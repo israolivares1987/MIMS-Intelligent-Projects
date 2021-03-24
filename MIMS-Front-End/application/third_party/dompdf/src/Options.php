@@ -158,7 +158,7 @@ class Options
      *
      * @var bool
      */
-    private $isPhpEnabled = false;
+    private $isPhpEnabled = true;
 
     /**
      * Enable remote file access
@@ -180,7 +180,7 @@ class Options
      *
      * @var bool
      */
-    private $isRemoteEnabled = false;
+    private $isRemoteEnabled = true;
 
     /**
      * Enable inline Javascript

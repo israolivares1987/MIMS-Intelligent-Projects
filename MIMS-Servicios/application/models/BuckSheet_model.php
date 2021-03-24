@@ -171,7 +171,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
-	$this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
      
 
 	 return $this->db->get()->result();    
@@ -238,6 +238,50 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.PACKINGLIST' , $this->_PackingList);
+     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
+	
+     
+
+	 return $this->db->get()->result();    
+    }
+
+
+    
+
+    function obtieneBuckSheetRRInicial()
+	{
+        $this->db->select("t1.NUMERO_DE_LINEA,
+		T1.NUMERO_DE_TAG,
+        t1.STOCKCODE,
+		t1.NUMERO_DE_ELEMENTOS,
+        t1.CANTIDAD_UNITARIA,
+		(select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+        t1.CANTIDAD_TOTAL,
+		t1.GUIA_DESPACHO,
+        t1.PACKINGLIST,
+        t1.UNIDADES_SOLICITADAS,
+        t1.UNIDADES_RECIBIDAS,
+        t1.ESTADO_DE_LINEA,
+        t1.PACKINGLIST,
+        t1.GUIA_DESPACHO,
+        T1.NUMERO_OC,
+        T1.ID_OC,
+        t1.REPORTE_DE_RECEPCION_RR,
+        t1.REPORTE_DE_ENTREGA_RE,
+        t1.REPORTE_DE_EXCEPCION_EXB,
+        (SELECT T3.fecha_creacion 
+         FROM  tbl_rr_detalle t2 , tbl_rr_cabecera t3  
+         WHERE t1.id_oc = t2.id_orden_compra
+		 and t1.COD_EMPRESA = t2.COD_EMPRESA
+		 and t1.NUMERO_DE_LINEA = t2.numero_linea_wpanel
+		 and t2.id_rr_cab = t3.id_rr
+		 and t3.estado_rr in (1)
+        )  AS fecha_creacion"); 
+    $this->db->from('tbl_bucksheet t1');			
+     $this->db->where('ID_OC',$this->_ID_OC);
+     $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
 	
      
@@ -306,6 +350,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
 	
      
 

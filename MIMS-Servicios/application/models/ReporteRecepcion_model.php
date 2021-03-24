@@ -28,11 +28,14 @@ class ReporteRecepcion_model extends CI_Model{
 								usuario_creacion,
 								id_cliente,
 								id_proyecto,
+								descripcion_proyecto,
+								descripcion_cliente,
 								id_orden_compra,
 								id_orden_cliente,
 								descripcion_orden,
 								guia_despacho,
-								proveedor
+								proveedor,
+								fecha_entrega
 							FROM tbl_rr_cabecera
 							where id_rr = ". $numRR);
 	  $CabeceraRR = $query->result();
@@ -79,6 +82,7 @@ class ReporteRecepcion_model extends CI_Model{
 									id_orden_cliente,
 									packing_list,
 									guia_despacho,
+									numero_viaje,
 									st_cantidad,
 									st_cantidad_recibida,
 									id_bodega,
@@ -113,6 +117,7 @@ function obtieneRRDet($codEmpresa,$id_rr_det,$id_rr_cab){
 	id_orden_cliente,
 	packing_list,
 	guia_despacho,
+	numero_viaje,
 	st_cantidad,
 	st_cantidad_recibida,
 	id_bodega,

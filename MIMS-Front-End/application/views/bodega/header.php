@@ -114,7 +114,6 @@
 <!-- jQuery UI -->
 <script src="<?php echo base_url('assets/plugins/jquery-ui/jquery-ui.min.js');?>"></script>
 
-
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();

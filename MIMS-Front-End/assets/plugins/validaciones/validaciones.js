@@ -116,6 +116,55 @@ function cargaCalendarioFechas()
     fechaactual= `${day}-${month}-${year}`;
   }
 
+
+  
+
+  $('#fecha_entrega').daterangepicker({
+    "autoUpdateInput": false,
+    "singleDatePicker": true,
+    "showDropdowns": true,
+    "locale": {
+      "format": "DD-MM-YYYY",
+      "separator": " - ",
+      "applyLabel": "Aplicar",
+      "cancelLabel": "Clear",
+      "fromLabel": "From",
+      "toLabel": "To",
+      "customRangeLabel": "Custom",
+      "weekLabel": "W",
+      "daysOfWeek": [
+        "Lun",
+        "Mar",
+        "Mie",
+        "Jue",
+        "Vie",
+        "Sab",
+        "Dom"
+      ],
+      "monthNames": [
+        "Ene",
+        "Feb",
+        "Mar",
+        "Abr",
+        "May",
+        "Jun",
+        "Jul",
+        "Ago",
+        "Sep",
+        "Oct",
+        "Nov",
+        "Dic"
+      ],
+      "firstDay": 0
+  },
+  "startDate": fechaactual,
+  "endDate": "01-01-2030",
+  "opens": "top"
+  }, function(chosen_date) {
+    $('#fecha_entrega').val(chosen_date.format('DD-MM-YYYY'));
+  });
+
+
   $('#var_fecha_inicio').daterangepicker({
     "autoUpdateInput": false,
     "singleDatePicker": true,

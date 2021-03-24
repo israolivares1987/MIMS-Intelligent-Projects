@@ -1,0 +1,530 @@
+<html>
+		<head>
+			<style>
+				@page { margin: 50px 50px; }
+				.header { position: fixed; left: 0px; top: -100px; right: 0px; height: 100px; text-align: center; }
+				.footer { position: fixed; left: 0px; bottom: -50px; right: 0px; height: 50px;text-align: center;}
+				.footer .pagenum:before { content: counter(page); }
+				</style>
+			<style>
+				<!--
+/* Font Definitions */
+@font-face
+{font-family:Wingdings;
+panose-1:5 0 0 0 0 0 0 0 0 0;}
+@font-face
+{font-family:"Cambria Math";
+panose-1:2 4 5 3 5 4 6 3 2 4;}
+@font-face
+{font-family:"Arial Black";
+panose-1:2 11 10 4 2 1 2 2 2 4;}
+/* Style Definitions */
+p.MsoNormal, li.MsoNormal, div.MsoNormal
+{margin-top:0cm;
+margin-right:0cm;
+margin-bottom:8.0pt;
+margin-left:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+p.MsoTitle, li.MsoTitle, div.MsoTitle
+{mso-style-link:"Título Car";
+margin:0cm;
+line-height:21.0pt;
+border:none;
+padding:0cm;
+font-size:19.0pt;
+font-family:"Arial Black",sans-serif;
+color:#1F4E79;
+text-transform:uppercase;}
+p.MsoSubtitle, li.MsoSubtitle, div.MsoSubtitle
+{mso-style-link:"Subtítulo Car";
+margin-top:4.0pt;
+margin-right:0cm;
+margin-bottom:0cm;
+margin-left:0cm;
+line-height:14.0pt;
+border:none;
+padding:0cm;
+font-size:12.0pt;
+font-family:"Arial",sans-serif;
+color:#5B9BD5;
+font-weight:bold;}
+span.SubttuloCar
+{mso-style-name:"Subtítulo Car";
+mso-style-link:Subtítulo;
+color:#5B9BD5;
+font-weight:bold;}
+span.TtuloCar
+{mso-style-name:"Título Car";
+mso-style-link:Título;
+font-family:"Arial Black",sans-serif;
+color:#1F4E79;
+text-transform:uppercase;}
+p.Encabezadodefactura, li.Encabezadodefactura, div.Encabezadodefactura
+{mso-style-name:"Encabezado de factura";
+margin-top:30.0pt;
+margin-right:0cm;
+margin-bottom:12.0pt;
+margin-left:0cm;
+font-size:14.0pt;
+font-family:"Arial",sans-serif;
+color:#1F4E79;
+text-transform:uppercase;
+font-weight:bold;}
+p.Encabezadodeformulario, li.Encabezadodeformulario, div.Encabezadodeformulario
+{mso-style-name:"Encabezado de formulario";
+margin-top:0cm;
+margin-right:0cm;
+margin-bottom:6.0pt;
+margin-left:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;
+font-weight:bold;}
+p.Textodeformulario, li.Textodeformulario, div.Textodeformulario
+{mso-style-name:"Texto de formulario";
+margin-top:0cm;
+margin-right:0cm;
+margin-bottom:6.0pt;
+margin-left:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+p.TextodeformularioCxSpFirst, li.TextodeformularioCxSpFirst, div.TextodeformularioCxSpFirst
+{mso-style-name:"Texto de formularioCxSpFirst";
+margin:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+p.TextodeformularioCxSpMiddle, li.TextodeformularioCxSpMiddle, div.TextodeformularioCxSpMiddle
+{mso-style-name:"Texto de formularioCxSpMiddle";
+margin:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+p.TextodeformularioCxSpLast, li.TextodeformularioCxSpLast, div.TextodeformularioCxSpLast
+{mso-style-name:"Texto de formularioCxSpLast";
+margin-top:0cm;
+margin-right:0cm;
+margin-bottom:6.0pt;
+margin-left:0cm;
+font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+p.Organizacin, li.Organizacin, div.Organizacin
+{mso-style-name:Organización;
+margin-top:8.0pt;
+margin-right:0cm;
+margin-bottom:0cm;
+margin-left:0cm;
+line-height:120%;
+font-size:9.0pt;
+font-family:"Arial Black",sans-serif;
+color:#2E74B5;}
+.MsoChpDefault
+{font-size:9.0pt;
+font-family:"Arial",sans-serif;
+color:#404040;}
+.MsoPapDefault
+{margin-bottom:8.0pt;}
+/* Page Definitions */
+@page WordSection1
+{size:612.0pt 792.0pt;
+margin:54.0pt 72.0pt 108.0pt 72.0pt;}
+div.WordSection1
+{page:WordSection1;}
+/* List Definitions */
+ol
+{margin-bottom:0cm;}
+ul
+{margin-bottom:0cm;}
+--></style>
+		</head>
+		<body>
+			<!-- Define header and footer blocks before your content -->
+			<header>
+				       <div style='border:none;border-left:double #1F4E79 6.75pt;padding:0cm 0cm 0cm 4.0pt'>
+							<p class=MsoTitle>
+								<span lang=ES>Reporte de recepci&oacute;n &#8211 RR</span>
+							</p>
+							<p class=MsoSubtitle style='margin-top:3.0pt'>
+								<span lang=ES>[CLIENTE]</span>
+							</p>
+							<p class=MsoSubtitle style='margin-top:3.0pt'>
+								<span lang=ES>[PROYECTO]</span>
+							</p>
+						</div>
+						<p class=Encabezadodefactura style='margin-top:5.0pt;margin-right:0cm;margin-bottom:5.0pt;margin-left:0cm'>
+							<span lang=ES>[ID_RR]</span>
+						</p>
+						<br/>
+						<table class=Tabladerecibos border=1 cellspacing=0 cellpadding=0 summary="Facturar a/Enviar a" width="100%" style='width:100.0%;border-collapse:collapse;border:none'>
+						<tr>
+							<td width="50%" valign=bottom style='width:50.0%;border:solid #5B9BD5 1.0pt;
+  background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+  6.0pt;margin-left:0cm'>
+									<b>
+										<span lang=ES>Direcci&oacute;n de facturaci&oacute;n</span>
+									</b>
+								</p>
+							</td>
+							<td width="50%" valign=bottom style='width:50.0%;border:solid #5B9BD5 1.0pt;
+  border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+  6.0pt;margin-left:0cm'>
+									<b>
+										<span lang=ES>Direcci&oacute;n de env&iacute;o</span>
+									</b>
+								</p>
+							</td>
+						</tr>
+						<tr>
+							<td width="50%" valign=top style='width:50.0%;border:solid #5B9BD5 1.0pt;
+  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+								<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse'>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Proyecto</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[NOMBRE_PROYECTO]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Orden de Compra</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[ORDEN_COMPRA_CLIENTE]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Descripci&oacute;n de OC Cliente</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[DESC_ORDEN_COMPRA_CLIENTE]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>ID Interno OC</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[ID_ORDEN_COMPRA]</span>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'/>
+							</td>
+							<td width="50%" valign=top style='width:50.0%;border-top:none;border-left:none;border-bottom:solid #5B9BD5 1.0pt;border-right:solid #5B9BD5 1.0pt;padding:0cm 7.2pt 0cm 7.2pt'>
+								<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse'>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Usuario RR</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[ID_USUARIO]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Feche Emision RR</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[FECHA_EMISION]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Guia de Despacho</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[GUIA_DESPACHO]</span>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+  6.0pt;margin-left:0cm'/>
+							</td>
+						</tr>
+						<tr>
+							<td width="50%" valign=top style='width:50.0%;border:solid #5B9BD5 1.0pt;
+  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+								<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse'>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Proveedor</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[PROVEEDOR]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Contacto Proveedor</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES/>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Tel&eacute;fono</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES/>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+  6.0pt;margin-left:0cm'/>
+							</td>
+							<td width="50%" valign=top style='width:50.0%;border-top:none;border-left:
+  none;border-bottom:solid #5B9BD5 1.0pt;border-right:solid #5B9BD5 1.0pt;
+  padding:0cm 7.2pt 0cm 7.2pt'>
+								<table class=MsoNormalTable border=0 cellspacing=0 cellpadding=0 width="100%" style='width:100.0%;border-collapse:collapse'>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>Fecha de entrega</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:7.2pt 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>[FECHA_ENTREGA]</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>&nbsp;</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>&nbsp;</span>
+											</p>
+										</td>
+									</tr>
+									<tr>
+										<td width="37%" valign=top style='width:37.78%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Encabezadodeformulario>
+												<span lang=ES>&nbsp;</span>
+											</p>
+										</td>
+										<td width="62%" valign=top style='width:62.22%;padding:0cm 0cm 0cm 0cm'>
+											<p class=Textodeformulario>
+												<span lang=ES>&nbsp;</span>
+											</p>
+										</td>
+									</tr>
+								</table>
+								<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:6.0pt;margin-left:0cm'/>
+							</td>
+						</tr>
+					</table>
+			</header>
+			<br/>
+			<br/>
+			<br/>
+		
+			<table class=Tabladerecibos border=1 cellspacing=0 cellpadding=0 summary="Tabla de recibos" width="100%" style='width:100.0%;border-collapse:collapse;border:none;'>
+						<thead>
+							<tr>
+								<td width="7%" valign=bottom style='width:7.58%;border:solid #5B9BD5 1.0pt;
+   background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>N&deg; Linea</span>
+										</b>
+									</p>
+								</td>
+								<td width="9%" valign=bottom style='width:9.58%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>TAG Number</span>
+										</b>
+									</p>
+								</td>
+								<td width="7%" valign=bottom style='width:7.78%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Stock Code</span>
+										</b>
+									</p>
+								</td>
+								<td width="11%" valign=bottom style='width:11.84%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Descripci&oacute;n</span>
+										</b>
+									</p>
+								</td>
+								<td width="11%" valign=bottom style='width:11.84%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>N&uacute;mero de Viaje</span>
+										</b>
+									</p>
+								</td>
+								<td width="9%" valign=bottom style='width:9.62%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>ST Cantidad</span>
+										</b>
+									</p>
+								</td>
+								<td width="10%" valign=bottom style='width:10.44%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Cantidad Recibida</span>
+										</b>
+									</p>
+								</td>
+								<td width="9%" valign=bottom style='width:9.4%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Bodega</span>
+										</b>
+									</p>
+								</td>
+								<td width="9%" valign=bottom style='width:9.4%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Carpa</span>
+										</b>
+									</p>
+								</td>
+								<td width="7%" valign=bottom style='width:7.3%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Patio</span>
+										</b>
+									</p>
+								</td>
+								<td width="10%" valign=bottom style='width:10.26%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Posici&oacute;n</span>
+										</b>
+									</p>
+								</td>
+								<td width="3%" valign=bottom style='width:3.14%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Obs.</span>
+										</b>
+									</p>
+								</td>
+								<td width="6%" valign=bottom style='width:6.64%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Obs EXB.</span>
+										</b>
+									</p>
+								</td>
+								<td width="6%" valign=bottom style='width:6.44%;border:solid #5B9BD5 1.0pt;
+   border-left:none;background:#DEEAF6;padding:0cm 7.2pt 0cm 7.2pt'>
+									<p class=MsoNormal style='margin-top:6.0pt;margin-right:0cm;margin-bottom:
+   6.0pt;margin-left:0cm'>
+										<b>
+											<span lang=ES style='font-size:8.0pt'>Obs II.</span>
+										</b>
+									</p>
+								</td>
+							</tr>
+						</thead>
+						[DETALLE_RR]
+					</table>
+<br/>
+<br/>
+<br/>
+<br/>
+					<footer>
+				<p class=Organizacin align=center style='text-align:center'>
+				<span lang=ES>Este documento representa la recepcion formal del material emitido por bodega de proyecto.</span>
+				<span lang=ES><img width=49 height=49 id="Imagen 1" src="[CODIGO_QR]"></span> 
+				<br/>
+				<br/>
+				<br/>
+				<br/>
+				
+						<span lang=ES><img style='text-align:center' width=150 height=80 id="Imagen 2" src="[LOGO_MIMS]"></span> 
+						<br/>
+				<br/>
+				<br/>
+						<strong>Copyright &copy; 2021 <a href="http://mimsprojects.com">mimsprojects.com</a></strong>All rights reserved.
+			
+
+			</footer>
+		</body>
+	</html>

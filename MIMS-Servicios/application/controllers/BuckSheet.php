@@ -54,6 +54,21 @@ class BuckSheet extends CI_Controller {
 		echo json_encode($BuckSheets);
 	}
 
+	function obtieneBuckSheetRRInicial(){
+
+
+		$this->bucksheet->setidOc($this->input->post('ID_OC'));
+		$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+
+		$BuckSheets = $this->bucksheet->obtieneBuckSheetRRInicial();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+	
+
 	function obtieneBuckSheetPackingList(){
 
 

@@ -12,7 +12,10 @@ if (!defined('BASEPATH')) exit('No direct script access allowed');
  */    
 // Al requerir el autoload, cargamos todo lo necesario para trabajar
 require_once(APPPATH."/third_party/dompdf/autoload.inc.php");
+
+
 use Dompdf\Dompdf;
+use Dompdf\Options;
 
 class CallUtil {
     
@@ -392,12 +395,12 @@ public function sendEmail($email,$subject,$message,$file){
        'priority' => 1
 	);*/
 	
-			$mail_config['smtp_host'] = 'mail.mimsprojects.com';
-			$mail_config['smtp_port'] = '465';
-			$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
+			$mail_config['smtp_host'] = 'email-smtp.us-west-2.amazonaws.com';
+			$mail_config['smtp_port'] = '587';
+			$mail_config['smtp_user'] = 'AKIA5ZBZADC2C3F5NU45';
 			$mail_config['_smtp_auth'] = TRUE;
-			$mail_config['smtp_pass'] = 'PasswordMims2020.';
-			$mail_config['smtp_crypto'] = 'ssl';
+			$mail_config['smtp_pass'] = 'BIl4w0WyvUDAVxktm6wRMEuNumtLo1mBmNG3vkc2PGs7';
+			$mail_config['smtp_crypto'] = 'tls';
 			$mail_config['protocol'] = 'smtp';
 			$mail_config['mailtype'] = 'html';
 			$mail_config['send_multipart'] = FALSE;
@@ -458,17 +461,17 @@ public function sendEmail($email,$subject,$message,$file){
        'priority' => 1
 	);*/
 				
-			$mail_config['smtp_host'] = 'mail.mimsprojects.com';
-			$mail_config['smtp_port'] = '465';
-			$mail_config['smtp_user'] = 'noreply@mimsprojects.com';
-			$mail_config['_smtp_auth'] = TRUE;
-			$mail_config['smtp_pass'] = 'PasswordMims2020.';
-			$mail_config['smtp_crypto'] = 'ssl';
-			$mail_config['protocol'] = 'smtp';
-			$mail_config['mailtype'] = 'html';
-			$mail_config['send_multipart'] = FALSE;
-			$mail_config['charset'] = 'utf-8';
-			$mail_config['wordwrap'] = TRUE;
+	$mail_config['smtp_host'] = 'email-smtp.us-west-2.amazonaws.com';
+	$mail_config['smtp_port'] = '587';
+	$mail_config['smtp_user'] = 'AKIA5ZBZADC2C3F5NU45';
+	$mail_config['_smtp_auth'] = TRUE;
+	$mail_config['smtp_pass'] = 'BIl4w0WyvUDAVxktm6wRMEuNumtLo1mBmNG3vkc2PGs7';
+	$mail_config['smtp_crypto'] = 'tls';
+	$mail_config['protocol'] = 'smtp';
+	$mail_config['mailtype'] = 'html';
+	$mail_config['send_multipart'] = FALSE;
+	$mail_config['charset'] = 'utf-8';
+	$mail_config['wordwrap'] = TRUE;
 
 
 
@@ -618,20 +621,38 @@ function validarFecha($date, $format = 'd-m-Y'){
 
 	
 	// por defecto, usaremos papel A4 en vertical, salvo que digamos otra cosa al momento de generar un PDF
-	public function generatePDF($html, $filename='', $stream=TRUE, $paper = 'A4', $orientation = "portrait")
+	public function generatePDF($numero_rr,$html, $filename='', $stream=TRUE, $paper = 'A4', $orientation = "portrait", $descarga = 0)
 	{
-		$dompdf = new DOMPDF();
+
+		
+		$options = new Options();
+		$options->set('defaultFont', 'Courier');
+		$options->set('isRemoteEnabled', TRUE);
+		$options->set('debugKeepTemp', TRUE);
+		$options->set('isHtml5ParserEnabled', true);
+
+		$dompdf = new Dompdf($options);
 		$dompdf->loadHtml($html);
 		$dompdf->setPaper($paper, $orientation);
 		$dompdf->render();
-	if ($stream) {
+		$dompdf->set_option('dpi', 128);
+		$canvas = $dompdf->get_canvas(); 
+		$canvas->page_text(900, 590, "Código Recepción: ".$numero_rr." - Página: {PAGE_NUM} of {PAGE_COUNT}", "helvetica", 6, array(0,0,0)); 
+		
+	if ($stream && $descarga == 1) {
 			// "Attachment" => 1 hará que por defecto los PDF se descarguen en lugar de presentarse en pantalla.
-			$dompdf->stream($filename.".pdf", array("Attachment" => 1));
+			$dompdf->stream($filename.".pdf", array("Attachment" => 0));
 		}
 	else 
 		{
-		return $dompdf->output();
+			$dompdf->stream($filename.".pdf");
+	
 		}
+		return $dompdf->output();
+
+
 	}
+
+
 }
 ?>
