@@ -377,29 +377,17 @@ public function formatoNumeroMilesEntrada($dato){
 	return $valor;
  }
 
-public function sendEmail($email,$subject,$message,$file){
+public function sendEmail($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$subject,$message,$file){
 
 	$CI = & get_instance();
 	$CI->load->library('email');
 
-   /* $config = array(
-      'protocol' => 'smtp',
-      'smtp_host' => 'mail.mimsprojects.com',
-      'smtp_port' => 587,
-      'smtp_user' => 'noreply@mimsprojects.com', 
-      'smtp_pass' => 'PasswordMims2020.', 
-      'mailtype' => 'html',
-      'charset' => 'utf-8',
-	  'wordwrap' => TRUE,
-	  'smtp_crypto' => 'tsl', //can be 'ssl' or 'tls' for example
-       'priority' => 1
-	);*/
 	
-			$mail_config['smtp_host'] = 'email-smtp.us-west-2.amazonaws.com';
-			$mail_config['smtp_port'] = '587';
-			$mail_config['smtp_user'] = 'AKIA5ZBZADC2C3F5NU45';
-			$mail_config['_smtp_auth'] = TRUE;
-			$mail_config['smtp_pass'] = 'BIl4w0WyvUDAVxktm6wRMEuNumtLo1mBmNG3vkc2PGs7';
+			$mail_config['smtp_host'] = $smtp_host;
+			$mail_config['smtp_port'] = $smtp_port;
+			$mail_config['smtp_user'] = $smtp_user;
+			$mail_config['smtp_auth'] = TRUE;
+			$mail_config['smtp_pass'] = $smtp_pass;
 			$mail_config['smtp_crypto'] = 'tls';
 			$mail_config['protocol'] = 'smtp';
 			$mail_config['mailtype'] = 'html';
@@ -416,7 +404,10 @@ public function sendEmail($email,$subject,$message,$file){
           $CI->email->to($email);
           $CI->email->subject($subject);
 		  $CI->email->message($message);
-		  $CI->email->attach($file);
+
+		  if(strlen($file) > 0){
+			$CI->email->attach($file);
+		  }
 		
 	  if($CI->email->send())
          {
@@ -443,29 +434,17 @@ public function sendEmail($email,$subject,$message,$file){
  }
 
 
- public function sendEmailPassword($email,$subject,$message){
+ public function sendEmailPassword($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$subject,$message){
 
     $CI = & get_instance();
 	$CI->load->library('email');
 
-   /* $config = array(
-      'protocol' => 'smtp',
-      'smtp_host' => 'mail.mimsprojects.com',
-      'smtp_port' => 587,
-      'smtp_user' => 'noreply@mimsprojects.com', 
-      'smtp_pass' => 'PasswordMims2020.', 
-      'mailtype' => 'html',
-      'charset' => 'utf-8',
-	  'wordwrap' => TRUE,
-	  'smtp_crypto' => 'tsl', //can be 'ssl' or 'tls' for example
-       'priority' => 1
-	);*/
-				
-	$mail_config['smtp_host'] = 'email-smtp.us-west-2.amazonaws.com';
-	$mail_config['smtp_port'] = '587';
-	$mail_config['smtp_user'] = 'AKIA5ZBZADC2C3F5NU45';
-	$mail_config['_smtp_auth'] = TRUE;
-	$mail_config['smtp_pass'] = 'BIl4w0WyvUDAVxktm6wRMEuNumtLo1mBmNG3vkc2PGs7';
+  				
+	$mail_config['smtp_host'] = $smtp_host;
+	$mail_config['smtp_port'] = $smtp_port;
+	$mail_config['smtp_user'] = $smtp_user;
+	$mail_config['smtp_auth'] = TRUE;
+	$mail_config['smtp_pass'] = $smtp_pass;
 	$mail_config['smtp_crypto'] = 'tls';
 	$mail_config['protocol'] = 'smtp';
 	$mail_config['mailtype'] = 'html';
