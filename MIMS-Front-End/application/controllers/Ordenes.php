@@ -527,7 +527,7 @@ class Ordenes extends CI_Controller{
 
           /* create new name file */
           $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
-          $respaldo_original = $_FILES["or_support"]["name"];
+          $respaldo_original = $_FILES["or_act_support"]["name"];
           $extension  = pathinfo( $_FILES[$nameArchivo ]["name"], PATHINFO_EXTENSION ); // jpg
           $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
 
@@ -554,10 +554,10 @@ class Ordenes extends CI_Controller{
                   'Criticidad'                => $or_criticidad ,
                   'idRequerimiento'           => $or_idrequerimiento,
                   'PurchaseOrderNumber'       => $or_purchase_order,
-                  'Categorizacion'            => $$or_categorizacion,
+                  'Categorizacion'            => $or_categorizacion,
                   'PurchaseOrderDescription'  => $or_purchase_desc,
                   'Revision'                  => $or_revision,
-                  'SupplierName'                => $or_select_supplier,
+                  'SupplierName'                => $or_supplier,
                   'EstadoPlano'  => $or_estado_plano  ,
                   'ObservacionesEp' =>  $or_observacion_ep,
                   'Comprador'            => $or_comprador,
