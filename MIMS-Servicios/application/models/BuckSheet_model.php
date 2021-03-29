@@ -171,7 +171,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
-     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
+     $this->db->where('length(t1.REPORTE_DE_RECEPCION_RR) = 0');
      
 
 	 return $this->db->get()->result();    
@@ -239,7 +239,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.PACKINGLIST' , $this->_PackingList);
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
-     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
+     $this->db->where('length(t1.REPORTE_DE_RECEPCION_RR) = 0');
 	
      
 
@@ -350,7 +350,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
-     $this->db->where('t1.REPORTE_DE_RECEPCION_RR is  NULL', NULL, FALSE);
+     $this->db->where('length(t1.REPORTE_DE_RECEPCION_RR) = 0');
 	
      
 
