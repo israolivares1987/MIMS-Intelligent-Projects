@@ -21,8 +21,9 @@ class Bodega extends MY_Controller{
     $this->load->library('CallExternosReporteRecepcion');
     $this->load->library('CallExternosEmpresas');
     $this->load->library('CallExternosBitacora');
-    $this->load->library('ciqrcode'); 
-        
+    $this->load->library('ci_qr_code');
+    $this->config->load('qr_code');
+  
     $this->load->helper('file');
     
 
@@ -1745,12 +1746,31 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
     public function generateQRRR($num)
     {
   
-    $archivo_qr = $this->config->item('BASE_ARCHIVOS')."reporterecepcion/qr/";  
-    $params['data'] = base_url() . 'index.php/Bodega/muestraPDFRR/'.$num;
-    $params['size'] = 10;
-    $params['savename'] = $archivo_qr.'QR_'.$num.'.png';
-    $this->ciqrcode->generate($params);
-  
+      $qr_code_config = array();
+      $qr_code_config['cacheable'] = $this->config->item('cacheable');
+      $qr_code_config['cachedir'] = $this->config->item('cachedir');
+      $qr_code_config['imagedir'] = $this->config->item('imagedir');
+      $qr_code_config['errorlog'] = $this->config->item('errorlog');
+      $qr_code_config['ciqrcodelib'] = $this->config->item('ciqrcodelib');
+      $qr_code_config['quality'] = $this->config->item('quality');
+      $qr_code_config['size'] = $this->config->item('size');
+      $qr_code_config['black'] = $this->config->item('black');
+      $qr_code_config['white'] = $this->config->item('white');
+      $this->ci_qr_code->initialize($qr_code_config);
+
+      $image_name = $num.'.png';
+
+
+      $params['data'] =  base_url() . 'index.php/Bodega/muestraPDFRR/'.$num;
+      $params['level'] = 'H';
+      $params['size'] = 10;
+
+      $params['savename'] = $this->config->item('BASE_ARCHIVOS'). $qr_code_config['imagedir'] . $image_name;
+      $this->ci_qr_code->generate($params);
+
+      $this->data['qr_code_image_url'] = base_url() . $qr_code_config['imagedir'] . $image_name;
+    
+    
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
