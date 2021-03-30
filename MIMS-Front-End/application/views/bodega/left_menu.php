@@ -126,10 +126,24 @@
                     </li>
               </ul>
             </li>  
-            
 
-
-
+            <li class="nav-item has-treeview">
+                    <a href="#" class="nav-link text-sm">
+                    <i class="fas fa-truck nav-icon"></i>
+                      <p>
+                      REPORTES
+                      </p>
+                    </a>
+                    <ul class="nav nav-treeview">  
+                   
+                    <li class="nav-item">
+                       <a href="<?php echo site_url('Bodega/reporteDiario');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Reporte Diario</p>
+                      </a>
+                    </li>
+              </ul>
+            </li>  
 
             </ul>
 

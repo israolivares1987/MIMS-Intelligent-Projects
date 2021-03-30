@@ -41,6 +41,23 @@ class BuckSheet extends CI_Controller {
 	}
 
 
+	
+
+	function obtieneReporteDiario(){
+
+
+    	$this->bucksheet->setcodEmpresa($this->input->post('codEmpresa'));
+		$this->bucksheet->setcodigoProyecto($this->input->post('codigoProyecto'));
+		$this->bucksheet->setcodigoCliente($this->input->post('codigoCliente'));
+
+		$BuckSheets = $this->bucksheet->obtieneReporteDiario();
+	
+				
+		//output to json format
+		echo json_encode($BuckSheets);
+	}
+
+
 	function obtieneBuckSheetBodega(){
 
 

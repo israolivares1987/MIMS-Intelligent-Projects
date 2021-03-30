@@ -505,6 +505,62 @@ $datos['listaTodo'] = $listaTodo ;
   }
   
 
+
+  public function reporteDiario(){
+
+
+    $number = 0; 
+    $codEmpresa = $this->session->userdata('cod_emp');
+   
+    
+  
+  
+      // Obtiene select Clientes
+  
+      $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+  
+      $arrClientes = json_decode($clientes);
+  
+      $htmlclientes = "";
+      
+      $htmlclientes .= '<select class="form-control" id="clientes">';
+      $htmlclientes .= '<option value="0">Seleccione</option>';
+      
+      foreach ($arrClientes as $key => $value) {
+  
+        $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+      
+      }
+  
+      $htmlclientes .= '</select>';
+      $datos['select_clientes'] = $htmlclientes;
+  
+  
+      // Obtiene select Proyectos
+  
+      $htmlproyectos = "";
+  
+      $htmlproyectos .= '<select class="form-control" id="proyectos">';
+      $htmlproyectos .= '<option value="0">Seleccione</option>';
+      $htmlproyectos .= '</select>';
+      $datos['select_proyectos'] = $htmlproyectos;
+  
+  
+ 
+
+
+
+    
+  
+  
+  
+      $this->plantilla_bodega('bodega/reporteDiario', $datos);
+  
+  
+    }  
+
+
+
   
 public function crearRRDet($NumRR){
 
