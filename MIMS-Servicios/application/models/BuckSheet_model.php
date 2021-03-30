@@ -7,9 +7,19 @@ class BuckSheet_model extends CI_Model{
     private $_idError;
     private $_codEmpresa;
     private $_PackingList;
+    private $_CodigoProyecto;
+    private $_CodigoCliente;
 
     public function setidOc($ID_OC) {
         $this->_ID_OC = $ID_OC;
+    }
+
+    public function setcodigoProyecto($CodigoProyecto) {
+        $this->_CodigoProyecto = $CodigoProyecto;
+    }
+
+    public function setcodigoCliente($CodigoCliente) {
+        $this->_CodigoCliente = $CodigoCliente;
     }
 
     public function setPackingList($PackingList) {
@@ -170,12 +180,89 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
-     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('(length(t1.GUIA_DESPACHO) = 0 OR t1.GUIA_DESPACHO is NOT NULL)');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
      
 
 	 return $this->db->get()->result();    
     }
+
+    function obtieneReporteDiario()
+	{
+        $this->db->select("t1.ID_OC,
+        t1.NUMERO_OC,
+        t1.DESCRIPCION_OC,
+        t1.ITEM_OC,
+        t1.SUB_ITEM_OC,
+        t1.PROVEEDOR,
+        t1.NUMERO_DE_LINEA,
+        t1.TIPO_DE_LINEA,
+        t1.ESTADO_DE_LINEA,
+        t1.NUMERO_DE_TAG,
+        t1.STOCKCODE,
+        t1.DESCRIPCION_LINEA,
+        t1.NUMERO_DE_ELEMENTOS,
+        t1.CANTIDAD_UNITARIA,
+        t1.CANTIDAD_TOTAL,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
+        t1.TRANSMITTAL_CLIENTE,
+        t1.FECHA_TC,
+        t1.TRANSMITTAL_PROVEEDOR,
+        t1.FECHA_TP,
+        t1.TRANSMITTAL_CLIENTE_FINAL,
+        t1.FECHA_TCF,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_TCF and domain = 'ACTUAL_PREVIO ') as PA_TCF,
+        t1.NUMERO_DE_PLANO,
+        t1.REVISION,
+        t1.PAQUETE_DE_CONSTRUCCION_AREA,
+        t1.FECHA_LINEA_BASE,
+        t1.DIAS_ANTES_LB,
+        t1.FECHA_COMIENZO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FCF and domain = 'ACTUAL_PREVIO ') as PA_FCF,
+        t1.FECHA_TERMINO_FABRICACION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FTF and domain = 'ACTUAL_PREVIO ') as PA_FTF,
+        t1.FECHA_GRANALLADO,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FG and domain = 'ACTUAL_PREVIO ') as PA_FG,
+        t1.FECHA_PINTURA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FP and domain = 'ACTUAL_PREVIO ') as PA_FP,
+        t1.FECHA_LISTO_INSPECCION,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FLI and domain = 'ACTUAL_PREVIO ') as PA_FLI,
+        t1.ACTA_LIBERACION_CALIDAD,
+        t1.FECHA_SALIDA_FABRICA,
+        (select domain_desc from tbl_ref_codes where domain_id = t1.PA_FSF and domain = 'ACTUAL_PREVIO ') as PA_FSF,
+        t1.FECHA_EMBARQUE,
+        t1.PACKINGLIST,
+        t1.GUIA_DESPACHO,
+        t1.NUMERO_DE_VIAJE,
+        t1.ORIGEN,
+        t1.DIAS_VIAJE,
+        t1.UNIDADES_SOLICITADAS,
+        t1.UNIDADES_RECIBIDAS,
+        t1.REPORTE_DE_RECEPCION_RR,
+        t1.REPORTE_DE_ENTREGA_RE,
+        t1.REPORTE_DE_EXCEPCION_EXB,
+        t1.INSPECCION_DE_INGENIERIA,
+        t1.OBSERVACION"); 
+     $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
+     $this->db->where('t1.COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+     $this->db->where('t2.NumeroProyecto', $this->_CodigoProyecto) ;
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('t1.id_oc = t3.PurchaseOrderID');
+     $this->db->where('t3.idCliente = t2.idCliente');     
+     $this->db->where('t1.COD_EMPRESA = t2.codEmpresa');
+     $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
+     
+
+	 return $this->db->get()->result();    
+    }
+
+
+
+
+
+
+
 
     function obtieneBuckSheetPackingList()
 	{
@@ -238,7 +325,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.PACKINGLIST' , $this->_PackingList);
-     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -349,7 +436,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -369,7 +456,8 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
 
@@ -387,7 +475,8 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('t1.GUIA_DESPACHO is NOT NULL', NULL, FALSE);
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
 
