@@ -23,7 +23,6 @@ class Bodega extends MY_Controller{
     $this->load->library('CallExternosBitacora');
     $this->load->library('ci_qr_code');
     $this->config->load('qr_code');
-  
     $this->load->helper('file');
     
 
@@ -1479,7 +1478,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
 
     function creaPDFRR($NumRR){
 
-      $archivo_qr = base_url()."archivos/reporterecepcion/qr/QR_".$NumRR.".png"; 
+      $archivo_qr = base_url()."global/tmp/qr_codes/QR_".$NumRR.".png"; 
       $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
       $this->generateQRRR($NumRR);
 
@@ -1745,7 +1744,6 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
 
     public function generateQRRR($num)
     {
-  
       $qr_code_config = array();
       $qr_code_config['cacheable'] = $this->config->item('cacheable');
       $qr_code_config['cachedir'] = $this->config->item('cachedir');
@@ -1758,19 +1756,18 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $qr_code_config['white'] = $this->config->item('white');
       $this->ci_qr_code->initialize($qr_code_config);
 
-      $image_name = $num.'.png';
+      $image_name = "QR_".$num . ".png";
 
 
       $params['data'] =  base_url() . 'index.php/Bodega/muestraPDFRR/'.$num;
       $params['level'] = 'H';
-      $params['size'] = 10;
+      $params['size'] = 2;
 
-      $params['savename'] = $this->config->item('BASE_ARCHIVOS'). $qr_code_config['imagedir'] . $image_name;
+      $params['savename'] = FCPATH . $qr_code_config['imagedir'] . $image_name;
       $this->ci_qr_code->generate($params);
 
       $this->data['qr_code_image_url'] = base_url() . $qr_code_config['imagedir'] . $image_name;
-    
-    
+
     }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////

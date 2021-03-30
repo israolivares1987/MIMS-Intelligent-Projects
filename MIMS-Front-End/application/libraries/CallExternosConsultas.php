@@ -25,7 +25,8 @@ class CallExternosConsultas {
   
           $base_url_servicios =$this->obtienebaseservicios();                
           $api_url = $base_url_servicios."Consultas/obtieneDatosTotales";
-    
+ 
+
           $form_data = array(
             'codEmpresa'		=>$codEmpresa
         );
@@ -83,7 +84,7 @@ function iniciosesion($user_name,$password,$cod_emp){
   
           $base_url_servicios =$this->obtienebaseservicios();                
           $api_url = $base_url_servicios."Login/validateUser";
-    
+
           $form_data = array(
             'user_name'		=>$user_name,
             'password'		=>$password,
