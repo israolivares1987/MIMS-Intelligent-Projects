@@ -45,6 +45,9 @@ class Login extends CI_Controller{
 
   
         $json = $this->callexternosconsultas->iniciosesion($user_name,$password,$cod_emp);
+
+
+
         $obj = json_decode($json);
             
             
