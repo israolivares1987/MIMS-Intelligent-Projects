@@ -71,8 +71,8 @@ class Consultas_model extends CI_Model{
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
       $this->db->where('a.ID_OC = b.PurchaseOrderID');
-      $this->db->where("b.POStatus = '5'");
-      $this->db->where("b.Categorizacion = '1' ");
+      $this->db->where("b.POStatus = 'ADJUDICADA'");
+      $this->db->where("b.Categorizacion = 'ORDEN PRINCIPAL' ");
       $this->db->from('tbl_bucksheet a, tbl_ordenes b');
 
       return $this->db->count_all_results();
@@ -88,8 +88,8 @@ class Consultas_model extends CI_Model{
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
       $this->db->where('a.ID_OC = b.PurchaseOrderID');
-      $this->db->where("b.POStatus = '5'");
-      $this->db->where("b.Categorizacion = '2' ");
+      $this->db->where("b.POStatus = 'ADJUDICADA'");
+      $this->db->where("b.Categorizacion = 'ORDEN ASOCIADA' ");
       $this->db->from('tbl_bucksheet a, tbl_ordenes b');
 
       //var_dump( $this->db->get_compiled_select());
@@ -102,8 +102,8 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '2');
+      $this->db->where('b.POStatus', 'ADJUDICADA');
+      $this->db->where('b.Categorizacion', 'ORDEN ASOCIADA');
       $this->db->from('tbl_ordenes b');
       return $this->db->count_all_results();
 
@@ -115,8 +115,8 @@ class Consultas_model extends CI_Model{
     {
 
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '1');
+      $this->db->where('b.POStatus', 'ADJUDICADA');
+      $this->db->where('b.Categorizacion', 'ORDEN PRINCIPAL');
       $this->db->from('tbl_ordenes b');
       return $this->db->count_all_results();
 
@@ -129,8 +129,8 @@ class Consultas_model extends CI_Model{
 
       $this->db->select_sum('ValorNeto');
       $this->db->where('codEmpresa',$codEmpresa);
-      $this->db->where('b.POStatus', '5');
-      $this->db->where('b.Categorizacion', '1');
+      $this->db->where('b.POStatus', 'ADJUDICADA');
+      $this->db->where('b.Categorizacion', '1ORDEN PRINCIPAL');
       $this->db->from('tbl_ordenes b');
 
       //var_dump( $this->db->get_compiled_select());
@@ -145,8 +145,8 @@ class Consultas_model extends CI_Model{
       {
         $this->db->select_sum('ValorNeto');
         $this->db->where('codEmpresa',$codEmpresa);
-        $this->db->where('b.POStatus', '5');
-        $this->db->where('b.Categorizacion', '2');
+        $this->db->where('b.POStatus', 'ADJUDICADA');
+        $this->db->where('b.Categorizacion', 'ORDEN ASOCIADA');
         $this->db->from('tbl_ordenes b');
         return $this->db->get()->result();
 
@@ -165,7 +165,7 @@ function obtieneDatosTotalesProyectosActivador($codEmpresa,$activador)
   $this->db->where('a.NumeroProyecto = b.idProyecto');
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where('estadoProyecto = 1');
-  $this->db->where('b.POStatus = 5');
+  $this->db->where('b.POStatus', 'ADJUDICADA');
   $this->db->where('a.codEmpresa = '.$codEmpresa);
   $this->db->where("c.email = '".$activador."'");
   
@@ -185,7 +185,7 @@ function obtieneTotClientesxEmpActivador($codEmpresa,$activador)
   $this->db->where('a.NumeroProyecto = b.idProyecto');
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where('estadoProyecto = 1');
-  $this->db->where('b.POStatus = 5');
+  $this->db->where('b.POStatus', 'ADJUDICADA');
   $this->db->where('a.codEmpresa = '.$codEmpresa);
   $this->db->where("c.email = '".$activador."'");
   $this->db->where('d.idCliente = b.idCliente');
@@ -202,10 +202,10 @@ function obtieneDatosTotalesLineasActComprasActivador($codEmpresa,$activador)
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
   $this->db->where('a.ID_OC = b.PurchaseOrderID');
-  $this->db->where("b.POStatus = '5'");
+  $this->db->where("b.POStatus = 'ADJUDICADA'");
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
-  $this->db->where("b.Categorizacion = '1' ");
+  $this->db->where("b.Categorizacion = 'ORDEN PRINCIPAL' ");
   $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
 
   return $this->db->count_all_results();
@@ -221,8 +221,8 @@ function obtieneDatosTotalesLineasActObraActivador($codEmpresa,$activador)
   $this->db->where('b.codEmpresa',$codEmpresa);
   $this->db->where("a.TIPO_DE_LINEA = 'ACTIVABLE'");
   $this->db->where('a.ID_OC = b.PurchaseOrderID');
-  $this->db->where("b.POStatus = '5'");
-  $this->db->where("b.Categorizacion = '2' ");
+  $this->db->where("b.POStatus = 'ADJUDICADA'");
+  $this->db->where("b.Categorizacion = 'ORDEN ASOCIADA' ");
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
   $this->db->from('tbl_bucksheet a, tbl_ordenes b,tbl_user c');
@@ -235,8 +235,8 @@ function obtieneDatosOrdenesObraActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where("b.POStatus = '5'");
-  $this->db->where("b.Categorizacion = '2' ");
+  $this->db->where("b.POStatus = 'ADJUDICADA'");
+  $this->db->where("b.Categorizacion = 'ORDEN ASOCIADA' ");
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
   $this->db->from('tbl_ordenes b,tbl_user c');
@@ -250,8 +250,8 @@ function obtieneDatosTotalOrdenesComprasActivador($codEmpresa,$activador)
 {
 
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '1');
+  $this->db->where('b.POStatus', 'ADJUDICADA');
+  $this->db->where('b.Categorizacion', 'ORDEN PRINCIPAL');
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
   $this->db->from(' tbl_ordenes b,tbl_user c');
@@ -265,8 +265,8 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
 
   $this->db->select_sum('ValorNeto');
   $this->db->where('b.codEmpresa',$codEmpresa);
-  $this->db->where('b.POStatus', '5');
-  $this->db->where('b.Categorizacion', '1');
+  $this->db->where('b.POStatus', 'ADJUDICADA');
+  $this->db->where('b.Categorizacion', 'ORDEN PRINCIPAL');
   $this->db->where('c.cod_user = b.ExpediterID');
   $this->db->where("c.email = '".$activador."'");
   $this->db->from(' tbl_ordenes b,tbl_user c');
@@ -280,8 +280,8 @@ function obtieneDatosAdminMMComprasActivador($codEmpresa,$activador)
   {
     $this->db->select_sum('ValorNeto');
     $this->db->where('b.codEmpresa',$codEmpresa);
-    $this->db->where('b.POStatus', '5');
-    $this->db->where('b.Categorizacion', '2');
+    $this->db->where('b.POStatus', 'ADJUDICADA');
+    $this->db->where('b.Categorizacion', 'ORDEN ASOCIADA');
     $this->db->where('c.cod_user = b.ExpediterID');
     $this->db->where("c.email = '".$activador."'");
     $this->db->from('tbl_ordenes b,tbl_user c');
