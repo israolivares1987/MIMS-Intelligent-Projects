@@ -169,7 +169,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table class="" cellspacing="0" width="100%">
+              <table class="table table-bordered" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
                                          <th>
@@ -225,7 +225,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table class="table" cellspacing="0" width="99%">
+              <table class="table table table-bordered" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -247,7 +247,7 @@
                              <thead>
                              <tr>
                                         <th>EDITAR</th>
-                                        <th style="text-align:left; background-color:#FFE699; border: solid black">ID OC</th>
+                                        <th style="text-align:left; background-color:#FFE699;">ID OC</th>
                                         <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
                                         <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
                                         <th style="text-align:left; background-color:#FFE699">ITEM OC</th>
