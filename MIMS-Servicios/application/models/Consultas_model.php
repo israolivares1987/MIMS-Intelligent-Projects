@@ -130,7 +130,7 @@ class Consultas_model extends CI_Model{
       $this->db->select_sum('ValorNeto');
       $this->db->where('codEmpresa',$codEmpresa);
       $this->db->where('b.POStatus', 'ADJUDICADA');
-      $this->db->where('b.Categorizacion', '1ORDEN PRINCIPAL');
+      $this->db->where('b.Categorizacion', 'ORDEN PRINCIPAL');
       $this->db->from('tbl_ordenes b');
 
       //var_dump( $this->db->get_compiled_select());
