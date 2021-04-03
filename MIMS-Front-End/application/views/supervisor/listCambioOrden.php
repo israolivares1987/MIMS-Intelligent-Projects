@@ -28,7 +28,7 @@
                                      <div class="card-body">
                                          <dl class="row">
                                              <dt class="col-sm-8">Order ID:</dt>
-                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($PurchaseOrderDescription);?>
                                              </dd>
@@ -109,7 +109,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                 EDP
+                                 ESTADOS DE PAGO
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -120,13 +120,24 @@
                                      <td>
                                      <dl class="row">
                                              <dt class="col-sm-8">ORDEN DE COMPRA:</dt>
-                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">MONTO ORDEN DE COMPRA:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($montoOrden);?>
                                              </dd>
                                              </dd>
                                          </dl>
                                     </td>
+                                    <td>
+                                     <dl class="row">
+                                             <dt class="col-sm-8">DESCRIPCIÓN ORDEN:</dt>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderDescription;?></dd>
+                                             <dt class="col-sm-8">&nbsp;</dt>
+                                             <dd class="col-sm-9">&nbsp;
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                    </td>
+                                    <td>
                                     <td>
                                     
                                     </td>
@@ -506,35 +517,35 @@ function mostrarBlock(){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
@@ -612,31 +623,31 @@ url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'
 "buttons": [
 {
 "extend": 'copy',
-"text": 'Copiar'
+"text": 'COPIAR'
 },
 {
 "extend": 'csv',
-"text": 'csv'
+"text": 'CSV'
 },
 {
 "extend": 'excel',
-"text": 'excel'
+"text": 'EXCEL'
 },
 {
 "extend": 'pdf',
-"text": 'pdf'
+"text": 'PDF'
 },
 {
 "extend": 'print',
-"text": 'Imprimir'
+"text": 'IMPRIMIR'
 },
 {
 "extend": 'colvis',
-"text": 'Columnas Visibles'
+"text": 'COLUMNAS VISIBLES'
 },
 {
 "extend": 'pageLength',
-"text": 'Mostrar Registros'
+"text": 'MOSTRAR REGISTROS'
 }
 ]
     }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
@@ -656,16 +667,7 @@ url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'
                  //Initialize Select2 Elements
 
 
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+             
 
 
 

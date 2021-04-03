@@ -71,7 +71,7 @@
                   <th>ID Requerimiento</th>
                   <th>Categorizacion</th>
                   <th>Número Orden</th>
-                  <th>Fecha Orden</th>
+                  <th>Fecha Emisión Orden</th>
                   <th>Descripcion Orden</th>
                   <th>Revisión</th>
                   <th>Nombre Proveedor</th>
@@ -81,7 +81,6 @@
                   <th>Activador</th>
                   <th>Moneda</th>
                   <th>Valor Neto</th>
-                  <th>Valor Total</th>
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
                   <th>Fecha Orden Creada</th>
@@ -552,16 +551,7 @@
              $(function() {
                  
 
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+             
 
                  $('[data-toggle="tooltip"]').tooltip();
 
@@ -754,35 +744,35 @@ function recargaProyectos(cliente){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_proyectos_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {
@@ -898,35 +888,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_ordenes_items_wrapper .col-md-6:eq(0)');
 
 
@@ -997,35 +987,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_control_calidad_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -1092,7 +1082,6 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
            ordenes_html += '<td>' + orden.ExpediterID + '</td>';
            ordenes_html += '<td>' + orden.Currency  + '</td>';
            ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
-           ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
            ordenes_html += '<td>' + orden.Budget  + '</td>';
            ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
            ordenes_html += '<td>' + orden.DateCreated  + '</td>';
@@ -1156,35 +1145,35 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#ListOrdenes_wrapper .col-md-6:eq(0)');
 
 
@@ -1320,35 +1309,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -1668,35 +1657,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_subidos_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {

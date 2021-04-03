@@ -28,7 +28,7 @@
                                      <div class="card-body">
                                          <dl class="row">
                                              <dt class="col-sm-8">Order ID:</dt>
-                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($PurchaseOrderDescription);?>
                                              </dd>
@@ -156,16 +156,7 @@ tr {
                  //Initialize Select2 Elements
 
 
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+             
 
                  var x = 1; //Initial field counter is 1 
                             var maxField = 10; //Input fields increment limitation
@@ -370,35 +361,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_ccalidad_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -472,35 +463,35 @@ calidad_det_html += '</tr>';
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_controlcalidaddet_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {

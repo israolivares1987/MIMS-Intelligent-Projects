@@ -191,7 +191,7 @@ class Journal extends MY_Controller{
             $PurchaseOrderID = $valor->PurchaseOrderID;
             $PurchaseOrderNumber = $valor->PurchaseOrderNumber;
             $PurchaseOrderDescription = $valor->PurchaseOrderDescription;
-            $montoOrden =  $this->callutil->formatoDinero($valor->ValorTotal);
+            $montoOrden =  $this->callutil->formatoDinero($valor->ValorNeto);
 
           }
         }
@@ -251,6 +251,7 @@ class Journal extends MY_Controller{
 
    $datos['idCliente'] = $idCliente;
    $datos['idOrden'] = $idOrden;
+   $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
    $datos['codProyecto'] = $codProyecto;
    $datos['DescripcionProyecto'] = $DescripcionProyecto;
    $datos['nombreCliente'] = $nombreCliente;
@@ -387,7 +388,7 @@ class Journal extends MY_Controller{
     $id_interaccion_ref = $this->input->post('id_interaccion_ref');
 
 
-    $fecha_ingreso = $this->callutil->formatoFecha($this->input->post('fecha_ingreso'));
+    $fecha_ingreso = date_create()->format('Y-m-d');
     $numero_referencial = $this->input->post('numero_referencial');
     $solicitado_por = $this->input->post('solicitado_por');
     $aprobado_por = $this->input->post('aprobado_por');

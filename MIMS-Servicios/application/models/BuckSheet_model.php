@@ -242,12 +242,16 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t3.PurchaseOrderNumber,
+        t3.PurchaseOrderDescription"); 
      $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
      $this->db->where('t1.COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t2.NumeroProyecto', $this->_CodigoProyecto) ;
+     $this->db->where('t2.idCliente', $this->_CodigoCliente) ;
      $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('t2.NumeroProyecto = t3.idProyecto');
      $this->db->where('t1.id_oc = t3.PurchaseOrderID');
      $this->db->where('t3.idCliente = t2.idCliente');     
      $this->db->where('t1.COD_EMPRESA = t2.codEmpresa');

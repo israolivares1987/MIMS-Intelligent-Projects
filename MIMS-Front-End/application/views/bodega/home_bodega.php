@@ -268,7 +268,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
+                        <input autocomplete="off"  type="text" class="form-control fechapicker" name="var_fecha_inicio" id="var_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -283,7 +283,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control fechapicker" name="var_fecha_termino" id="var_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -806,35 +806,35 @@ function recargaListaToDo(){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_todo_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {
@@ -1035,35 +1035,35 @@ function recargaListaToDo(){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#datos_rr_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {

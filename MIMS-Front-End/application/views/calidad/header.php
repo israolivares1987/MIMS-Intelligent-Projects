@@ -136,5 +136,5 @@ setTimeout('ActualizarReloj()',1000);
 
 
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm" onload="ActualizarReloj()">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm" style="text-transform: uppercase;" onload="ActualizarReloj()">
 <div class="wrapper">

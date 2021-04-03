@@ -28,7 +28,7 @@
                                      <div class="card-body">
                                          <dl class="row">
                                              <dt class="col-sm-8">Order ID:</dt>
-                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($PurchaseOrderDescription);?>
                                              </dd>
@@ -116,7 +116,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                                 EDP
+                                 ESTADOS DE PAGO
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -127,9 +127,19 @@
                                      <td>
                                      <dl class="row">
                                              <dt class="col-sm-8">ORDEN DE COMPRA:</dt>
-                                             <dd class="col-sm-9"><?php echo $idOrden;?></dd>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">MONTO ORDEN DE COMPRA:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($montoOrden);?>
+                                             </dd>
+                                             </dd>
+                                         </dl>
+                                    </td>
+                                    <td>
+                                     <dl class="row">
+                                             <dt class="col-sm-8">DESCRIPCIÓN ORDEN:</dt>
+                                             <dd class="col-sm-9"><?php echo $PurchaseOrderDescription;?></dd>
+                                             <dt class="col-sm-8">&nbsp;</dt>
+                                             <dd class="col-sm-9">&nbsp;
                                              </dd>
                                              </dd>
                                          </dl>
@@ -457,13 +467,6 @@ function mostrarBlock(){
                  var cliente = <?php echo $idCliente?>;
                  var orden = <?php echo $idOrden?>;
 
-
-                 if (!validatefecha(data.get('fecha_ingreso'))) {
-
-                     toastr.warning('Fecha incorrecta, favor validar');
-
-                 } else {
-
                     
                     if (data.get('notificacion') === 'S') {
 
@@ -486,10 +489,6 @@ function mostrarBlock(){
                                     });
                     } 
                  
-                 
-                 }
-                 
-
 
                  
                  if(falso == 0 ){
@@ -649,35 +648,35 @@ function mostrarBlock(){
                     [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
                     ],
                     "buttons": [
-                    {
-                    "extend": 'copy',
-                    "text": 'Copiar'
-                    },
-                    {
-                    "extend": 'csv',
-                    "text": 'csv'
-                    },
-                    {
-                    "extend": 'excel',
-                    "text": 'excel'
-                    },
-                    {
-                    "extend": 'pdf',
-                    "text": 'pdf'
-                    },
-                    {
-                    "extend": 'print',
-                    "text": 'Imprimir'
-                    },
-                    {
-                    "extend": 'colvis',
-                    "text": 'Columnas Visibles'
-                    },
-                    {
-                    "extend": 'pageLength',
-                    "text": 'Mostrar Registros'
-                    }
-                    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
 
                     }).fail(function() {
@@ -753,35 +752,35 @@ function mostrarBlock(){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
 
                  }).fail(function() {
@@ -992,31 +991,31 @@ url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'
 "buttons": [
 {
 "extend": 'copy',
-"text": 'Copiar'
+"text": 'COPIAR'
 },
 {
 "extend": 'csv',
-"text": 'csv'
+"text": 'CSV'
 },
 {
 "extend": 'excel',
-"text": 'excel'
+"text": 'EXCEL'
 },
 {
 "extend": 'pdf',
-"text": 'pdf'
+"text": 'PDF'
 },
 {
 "extend": 'print',
-"text": 'Imprimir'
+"text": 'IMPRIMIR'
 },
 {
 "extend": 'colvis',
-"text": 'Columnas Visibles'
+"text": 'COLUMNAS VISIBLES'
 },
 {
 "extend": 'pageLength',
-"text": 'Mostrar Registros'
+"text": 'MOSTRAR REGISTROS'
 }
 ]
     }).buttons().container().appendTo('#tbl_corden_wrapper .col-md-6:eq(0)');
@@ -1089,16 +1088,7 @@ var cliente = <?php echo $idCliente?> ;
                  //Initialize Select2 Elements
 
 
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+             
 
 
 
@@ -1106,223 +1096,129 @@ var cliente = <?php echo $idCliente?> ;
              </script>
 
 
-             <!--.modal nuevo control Calidad-->
-             <div id="modal_control_calidad" class="modal fade" tabindex="-1" role="dialog">
-                 <div class="modal-dialog modal-xl" role="document">
-                     <div class="modal-content">
 
-                         <div class="modal-header">
-                             <h5 class="modal-title">Nuevo Registro Gestión de Activación</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                         <div class="modal-body">
-                             <div class="container">
-                                 <form id="miForm" class="form-horizontal" enctype="multipart/form-data" method="post">
-                                     <div class="col-md-12">
-
-                                         <div class="form-group" data-select2-id="89">
-                                             <div class="form-group">
-                                                 <label class="control-label col-md-9">Nombre Empleado</label>
-                                                 <div class="col-md-12">
-                                                     <input name="nombre_empleado" placeholder="" class="form-control"
-                                                         type="text" value="<?php echo $nombreEmpleador;?>" readonly>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                     </div>
-
-
-
-                                     <div class="col-md-12">
-                                         <div class="form-horizontal">
-                                             <div class="form-group">
-                                                 <div class="form-group">
-                                                     <label class="control-label col-md-9">Tipo Interaccion</label>
-                                                     <div class="col-md-12">
-                                                         <select name="tipo_interaccion" id="var_tipo_interaccion"
-                                                             class="form-control"
-                                                             style="width: 100%;"  tabindex="-1"
-                                                             aria-hidden="true">
-                                                             <?php echo $select_cc;?>
-                                                         </select>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-                                         <!--.form-horizontal-->
-                                     </div>
-
-
-
-                                     <div class="col-md-12">
-
-
-                                     <div class="form-group">
-                                             <label>Fecha Ingreso</label>
-
-                                             <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i
-                                                             class="far fa-calendar-alt"></i></span>
-                                                 </div>
-                                                 <input name="fecha_ingreso"  id="fecha_ingreso"  type="text" class="form-control"
-                                                     data-inputmask-alias="datetime"
-                                                     data-inputmask-inputformat="dd-mm-yyyy" data-mask=""
-                                                     im-insert="false">
-                                             </div>
-                                             <!-- /.input group -->
-                                         </div>
-
-                                     </div>
-
-
-
-
-                                     <div class="col-md-12">
-
-                                         <div class="form-group">
-                                             <label class="control-label col-md-3">Numero Referencial</label>
-                                             <div class="col-md-12">
-                                                 <input name="numero_referencial" placeholder="" class="form-control"
-                                                     type="text" id="var_numero_referencial">
-                                                 <span class="help-block"></span>
-                                             </div>
-                                         </div>
-
-                                     </div>
-
-
-
-
-                                     <div class="col-md-12">
-
-                                         <div class="form-group">
-                                             <label class="control-label col-md-3">Solicitado por</label>
-                                             <div class="col-md-12">
-                                                 <input name="solicitado_por" placeholder="" class="form-control"
-                                                     type="text" id="var_solicitado_por">
-                                                 <span class="help-block"></span>
-                                             </div>
-                                         </div>
-                                         <!--.col-md-12-->
-
-                                     </div>
-
-
-                                     <div class="col-md-12">
-
-                                         <div class="form-group">
-                                             <label class="control-label col-md-3">Aprobado por</label>
-                                             <div class="col-md-12">
-                                                 <input name="aprobado_por" placeholder="" class="form-control"
-                                                     type="text" id="var_aprobado_por">
-                                                 <span class="help-block"></span>
-                                             </div>
-                                         </div>
-                                         <!--.col-md-12-->
-
-                                     </div>
-
-
-                                     <div class="col-md-12">
-
-                                         <div class="form-group">
-                                             <label class="control-label col-md-3">Comentarios Generales</label>
-                                             <div class="col-md-12">
-                                                 <textarea id="var_comentarios_generales" name="comentarios_generales"
-                                                     class="form-control" rows="10"
-                                                     placeholder="Ingresar ..."></textarea>
-                                                 <span class="help-block"></span>
-                                             </div>
-                                         </div>
-                                     </div>
-
-
-                                     <div class="col-md-12">
-
-
-                                         <div class="form-group">
-                                             <label for="exampleInputFile">Respaldo</label>
-                                             <div class="custom-file">
-                                                <input type="file"  onChange="ver_archivo();" class="custom-file-input" id="var_respaldos" name="respaldos" required="">
-                                                <label class="custom-file-label" for="customFile">Seleccionar Archivo</label>
-                                             </div>
-                                             <div>
-                                                 <label>Archivo seleccionado: <p id="name_respaldo"></p></label>
-                                             </div>
-                                         </div>
-                                     </div>
-
-
-
-                                     <div class="col-md-12">
-                                         <div class="form-horizontal">
-                                             <div class="form-group">
-                                                 <div class="form-group">
-                                                     <label class="control-label col-md-9">Notificar</label>
-                                                     <div class="col-md-12">
-                                                         <select name="notificacion" id="select_interaccion"
-                                                             class="form-control"
-                                                             style="width: 100%;" tabindex="-1"
-                                                             aria-hidden="true" onchange="MostrarEmail(this);">
-                                                             <option value="" selected></option>
-                                                             <option value="S">SI</option>
-                                                             <option value="N">NO</option>
-                                                         </select>
-                                                     </div>
-                                                 </div>
-                                             </div>
-                                         </div>
-
-                                     </div>
-
-                                     <input type="hidden" id="tipo" name="tipo"
-                                         value="2">
-                                     <input type="hidden" id="id_orden_compra" name="id_orden_compra"
-                                         value="<?php echo $idOrden?>">
-                                     <input type="hidden" id="id_cliente" name="id_cliente"
-                                         value="<?php echo $idCliente?>">
-                                     <input type="hidden" id="id_proyecto" name="id_proyecto"
-                                         value="<?php echo $codProyecto?>">
-                                     <input type="hidden" id="id_empleado" name="id_empleado"
-                                         value="<?php echo $this->session->userdata('id_usuario')?>">
-
-                                     <div id="mailFrm" style="display: none;" class="col-md-12">
-                                         <div class="field_wrapper">
-                                             <table class="table table-striped table-bordered" cellspacing="1"
-                                                 width="100%">
-                                                 <tbody>
-                                                     <tr>
-                                                         <th>
-                                                             <div class="col-md-12">
-                                                                 <a href="javascript:void(0);"
-                                                                     class="btn btn-block btn-outline-success btn-sm add_button"
-                                                                     title="Add field"><i class="far fa-envelope"></i>
-                                                                     Agregar Mail</a>
-                                                             </div>
-                                                         </th>
-                                                     </tr>
-                                                 </tbody>
-                                             </table>
-
-                                         </div>
-                                     </div>
-                                 </form>
-
-                             </div>
-                         </div>
-                         <div class="modal-footer justify-content-between">
-                             <button onclick="Guardar();" type="button"
-                                 class="btn btn-outline-primary">Guardar</button>
-                             <button type="button" class="btn btn-outline-secondary"
-                                 data-dismiss="modal">Cerrar</button>
-                         </div>
-                     </div>
-                 </div>
+<!--.modal nuevo orden-->
+<div class="modal fade" id="modal_control_calidad">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">NUEVO REGISTRO GESTIÓN DE ACTIVACIÓN</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
              </div>
-    
+             <div class="modal-body">
+                <form action="#" id="miForm" class="form-horizontal">
+
+                <input type="hidden" id="tipo" name="tipo" value="2">
+                <input type="hidden" id="id_orden_compra" name="id_orden_compra" value="<?php echo $idOrden?>">  
+                <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $idCliente?>">
+                <input type="hidden" id="id_proyecto" name="id_proyecto" value="<?php echo $codProyecto?>">
+                <input type="hidden" id="id_empleado" name="id_empleado" value="<?php echo $this->session->userdata('id_usuario')?>">
+
+                     <section class="content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">GESTIÓN DE ACTIVACIÓN</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-12">
+                                                           
+                                                        <div class="form-group"><label for="NOMBRE EMPELADO">NOMBRE EMPELADO</label><input name="nombre_empleado" placeholder="" class="form-control" type="text" value="<?php echo $nombreEmpleador;?>" readonly></div>
+                                                            <div class="form-group"><label for="TIPO INTERACCION<">TIPO INTERACCION</label> <select name="tipo_interaccion" id="var_tipo_interaccion" class="form-control"  style="width: 100%;"  tabindex="-1"  aria-hidden="true"> <?php echo $select_cc;?></select></div>
+                                                            <div class="form-group"><label for="NUMERO REFERENCIAL"> NÚMERO REFERENCIAL</label>  <input name="numero_referencial" placeholder="" class="form-control" type="text" id="var_numero_referencial"></div>
+                                                            <div class="form-group"><label for="SOLICITADOR POR">SOLICITADOR POR</label><input name="solicitado_por" placeholder="" class="form-control" type="text" id="var_solicitado_por"></div>
+                                                            <div class="form-group"><label for="APROBADO POR">APROBADO POR</label><input name="aprobado_por" placeholder="" class="form-control" type="text" id="var_aprobado_por"></div>
+                                                            <div class="form-group"><label for="COMENTARIOS GENERALES">COMENTARIOS GENERALES</label><textarea id="var_comentarios_generales" name="comentarios_generales" class="form-control" rows="10" placeholder="Ingresar ..."></textarea></div>
+                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  onChange="ver_archivo();" class="form-control" id="var_respaldos" name="respaldos"></div>
+                                                            <div class="form-group"><label for="NOTIFICAR">NOTIFICAR</label> <select name="notificacion" id="select_interaccion" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" onchange="MostrarEmail(this);"><option value="" selected></option> <option value="S">SI</option> <option value="N">NO</option></select></div>
+
+                                                        </div>
+
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">NOTIFICAR POR EMAIL</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                    <div class="col-md-12">
+
+                                                        <div id="mailFrm" style="display: none;" class="col-md-12">    
+                                                                <div class="field_wrapper">
+                                                                    <table class="table table-striped table-bordered" cellspacing="1" width="100%">
+                                                                        <tbody>
+                                                                            <tr>
+                                                                                <th>
+                                                                                    <div class="col-md-12">
+                                                                                        <a href="javascript:void(0);"
+                                                                                            class="btn btn-block btn-primary add_button"
+                                                                                            title="Add field"><i class="far fa-envelope"></i>
+                                                                                            Agregar Mail</a>
+                                                                                    </div>
+                                                                                </th>
+                                                                            </tr>
+                                                                        </tbody>
+                                                                    </table>
+
+                                                                </div>
+                                                         </div>
+                                                          
+                                                        </div>
+
+                                                      
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button onclick="Guardar();" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
+
 
 
              <!--.modal nuevo control Calidad-->
@@ -1346,12 +1242,12 @@ var cliente = <?php echo $idCliente?> ;
 
                                 
                                 <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label><input type="text" id="ID_EMPLEADO" class="form-control" name="ID_EMPLEADO"></div>
-                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="FECHA_INGRESO" class="form-control" name="FECHA_INGRESO"></div>
+                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="FECHA_INGRESO" class="form-control fechapicker" name="FECHA_INGRESO"></div>
                                 <div class="form-group"><label for="ESTADO EDP">ESTADO EDP</label>
                                 <select name="ESTADO_EDP" id="ESTADO_EDP" class="form-control">
                                                              <?php echo $select_edp;?>
                                                          </select></div>
-                                <div class="form-group"><label for="FECHA PAGO">FECHA PAGO</label><input type="text" id="FECHA_PAGO" class="form-control" name="FECHA_PAGO"></div>
+                                <div class="form-group"><label for="FECHA PAGO">FECHA PAGO</label><input type="text" id="FECHA_PAGO" class="form-control fechapicker" name="FECHA_PAGO"></div>
                                 <div class="form-group"><label for="AP PROVEEDOR">AP PROVEEDOR</label> 
                                  <select name="AP_PROVEEDOR" id="AP_PROVEEDOR" class="form-control">
                                                              <?php echo $select_apedp;?>
@@ -1405,7 +1301,7 @@ var cliente = <?php echo $idCliente?> ;
                                 <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label>
                                 <input type="text" id="ID_EMPLEADO_GARA" class="form-control" name="ID_EMPLEADO_GARA" readonly>
                                 </div>
-                                <div class="form-group"><label for="FECHA EMISION">FECHA EMISION</label><input type="text" id="FECHA_EMISION" class="form-control" name="FECHA_EMISION"></div>
+                                <div class="form-group"><label for="FECHA EMISION">FECHA EMISION</label><input type="text" id="FECHA_EMISION" class="form-control fechapicker" name="FECHA_EMISION"></div>
                                 <div class="form-group"><label for="NUMERO DOCTO">NUMERO DOCTO</label><input type="text" id="NUMERO_DOCTO" class="form-control" name="NUMERO_DOCTO"></div>
                                 <div class="form-group"><label for="TIPO GARANTIA">TIPO GARANTIA</label>
                                 

@@ -80,7 +80,7 @@
                                             <div class="form-group">
                                                 <form id="rrfechaenrega" name="rrfechaenrega">
                                                     <label>Ingrese Fecha de Entrega</label>
-                                                    <input name="fecha_entrega"  id="fecha_entrega" placeholder="" class="form-control"
+                                                    <input name="fecha_entrega"  id="fecha_entrega" placeholder="" class="form-control fechapicker"
                                                      type="text">
                                                 </form>     
                                             </div>

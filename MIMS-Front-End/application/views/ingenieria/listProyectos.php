@@ -90,7 +90,7 @@
                   <th>ID Requerimiento</th>
                   <th>Categorizacion</th>
                   <th>Número Orden</th>
-                  <th>Fecha Orden</th>
+                  <th>Fecha Emisión Orden</th>
                   <th>Descripcion Orden</th>
                   <th>Revisión</th>
                   <th>Nombre Proveedor</th>
@@ -100,7 +100,6 @@
                   <th>Activador</th>
                   <th>Moneda</th>
                   <th>Valor Neto</th>
-                  <th>Valor Total</th>
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
                   <th>Fecha Orden Creada</th>
@@ -424,18 +423,17 @@
 
                                                         <div class="col-md-6">
                                                            
-                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
-                                                            <div class="form-group"><label for="VALOR TOTAL">VALOR TOTAL</label><input id="or_valor_total" name="or_valor_total" type="text" class="form-control" onkeyup="formatoNumero(this)" readonly></div>
+                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_budget" name="or_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_costcodebudget" name="or_costcodebudget" class="form-control" ></div>
-                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_order_date" type="text" class="form-control" id="or_order_date"></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_order_date" type="text" class="form-control fechapicker" id="or_order_date"></div>
                                                             
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             
-                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control" id="or_date_required"></div>
-                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_ship_date" type="text" class="form-control" id="or_ship_date"></div>
+                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control fechapicker" id="or_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_ship_date" type="text" class="form-control fechapicker" id="or_ship_date"></div>
                                                             <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_shipping"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_status"></div></div>
                                                             <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_support" name="or_support" type="file" class="form-control form-control-file"></div>
@@ -550,17 +548,16 @@
                                                         <div class="col-md-6">
                                                            
                                                             <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
-                                                            <div class="form-group"><label for="VALOR TOTAL">VALOR TOTAL</label><input id="or_act_valor_total" name="or_act_valor_total" type="text" class="form-control" onkeyup="formatoNumero(this)" readonly></div>
                                                             <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_act_budget" name="or_act_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control" ></div>
-                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control" id="or_act_order_date"></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control fechapicker" id="or_act_order_date"></div>
                                                             
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             
-                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_date_required" type="text" class="form-control" id="or_act_date_required"></div>
-                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control" id="or_act_ship_date"></div>
+                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_date_required" type="text" class="form-control fechapicker" id="or_act_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control fechapicker"  id="or_act_ship_date"></div>
                                                             <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_act_shipping"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_act_status"></div></div>
                                                             <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
@@ -1427,16 +1424,7 @@
              $(function() {
                  
 
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+             
 
 
 
@@ -1816,35 +1804,35 @@ function recargaProyectos(cliente){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_proyectos_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {
@@ -2235,35 +2223,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_ordenes_items_wrapper .col-md-6:eq(0)');
 
 
@@ -2336,35 +2324,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_control_calidad_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -2433,7 +2421,6 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
            ordenes_html += '<td>' + orden.ExpediterID + '</td>';
            ordenes_html += '<td>' + orden.Currency  + '</td>';
            ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
-           ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
            ordenes_html += '<td>' + orden.Budget  + '</td>';
            ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
            ordenes_html += '<td>' + orden.DateCreated  + '</td>';
@@ -2494,35 +2481,35 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#ListOrdenes_wrapper .col-md-6:eq(0)');
 
 
@@ -2707,7 +2694,6 @@ function editar_orden(id_cliente, id_proyecto, order_id){
 
       
       $('#or_act_valor_neto').val(result.formulario.valor_neto);
-      $('#or_act_valor_total').val(result.formulario.valor_total);
       $('#or_act_budget').val(result.formulario.budget);
       $('#or_act_costcodebudget').val(result.formulario.costcodebudget);
       $('#or_act_order_date').val(result.formulario.order_date);
@@ -2903,45 +2889,6 @@ if(opcion){
 }
 
 
-function mostrarValorTotalAct(input){
-
-var valor_neto = 0;
-var valor_total = 0;
-var valor_iva  = 0;
-
-var iva = <?php echo $this->session->userdata('valor_iva');?>;	
-
-valor_neto = replaceAll(input.value , ".", "" );
-
-valor_iva = ((valor_neto * iva)/100);
-
-valor_total = parseInt(valor_neto) + parseInt(valor_iva);
-
-$('#or_act_valor_total').val(Math.round(valor_total));
-
-}
-
-
-function mostrarValorTotalOr(input){
-
-var valor_neto = 0;
-var valor_total = 0;
-var valor_iva  = 0;
-
-var iva = <?php echo $this->session->userdata('valor_iva');?>;	
-
-valor_neto = replaceAll(input.value , ".", "" );
-
-valor_iva = ((valor_neto * iva)/100);
-
-valor_total = parseInt(valor_neto) + parseInt(valor_iva);
-
-$('#or_valor_total').val(Math.round(valor_total));
-
-}
-
-
-
 function mostrarValorNetoItemor(){
 
   var total = 0;	
@@ -3059,35 +3006,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -3407,35 +3354,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_subidos_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {

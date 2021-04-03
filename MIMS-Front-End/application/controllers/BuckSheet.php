@@ -974,7 +974,8 @@ class BuckSheet extends MY_Controller
 
     $codigoProyecto = $this->input->post('codigoProyecto');
     $codEmpresa = $this->session->userdata('cod_emp');
-    $codigoCliente = $this->session->userdata('codigoCliente');  
+    $codigoCliente = $this->input->post('codigoCliente');  
+    $fecha_hoy = date_create()->format('Y-m-d');
 
 
     $respuesta = false;
@@ -1061,7 +1062,10 @@ class BuckSheet extends MY_Controller
               'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
               'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-              'OBSERVACION' => $value->OBSERVACION
+              'OBSERVACION' => $value->OBSERVACION,
+              'PurchaseOrderNumber' => $value->PurchaseOrderNumber,
+              'PurchaseOrderDescription' => $value->PurchaseOrderDescription, 
+              'FECHA_REPORTE' => $this->callutil->formatoFechaSalida($fecha_hoy) 
 
         );
       }

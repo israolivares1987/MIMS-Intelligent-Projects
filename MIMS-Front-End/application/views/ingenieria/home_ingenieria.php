@@ -22,88 +22,97 @@
         <div class="card-body">
           
         <div class="row"> 
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-              <h3><?php echo $totalProyectos; ?></h3>
 
-                <p>Total Proyectos</p>
-              </div>
-              <div class="inner">
-                <h3><?php echo $totalClientes; ?></h3>
+        <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><i class="fas fa-project-diagram"></i></span>
 
-                <p>Total Clientes</p>
+              <div class="info-box-content">
+                <span class="info-box-text">Total Proyectos</span>
+                <span class="info-box-number"><?php echo $totalProyectos; ?></span>
               </div>
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+              <!-- /.info-box-content -->
             </div>
+            <!-- /.info-box -->
+            <div class="info-box">
+              <span class="info-box-icon bg-info"><i class="fas fa-mug-hot"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Clientes</span>
+                <span class="info-box-number"><?php echo $totalClientes; ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-sort-amount-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total lineas Activables Compras</span>
+                <span class="info-box-number"><?php echo $totalLineasActivablesPlanCompras; ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            <div class="info-box">
+              <span class="info-box-icon bg-success"><i class="fas fa-sort-amount-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total lineas Activables Obra</span>
+                <span class="info-box-number"><?php echo $totalLineasActivablesPlanObra; ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+          </div>
+
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="fas fa-sort-amount-up"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Ordenes Plan Compras</span>
+                <span class="info-box-number"><?php echo $totalOrdenesCompras; ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
+            <div class="info-box">
+              <span class="info-box-icon bg-warning"><i class="fas fa-mug-hot"></i></span>
+
+              <div class="info-box-content">
+                <span class="info-box-text">Total Ordenes Obra</span>
+                <span class="info-box-number"><?php echo $totalOrdenesObra; ?></span>
+              </div>
+              <!-- /.info-box-content -->
+            </div>
+            <!-- /.info-box -->
           </div>
 
 
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-            <div class="inner">
-              <h3><?php echo $totalLineasActivablesPlanCompras; ?></h3>
+          <div class="col-md-3 col-sm-6 col-12">
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-alt"></i></span>
 
-                <p>Total lineas Activables Compras</p>
+              <div class="info-box-content">
+                <span class="info-box-text">Total Admin MM Plan Compras</span>
+                <span class="info-box-number"><?php echo $totalOrdenesAdminCompras; ?></span>
               </div>
-              <div class="inner">
-                <h3><?php echo $totalLineasActivablesPlanObra; ?></h3>
-
-                <p>Total lineas Activables Obra</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+              <!-- /.info-box-content -->
             </div>
-          </div>
+            <!-- /.info-box -->
+            <div class="info-box">
+              <span class="info-box-icon bg-danger"><i class="fas fa-money-bill-alt"></i></i></span>
 
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-warning">
-            <div class="inner">
-              <h3><?php echo $totalOrdenesCompras; ?></h3>
-
-                <p>Total Ordenes Plan Compras</p>
+              <div class="info-box-content">
+                <span class="info-box-text">Total Admin MM Obra</span>
+                <span class="info-box-number"><?php echo $totalOrdenesAdminObras; ?></span>
               </div>
-              <div class="inner">
-                <h3><?php echo $totalOrdenesObra; ?></h3>
-
-                <p>Total Ordenes Obra</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-person-add"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
+              <!-- /.info-box-content -->
             </div>
-          </div>
-          <!-- ./col -->
-
-         <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-danger">
-            <div class="inner">
-              <h3><?php echo $totalOrdenesAdminCompras; ?></h3>
-
-                <p>Total Admin MM Plan Compras </p>
-              </div>
-              <div class="inner">
-                <h3><?php echo $totalOrdenesAdminObras; ?></h3>
-
-                <p>Total Admin MM Obra</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-pie-graph"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
+            <!-- /.info-box -->
           </div>
           <!-- ./col -->
         </div>
@@ -223,7 +232,7 @@
                  <div class="form-group">
                   <label>Fecha Inicio:</label>
                     <div class="input-group">
-                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_inicio" id="var_fecha_inicio"/>
+                        <input autocomplete="off" type="text" class="form-control fechapicker" name="var_fecha_inicio" id="var_fecha_inicio"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -238,7 +247,7 @@
                  <div class="form-group">
                   <label>Fecha Termino:</label>
                     <div class="input-group">
-                        <input autocomplete="off" type="text" class="form-control" name="var_fecha_termino" id="var_fecha_termino"/>
+                        <input autocomplete="off" type="text" class="form-control fechapicker" name="var_fecha_termino" id="var_fecha_termino"/>
                         <div class="input-group-append">
                             <div class="input-group-text"><i class="fa fa-calendar"></i></div>
                         </div>
@@ -787,35 +796,35 @@ function recargaListaToDo(){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
 
 
 
