@@ -1465,6 +1465,7 @@ $(document).ready(function() {
     recargaArchivoTecnico(0,0);
 
 
+
     
 
     //set input/textarea/select event when change value, remove class error and remove text help block 
@@ -1564,7 +1565,8 @@ function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){
   recargaItemOrdenes(0, 0, 0,'');
   recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
   recargaArchivoTecnico(0,0);
-  formToggleDesactivar('btn_nueva_arch_tecnico');
+
+
 
 }
 
@@ -1734,7 +1736,8 @@ function recargaProyectos(cliente){
     var proyectos_html ='';
 
     var id_proyecto ;
-      var nombre_proyecto;
+    var nombre_proyecto;
+
     var tabla_proyecto =  $('#tbl_proyectos').DataTable();
 
     tabla_proyecto.destroy();
@@ -1771,9 +1774,12 @@ function recargaProyectos(cliente){
 
         id_proyecto = proyecto.NumeroProyecto;
         nombre_proyecto = proyecto.NombreProyecto;
+     
+
 
       });
-        
+
+          
         $('#id_proyecto_or').val(id_proyecto);
         $('#id_cliente_or').val(cliente);
         $('#nombre_proyecto_or').val(nombre_proyecto);
@@ -2132,7 +2138,7 @@ function recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden) {
 
 var ordenes_item_html = '';
 var tabla_ordenes = $('#tbl_ordenes_items').DataTable();
-
+var titulo_ordenes ='';
 
 tabla_ordenes.destroy();
 
@@ -2171,10 +2177,13 @@ $.ajax({
             ordenes_item_html += '<td><span class="bg-red">'+ orden_item.estado +'</span></td>';
         }
         ordenes_item_html += '</tr>';
-
- 
+        
+        titulo_ordenes =  '<a href="#" class="nav-link"> DETALLE ORDEN: '+ orden_item.PurchaseOrderNumber + ' - '+orden_item.PurchaseOrderDescription +'</a>';
                                             
     });
+
+
+    $('#titulo_datoordenes').html(titulo_ordenes);  
 
 
 
@@ -2371,6 +2380,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
   var titulo_ordenes ='';
   var nombre_cliente = '';
   var id_requerimiento  = '';
+  var titulo_proyecto = '';
   var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
 
   tabla_ordenes.destroy();
@@ -2436,7 +2446,13 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
 
         id_requerimiento = orden.idRequerimiento ;
 
-      });
+            
+        titulo_proyecto = '<a href="#" class="nav-link"> DETALLE PROYECTO: '+ orden.NombreProyecto + ' - '+orden.DescripcionProyecto +'</a>';
+
+      }); 
+
+
+      $('#titulo_proyecto').html(titulo_proyecto);  
 
       titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
       $('#titulo_ordenes').html(titulo_ordenes);  

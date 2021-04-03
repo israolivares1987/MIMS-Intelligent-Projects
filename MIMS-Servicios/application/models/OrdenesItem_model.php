@@ -7,21 +7,26 @@ class OrdenesItem_model extends CI_Model{
 	{
 
 	  $query = $this->db->query("SELECT a.codEmpresa,
-								a.idCliente,
-								a.idProyecto,
-								a.PurchaseOrderID,
-								a.id_item,
-								a.descripcion,
-								a.revision,
-								(select domain_desc from tbl_ref_codes where domain_id = unidad and domain = 'UNIDAD_MEDIDA') as unidad,
-								a.cantidad,
-								a.precio_unitario,
-								a.valor_neto,
-								(select domain_desc from tbl_ref_codes where domain_id = estado and domain = 'ESTADO_ITEM_ORDEN') as estado
-								FROM tbl_ordenes_item a
-								where idCliente = ".$idCliente."
-								and idProyecto = ".$idProyecto."
-								and PurchaseOrderID = ".$idOrden);
+                                    a.idCliente,
+                                    a.idProyecto,
+                                    a.PurchaseOrderID,
+                                    a.id_item,
+                                    a.descripcion,
+                                    a.revision,
+                                    (select domain_desc from tbl_ref_codes where domain_id = unidad and domain = 'UNIDAD_MEDIDA') as unidad,
+                                    a.cantidad,
+                                    a.precio_unitario,
+                                    a.valor_neto,
+                                    (select domain_desc from tbl_ref_codes where domain_id = estado and domain = 'ESTADO_ITEM_ORDEN') as estado,
+                                    b.PurchaseOrderNumber,
+                                    b.PurchaseOrderDescription
+                                    FROM tbl_ordenes_item a, tbl_ordenes b
+								where a.idCliente = ".$idCliente."
+								and a.idProyecto = ".$idProyecto."
+								and a.PurchaseOrderID = ".$idOrden."
+                                and a.codEmpresa = b.codEmpresa
+                                and a.idCliente = b.idCliente
+                                and a.PurchaseOrderID = b.PurchaseOrderID");
 	  $Ordenes = $query->result();
 	  return $Ordenes;
 	}

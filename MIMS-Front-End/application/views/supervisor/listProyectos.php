@@ -480,10 +480,12 @@ $('#btn_archivo_ejemplo').on('click', function(){
 
 
 
+
 function recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden) {
 
 var ordenes_item_html = '';
 var tabla_ordenes = $('#tbl_ordenes_items').DataTable();
+var titulo_ordenes ='';
 
 tabla_ordenes.destroy();
 
@@ -503,6 +505,10 @@ $.ajax({
    
     $.each(result.ordenes_item, function(key, orden_item) {
         ordenes_item_html += '<tr>';
+        ordenes_item_html += '<td>';
+          ordenes_item_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden Item" onclick="editar_orden_item('+ id_cliente +','+ id_proyecto +','+ orden_item.PurchaseOrderID +','+ orden_item.id_item +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+          ordenes_item_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden Item" onclick="eliminar_orden_item('+ id_cliente +','+ id_proyecto +','+ orden_item.PurchaseOrderID +','+ orden_item.id_item +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+          ordenes_item_html += '</td>';
         ordenes_item_html += '<td>' + orden_item.PurchaseOrderID + '</td>';
         ordenes_item_html += '<td>' + orden_item.id_item + '</td>';
         ordenes_item_html += '<td>' + orden_item.descripcion + '</td>';
@@ -518,13 +524,36 @@ $.ajax({
             ordenes_item_html += '<td><span class="bg-red">'+ orden_item.estado +'</span></td>';
         }
         ordenes_item_html += '</tr>';
-
+        
+        titulo_ordenes =  '<a href="#" class="nav-link"> DETALLE ORDEN: '+ orden_item.PurchaseOrderNumber + ' - '+orden_item.PurchaseOrderDescription +'</a>';
                                             
     });
 
+
+    $('#titulo_datoordenes').html(titulo_ordenes);  
+
+
+
+
     $('#datos_ordenes_items').html(ordenes_item_html);
 
-     
+    $('#id_order_item').val(orden_id);
+
+    $('#or_item_nombre_orden').val(nombre_orden);
+    $('#or_act_item_nombre_orden').val(nombre_orden);
+
+    $('#id_orden_item_proyecto').val(id_proyecto);
+    $('#id_orden_item_cliente').val(id_cliente);
+    $('#or_item_purchase_order').val(orden_id);
+
+    $('#id_orden_item_mas').val(orden_id);
+    $('#id_cliente_item_mas').val(id_cliente);
+    $('#id_proyecto_item_mas').val(id_proyecto);
+
+
+
+
+    
     $('[data-toggle="tooltip"]').tooltip();
 
     $('#tbl_ordenes_items').DataTable({
@@ -686,146 +715,165 @@ $.ajax({
 }
 
 
-
 function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
 
-  var ordenes_html ='';
-  var tabla_ordenes =  $('#ListOrdenes').DataTable();
-  var titulo_ordenes ='';
-  var nombre_cliente = '';
+var ordenes_html ='';
+var tabla_ordenes =  $('#ListOrdenes').DataTable();
+var titulo_ordenes ='';
+var nombre_cliente = '';
+var id_requerimiento  = '';
+var titulo_proyecto = '';
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
 
-  tabla_ordenes.destroy();
+tabla_ordenes.destroy();
 
-  $.ajax({
-      url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenes'); ?>',
-      type: 		'POST',
-      dataType: 'json',
-      data: {
-              idCliente: id_cliente,
-              idProyecto: id_proyecto
-            },
-    }).done(function(result) {
-
-      
-
-      if(id_proyecto == 0){
-        $('#flag_orden').val(0);
-      }
-      
-      $.each(result.ordenes,function(key, orden) {
-        ordenes_html += '<tr>';
-                                        ordenes_html += '<td>';
-                                        ordenes_html +=
-                                            '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' +
-                                            orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
-                                            ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'+
-                                            '<button data-toggle="tooltip" data-placement="left" title="Ver Items Orden" onclick="listar_item_ordenes(' +
-                                            orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto +
-                                            ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-inbox"></i></button>';
-                                            ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +orden.codEmpresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'    
-                                        ordenes_html += '</td>';
-                                        if( orden.Criticidad ==='BAJA'){
-                                                     ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
-                                                }else if(orden.Criticidad ==='ALTA'){
-                                                     ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
-                                                }else{
-                                                     ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
-                                                }
-                                         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
-                                         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
-                                         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
-                                         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
-                                         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
-                                         ordenes_html += '<td>' + orden.Revision + '</td>';
-                                         ordenes_html += '<td>' + orden.SupplierName + '</td>';
-                                         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
-                                         ordenes_html += '<td>' + orden.Comprador + '</td>';
-                                         ordenes_html += '<td>' + orden.Requestor+ '</td>';
-                                         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
-                                         ordenes_html += '<td>' + orden.Currency  + '</td>';
-                                         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
-                                         ordenes_html += '<td>' + orden.Budget  + '</td>';
-                                         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
-                                         ordenes_html += '<td>' + orden.DateCreated  + '</td>';
-                                         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
-                                         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
-                                         ordenes_html += '<td>' + orden.POStatus  + '</td>';
-                                         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
-                                         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
-                                         ordenes_html += '<td>' + orden.Support  + '</td>';
-                                        ordenes_html += '</tr>';
-
-        nombre_cliente = orden.nombreCliente ;
-
-      });
-
-      titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
-      $('#titulo_ordenes').html(titulo_ordenes);  
-      $('#datos_ordenes').html(ordenes_html);
-      
-
-
-      $('#datos_ordenes').val(ordenes_html);
-        $('[data-toggle="tooltip"]').tooltip();
-
-        $('#ListOrdenes').DataTable({
-          language: {
-              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+$.ajax({
+    url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenes'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            idCliente: id_cliente,
+            idProyecto: id_proyecto
           },
-        "paging": true,
-        "lengthChange": false,
-        "searching": true,
-        "ordering": true,
-        "info": true,
+  }).done(function(result) {
+
+    
+
+    if(id_proyecto == 0){
+      $('#flag_orden').val(0);
+    }
+    
+    $.each(result.ordenes,function(key, orden) {
+      ordenes_html += '<tr>';
+      ordenes_html += '<td>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +',\''+orden.PurchaseOrderDescription+'\', this)" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Control de Calidad" onclick="listar_cc('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm"><i class="fas fa-shield-alt"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
+        ordenes_html += '</td>';
+        if( orden.Criticidad ==='BAJA'){
+               ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
+          }else if(orden.Criticidad ==='ALTA'){
+               ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
+          }else{
+               ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
+          }
+         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+         ordenes_html += '<td>' + orden.Revision + '</td>';
+         ordenes_html += '<td>' + orden.SupplierName + '</td>';
+         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+         ordenes_html += '<td>' + orden.Comprador + '</td>';
+         ordenes_html += '<td>' + orden.Requestor+ '</td>';
+         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+         ordenes_html += '<td>' + orden.Currency  + '</td>';
+         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+         ordenes_html += '<td>' + orden.Budget  + '</td>';
+         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+         ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+         ordenes_html += '<td>' + orden.POStatus  + '</td>';
+         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+         ordenes_html += '<td>' + orden.Support  + '</td>';
+      ordenes_html += '</tr>';
+
+      nombre_cliente = orden.nombreCliente ;
+
+      id_requerimiento = orden.idRequerimiento ;
+
+          
+      titulo_proyecto = '<a href="#" class="nav-link"> DETALLE PROYECTO: '+ orden.NombreProyecto + ' - '+orden.DescripcionProyecto +'</a>';
+
+    }); 
+
+
+    $('#titulo_proyecto').html(titulo_proyecto);  
+
+    titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
+    $('#titulo_ordenes').html(titulo_ordenes);  
+    $('#datos_ordenes').html(ordenes_html);
+    $('#or_nombre_proyecto').val(nombre_proyecto);
+    $('#or_act_nombre_proyecto').val(nombre_proyecto);
+
+    $('#or_id_requerimiento').val(id_requerimiento);
+    $('#or_act_id_requerimiento').val(id_requerimiento);
+    
+
+    $('#id_proyecto_or').val(id_proyecto);
+    $('#id_cliente_or').val(id_cliente);
+    $('#or_nombre_cliente').val(nombre_cliente);
+
+ 
+
+
+    $('#datos_ordenes').val(ordenes_html);
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#ListOrdenes').DataTable({
+        language: {
+            url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+        },
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+      "autoWidth": true,
+      "scrollY": "600px",
+      "scrollX": true,
+      "colReorder": true,
+      "scrollCollapse": true,
+        "responsive": false,
+        "lengthChange": true, 
         "autoWidth": true,
-        "scrollY": "600px",
-        "scrollX": true,
-        "colReorder": true,
-        "scrollCollapse": true,
-          "responsive": false,
-          "lengthChange": true, 
-          "autoWidth": true,
-          "dom": 'Bfrtip',
-          "lengthMenu": [
-            [ 10, 25, 50, -1 ],
-            [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
-        ],
-          "buttons": [
-                                    {
-                                    "extend": 'copy',
-                                    "text": 'COPIAR'
-                                    },
-                                    {
-                                    "extend": 'csv',
-                                    "text": 'CSV'
-                                    },
-                                    {
-                                    "extend": 'excel',
-                                    "text": 'EXCEL'
-                                    },
-                                    {
-                                    "extend": 'pdf',
-                                    "text": 'PDF'
-                                    },
-                                    {
-                                    "extend": 'print',
-                                    "text": 'IMPRIMIR'
-                                    },
-                                    {
-                                    "extend": 'colvis',
-                                    "text": 'COLUMNAS VISIBLES'
-                                    },
-                                    {
-                                    "extend": 'pageLength',
-                                    "text": 'MOSTRAR REGISTROS'
-                                    }
-                            ]
-                        }).buttons().container().appendTo('#ListOrdenes_wrapper .col-md-6:eq(0)');
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+          [ 10, 25, 50, -1 ],
+          [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+      ],
+        "buttons": [
+                                  {
+                                  "extend": 'copy',
+                                  "text": 'COPIAR'
+                                  },
+                                  {
+                                  "extend": 'csv',
+                                  "text": 'CSV'
+                                  },
+                                  {
+                                  "extend": 'excel',
+                                  "text": 'EXCEL'
+                                  },
+                                  {
+                                  "extend": 'pdf',
+                                  "text": 'PDF'
+                                  },
+                                  {
+                                  "extend": 'print',
+                                  "text": 'IMPRIMIR'
+                                  },
+                                  {
+                                  "extend": 'colvis',
+                                  "text": 'COLUMNAS VISIBLES'
+                                  },
+                                  {
+                                  "extend": 'pageLength',
+                                  "text": 'MOSTRAR REGISTROS'
+                                  }
+                          ]
+                      }).buttons().container().appendTo('#ListOrdenes_wrapper .col-md-6:eq(0)');
 
 
-    }).fail(function() {
-      console.log("error listar_ordenes");
-    })
+  }).fail(function() {
+    console.log("error listar_ordenes");
+  })
 
 
 }

@@ -80,7 +80,9 @@ class Ordenes extends CI_Controller{
                 'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
                 'DateCreated'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateCreated)),
                 "POStatus" => $this->callutil->cambianull($value->POStatus),
-                'Support' =>  $Support
+                'Support' =>  $Support,
+                "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
+                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto)
               );
 
             }
@@ -156,7 +158,9 @@ class Ordenes extends CI_Controller{
                 'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
                 'DateCreated'   => $this->callutil->formatoFechaSalida($value->DateCreated),
                 "POStatus" => $this->callutil->cambianull($value->POStatus),
-                'Support' =>  $Support
+                'Support' =>  $Support,
+                "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
+                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto)
               );
 
             }
