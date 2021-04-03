@@ -1272,7 +1272,7 @@ $.ajax({
       archivo_tecnico_html += '<tr>';
       archivo_tecnico_html += '<td>';
       archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agrega Archivo Técnico " onclick="abre_archivo_tecnico('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
-      archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agrega Archivo Técnico EP " onclick="abre_archivo_tecnico_ep('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
+      archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agrega Archivo de Compra " onclick="abre_archivo_tecnico_ep('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
       archivo_tecnico_html += '</td>';
       archivo_tecnico_html += '<td>' + adjuntotecnico.id_orden + '</td>';
       archivo_tecnico_html += '<td>' + adjuntotecnico.id_requerimiento + '</td>';

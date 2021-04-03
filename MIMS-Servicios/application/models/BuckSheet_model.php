@@ -343,7 +343,7 @@ class BuckSheet_model extends CI_Model{
     function obtieneBuckSheetRRInicial()
 	{
         $this->db->select("t1.NUMERO_DE_LINEA,
-		T1.NUMERO_DE_TAG,
+		t1.NUMERO_DE_TAG,
         t1.STOCKCODE,
 		t1.NUMERO_DE_ELEMENTOS,
         t1.CANTIDAD_UNITARIA,
@@ -356,12 +356,12 @@ class BuckSheet_model extends CI_Model{
         t1.ESTADO_DE_LINEA,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
-        T1.NUMERO_OC,
-        T1.ID_OC,
+        t1.NUMERO_OC,
+        t1.ID_OC,
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
-        (SELECT T3.fecha_creacion 
+        (SELECT t3.fecha_creacion 
          FROM  tbl_rr_detalle t2 , tbl_rr_cabecera t3  
          WHERE t1.id_oc = t2.id_orden_compra
 		 and t1.COD_EMPRESA = t2.COD_EMPRESA
@@ -369,12 +369,10 @@ class BuckSheet_model extends CI_Model{
 		 and t2.id_rr_cab = t3.id_rr
 		 and t3.estado_rr in (1)
         )  AS fecha_creacion"); 
-    $this->db->from('tbl_bucksheet t1');			
+     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
-	
      
 
 	 return $this->db->get()->result();    

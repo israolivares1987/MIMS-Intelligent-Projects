@@ -79,7 +79,7 @@
                                         <div class="col-12">
                                             <div class="form-group">
                                                 <form id="rrfechaenrega" name="rrfechaenrega">
-                                                    <label>Ingrese Fecha de Entrega</label>
+                                                    <label>Ingrese Fecha de recepción en bodega</label>
                                                     <input name="fecha_entrega"  id="fecha_entrega" placeholder="" class="form-control fechapicker"
                                                      type="text">
                                                 </form>     
