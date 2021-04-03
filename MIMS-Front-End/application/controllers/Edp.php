@@ -218,7 +218,7 @@ class Edp extends MY_Controller{
 
                 if($MontoInsoluto <  0 ){
 
-                  $error_msg = 'Monto ingresado es menor al monto Insoluto, favor verificar.';
+                  $error_msg = 'Monto ingresado es mayor al monto Insoluto, favor verificar.';
                   $resp = false;
 
                 }else{

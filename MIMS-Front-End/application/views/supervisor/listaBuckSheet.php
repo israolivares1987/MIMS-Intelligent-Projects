@@ -35,7 +35,7 @@
                                              <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
                                              <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-8">PurchaseOrderNumber:</dt>
+                                             <dt class="col-sm-8">Orden de compra cliente:</dt>
                                              <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
                                              </dd>
                                          </dl>
@@ -239,7 +239,7 @@
                              <thead>
                              
                              <tr>
-                                        <th style="text-align:left; background-color:#FFE699">ID OC</th>
+                             <th style="text-align:left; background-color:#FFE699">ID OC</th>
                                         <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
                                         <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
                                         <th style="text-align:left; background-color:#FFE699">ITEM OC</th>
@@ -293,7 +293,6 @@
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
                                         <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
-
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -523,60 +522,60 @@ console.log(parseInt(result.countAdverActivacion));
 
                      $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
-                       bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ID_OC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.NUMERO_OC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.DESCRIPCION_OC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.ITEM_OC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.SUB_ITEM_OC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFE699">' + bucksheets.PROVEEDOR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_LINEA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.TIPO_DE_LINEA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.ESTADO_DE_LINEA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.NUMERO_DE_TAG+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.STOCKCODE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#DBDBDB">' + bucksheets.DESCRIPCION_LINEA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_UNITARIA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.CANTIDAD_TOTAL+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#2E002E; color:#FFFFFF">' + bucksheets.UNIDAD+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_PROVEEDOR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TP+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.TRANSMITTAL_CLIENTE_FINAL+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.FECHA_TCF+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PA_TCF+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.NUMERO_DE_PLANO+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.REVISION+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF5050; color:#FFFFFF">' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.FECHA_LINEA_BASE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#333F4F; color:#FFFFFF">' + bucksheets.DIAS_ANTES_LB + '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FCF + '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_TERMINO_FABRICACION+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FTF+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_GRANALLADO+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FG+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_PINTURA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FP+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_LISTO_INSPECCION+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FLI+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.ACTA_LIBERACION_CALIDAD+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FFCC00">' + bucksheets.PA_FSF+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.FECHA_EMBARQUE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.PACKINGLIST+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.GUIA_DESPACHO+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.ORIGEN+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#007A37; color:#FFFFFF">' + bucksheets.DIAS_VIAJE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#351805; color:#FFFFFF">' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left; background-color:#FF6600; color:#FFFFFF">' + bucksheets.OBSERVACION+ '</td>';
+                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.ID_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.SUB_ITEM_OC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.TIPO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.ESTADO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_DE_TAG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.STOCKCODE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_LINEA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CANTIDAD_UNITARIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CANTIDAD_TOTAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.TRANSMITTAL_CLIENTE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TC+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.TRANSMITTAL_PROVEEDOR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.TRANSMITTAL_CLIENTE_FINAL+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_TCF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_PLANO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REVISION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LINEA_BASE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_ANTES_LB + '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FCF + '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TERMINO_FABRICACION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FTF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_GRANALLADO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_PINTURA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LISTO_INSPECCION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FLI+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ACTA_LIBERACION_CALIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FSF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PACKINGLIST+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.GUIA_DESPACHO+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ORIGEN+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
 
 
                         bucksheet_html += '</tr>';
@@ -608,27 +607,27 @@ console.log(parseInt(result.countAdverActivacion));
           "buttons": [
             {
             "extend": 'copy',
-            "text": 'Copiar'
+            "text": 'COPIAR'
             },
             {
             "extend": 'csv',
-            "text": 'csv'
+            "text": 'CSV'
             },
             {
             "extend": 'excel',
-            "text": 'excel'
+            "text": 'EXCEL'
             },
             {
             "extend": 'pdf',
-            "text": 'pdf'
+            "text": 'PDF'
             },
             {
             "extend": 'print',
-            "text": 'Imprimir'
+            "text": 'IMPRIMIR'
             },
             {
             "extend": 'colvis',
-            "text": 'Columnas Visibles'
+            "text": 'COLUMNAS VISIBLES'
             }
     ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 

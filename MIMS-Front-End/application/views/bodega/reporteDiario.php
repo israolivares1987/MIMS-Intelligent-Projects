@@ -57,6 +57,10 @@
                          <table id="tbl_rr" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
+                                <th>Fecha Reporte</th>
+                                         <th>Orden de Compra Cliente</th>
+                                         <th>Descrpcion Orden de Compra</th>
+
                                          <th>Número de Línea</th>
                                          <th>TAG Number</th>
                                          <th>Stock Code</th>
@@ -226,6 +230,11 @@
 
                      $.each(result.bucksheets, function(key, bucksheet) {
                          bucksheet_html += '<tr>';
+
+                         bucksheet_html += '<td>' + bucksheet.FECHA_REPORTE+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.PurchaseOrderNumber+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.PurchaseOrderDescription+ '</td>';
+                        
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.STOCKCODE+ '</td>';

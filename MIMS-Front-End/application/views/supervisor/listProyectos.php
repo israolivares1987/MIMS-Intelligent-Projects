@@ -30,17 +30,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-                            <table class="table" cellspacing="0" width="99%">
-                                <tbody>
-                                    <tr>
-                                        <th>
-                                        <button style="display: none;" id="btn_nuevo_proyecto" class="btn btn-outline-primary float-right mb-3">Nuevo Proyecto</button>
-                                        </th>
-                                    </tr>
-                                </tbody>
-                            </table>
-
-                            <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                          <table id="tbl_proyectos" class="table table-striped table-bordered" cellspacing="0" width=100%>
                                 <thead>
                                     <tr>
                                         <th>Acciones</th>
@@ -72,15 +62,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-							   <table class="table" cellspacing="0" width="99%">
-								   <tbody>
-									   <tr>
-										   <th>
-										   <button style="display: none;" id="btn_nueva_orden" class="btn btn-outline-primary float-right mb-3">Nueva orden</button>
-										   </th>
-									   </tr>
-								   </tbody>
-							   </table>
+							
 								<table id="ListOrdenes" class="table table-striped table-bordered" cellspacing="0" width=100%>
 						 
                 <thead>
@@ -90,7 +72,7 @@
                                                             <th>ID Requerimiento</th>
                                                             <th>Categorizacion</th>
                                                             <th>Número Orden</th>
-                                                            <th>Fecha Orden</th>
+                                                            <th>Fecha Emisión Orden</th>
                                                             <th>Descripcion Orden</th>
                                                             <th>Revisión</th>
                                                             <th>Nombre Proveedor</th>
@@ -100,7 +82,6 @@
                                                             <th>Activador</th>
                                                             <th>Moneda</th>
                                                             <th>Valor Neto</th>
-                                                            <th>Valor Total</th>
                                                             <th>Presupuesto</th>
                                                             <th>Codigo Presupuesto</th>
                                                             <th>Fecha Orden Creada</th>
@@ -138,15 +119,7 @@
                     </div>
                     <!-- /.card-header -->
                     <div class="card-body">
-						   <table class="table" cellspacing="0" width="99%">
-							   <tbody>
-								   <tr>
-									   <th>
-                     <button style="display: none;" id="btn_archivo_ejemplo" class="btn btn-outline-primary float-right mb-3">Archivo Ejemplo</button>
-									   </th>
-								   </tr>
-							   </tbody>
-						   </table>
+						
 						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
                       <thead>
                         <tr>                          
@@ -181,15 +154,7 @@
                                                         </div>
                                                         <!-- /.card-header -->
                                                         <div class="card-body">
-                                                            <table class="table" cellspacing="0" width="99%">
-                                                                <tbody>
-                                                                    <tr>
-                                                                        <th>
-                                                                            <button style="display: none;" id="btn_nueva_arch_tecnico" class="btn btn-outline-primary float-right mb-3">Nuevo Archivo Técnico</button>
-                                                        </th>
-                                                                    </tr>
-                                                                </tbody>
-                                                            </table>
+                                                        
                                                             <table id="tbl_archivos_tecnicos" class="table table-striped table-bordered" cellspacing="0" width=100%>
                                                         <thead>
                                                             <tr>                          
@@ -216,85 +181,10 @@
 
    </div>
 
-   !--.modal modal_archivos_tecnicos-->
-<div id="modal_archivos_tecnicos" class="modal fade" tabindex="-1" role="dialog">
-                 <div class="modal-dialog modal-xl" role="document">
-                     <div class="modal-content">
-
-                         <div class="modal-header">
-                             <h5 class="modal-title">Subir Archivo</h5>
-                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                 <span aria-hidden="true">&times;</span>
-                             </button>
-                         </div>
-                            <div class="modal-body">
-                                <div class="container">
-                                            <div class="col-lg-12">
-                                            <div class="card">
-                                                <div class="card-header">
-                                                <h3 class="card-title">
-                                                <i class="fas fa-clipboard-list"></i>
-                                                    Archivos Tecnicos
-                                                </h3>
-                                                </div>
-                                                <!-- /.card-header -->
-                                                <div class="card-body">
-                                                        <table id="tbl_archivos_tecnicos_subidos" class="table table-striped table-bordered" cellspacing="0" width=100%>
-                                                            <thead>
-                                                                <tr>
-                                                                    <th>ID Orden</th>
-                                                                    <th>ID Archivo Técnico</th>
-                                                                    <th>Nombre Archivo</th>
-                                                                    <th>Descarga Archivo</th>
-                                                                </tr>
-                                                            </thead>
-                                                            <tbody id="datos_archivos_tecnicos_subidos">
-                                                            </tbody>
-                                                        </table>
-                                                </div>
-
-                                    <!-- /.card-body -->
-                            </div>
-                                </div>
-
-                                
-
-                                <!-- /.card-body -->
-                          <div class="modal-footer justify-content-between">
-                              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-                          </div>
-                              
-                            </div>
-
-                       
-                          
-                            <!-- Image loader -->     
-                     </div>
-                 </div>
-             </div>
-
-      <script>
-             $(function() {
-                 
-
-                 //Datemask dd-mm-yyyy
-                 $('#datemask').inputmask('dd-mm-yyyy', {
-                     'placeholder': 'dd-mm-yyyy'
-                 })
-                 //Datemask2 mm/dd/yyyy
-                 $('#datemask2').inputmask('mm/dd/yyyy', {
-                     'placeholder': 'mm/dd/yyyy'
-                 })
-                 //Money Euro
-                 $('[data-mask]').inputmask()
+  
 
 
-
-             })
-             </script>
-
-
-      <style type="text/css" class="init">
+     <style type="text/css" class="init">
     /* Ensure that the demo table scrolls */
     th,
     td {
@@ -487,35 +377,35 @@ function recargaProyectos(cliente){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_proyectos_wrapper .col-md-6:eq(0)');
 
     }).fail(function() {
@@ -660,35 +550,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_ordenes_items_wrapper .col-md-6:eq(0)');
 
 
@@ -757,35 +647,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_control_calidad_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
@@ -854,7 +744,6 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
                                          ordenes_html += '<td>' + orden.ExpediterID + '</td>';
                                          ordenes_html += '<td>' + orden.Currency  + '</td>';
                                          ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
-                                         ordenes_html += '<td>' + orden.ValorTotal  + '</td>';
                                          ordenes_html += '<td>' + orden.Budget  + '</td>';
                                          ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
                                          ordenes_html += '<td>' + orden.DateCreated  + '</td>';
@@ -902,35 +791,35 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#ListOrdenes_wrapper .col-md-6:eq(0)');
 
 
@@ -1027,35 +916,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_wrapper .col-md-6:eq(0)');
 
 
@@ -1149,35 +1038,35 @@ $.ajax({
             [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
         ],
           "buttons": [
-            {
-            "extend": 'copy',
-            "text": 'Copiar'
-            },
-            {
-            "extend": 'csv',
-            "text": 'csv'
-            },
-            {
-            "extend": 'excel',
-            "text": 'excel'
-            },
-            {
-            "extend": 'pdf',
-            "text": 'pdf'
-            },
-            {
-            "extend": 'print',
-            "text": 'Imprimir'
-            },
-            {
-            "extend": 'colvis',
-            "text": 'Columnas Visibles'
-            },
-            {
-            "extend": 'pageLength',
-            "text": 'Mostrar Registros'
-            }
-    ]
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
                         }).buttons().container().appendTo('#tbl_archivos_tecnicos_wrapper .col-md-6:eq(0)');
 
 }).fail(function() {
