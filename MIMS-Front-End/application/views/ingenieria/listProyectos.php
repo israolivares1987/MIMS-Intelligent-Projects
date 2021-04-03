@@ -1392,7 +1392,7 @@
                                     <div class="card-header">
                                       <h3 class="card-title">
                                       <i class="fas fa-clipboard-list"></i>
-                                        Archivos Tecnicos
+                                        Archivos Comerciales
                                       </h3>
                                     </div>
                                     <!-- /.card-header -->
@@ -2974,7 +2974,7 @@ $.ajax({
       archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Archivo Técnico " onclick="edita_archivo_tecnico('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
       archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Archivo Técnico" onclick="eliminar_archivo_tecnico('+ cod_empresa +','+ id_orden +','+ adjuntotecnico.id +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
       archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agrega Archivo Técnico " onclick="abre_archivo_tecnico('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
-      archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agrega Archivo de Compra " onclick="abre_archivo_tecnico_ep('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
+      archivo_tecnico_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Archivo de Compra " onclick="abre_archivo_tecnico_ep('+adjuntotecnico.id +','+ cod_empresa +','+ id_orden +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>';
       archivo_tecnico_html += '</td>';
       archivo_tecnico_html += '<td>' + adjuntotecnico.id_orden + '</td>';
       archivo_tecnico_html += '<td>' + adjuntotecnico.id_requerimiento + '</td>';
@@ -3260,7 +3260,7 @@ $('#tipo_archivo_tecnico').val('2');
 $('#btn_subir_arch_tecnico').text('Subir Archivo '); //change button text
 $('#formsArchivoTecnico')[0].reset(); // reset form on modals
 $('#modal_archivos_tecnicos').modal('show');
-$('.modal-title').text('Agregar Archivo Técnico EP'); // Set title to Bootstrap modal title
+$('.modal-title').text('Agregar Archivo de compra'); // Set title to Bootstrap modal title
 
 recargaArchivosTecnicos('2', id_orden, cod_empresa);
 

@@ -946,7 +946,7 @@ class BuckSheet extends MY_Controller
         'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
         'PACKINGLIST' => $value->PACKINGLIST,
         'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
-        'FECHA_CREACION' =>$value->fecha_creacion
+        'FECHA_CREACION' =>$this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_creacion))
                
 
         );
