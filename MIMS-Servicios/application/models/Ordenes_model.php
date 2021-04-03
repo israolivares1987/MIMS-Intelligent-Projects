@@ -35,12 +35,17 @@ class Ordenes_model extends CI_Model{
 									(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
 									a.Support,
 									a.DateCreated,
-									a.Support_original       
-									FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b
+									a.Support_original,
+									d.NombreProyecto,
+                                    d.DescripcionProyecto       
+									FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 									WHERE a.idCliente = ".$idCliente."
-									AND idproyecto = ".$idProyecto."
+									AND a.idproyecto = ".$idProyecto."
 									AND a.codEmpresa =  ".$codEmpresa."
 									and a.idCliente = b.idCliente
+									and a.idCliente = d.idCliente
+									and a.codEmpresa = d.codEmpresa
+									and a.idProyecto = d.NumeroProyecto
 									and ExpediterID = c.cod_user
 									and a.codEmpresa = c.cod_emp
 									and c.cod_emp = b.codEmpresa
@@ -85,8 +90,10 @@ class Ordenes_model extends CI_Model{
 								(select domain_desc from tbl_ref_codes where domain_id = a.POStatus and domain = 'PO_STATUS') as POStatus,
 								a.Support,
 								a.DateCreated,
-								a.Support_original       
-								FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b
+								a.Support_original,
+								d.NombreProyecto,
+                                d.DescripcionProyecto       
+								FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."
 								AND email = ".$codActivador."
@@ -94,6 +101,9 @@ class Ordenes_model extends CI_Model{
 								and ExpediterID = c.cod_user
 								AND a.codEmpresa =  ".$codEmpresa."
 								and a.idCliente = b.idCliente
+								and a.idCliente = d.idCliente
+								and a.codEmpresa = d.codEmpresa
+								and a.idProyecto = d.NumeroProyecto
 								and ExpediterID = c.cod_user
 								and a.codEmpresa = c.cod_emp
 								and c.cod_emp = b.codEmpresa

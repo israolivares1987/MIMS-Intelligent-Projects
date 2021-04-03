@@ -56,7 +56,10 @@ class OrdenesItem extends CI_Controller{
               'cantidad'=> $this->callutil->formatoNumero($value->cantidad), 
               'precio_unitario'=> $this->callutil->formatoDinero($value->precio_unitario),
               'valor_neto'=> $this->callutil->formatoDinero($value->valor_neto),
-              'estado'=> $value->estado
+              'estado'=> $value->estado,
+              'PurchaseOrderNumber'=> $this->callutil->cambianull($value->PurchaseOrderNumber),
+              'PurchaseOrderDescription'=> $this->callutil->cambianull($value->PurchaseOrderDescription)
+
             );
 
           }
