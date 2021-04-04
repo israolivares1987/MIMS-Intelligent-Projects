@@ -275,7 +275,7 @@
                             
                         var  idrr = respuesta.idInsertado;
 
-                            window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_blank');
+                            window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_self');
 
                         }else{
 

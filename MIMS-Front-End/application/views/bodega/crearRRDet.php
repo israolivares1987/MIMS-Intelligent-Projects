@@ -348,6 +348,7 @@ var cod_empresa = <?php echo  $this->session->userdata('cod_emp')?>;
 
                        
                        toastr.success(result.mensaje);
+                       mostrarBlock();
 
                        window.open('<?php echo site_url('Bodega/creaPDFRR/')?>' + id_rr_recepcion,'_self');
 
