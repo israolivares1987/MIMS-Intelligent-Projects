@@ -510,7 +510,7 @@
                                                             <div class="form-group"><label for="NOMBRE CLIENTE">NOMBRE CLIENTE</label><input type="text" id="or_act_nombre_cliente" class="form-control" name="or_act_nombre_cliente" readonly></div>
                                                             <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">NÚMERO ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_order" class="form-control" name="or_act_purchase_order"></div>
                                                             <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CRITICIDAD</label><div id="s_act_criticidad"></div></div>
-                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">ID REQUERIMIENTO</label><input type="text" id="or_act_idrequerimiento" class="form-control" name="or_act__idrequerimiento"></div>
+                                                            <div class="form-group"><label for="ID REQUERIMIENTO">ID REQUERIMIENTO</label><input type="text" id="or_act_idrequerimiento" class="form-control" name="or_act_idrequerimiento"></div>
                                                             <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CATEGORIZACION</label><div id="s_act_categorizacion"></div></div>
                                                         </div>
 
