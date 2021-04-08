@@ -821,8 +821,6 @@ $.ajax({
     $.each(result.ordenes_item, function(key, orden_item) {
         ordenes_item_html += '<tr>';
         ordenes_item_html += '<td>';
-          ordenes_item_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden Item" onclick="editar_orden_item('+ id_cliente +','+ id_proyecto +','+ orden_item.PurchaseOrderID +','+ orden_item.id_item +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
-          ordenes_item_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden Item" onclick="eliminar_orden_item('+ id_cliente +','+ id_proyecto +','+ orden_item.PurchaseOrderID +','+ orden_item.id_item +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
           ordenes_item_html += '</td>';
         ordenes_item_html += '<td>' + orden_item.PurchaseOrderID + '</td>';
         ordenes_item_html += '<td>' + orden_item.id_item + '</td>';
