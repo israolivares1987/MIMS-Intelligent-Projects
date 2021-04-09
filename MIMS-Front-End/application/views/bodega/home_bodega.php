@@ -15,103 +15,148 @@
      <section class="content">
          <div class="row">
              <div class="col-12">
+               <div class="card-body">
+                
 
-             <div class="card-body">
-                  <!-- Default box -->
+        <!-- Default box -->
       <div class="card">
         <div class="card-header">
           <h3 class="card-title"><i class="fas fa-chart-pie"></i> Dashboard</h3>
         </div>
         <div class="card-body">
-          
-        <div class="row"> 
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-info">
-              <div class="inner">
-              <h3>1</h3>
 
-                <p>Dashboard 1</p>
+             <div class="row">
+                      <div class="col-sm">
+                                  <div class="form-group">
+                                            <label>Seleccione Cliente</label>
+                                            <?php echo $select_clientes;?>
+                                    </div>
+                      </div>
+                      <div class="col-sm">
+                                  <div class="form-group">
+                                          <label>Seleccione Proyectos</label>
+                                          <?php echo $select_proyectos;?>
+                                  </div>
+                      </div>
+                      <div class="col-sm">
+
+                                  <div class="form-group">
+                                          <label>Aplicar Filtro</label>
+                                          <button class="btn btn-block btn-outline-warning btn-sm"
+                                              onclick="aplicaFiltroBodega()"><i class="fas fa-filter"></i>
+                                          </button>
+                                  </div>
+                          
+                      </div>
               </div>
-              
-              <div class="icon">
-                <i class="ion ion-bag"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+          </br> 
+          </br>
+               <div class="row"> 
+
+                          <div class="col-md-3 col-sm-9 col-12">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-success"><i class="fas fa-book-open"></i></span>
+
+                              <div class="info-box-content" id="cantidadRR">
+                                <span class="info-box-text">CANTIDAD REPORTES DE RECEPCIÓN (RR)</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            <div class="info-box">
+                              <span class="info-box-icon bg-success"><i class="fas fa-book-open"></i></span>
+
+                              <div class="info-box-content" id="cantidadRE">
+                                <span class="info-box-text">CANTIDAD REPORTES DE ENTREGA (RE)</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                          </div>
+
+                          <div class="col-md-3 col-sm-9 col-12">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-warning"><i class="fas fa-exclamation"></i></span>
+
+                              <div class="info-box-content" id="cantidadExb">
+                                <span class="info-box-text">CANTIDAD EXB</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            <div class="info-box">
+                              <span class="info-box-icon bg-warning"><i class="fas fa-exclamation"></i></span>
+
+                              <div class="info-box-content" id="cantidadEI">
+                                <span class="info-box-text">CANTIDAD EI</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                          </div>
 
 
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-            <div class="inner">
-              <h3>2</h3>
+                          <div class="col-md-3 col-sm-9 col-12">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-success"><i class="fas fa-sort-amount-up-alt"></i></span>
 
-                <p>Dashboard 2</p>
-              </div>
-             
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+                              <div class="info-box-content" id="sumaviajes">
+                                <span class="info-box-text">CANTIDAD DE VIAJES</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                            <div class="info-box">
+                              <span class="info-box-icon bg-success"><i class="fas fa-sort-amount-up-alt"></i></span>
 
-        
+                              <div class="info-box-content" id="cantGuias">
+                                <span class="info-box-text">TOTAL GUIA DE DESPACHOS</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                            </div>
+                            <!-- /.info-box -->
+                          </div>
+                          <!-- ./col -->
 
-          <!-- ./col -->
-          <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-            <div class="inner">
-              <h3>3</h3>
 
-                <p>Dashboard 3</p>
-              </div>
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
+                          <div class="col-lg-3 col-md-3 col-sm-5 col-xs-5">
+                            <div class="info-box">
+                              <span class="info-box-icon bg-danger"><i class="fas fa-exclamation"></i></span>
 
-               <!-- ./col -->
-               <div class="col-lg-3 col-6">
-            <!-- small box -->
-            <div class="small-box bg-success">
-            <div class="inner">
-              <h3>4</h3>
+                              <div class="info-box-content" id="canGuiasSR">
+                                <span class="info-box-text">GUÍAS DE DESPACHO SIN RECEPCIÓN</span>
+                                <span class="info-box-number">0</span>
+                              </div>
+                              <!-- /.info-box-content -->
+                 </div>
+   
 
-                <p>Dashboard 4</p>
-              </div>
-             
-              <div class="icon">
-                <i class="ion ion-stats-bars"></i>
-              </div>
-              <a href="#" class="small-box-footer"> <i class="fas fa-arrow-circle-right"></i></a>
-            </div>
-          </div>
-        <!-- /.row -->
+  </div>
+  <!-- ./col -->
+
+</div>
+<!-- /.row -->
         </div>
         <!-- /.card-body -->
       </div>
       <!-- /.card -->
+                              
 
-             </div>
+                                         
 
-<!-- TO DO List -->
-<div class="card-body">
-              <div class="card-header">
-                <h3 class="card-title">
-                  <i class="ion ion-clipboard mr-1"></i>
-                 Gestor de Tarea
-                </h3>
-              </div>
-              <!-- /.card-header -->
-              <div class="card-body">
-              <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="ion ion-clipboard mr-1"></i> Gestor de Tarea</h3>
+        </div>
+            <div class="card-body">
+
+                           <table id="tbl_todo" class="table table-striped table-bordered" cellspacing="0" width=100%>
                                                             <thead>
                                                                 <tr>
                                                                     <th>Acciones</th>
@@ -131,51 +176,42 @@
               <div class="card-footer clearfix">
                 <button type="button" id="btn_nuevo_todo" class="btn btn-info float-right"><i class="fas fa-plus"></i> Agregar To-Do</button>
               </div>
-    </div>
+              </div>
             <!-- /.card -->
+            </div>
+        <!-- /.card-body -->
+      </div>
 
-                     <div class="card-body">
-                            <table class="" cellspacing="0" width="100%">
-                                 <tbody>
-                                     <tr>
-                                         <th>
-                                         <div class="col-12">
-                                            <div class="form-group">
-                                                    <label>Seleccione Cliente</label>
-                                                    <?php echo $select_clientes;?>
-                                            </div>
-                                        </div>
-                                         
-                                         </th>
-                                         <th>
-                                         <div class="col-12">
-                                            <div class="form-group">
-                                                    <label>Seleccione Proyectos</label>
-                                                    <?php echo $select_proyectos;?>
-                                            </div>
-                                        </div>
-                                         <th>
-                                         <div class="col-12">
-                                            <div class="form-group">
-                                                    <label>Seleccione Orden de Compra</label>
-                                                    <?php echo $select_ordenes;?>
-                                            </div>
-                                        </div>
-                                         </th>
-                                         <th>
-                                             <div class="col-12">
-                                                 <button class="btn btn-block btn-outline-warning btn-sm"
-                                                     onclick="aplicaFiltro()"><i class="fas fa-filter"></i>
-                                                     Aplicar Filtro
-                                                 </button>
-                                             </div>
-                                         </th>
-                                     </tr>
-                                 </tbody>
-                             </table>
-                        </div> 
 
-                        <div class="card-body">
+
+      <div class="card">
+        <div class="card-header">
+          <h3 class="card-title"><i class="ion ion-clipboard mr-1"></i> REGISTROS RECEPCIÓN</h3>
+        </div>
+          <div class="card-body">
+
+              <div class="row">
+                      <div class="col-sm">
+                                  <div class="form-group">
+                                      <label>Seleccione Orden de Compra</label>
+                                      <?php echo $select_ordenes;?>
+                                    </div>
+                      </div>
+                     
+                      <div class="col-sm">
+
+                                  <div class="form-group">
+                                          <label>Aplicar Filtro</label>
+                                          <button class="btn btn-block btn-outline-warning btn-sm" onclick="aplicaFiltro()"><i class="fas fa-filter"></i>
+                                </button>
+                                  </div>
+                          
+                      </div>
+              </div>
+
+              <br/>
+              <br/>
+
                         
                          <table id="tbl_rr" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
@@ -206,9 +242,8 @@
                              <tbody id="datos_rr">
                              </tbody>
                          </table>
-                     </div>
-                     </div>
 
+                     </div>
 
 
        <!--.modal nuevo todo-->
@@ -877,14 +912,7 @@ function recargaListaToDo(){
                         recargaBuckSheet(orden, cliente);
                     }
                     }
-
-
-
                 }
-
-               
-
-
             }
 
             $('select#clientes').on('change', function() {
@@ -1072,6 +1100,71 @@ function recargaListaToDo(){
 
              }
 
+
+            function aplicaFiltroBodega(){
+
+var cliente = $('#clientes').val();
+var proyectos = $('#proyectos').val();
+var cantidadRR = '';
+var cantidadRE = '';
+var cantidadExb = '';
+var cantidadEI = '';
+var sumaviajes = '';
+var cantGuias  = '';
+var canGuiasSR = '';
+
+
+if($('#clientes').val() == 0) {
+        alert('Debe seleccionar cliente');
+    }else{
+
+    if($('#proyectos').val() == 0) {
+        alert('Debe seleccionar Proyecto');
+    }else{
+    
+      $.ajax({
+              url: '<?php echo base_url();?>'+'index.php/Consultas/obtieneTotalesBodega',
+              type: 'POST',
+              dataType: 'JSON',
+              data: {
+                      id_cliente: cliente,
+                      id_proyecto: proyectos
+                    },
+            })
+            .done(function(respuesta) {
+
+              cantidadRR = '<span class="info-box-text">CANTIDAD REPORTES DE RECEPCIÓN (RR)</span> <span class="info-box-number">'+respuesta.cantidadRR+'</span>';
+              cantidadRE = '<span class="info-box-text">CANTIDAD REPORTES DE ENTREGA (RE)</span> <span class="info-box-number">'+respuesta.cantidadRE+'</span>';
+              cantidadExb = '<span class="info-box-text">CANTIDAD EXB</span> <span class="info-box-number">'+respuesta.cantidadExb+'</span>';
+              cantidadEI = '<span class="info-box-text">CANTIDAD EI</span> <span class="info-box-number">'+respuesta.cantidadEI+'</span>';
+              sumaviajes = '<span class="info-box-text">CANTIDAD DE VIAJES</span> <span class="info-box-number">'+respuesta.sumaviajes+'</span>';
+              cantGuias  = '<span class="info-box-text">TOTAL GUIA DE DESPACHOS</span> <span class="info-box-number">'+respuesta.cantGuias+'</span>';
+              canGuiasSR = '<span class="info-box-text">GUÍAS DE DESPACHO SIN RECEPCIÓN</span> <span class="info-box-number">'+respuesta.canGuiasSR+'</span>';
+
+
+              $("#cantidadRR").html(cantidadRR);
+              $("#cantidadRE").html(cantidadRE);
+              $("#cantidadExb").html(cantidadExb);
+              $("#cantidadEI").html(cantidadEI);
+              $("#sumaviajes").html(sumaviajes);
+              $("#cantGuias").html(cantGuias);
+              $("#canGuiasSR").html(canGuiasSR);
+
+              
+            })
+            .fail(function() {
+              console.log("error");
+            })
+            .always(function() {
+              console.log("complete");
+            });
+    
+    
+    }
+
+}
+
+}  
           
              </script>
 

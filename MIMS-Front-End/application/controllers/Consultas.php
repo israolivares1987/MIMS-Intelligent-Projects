@@ -149,6 +149,59 @@ class Consultas extends MY_Controller
     }
 
 
+    function obtieneTotalesBodega()
+    {
+  
+      $proyecto = $this->input->post('id_proyecto');
+      $id_cliente = $this->input->post('id_cliente');
+      $codEmpresa = $this->session->userdata('cod_emp');
+
+      $cantidadRR = 0;
+      $cantidadRE = 0;
+      $cantidadExb= 0;
+      $cantidadEI =0;
+      $sumaviajes = 0;
+      $cantGuias = 0;
+      $canGuiasSR = 0;
+
+
+      //contar advertencias de Bodega
+        $countBodega = $this->callexternosconsultas->obtieneTotalesBodega($codEmpresa,$id_cliente,$proyecto);
+        $arrcountBodega = json_decode($countBodega);  
+
+         if ($arrcountBodega) {
+             foreach ($arrcountBodega as $key => $value) {
+
+              $cantidadRR = $value->cantidadRR;
+              $cantidadRE = $value->cantidadRE;
+              $cantidadExb= $value->cantidadExb;
+              $cantidadEI = $value->cantidadEI;
+              $sumaviajes = $value->sumaviajes;
+              $cantGuias  = $value->cantGuias;
+              $canGuiasSR = $value->canGuiasSR;
+                      
+            
+            }
+              
+            }
+         
+  
+           
+  
+        $datos['cantidadRR'] = $cantidadRR; 
+        $datos['cantidadRE'] = $cantidadRE; 
+        $datos['cantidadExb'] = $cantidadExb; 
+        $datos['cantidadEI'] = $cantidadEI;
+        $datos['sumaviajes'] = $sumaviajes;
+        $datos['cantGuias'] = $cantGuias;
+        $datos['canGuiasSR'] = $canGuiasSR;
+       
+        echo json_encode($datos);
+      }
+
+
+
+
 
     function obtieneSelect(){
     

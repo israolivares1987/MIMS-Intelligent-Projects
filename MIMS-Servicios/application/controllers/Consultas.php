@@ -134,6 +134,45 @@ class Consultas extends CI_Controller {
 
 
 
+   function obtieneTotalesBodega(){
+
+	$codEmpresa =  $this->input->post('codEmpresa');
+	$cliente =  $this->input->post('cliente');
+	$proyecto =  $this->input->post('proyecto');
+
+
+	$cantidadRR  = $this->consultas->obtieneCantidadRR($codEmpresa,$cliente,$proyecto);
+	$cantidadRE  = '0';
+    $cantidadExb = $this->consultas->obtieneCantidadEXB($codEmpresa,$cliente,$proyecto);
+    $cantidadEI  = $this->consultas->obtieneCantidadEI($codEmpresa,$cliente,$proyecto);
+    $sumaviajes  = $this->consultas->obtieneSumaViajes($codEmpresa,$cliente,$proyecto);
+    $cantGuias   = $this->consultas->obtieneCantidadGuiasDespacho($codEmpresa,$cliente,$proyecto);
+    $canGuiasSR  =$this->consultas->obtieneCantidadGuiasDespachoSinRecep($codEmpresa,$cliente,$proyecto);
+       
+	$output = array(
+			
+		"cantidadRR" => $cantidadRR,
+		"cantidadRE" => $cantidadRE,
+		"cantidadExb" => $cantidadExb,
+		"cantidadEI" => $cantidadEI,
+		"sumaviajes" => $sumaviajes,
+		"cantGuias" => $cantGuias,
+		"canGuiasSR" => $canGuiasSR
+
+	);
+
+	$respuesta = array(
+			
+		"respuesta" => $output
+
+	);
+	
+	//output to json format
+	echo json_encode($respuesta);
+
+   }
+
+
 	
 	}
 
