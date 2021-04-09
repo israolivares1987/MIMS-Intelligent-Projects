@@ -400,6 +400,110 @@ function setSession($userId, $sessionId){
             return false;
           }
         }
-          
+        
+        function obtieneCantidadRR($codEmpresa,$cliente,$proyecto)
+        {
+        
+          $this->db->where('b.id_cliente',$cliente);
+          $this->db->where('b.id_proyecto',$proyecto);
+          $this->db->where('b.estado_rr',"1");
+          $this->db->where('b.cod_empresa',$codEmpresa);
+          $this->db->from(' tbl_rr_cabecera b');          
+          return $this->db->count_all_results();
+
+        }
+
+        function obtieneCantidadEXB($codEmpresa,$cliente,$proyecto)
+        {
+        
+          $this->db->where('a.cod_empresa',$codEmpresa);
+          $this->db->where('a.id_cliente',$cliente);
+          $this->db->where('a.id_proyecto',$proyecto);
+          $this->db->where('a.estado_rr',1);
+          $this->db->where('a.id_rr = b.id_rr_cab');
+          $this->db->where('b.estado_rr_det', '1');
+          $this->db->where('length(b.observacion_exb) > 0');
+          $this->db->from('tbl_rr_cabecera a, tbl_rr_detalle b');         
+          return $this->db->count_all_results();
+
+       }
+
+       function obtieneCantidadEI($codEmpresa,$cliente,$proyecto)
+       {
+       
+         $this->db->where('a.cod_empresa',$codEmpresa);
+         $this->db->where('a.id_cliente',$cliente);
+         $this->db->where('a.id_proyecto',$proyecto);
+         $this->db->where('a.estado_rr',1);
+         $this->db->where('a.id_rr = b.id_rr_cab');
+         $this->db->where('b.estado_rr_det', 1);
+         $this->db->where('inspeccion_requerida', 'S');
+         $this->db->from('tbl_rr_cabecera a, tbl_rr_detalle b');         
+         return $this->db->count_all_results();
+
+       }
+
+       function obtieneSumaViajes($codEmpresa,$cliente,$proyecto)
+       {
+       
+        $this->db->select_sum('NUMERO_DE_VIAJE','total');
+        $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
+        $this->db->where('t1.COD_EMPRESA',$codEmpresa);
+        $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+        $this->db->where('t2.NumeroProyecto', $proyecto) ;
+        $this->db->where('t2.idCliente', $cliente) ;
+        $this->db->where('t2.NumeroProyecto = t3.idProyecto');
+        $this->db->where('t1.id_oc = t3.PurchaseOrderID');
+        $this->db->where('t3.idCliente = t2.idCliente');     
+        $this->db->where('t1.COD_EMPRESA = t2.codEmpresa'); 
+        $resultado = $this->db->get()->result();
+        $total = $resultado[0]->total; 
+        
+        if (empty($total)){
+          $total = '0';
+        }
+        
+        return $total;
+
+
+       }
+
+
+       function obtieneCantidadGuiasDespacho($codEmpresa,$cliente,$proyecto)
+       {
+       
+        $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
+        $this->db->where('t1.COD_EMPRESA',$codEmpresa);
+        $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+        $this->db->where('t2.NumeroProyecto', $proyecto) ;
+        $this->db->where('t2.idCliente', $cliente) ;
+        $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+        $this->db->where('t2.NumeroProyecto = t3.idProyecto');
+        $this->db->where('t1.id_oc = t3.PurchaseOrderID');
+        $this->db->where('t3.idCliente = t2.idCliente');     
+        $this->db->where('t1.COD_EMPRESA = t2.codEmpresa');  
+        return $this->db->count_all_results();
+
+       }
+
+
+       function obtieneCantidadGuiasDespachoSinRecep($codEmpresa,$cliente,$proyecto)
+       {
+       
+        $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
+        $this->db->where('t1.COD_EMPRESA',$codEmpresa);
+        $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
+        $this->db->where('t2.NumeroProyecto', $proyecto) ;
+        $this->db->where('t2.idCliente', $cliente) ;
+        $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+        $this->db->where('t2.NumeroProyecto = t3.idProyecto');
+        $this->db->where('t1.id_oc = t3.PurchaseOrderID');
+        $this->db->where('t3.idCliente = t2.idCliente');     
+        $this->db->where('t1.COD_EMPRESA = t2.codEmpresa');  
+        $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
+        return $this->db->count_all_results();
+
+       }
+
   }
 ?>

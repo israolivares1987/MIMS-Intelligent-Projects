@@ -366,5 +366,39 @@ function actualiza_password_new($cod_user,$password,$cod_emp){
 
 }
 
+
+function obtieneTotalesBodega($codEmpresa,$cliente,$proyecto){
+
+  $base_url_servicios =$this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."Consultas/obtieneTotalesBodega";
+
+  $form_data = array(
+    'codEmpresa'		=>$codEmpresa,
+    'cliente'		=>$cliente,
+    'proyecto' => $proyecto
+   );
+
+    $client = curl_init($api_url);
+
+    curl_setopt($client, CURLOPT_POST, true);
+
+    curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+    curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+    $response = curl_exec($client);
+
+    curl_close($client);
+
+
+    return $response;
+  
+ 
+
+
+}
+
+
+
     
 }
