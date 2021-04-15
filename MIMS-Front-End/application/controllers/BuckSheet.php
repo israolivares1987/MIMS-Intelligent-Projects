@@ -18,6 +18,7 @@ class BuckSheet extends MY_Controller
     $this->load->library('CallExternosJournal');
     $this->load->library('CallExternosEmpleados');
     $this->load->library('CallExternosOrdenes');
+    $this->load->library('CallExternosOrdenesItem');
     $this->load->library('CallExternosBuckSheet');
     $this->load->library('CallExternosDominios');
 
@@ -291,7 +292,6 @@ class BuckSheet extends MY_Controller
     }
 
 
-
     if ($this->form_validation->run() == false) {
 
       $error_msg = 'Archivo invalido, favor seleccionar archivo CSV.';
@@ -350,6 +350,30 @@ class BuckSheet extends MY_Controller
 
             $rowCount++;
 
+
+                // Ordenes ITEM
+              $ordenesItem = $this->callexternosordenesitem->obtieneItemOrdenes($idOrden,$idProyecto,$idCliente);
+
+              $arrOrdenesItem = json_decode($ordenesItem);
+              $count_item = '0';
+
+                if($arrOrdenesItem){
+              
+                  foreach ($arrOrdenesItem as $key => $value) {
+                    
+                    $item_id = $value->id_item;
+
+                    if($item_id === $row['ITEM_OC']) {
+
+                      $count_item = '1';
+                    }
+                  }
+                }
+
+
+
+
+
             if (strlen($row['REVISION']) < 1 || $row['REVISION'] === "" || isset($row['REVISION']) || empty($row['REVISION']) || is_null($row['Revision'])) {
 
               $revision = '0';
@@ -357,6 +381,10 @@ class BuckSheet extends MY_Controller
 
               $revision = $row['REVISION'];
             }
+
+           
+
+
 
             //valida fechas
 
@@ -369,328 +397,339 @@ class BuckSheet extends MY_Controller
                 $error++;
                 $errorCount++;
             }else{
+
+              if ($count_item === '0' ){
+              
+                $idmensaje = 4;
+
+                $this->insertar_error($idError, $idmensaje,'ITEM_OC',$row);
+                $error++;
+                $errorCount++;
+
+              }else{ 
+
            
-              if ($this->callutil->validarFecha($row['FECHA_LINEA_BASE'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_LINEA_BASE'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_LINEA_BASE', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_LINEA_BASE', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_COMIENZO_FABRICACION'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_COMIENZO_FABRICACION'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_COMIENZO_FABRICACION', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_COMIENZO_FABRICACION', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
-              if ($this->callutil->validarFecha($row['FECHA_TERMINO_FABRICACION'])){
-            
-              } else {
-                $idmensaje = 2;
+                  }
+                  if ($this->callutil->validarFecha($row['FECHA_TERMINO_FABRICACION'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FECHA_TERMINO_FABRICACION',$row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje, 'FECHA_TERMINO_FABRICACION',$row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_GRANALLADO'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_GRANALLADO'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_GRANALLADO', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_GRANALLADO', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_PINTURA'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_PINTURA'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FECHA_PINTURA',$row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje, 'FECHA_PINTURA',$row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_LISTO_INSPECCION'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_LISTO_INSPECCION'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_LISTO_INSPECCION', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_LISTO_INSPECCION', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
-              if ($this->callutil->validarFecha($row['FECHA_SALIDA_FABRICA'])){
-            
-              } else {
-                $idmensaje = 2;
+                  }
+                  if ($this->callutil->validarFecha($row['FECHA_SALIDA_FABRICA'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_SALIDA_FABRICA', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_SALIDA_FABRICA', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_EMBARQUE'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_EMBARQUE'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_EMBARQUE', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_EMBARQUE', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_TC'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_TC'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje, 'FECHA_TC',$row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje, 'FECHA_TC',$row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_TP'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_TP'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_TP', $row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_TP', $row);
+                    $error++;
+                    $errorCount++;
 
-              }
+                  }
 
-              if ($this->callutil->validarFecha($row['FECHA_TCF'])){
-            
-              } else {
-                $idmensaje = 2;
+                  if ($this->callutil->validarFecha($row['FECHA_TCF'])){
+                
+                  } else {
+                    $idmensaje = 2;
 
-                $this->insertar_error($idError, $idmensaje,'FECHA_TCF',$row);
-                $error++;
-                $errorCount++;
+                    $this->insertar_error($idError, $idmensaje,'FECHA_TCF',$row);
+                    $error++;
+                    $errorCount++;
 
-              }
-
-
-          if (in_array($row['NUMERO_DE_LINEA'], $repetidos)) {
-
-                  $idmensaje = 1;
-                  $this->insertar_error($idError, $idmensaje,'NUMERO_DE_LINEA', $row);
-                  $error++;
-                  $errorCount++;
-                } else {
-
-                 
-
-                  if ($error == 0) {
-
-                    $prevCount = $this->callexternosbucksheet->getRows($idOrden, $row['NUMERO_DE_LINEA']);
-
-          
-
-                    if ($prevCount > 0) {
-
-                      $EstadoLineaBucksheet = '1';
-                      
-                      if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '7';
-                      }
-
-
-                      if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '2';
-                      }
-
-                      if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '3';
-                      }
-
-                      if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '6';
-                      }
-
-
-
-                      if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '4';
-                      }
-
-                      if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
-
-                        $EstadoLineaBucksheet = '5';
-                      }
-                     } else {
-
-                      $EstadoLineaBucksheet = '1';
-                      
-                      if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '7';
-                      }
-
-
-                      if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '2';
-                      }
-
-                      if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '3';
-                      }
-
-                      if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '6';
-                      }
-
-
-
-                      if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
-
-                        $EstadoLineaBucksheet = '4';
-                      }
-
-                      if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
-
-                        $EstadoLineaBucksheet = '5';
-                      }
-                    }
-
-                    $memData = array(
-                      'COD_EMPRESA' =>  $codEmpresa,
-                      'ID_OC' => $row['ID_OC'],
-                      'NUMERO_OC' => urldecode($PurchaseOrderNumber),
-                      'DESCRIPCION_OC' => urldecode($PurchaseOrderDescription),
-                      'ITEM_OC' => $row['ITEM_OC'],
-                      'SUB_ITEM_OC' => $row['SUB_ITEM_OC'],
-                      'PROVEEDOR' => urldecode($SupplierName),
-                      'NUMERO_DE_LINEA' => $row['NUMERO_DE_LINEA'],
-                      'TIPO_DE_LINEA' => $row['TIPO_DE_LINEA'],
-                      'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
-                      'NUMERO_DE_TAG' => $row['NUMERO_DE_TAG'],
-                      'STOCKCODE' => $row['STOCKCODE'],
-                      'DESCRIPCION_LINEA' => $row['DESCRIPCION_LINEA'],
-                      'NUMERO_DE_ELEMENTOS' => $row['NUMERO_DE_ELEMENTOS'],
-                      'CANTIDAD_UNITARIA' => $row['CANTIDAD_UNITARIA'],
-                      'CANTIDAD_TOTAL' => $row['CANTIDAD_TOTAL'],
-                      'UNIDAD' => $row['UNIDAD'],
-                      'TRANSMITTAL_CLIENTE' => $row['TRANSMITTAL_CLIENTE'],
-                      'FECHA_TC' => $this->callutil->formatoFecha($row['FECHA_TC']),
-                      'TRANSMITTAL_PROVEEDOR' => $row['TRANSMITTAL_PROVEEDOR'],
-                      'FECHA_TP' => $this->callutil->formatoFecha($row['FECHA_TP']),
-                      'TRANSMITTAL_CLIENTE_FINAL' => $row['TRANSMITTAL_CLIENTE_FINAL'],
-                      'FECHA_TCF' => $this->callutil->formatoFecha($row['FECHA_TCF']),
-                      'PA_TCF' => $row['PA_TCF'],
-                      'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
-                      'REVISION' => $row['REVISION'],
-                      'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
-                      'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
-                      'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $fecha_hoy),
-                      'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
-                      'PA_FCF' => $row['PA_FCF'],
-                      'FECHA_TERMINO_FABRICACION' =>$this->callutil->formatoFecha($row['FECHA_TERMINO_FABRICACION']),
-                      'PA_FTF' => $row['PA_FTF'],
-                      'FECHA_GRANALLADO' => $this->callutil->formatoFecha($row['FECHA_GRANALLADO']),
-                      'PA_FG' => $row['PA_FG'],
-                      'FECHA_PINTURA' => $this->callutil->formatoFecha($row['FECHA_PINTURA']),
-                      'PA_FP' => $row['PA_FP'],
-                      'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
-                      'PA_FLI' => $row['PA_FLI'],
-                      'ACTA_LIBERACION_CALIDAD' => $row['ACTA_LIBERACION_CALIDAD'],
-                      'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
-                      'PA_FSF' => $row['PA_FSF'],
-                      'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
-                      'PACKINGLIST' => $row['PACKINGLIST'],
-                      'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
-                      'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
-                      'ORIGEN' => $row['ORIGEN'],
-                      'DIAS_VIAJE' => $row['DIAS_VIAJE'],
-                      'UNIDADES_SOLICITADAS' => $row['UNIDADES_SOLICITADAS'],
-                      'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
-                      'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
-                      'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
-                      'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
-                      'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
-                      'OBSERVACION' => $row['OBSERVACION']
-                    );
-
-
-                    if ($prevCount > 0) {
-                      // Update member data
-
-                      $update = $this->callexternosbucksheet->update($memData, $idOrden, $row['NUMERO_DE_LINEA']);
-
-                      if ($update) {
-                        $updateCount++;
-
-                        //Carga Bitacora
-
-                        //Carga Bitacora
-
-                        $insert_bitacora = array(
-                          'codEmpresa' => $this->session->userdata('cod_emp'),
-                          'accion'  => 'ACTUALIZA_WPANEL_LINEA',
-                          'id_registro' => $row['NUMERO_DE_LINEA'],
-                          'usuario'  =>  $this->session->userdata('n_usuario'),
-                          'rol' =>   $this->session->userdata('nombre_rol'),
-                          'objeto'  => 'WPANEL',
-                          'fechaCambio' =>  date_create()->format('Y-m-d')
-                        );
-
-                        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
-                      }
-                    } else {
-                      // Insert member data
-                      $insert = $this->callexternosbucksheet->insert($memData);
-
-                      
-                      if ($insert) {
-
-                        $insertCount++;
-
-                        $insert_bitacora = array(
-                          'codEmpresa' => $this->session->userdata('cod_emp'),
-                          'accion'  => 'INSERTA_WPANEL_LINEA_' . $row['NUMERO_DE_LINEA'],
-                          'id_registro' => $row['NUMERO_DE_LINEA'],
-                          'usuario'  =>  $this->session->userdata('n_usuario'),
-                          'rol' =>   $this->session->userdata('nombre_rol'),
-                          'objeto'  => 'WPANEL',
-                          'fechaCambio' =>  date_create()->format('Y-m-d')
-                        );
-
-                        $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
-                      }
-                    }
                   }
 
 
+                  if (in_array($row['NUMERO_DE_LINEA'], $repetidos)) {
+
+                          $idmensaje = 1;
+                          $this->insertar_error($idError, $idmensaje,'NUMERO_DE_LINEA', $row);
+                          $error++;
+                          $errorCount++;
+                        } else {
+
+                        
+
+                          if ($error == 0) {
+
+                            $prevCount = $this->callexternosbucksheet->getRows($idOrden, $row['NUMERO_DE_LINEA']);
+
+                  
+
+                            if ($prevCount > 0) {
+
+                              $EstadoLineaBucksheet = '1';
+                              
+                              if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '7';
+                              }
 
 
-                 
+                              if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '2';
+                              }
+
+                              if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '3';
+                              }
+
+                              if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '6';
+                              }
+
+
+
+                              if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '4';
+                              }
+
+                              if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
+
+                                $EstadoLineaBucksheet = '5';
+                              }
+                            } else {
+
+                              $EstadoLineaBucksheet = '1';
+                              
+                              if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '7';
+                              }
+
+
+                              if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '2';
+                              }
+
+                              if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '3';
+                              }
+
+                              if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '6';
+                              }
+
+
+
+                              if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
+
+                                $EstadoLineaBucksheet = '4';
+                              }
+
+                              if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
+
+                                $EstadoLineaBucksheet = '5';
+                              }
+                            }
+
+                            $memData = array(
+                              'COD_EMPRESA' =>  $codEmpresa,
+                              'ID_OC' => $row['ID_OC'],
+                              'NUMERO_OC' => urldecode($PurchaseOrderNumber),
+                              'DESCRIPCION_OC' => urldecode($PurchaseOrderDescription),
+                              'ITEM_OC' => $row['ITEM_OC'],
+                              'SUB_ITEM_OC' => $row['SUB_ITEM_OC'],
+                              'PROVEEDOR' => urldecode($SupplierName),
+                              'NUMERO_DE_LINEA' => $row['NUMERO_DE_LINEA'],
+                              'TIPO_DE_LINEA' => $row['TIPO_DE_LINEA'],
+                              'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+                              'NUMERO_DE_TAG' => $row['NUMERO_DE_TAG'],
+                              'STOCKCODE' => $row['STOCKCODE'],
+                              'DESCRIPCION_LINEA' => $row['DESCRIPCION_LINEA'],
+                              'NUMERO_DE_ELEMENTOS' => $row['NUMERO_DE_ELEMENTOS'],
+                              'CANTIDAD_UNITARIA' => $row['CANTIDAD_UNITARIA'],
+                              'CANTIDAD_TOTAL' => $row['CANTIDAD_TOTAL'],
+                              'UNIDAD' => $row['UNIDAD'],
+                              'TRANSMITTAL_CLIENTE' => $row['TRANSMITTAL_CLIENTE'],
+                              'FECHA_TC' => $this->callutil->formatoFecha($row['FECHA_TC']),
+                              'TRANSMITTAL_PROVEEDOR' => $row['TRANSMITTAL_PROVEEDOR'],
+                              'FECHA_TP' => $this->callutil->formatoFecha($row['FECHA_TP']),
+                              'TRANSMITTAL_CLIENTE_FINAL' => $row['TRANSMITTAL_CLIENTE_FINAL'],
+                              'FECHA_TCF' => $this->callutil->formatoFecha($row['FECHA_TCF']),
+                              'PA_TCF' => $row['PA_TCF'],
+                              'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
+                              'REVISION' => $row['REVISION'],
+                              'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
+                              'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
+                              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $fecha_hoy),
+                              'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
+                              'PA_FCF' => $row['PA_FCF'],
+                              'FECHA_TERMINO_FABRICACION' =>$this->callutil->formatoFecha($row['FECHA_TERMINO_FABRICACION']),
+                              'PA_FTF' => $row['PA_FTF'],
+                              'FECHA_GRANALLADO' => $this->callutil->formatoFecha($row['FECHA_GRANALLADO']),
+                              'PA_FG' => $row['PA_FG'],
+                              'FECHA_PINTURA' => $this->callutil->formatoFecha($row['FECHA_PINTURA']),
+                              'PA_FP' => $row['PA_FP'],
+                              'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
+                              'PA_FLI' => $row['PA_FLI'],
+                              'ACTA_LIBERACION_CALIDAD' => $row['ACTA_LIBERACION_CALIDAD'],
+                              'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
+                              'PA_FSF' => $row['PA_FSF'],
+                              'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
+                              'PACKINGLIST' => $row['PACKINGLIST'],
+                              'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
+                              'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
+                              'ORIGEN' => $row['ORIGEN'],
+                              'DIAS_VIAJE' => $row['DIAS_VIAJE'],
+                              'UNIDADES_SOLICITADAS' => $row['UNIDADES_SOLICITADAS'],
+                              'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
+                              'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
+                              'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
+                              'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
+                              'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
+                              'OBSERVACION' => $row['OBSERVACION']
+                            );
+
+
+                            if ($prevCount > 0) {
+                              // Update member data
+
+                              $update = $this->callexternosbucksheet->update($memData, $idOrden, $row['NUMERO_DE_LINEA']);
+
+                              if ($update) {
+                                $updateCount++;
+
+                                //Carga Bitacora
+
+                                //Carga Bitacora
+
+                                $insert_bitacora = array(
+                                  'codEmpresa' => $this->session->userdata('cod_emp'),
+                                  'accion'  => 'ACTUALIZA_WPANEL_LINEA',
+                                  'id_registro' => $row['NUMERO_DE_LINEA'],
+                                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                                  'rol' =>   $this->session->userdata('nombre_rol'),
+                                  'objeto'  => 'WPANEL',
+                                  'fechaCambio' =>  date_create()->format('Y-m-d')
+                                );
+
+                                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+                              }
+                            } else {
+                              // Insert member data
+                              $insert = $this->callexternosbucksheet->insert($memData);
+
+                              
+                              if ($insert) {
+
+                                $insertCount++;
+
+                                $insert_bitacora = array(
+                                  'codEmpresa' => $this->session->userdata('cod_emp'),
+                                  'accion'  => 'INSERTA_WPANEL_LINEA_' . $row['NUMERO_DE_LINEA'],
+                                  'id_registro' => $row['NUMERO_DE_LINEA'],
+                                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                                  'rol' =>   $this->session->userdata('nombre_rol'),
+                                  'objeto'  => 'WPANEL',
+                                  'fechaCambio' =>  date_create()->format('Y-m-d')
+                                );
+
+                                $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+                              }
+                            }
+                          }
+
+
+
+
+                        }
                 }
               }
            

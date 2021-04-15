@@ -56,6 +56,7 @@ class OrdenesItem extends CI_Controller{
               'cantidad'=> $this->callutil->formatoNumero($value->cantidad), 
               'precio_unitario'=> $this->callutil->formatoDinero($value->precio_unitario),
               'valor_neto'=> $this->callutil->formatoDinero($value->valor_neto),
+              'fecha_requerida' =>$this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_requerida)),
               'estado'=> $value->estado,
               'PurchaseOrderNumber'=> $this->callutil->cambianull($value->PurchaseOrderNumber),
               'PurchaseOrderDescription'=> $this->callutil->cambianull($value->PurchaseOrderDescription)
@@ -90,6 +91,7 @@ class OrdenesItem extends CI_Controller{
     $id_order_item       = $this->input->post('id_order_item');
     $id_orden_item_proyecto            = $this->input->post('id_orden_item_proyecto');
     $id_orden_item_cliente    = $this->input->post('id_orden_item_cliente');
+    $or_fecha_requerida = $this->input->post('or_fecha_requerida');
     $codEmpresa       = $this->session->userdata('cod_emp');
 
   
@@ -106,6 +108,7 @@ class OrdenesItem extends CI_Controller{
                   'cantidad'        => $or_item_cantidad,
                   'precio_unitario'                  => $or_item_valor_unitario,
                   'valor_neto'                 => $or_item_valor_neto,
+                  'fecha_requerida' =>     $this->callutil->formatoFecha($or_fecha_requerida),
                   'estado'                => $or_item_status
                 );
 
@@ -207,6 +210,7 @@ class OrdenesItem extends CI_Controller{
           'or_act_item_cantidad'=> $this->callutil->formatoNumero($value->cantidad), 
           'or_act_item_valor_unitario'=> $this->callutil->formatoNumero($value->precio_unitario),
           'or_act_item_valor_neto'=> $this->callutil->formatoNumero($value->valor_neto),
+          'or_act_fecha_requerida' =>     $this->callutil->formatoFechaSalida($value->fecha_requerida),
           's_act_item_status'=> $this->callutil->obtiene_select_def_act('or_act_select_estado',$value->estado,'ESTADO_ITEM_ORDEN')
         );
   
@@ -231,6 +235,7 @@ class OrdenesItem extends CI_Controller{
     $or_act_item_cantidad   = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_cantidad'));
     $or_act_item_valor_neto   = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_valor_neto'));
     $or_act_item_valor_unitario         = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_item_valor_unitario'));
+    $or_act_fecha_requerida =    $this->input->post('or_act_fecha_requerida');
     $s_act_item_status        = $this->input->post('or_act_select_estado');
   
 
@@ -255,6 +260,7 @@ class OrdenesItem extends CI_Controller{
       'cantidad'        => $or_act_item_cantidad,
       'precio_unitario'                  => $or_act_item_valor_unitario,
       'valor_neto'                 => $or_act_item_valor_neto,
+      'fecha_requerida'                      =>$this->callutil->formatoFecha($or_act_fecha_requerida),
       'estado'                => $s_act_item_status
     );
                 $ordenes    = $this->callexternosordenesitem->actualizaOrdenItem($data_update);
