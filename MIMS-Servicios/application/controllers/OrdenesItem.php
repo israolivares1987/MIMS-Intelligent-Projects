@@ -108,21 +108,8 @@ class OrdenesItem extends CI_Controller {
 	 
 	 function update(){
 
-				// Update member data
-				$form_data = array(
-					'codEmpresa' => $this->input->post('codEmpresa'),
-					'PurchaseOrderID'  => $this->input->post('PurchaseOrderID'),
-					'idCliente'  => $this->input->post('idCliente'),
-					'idProyecto' => $this->input->post('idProyecto'),
-					'id_item'  => $this->input->post('id_item'),
-					'descripcion'  => $this->input->post('descripcion'),
-					'revision' => $this->input->post('revision'),
-					'unidad'  => $this->input->post('unidad'),
-					'cantidad'  => $this->input->post('cantidad'),
-					'precio_unitario'  => $this->input->post('precio_unitario'),
-					'valor_neto' => $this->input->post('valor_neto'),
-					'estado'  => $this->input->post('estado')
-				);
+			
+				$form_data = $this->input->post();
 
 	$update = $this->ordenesitem->update($form_data,$this->input->post('PurchaseOrderID'),$this->input->post('id_item'),$this->input->post('idProyecto') );
 		
@@ -132,23 +119,7 @@ class OrdenesItem extends CI_Controller {
 		
 	 function insert(){
 
-
-
-	
-			$form_data = array(
-				'codEmpresa' => $this->input->post('codEmpresa'),
-				'PurchaseOrderID'  => $this->input->post('PurchaseOrderID'),
-				'idCliente'  => $this->input->post('idCliente'),
-				'idProyecto' => $this->input->post('idProyecto'),
-				'id_item'  => $this->input->post('id_item'),
-				'descripcion'  => $this->input->post('descripcion'),
-				'revision' => $this->input->post('revision'),
-				'unidad'  => $this->input->post('unidad'),
-				'cantidad'  => $this->input->post('cantidad'),
-				'precio_unitario'  => $this->input->post('precio_unitario'),
-				'valor_neto' => $this->input->post('valor_neto'),
-				'estado'  => $this->input->post('estado')
-			);
+		$form_data = $this->input->post();
 	
 		$insert = $this->ordenesitem->insert($form_data);
 		

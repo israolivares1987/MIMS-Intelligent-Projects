@@ -17,6 +17,7 @@ class OrdenesItem_model extends CI_Model{
                                     a.cantidad,
                                     a.precio_unitario,
                                     a.valor_neto,
+                                    a.fecha_requerida,
                                     (select domain_desc from tbl_ref_codes where domain_id = estado and domain = 'ESTADO_ITEM_ORDEN') as estado,
                                     b.PurchaseOrderNumber,
                                     b.PurchaseOrderDescription

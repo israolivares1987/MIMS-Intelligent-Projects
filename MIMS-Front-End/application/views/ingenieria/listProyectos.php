@@ -158,6 +158,7 @@
 						  <th>Cantidad</th>
 						  <th>Precio Unitario</th>
 						  <th>Valor Neto</th>
+              <th>Fecha Requerida</th>
 						  <th>Estado</th>	
 					  </tr>
                      </thead>
@@ -592,353 +593,154 @@
      </div>
      <!-- /.modal-dialog -->
  </div>
-  <!--.modal nueva oden item-->
-  <div id="modal_nuevo_orden_item" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Nueva Item en Orden</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form id="form_orden_item">
-                  <div class="card-body">
-                     <div class="row">
-
-              <div class="col-12 col-sm-6">
-                
-              
-
-
-                <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Numero Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_item_purchase_order" name="or_item_purchase_order" value="" type="text" class="form-control form-control-sm" readonly>
-                            </div>
-                 </div>
-
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_item_nombre_orden" name="or_item_nombre_orden" type="text" value="" class="form-control form-control-sm" readonly>
-                            </div>
-                 </div>
-
-                  </div>
 
 
 
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Item Id</label>
-                            <div class="input-group">
-                               <input id="or_item_id_item" name="or_item_id_item" type="number" class="form-control form-control-sm">
-                            </div>
-                    </div>
-                    </div>
-
-                
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Descripcion</label>
-                            <div class="col-sm-12">
-                              <input id="or_item_descripcion" name="or_item_descripcion" class="form-control form-control-sm">
-                            </div>
-                          </div>
-                   </div>
-
-
-        
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Revision</label>
-                            <div class="input-group">
-                               <input id="or_item_revision" name="or_item_revision" type="number" class="form-control form-control-sm">
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Unidad</label>
-                            <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i class="fas fa-weight-hanging"></i></span>
-                                                 </div>
-                              <div id="s_item_unidad"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-
-
-
-                   <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Cantidad</label>
-
-
-                          
-                            <div class="input-group">
-                            <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                      <i class="fas fa-sort-numeric-up"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_item_cantidad" name="or_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()">
-                            </div>
-                    </div>
-                    </div>
-            
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor Unitario</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_item_valor_unitario" name="or_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()">
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor neto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input  id="or_item_valor_neto" name="or_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
-                            </div>
-                    </div>
-                    </div>
-                   
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Estado orden</label>
-                            <div class="col-sm-12">
-                              <div id="s_item_status"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-
-              </div>
-
-            </div>
-            <!-- /.row -->
-
-
-
-          </div>
-          <!-- /.card-body -->
-          <input type="hidden" id="id_order_item" name="id_order_item" value="">
-          <input type="hidden" id="id_orden_item_proyecto" name="id_orden_item_proyecto" value=""> 
-          <input type="hidden" id="id_orden_item_cliente" name="id_orden_item_cliente" value="">
-
-
-          <div class="modal-footer justify-content-between">
-              <button id="btn_orden_item" type="button" class="btn btn-outline-primary">Guardar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
-   
-                </form>
-              </div><!--.container-->
-            </div><!--.modal-body-->
+ <div class="modal fade" id="modal_nuevo_orden_item">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">Nueva Item en Orden</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_orden_item" class="form-horizontal">
+                     <section class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title"></h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+                                      <div class="col-md-6">
          
-          </div><!--.modal-content-->
-        </div><!--.modal-dialog-->
-      </div><!--.modal-->
-<!--. fin modal nueva oden item-->
+                                            <input type="hidden" id="id_order_item" name="id_order_item" value="">
+                                            <input type="hidden" id="id_orden_item_proyecto" name="id_orden_item_proyecto" value=""> 
+                                            <input type="hidden" id="id_orden_item_cliente" name="id_orden_item_cliente" value="">
 
+                                                        
+                                                                <div class="form-group"><label for="Numero Orden de Compra">Número Orden de Compra</label><input type="text" id="or_item_purchase_order" class="form-control" value="" name="or_item_purchase_order" readonly></div>
+                                                                <div class="form-group"><label for="act_nombre_proyecto">Descripcion Orden de Compra</label><input type="text" id="or_item_nombre_orden" class="form-control" value="" name="or_item_nombre_orden" readonly></div>
+                                                                <div class="form-group"><label for="Item Id">Item Id</label><input type="text" id="or_item_id_item" class="form-control" name="or_item_id_item" value=""></div>
+                                                                <div class="form-group"><label for="or_item_descripcion">Descripción</label><input type="text" id="or_item_descripcion" class="form-control" name="or_item_descripcion" value=""></div>
+                                                                <div class="form-group"><label for="or_item_revision">Revisión</label><input type="text" id="or_item_revision" class="form-control" name="or_item_revision" value=""></div>
+                                                                <div class="form-group"><label for="Estado orden">Estado orden</label><div id="s_item_status"></div></div>
+                                                        </div>
 
- <!--.modal edita oden item-->
- <div id="modal_edita_orden_item" class="modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-labelledby="myLargeModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-xl">
-          <div class="modal-content">
-            <div class="modal-header">
-              <h5 class="modal-title">Editar Item en Orden</h5>
-              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                <span aria-hidden="true">&times;</span>
-              </button>
-            </div>
-            <div class="modal-body">
-              <div class="container">
-                <form id="form_edit_item">
-                  <div class="card-body">
-                     <div class="row">
+                                                        <div class="col-md-6">
+                                                                
+                                                                <div class="form-group"><label for="Unidad">Unidad</label><div id="s_item_unidad"></div></div>
+                                                                <div class="form-group"><label for="Cantidad">Cantidad</label><input type="text" id="or_item_cantidad" class="form-control" name="or_item_cantidad" value="" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()"></div>
+                                                                <div class="form-group"><label for="or_item_valor_unitario">valor unitario</label><input type="text" id="or_item_valor_unitario" class="form-control" name="or_item_valor_unitario" value="" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemor()"></div>
+                                                                <div class="form-group"><label for="or_item_valor_neto">valor neto</label><input type="text" id="or_item_valor_neto" class="form-control" name="or_item_valor_neto" value="" readonly></div>
+                                                                <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_fecha_requerida" type="text" class="form-control fechapicker" id="or_fecha_requerida"></div>
+                                                           
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                                  <!-- /.card-body -->
+                                              </div>
+                                          </div>
+                                      </div>
+                              </section>
 
-              <div class="col-12 col-sm-6">
-                
-              
+                     
+                 </form>
+             </div>
 
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_orden_item" type="button" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
 
-                <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Numero Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_item_purchase_order" name="or_act_item_purchase_order" type="text" class="form-control form-control-sm" readonly>
-                            </div>
-                 </div>
-
-                  </div>
-
-                  <div class="col-12 col-sm-6">
-                <div class="form-group">
-                <label class="col-sm-12 control-label">Descripcion Orden de Compra</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_item_nombre_orden" name="or_act_item_nombre_orden" type="text" class="form-control form-control-sm" readonly>
-                            </div>
-                 </div>
-
-                  </div>
-
-
-
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Item Id</label>
-                            <div class="input-group">
-                               <input id="or_act_id_item" name="or_act_id_item" type="number" class="form-control form-control-sm" readonly>
-                            </div>
-                    </div>
-                    </div>
-
-                
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Descripcion</label>
-                            <div class="col-sm-12">
-                              <input id="or_act_item_descripcion" name="or_act_item_descripcion" class="form-control form-control-sm">
-                            </div>
-                          </div>
-                   </div>
-
-
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>  
         
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Revision</label>
-                            <div class="input-group">
-                               <input id="or_act_item_revision" name="or_act_item_revision" type="number" class="form-control form-control-sm">
-                            </div>
-                    </div>
-                    </div>
 
-                    <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Unidad</label>
-                            <div class="input-group">
-                                                 <div class="input-group-prepend">
-                                                     <span class="input-group-text"><i class="fas fa-weight-hanging"></i></span>
-                                                 </div>
-                              <div id="s_act_item_unidad"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-
-
-                   <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Cantidad</label>
-                            <div class="input-group">
-                               <input id="or_act_item_cantidad" name="or_act_item_cantidad" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()">
-                            </div>
-                    </div>
-                    </div>
-
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor Unitario</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_act_item_valor_unitario" name="or_act_item_valor_unitario" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()">
-                            </div>
-                    </div>
-                    </div>
-                
-                    <div class="col-12 col-sm-6">
-                    <div class="form-group">
-                            <label class="col-sm-12 control-label">Valor neto</label>
-                            <div class="input-group">
-                                    <div class="input-group-prepend">
-                                      <span class="input-group-text">
-                                        <i class="fas fa-dollar-sign"></i>
-                                      </span>
-                                    </div>
-                               <input id="or_act_item_valor_neto" name="or_act_item_valor_neto" type="text" class="form-control form-control-sm" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)" readonly>
-                            </div>
-                    </div>
-                    </div>
-
-
-                                   
-
-                   <div class="col-12 col-sm-6">
-                   <div class="form-group">
-                            <label class="col-sm-12 control-label">Estado orden</label>
-                            <div class="col-sm-12">
-                              <div id="s_act_item_status"></div>
-                            </div><!--.col-sm-12-->
-                          </div>
-                   </div>
-
-
-              </div>
-
-            </div>
-            <!-- /.row -->
-
-
-
-          </div>
-          <!-- /.card-body -->
-          <input type="hidden" id="id_act_order_item" name="id_act_order_item" value="">
-          <input type="hidden" id="id_act_orden_item_proyecto" name="id_act_orden_item_proyecto" value=""> 
-          <input type="hidden" id="id_act_orden_item_cliente" name="id_act_orden_item_cliente" value="">
-
-
-          <div class="modal-footer justify-content-between">
-              <button id="btn_act_orden_item" type="button" class="btn btn-outline-primary">Actualizar</button>
-              <button type="button" class="btn btn-outline-secondary" data-dismiss="modal">Cerrar</button>
-          </div>
-        </div>
-                </form>
-              </div><!--.container-->
-            </div><!--.modal-body-->
+ <div class="modal fade" id="modal_edita_orden_item">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">Nueva Item en Orden</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_edit_item" class="form-horizontal">
+                     <section class="content">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title"></h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+                                      <div class="col-md-6">
          
-          </div><!--.modal-content-->
-        </div><!--.modal-dialog-->
-      </div><!--.modal-->
-<!--. fin modal nueva oden item-->
+                                      <input type="hidden" id="id_act_order_item" name="id_act_order_item" value="">
+                                      <input type="hidden" id="id_act_orden_item_proyecto" name="id_act_orden_item_proyecto" value=""> 
+                                      <input type="hidden" id="id_act_orden_item_cliente" name="id_act_orden_item_cliente" value="">
 
+                                                        
+                                                                <div class="form-group"><label for="Numero Orden de Compra">Número Orden de Compra</label><input type="text" id="or_act_item_purchase_order" class="form-control" value="" name="or_act_item_purchase_order" readonly></div>
+                                                                <div class="form-group"><label for="act_nombre_proyecto">Descripcion Orden de Compra</label><input type="text" id="or_act_item_nombre_orden" class="form-control" value="" name="or_act_item_nombre_orden" readonly></div>
+                                                                <div class="form-group"><label for="Item Id">Item Id</label><input type="text" id="or_act_id_item" class="form-control" name="or_act_id_item" value="" readonly></div>
+                                                                <div class="form-group"><label for="or_item_descripcion">Descripción</label><input type="text" id="or_act_item_descripcion" class="form-control" name="or_act_item_descripcion" value=""></div>
+                                                                <div class="form-group"><label for="or_item_revision">Revisión</label><input type="text" id="or_act_item_revision" class="form-control" name="or_act_item_revision" value=""></div>
+                                                                <div class="form-group"><label for="Estado orden">Estado orden</label><div id="s_act_item_status"></div></div>
+
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                                
+                                                                <div class="form-group"><label for="Unidad">Unidad</label><div id="s_act_item_unidad"></div></div>
+                                                                <div class="form-group"><label for="Cantidad">Cantidad</label><input type="text" id="or_act_item_cantidad" class="form-control" name="or_act_item_cantidad" value="" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()"></div>
+                                                                <div class="form-group"><label for="or_item_valor_unitario">valor unitario</label><input type="text" id="or_act_item_valor_unitario" class="form-control" name="or_act_item_valor_unitario" value="" onkeyup="formatoNumero(this)" onchange="mostrarValorNetoItemact()"></div>
+                                                                <div class="form-group"><label for="or_item_valor_neto">valor neto</label><input type="text" id="or_act_item_valor_neto" class="form-control" name="or_act_item_valor_neto" value="" readonly></div>
+                                                                <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_fecha_requerida" type="text" class="form-control fechapicker" id="or_act_fecha_requerida"></div>
+                             
+                                                        </div>
+                                                  </div>
+                                              </div>
+                                    
+                                                  <!-- /.card-body -->
+                                              </div>
+                                          </div>
+                                      </div>
+                              </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_act_orden_item" type="button" class="btn btn-primary">Grabar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>  
 
 
  <!--.modal control de calidad-->
@@ -1677,7 +1479,7 @@ $('#btn_orden_item').on('click', function(){
     success: function(result){
       if(result.resp){
 
-          recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val(),$('#or_act_item_nombre_orden').val());
+          recargaItemOrdenes($('#id_order_item').val(),$('#id_orden_item_cliente').val(), $('#id_orden_item_proyecto').val(),$('#or_item_nombre_orden').val());
           $('#modal_nuevo_orden_item').modal('hide');
           toastr.success(result.mensaje);
       
@@ -2170,6 +1972,7 @@ $.ajax({
         ordenes_item_html += '<td>' + orden_item.cantidad + '</td>';
         ordenes_item_html += '<td>' + orden_item.precio_unitario + '</td>';
         ordenes_item_html += '<td>' + orden_item.valor_neto + '</td>';
+        ordenes_item_html += '<td>' + orden_item.fecha_requerida + '</td>';
 
         if(orden_item.estado ==='ACTIVO'){
             ordenes_item_html += '<td><span class="bg-green">'+ orden_item.estado +'</span></td>';    
@@ -2803,6 +2606,8 @@ $.ajax({
     $('#or_act_item_cantidad').val(result.formulario.or_act_item_cantidad);
     $('#or_act_item_valor_neto').val(result.formulario.or_act_item_valor_neto);
     $('#or_act_item_valor_unitario').val(result.formulario.or_act_item_valor_unitario);
+    $('#or_act_fecha_requerida').val(result.formulario.or_act_fecha_requerida);
+    
     $('#s_act_item_status').html(result.formulario.s_act_item_status);
     
     

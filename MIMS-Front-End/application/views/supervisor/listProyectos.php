@@ -131,6 +131,7 @@
 						  <th>Cantidad</th>
 						  <th>Precio Unitario</th>
 						  <th>Valor Neto</th>
+              <th>Fecha Requerida</th>
 						  <th>Estado</th>	
 					  </tr>
                      </thead>
@@ -517,6 +518,7 @@ $.ajax({
         ordenes_item_html += '<td>' + orden_item.cantidad + '</td>';
         ordenes_item_html += '<td>' + orden_item.precio_unitario + '</td>';
         ordenes_item_html += '<td>' + orden_item.valor_neto + '</td>';
+        ordenes_item_html += '<td>' + orden_item.fecha_requerida + '</td>';
 
         if(orden_item.estado ==='ACTIVO'){
             ordenes_item_html += '<td><span class="bg-green">'+ orden_item.estado +'</span></td>';    

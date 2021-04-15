@@ -120,7 +120,7 @@
 						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
                       <thead>
                         <tr>                          
-						  <th>Acciones</th>
+                        <th>Acciones</th>
 						  <th>ID Orden</th>
 						  <th>Item ID</th>
 						  <th>Descripcion</th>
@@ -129,7 +129,8 @@
 						  <th>Cantidad</th>
 						  <th>Precio Unitario</th>
 						  <th>Valor Neto</th>
-						  <th>Estado</th>	
+              <th>Fecha Requerida</th>
+						  <th>Estado</th>		 
 					  </tr>
                      </thead>
                       <tbody id="datos_ordenes_items">
@@ -830,6 +831,7 @@ $.ajax({
         ordenes_item_html += '<td>' + orden_item.cantidad + '</td>';
         ordenes_item_html += '<td>' + orden_item.precio_unitario + '</td>';
         ordenes_item_html += '<td>' + orden_item.valor_neto + '</td>';
+        ordenes_item_html += '<td>' + orden_item.fecha_requerida + '</td>';
 
         if(orden_item.estado ==='ACTIVO'){
             ordenes_item_html += '<td><span class="bg-green">'+ orden_item.estado +'</span></td>';    
