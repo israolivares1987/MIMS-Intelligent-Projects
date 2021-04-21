@@ -57,6 +57,13 @@
                       </a>
                     </li>
 
+                    <li class="nav-item">
+                      <a href="<?php echo site_url('Proveedores/index');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Proveedores</p>
+                      </a>
+                    </li>
+
                     
               </ul>
             </li>  

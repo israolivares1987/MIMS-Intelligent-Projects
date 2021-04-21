@@ -103,6 +103,7 @@
                              <tr>
                              <th>Selección articulo</th>
                                          <th>Número de Línea</th>
+                                         <th>ÍTEM ORDEN DE COMPRA</th>
                                          <th>TAG Number</th>
                                          <th>Stock Code</th>
                                          <th>ST Cantidad Elementos</th>
@@ -553,6 +554,7 @@
                          bucksheet_html += '<td>';
                          bucksheet_html += '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_LINEA+ '</td>';
+                        bucksheet_html += '<td>' + bucksheet.ITEM_OC+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.STOCKCODE+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_ELEMENTOS+ '</td>';    
@@ -594,14 +596,16 @@
                                 "searching": true,
                                 "ordering": true,
                                 "info": true,
-                                "autoWidth": true,
+                                 "select": true,
+                               "autoWidth": true,
                                 "scrollY": "600px",
                                 "scrollX": true,
                                 "colReorder": true,
                                 "scrollCollapse": true,
                                 "responsive": false,
                                 "lengthChange": true, 
-                                "autoWidth": true,
+                                 "select": true,
+                               "autoWidth": true,
                                 "dom": 'Bfrtip',
                                 "lengthMenu": [
                                     [ 10, 25, 50, -1 ],

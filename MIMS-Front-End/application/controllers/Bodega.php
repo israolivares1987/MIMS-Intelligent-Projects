@@ -451,6 +451,7 @@ $datos['listaTodo'] = $listaTodo ;
                 'guia_despacho' => $value->GUIA_DESPACHO ,
                 'st_cantidad' => $value->NUMERO_DE_ELEMENTOS ,
                 'numero_viaje' => $value->NUMERO_DE_VIAJE,
+                'item_oc' => $value->ITEM_OC,
                 'st_cantidad_recibida' => '0',
                 'id_bodega' => "",
                 'id_carpa' => "" ,
@@ -660,6 +661,7 @@ public function crearRRDet($NumRR){
           'id_rr_det' => $value->id_rr_det,
           'cod_empresa' => $value->cod_empresa,
           'numero_linea_det' => $value->numero_linea_det,
+          'item_oc' => $value->item_oc,
           'numero_linea_wpanel' => $value->numero_linea_wpanel,
           'id_rr_cab' => $value->id_rr_cab,
           'id_orden_compra' => $value->id_orden_compra,
@@ -1277,7 +1279,7 @@ public function crearRRDet($NumRR){
 
    // Obtiene todos los datos
 
-      $archivo_qr = base_url()."archivos/reporterecepcion/qr/QR_".$NumRR.".png"; 
+      $archivo_qr = base_url()."global/tmp/qr_codes/QR_".$NumRR.".png"; 
       $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
 
       //Obtiene cabecera
@@ -1378,7 +1380,7 @@ public function crearRRDet($NumRR){
       $contenidoOriginal = file_get_contents($archivo_template);
       $contenidoRemplazado =  str_replace("[CLIENTE]",$nombreCliente,$contenidoOriginal);
       $contenidoRemplazado =  str_replace("[PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
-      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr_recepcion,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr,$contenidoRemplazado);
 
       $contenidoRemplazado =  str_replace("[NOMBRE_PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[ORDEN_COMPRA_CLIENTE]",$PurchaseOrderNumber,$contenidoRemplazado);
@@ -1389,6 +1391,8 @@ public function crearRRDet($NumRR){
       $contenidoRemplazado =  str_replace("[GUIA_DESPACHO]",$guia_despacho,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[PROVEEDOR]",$proveedor,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[FECHA_ENTREGA]",$fecha_entrega,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR_CONTACTO]","",$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR_TELEFONO]","",$contenidoRemplazado);
 
 
       // obtiene detalles de RR
@@ -1411,6 +1415,13 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
           <span lang=ES>".$value->numero_linea_det."</span>
         </p>
       </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                <span lang=ES>".$value->item_oc."</span>
+              </p>
+            </td>";
       $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
 border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
         <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
@@ -1438,7 +1449,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->numero_viaje."</span>
+                            <span lang=ES>".$value->st_cantidad."</span>
                           </p>
                         </td>";      
                   
@@ -1447,7 +1458,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->st_cantidad."</span>
+                            <span lang=ES>".$value->st_cantidad_recibida."</span>
                           </p>
                         </td>";      
 
@@ -1456,23 +1467,16 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->st_cantidad_recibida."</span>
+                            <span lang=ES>".$value->id_bodega."</span>
                           </p>
                         </td>";  
-                        
-                        $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
-                        border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
-                                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
-                        margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                  <span lang=ES>".$value->id_bodega."</span>
-                                </p>
-                              </td>"; 
+                      
 
                               $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                               border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                       <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                               margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                        <span lang=ES>".$value->id_carpa."</span>
+                                        <span lang=ES>".$value->id_patio."</span>
                                       </p>
                                     </td>"; 
 
@@ -1480,21 +1484,21 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                                     border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                             <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                     margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                              <span lang=ES>".$value->id_patio."</span>
+                                              <span lang=ES>".$value->id_posicion."</span>
                                             </p>
                                           </td>"; 
                                           $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                                     border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                             <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                     margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                              <span lang=ES>".$value->id_posicion."</span>
+                                              <span lang=ES>".$value->observacion."</span>
                                             </p>
                                           </td>"; 
                                           $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                                           border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                                   <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                           margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                    <span lang=ES>".$value->observacion."</span>
+                                                    <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
                                                   </p>
                                                 </td>"; 
 
@@ -1502,16 +1506,9 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                                                 border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                                         <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                                 margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                          <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
+                                                          <span lang=ES>".$value->inspeccion_requerida."</span>
                                                         </p>
                                                       </td>"; 
-                                                      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
-                                                      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
-                                                              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
-                                                      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                                <span lang=ES>".$value->inspeccion_requerida."</span>
-                                                              </p>
-                                                            </td>"; 
 
         $det_rr .="</tr>";                                              
           
@@ -1538,8 +1535,6 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
       $this->generateQRRR($NumRR);
 
-      // Obtiene todos los datos
-
       //Obtiene cabecera
       $rrcab = $this->callexternosreporterecepcion->obtieneCabeceraRR($NumRR);
 
@@ -1638,7 +1633,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $contenidoOriginal = file_get_contents($archivo_template);
       $contenidoRemplazado =  str_replace("[CLIENTE]",$nombreCliente,$contenidoOriginal);
       $contenidoRemplazado =  str_replace("[PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
-      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr_recepcion,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[ID_RR]",$id_rr,$contenidoRemplazado);
 
       $contenidoRemplazado =  str_replace("[NOMBRE_PROYECTO]",$DescripcionProyecto,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[ORDEN_COMPRA_CLIENTE]",$PurchaseOrderNumber,$contenidoRemplazado);
@@ -1649,6 +1644,8 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $contenidoRemplazado =  str_replace("[GUIA_DESPACHO]",$guia_despacho,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[PROVEEDOR]",$proveedor,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[FECHA_ENTREGA]",$fecha_entrega,$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR_CONTACTO]","",$contenidoRemplazado);
+      $contenidoRemplazado =  str_replace("[PROVEEDOR_TELEFONO]","",$contenidoRemplazado);
 
 
       // obtiene detalles de RR
@@ -1671,6 +1668,13 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
           <span lang=ES>".$value->numero_linea_det."</span>
         </p>
       </td>";
+      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                <span lang=ES>".$value->item_oc."</span>
+              </p>
+            </td>";
       $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
 border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
         <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
@@ -1698,16 +1702,16 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->numero_viaje."</span>
+                            <span lang=ES>".$value->st_cantidad."</span>
                           </p>
-                        </td>";
+                        </td>";      
                   
             
                   $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->st_cantidad."</span>
+                            <span lang=ES>".$value->st_cantidad_recibida."</span>
                           </p>
                         </td>";      
 
@@ -1716,23 +1720,16 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                   border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                           <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                   margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                            <span lang=ES>".$value->st_cantidad_recibida."</span>
+                            <span lang=ES>".$value->id_bodega."</span>
                           </p>
                         </td>";  
-                        
-                        $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
-                        border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
-                                <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
-                        margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                  <span lang=ES>".$value->id_bodega."</span>
-                                </p>
-                              </td>"; 
+                      
 
                               $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                               border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                       <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                               margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                        <span lang=ES>".$value->id_carpa."</span>
+                                        <span lang=ES>".$value->id_patio."</span>
                                       </p>
                                     </td>"; 
 
@@ -1740,21 +1737,21 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                                     border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                             <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                     margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                              <span lang=ES>".$value->id_patio."</span>
+                                              <span lang=ES>".$value->id_posicion."</span>
                                             </p>
                                           </td>"; 
                                           $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                                     border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                             <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                     margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                              <span lang=ES>".$value->id_posicion."</span>
+                                              <span lang=ES>".$value->observacion."</span>
                                             </p>
                                           </td>"; 
                                           $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
                                           border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                                   <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                           margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                    <span lang=ES>".$value->observacion."</span>
+                                                    <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
                                                   </p>
                                                 </td>"; 
 
@@ -1762,16 +1759,9 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                                                 border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
                                                         <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
                                                 margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                          <span lang=ES>".$this->callutil->cambianull($value->observacion_exb)."</span>
+                                                          <span lang=ES>".$value->inspeccion_requerida."</span>
                                                         </p>
                                                       </td>"; 
-                                                      $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
-                                                      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
-                                                              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
-                                                      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
-                                                                <span lang=ES>".$value->inspeccion_requerida."</span>
-                                                              </p>
-                                                            </td>"; 
 
         $det_rr .="</tr>";                                              
           
@@ -1785,6 +1775,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $contenidoRemplazado =  str_replace("[DETALLE_RR]",$det_rr,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[CODIGO_QR]",$archivo_qr,$contenidoRemplazado);
       $contenidoRemplazado =  str_replace("[LOGO_MIMS]",$archivo_mims,$contenidoRemplazado);
+      
 
      
       //finamos un nombre para el archivo. No es necesario agregar la extension .pdf

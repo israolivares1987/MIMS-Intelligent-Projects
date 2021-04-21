@@ -78,7 +78,7 @@ class Proveedores extends MY_Controller{
 
     $arrProveedores= json_decode($responseProveedores);
    
-    $datos_clientes = array();
+    $datos_proveedores = array();
 
     if($arrProveedores){
       $respuesta = true;

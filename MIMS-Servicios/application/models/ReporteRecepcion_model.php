@@ -43,6 +43,37 @@ class ReporteRecepcion_model extends CI_Model{
 	}
 
 
+
+	function obtieneRR($codEmpresa,$codigoProyecto,$codigoCliente)
+	{
+
+	  $query = $this->db->query("SELECT tbl_rr_cabecera.id_rr,
+										tbl_rr_cabecera.cod_empresa,
+										tbl_rr_cabecera.id_rr_recepcion,
+										tbl_rr_cabecera.fecha_creacion,
+										tbl_rr_cabecera.usuario_creacion,
+										tbl_rr_cabecera.fecha_entrega,
+										tbl_rr_cabecera.id_cliente,
+										tbl_rr_cabecera.descripcion_cliente,
+										tbl_rr_cabecera.id_proyecto,
+										tbl_rr_cabecera.descripcion_proyecto,
+										tbl_rr_cabecera.id_orden_compra,
+										tbl_rr_cabecera.id_orden_cliente,
+										tbl_rr_cabecera.descripcion_orden,
+										tbl_rr_cabecera.guia_despacho,
+										tbl_rr_cabecera.proveedor,
+										(select domain_desc from tbl_ref_codes where domain_id = tbl_rr_cabecera.estado_rr and domain = 'ESTADO_RR ') as estado_rr,
+										tbl_rr_cabecera.archivo_orginal,
+										tbl_rr_cabecera.archivo_rr
+									FROM mimsproj_mims.tbl_rr_cabecera
+									where cod_empresa = ".$codEmpresa." 
+									and estado_rr = 1  
+									and id_cliente = ".$codigoCliente." 
+									and id_proyecto = ".$codigoProyecto);
+	  $CabeceraRR = $query->result();
+	  return $CabeceraRR;
+	}
+
 	function actualizarCabeceraRR($data,$where)
 	{
 		$this->db->update($this->table, $data, $where);
@@ -76,6 +107,7 @@ class ReporteRecepcion_model extends CI_Model{
 									numero_linea_wpanel,
 									id_rr_cab,
 									id_orden_compra,
+									item_oc,
 									tag_number,
 									stockcode,
 									descripcion,

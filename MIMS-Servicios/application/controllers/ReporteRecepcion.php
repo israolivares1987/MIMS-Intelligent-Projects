@@ -127,6 +127,22 @@ class ReporteRecepcion extends CI_Controller {
 		
 			}	
 			
+			function obtieneRR(){
+
+				$codEmpresa = $this->input->post('codEmpresa');
+
+				$codigoProyecto = $this->input->post('codigoProyecto');
+				$codigoCliente = $this->input->post('codigoCliente');
+				
+				$CabeceraRR = $this->rr->obtieneRR($codEmpresa,$codigoProyecto,$codigoCliente);
+				
+		
+				echo json_encode($CabeceraRR);
+		
+			}
+		
+
+			
 			
 			
 
