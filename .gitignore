@@ -3,6 +3,10 @@ MIMS-Front-End/archivos/controlcalidad/*
 MIMS-Front-End/archivos/ordenes/*
 MIMS-Front-End/archivos/adjunto-tecnico/*
 MIMS-Front-End/archivos/controlcalidaddet/*
+MIMS-Front-End/global/tmp/*
+MIMS-Front-End/global/cache/*
+MIMS-Front-End/global/logs/*
+MIMS-Front-End/global/qr_codes/*
 
 .DS_Store
 
