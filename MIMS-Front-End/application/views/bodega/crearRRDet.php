@@ -149,6 +149,7 @@
                                      <th>ACCIONES</th>
                                      <th>NUMERO LINEA</th>
                                      <th>ID ORDEN COMPRA</th>
+                                     <th>ÍTEM ORDEN DE COMPRA</th>
                                      <th>TAG NUMBER</th>
                                      <th>STOCKCODE</th>
                                      <th>DESCRIPCION</th>
@@ -423,6 +424,7 @@ $.ajax({
         rr_det_html += '</td>';
         rr_det_html += '<td>' + rr_det.numero_linea_det + '</td>';
         rr_det_html += '<td>' + rr_det.id_orden_compra + '</td>';
+        rr_det_html += '<td>' + rr_det.item_oc + '</td>';
         rr_det_html += '<td>' + rr_det.tag_number + '</td>';
         rr_det_html += '<td>' + rr_det.stockcode + '</td>';
         rr_det_html += '<td>' + rr_det.descripcion + '</td>';
@@ -460,14 +462,16 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],

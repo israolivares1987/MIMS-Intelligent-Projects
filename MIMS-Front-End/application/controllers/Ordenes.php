@@ -189,7 +189,7 @@ class Ordenes extends CI_Controller{
     $or_select_categorizacion    = $this->input->post('or_select_categorizacion');
     $or_purchase_desc     = $this->input->post('or_purchase_desc');
     $or_revision = $this->input->post('or_revision');
-    $or_select_supplier   = $this->input->post('or_supplier');
+    $or_select_supplier   = $this->input->post('or_select_supplier');
     
     $or_estado_plano   = $this->input->post('or_estado_plano');
     $or_observacion_ep   = $this->input->post('or_observacion_ep');
@@ -360,7 +360,7 @@ class Ordenes extends CI_Controller{
           'select_categorizacion' => $this->callutil->obtiene_select_def_act('or_act_select_categorizacion',$value->Categorizacion,'CATEGORIZACION_ORDENES'),
           'purchase_desc'       => $value->PurchaseOrderDescription,
           'revision'            => $value->Revision,
-          'supplier'     => $value->SupplierName,
+          'select_supplier'            => $this->obtiene_select_supplier($codEmpresa,'or_act_supplier',$value->SupplierName),
           'select_employee'     => $this->obtiene_select_employee($codEmpresa,'or_act_select_employee',$value->ExpediterID),
           'select_currency'     => $this->callutil->obtiene_select_def_act('or_act_select_currency',$value->Currency,'CURRENCY_ORDEN'),
           'requestor'           => $value->Requestor,
@@ -772,6 +772,7 @@ function obtieneSelectOrden(){
  
 
   $data['select_employee']  = $this->obtiene_select_employee($codEmpresa, 'or_select_employee');
+  $data['select_supplier']  = $this->obtiene_select_supplier($codEmpresa, 'or_select_supplier');
   $data['select_currency']  = $this->callutil->obtiene_select_def('or_select_currency','CURRENCY_ORDEN','or_select_currency');
   $data['select_criticidad']  = $this->callutil->obtiene_select_def('or_select_criticidad','CRITICIDAD','or_select_criticidad');
   $data['select_shipping']  = $this->callutil->obtiene_select_def('or_select_shipping','SHIPPING_METHOD','or_select_shipping');
@@ -826,6 +827,43 @@ function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
       $html .= '</select>';
       return $html;
 }
+
+
+
+
+function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
+
+  $employee = $this->callexternosproveedores->obtieneSupplier($codEmpresa);
+
+  $datosEmployee = json_decode($employee);
+  $html = '';
+
+  $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'">'; 
+
+  if($datosEmployee){
+
+    $seleccionado = '';
+
+    foreach ($datosEmployee as $key => $value) {
+
+      if($selected > 0){
+        $seleccionado = ($selected == $value->cod_user) ? 'selected' : '';
+      }
+
+      $html .= '<option value="'.$value->SupplierName.'">'.$value->SupplierName.'</option>';
+    }
+  }else{
+    $html .= '<option value="">No existen Proveedores</option>';
+  }
+
+  $html .= '</select>';
+  return $html;
+}
+
+
+
+
+
 
 function obtiene_select_def($id, $domain, $name){
 

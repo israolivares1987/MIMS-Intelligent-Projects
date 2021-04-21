@@ -394,7 +394,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_purchase_desc" class="form-control" name="or_purchase_desc"></div>
                                                             <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_revision" class="form-control" name="or_revision"></div>
-                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="or_supplier" class="form-control" name="or_supplier"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><div id="s_supplier"></div></div>
                                                             <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_comprador" class="form-control" name="or_comprador"></div>
                                                             <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_employee"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_currency"></div></div>
@@ -518,7 +518,7 @@
                                                         <div class="col-md-6">
                                                             <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_desc" class="form-control" name="or_act_purchase_desc"></div>
                                                             <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_act_revision" class="form-control" name="or_act_revision"></div>
-                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="or_act_supplier" class="form-control" name="or_act_supplier"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><div id="s_act_supplier"></div></div>
                                                             <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_act_comprador" class="form-control" name="or_act_comprador"></div>
                                                             <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_act_employee"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_act_currency"></div></div>
@@ -1598,14 +1598,16 @@ function recargaProyectos(cliente){
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -2021,14 +2023,16 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -2122,14 +2126,16 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -2286,14 +2292,16 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -2390,6 +2398,7 @@ function obtieneSelects(){
     }).done(function(result) {
 
       $('#s_criticidad').html(result.select_criticidad);
+      $('#s_supplier').html(result.select_supplier);
       $('#s_employee').html(result.select_employee);
       $('#s_currency').html(result.select_currency);
       $('#s_shipping').html(result.select_shipping);
@@ -2503,7 +2512,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#or_act_revision').val(result.formulario.revision);
 
       $('#or_act_comprador').val(result.formulario.comprador);
-      $('#or_act_supplier').val(result.formulario.supplier);
+      $('#s_act_supplier').html(result.formulario.select_supplier);
       $('#s_act_employee').html(result.formulario.select_employee);
 
       $('#s_act_currency').html(result.formulario.select_currency);
@@ -2813,14 +2822,16 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -3161,14 +3172,16 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-        "autoWidth": true,
+         "select": true,
+                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-          "autoWidth": true,
+           "select": true,
+                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
