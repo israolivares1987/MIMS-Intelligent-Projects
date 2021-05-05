@@ -549,13 +549,13 @@ class BuckSheet extends MY_Controller
 
                               $EstadoLineaBucksheet = '1';
                               
-                              if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '7';
                               }
-
-
-                              if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+                             
+                              
+                              if ($this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '2';
                               }
@@ -585,13 +585,13 @@ class BuckSheet extends MY_Controller
 
                               $EstadoLineaBucksheet = '1';
                               
-                              if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
+                              if (!empty($row['FECHA_TCF']) && $row['PA_TCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '7';
                               }
 
 
-                              if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+                              if ($this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '2';
                               }
@@ -618,6 +618,8 @@ class BuckSheet extends MY_Controller
                                 $EstadoLineaBucksheet = '5';
                               }
                             }
+
+                            
 
                             $memData = array(
                               'COD_EMPRESA' =>  $codEmpresa,
