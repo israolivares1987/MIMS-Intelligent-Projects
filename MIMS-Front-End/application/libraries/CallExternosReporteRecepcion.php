@@ -99,7 +99,7 @@ function agregarRRDet($insert){
   return $response;
 
 }
-
+ 
 
 
 function actualizarCabeceraRR($update){
@@ -295,6 +295,7 @@ function obtieneRR($codEmpresa,$codigoProyecto,$codigoCliente){
   return $response;
 
 }
+
 
 
 }

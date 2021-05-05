@@ -140,11 +140,8 @@ class ReporteRecepcion extends CI_Controller {
 				echo json_encode($CabeceraRR);
 		
 			}
-		
 
-			
-			
-			
+		
 
 }
 

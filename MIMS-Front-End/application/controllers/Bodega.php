@@ -124,7 +124,7 @@ $datos['listaTodo'] = $listaTodo ;
     $htmlclientes = "";
     
     $htmlclientes .= '<select class="form-control" id="clientes">';
-    $htmlclientes .= '<option value="0">Seleccione</option>';
+    $htmlclientes .= '<option value="">Seleccione</option>';
     
     foreach ($arrClientes as $key => $value) {
 
@@ -141,7 +141,7 @@ $datos['listaTodo'] = $listaTodo ;
     $htmlproyectos = "";
 
     $htmlproyectos .= '<select class="form-control" id="proyectos">';
-    $htmlproyectos .= '<option value="0">Seleccione</option>';
+    $htmlproyectos .= '<option value="">Seleccione</option>';
     $htmlproyectos .= '</select>';
     $datos['select_proyectos'] = $htmlproyectos;
 
@@ -152,7 +152,7 @@ $datos['listaTodo'] = $listaTodo ;
     $htmlordenes = "";
 
     $htmlordenes .= '<select class="form-control" id="ordenes">';
-    $htmlordenes .= '<option value="0">Seleccione</option>';
+    $htmlordenes .= '<option value="">Seleccione</option>';
     $htmlordenes .= '</select>';
     $datos['select_ordenes'] = $htmlordenes;
 
@@ -178,7 +178,7 @@ $datos['listaTodo'] = $listaTodo ;
         $htmlproyectos = "";
         
         $htmlproyectos .= '<select class="form-control" id="proyectos">';
-        $htmlproyectos .= '<option value="0">Seleccione</option>';
+        $htmlproyectos .= '<option value="">Seleccione</option>';
         
         foreach ($arrProyectos as $key => $value) {
 
@@ -217,7 +217,7 @@ $datos['listaTodo'] = $listaTodo ;
         $htmlordenes = "";
         
         $htmlordenes .= '<select class="form-control" id="ordenes">';
-        $htmlordenes .= '<option value="0">Seleccione</option>';
+        $htmlordenes .= '<option value="">Seleccione</option>';
         
         foreach ($arrOrdenes as $key => $value) {
 
@@ -255,7 +255,7 @@ $datos['listaTodo'] = $listaTodo ;
         $htmlbucksheet = "";
         
         $htmlbucksheet .= '<select class="form-control" id="guias">';
-        $htmlbucksheet .= '<option value="0">Seleccione Guia</option>';
+        $htmlbucksheet .= '<option value="">Seleccione Guia</option>';
         
         foreach ($arrBucksheet as $key => $value) {
 
@@ -293,7 +293,7 @@ $datos['listaTodo'] = $listaTodo ;
         $htmlbucksheet = "";
         
         $htmlbucksheet .= '<select class="form-control" id="packinglist">';
-        $htmlbucksheet .= '<option value="0">Seleccione Packinglist</option>';
+        $htmlbucksheet .= '<option value="">Seleccione Packinglist</option>';
         
         foreach ($arrBucksheet as $key => $value) {
 
@@ -314,8 +314,6 @@ $datos['listaTodo'] = $listaTodo ;
 		}
   }
 
-  
-  
 
   public function JSON_Wpanel(){
 
@@ -525,7 +523,7 @@ $datos['listaTodo'] = $listaTodo ;
       $htmlclientes = "";
       
       $htmlclientes .= '<select class="form-control" id="clientes">';
-      $htmlclientes .= '<option value="0">Seleccione</option>';
+      $htmlclientes .= '<option value="">Seleccione</option>';
       
       foreach ($arrClientes as $key => $value) {
   
@@ -542,7 +540,7 @@ $datos['listaTodo'] = $listaTodo ;
       $htmlproyectos = "";
   
       $htmlproyectos .= '<select class="form-control" id="proyectos">';
-      $htmlproyectos .= '<option value="0">Seleccione</option>';
+      $htmlproyectos .= '<option value="">Seleccione</option>';
       $htmlproyectos .= '</select>';
       $datos['select_proyectos'] = $htmlproyectos;
   
@@ -604,7 +602,7 @@ public function crearRRDet($NumRR){
      $htmlbodegas = "";
      
      $htmlbodegas .= '<select class="form-control" name="id_bodegas_cab" id="id_bodegas_cab">';
-     $htmlbodegas .= '<option value="0">Seleccione Bodega</option>';
+     $htmlbodegas .= '<option value="">Seleccione Bodega</option>';
      
      foreach ($arrBodegas as $key => $value) {
  
@@ -731,7 +729,7 @@ public function crearRRDet($NumRR){
       $htmlclientes = "";
       
       $htmlclientes .= '<select class="form-control" id="clientes">';
-      $htmlclientes .= '<option value="0">Seleccione</option>';
+      $htmlclientes .= '<option value="">Seleccione</option>';
       
       foreach ($arrClientes as $key => $value) {
   
@@ -748,7 +746,7 @@ public function crearRRDet($NumRR){
       $htmlproyectos = "";
   
       $htmlproyectos .= '<select class="form-control" id="proyectos">';
-      $htmlproyectos .= '<option value="0">Seleccione</option>';
+      $htmlproyectos .= '<option value="">Seleccione</option>';
       $htmlproyectos .= '</select>';
       $datos['select_proyectos'] = $htmlproyectos;
   
@@ -759,7 +757,7 @@ public function crearRRDet($NumRR){
       $htmlordenes = "";
   
       $htmlordenes .= '<select class="form-control" id="ordenes">';
-      $htmlordenes .= '<option value="0">Seleccione</option>';
+      $htmlordenes .= '<option value="">Seleccione</option>';
       $htmlordenes .= '</select>';
       $datos['select_ordenes'] = $htmlordenes;
   
@@ -769,7 +767,7 @@ public function crearRRDet($NumRR){
       $htmlguias = "";
   
       $htmlguias .= '<select class="form-control" id="guias">';
-      $htmlguias .= '<option value="0">Seleccione</option>';
+      $htmlguias .= '<option value="">Seleccione</option>';
       $htmlguias .= '</select>';
       $datos['select_guias'] = $htmlguias;
 
@@ -779,7 +777,7 @@ public function crearRRDet($NumRR){
         $htmlpackinglist = "";
   
         $htmlpackinglist .= '<select class="form-control" id="packinglist">';
-        $htmlpackinglist .= '<option value="0">Seleccione</option>';
+        $htmlpackinglist .= '<option value="">Seleccione</option>';
         $htmlpackinglist .= '</select>';
         $datos['select_packinglist'] = $htmlpackinglist;
   
@@ -1816,6 +1814,120 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $this->data['qr_code_image_url'] = base_url() . $qr_code_config['imagedir'] . $image_name;
 
     }
+
+
+
+    public function crearRE(){
+
+
+      $number = 0; 
+      $codEmpresa = $this->session->userdata('cod_emp');
+     
+      
+    
+    
+        // Obtiene select Clientes
+    
+        $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+    
+        $arrClientes = json_decode($clientes);
+    
+        $htmlclientes = "";
+        
+        $htmlclientes .= '<select class="form-control" id="clientes">';
+        $htmlclientes .= '<option value="">Seleccione</option>';
+        
+        foreach ($arrClientes as $key => $value) {
+    
+          $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+        
+        }
+    
+        $htmlclientes .= '</select>';
+        $datos['select_clientes'] = $htmlclientes;
+    
+    
+        // Obtiene select Proyectos
+    
+        $htmlproyectos = "";
+    
+        $htmlproyectos .= '<select class="form-control" id="proyectos">';
+        $htmlproyectos .= '<option value="">Seleccione</option>';
+        $htmlproyectos .= '</select>';
+        $datos['select_proyectos'] = $htmlproyectos;
+    
+    
+    
+        // Obtiene select Ordenes
+    
+        $htmlordenes = "";
+    
+        $htmlordenes .= '<select class="form-control" id="ordenes">';
+        $htmlordenes .= '<option value="">Seleccione</option>';
+        $htmlordenes .= '</select>';
+        $datos['select_ordenes'] = $htmlordenes;
+  
+
+
+        // Obtiene select SKU
+    
+        $htmlsku = "";
+    
+        $htmlsku .= '<select class="form-control" id="sku">';
+        $htmlsku .= '<option value="">Seleccione</option>';
+        $htmlsku .= '</select>';
+        $datos['select_sku'] = $htmlsku;
+  
+  
+           // Obtiene select Proveedores
+        
+           $htmlproveedores = "";
+        
+           $htmlproveedores .= '<select class="form-control" id="proveedores">';
+           $htmlproveedores .= '<option value="">Seleccione</option>';
+           $htmlproveedores .= '</select>';
+           $datos['select_proveedores'] = $htmlproveedores;
+
+
+        // Obtiene select tagNumber
+    
+          $htmltagNumber = "";
+    
+          $htmltagNumber .= '<select class="form-control" id="tagnumber">';
+          $htmltagNumber .= '<option value="">Seleccione</option>';
+          $htmltagNumber .= '</select>';
+          $datos['select_tagnumber'] = $htmltagNumber;
+
+
+           // Obtiene select Descripcion
+    
+           $htmldescripcion = "";
+    
+           $htmldescripcion .= '<select class="form-control" id="descripcion">';
+           $htmldescripcion .= '<option value="">Seleccione</option>';
+           $htmldescripcion .= '</select>';
+           $datos['select_descripcion'] = $htmldescripcion;
+    
+    
+    
+        $this->plantilla_bodega('bodega/crearRE', $datos);
+    
+    
+      }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 function index_man_bodega(){

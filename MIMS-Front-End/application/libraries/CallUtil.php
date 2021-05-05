@@ -370,6 +370,26 @@ public function cambianull($var){
 
  }
 
+
+ public function validanull($var){
+
+	$valor = true;
+  
+  
+	  if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null'){
+  
+		  $valor = false;
+  
+	  }else{
+  
+		  $valor = true;
+  
+	  }
+  
+	  return $valor;
+  
+   } 
+
 public function formatoNumeroMilesEntrada($dato){
 
 	$valor = intval(str_replace(".", "", $dato));
@@ -388,7 +408,7 @@ public function sendEmail($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$su
 			$mail_config['smtp_user'] = $smtp_user;
 			$mail_config['smtp_auth'] = TRUE;
 			$mail_config['smtp_pass'] = $smtp_pass;
-			$mail_config['smtp_crypto'] = 'tls';
+			$mail_config['smtp_crypto'] = 'TLS';
 			$mail_config['protocol'] = 'smtp';
 			$mail_config['mailtype'] = 'html';
 			$mail_config['send_multipart'] = FALSE;
@@ -445,7 +465,7 @@ public function sendEmail($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$su
 	$mail_config['smtp_user'] = $smtp_user;
 	$mail_config['smtp_auth'] = TRUE;
 	$mail_config['smtp_pass'] = $smtp_pass;
-	$mail_config['smtp_crypto'] = 'tls';
+	$mail_config['smtp_crypto'] = 'TLS';
 	$mail_config['protocol'] = 'smtp';
 	$mail_config['mailtype'] = 'html';
 	$mail_config['send_multipart'] = FALSE;

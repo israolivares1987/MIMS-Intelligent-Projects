@@ -67,7 +67,7 @@ public function index_historico_rr(){
     $htmlproyectos = "";
 
     $htmlproyectos .= '<select class="form-control" id="proyectos">';
-    $htmlproyectos .= '<option value="0">Seleccione</option>';
+    $htmlproyectos .= '<option value="">Seleccione</option>';
     $htmlproyectos .= '</select>';
     $datos['select_proyectos'] = $htmlproyectos;
 
@@ -78,7 +78,7 @@ public function index_historico_rr(){
     $htmlordenes = "";
 
     $htmlordenes .= '<select class="form-control" id="ordenes">';
-    $htmlordenes .= '<option value="0">Seleccione</option>';
+    $htmlordenes .= '<option value="">Seleccione</option>';
     $htmlordenes .= '</select>';
     $datos['select_ordenes'] = $htmlordenes;
 
@@ -144,5 +144,5 @@ public function index_historico_rr(){
   
   }
 
-
+  
 }

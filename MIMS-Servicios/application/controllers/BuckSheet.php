@@ -179,6 +179,8 @@ class BuckSheet extends CI_Controller {
 				// Update member data
 				$form_data = $this->input->post();
 
+				//var_dump($form_data);
+
 	            $update = $this->bucksheet->update($form_data,$this->input->post('codEmpresa'),$this->input->post('ID_OC'),$this->input->post('NUMERO_DE_LINEA'));
 		
 	echo $update;
