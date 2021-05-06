@@ -402,25 +402,25 @@ public function sendEmail($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$su
 	$CI = & get_instance();
 	$CI->load->library('email');
 
-	
-			$mail_config['smtp_host'] = $smtp_host;
-			$mail_config['smtp_port'] = $smtp_port;
-			$mail_config['smtp_user'] = $smtp_user;
-			$mail_config['smtp_auth'] = TRUE;
-			$mail_config['smtp_pass'] = $smtp_pass;
-			$mail_config['smtp_crypto'] = 'TLS';
-			$mail_config['protocol'] = 'smtp';
-			$mail_config['mailtype'] = 'html';
-			$mail_config['send_multipart'] = FALSE;
-			$mail_config['charset'] = 'utf-8';
-			$mail_config['wordwrap'] = TRUE;
+
+	$config['protocol'] = 'smtp';
+	$config['smtp_host']    = $smtp_host;
+	$config['smtp_port'] = $smtp_port;
+	$config['smtp_user'] = $smtp_user; // correo sin espacio
+	$config['smtp_pass'] = $smtp_pass;
+	$config['smtp_secure'] = 'tls';
+	$config['smtp_timeout'] = '7';
+	$config['charset'] = 'utf-8';
+	$config['newline'] = "\r\n";
+	$config['mailtype'] = 'html'; // or html
+	$config['validation'] = TRUE; // bool whether to validate email or not
+	$config['send_multipart'] = FALSE;
 
 
 
-
-		  $CI->email->initialize($mail_config);
+		  $CI->email->initialize($config);
 		  $CI->email->set_newline("\r\n");
-          $CI->email->from('noreply@mimsprojects.com');
+          $CI->email->from($smtp_user);
           $CI->email->to($email);
           $CI->email->subject($subject);
 		  $CI->email->message($message);
@@ -459,25 +459,27 @@ public function sendEmail($smtp_host,$smtp_port,$smtp_user,$smtp_pass,$email,$su
     $CI = & get_instance();
 	$CI->load->library('email');
 
+
   				
-	$mail_config['smtp_host'] = $smtp_host;
-	$mail_config['smtp_port'] = $smtp_port;
-	$mail_config['smtp_user'] = $smtp_user;
-	$mail_config['smtp_auth'] = TRUE;
-	$mail_config['smtp_pass'] = $smtp_pass;
-	$mail_config['smtp_crypto'] = 'TLS';
-	$mail_config['protocol'] = 'smtp';
-	$mail_config['mailtype'] = 'html';
-	$mail_config['send_multipart'] = FALSE;
-	$mail_config['charset'] = 'utf-8';
-	$mail_config['wordwrap'] = TRUE;
+	$config['protocol'] = 'smtp';
+	$config['smtp_host']    = $smtp_host;
+	$config['smtp_port'] = $smtp_port;
+	$config['smtp_user'] = $smtp_user; // correo sin espacio
+	$config['smtp_pass'] = $smtp_pass;
+	$config['smtp_secure'] = 'tls';
+	$config['smtp_timeout'] = '7';
+	$config['charset'] = 'utf-8';
+	$config['newline'] = "\r\n";
+	$config['mailtype'] = 'html'; // or html
+	$config['validation'] = TRUE; // bool whether to validate email or not
+	$config['send_multipart'] = FALSE;
 
 
 
 
-		  $CI->email->initialize($mail_config);
+		  $CI->email->initialize($config);
 		  $CI->email->set_newline("\r\n");
-          $CI->email->from('noreply@mimsprojects.com');
+          $CI->email->from($smtp_user);
           $CI->email->to($email);
           $CI->email->subject($subject);
           $CI->email->message($message);
