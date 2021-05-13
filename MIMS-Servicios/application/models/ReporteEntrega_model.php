@@ -192,5 +192,63 @@ class ReporteEntrega_model extends CI_Model{
 	   return $this->db->insert_id();
    }
 
+
+   function obtieneCabeceraRE($numRR)
+	{
+
+	  $query = $this->db->query("SELECT id_re,
+								cod_empresa,
+								id_proyecto,
+								descripcion_proyecto,
+								area_proyecto,
+								descripcion_area,
+								fecha_emision,
+								emisor_re,
+								estado_re,
+								solicitante,
+								identificacion_solicitante,
+								cargo_solicitante,
+								fecha_solicitud,
+								entrega_directa,
+								fecha_entrega_sitio,
+								fecha_completada_usuario,
+								lugar_fisico,
+								estado_re_sistema
+							FROM tbl_re_cabecera
+							where id_re = ". $numRR);
+	  $CabeceraRE = $query->result();
+	  return $CabeceraRE;
+	}
+
+
+	function listaREDet($codEmpresa,$id_re_cab)
+	{
+
+	  $query = $this->db->query("SELECT id_re_det,
+										cod_empresa,
+										numero_linea_det,
+										id_re_cab,
+										id_orden_compra,
+										item_oc,
+										tag_number,
+										stockcode,
+										descripcion,
+										st_cantidad_recibida,
+										st_cantidad_entregada,
+										st_cantidad_saldo,
+										id_bodega,
+										id_patio,
+										id_posicion,
+										observacion,
+										estado_re_det,
+										observacion_exb,
+										observacion_II
+									FROM tbl_re_detalle
+									where cod_empresa = ". $codEmpresa." 
+									AND   id_re_cab = ".$id_re_cab);
+	  $CabeceraRE = $query->result();
+	  return $CabeceraRE;
+	}	
+
 }
 ?>

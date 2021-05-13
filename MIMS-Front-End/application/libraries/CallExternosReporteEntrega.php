@@ -147,5 +147,62 @@ function agregarREDet($insert){
 
 }
 
+function obtieneCabeceraRE($idre){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneCabeceraRE";
+
+  $form_data = array(
+    'idre'		=>$idre
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+function listaREDet($codEmpresa,$id_re){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/listaREDet";
+
+  $form_data = array(
+    'codEmpresa'		=>$codEmpresa,
+    'id_re' => $id_re
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+
 
 }

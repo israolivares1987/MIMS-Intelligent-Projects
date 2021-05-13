@@ -107,6 +107,31 @@ class ReporteEntrega extends CI_Controller {
 	}
 		
 
+
+	function obtieneCabeceraRE(){
+
+		$idre = $this->input->post('idre');
+		
+		$CabeceraRE = $this->re->obtieneCabeceraRE($idre);
+		
+
+		echo json_encode($CabeceraRE);
+
+	}
+
+
+	function listaREDet(){
+
+		$codEmpresa = $this->input->post('codEmpresa');
+		$id_re = $this->input->post('id_re');
+		
+		$CabeceraRE = $this->re->listaREDet($codEmpresa,$id_re);
+		
+
+		echo json_encode($CabeceraRE);
+
+	}	
+
 }
 
 	

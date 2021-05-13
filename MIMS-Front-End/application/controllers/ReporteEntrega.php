@@ -158,6 +158,7 @@ class ReporteEntrega extends MY_Controller{
             'cod_empresa' => $codEmpresa,
             'id_proyecto' => $id_proyecto,
             'descripcion_proyecto' => $DescripcionProyecto,
+            'fecha_emision' => date_create()->format('Y-m-d'),
             'estado_re_sistema' => 1,
 
           );
@@ -220,6 +221,67 @@ class ReporteEntrega extends MY_Controller{
 	}
 
 }
+
+public function crearREDet($NumRR){
+
+  //Obtiene cabecera
+  $recab = $this->callexternosreporteentrega->obtieneCabeceraRE($NumRR);
+
+  $arrRecab = json_decode($recab);
+
+  $codEmpresa = $this->session->userdata('cod_emp');
+ 
+
+  if($arrRecab){
+ 
+    
+    foreach ($arrRecab as $key => $value) {
+
+      $id_re = $value->id_re;
+      $cod_empresa = $value->cod_empresa;
+      $id_proyecto = $value->id_proyecto;
+      $descripcion_proyecto = $value->descripcion_proyecto;
+      $area_proyecto = $value->area_proyecto;
+      $descripcion_area = $value->descripcion_area;
+      $fecha_emision = $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_emision));
+      $emisor_re = $value->emisor_re;
+      $estado_re = $value->estado_re;
+      $solicitante = $value->solicitante;
+      $identificacion_solicitante = $value->identificacion_solicitante;
+      $cargo_solicitante = $value->cargo_solicitante;
+      $fecha_solicitud = $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_solicitud));
+      $entrega_directa = $value->entrega_directa;
+      $fecha_entrega_sitio = $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_entrega_sitio));
+      $fecha_completada_usuario = $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_completada_usuario));
+      $lugar_fisico = $value->lugar_fisico;
+      $estado_re_sistema = $value->estado_re_sistema;
+    }
+  }
+
+
+  
+  $datos['select_entrega_directa'] = $this->callutil->obtiene_select_def_act('entrega_directa',$entrega_directa,'SI_NO') ;  
+  $datos['entrega_directa'] = $entrega_directa;
+  $datos['id_re'] = $id_re;
+  $datos['descripcion_proyecto'] = $descripcion_proyecto;
+  $datos['area_proyecto'] = $area_proyecto;
+  $datos['descripcion_area'] = $descripcion_area;
+  $datos['fecha_emision'] = $fecha_emision;
+  $datos['emisor_re'] = $emisor_re;
+  $datos['estado_re'] = $estado_re;
+  $datos['solicitante'] = $solicitante;
+  $datos['identificacion_solicitante'] = $identificacion_solicitante;
+  $datos['cargo_solicitante'] = $cargo_solicitante;
+  $datos['fecha_solicitud'] = $fecha_solicitud;
+  $datos['fecha_entrega_sitio'] = $fecha_entrega_sitio;
+  $datos['fecha_completada_usuario'] = $fecha_completada_usuario;
+  $datos['lugar_fisico'] = $lugar_fisico;
+  $datos['estado_re_sistema'] = $estado_re_sistema;
+
+    $this->plantilla_bodega('bodega/crearREDet', $datos);
+
+
+  }
 
   public function JSON_Filtros_RE(){
 
@@ -346,6 +408,79 @@ class ReporteEntrega extends MY_Controller{
 		}else{
 			show_404();
 		}
+  }
+
+
+  function listaREDet(){
+
+
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $id_re = $this->input->post('id_re');
+    $responseredet = $this->callexternosreporteentrega->listaREDet($codEmpresa,$id_re);
+    $respuesta = false;
+    $boton_activo  = false;
+    $count = 0;
+    $count_estados= 0;
+
+    $arrREDet = json_decode($responseredet);
+   
+    $datos_redet = array();
+
+    if($arrREDet){
+      $respuesta = true;
+      
+      foreach ($arrREDet as $key => $value) {
+        
+        $count = $count +1;
+
+        $datos_redet[] = array(
+          'id_re_det' => $value->id_re_det,
+          'cod_empresa' => $value->cod_empresa,
+          'numero_linea_det' => $value->numero_linea_det,
+          'id_re_cab' => $value->id_re_cab,
+          'id_orden_compra' => $value->id_orden_compra,
+          'item_oc' => $value->item_oc,
+          'tag_number' => $value->tag_number,
+          'stockcode' => $value->stockcode,
+          'descripcion' => $value->descripcion,
+          'st_cantidad_recibida' => $value->st_cantidad_recibida,
+          'st_cantidad_entregada' => $value->st_cantidad_entregada,
+          'st_cantidad_saldo' => $value->st_cantidad_saldo,
+          'id_bodega' => $value->id_bodega,
+          'id_patio' => $value->id_patio,
+          'id_posicion' => $value->id_posicion,
+          'observacion' => $value->observacion,
+          'estado_re_det' => $value->estado_re_det,
+          'observacion_exb' => $value->observacion_exb,
+          'observacion_II' => $value->observacion_II          
+        );
+
+        if ($value->estado_re_det === '1'){
+
+          $count_estados = $count_estados + 1;
+
+        }
+        
+        
+      }
+    }
+
+    if($count_estados == $count){
+
+      $boton_activo= true;
+
+    }else{
+
+      $boton_activo= false;
+    }
+
+    $datos['re_dets'] = $datos_redet;
+    $datos['botonCierre'] = $boton_activo;
+    $datos['resp']      = $respuesta;
+
+    echo json_encode($datos);
+    
+  
   }
 
 

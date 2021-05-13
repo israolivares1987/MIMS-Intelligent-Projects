@@ -386,7 +386,7 @@
                                                     
                                                 var  idrr = respuesta.idInsertado;
 
-                                                  //  window.open('<?php echo site_url('Bodega/crearREDet/')?>' + idrr,'_self');
+                                                  window.open('<?php echo site_url('ReporteEntrega/crearREDet/')?>' + idrr,'_self');
 
                                                 }else{
 
