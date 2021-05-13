@@ -368,19 +368,15 @@
                                 alert("No ha seleccionado ningún registro");
                                 else{
                                 
-                                  /*
+                                  
                                     $.ajax({
-                                            url: '<?php echo base_url();?>'+'index.php/Bodega/JSON_Wpanel',
+                                            url: '<?php echo base_url();?>'+'index.php/ReporteEntrega/agregarRE',
                                             type: 'POST',
                                             dataType: 'JSON',
                                             data: {
                                                 datos: array,
-                                                orden: orden,
-                                                guia_despacho: guia_despacho,
                                                 cliente: cliente,
-                                                proyecto: proyecto,
-                                                packinglist: packinglist,
-                                                fecha_entrega: fecha_entrega
+                                                proyecto: proyecto
                                                 }
                                         })
                                         .done(function(respuesta) {
@@ -390,7 +386,7 @@
                                                     
                                                 var  idrr = respuesta.idInsertado;
 
-                                                    window.open('<?php echo site_url('Bodega/crearREDet/')?>' + idrr,'_self');
+                                                  //  window.open('<?php echo site_url('Bodega/crearREDet/')?>' + idrr,'_self');
 
                                                 }else{
 
@@ -404,7 +400,7 @@
                                         .always(function() {
                                             console.log("complete");
                                         });
-                                        */
+                                        
 
                                 }
 

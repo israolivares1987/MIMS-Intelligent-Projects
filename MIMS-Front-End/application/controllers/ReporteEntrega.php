@@ -121,39 +121,49 @@ class ReporteEntrega extends MY_Controller{
 
 
 
-  public function crearRE(){
+  public function agregarRE(){
 
 
 		if($this->input->is_ajax_request()){
 
         $datos  = $this->input->post('datos');
-      
+        $codEmpresa = $this->session->userdata('cod_emp');
+        $id_cliente  = $this->input->post('cliente');
+        $id_proyecto  = $this->input->post('proyecto');
         $respuesta = false;
         $mensaje_error = "";
          
         $datos_bucksheet = array();
 
+          
+          //Obtiene Datos Proyecto
+
+                 $Proyecto = $this->callexternosproyectos->obtieneProyecto($id_proyecto, $id_cliente);
+                 $arrProyecto = json_decode($Proyecto);
+             
+                 if($arrProyecto){
+       
+                   foreach ($arrProyecto as $llave => $valor) {
+                           
+                     $DescripcionProyecto = $valor->NombreProyecto;
+             
+                   }
+               
+                 }
+          
 
           //Crea Cabecera RE
 
           $insertcab= array(
-            'cod_empresa' => $codEmpresa ,
-            'fecha_creacion' =>  date_create()->format('Y-m-d H:i:s'),
-            'usuario_creacion' => $this->session->userdata('n_usuario'),
-            'fecha_entrega' => $this->callutil->formatoFecha($fecha_entrega),
-            'id_cliente' => $id_cliente ,
-            'descripcion_cliente' => $nombreCliente ,
-            'id_proyecto' => $id_proyecto ,
-            'descripcion_proyecto' => $DescripcionProyecto ,
-            'id_orden_compra' => $PurchaseOrderID ,
-            'id_orden_cliente' => $PurchaseOrderNumber ,
-            'descripcion_orden' => $PurchaseOrderDescription ,
-            'guia_despacho' => $guia_despacho ,
-            'proveedor' => $proveedor
+            'cod_empresa' => $codEmpresa,
+            'id_proyecto' => $id_proyecto,
+            'descripcion_proyecto' => $DescripcionProyecto,
+            'estado_re_sistema' => 1,
+
           );
 
 
-          $rrcab = $this->callexternosreporterecepcion->agregarRR($insertcab);
+          $rrcab = $this->callexternosreporteentrega->agregarRE($insertcab);
           $rrins = json_decode($rrcab) ;
         
           $resp =  $rrins->resp;
@@ -163,67 +173,39 @@ class ReporteEntrega extends MY_Controller{
           $num = 1;
 
           foreach ($datos as $v) {
-          
-           
-          $NumeroLinea =$v[$i];
 
-
-          $response = $this->callexternosbucksheet->obtieneBucksheetDet($codEmpresa,$PurchaseOrderID, $NumeroLinea);
-
-          $arrBucksheet = json_decode($response);
-        
-            foreach ($arrBucksheet as $key => $value) {
-
-               
-      
-              $rr_det=array(
-                'cod_empresa' =>  $codEmpresa ,
+              $re_det=array(
+                'cod_empresa' => $codEmpresa,
                 'numero_linea_det' => $num,
-                'numero_linea_wpanel' => $value->NUMERO_DE_LINEA,
-                'id_rr_cab' => $idInsertado ,
-                'id_orden_compra' => $PurchaseOrderID ,
-                'tag_number' => $value->NUMERO_DE_TAG ,
-                'stockcode' => $value->STOCKCODE ,
-                'descripcion' => $value->DESCRIPCION_LINEA ,
-                'id_orden_cliente' => $PurchaseOrderNumber  ,
-                'packing_list' => $value->PACKINGLIST ,
-                'guia_despacho' => $value->GUIA_DESPACHO ,
-                'st_cantidad' => $value->NUMERO_DE_ELEMENTOS ,
-                'numero_viaje' => $value->NUMERO_DE_VIAJE,
-                'item_oc' => $value->ITEM_OC,
-                'st_cantidad_recibida' => '0',
-                'id_bodega' => "",
-                'id_carpa' => "" ,
-                'id_patio' => "" ,
-                'id_posicion' => "" ,
-                'observacion' => "",
-                'observacion_exb' => "",
-                'inspeccion_requerida' => ""
+                'id_re_cab' => $idInsertado,
+                'id_orden_compra' => $v[2],
+                'item_oc' => $v[3],
+                'tag_number' => $v[4],
+                'stockcode' => $v[5],
+                'descripcion' => $v[6],
+                'st_cantidad_recibida' => $v[12],
+                'st_cantidad_entregada' => '0',
+                'st_cantidad_saldo' => '0',
+                'id_bodega' => $v[13],
+                'id_patio' => $v[15],
+                'id_posicion' => $v[16],
+                'observacion' => $v[17],
+                'estado_re_det' => '1',
+                'observacion_exb' => $v[18],
+                'observacion_II' => $v[19]
+
                 );
 
                 $num++; 
            
-                $rrdet = $this->callexternosreporterecepcion->agregarRRDet($rr_det);
-                $rrdetins = json_decode($rrdet) ;
-                $respdet =  $rrdetins->resp;
-                $idInsertadodet = $rrdetins->id_insertado;
-                $respuesta= true;
-            }
+                $redet = $this->callexternosreporteentrega->agregarREDet($re_det);
+                $redetins = json_decode($redet) ;
+                $respdet =  $redetins->resp;
+                $idInsertadodet = $redetins->id_insertado;
+                $respuesta= true; 
 
+        }
 
-
-         // actualiza CABECERA
-
-        
-
-     $dataUpdate = array(	
-      'id_rr_recepcion' => 'RR-'.$idInsertado ,
-      'id_rr' => $idInsertado
-      );
-
-      $edp= $this->callexternosreporterecepcion->actualizarCabeceraRR($dataUpdate);
-
-    }
 
         $datos['respuesta'] = $respuesta;
         $datos['idInsertado'] = $idInsertado;
@@ -235,9 +217,9 @@ class ReporteEntrega extends MY_Controller{
       
 		}else{
 			show_404();
-		}
-  }
+	}
 
+}
 
   public function JSON_Filtros_RE(){
 

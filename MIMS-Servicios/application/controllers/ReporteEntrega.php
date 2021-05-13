@@ -68,7 +68,44 @@ class ReporteEntrega extends CI_Controller {
 	}
 	
 
-			
+	function agregarRE(){
+
+		$insert=  $this->input->post(); 
+
+		$RE = $this->re->agregarRE($insert);
+
+		if($RE > 0){
+
+			$status = true;
+
+		}else{
+
+			$RR = false;
+		}
+
+		echo json_encode(array("resp" => $status,"id_insertado" => $RE));
+		
+	}
+
+	function agregarREDet(){
+
+		$insert=  $this->input->post(); 
+
+		$Re = $this->re->agregarREDet($insert);
+
+		if($Re > 0){
+
+			$status = true;
+
+		}else{
+
+			$RR = false;
+		}
+
+		echo json_encode(array("resp" => $status,"id_insertado" => $Re));
+		
+	}
+		
 
 }
 

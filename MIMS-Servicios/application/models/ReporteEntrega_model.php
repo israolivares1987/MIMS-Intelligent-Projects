@@ -178,5 +178,19 @@ class ReporteEntrega_model extends CI_Model{
    }  
 
 
+   function agregarRE($data)
+   {
+	   $this->db->insert('tbl_re_cabecera', $data);
+	   return $this->db->insert_id();
+   }
+
+
+
+   function agregarREDet($data)
+   {
+	   $this->db->insert('tbl_re_detalle', $data);
+	   return $this->db->insert_id();
+   }
+
 }
 ?>
