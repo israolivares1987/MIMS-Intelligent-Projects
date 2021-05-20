@@ -298,4 +298,5 @@ function obtieneRR($codEmpresa,$codigoProyecto,$codigoCliente){
 
 
 
+
 }

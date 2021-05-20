@@ -339,7 +339,7 @@ class CallExternosBuckSheet {
       }
 
 
-    function getRows($ID_OC,$NUMERO_DE_LINEA){
+    function getRows($codEmpresa,$ID_OC,$NUMERO_DE_LINEA){
   
   
         $base_url_servicios =$this->obtienebaseservicios();;                
@@ -348,7 +348,8 @@ class CallExternosBuckSheet {
 
         $form_data = array(
           'ID_OC'		=>$ID_OC,
-          'NUMERO_DE_LINEA'		=>$NUMERO_DE_LINEA
+          'NUMERO_DE_LINEA'		=>$NUMERO_DE_LINEA,
+          'codEmpresa' => $codEmpresa
         );
   
         $client = curl_init($api_url);
@@ -369,11 +370,14 @@ class CallExternosBuckSheet {
       }
 
 
-      function update($memData,$PurchaseOrderID,$NumeroLinea){
+      function update($memData,$codEmpresa,$PurchaseOrderID,$NumeroLinea){
   
   
         $base_url_servicios =$this->obtienebaseservicios();;                
         $api_url = $base_url_servicios."BuckSheet/update";
+
+        $form_data = $memData;
+
 
         $form_data = $memData;
   

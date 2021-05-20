@@ -68,6 +68,14 @@ class MY_Controller extends CI_Controller {
         $this->load->view('bodega/footer'); 
 	}
 
+	public function plantilla_construccion($view, $datos = array()){
+
+		$this->load->view('construccion/header');
+        $this->load->view('construccion/navbar');
+        $this->load->view('construccion/left_menu');
+        $this->load->view($view, $datos);
+        $this->load->view('construccion/footer'); 
+	}
 
 	public function creaDirectorio($directorio)
 	{

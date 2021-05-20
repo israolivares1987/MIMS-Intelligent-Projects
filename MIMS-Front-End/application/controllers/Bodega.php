@@ -851,6 +851,7 @@ public function crearRRDet($NumRR){
             'guia_despacho' => $value->guia_despacho,
             'st_cantidad' => $value->st_cantidad,
             'st_cantidad_recibida' => $value->st_cantidad_recibida,
+            'id_bodega' => $value->id_bodega,
             'select_bodega' => $html,
             'id_carpa' => $value->id_carpa,
             'id_patio' => $value->id_patio,
@@ -1277,7 +1278,7 @@ public function crearRRDet($NumRR){
 
    // Obtiene todos los datos
 
-      $archivo_qr = base_url()."global/tmp/qr_codes/QR_".$NumRR.".png"; 
+      $archivo_qr = base_url()."global/tmp/qr_codes/QR_RR_".$NumRR.".png"; 
       $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
 
       //Obtiene cabecera
@@ -1529,7 +1530,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
 
     function creaPDFRR($NumRR){
 
-      $archivo_qr = base_url()."global/tmp/qr_codes/QR_".$NumRR.".png"; 
+      $archivo_qr = base_url()."global/tmp/qr_codes/QR_RR_".$NumRR.".png"; 
       $archivo_mims = base_url()."assets/dist/img/logo-mims.png";
       $this->generateQRRR($NumRR);
 
@@ -1801,7 +1802,7 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
       $qr_code_config['white'] = $this->config->item('white');
       $this->ci_qr_code->initialize($qr_code_config);
 
-      $image_name = "QR_".$num . ".png";
+      $image_name = "QR_RR_".$num . ".png";
 
 
       $params['data'] =  base_url() . 'index.php/Bodega/muestraPDFRR/'.$num;
