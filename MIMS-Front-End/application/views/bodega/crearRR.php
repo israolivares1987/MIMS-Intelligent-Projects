@@ -276,7 +276,7 @@
                             
                         var  idrr = respuesta.idInsertado;
 
-                            window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_self');
+                            window.open('<?php echo site_url('Bodega/crearRRDet/')?>' + idrr,'_blank');
 
                         }else{
 
@@ -592,7 +592,7 @@
                                 "searching": true,
                                 "ordering": true,
                                 "info": true,
-                                 "select": true,
+                                
                                "autoWidth": true,
                                 "scrollY": "600px",
                                 "scrollX": true,
@@ -600,7 +600,6 @@
                                 "scrollCollapse": true,
                                 "responsive": false,
                                 "lengthChange": true, 
-                                 "select": true,
                                "autoWidth": true,
                                 "dom": 'Bfrtip',
                                 "lengthMenu": [

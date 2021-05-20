@@ -70,7 +70,14 @@
                     <li class="nav-item">
                     <a href="<?php echo site_url('Bodega/crearRE');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Crear RE</p>
+                        <p>Reservar Material RE</p>
+                      </a>
+                    </li>
+
+                    <li class="nav-item">
+                    <a href="<?php echo site_url('ReporteEntrega/finalizarRE');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Finalizar Reserva RE</p>
                       </a>
                     </li>
 

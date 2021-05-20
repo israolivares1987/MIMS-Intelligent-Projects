@@ -1044,8 +1044,6 @@ console.log(parseInt(result.countAdverActivacion));
         "searching": true,
         "ordering": true,
         "info": true,
-         "select": true,
-                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
@@ -1053,7 +1051,7 @@ console.log(parseInt(result.countAdverActivacion));
           "responsive": false,
           "lengthChange": true, 
            "select": true,
-                               "autoWidth": true,
+           "autoWidth": true,
           "dom": 'Bfrtip',
           "buttons": [
             {

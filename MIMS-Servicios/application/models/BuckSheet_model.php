@@ -262,12 +262,6 @@ class BuckSheet_model extends CI_Model{
     }
 
 
-
-
-
-
-
-
     function obtieneBuckSheetPackingList()
 	{
         $this->db->select("t1.ID_OC,
@@ -372,6 +366,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      
 
@@ -439,6 +434,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -459,6 +455,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -478,6 +475,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -573,6 +571,7 @@ class BuckSheet_model extends CI_Model{
 
                 $this->db->where('ID_OC', $params['ID_OC']);
                 $this->db->where('NUMERO_DE_LINEA', $params['NUMERO_DE_LINEA']);
+                $this->db->where('COD_EMPRESA',$this->_codEmpresa);
                 $query = $this->db->get();
                 $result = $query->row_array();
 

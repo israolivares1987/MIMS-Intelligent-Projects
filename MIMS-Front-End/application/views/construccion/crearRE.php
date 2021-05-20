@@ -371,7 +371,7 @@
                                                     
                                                 var  idrr = respuesta.idInsertado;
 
-                                                  window.open('<?php echo site_url('ReporteEntrega/crearREDet/')?>' + idrr,'_blank');
+                                                  window.open('<?php echo site_url('ReporteEntrega/crearREDet/')?>' + idrr,'_self');
 
                                                 }else{
 

@@ -43,9 +43,8 @@
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="identificacion_solicitante" class="form-control" value="" name="identificacion_solicitante"></div></dd>
                                              <dt class="col-sm-8">CARGO DEL SOLICITANTE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="cargo_solicitante" class="form-control" value="" name="cargo_solicitante"></div></dd>
-                                             <dt class="col-sm-8">&nbsp;</dt>
-                                             <dd class="col-sm-9">&nbsp;</dd>
-                               
+                                             <dt class="col-sm-8">FECHA DE SOLICITUD:</dt>
+                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control fechapicker" value="" name="fecha_solicitud"></div></dd>
                                             
                                          </dl>
                                      </div>
@@ -64,19 +63,19 @@
                                      <div class="card-body">
                                          <dl class="row">
                                             <dt class="col-sm-8">FECHA EMISIÓN RE:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input required type="text" id="fecha_emision" class="form-control" value="" name="fecha_emision" readonly></div></dd>
+                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_emision" class="form-control" value="" name="fecha_emision" readonly></div></dd>
                                              <dt class="col-sm-8">EMISOR RE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="emisor_re" class="form-control" value="" name="emisor_re" readonly></div></dd>
                                              <dt class="col-sm-8">ESTADO RE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="estado_re" class="form-control" value="" name="estado_re" readonly></div></dd>
                                              <dt class="col-sm-8">ENTREGA DIRECTA:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><div id="select_entrega_directa"></div></dd>
-                                             <dt class="col-sm-8">FECHA DE SOLICITUD:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control fechapicker" value="" name="fecha_solicitud"></div></dd>
+                                             <dt class="col-sm-8">FECHA COMPLETADA USUARIO:</dt>
+                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_completada_usuario" class="form-control fechapicker" value="" name="fecha_completada_usuario"></div></dd>
                                              <dt class="col-sm-8">FECHA ENTREGA EN SITIO:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_entrega_sitio" class="form-control fechapicker" value="" name="fecha_entrega_sitio"></div></dd>
                                              <dt class="col-sm-8">LUGAR FÍSICO:</dt>
-                                             <dd class="col-sm-9"> <div class="form-group"><input type="text" required id="lugar_fisico" class="form-control" value="" name="lugar_fisico"></div></dd>
+                                             <dd class="col-sm-9"> <div class="form-group"><input type="text" id="lugar_fisico" class="form-control" value="" name="lugar_fisico"></div></dd>
                                              </form>
                                              <dt class="col-sm-8">ACCION</dt>
                                              <dd class="col-sm-9"><button  id="btn_actualizar_re" onclick="ActualizaCabRE()" class="btn btn-success float-left"><i class="fas fa-pen-alt"></i>ACTUALIZAR DATOS RE</button></div></dd>
@@ -486,7 +485,6 @@ data.append('entrega_directa', entrega_cliente);
                if (result.resp) {
 
                        toastr.success(result.mensaje);
-              
 
                        }else{
 
@@ -544,6 +542,7 @@ function recargaCabeceraRE(id_re) {
                         $('#fecha_solicitud').val(re_det.fecha_solicitud);
                         $('#select_entrega_directa').html(re_det.select_entrega_directa);
                         $('#fecha_entrega_sitio').val(re_det.fecha_entrega_sitio);
+                        $('#fecha_completada_usuario').val(re_det.fecha_completada_usuario);
                         $('#lugar_fisico').val(re_det.lugar_fisico);
                 
 

@@ -204,5 +204,174 @@ function listaREDet($codEmpresa,$id_re){
 
 
 
+function ActualizaCabRE($insert){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/ActualizaCabRE";
+
+  $form_data = $insert;
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+function obtieneREDet($codEmpresa,$id_re,$id_det_re){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneREDet";
+
+  $form_data = array(
+    'codEmpresa'		=>$codEmpresa,
+    'id_re' => $id_re,
+    'id_det_re' => $id_det_re
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+function ActualizaREDet($update){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/ActualizaREDet";
+
+  $form_data = $update;
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+function obtieneSaldoStockCode($codEmpresa,$stockCode){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneSaldoStockCode";
+
+  $form_data = array(
+    'codEmpresa'		=> $codEmpresa,
+    'stockCode' => $stockCode
+
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+function actualizarCabeceraRE($update){
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/actualizarCabeceraRE";
+
+  $form_data = $update;
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+
+function obtieneREFinal($codEmpresa, $id_cliente, $id_proyecto){
+
+
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneREFinal";
+
+  $form_data = array(
+    'codEmpresa' =>  $codEmpresa,
+    'id_cliente' =>  $id_cliente,
+    'id_proyecto' => $id_proyecto
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
 
 }

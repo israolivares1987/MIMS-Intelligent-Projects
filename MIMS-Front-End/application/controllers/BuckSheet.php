@@ -528,6 +528,20 @@ class BuckSheet extends MY_Controller
 
                   }
 
+                  if ($this->callutil->validanull($row['STOCKCODE']) && $row['TIPO_DE_LINEA'] ==='NO ACTIVABLE' ){
+                
+                  } else if ($this->callutil->validanull($row['STOCKCODE']) && $row['TIPO_DE_LINEA'] ==='ACTIVABLE' ){
+
+                    $idmensaje = 5;
+
+                    $this->insertar_error($idError, $idmensaje,'STOCKCODE',$row);
+                    $error++;
+                    $errorCount++;
+
+                  }
+
+                  
+
 
                   if (in_array($row['NUMERO_DE_LINEA'], $repetidos)) {
 
@@ -541,7 +555,7 @@ class BuckSheet extends MY_Controller
 
                           if ($error == 0) {
 
-                            $prevCount = $this->callexternosbucksheet->getRows($idOrden, $row['NUMERO_DE_LINEA']);
+                            $prevCount = $this->callexternosbucksheet->getRows($codEmpresa,$idOrden, $row['NUMERO_DE_LINEA']);
 
                   
 
@@ -549,13 +563,14 @@ class BuckSheet extends MY_Controller
 
                               $EstadoLineaBucksheet = '1';
                               
-                              if (!$this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] == 'ACTUAL') {
+                              if ($this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] === 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '7';
                               }
                              
+                         
                               
-                              if ($this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] === 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '2';
                               }
@@ -619,7 +634,7 @@ class BuckSheet extends MY_Controller
                               }
                             }
 
-                            
+              
 
                             $memData = array(
                               'COD_EMPRESA' =>  $codEmpresa,
@@ -683,7 +698,7 @@ class BuckSheet extends MY_Controller
                             if ($prevCount > 0) {
                               // Update member data
 
-                              $update = $this->callexternosbucksheet->update($memData, $idOrden, $row['NUMERO_DE_LINEA']);
+                              $update = $this->callexternosbucksheet->update($memData, $codEmpresa, $idOrden, $row['NUMERO_DE_LINEA']);
 
                               if ($update) {
                                 $updateCount++;

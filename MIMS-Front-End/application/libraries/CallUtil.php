@@ -378,11 +378,11 @@ public function cambianull($var){
   
 	  if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null'){
   
-		  $valor = false;
+		  $valor = true;
   
 	  }else{
   
-		  $valor = true;
+		  $valor = false;
   
 	  }
   
@@ -638,7 +638,7 @@ function validarFecha($date, $format = 'd-m-Y'){
 		$dompdf->render();
 		$dompdf->set_option('dpi', 128);
 		$canvas = $dompdf->get_canvas(); 
-		$canvas->page_text(900, 590, "Código Recepción: ".$numero_rr." - Página: {PAGE_NUM} of {PAGE_COUNT}", "helvetica", 6, array(0,0,0)); 
+		$canvas->page_text(900, 590, "Código : ".$numero_rr." - Página: {PAGE_NUM} of {PAGE_COUNT}", "helvetica", 6, array(0,0,0)); 
 		
 	if ($stream && $descarga == 1) {
 			// "Attachment" => 1 hará que por defecto los PDF se descarguen en lugar de presentarse en pantalla.

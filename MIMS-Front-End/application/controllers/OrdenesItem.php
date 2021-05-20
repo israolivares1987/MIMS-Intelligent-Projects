@@ -637,6 +637,7 @@ public function save() {
         'COD_EMPRESA' =>   $codEmpresa,
         'ID_OC' => $PurchaseOrderID,
         'NUMERO_OC' => urldecode($PurchaseOrderDescription),
+        'TIPO_DE_LINEA' => 'NO ACTIVABLE',
         'PROVEEDOR' => urldecode($SupplierName),
         'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
         'NUMERO_DE_LINEA' => $numerolinea,

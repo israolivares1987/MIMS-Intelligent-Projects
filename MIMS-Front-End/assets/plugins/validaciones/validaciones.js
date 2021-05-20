@@ -112,8 +112,9 @@ function cargaCalendarioFechas()
   $(".fechapicker").each(function(){
     $(this).daterangepicker({
       "singleDatePicker": true,
-      "autoApply": true,
       "showDropdowns": true,
+      "autoApply":true,
+      "autoUpdateInput":false, 
       "locale": {
         "format": "DD-MM-YYYY",
         "separator": " - ",
