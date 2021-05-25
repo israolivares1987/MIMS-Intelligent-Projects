@@ -78,11 +78,10 @@
                                         <th>
                                         <div class="col-12">
                                             <div class="form-group">
-                                                <form id="rrfechaenrega" name="rrfechaenrega">
+            
                                                     <label>Ingrese Fecha de recepción en bodega</label>
-                                                    <input name="fecha_entrega"  id="fecha_entrega" placeholder="" class="form-control fechapicker"
-                                                     type="text">
-                                                </form>     
+                                                     <input type="text" id="fecha_entrega" class="form-control fechapicker" value="" name="fecha_entrega">
+
                                             </div>
                                         </div>
 
