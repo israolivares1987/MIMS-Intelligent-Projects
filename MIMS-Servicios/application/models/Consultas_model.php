@@ -446,7 +446,7 @@ function setSession($userId, $sessionId){
        function obtieneSumaViajes($codEmpresa,$cliente,$proyecto)
        {
        
-        $this->db->select_sum('NUMERO_DE_VIAJE','total');
+        $this->db->select('count(*) as total');        
         $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
         $this->db->where('t1.COD_EMPRESA',$codEmpresa);
         $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
@@ -456,6 +456,9 @@ function setSession($userId, $sessionId){
         $this->db->where('t1.id_oc = t3.PurchaseOrderID');
         $this->db->where('t3.idCliente = t2.idCliente');     
         $this->db->where('t1.COD_EMPRESA = t2.codEmpresa'); 
+        $this->db->where('(length(t1.DIAS_VIAJE) > 0)'); 
+        $this->db->group_by('DIAS_VIAJE'); 
+        
         $resultado = $this->db->get()->result();
         $total = $resultado[0]->total; 
         

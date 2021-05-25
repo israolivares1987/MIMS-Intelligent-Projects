@@ -297,7 +297,7 @@
 
                     });
 
-                recargaBuckSheet(0, 0,0,0);
+                recargaBuckSheet(0, "","","");
 
                     //set input/textarea/select event when change value, remove class error and remove text help block 
                     $("input").change(function() {
@@ -360,6 +360,7 @@
                 var cliente = $('#clientes').val();
                 var orden = $('#ordenes').val();
                 var guia = $('#guias').val();
+
                 var packinglist = $('#packinglist').val();
 
                 if($('#clientes').val() == 0) {

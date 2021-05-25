@@ -158,7 +158,7 @@ class BuckSheet extends MY_Controller
 
             $countTotalWpanel++;
           }
-          if (!empty($value->FECHA_EMBARQUE) && !empty($value->PACKINGLIST)) {
+          if (!$this->callutil->validanull($value->FECHA_EMBARQUE) && !$this->callutil->validanull($value->PACKINGLIST)) {
 
             $countDespachos++;
           }
@@ -305,7 +305,7 @@ class BuckSheet extends MY_Controller
 
 
         // create array from CSV file
-        if (!empty($csvData)) {
+        if (!$this->callutil->validanull($csvData)) {
 
 
           //Carga Bitacora
@@ -563,7 +563,7 @@ class BuckSheet extends MY_Controller
 
                               $EstadoLineaBucksheet = '1';
                               
-                              if ($this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] === 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] === 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '7';
                               }
@@ -575,24 +575,24 @@ class BuckSheet extends MY_Controller
                                 $EstadoLineaBucksheet = '2';
                               }
 
-                              if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '3';
                               }
 
-                              if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '6';
                               }
 
 
 
-                              if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '4';
                               }
 
-                              if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
+                              if (!$this->callutil->validanull($row['FECHA_EMBARQUE']) && !$this->callutil->validanull($row['PACKINGLIST'])) {
 
                                 $EstadoLineaBucksheet = '5';
                               }
@@ -600,35 +600,35 @@ class BuckSheet extends MY_Controller
 
                               $EstadoLineaBucksheet = '1';
                               
-                              if (!empty($row['FECHA_TCF']) && $row['PA_TCF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_TCF']) && $row['PA_TCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '7';
                               }
 
 
-                              if ($this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '2';
                               }
 
-                              if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '3';
                               }
 
-                              if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '6';
                               }
 
 
 
-                              if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
+                              if (!$this->callutil->validanull($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
 
                                 $EstadoLineaBucksheet = '4';
                               }
 
-                              if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
+                              if (!$this->callutil->validanull($row['FECHA_EMBARQUE']) && !$this->callutil->validanull($row['PACKINGLIST'])) {
 
                                 $EstadoLineaBucksheet = '5';
                               }
@@ -1155,20 +1155,21 @@ class BuckSheet extends MY_Controller
     $respuesta = false;
 
  
-    if ($GuiaDespacho != "0") {
+    if (!$this->callutil->validanull($GuiaDespacho)) {
     
       $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetGuia($codEmpresa,$PurchaseOrderID,$GuiaDespacho);
 
-    }else if ($packinglist != "0") {
+    }else if (!$this->callutil->validanull($packinglist)) {
   
- 
       $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetPackingList($codEmpresa,$PurchaseOrderID,$packinglist);
 
     }else{
-      
+
       $bucksheet = $this->callexternosbucksheet->obtieneBuckSheetBodega($codEmpresa,$PurchaseOrderID);
 
     }
+
+    
     
 
 
@@ -1399,35 +1400,35 @@ class BuckSheet extends MY_Controller
     $codEmpresa = $this->session->userdata('cod_emp');
       $EstadoLineaBucksheet = '1';
                       
-    if (!empty($row['FECHA_TFC']) && $row['PA_TCF'] == 'ACTUAL') {
+    if (!$this->callutil->validanull($this->input->post('FECHA_TFC')) &&  $this->input->post('PA_TCF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '7';
     }
 
 
-    if (!empty($row['FECHAC_OMIENZO_FABRICACION']) && $row['PA_FCF'] == 'ACTUAL') {
+    if (!$this->callutil->validanull($this->input->post('FECHAC_COMIENZO_FABRICACION')) && $this->input->post('PA_FCF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '2';
     }
 
-    if (!empty($row['FECHA_TERMINO_FABRICACION']) && $row['PA_FTF'] == 'ACTUAL') {
+    if (!$this->callutil->validanull($this->input->post('FECHA_TERMINO_FABRICACION')) && $this->input->post('PA_FTF') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '3';
     }
 
-    if (!empty($row['FECHA_PINTURA']) && $row['PA_FP'] == 'ACTUAL') {
+    if (!$this->callutil->validanull($this->input->post('FECHA_PINTURA')) && $this->input->post('PA_FP') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '6';
     }
 
 
 
-    if (!empty($row['FECHA_LISTO_INSPECCION']) && $row['PA_FLI'] == 'ACTUAL') {
+    if (!$this->callutil->validanull($this->input->post('FECHA_LISTO_INSPECCION')) && $this->input->post('PA_FLI') == 'ACTUAL') {
 
       $EstadoLineaBucksheet = '4';
     }
 
-    if (!empty($row['FECHA_EMBARQUE']) && !empty($row['PACKINGLIST'])) {
+    if (!$this->callutil->validanull($this->input->post('FECHA_EMBARQUE')) && !$this->callutil->validanull($this->input->post('PACKINGLIST'))) {
 
       $EstadoLineaBucksheet = '5';
     }
@@ -1505,7 +1506,7 @@ class BuckSheet extends MY_Controller
       'GUIA_DESPACHO' => $this->input->post('GUIA_DESPACHO'),
       'NUMERO_DE_VIAJE' => $this->input->post('NUMERO_DE_VIAJE'),
       'ORIGEN' => $this->input->post('ORIGEN'),
-      'DIAS_VIAJE' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('DIAS_VIAJE')),
+      'DIAS_VIAJE' => $this->input->post('DIAS_VIAJE'),
       'UNIDADES_SOLICITADAS' => $this->input->post('UNIDADES_SOLICITADAS'),
       'UNIDADES_RECIBIDAS' => $this->input->post('UNIDADES_RECIBIDAS'),
       'REPORTE_DE_RECEPCION_RR' => $this->input->post('REPORTE_DE_RECEPCION_RR'),

@@ -366,7 +366,6 @@ class BuckSheet_model extends CI_Model{
      $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
-     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      
 
@@ -429,11 +428,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 
-    $this->db->from('tbl_bucksheet t1');			
+     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
-     $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('(length(t1.GUIA_DESPACHO) > 0 AND t1.GUIA_DESPACHO IS NOT NULL)');
      $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
