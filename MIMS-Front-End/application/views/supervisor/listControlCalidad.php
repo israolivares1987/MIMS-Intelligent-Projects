@@ -89,7 +89,7 @@
                              <thead>
                                  <tr>
                                    
-                                     <th>Nombre Empleado</th>
+                                     <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
                                      <th>Tipo Interaccion</th>

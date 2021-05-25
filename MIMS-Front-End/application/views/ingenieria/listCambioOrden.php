@@ -93,7 +93,7 @@
                          <table id="tbl_corden" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
-                                     <th>Nombre Empleado</th>
+                                     <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
                                      <th>Tipo Interaccion</th>
@@ -163,7 +163,7 @@
                              <thead>
                              <tr>
                                 <th>ACCIONES</th>
-                                <th>NOMBRE EMPLEADO</th>
+                                <th>Usuario</th>
                                 <th>FECHA INGRESO EDP</th>
                                 <th>N° EDP</th>
                                 <th>ESTADO</th>
@@ -209,7 +209,7 @@
                              <thead>
                                  <tr>
                                  <th>ACCION</th>
-                                 <th>NOMBRE EMPLEADO</th>
+                                 <th>Usuario</th>
                                  <th>FECHA DE EMISIÓN</th>
                                  <th>N° DOCUMENTO</th>
                                  <th>TIPO DE GARANTÍA</th>
