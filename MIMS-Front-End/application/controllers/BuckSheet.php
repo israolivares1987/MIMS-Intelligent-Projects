@@ -305,7 +305,7 @@ class BuckSheet extends MY_Controller
 
 
         // create array from CSV file
-        if (!$this->callutil->validanull($csvData)) {
+        if ($csvData) {
 
 
           //Carga Bitacora
