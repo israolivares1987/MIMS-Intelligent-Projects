@@ -219,6 +219,22 @@ class ReporteEntrega extends CI_Controller {
 
 			}	
 
+			function obtieneRE(){
+
+				$codEmpresa = $this->input->post('codEmpresa');
+				$id_cliente = $this->input->post('id_cliente');
+				$id_proyecto = $this->input->post('id_proyecto');
+
+
+		
+				$CabeceraRE = $this->re->obtieneRE($codEmpresa,$id_cliente, $id_proyecto);
+				
+		
+				echo json_encode($CabeceraRE);
+
+
+			}	
+
 }
 
 	

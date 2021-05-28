@@ -373,5 +373,37 @@ function obtieneREFinal($codEmpresa, $id_cliente, $id_proyecto){
 
 }
 
+function obtieneRE($codEmpresa, $id_cliente, $id_proyecto){
+
+
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneRE";
+
+  $form_data = array(
+    'codEmpresa' =>  $codEmpresa,
+    'id_cliente' =>  $id_cliente,
+    'id_proyecto' => $id_proyecto
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
 
 }
