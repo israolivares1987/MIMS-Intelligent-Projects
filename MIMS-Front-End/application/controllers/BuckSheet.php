@@ -530,7 +530,7 @@ class BuckSheet extends MY_Controller
 
                   if ($this->callutil->validanull($row['STOCKCODE']) && $row['TIPO_DE_LINEA'] ==='NO ACTIVABLE' ){
                 
-                  } else if ($this->callutil->validanull($row['STOCKCODE']) && $row['TIPO_DE_LINEA'] ==='ACTIVABLE' ){
+                  } else if (!$this->callutil->validanull($row['STOCKCODE']) && $row['TIPO_DE_LINEA'] ==='ACTIVABLE' ){
 
                     $idmensaje = 5;
 
