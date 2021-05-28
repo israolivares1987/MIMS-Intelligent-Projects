@@ -1557,8 +1557,8 @@ function finalizarRE(){
   function obtieneREFinal(){
 
     $codEmpresa = $this->session->userdata('cod_emp');
-    $codigoProyecto = $this->input->post('id_proyecto');
-    $codigoCliente = $this->input->post('id_cliente');
+    $codigoProyecto = $this->input->post('codigoProyecto');
+    $codigoCliente = $this->input->post('codigoCliente');
  
 
     $responsere= $this->callexternosreporteentrega->obtieneREFinal($codEmpresa,$codigoCliente,$codigoProyecto);
@@ -2285,5 +2285,133 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
   
      }
   
+
+
+     public function index_historico_re(){
+
+      $cod_usuario = $this->session->userdata('cod_user');
+      $listaTodo = "";
+      $number = 0; 
+      $codEmpresa = $this->session->userdata('cod_emp');
+    
+    
+        // Obtiene select Clientes
+    
+        $clientes = $this->callexternosclientes->listaClientes($codEmpresa);
+    
+        $arrClientes = json_decode($clientes);
+    
+        $htmlclientes = "";
+        
+        $htmlclientes .= '<select class="form-control" id="clientes">';
+        $htmlclientes .= '<option value="0">Seleccione</option>';
+        
+        foreach ($arrClientes as $key => $value) {
+    
+          $htmlclientes .= '<option data-name="'.trim($value->nombreCliente).'" value="'.$value->idCliente.'">'.$value->nombreCliente.'</option>';
+        
+        }
+    
+        $htmlclientes .= '</select>';
+        $datos['select_clientes'] = $htmlclientes;
+    
+    
+        // Obtiene select Proyectos
+    
+        $htmlproyectos = "";
+    
+        $htmlproyectos .= '<select class="form-control" id="proyectos">';
+        $htmlproyectos .= '<option value="">Seleccione</option>';
+        $htmlproyectos .= '</select>';
+        $datos['select_proyectos'] = $htmlproyectos;
+    
+    
+    
+        // Obtiene select Ordenes
+    
+        $htmlordenes = "";
+    
+        $htmlordenes .= '<select class="form-control" id="ordenes">';
+        $htmlordenes .= '<option value="">Seleccione</option>';
+        $htmlordenes .= '</select>';
+        $datos['select_ordenes'] = $htmlordenes;
+    
+    
+    
+        $this->plantilla_bodega('bodega/historicoRE', $datos);
+    
+    
+    
+      }  
+
+      function obtieneRE(){
+
+        $codEmpresa = $this->session->userdata('cod_emp');
+        $codigoProyecto = $this->input->post('codigoProyecto');
+        $codigoCliente = $this->input->post('codigoCliente');
+     
+    
+        $responsere= $this->callexternosreporteentrega->obtieneRE($codEmpresa,$codigoCliente,$codigoProyecto);
+     
+        $respuesta = false;
+    
+    
+        $arrRE = json_decode($responsere);
+       
+        $datos_re = array();
+    
+        if($arrRE){
+          $respuesta = true;
+          
+          foreach ($arrRE as $key => $value) {
+            
+            $datosDirecto  = $this->callutil->obtieneDatoRef('SI_NO',$value->entrega_directa);
+    
+    
+    
+            foreach (json_decode($datosDirecto) as $llave => $valor) {
+                        
+              $entrega_directa = $valor->domain_desc;
+      
+            }
+            
+    
+            $datos_re[] = array(
+              'id_re' => $value->id_re,
+              'cod_empresa' => $value->cod_empresa,
+              'id_cliente' => $value->id_cliente,
+              'id_proyecto' => $value->id_proyecto,
+              'descripcion_proyecto' => $value->descripcion_proyecto,
+              'area_proyecto' => $value->area_proyecto,
+              'descripcion_area' => $value->descripcion_area,
+              'fecha_emision' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_emision)),
+              'emisor_re' => $value->emisor_re,
+              'estado_re' => $value->estado_re,
+              'solicitante' => $value->solicitante,
+              'identificacion_solicitante' => $value->identificacion_solicitante,
+              'cargo_solicitante' => $value->cargo_solicitante,
+              'fecha_solicitud' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_solicitud)),
+              'entrega_directa' =>  $entrega_directa,
+              'fecha_entrega_sitio' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_entrega_sitio)),
+              'fecha_completada_usuario' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_completada_usuario)),
+              'lugar_fisico' => $value->lugar_fisico,
+              'estado_re_sistema' => $value->estado_re_sistema,
+    
+            );        
+            
+          }
+        }
+    
+     
+    
+        $datos['re_final'] = $datos_re;
+        $datos['resp']      = $respuesta;
+    
+        echo json_encode($datos);
+        
+      
+    
+      }
+
 
 }

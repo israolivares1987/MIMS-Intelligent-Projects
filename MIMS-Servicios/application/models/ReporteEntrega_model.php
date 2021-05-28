@@ -382,6 +382,37 @@ class ReporteEntrega_model extends CI_Model{
 	  return $CabeceraRE;
 	}
 
+	function obtieneRE($codEmpresa,$id_cliente, $id_proyecto)
+	{
+
+	  $query = $this->db->query("SELECT id_re,
+										cod_empresa,
+										id_cliente,
+										id_proyecto,
+										descripcion_proyecto,
+										area_proyecto,
+										descripcion_area,
+										fecha_emision,
+										emisor_re,
+										(select domain_desc from tbl_ref_codes where domain_id = estado_re and domain = 'ESTADO_RE') as estado_re,
+										solicitante,
+										identificacion_solicitante,
+										cargo_solicitante,
+										fecha_solicitud,
+										entrega_directa,
+										fecha_entrega_sitio,
+										fecha_completada_usuario,
+										lugar_fisico,
+										estado_re_sistema
+									FROM tbl_re_cabecera
+									where id_cliente = ".$id_cliente."
+									and id_proyecto = ".$id_proyecto."
+									and estado_re = 3
+									and cod_empresa = ".$codEmpresa);
+	  $CabeceraRE = $query->result();
+	  return $CabeceraRE;
+	}
+
 
 }
 ?>
