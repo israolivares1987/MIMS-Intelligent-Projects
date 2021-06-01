@@ -1557,8 +1557,8 @@ function finalizarRE(){
   function obtieneREFinal(){
 
     $codEmpresa = $this->session->userdata('cod_emp');
-    $codigoProyecto = $this->input->post('codigoProyecto');
-    $codigoCliente = $this->input->post('codigoCliente');
+    $codigoProyecto = $this->input->post('id_proyecto');
+    $codigoCliente = $this->input->post('id_cliente');
  
 
     $responsere= $this->callexternosreporteentrega->obtieneREFinal($codEmpresa,$codigoCliente,$codigoProyecto);
