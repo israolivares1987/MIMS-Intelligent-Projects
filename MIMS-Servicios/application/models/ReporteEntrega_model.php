@@ -38,9 +38,64 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.estado_rr',1);
 	$this->db->where('a.id_rr_cab = b.id_rr');
-	$this->db->where('a.re_generada',0);
+	//$this->db->where('a.re_generada',0);
 	$this->db->where('b.id_cliente ='.$codigoCliente);
 	$this->db->where('b.id_proyecto ='.$codigoProyecto);
+
+
+	if(strlen($orden) > 0 ){
+
+		$this->db->where('b.id_orden_cliente', $orden);
+	}	
+
+	if(strlen($sku) > 0 ){
+	
+		$this->db->where('a.stockcode',$sku);
+	}
+
+	if(strlen($proveedor) > 0){
+	
+		$this->db->where('b.proveedor',$proveedor);
+	}
+
+	if(strlen($tagnumber) > 0){
+	
+		$this->db->where('a.tag_number',$tagnumber);
+	}
+
+	if(strlen($descripcion) > 0 ){
+	
+		$this->db->where('a.descripcion',$descripcion);
+	}
+
+
+    $query = $this->db->get();
+			
+	return $query->result();
+	 
+	}
+	
+	
+
+	function listaRRDetForREFinal($codEmpresa,$codigoCliente,$codigoProyecto,$orden,$sku,$proveedor,$tagnumber,$descripcion)
+	{
+
+		$this->db->select('a.stockcode,
+		a.descripcion,
+		SUM(a.st_cantidad) as st_cantidad,
+		SUM(a.st_cantidad_recibida) as st_cantidad_recibida,
+		getSaldoStockCode(a.cod_empresa,a.stockcode) as saldo');
+	$this->db->from('tbl_rr_detalle a , tbl_rr_cabecera b');
+	$this->db->where('a.cod_empresa =' .$codEmpresa);
+	$this->db->where('a.estado_rr_det',1);
+	$this->db->where('a.cod_empresa = b.cod_empresa');
+	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
+	$this->db->where('b.estado_rr',1);
+	$this->db->where('a.id_rr_cab = b.id_rr');
+	//$this->db->where('a.re_generada',0);
+	$this->db->where('b.id_cliente ='.$codigoCliente);
+	$this->db->where('b.id_proyecto ='.$codigoProyecto);
+	$this->db->group_by('a.stockcode, a.descripcion');
 
 
 	if(strlen($orden) > 0 ){
@@ -86,7 +141,7 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.estado_rr_det',1);
 	$this->db->where('a.cod_empresa = b.cod_empresa');
 	$this->db->where('b.estado_rr',1);
-	$this->db->where('a.re_generada',0);
+	#$this->db->where('a.re_generada',0);
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.id_cliente',$id_clientes);
 	$this->db->where('b.id_proyecto',$id_proyecto);
@@ -107,7 +162,7 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.estado_rr_det',1);
 	$this->db->where('a.cod_empresa = b.cod_empresa');
 	$this->db->where('b.estado_rr',1);
-	$this->db->where('a.re_generada',0);
+	#$this->db->where('a.re_generada',0);
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.id_cliente',$id_clientes);
 	$this->db->where('b.id_proyecto',$id_proyecto);
@@ -128,7 +183,7 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.estado_rr_det',1);
 	$this->db->where('a.cod_empresa = b.cod_empresa');
 	$this->db->where('b.estado_rr',1);
-	$this->db->where('a.re_generada',0);
+	#$this->db->where('a.re_generada',0);
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.id_cliente',$id_clientes);
 	$this->db->where('b.id_proyecto',$id_proyecto);
@@ -148,7 +203,7 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.estado_rr_det',1);
 	$this->db->where('a.cod_empresa = b.cod_empresa');
 	$this->db->where('b.estado_rr',1);
-	$this->db->where('a.re_generada',0);
+	#$this->db->where('a.re_generada',0);
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.id_cliente',$id_clientes);
 	$this->db->where('b.id_proyecto',$id_proyecto);
@@ -168,7 +223,7 @@ class ReporteEntrega_model extends CI_Model{
 	$this->db->where('a.estado_rr_det',1);
 	$this->db->where('a.cod_empresa = b.cod_empresa');
 	$this->db->where('b.estado_rr',1);
-	$this->db->where('a.re_generada',0);
+	#$this->db->where('a.re_generada',0);
 	$this->db->where('a.id_orden_cliente = b.id_orden_cliente');
 	$this->db->where('b.id_cliente',$id_clientes);
 	$this->db->where('b.id_proyecto',$id_proyecto);

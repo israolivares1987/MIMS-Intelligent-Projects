@@ -72,7 +72,7 @@
                                              <dt class="col-sm-8">ENTREGA DIRECTA:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><div id="select_entrega_directa"></div></dd>
                                              <dt class="col-sm-8">FECHA DE SOLICITUD:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control fechapicker" value="" name="fecha_solicitud"></div></dd>
+                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control" value="" name="fecha_solicitud" readonly></div></dd>
                                              <dt class="col-sm-8">FECHA ENTREGA EN SITIO:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_entrega_sitio" class="form-control fechapicker" value="" name="fecha_entrega_sitio"></div></dd>
                                              <dt class="col-sm-8">LUGAR FÍSICO:</dt>

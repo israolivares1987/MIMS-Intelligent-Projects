@@ -36,6 +36,93 @@ class ReporteEntrega extends MY_Controller{
   }
 
 
+  function listaRRDetForREFinal(){
+
+
+    $codEmpresa = $this->session->userdata('cod_emp');
+    $codigoProyecto = $this->input->post('codigoProyecto');
+    $codigoCliente = $this->input->post('codigoCliente');
+    $orden = $this->input->post('orden');
+    $sku = $this->input->post('sku');
+    $proveedor = $this->input->post('proveedor');
+    $tagnumber = $this->input->post('tagnumber');
+    $descripcion = $this->input->post('descripcion');
+
+    $responserrdet = $this->callexternosreporteentrega->listaRRDetForREFinal($codEmpresa,$codigoCliente,$codigoProyecto,$orden,$sku,$proveedor,$tagnumber,$descripcion);
+
+    $respuesta = false;
+    $boton_activo  = false;
+    $count = 0;
+    $count_estados= 0;
+
+    $arrRRDet = json_decode($responserrdet);
+   
+    $datos_rrdet = array();
+
+    if($arrRRDet){
+      $respuesta = true;
+      
+      foreach ($arrRRDet as $key => $value) {
+        
+        $count = $count +1;
+
+        $datos_rrdet[] = array(
+          'id_rr_det' => $value->id_rr_det,
+          'cod_empresa' => $value->cod_empresa,
+          'numero_linea_det' => $value->numero_linea_det,
+          'item_oc' => $value->item_oc,
+          'numero_linea_wpanel' => $value->numero_linea_wpanel,
+          'id_rr_cab' => $value->id_rr_cab,
+          'id_rr_det' => $value->id_rr_det,
+          'id_orden_compra' => $value->id_orden_compra,
+          'tag_number' => $value->tag_number,
+          'stockcode' => $value->stockcode,
+          'descripcion' => $value->descripcion,
+          'id_orden_cliente' => $value->id_orden_cliente,
+          'packing_list' => $value->packing_list,
+          'numero_viaje' => $value->numero_viaje,
+          'guia_despacho' => $value->guia_despacho,
+          'st_cantidad' => $value->st_cantidad,
+          'st_cantidad_recibida' => $value->st_cantidad_recibida,
+          'saldo' => $value->saldo,
+          'id_bodega' => $value->id_bodega,
+          'id_carpa' => $value->id_carpa,
+          'id_patio' => $value->id_patio,
+          'id_posicion' => $value->id_posicion,
+          'observacion' => $value->observacion,
+          'observacion_exb' => $this->callutil->cambianull($value->observacion_exb),
+          'inspeccion_requerida' =>$value->inspeccion_requerida
+        );
+
+        if ($value->estado_rr_det === '1'){
+
+          $count_estados = $count_estados + 1;
+
+        }
+        
+        
+      }
+    }
+
+    if($count_estados == $count){
+
+      $boton_activo= true;
+
+    }else{
+
+      $boton_activo= false;
+    }
+
+    $datos['rr_dets'] = $datos_rrdet;
+    $datos['resp']      = $respuesta;
+
+    echo json_encode($datos);
+    
+  
+  }
+
+
+
   function listaRRDetForRE(){
 
 
@@ -49,7 +136,7 @@ class ReporteEntrega extends MY_Controller{
     $descripcion = $this->input->post('descripcion');
 
     $responserrdet = $this->callexternosreporteentrega->listaRRDetForRE($codEmpresa,$codigoCliente,$codigoProyecto,$orden,$sku,$proveedor,$tagnumber,$descripcion);
- 
+
     $respuesta = false;
     $boton_activo  = false;
     $count = 0;
@@ -165,6 +252,7 @@ class ReporteEntrega extends MY_Controller{
             'estado_re' =>   1,
             'descripcion_proyecto' => $DescripcionProyecto,
             'fecha_emision' => date_create()->format('Y-m-d'),
+            'fecha_solicitud' => date_create()->format('Y-m-d'),
             'estado_re_sistema' => 1,
 
           );

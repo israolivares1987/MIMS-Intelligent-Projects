@@ -33,6 +33,29 @@ class ReporteEntrega extends CI_Controller {
 
 	}	
 
+	function listaRRDetForREFinal(){
+
+		$codEmpresa = $this->input->post('codEmpresa');
+
+		$codigoCliente = $this->input->post('codigoCliente');
+		$codigoProyecto = $this->input->post('codigoProyecto');
+
+
+		$orden = $this->input->post('orden');
+		$sku = $this->input->post('sku');
+		$proveedor = $this->input->post('proveedor');
+		$tagnumber = $this->input->post('tagnumber');
+		$descripcion = $this->input->post('descripcion');
+
+		
+		
+
+		$CabeceraRR = $this->re->listaRRDetForREFinal($codEmpresa,$codigoCliente,$codigoProyecto,$orden,$sku,$proveedor,$tagnumber,$descripcion);
+		echo json_encode($CabeceraRR);
+
+	}	
+	
+
 
 
 	function obtieneFiltrosRE(){

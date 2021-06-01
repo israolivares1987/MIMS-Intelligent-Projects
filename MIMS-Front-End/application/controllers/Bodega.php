@@ -1229,20 +1229,14 @@ public function crearRRDet($NumRR){
         
         if(strlen($value->observacion_exb) < 1 || $value->observacion_exb === "" || isset($value->observacion_exb) || empty($value->observacion_exb) || is_null($value->observacion_exb)){
           $observacion_exb = 'N';
+          $estado_linea_wpanel = '8';
         }else{
           $observacion_exb = 'S';  
-        }
-
-
-        if($observacion_exb === 'N' &&  $value->inspeccion_requerida === 'N'){
-          
-          $estado_linea_wpanel = '8';
-        
-        }else{
-
           $estado_linea_wpanel = '9';
-        
         }
+
+
+     
 
         $memData = array(
           'COD_EMPRESA' => $value->cod_empresa,
