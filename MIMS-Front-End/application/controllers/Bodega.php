@@ -1048,20 +1048,7 @@ public function crearRRDet($NumRR){
                                 'PA_FLI' => $value->PA_FLI,
                                 'ACTA_LIBERACION_CALIDAD' => $value->ACTA_LIBERACION_CALIDAD,
                                 'FECHA_SALIDA_FABRICA' => $value->FECHA_SALIDA_FABRICA,
-                                'PA_FSF' => $value->PA_FSF,
-                                'FECHA_EMBARQUE' => $value->FECHA_EMBARQUE,
-                                'PACKINGLIST' => $value->PACKINGLIST,
-                                'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
-                                'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
-                                'ORIGEN' => $value->ORIGEN,
-                                'DIAS_VIAJE' => $value->DIAS_VIAJE,
-                                'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
-                                'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
-                                'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-                                'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
-                                'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-                                'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-                                'OBSERVACION' => $value->OBSERVACION 
+                                'PA_FSF' => $value->PA_FSF
                               );   
                             }
 
