@@ -641,7 +641,7 @@ public function save() {
         'PROVEEDOR' => urldecode($SupplierName),
         'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
         'NUMERO_DE_LINEA' => $numerolinea,
-        'NUMERO_DE_ELEMENTOS' => $OrdenItemID,
+        'UNIDADES_SOLICITADAS' => $OrdenItemID,
         'UNIDAD' => $Unidad,
         'CANTIDAD_UNITARIA' => $Cantidad,
         'DESCRIPCION_LINEA' => $Descripcion,

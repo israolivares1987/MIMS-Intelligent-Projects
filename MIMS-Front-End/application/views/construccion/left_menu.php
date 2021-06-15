@@ -79,7 +79,7 @@
                     <li class="nav-item">
                     <a href="<?php echo site_url('Bodega/crearRE');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
-                        <p>Reservar Material RE</p>
+                        <p>Crear Reserva de Material (RM)</p>
                       </a>
                     </li>
 

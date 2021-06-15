@@ -294,7 +294,7 @@
                                 console.log(data);
                                 table2.row.add(data).draw();
 
-                                toastr.success('Se agrega StockCode para RE');
+                                toastr.success('Material Reservado con Éxito');
                             
                                 });   
 

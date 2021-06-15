@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                 <h1>CREAR REPORTE DE ENTREGAS(RE)<h1>
+                 <h1>Crear Reserva de Material (RM)<h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -105,7 +105,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                           REPORTE DE RECEPCIÓN
+                      Seleccione Material a Reservar
                       </h3>
                     </div>
                     <!-- /.card-header -->
@@ -144,7 +144,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                           PRODUCTOS SELECCIONADOS PARA RE
+                      Material Seleccionado para Reserva
                       </h3>
                     </div>
                     <!-- /.card-header -->
@@ -155,7 +155,7 @@
                                      <th>
                                         <button id="crearRE"
                                              class="btn btn-outline-primary float-right"><i class="fas fa-times-circle"></i>
-                                               Crear RE</button>
+                                             Confirmar Reserva</button>
                                     </th>
                                    
                                        
@@ -294,7 +294,7 @@
                                 console.log(data);
                                 table2.row.add(data).draw();
 
-                                toastr.success('Se agrega StockCode para RE');
+                                toastr.success('Material Reservado con Éxito');
                             
                                 });   
 

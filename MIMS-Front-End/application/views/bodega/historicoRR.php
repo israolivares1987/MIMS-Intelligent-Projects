@@ -67,7 +67,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                           REPORTE DE RECEPCIÓN
+                      Reportes de Recepción Emitidos
                       </h3>
                     </div>
                     <!-- /.card-header -->

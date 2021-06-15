@@ -251,42 +251,33 @@
                                         <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE TAG</th>
                                         <th style="text-align:left; background-color:#DBDBDB">STOCKCODE</th>
                                         <th style="text-align:left; background-color:#DBDBDB">DESCRIPCIÓN LÍNEA</th>
-                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">NÚMERO DE ELEMENTOS</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDADES SOLICITADAS</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD UNITARIA</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD TOTAL</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTALCLIENTE</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TC</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL PROVEEDOR</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TP</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">TRANSMITTAL CLIENTE FINAL</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">FECHA TCF</th>
-                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PA TCF</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">FECHA LINEA BASE</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">DIAS ANTES LB</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFCF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA TERMINO FABRICACION</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFTF</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA TERMINO FABRICACION REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA GRANALLADO</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFG</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA GRANALLADO REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFP</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFLI</th>
-                                        <th style="text-align:left; background-color:#FFCC00">ACTA LIBERACION CALIDAD</th>
+                                        <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
-                                        <th style="text-align:left; background-color:#FFCC00">PAFSF</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
+                                        <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">GUIA DESPACHO</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">NÚMERO DE VIAJE</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">ORIGEN</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
-                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES SOLICITADAS</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE ENTREGA (RE)</th>
@@ -534,42 +525,33 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.STOCKCODE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_LINEA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CANTIDAD_UNITARIA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CANTIDAD_TOTAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDAD+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.TRANSMITTAL_CLIENTE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TC+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.TRANSMITTAL_PROVEEDOR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TP+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.TRANSMITTAL_CLIENTE_FINAL+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TCF+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_TCF+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_PLANO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REVISION+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LINEA_BASE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_ANTES_LB + '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FCF + '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_COMIENZO_FABRICACION_REAL + '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TERMINO_FABRICACION+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FTF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_TERMINO_FABRICACION_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_GRANALLADO+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FG+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_GRANALLADO_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_PINTURA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FP+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_PINTURA_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LISTO_INSPECCION+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FLI+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ACTA_LIBERACION_CALIDAD+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LISTO_INSPECCION_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PA_FSF+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.GUIA_DESPACHO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ORIGEN+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';

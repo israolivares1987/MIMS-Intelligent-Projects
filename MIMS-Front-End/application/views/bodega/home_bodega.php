@@ -186,7 +186,7 @@
 
       <div class="card">
         <div class="card-header">
-          <h3 class="card-title"><i class="ion ion-clipboard mr-1"></i> REGISTROS RECEPCIÓN</h3>
+          <h3 class="card-title"><i class="ion ion-clipboard mr-1"></i>WPanel</h3>
         </div>
           <div class="card-body">
 
@@ -1013,7 +1013,7 @@ function recargaListaToDo(){
                         bucksheet_html += '<td>' + bucksheets.NUMERO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.STOCKCODE+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';    
                         
                         bucksheet_html += '<td>' + bucksheets.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheets.UNIDAD+ '</td>'; 

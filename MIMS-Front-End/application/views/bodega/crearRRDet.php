@@ -88,7 +88,7 @@
                                      <div class="card-header">
                                          <h3 class="card-title">
                                              <i class="fas fa-text-width"></i>
-                                             SELECCIONAR BODEGA
+                                             Seleccione Ubicación del Material
                                          </h3>
                                      </div>
                                      <!-- /.card-header -->
@@ -110,7 +110,7 @@
                                  </div>
                              </div>
                              <div class="modal-footer justify-content-between">
-                                <button id="btnSaveBodega" type="button" class="btn btn-primary" onclick="ActualizaBodegaRRDet()">Actualizar Bodega</button>
+                                <button id="btnSaveBodega" type="button" class="btn btn-primary" onclick="ActualizaBodegaRRDet()">Actualizar Ubicación</button>
 
                             </div>
                          </div>
@@ -135,7 +135,7 @@
                                                      </i>  Actualizar</button>
                                                      <button style="display: none;" id="btn_cerrar_rr"
                                              class="btn btn-outline-primary float-right"><i class="fas fa-times-circle"></i>
-                                               Cerrar RR</button>
+                                             Confirmar Reporte de Recepción</button>
                                     </th>
                                    
                                        
@@ -181,7 +181,7 @@
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-             <h4 class="modal-title">EDITAR REPORTE DE RECEPCIÓN(RR)</h4>
+             <h4 class="modal-title">Actualizar Datos – STOCKCODE</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
