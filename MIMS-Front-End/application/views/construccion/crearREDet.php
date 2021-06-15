@@ -21,7 +21,7 @@
                                      <div class="card-header">
                                          <h3 class="card-title">
                                              <i class="fas fa-text-width"></i>
-                                             REPORTE DE ENTREGA
+                                             Información de Reserva
                                          </h3>
                                      </div>
         
@@ -43,8 +43,9 @@
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="identificacion_solicitante" class="form-control" value="" name="identificacion_solicitante"></div></dd>
                                              <dt class="col-sm-8">CARGO DEL SOLICITANTE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="cargo_solicitante" class="form-control" value="" name="cargo_solicitante"></div></dd>
-                                             <dt class="col-sm-8">FECHA DE SOLICITUD:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control fechapicker" value="" name="fecha_solicitud"></div></dd>
+                                             <dt class="col-sm-8">&nbsp;</dt>
+                                             <dd class="col-sm-9">&nbsp;</dd>
+                               
                                             
                                          </dl>
                                      </div>
@@ -63,22 +64,22 @@
                                      <div class="card-body">
                                          <dl class="row">
                                             <dt class="col-sm-8">FECHA EMISIÓN RE:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_emision" class="form-control" value="" name="fecha_emision" readonly></div></dd>
+                                             <dd class="col-sm-9"><div class="form-group"><input required type="text" id="fecha_emision" class="form-control" value="" name="fecha_emision" readonly></div></dd>
                                              <dt class="col-sm-8">EMISOR RE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="emisor_re" class="form-control" value="" name="emisor_re" readonly></div></dd>
                                              <dt class="col-sm-8">ESTADO RE:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="estado_re" class="form-control" value="" name="estado_re" readonly></div></dd>
                                              <dt class="col-sm-8">ENTREGA DIRECTA:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><div id="select_entrega_directa"></div></dd>
-                                             <dt class="col-sm-8">FECHA COMPLETADA USUARIO:</dt>
-                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_completada_usuario" class="form-control fechapicker" value="" name="fecha_completada_usuario"></div></dd>
+                                             <dt class="col-sm-8">FECHA DE SOLICITUD:</dt>
+                                             <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_solicitud" class="form-control" value="" name="fecha_solicitud" readonly></div></dd>
                                              <dt class="col-sm-8">FECHA ENTREGA EN SITIO:</dt>
                                              <dd class="col-sm-9"><div class="form-group"><input type="text" id="fecha_entrega_sitio" class="form-control fechapicker" value="" name="fecha_entrega_sitio"></div></dd>
                                              <dt class="col-sm-8">LUGAR FÍSICO:</dt>
-                                             <dd class="col-sm-9"> <div class="form-group"><input type="text" id="lugar_fisico" class="form-control" value="" name="lugar_fisico"></div></dd>
+                                             <dd class="col-sm-9"> <div class="form-group"><input type="text" required id="lugar_fisico" class="form-control" value="" name="lugar_fisico"></div></dd>
                                              </form>
                                              <dt class="col-sm-8">ACCION</dt>
-                                             <dd class="col-sm-9"><button  id="btn_actualizar_re" onclick="ActualizaCabRE()" class="btn btn-success float-left"><i class="fas fa-pen-alt"></i>ACTUALIZAR DATOS RE</button></div></dd>
+                                             <dd class="col-sm-9"><button  id="btn_actualizar_re" onclick="ActualizaCabRE()" class="btn btn-success float-left"><i class="fas fa-pen-alt"></i>Actualizar Información de Reserva</button></div></dd>
                                
                                          </dl>
                                      </div>
@@ -97,7 +98,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                           DETALLE REPORTE DE ENTREGA
+                            Detalle Reserva de Material
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -153,7 +154,7 @@
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-             <h4 class="modal-title">EDITAR REPORTE DE ENTREGA(RE)</h4>
+             <h4 class="modal-title">Actualizar Datos – STOCKCODE</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -166,7 +167,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">ACTUALIZAR REPORTE DE RECEPCIÓN(RR)</h3>
+                                            <h3 class="card-title">Actualizar Reserva de Material (RM)</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i></button>
@@ -485,6 +486,7 @@ data.append('entrega_directa', entrega_cliente);
                if (result.resp) {
 
                        toastr.success(result.mensaje);
+              
 
                        }else{
 
@@ -542,7 +544,6 @@ function recargaCabeceraRE(id_re) {
                         $('#fecha_solicitud').val(re_det.fecha_solicitud);
                         $('#select_entrega_directa').html(re_det.select_entrega_directa);
                         $('#fecha_entrega_sitio').val(re_det.fecha_entrega_sitio);
-                        $('#fecha_completada_usuario').val(re_det.fecha_completada_usuario);
                         $('#lugar_fisico').val(re_det.lugar_fisico);
                 
 

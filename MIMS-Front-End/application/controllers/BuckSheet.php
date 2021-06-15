@@ -158,10 +158,7 @@ class BuckSheet extends MY_Controller
 
             $countTotalWpanel++;
           }
-          if (!$this->callutil->validanull($value->FECHA_EMBARQUE) && !$this->callutil->validanull($value->PACKINGLIST)) {
-
-            $countDespachos++;
-          }
+        
           
 
          }
@@ -592,6 +589,7 @@ class BuckSheet extends MY_Controller
                               'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
                               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA_REAL']),
                               'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
+                              'FECHA_EMBARQUE_REAL' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE_REAL']),
                               'PACKINGLIST' => $row['PACKINGLIST'],
                               'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
                               'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
@@ -599,7 +597,6 @@ class BuckSheet extends MY_Controller
                               'DIAS_VIAJE' => $row['DIAS_VIAJE'],
                               'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
                               'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
-                              'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
                               'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
                               'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
                               'OBSERVACION' => $row['OBSERVACION']
@@ -816,17 +813,17 @@ class BuckSheet extends MY_Controller
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($value->FECHA_SALIDA_FABRICA_REAL),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
-              'PACKINGLIST' => $value->PACKINGLIST,
-              'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
-              'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
-              'ORIGEN' => $value->ORIGEN,
-              'DIAS_VIAJE' => $value->DIAS_VIAJE,
-              'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
-              'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
-              'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-              'OBSERVACION' => $value->OBSERVACION
+              'FECHA_EMBARQUE_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL)),
+              'PACKINGLIST' => $this->callutil->cambianull($value->PACKINGLIST),
+              'GUIA_DESPACHO' => $this->callutil->cambianull($value->GUIA_DESPACHO),
+              'NUMERO_DE_VIAJE' => $this->callutil->cambianull($value->NUMERO_DE_VIAJE),
+              'ORIGEN' => $this->callutil->cambianull($value->ORIGEN),
+              'DIAS_VIAJE' => $this->callutil->cambianull($value->DIAS_VIAJE),
+              'UNIDADES_RECIBIDAS' => $this->callutil->cambianull($value->UNIDADES_RECIBIDAS),
+              'REPORTE_DE_RECEPCION_RR' => $this->callutil->cambianull($value->REPORTE_DE_RECEPCION_RR),
+              'REPORTE_DE_EXCEPCION_EXB' => $this->callutil->cambianull($value->REPORTE_DE_EXCEPCION_EXB),
+              'INSPECCION_DE_INGENIERIA' => $this->callutil->cambianull($value->INSPECCION_DE_INGENIERIA),
+              'OBSERVACION' =>$this->callutil->cambianull( $value->OBSERVACION)
               
 
 
@@ -901,7 +898,6 @@ class BuckSheet extends MY_Controller
         'NUMERO_OC' => $value->NUMERO_OC,
         'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
         'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-        'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
         'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
         'PACKINGLIST' => $value->PACKINGLIST,
         'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
@@ -1003,6 +999,7 @@ class BuckSheet extends MY_Controller
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'FECHA_EMBARQUE_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL)),
               'PACKINGLIST' => $value->PACKINGLIST,
               'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
@@ -1010,7 +1007,6 @@ class BuckSheet extends MY_Controller
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
               'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
               'OBSERVACION' => $value->OBSERVACION,
@@ -1127,6 +1123,7 @@ class BuckSheet extends MY_Controller
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'FECHA_EMBARQUE_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL)),
               'PACKINGLIST' => $value->PACKINGLIST,
               'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
@@ -1134,7 +1131,6 @@ class BuckSheet extends MY_Controller
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
               'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
               'OBSERVACION' => $value->OBSERVACION
@@ -1215,6 +1211,7 @@ class BuckSheet extends MY_Controller
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+              'FECHA_EMBARQUE_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL)),
               'PACKINGLIST' => $value->PACKINGLIST,
               'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
@@ -1222,7 +1219,6 @@ class BuckSheet extends MY_Controller
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-              'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
               'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
               'OBSERVACION' => $value->OBSERVACION
@@ -1349,6 +1345,7 @@ class BuckSheet extends MY_Controller
       'FECHA_SALIDA_FABRICA' =>  $this->callutil->formatoFecha($this->input->post('FECHA_SALIDA_FABRICA')),
       'FECHA_SALIDA_FABRICA_REAL' =>  $this->callutil->formatoFecha($this->input->post('FECHA_SALIDA_FABRICA_REAL')),
       'FECHA_EMBARQUE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_EMBARQUE')),
+      'FECHA_EMBARQUE_REAL' =>  $this->callutil->formatoFecha($this->input->post('FECHA_EMBARQUE_REAL')),
       'PACKINGLIST' => $this->input->post('PACKINGLIST'),
       'GUIA_DESPACHO' => $this->input->post('GUIA_DESPACHO'),
       'NUMERO_DE_VIAJE' => $this->input->post('NUMERO_DE_VIAJE'),
@@ -1356,7 +1353,6 @@ class BuckSheet extends MY_Controller
       'DIAS_VIAJE' => $this->input->post('DIAS_VIAJE'),
       'UNIDADES_RECIBIDAS' => $this->input->post('UNIDADES_RECIBIDAS'),
       'REPORTE_DE_RECEPCION_RR' => $this->input->post('REPORTE_DE_RECEPCION_RR'),
-      'REPORTE_DE_ENTREGA_RE' => $this->input->post('REPORTE_DE_ENTREGA_RE'),
       'REPORTE_DE_EXCEPCION_EXB' => $this->input->post('REPORTE_DE_EXCEPCION_EXB'),
       'INSPECCION_DE_INGENIERIA' => $this->input->post('INSPECCION_DE_INGENIERIA'),
       'OBSERVACION' => $this->input->post('OBSERVACION'),
@@ -1507,6 +1503,7 @@ class BuckSheet extends MY_Controller
       "FECHA_SALIDA_FABRICA",
       "FECHA_SALIDA_FABRICA_REAL",
       "FECHA_EMBARQUE",
+      "FECHA_EMBARQUE_REAL",
       "PACKINGLIST",
       "GUIA_DESPACHO",
       "NUMERO_DE_VIAJE",
@@ -1514,7 +1511,6 @@ class BuckSheet extends MY_Controller
       "DIAS_VIAJE",
       "UNIDADES_RECIBIDAS",
       "REPORTE_DE_RECEPCION_RR",
-      "REPORTE_DE_ENTREGA_RE",
       "REPORTE_DE_EXCEPCION_EXB",
       "INSPECCION_DE_INGENIERIA",
       "OBSERVACION"
@@ -1572,6 +1568,7 @@ class BuckSheet extends MY_Controller
             'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
             'FECHA_SALIDA_FABRICA_REAL' =>  $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL),
             'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
+            'FECHA_EMBARQUE_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL),
             'PACKINGLIST' => $value->PACKINGLIST,
             'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
             'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
@@ -1579,7 +1576,6 @@ class BuckSheet extends MY_Controller
             'DIAS_VIAJE' => $value->DIAS_VIAJE,
             'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
             'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-            'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
             'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
             'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
             'OBSERVACION' => $value->OBSERVACION
@@ -1659,6 +1655,7 @@ class BuckSheet extends MY_Controller
       'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
       'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA_REAL']),
       'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
+      'FECHA_EMBARQUE_REAL' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE_REAL']),
       'PACKINGLIST' => $row['PACKINGLIST'],
       'GUIA_DESPACHO' => $row['GUIA_DESPACHO'],
       'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
@@ -1666,7 +1663,6 @@ class BuckSheet extends MY_Controller
       'DIAS_VIAJE' => $row['DIAS_VIAJE'],
       'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
       'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
-      'REPORTE_DE_ENTREGA_RE' => $row['REPORTE_DE_ENTREGA_RE'],
       'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
       'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
       'OBSERVACION' => $row['OBSERVACION']
@@ -1737,6 +1733,7 @@ class BuckSheet extends MY_Controller
       "FECHA_SALIDA_FABRICA",
       "FECHA_SALIDA_FABRICA_REAL",
       "FECHA_EMBARQUE",
+      "FECHA_EMBARQUE_REAL",
       "PACKINGLIST",
       "GUIA_DESPACHO",
       "NUMERO_DE_VIAJE",
@@ -1744,7 +1741,6 @@ class BuckSheet extends MY_Controller
       "DIAS_VIAJE",
       "UNIDADES_RECIBIDAS",
       "REPORTE_DE_RECEPCION_RR",
-      "REPORTE_DE_ENTREGA_RE",
       "REPORTE_DE_EXCEPCION_EXB",
       "INSPECCION_DE_INGENIERIA",
       "OBSERVACION"
@@ -1794,6 +1790,7 @@ class BuckSheet extends MY_Controller
             'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
             'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL),
             'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
+            'FECHA_EMBARQUE_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL),
             'PACKINGLIST' => $value->PACKINGLIST,
             'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
             'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
@@ -1801,7 +1798,6 @@ class BuckSheet extends MY_Controller
             'DIAS_VIAJE' => $value->DIAS_VIAJE,
             'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
             'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-            'REPORTE_DE_ENTREGA_RE' => $value->REPORTE_DE_ENTREGA_RE,
             'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
             'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
             'OBSERVACION' => $value->OBSERVACION

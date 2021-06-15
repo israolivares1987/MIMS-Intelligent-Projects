@@ -1039,7 +1039,6 @@ public function crearRRDet($NumRR){
                                 'FECHA_PINTURA_REAL' => $value->FECHA_PINTURA_REAL,
                                 'FECHA_LISTO_INSPECCION' => $value->FECHA_LISTO_INSPECCION,
                                 'FECHA_LISTO_INSPECCION_REAL' => $value->FECHA_LISTO_INSPECCION_REAL,
-                                
                                 'FECHA_SALIDA_FABRICA' => $value->FECHA_SALIDA_FABRICA,
                                 'FECHA_SALIDA_FABRICA_REAL' => $value->FECHA_SALIDA_FABRICA_REAL
                               );   
@@ -1047,6 +1046,22 @@ public function crearRRDet($NumRR){
 
                                // Insert member data
                               $insert = $this->callexternosbucksheet->insert($datos_bucksheet);
+
+                            
+                              $memData = array(
+                                'COD_EMPRESA' => $cod_empresa,
+                                'ID_OC' => $id_orden_compra,
+                                'NUMERO_DE_LINEA' => $numero_linea_wpanel,
+                                'UNIDADES_SOLICITADAS' => ($value->UNIDADES_SOLICITADAS - $diferencia )
+                              );   
+
+                              var_dump($memData);
+
+
+                              $update = $this->callexternosbucksheet->update($memData, $cod_empresa, $id_orden_compra, $numero_linea_wpanel);
+
+
+                              var_dump($update);
 
                             
                       if ($insert) {

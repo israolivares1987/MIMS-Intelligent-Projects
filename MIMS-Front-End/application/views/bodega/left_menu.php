@@ -62,14 +62,14 @@
                    
                     <li class="nav-item">
                       <a href="<?php echo site_url('Bodega/crearRR');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon text-sm"></i>
                         <p>Crear Reporte de Recepción (RR)</p>
                       </a>
                     </li>
                     
                     <li class="nav-item">
                     <a href="<?php echo site_url('Bodega/crearRE');?>" class="nav-link">
-                        <i class="far fa-circle nav-icon"></i>
+                        <i class="far fa-circle nav-icon" ></i>
                         <p>Crear Reserva de Material (RM)</p>
                       </a>
                     </li>

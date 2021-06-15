@@ -356,7 +356,7 @@ public function cambianull($var){
   $valor = '';
 
 
-	if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null' || $var === '0000-00-00 00:00:00' || $var ==='30-11--0001' || $var ==='01-01-1970'){
+	if(strlen($var) == 0  || is_null($var) || empty($var) || $var === 'null' || $var === 'NULL' || $var === '0000-00-00 00:00:00' || $var ==='30-11--0001' || $var ==='01-01-1970'){
 
 		$valor = '';
 
