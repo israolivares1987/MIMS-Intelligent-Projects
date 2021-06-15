@@ -89,6 +89,7 @@ class BuckSheet_model extends CI_Model{
                             t1.FECHA_SALIDA_FABRICA,
                            t1.FECHA_SALIDA_FABRICA_REAL,
                             t1.FECHA_EMBARQUE,
+                            t1.FECHA_EMBARQUE_REAL,
                             t1.PACKINGLIST,
                             t1.GUIA_DESPACHO,
                             t1.NUMERO_DE_VIAJE,
@@ -96,7 +97,6 @@ class BuckSheet_model extends CI_Model{
                             t1.DIAS_VIAJE,
                             t1.UNIDADES_RECIBIDAS,
                             t1.REPORTE_DE_RECEPCION_RR,
-                            t1.REPORTE_DE_ENTREGA_RE,
                             t1.REPORTE_DE_EXCEPCION_EXB,
                             t1.INSPECCION_DE_INGENIERIA,
                             t1.OBSERVACION"); 
@@ -144,10 +144,10 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
         t1.FECHA_LISTO_INSPECCION_REAL,
-       
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -155,7 +155,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 
@@ -164,6 +163,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.GUIA_DESPACHO' , $this->_Guia);
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.GUIA_DESPACHO) = 0 OR t1.GUIA_DESPACHO is NOT NULL)');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
      
@@ -204,10 +204,10 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
         t1.FECHA_LISTO_INSPECCION_REAL,
-       
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -215,7 +215,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION,
@@ -231,6 +230,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.id_oc = t3.PurchaseOrderID');
      $this->db->where('t3.idCliente = t2.idCliente');     
      $this->db->where('t1.COD_EMPRESA = t2.codEmpresa');
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
      
 
@@ -271,10 +271,10 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
         t1.FECHA_LISTO_INSPECCION_REAL,
-       
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -282,7 +282,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 
@@ -292,6 +291,7 @@ class BuckSheet_model extends CI_Model{
      $this->db->where('t1.TIPO_DE_LINEA','ACTIVABLE');
      $this->db->where('t1.PACKINGLIST' , $this->_PackingList);
      $this->db->where('(length(t1.GUIA_DESPACHO) > 0)');
+     $this->db->where('ESTADO_DE_LINEA','5');
      $this->db->where('(length(t1.REPORTE_DE_RECEPCION_RR) = 0 OR t1.REPORTE_DE_RECEPCION_RR IS NULL)');
 	
      
@@ -320,7 +320,6 @@ class BuckSheet_model extends CI_Model{
         t1.NUMERO_OC,
         t1.ID_OC,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         (SELECT t3.fecha_creacion 
          FROM  tbl_rr_detalle t2 , tbl_rr_cabecera t3  
@@ -376,6 +375,7 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -383,7 +383,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 
@@ -479,6 +478,7 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -486,7 +486,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 
@@ -669,11 +668,11 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA,
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
-        t1.FECHA_LISTO_INSPECCION_REAL,
-       
+        t1.FECHA_LISTO_INSPECCION_REAL,    
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
+        t1.FECHA_EMBARQUE_REAL,
         t1.PACKINGLIST,
         t1.GUIA_DESPACHO,
         t1.NUMERO_DE_VIAJE,
@@ -681,7 +680,6 @@ class BuckSheet_model extends CI_Model{
         t1.DIAS_VIAJE,
         t1.UNIDADES_RECIBIDAS,
         t1.REPORTE_DE_RECEPCION_RR,
-        t1.REPORTE_DE_ENTREGA_RE,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION"); 

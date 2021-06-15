@@ -254,7 +254,7 @@
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDADES SOLICITADAS</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD UNITARIA</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD TOTAL</th>
-                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD DE MEDIDA</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
@@ -271,6 +271,7 @@
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
+<th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
@@ -280,7 +281,7 @@
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
-                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE ENTREGA (RE)</th>
+                                        
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
                                         <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
@@ -547,6 +548,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.GUIA_DESPACHO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
@@ -554,7 +556,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
+                       
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';

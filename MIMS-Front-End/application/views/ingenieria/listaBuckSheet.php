@@ -266,7 +266,7 @@
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDADES SOLICITADAS</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD UNITARIA</th>
                                         <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">CANTIDAD TOTAL</th>
-                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD</th>
+                                        <th style="text-align:left; background-color:#2E002E; color:#FFFFFF">UNIDAD DE MEDIDA</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
@@ -283,6 +283,7 @@
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
+<th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
@@ -292,7 +293,7 @@
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
-                                        <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE ENTREGA (RE)</th>
+                                        
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
                                         <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
@@ -627,6 +628,8 @@
                                                
                                                         <div class="col-md-6">
                                                            <div class="form-group"><label for="FECHA EMBARQUE">FECHA EMBARQUE</label><input type="text" id="FECHA_EMBARQUE" class="form-control fechapicker" name="FECHA_EMBARQUE"></div>
+                                                           <div class="form-group"><label for="FECHA EMBARQUE REAL">FECHA EMBARQUE REAL</label><input type="text" id="FECHA_EMBARQUE_REAL" class="form-control fechapicker" name="FECHA_EMBARQUE_REAL"></div>
+                                                          
                                                            <div class="form-group"><label for="PACKINGLIST">PACKINGLIST</label><input type="text" id="PACKINGLIST" class="form-control" name="PACKINGLIST"></div>
                                                            <div class="form-group"><label for="GUIA DESPACHO">GUIA DESPACHO</label><input type="text" id="GUIA_DESPACHO" class="form-control" name="GUIA_DESPACHO"></div>
                                                         </div>
@@ -968,6 +971,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_SALIDA_FABRICA_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_EMBARQUE_REAL+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.GUIA_DESPACHO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
@@ -975,7 +979,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_ENTREGA_RE+ '</td>';
+                       
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
@@ -1241,6 +1245,7 @@ console.log(parseInt(result.countAdverActivacion));
                 $('#FECHA_SALIDA_FABRICA').val(bucksheets.FECHA_SALIDA_FABRICA);
                 $('#FECHA_SALIDA_FABRICA_REAL').val(bucksheets.FECHA_SALIDA_FABRICA_REAL);
                 $('#FECHA_EMBARQUE').val(bucksheets.FECHA_EMBARQUE);
+                $('#FECHA_EMBARQUE').val(bucksheets.FECHA_EMBARQUE_REAL);
                 $('#PACKINGLIST').val(bucksheets.PACKINGLIST);
                 $('#GUIA_DESPACHO').val(bucksheets.GUIA_DESPACHO);
                 $('#NUMERO_DE_VIAJE').val(bucksheets.NUMERO_DE_VIAJE);

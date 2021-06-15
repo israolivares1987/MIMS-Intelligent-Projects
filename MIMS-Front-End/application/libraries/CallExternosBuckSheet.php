@@ -377,9 +377,6 @@ class CallExternosBuckSheet {
         $api_url = $base_url_servicios."BuckSheet/update";
 
         $form_data = $memData;
-
-
-        $form_data = $memData;
   
         $client = curl_init($api_url);
   
