@@ -647,7 +647,7 @@ function ActualizaCabRE(){
     
                   if($rrdet){
             
-                    $error_msg = 'RE actualizada correctamente.';
+                    $error_msg = 'Información de Reserva Actualizada Correctamente';
                     $resp =  true;
             
             
@@ -871,7 +871,7 @@ function ActualizaCabRE(){
   
                       if($rrdet){
                 
-                        $error_msg = 'Detalle RE actualizada correctamente.';
+                        $error_msg = 'Detalle Información de Reserva Actualizada Correctamente';
                         $resp =  true;
                 
                 
@@ -1732,7 +1732,7 @@ function finalizarRE(){
     if($cabrr){
 
       $data['resp']        = true;
-      $data['mensaje']     = 'RE Finalizada correctamente';
+      $data['mensaje']     = 'Reporte de Entrega Finalizado';
   
 
 

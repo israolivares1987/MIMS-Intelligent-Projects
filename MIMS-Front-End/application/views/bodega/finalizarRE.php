@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>CERRAR REPORTE DE ENTREGAS<h1>
+                     <h1>Confirmar Reserva<h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -67,7 +67,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                           REPORTE DE RECEPCIÓN
+                      Reservas de Material Emitidas
                       </h3>
                     </div>
                     <!-- /.card-header -->
@@ -81,7 +81,7 @@
                                                Ver Reporte Reserva RE</button>
                                                <button id="finalizarRE"
                                              class="btn btn-outline-success float-right"><i class="fas fa-times-circle"></i>
-                                               Finalizar Reserva RE</button>
+                                             Confirmar Reporte de Entrega</button>
                                     </th>
                                     </tr>
                              </tbody>
@@ -124,7 +124,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                      DETALLE REPORTE DE ENTREGAS
+                      Detalle Reserva de Material
                       </h3>
                     </div>
                     <!-- /.card-header -->

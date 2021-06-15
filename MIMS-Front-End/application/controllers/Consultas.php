@@ -93,47 +93,7 @@ class Consultas extends MY_Controller
 
             $countDespachos++;
           }
-
-
-        
-
-          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_TCF,$fecha_hoy) < 0 && $value->PA_TCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-  
-          if ( $this->callutil->diasDiffFechaswpanel($value->FECHA_COMIENZO_FABRICACION,$fecha_hoy)  < 0 && $value->PA_FCF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-      
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_TERMINO_FABRICACION,$fecha_hoy)  < 0 &&  $value->PA_FTF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-            $countAtrasados++;
-          }
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_PINTURA,$fecha_hoy) < 0  && $value->PA_FP == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_LISTO_INSPECCION,$fecha_hoy)  < 0  && $value->PA_FLI == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_GRANALLADO,$fecha_hoy)  < 0  && $value->PA_FG == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-          if ($this->callutil->diasDiffFechaswpanel($value->FECHA_SALIDA_FABRICA,$fecha_hoy)  < 0  && $value->PA_FSF == 'PROGRAMADO' && $value->TIPO_DE_LINEA == 'ACTIVABLE') {
-
-            $countAtrasados++;
-          }
-
-
+     
           
 
          }

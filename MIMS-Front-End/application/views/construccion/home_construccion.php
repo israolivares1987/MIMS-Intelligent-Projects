@@ -820,7 +820,7 @@ function recargaListaToDo(){
                         bucksheet_html += '<td>' + bucksheets.NUMERO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.STOCKCODE+ '</td>';
-                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_ELEMENTOS+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheets.UNIDADES_SOLICITADAS+ '</td>';    
                         
                         bucksheet_html += '<td>' + bucksheets.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheets.UNIDAD+ '</td>'; 

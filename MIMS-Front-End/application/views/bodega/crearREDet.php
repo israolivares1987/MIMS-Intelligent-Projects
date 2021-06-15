@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                 <h1>RESERVA REPORTE DE ENTREGA(RE)<h1>
+                 <h1>Reserva de Material (RM)<h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -21,7 +21,7 @@
                                      <div class="card-header">
                                          <h3 class="card-title">
                                              <i class="fas fa-text-width"></i>
-                                             REPORTE DE ENTREGA
+                                             Información de Reserva
                                          </h3>
                                      </div>
         
@@ -79,7 +79,7 @@
                                              <dd class="col-sm-9"> <div class="form-group"><input type="text" required id="lugar_fisico" class="form-control" value="" name="lugar_fisico"></div></dd>
                                              </form>
                                              <dt class="col-sm-8">ACCION</dt>
-                                             <dd class="col-sm-9"><button  id="btn_actualizar_re" onclick="ActualizaCabRE()" class="btn btn-success float-left"><i class="fas fa-pen-alt"></i>ACTUALIZAR DATOS RE</button></div></dd>
+                                             <dd class="col-sm-9"><button  id="btn_actualizar_re" onclick="ActualizaCabRE()" class="btn btn-success float-left"><i class="fas fa-pen-alt"></i>Actualizar Información de Reserva</button></div></dd>
                                
                                          </dl>
                                      </div>
@@ -98,7 +98,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                           DETALLE REPORTE DE ENTREGA
+                            Detalle Reserva de Material
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -112,7 +112,7 @@
                                                      </i>  ACTUALIZAR</button>
                                                      <button style="display: none;" id="btn_cerrar_re" 
                                              class="btn btn-outline-primary float-right"><i class="fas fa-times-circle"></i>
-                                               CERRAR RE</button>
+                                               Confirmar Reserva</button>
                                     </th>
                                    
                                        
@@ -154,7 +154,7 @@
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-             <h4 class="modal-title">EDITAR REPORTE DE ENTREGA(RE)</h4>
+             <h4 class="modal-title">Actualizar Datos – STOCKCODE</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -167,7 +167,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">ACTUALIZAR REPORTE DE RECEPCIÓN(RR)</h3>
+                                            <h3 class="card-title">Actualizar Reserva de Material (RM)</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i></button>

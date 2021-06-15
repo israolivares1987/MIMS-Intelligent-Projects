@@ -93,6 +93,12 @@
                              </table>
                         </div>
 
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                            Seleccione Material a Recepcionar
+                            </h3>
+                        </div>
                         <div class="card-body">
                         <form action="#" method="post" id="form">
 
@@ -553,7 +559,7 @@
                         bucksheet_html += '<td>' + bucksheet.ITEM_OC+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.STOCKCODE+ '</td>';
-                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_ELEMENTOS+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheet.UNIDADES_SOLICITADAS+ '</td>';    
                         
                         bucksheet_html += '<td>' + bucksheet.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheet.UNIDAD+ '</td>'; 

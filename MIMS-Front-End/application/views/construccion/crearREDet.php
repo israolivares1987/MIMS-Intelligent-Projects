@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                 <h1>RESERVA REPORTE DE ENTREGA(RE)<h1>
+                 <h1>Reserva de Material (RM)<h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -111,7 +111,7 @@
                                                      </i>  ACTUALIZAR</button>
                                                      <button style="display: none;" id="btn_cerrar_re" 
                                              class="btn btn-outline-primary float-right"><i class="fas fa-times-circle"></i>
-                                               CERRAR RE</button>
+                                               Confirmar Reserva</button>
                                     </th>
                                    
                                        

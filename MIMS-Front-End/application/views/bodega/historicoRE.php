@@ -67,7 +67,7 @@
                     <div class="card-header">
                       <h3 class="card-title">
                       <i class="fas fa-clipboard-list"></i>
-                           REPORTE DE ENTREGA
+                      Reportes de Entrega Emitidos
                       </h3>
                     </div>
                     <!-- /.card-header -->
@@ -316,10 +316,10 @@ $('#tbl_re tbody').on('click', 'tr', function () {
                         re_html += '<tr>';
 
                         re_html += '<td>';
-                        re_html += '<button data-toggle="tooltip" data-placement="left" title="Imprimir Reporte RE Reserva" ' +
+                        re_html += '<button data-toggle="tooltip" data-placement="left" title="Imprimir Reserva de Material" ' +
                         'onclick="abrirReporteReserva('+re.id_re+')"' + 
                         'class="btn btn-outline-sucess btn-sm"><i class="fas fa-print"></i></i></button>' +
-                        '<button data-toggle="tooltip" data-placement="left" title="Imprimir Reporte RE Final" ' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Imprimir Reporte de Entrega" ' +
                         'onclick="abrirReporteReFinal('+re.id_re+')"' + 
                         'class="btn btn-outline-sucess btn-sm"><i class="fas fa-print"></i></i></button>';
                         re_html += '</td>';

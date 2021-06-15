@@ -238,7 +238,7 @@
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.STOCKCODE+ '</td>';
-                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_ELEMENTOS+ '</td>';    
+                        bucksheet_html += '<td>' + bucksheet.UNIDADES_SOLICITADAS+ '</td>';    
                         
                         bucksheet_html += '<td>' + bucksheet.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheet.UNIDAD+ '</td>'; 
