@@ -512,7 +512,7 @@ class BuckSheet extends MY_Controller
                                 $EstadoLineaBucksheet = '4';
                               }
 
-                              if (!$this->callutil->validanull($row['FECHA_EMBARQUE']) && !$this->callutil->validanull($row['PACKINGLIST'])) {
+                              if (!$this->callutil->validanull($row['FECHA_EMBARQUE_REAL']) && !$this->callutil->validanull($row['PACKINGLIST'])) {
 
                                 $EstadoLineaBucksheet = '5';
                               }
