@@ -516,6 +516,7 @@ class BuckSheet extends MY_Controller
 
                                 $EstadoLineaBucksheet = '5';
                               }
+
                             } else {
 
                               $EstadoLineaBucksheet = '1';
@@ -550,7 +551,7 @@ class BuckSheet extends MY_Controller
                               }
                             }
 
-              
+                       
 
                             $memData = array(
                               'COD_EMPRESA' =>  $codEmpresa,
@@ -607,6 +608,8 @@ class BuckSheet extends MY_Controller
                               // Update member data
 
                               $update = $this->callexternosbucksheet->update($memData, $codEmpresa, $idOrden, $row['NUMERO_DE_LINEA']);
+
+                              var_dump($update);
 
                               if ($update) {
                                 $updateCount++;
