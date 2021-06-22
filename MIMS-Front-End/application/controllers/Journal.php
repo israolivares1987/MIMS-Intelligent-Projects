@@ -112,6 +112,7 @@ class Journal extends MY_Controller{
    $datos['DescripcionProyecto'] = $DescripcionProyecto;
    $datos['nombreCliente'] = $nombreCliente;
    $datos['PurchaseOrderDescription'] = $PurchaseOrderDescription;
+   $datos['PurchaseOrderNumber'] = $PurchaseOrderNumber;
    $datos['select_cc'] = $select_cc;   
    $datos['filtro'] = $filtro;
    $datos['nombreEmpleador'] = $this->session->userdata('nombres').' '.$this->session->userdata('paterno').' '.$this->session->userdata('materno');
