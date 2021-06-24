@@ -609,7 +609,7 @@ class BuckSheet extends MY_Controller
 
                               $update = $this->callexternosbucksheet->update($memData, $codEmpresa, $idOrden, $row['NUMERO_DE_LINEA']);
 
-                              var_dump($update);
+                           //   var_dump($update);
 
                               if ($update) {
                                 $updateCount++;
