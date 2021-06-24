@@ -258,6 +258,44 @@ class ReporteEntrega extends CI_Controller {
 
 			}	
 
+			function obtienePrimeraOrden(){
+
+				$codEmpresa = $this->input->post('codEmpresa');
+				$id_cliente = $this->input->post('id_cliente');
+				$id_proyecto = $this->input->post('id_proyecto');
+				$stockCode  = $this->input->post('stockCode');
+
+
+		
+				$CabeceraRE = $this->re->obtienePrimeraOrden($codEmpresa,$id_cliente, $id_proyecto,$stockCode);
+				
+		
+				echo json_encode($CabeceraRE);
+
+
+			}	
+
+			function obtieneDatosRROrden(){
+
+				$codEmpresa = $this->input->post('codEmpresa');
+				$id_cliente = $this->input->post('id_cliente');
+				$id_proyecto = $this->input->post('id_proyecto');
+				$id_orden = $this->input->post('id_orden');
+				$stockCode  = $this->input->post('stockCode');
+
+		
+				$CabeceraRE = $this->re->obtieneDatosRROrden($codEmpresa,$id_cliente, $id_proyecto,$id_orden,$stockCode);
+				
+		
+				echo json_encode($CabeceraRE);
+
+
+			}	
+
+
+			
+			
+
 }
 
 	

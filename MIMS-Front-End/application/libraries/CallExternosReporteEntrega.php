@@ -441,6 +441,75 @@ function obtieneRE($codEmpresa, $id_cliente, $id_proyecto){
 
 }
 
+function obtienePrimeraOrden($codEmpresa, $id_cliente, $id_proyecto, $stockCode){
+
+
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtienePrimeraOrden";
+
+  $form_data = array(
+    'codEmpresa' =>  $codEmpresa,
+    'id_cliente' =>  $id_cliente,
+    'id_proyecto' => $id_proyecto,
+    'stockCode' => $stockCode
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+function obtieneDatosRROrden($codEmpresa,$id_cliente, $id_proyecto,$id_orden,$stockCode){
+
+
+
+  $base_url_servicios = $this->obtienebaseservicios();                
+  $api_url = $base_url_servicios."ReporteEntrega/obtieneDatosRROrden";
+
+  $form_data = array(
+    'codEmpresa' =>  $codEmpresa,
+    'id_cliente' =>  $id_cliente,
+    'id_proyecto' => $id_proyecto,
+    'id_orden' => $id_orden,
+    'stockCode' => $stockCode
+);
+
+  $client = curl_init($api_url);
+
+  curl_setopt($client, CURLOPT_POST, true);
+
+  curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+
+  curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+
+  $response = curl_exec($client);
+
+  curl_close($client);
+
+
+
+  return $response;
+
+}
+
+
+
+
 
 
 }

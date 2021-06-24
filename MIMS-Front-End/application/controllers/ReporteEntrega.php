@@ -65,52 +65,22 @@ class ReporteEntrega extends MY_Controller{
       foreach ($arrRRDet as $key => $value) {
         
         $count = $count +1;
+       
+      if ($value->saldo > 0){ 
 
         $datos_rrdet[] = array(
-          'id_rr_det' => $value->id_rr_det,
-          'cod_empresa' => $value->cod_empresa,
-          'numero_linea_det' => $value->numero_linea_det,
-          'item_oc' => $value->item_oc,
-          'numero_linea_wpanel' => $value->numero_linea_wpanel,
-          'id_rr_cab' => $value->id_rr_cab,
-          'id_rr_det' => $value->id_rr_det,
-          'id_orden_compra' => $value->id_orden_compra,
-          'tag_number' => $value->tag_number,
           'stockcode' => $value->stockcode,
           'descripcion' => $value->descripcion,
-          'id_orden_cliente' => $value->id_orden_cliente,
-          'packing_list' => $value->packing_list,
-          'numero_viaje' => $value->numero_viaje,
-          'guia_despacho' => $value->guia_despacho,
           'st_cantidad' => $value->st_cantidad,
           'st_cantidad_recibida' => $value->st_cantidad_recibida,
-          'saldo' => $value->saldo,
-          'id_bodega' => $value->id_bodega,
-          'id_carpa' => $value->id_carpa,
-          'id_patio' => $value->id_patio,
-          'id_posicion' => $value->id_posicion,
-          'observacion' => $value->observacion,
-          'observacion_exb' => $this->callutil->cambianull($value->observacion_exb),
-          'inspeccion_requerida' =>$value->inspeccion_requerida
+          'saldo' => $value->saldo
         );
+      }
 
-        if ($value->estado_rr_det === '1'){
-
-          $count_estados = $count_estados + 1;
-
-        }
+       
         
         
       }
-    }
-
-    if($count_estados == $count){
-
-      $boton_activo= true;
-
-    }else{
-
-      $boton_activo= false;
     }
 
     $datos['rr_dets'] = $datos_rrdet;
@@ -270,49 +240,77 @@ class ReporteEntrega extends MY_Controller{
           foreach ($datos as $v) {
 
 
-            $rrdet = $this->callexternosreporterecepcion->obtieneRRDet($codEmpresa,$v[2],$v[1]);
-            $respuesta = false;
-        
-        
-            $arrRR = json_decode($rrdet);
-           
-            $datos_rr = array();
-        
-            if($arrRR){
 
-              
-              foreach ($arrRR as $key => $value) {
+
+            $ordenCompra = $this->callexternosreporteentrega->obtienePrimeraOrden($codEmpresa, $id_cliente, $id_proyecto,$v[1]);
+
+            $arrordenCompra = json_decode($ordenCompra);
+             
+                 if($arrordenCompra){
+       
+                   foreach ($arrordenCompra as $llave => $valor) {
+                           
+                     $ultimaorden = $valor->id_orden_compra;
+             
+                   }
+               
+                 }
+
+
+            $datosRRdet = $this->callexternosreporteentrega->obtieneDatosRROrden($codEmpresa,$id_cliente, $id_proyecto,$ultimaorden,$v[1]);
+            $arrdatosRRdet = json_decode($datosRRdet);
+             
+            if($arrdatosRRdet){
+  
+              foreach ($arrdatosRRdet as $llave => $valor) {
+                      
                 
 
-                $re_det=array(
-                  'cod_empresa' => $codEmpresa,
-                  'numero_linea_det' => $num,
-                  'id_re_cab' => $idInsertado,
-                  'id_rr_cab' => $v[1],
-                  'id_rr_det' => $v[2],
-                  'id_orden_compra' => $v[3],
-                  'item_oc' => $v[4],
-                  'tag_number' => $value->tag_number,
-                  'stockcode' =>  $value->stockcode,
-                  'descripcion' => $value->descripcion,
-                  'st_cantidad_recibida' => $v[9],
-                  'st_cantidad_entregada' => '0',
-                  'st_cantidad_saldo' => '0',
-                  'id_bodega' => $value->id_bodega,
-                  'id_patio' => $value->id_patio,
-                  'id_posicion' => $value->id_posicion,
-                  'observacion' => $value->observacion,
-                  'estado_re_det' => '1',
-                  'observacion_exb' => $value->observacion_exb,
-                  'observacion_II' => $value->inspeccion_requerida
-  
-                  );
+                $rrdet = $this->callexternosreporterecepcion->obtieneRRDet($codEmpresa,$valor->id_rr_det,$valor->id_rr_cab);
+                $respuesta = false;
+            
+            
+                $arrRR = json_decode($rrdet);
+               
+                $datos_rr = array();
+            
+                if($arrRR){
+    
+                  
+                  foreach ($arrRR as $key => $value) {
+                    
+    
+                    $re_det=array(
+                      'cod_empresa' => $codEmpresa,
+                      'numero_linea_det' => $num,
+                      'id_re_cab' => $idInsertado,
+                      'id_orden_compra' => $ultimaorden,
+                      'id_rr_cab' => $value->id_rr_cab,
+                      'id_rr_det' => $value->id_rr_det,
+                      'item_oc' => '',
+                      'tag_number' => $value->tag_number,
+                      'stockcode' =>  $value->stockcode,
+                      'descripcion' => $value->descripcion,
+                      'st_cantidad_recibida' => $v[4],
+                      'st_cantidad_entregada' => '0',
+                      'st_cantidad_saldo' => '0',
+                      'id_bodega' => $value->id_bodega,
+                      'id_patio' => $value->id_patio,
+                      'id_posicion' => $value->id_posicion,
+                      'observacion' => $value->observacion,
+                      'estado_re_det' => '1',
+                      'observacion_exb' => $value->observacion_exb,
+                      'observacion_II' => $value->inspeccion_requerida
+      
+                      );
+                  }
+                }
+
+        
               }
+          
             }
 
-
-
-              
 
                 $num++; 
            
@@ -321,6 +319,14 @@ class ReporteEntrega extends MY_Controller{
                 $respdet =  $redetins->resp;
                 $idInsertadodet = $redetins->id_insertado;
                 $respuesta= true; 
+
+          
+
+
+
+              
+
+                
 
         }
 

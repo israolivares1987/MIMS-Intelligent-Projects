@@ -118,13 +118,8 @@
                              <thead>
                                  <tr>
                                      <th></th>
-                                     <th style="display: none;"></th>
-                                     <th style="display: none;"></th>
-                                     <th style="display: none;"></th>
-                                     <th style="display: none;"></th>
                                      <th>STOCKCODE</th>
                                      <th>DESCRIPCION</th>
-                                     <th>ID ORDEN CLIENTE</th>
                                      <th>ST CANTIDAD</th>
                                      <th>ST CANTIDAD RECIBIDA</th>
                                      <th>SALDO</th>
@@ -170,13 +165,8 @@
                              <thead>
                                  <tr>
                                      <th></th>
-                                     <th>ID RR</th>
-                                     <th>ID RR DET</th>
-                                     <th>ID OC</th>
-                                     <th>ITEM OC</th>
                                      <th>STOCKCODE</th>
                                      <th>DESCRIPCION</th>
-                                     <th>ID ORDEN CLIENTE</th>
                                      <th>ST CANTIDAD</th>
                                      <th>ST CANTIDAD RECIBIDA</th>
                                      <th>SALDO</th>
@@ -371,7 +361,7 @@
                                                     
                                                 var  idrr = respuesta.idInsertado;
 
-                                                  window.open('<?php echo site_url('ReporteEntrega/crearREDet/')?>' + idrr,'_blank');
+                                                  window.open('<?php echo site_url('ReporteEntrega/crearREDet/')?>' + idrr,'_self');
 
                                                 }else{
 
@@ -421,7 +411,7 @@
                 tabla_rr_det.destroy();
 
                 $.ajax({
-                    url: '<?php echo base_url('index.php/ReporteEntrega/listaRRDetForRE'); ?>',
+                    url: '<?php echo base_url('index.php/ReporteEntrega/listaRRDetForREFinal'); ?>',
                     type: 'POST',
                     dataType: 'json',
                     data: {
@@ -439,13 +429,8 @@
                     $.each(result.rr_dets, function(key, rr_det) {
                         rr_det_html += '<tr>';
                         rr_det_html += '<td></td>';
-                        rr_det_html += '<td style="display: none;">' + rr_det.id_rr_cab + '</td>';
-                        rr_det_html += '<td style="display: none;">' + rr_det.id_rr_det + '</td>';
-                        rr_det_html += '<td style="display: none;">' + rr_det.id_orden_compra + '</td>';
-                        rr_det_html += '<td style="display: none;">' + rr_det.item_oc + '</td>';
                         rr_det_html += '<td>' + rr_det.stockcode + '</td>';
                         rr_det_html += '<td>' + rr_det.descripcion + '</td>';
-                        rr_det_html += '<td>' + rr_det.id_orden_cliente + '</td>';
                         rr_det_html += '<td>' + rr_det.st_cantidad + '</td>';
                         rr_det_html += '<td>' + rr_det.st_cantidad_recibida + '</td>';
                         rr_det_html += '<td>' + rr_det.saldo + '</td>';
