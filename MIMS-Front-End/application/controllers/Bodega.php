@@ -221,7 +221,7 @@ $datos['listaTodo'] = $listaTodo ;
         
         foreach ($arrOrdenes as $key => $value) {
 
-          $htmlordenes .= '<option data-name="'.trim($value->PurchaseOrderNumber).'" value="'.$value->PurchaseOrderID.'">'.$value->PurchaseOrderNumber.'</option>';
+          $htmlordenes .= '<option data-name="'.trim($value->PurchaseOrderNumber).'" value="'.$value->PurchaseOrderID.'">'.$value->PurchaseOrderNumber.' '.$value->PurchaseOrderDescription.'</option>';
         
         }
 

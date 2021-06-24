@@ -469,5 +469,77 @@ class ReporteEntrega_model extends CI_Model{
 	}
 
 
+	function obtienePrimeraOrden($codEmpresa,$id_cliente, $id_proyecto,$stockCode)
+	{
+
+	 $query = $this->db->query("SELECT a.id_orden_compra as id_orden_compra,
+	 								   b.id_orden_cliente as id_orden_cliente, 
+										min(c.OrderDate)
+								from tbl_rr_detalle a , tbl_rr_cabecera b, tbl_ordenes c
+								where a.cod_empresa = ".$codEmpresa."
+								and a.estado_rr_det = 1
+								and a.cod_empresa = b.cod_empresa
+								and a.stockcode = '".$stockCode."'
+								and a.id_orden_cliente = b.id_orden_cliente
+								and a.id_orden_compra = c.PurchaseOrderID
+								and b.id_orden_compra = c.PurchaseOrderID
+								and b.estado_rr = 1
+								and b.id_cliente = ".$id_cliente."
+								and b.id_proyecto = ".$id_proyecto."
+								group by a.id_rr_cab, a.stockcode, a.descripcion");
+	  $CabeceraRE = $query->result();
+	  return $CabeceraRE;
+	}
+
+
+	function obtieneDatosRROrden($codEmpresa,$id_cliente, $id_proyecto,$id_orden, $stockCode)
+	{
+
+	 $query = $this->db->query("select  a.id_rr_det,
+								a.cod_empresa,
+								a.numero_linea_det,
+								a.numero_linea_wpanel,
+								a.id_rr_cab,
+								a.id_orden_compra,
+								a.tag_number,
+								a.stockcode,
+								a.descripcion,
+								a.id_orden_cliente,
+								a.packing_list,
+								a.guia_despacho,
+								a.numero_viaje,
+								a.st_cantidad,
+								a.st_cantidad_recibida,
+								a.id_bodega,
+								a.id_carpa,
+								a.id_patio,
+								a.id_posicion,
+								a.observacion,
+								a.observacion_exb,
+								a.inspeccion_requerida
+								from tbl_rr_detalle a , tbl_rr_cabecera b, tbl_ordenes c
+								where a.cod_empresa = ".$codEmpresa."
+								and a.estado_rr_det = 1
+								and a.cod_empresa = b.cod_empresa
+								and a.stockcode = '".$stockCode."'
+								and a.id_orden_cliente = b.id_orden_cliente
+								and a.id_orden_compra = c.PurchaseOrderID
+								and b.id_orden_compra = c.PurchaseOrderID
+								and b.estado_rr = 1
+								and a.id_orden_compra = ".$id_orden."
+								and b.id_cliente = ".$id_cliente."
+								and b.id_proyecto = ".$id_proyecto."
+								group by a.id_orden_compra,	b.id_orden_cliente");
+	  $CabeceraRE = $query->result();
+	  return $CabeceraRE;
+	}
+
+
+
+
+	
+
+	
+
 }
 ?>
