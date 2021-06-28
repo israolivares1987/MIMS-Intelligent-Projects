@@ -204,7 +204,8 @@ class BuckSheet extends MY_Controller
 
   public function save()
   {
-
+    set_time_limit ( 1200 );
+    ini_set('max_execution_time', 300);
     $data = array();
     $memData = array();
     $error_msg = "";
