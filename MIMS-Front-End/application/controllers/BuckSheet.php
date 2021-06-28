@@ -5,8 +5,6 @@ if (!defined('BASEPATH'))
 class BuckSheet extends MY_Controller
 {
 
-
-
   public function __construct()
   {
     parent::__construct();
@@ -27,6 +25,7 @@ class BuckSheet extends MY_Controller
     $this->load->helper('file');
     $this->load->helper('url');
     $this->load->library('CallUtil');
+    set_time_limit ( 1200 );
 
     if ($this->session->userdata('logged_in') !== TRUE) {
       redirect('login');
