@@ -183,7 +183,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="dossierCalidad(3)"><i class="fas fa-file-download">
+                                                     onclick="dossierCalidad(1)"><i class="fas fa-file-download">
                                                      </i> Dossier de Calidad
                                                  </button>
                                              </div>
@@ -440,7 +440,7 @@ console.log(parseInt(result.countAdverActivacion));
 
 if(parseInt(result.countAdverActivacion) > 0){
 
-activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="cambiosenorden(1)">' +result.countAdverActivacion+'</button>';
+activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="dossierCalidad(1)">' +result.countAdverActivacion+'</button>';
 
 }else{
 
@@ -451,7 +451,7 @@ activacion_html = result.countAdverActivacion;
 console.log(parseInt(result.countAdverCalidad));
 if(parseInt(result.countAdverCalidad) > 0){
 
-calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdvercountAdverCalidadCalidad+'</button>';
+calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
 
 }else{
 

@@ -107,6 +107,67 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                               ADVERTENCIAS DE CALIDAD
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                         <table id="tbl_ccalidadadv" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                                 <tr>
+                                     <th style="display: none;" ></th>
+                                     <th style="display: none;" ></th>
+                                     <th>Usuario</th>
+                                     <th>Fecha Ingreso</th>
+                                     <th>Numero Referencial</th>
+                                     <th>Tipo Interaccion</th>
+                                     <th>Solicitado por</th>
+                                     <th>Aprobado por</th>
+                                     <th>Comentarios Generales</th>
+                                     <th>Respaldos</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_ccalidadadv">
+                             </tbody>
+                         </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
+
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                               LEVANTAMIENTOS DE CALIDAD
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                         <table id="tbl_ccalidadlev" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                                 <tr>
+                                     <th>Usuario</th>
+                                     <th>Fecha Ingreso</th>
+                                     <th>Numero Referencial</th>
+                                     <th>Tipo Interaccion</th>
+                                     <th>Solicitado por</th>
+                                     <th>Aprobado por</th>
+                                     <th>Comentarios Generales</th>
+                                     <th>Respaldos</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_ccalidadlev">
+                             </tbody>
+                         </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
                  </div>
 
 
@@ -127,6 +188,10 @@
                 <form action="#" id="miForm" class="form-horizontal">
 
                 <input type="hidden" id="tipo" name="tipo" value="1">
+                <input type="hidden" id="id_interaccion" name="id_interaccion" value="">
+                <input type="hidden" id="id_interaccion_ref" name="id_interaccion_ref" value="">
+                
+                
                 <input type="hidden" id="id_orden_compra" name="id_orden_compra" value="<?php echo $idOrden?>">  
                 <input type="hidden" id="id_cliente" name="id_cliente" value="<?php echo $idCliente?>">
                 <input type="hidden" id="id_proyecto" name="id_proyecto" value="<?php echo $codProyecto?>">
@@ -150,12 +215,15 @@
                                                         <div class="col-md-12">
                                                            
                                                         <div class="form-group"><label for="NOMBRE EMPELADO">NOMBRE EMPELADO</label><input name="nombre_empleado" placeholder="" class="form-control" type="text" value="<?php echo $nombreEmpleador;?>" readonly></div>
-                                                            <div class="form-group"><label for="TIPO INTERACCION<">TIPO INTERACCION</label> <select name="tipo_interaccion" id="var_tipo_interaccion" class="form-control"  style="width: 100%;"  tabindex="-1"  aria-hidden="true"> <?php echo $select_cc;?></select></div>
-                                                            <div class="form-group"><label for="NUMERO REFERENCIAL"> NÚMERO REFERENCIAL</label>  <input name="numero_referencial" placeholder="" class="form-control" type="text" id="var_numero_referencial"></div>
-                                                            <div class="form-group"><label for="SOLICITADOR POR">SOLICITADOR POR</label><input name="solicitado_por" placeholder="" class="form-control" type="text" id="var_solicitado_por"></div>
-                                                            <div class="form-group"><label for="APROBADO POR">APROBADO POR</label><input name="aprobado_por" placeholder="" class="form-control" type="text" id="var_aprobado_por"></div>
-                                                            <div class="form-group"><label for="COMENTARIOS GENERALES">COMENTARIOS GENERALES</label><textarea id="var_comentarios_generales" name="comentarios_generales" class="form-control" rows="10" placeholder="Ingresar ..."></textarea></div>
-                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  onChange="ver_archivo();" class="form-control" id="var_respaldos" name="respaldos"></div>
+                                                            <div class="form-group"><label for="TIPO INTERACCION">TIPO INTERACCION</label> <select name="tipo_interaccion" id="tipo_interaccion" class="form-control"  style="width: 100%;"  tabindex="-1"  aria-hidden="true"> <?php echo $select_cc;?></select></div>
+                                                            
+                                                            <div class="form-group" style="display: none;" id="interaction_ref"><label for="TIPO INTERACCION PARA LEVANTAR">Interaccion para Levantar</label><div style="width: 100%;"  tabindex="-1"  aria-hidden="true" id="select_interaction_ref"></div></div>
+                                                           
+                                                            <div class="form-group"><label for="NUMERO REFERENCIAL"> NÚMERO REFERENCIAL</label>  <input name="numero_referencial" placeholder="" class="form-control" type="text" id="numero_referencial"></div>
+                                                            <div class="form-group"><label for="SOLICITADOR POR">SOLICITADOR POR</label><input name="solicitado_por" placeholder="" class="form-control" type="text" id="solicitado_por"></div>
+                                                            <div class="form-group"><label for="APROBADO POR">APROBADO POR</label><input name="aprobado_por" placeholder="" class="form-control" type="text" id="aprobado_por"></div>
+                                                            <div class="form-group"><label for="COMENTARIOS GENERALES">COMENTARIOS GENERALES</label><textarea id="comentarios_generales" name="comentarios_generales" class="form-control" rows="10" placeholder="Ingresar ..."></textarea></div>
+                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  onChange="ver_archivo();" class="form-control" id="respaldos" name="respaldos"></div>
                                                             <div class="form-group"><label for="NOTIFICAR">NOTIFICAR</label> <select name="notificacion" id="select_interaccion" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" onchange="MostrarEmail(this);"><option value="" selected></option> <option value="S">SI</option> <option value="N">NO</option></select></div>
 
                                                         </div>
@@ -314,6 +382,8 @@ var url;
 
 recargaControlCalidad(orden, cliente);
 formToggleDesactivar('interaction_ref');
+recargaControlCalidadAdv(orden, cliente);
+recargaControlCalidadLev(0, 0, 0, 0)
 
 
 //set input/textarea/select event when change value, remove class error and remove text help block 
@@ -333,7 +403,7 @@ $("select").change(function() {
 });   
 
 
-$('#var_tipo_interaccion').on('change', function(){
+$('#tipo_interaccion').on('change', function(){
 
 var tipo_interaccion = this.value;
 
@@ -361,6 +431,7 @@ var cliente = <?php echo $idCliente?> ;
 var orden = <?php echo $idOrden?>;
 
 recargaControlCalidad(orden, cliente);
+recargaControlCalidadAdv(orden, cliente);
 
 });
 
@@ -401,6 +472,8 @@ function mostrarBlock(){
                     });
                 }
 
+
+
 function recargaControlCalidad(orden, cliente) {
 
 var calidad_html = '';
@@ -427,7 +500,7 @@ $.ajax({
         calidad_html += '<tr>';
         calidad_html += '<td>';
         calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
-                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +',' +journal.id_interaccion_ref +','+ orden + ',' + cliente +')"' + 
                         'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
                         '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
                         'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
@@ -456,16 +529,13 @@ $.ajax({
         "searching": true,
         "ordering": true,
         "info": true,
-         "select": true,
-                               "autoWidth": true,
+        "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-           "select": true,
-                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],
@@ -531,13 +601,15 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                             console.log(journal.id_interaccion);
 
                             $('#id_interaccion').val(journal.id_interaccion);
+                            $('#id_interaccion_ref').val(journal.id_interaccion);
                             $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
                             $('#fecha_ingreso').val(journal.fecha_ingreso);
                             $('#numero_referencial').val(journal.numero_referencial);
                             $('#solicitado_por').val(journal.solicitado_por);
                             $('#aprobado_por').val(journal.aprobado_por);
-                            $('#var_comentarios_generales').val(journal.comentarios_generales);
-                            $('#var_tipo_interaccion').val(journal.tipo_interaccion);
+                            $('#comentarios_generales').val(journal.comentarios_generales);
+                            $('#tipo_interaccion').val(journal.tipo_interaccion);
+                            
 
                         });
 
@@ -546,6 +618,11 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                             if (element.style.display === "block") {
                                 element.style.display = "none";
                             }
+                            
+
+                            var campo = document.getElementById('tipo_interaccion');
+                            campo.readOnly = true; // Se añade el atributo
+
 
                             $('#modal_control_calidad').modal('show');
                             $('#name_respaldo').html("");
@@ -636,7 +713,6 @@ var orden = <?php echo $idOrden?>;
                        }                
                    });
    } 
- 
 
 
 
@@ -668,6 +744,7 @@ if(falso == 0 ){
 
                        $('#modal_control_calidad').modal('hide');
                        recargaControlCalidad(orden, cliente);
+                       recargaControlCalidadAdv(orden, cliente);
                        toastr.success(result.mensaje);
 
 
@@ -731,7 +808,7 @@ if (which === 'S') {
 }
 
 
-function desactiva_registro_cc(id_interaccion, orden, cliente){
+function desactiva_registro_cc(id_interaccion,id_interaccion_ref, orden, cliente){
 
 var opcion = confirm("Esta seguro que quiere borrar este registro");
 
@@ -743,6 +820,7 @@ if(opcion){
       dataType: 'json',
       data: {
         id_interaccion  : id_interaccion,
+        id_interaccion_ref  : id_interaccion_ref,
               id_orden : orden
             },
     }).done(function(result) {
@@ -800,7 +878,239 @@ $.ajax({
 
 }
 
+function recargaControlCalidadAdv(orden, cliente) {
 
+var calidad_html = '';
+
+var tabla_calidad = $('#tbl_ccalidadadv').DataTable();
+
+
+
+tabla_calidad.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/Journal/obtienejournalCalidadAdv'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        id_orden_compra: orden,
+        id_cliente: cliente,
+        filtro: 1
+    },
+}).done(function(result) {
+
+
+    $.each(result.journals, function(key, journal) {
+        calidad_html += '<tr>';
+        calidad_html += '<td style="display: none;">' + journal.id_interaccion + '</td>';
+        calidad_html += '<td style="display: none;">' + journal.id_interaccion_ref + '</td>';
+        calidad_html += '<td>' + journal.nombre_empleado + '</td>';
+        calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
+        calidad_html += '<td>' + journal.numero_referencial + '</td>';
+        calidad_html += '<td>' + journal.tipo_interaccion + '</td>';
+        calidad_html += '<td>' + journal.solicitado_por + '</td>';
+        calidad_html += '<td>' + journal.aprobado_por + '</td>';
+        calidad_html += '<td>' + journal.comentarios_generales + '</td>';
+        calidad_html += '<td>' + journal.respaldos + '</td>';
+        calidad_html += '</tr>';
+
+    });
+
+
+    $('#datos_ccalidadadv').html(calidad_html);
+
+
+    $('#tbl_ccalidadadv').DataTable({
+                         lengthMenu: [[1, 2, 3, -1], [1, 2, 3, "All"]],
+                          language: {
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                                },
+                                "paging": false,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                 "select": true,
+                               "autoWidth": true,
+                                "scrollY": "600px",
+                                "scrollX": true,
+                                "colReorder": true,
+                                "scrollCollapse": true,
+                                "responsive": false,
+                                "lengthChange": true, 
+                                "dom": 'Bfrtip',
+                                "lengthMenu": [
+                                    [ 10, 25, 50, -1 ],
+                                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                                ],
+                                "buttons": [
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
+                        }).buttons().container().appendTo('#tbl_ccalidadadv_wrapper .col-md-6:eq(0)');
+
+
+
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
+
+$('#tbl_ccalidadadv tbody').on('click', 'tr', function () {
+
+var cliente = <?php echo $idCliente?>;
+var orden = <?php echo $idOrden?>;
+var table = $('#tbl_ccalidadadv').DataTable();
+
+
+if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+
+
+
+
+
+
+var data = table.row( this ).data();
+  recargaControlCalidadLev(orden, cliente, data[0], data[1]);
+} ); 
+
+
+function recargaControlCalidadLev(orden, cliente, id_interaccion, id_interaccion_ref) {
+
+var calidad_html = '';
+
+var tabla_calidad = $('#tbl_ccalidadlev').DataTable();
+
+
+
+tabla_calidad.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/Journal/obtienejournalCalidadLev'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        id_orden_compra: orden,
+        id_cliente: cliente,
+        id_interaccion: id_interaccion,
+        id_interaccion_ref: id_interaccion_ref
+    },
+}).done(function(result) {
+
+
+    $.each(result.journals, function(key, journal) {
+        calidad_html += '<tr>';
+        calidad_html += '<td>' + journal.nombre_empleado + '</td>';
+        calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
+        calidad_html += '<td>' + journal.numero_referencial + '</td>';
+        calidad_html += '<td>' + journal.tipo_interaccion + '</td>';
+        calidad_html += '<td>' + journal.solicitado_por + '</td>';
+        calidad_html += '<td>' + journal.aprobado_por + '</td>';
+        calidad_html += '<td>' + journal.comentarios_generales + '</td>';
+        calidad_html += '<td>' + journal.respaldos + '</td>';
+        calidad_html += '</tr>';
+
+    });
+
+
+    $('#datos_ccalidadlev').html(calidad_html);
+
+    $('#tbl_ccalidadlev').DataTable({
+                         lengthMenu: [[1, 2, 3, -1], [1, 2, 3, "All"]],
+                          language: {
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                                },
+                                "paging": false,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                               "autoWidth": true,
+                                "scrollY": "600px",
+                                "scrollX": true,
+                                "colReorder": true,
+                                "scrollCollapse": true,
+                                "responsive": false,
+                                "lengthChange": true, 
+                                "dom": 'Bfrtip',
+                                "lengthMenu": [
+                                    [ 10, 25, 50, -1 ],
+                                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                                ],
+                                "buttons": [
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
+                        }).buttons().container().appendTo('#tbl_ccalidadlev_wrapper .col-md-6:eq(0)');
+
+
+
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
 
 
 
