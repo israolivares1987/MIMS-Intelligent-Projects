@@ -88,7 +88,7 @@
                     </a>
             </li>
             <li class="nav-item has-treeview">
-                    <a href="#" class="nav-link text-sm">
+                    <a href="<?php echo base_url('index.php/calidad/index_calidad');?>" class="nav-link text-sm">
                     <i class="nav-icon  fab fa-searchengin"></i>
                       <p>
                           CONTROL CALIDAD

@@ -26,20 +26,8 @@ class ControlCalidadDet extends CI_Controller {
 
 	function guardaControlCalidadDet(){
 
-		$codEmpresa  = $this->input->post('codEmpresa');  
-		$id_control_calidad  = $this->input->post('id_control_calidad');  
-		$id_proyecto  = $this->input->post('id_proyecto');  
-		$id_orden  = $this->input->post('id_orden');  
-		$id_cliente  = $this->input->post('id_cliente');  
 
-
-		$insert= array(
-			'codEmpresa' => $codEmpresa,
-			'id_control_calidad'   => $id_control_calidad,
-			'id_orden' => $id_orden,
-			'id_proyecto'       => $id_proyecto,
-			'id_cliente' => $id_cliente
-		  );
+		$insert= $this->input->post();
  
 	
 		$CalidadDet = $this->controldet->guardaControlCalidadDet($insert);

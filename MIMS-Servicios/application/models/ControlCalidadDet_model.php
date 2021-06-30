@@ -13,7 +13,8 @@ class ControlCalidadDet_model extends CI_Model{
 							a.estado_porc_cc_det as estado_porc_cc_det,
 							domain_desc as estado_cc_det,
 							a.archivo_cc_det as archivo_cc_det,
-							a.archivo_cc_original as archivo_cc_original');
+							a.archivo_cc_original as archivo_cc_original,
+							a.observacion as observacion');
 		$this->db->from('tbl_control_calidad_det a, tbl_control_calidad b , tbl_ref_codes c');				   
 		$this->db->where('a.id_orden',$id_orden);
 		$this->db->where('a.codEmpresa',$codEmpresa);

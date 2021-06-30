@@ -46,6 +46,7 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-buttons/css/buttons.dataTables.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-colreorder/css/colReorder.bootstrap4.min.css');?>">
   
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-select/css/select.bootstrap4.min.css');?>">
 
 
 
@@ -84,6 +85,8 @@
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-select/js/dataTables.select.min.js');?>"></script>
+
 
 <script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.flash.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js');?>"></script>
@@ -108,6 +111,8 @@
 <script src="<?php echo base_url('assets/plugins/fullcalendar/main.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/fullcalendar/locales/es.js');?>"></script>
 
+<!-- jQuery UI -->
+<script src="<?php echo base_url('assets/plugins/jquery-ui/jquery-ui.min.js');?>"></script>
 
 <script type="text/javascript">
 $(document).ready(function () {
@@ -133,5 +138,5 @@ setTimeout('ActualizarReloj()',1000);
 
 
 </head>
-<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm"  style="text-transform: uppercase;" onload="ActualizarReloj()">
+<body class="sidebar-mini layout-fixed layout-navbar-fixed layout-footer-fixed control-sidebar-slide-open text-sm" style="text-transform: uppercase;" onload="ActualizarReloj()">
 <div class="wrapper">

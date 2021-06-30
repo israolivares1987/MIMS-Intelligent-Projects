@@ -52,6 +52,36 @@ class CallExternosJournal {
     }  
 
 
+    function obtienejournalLev($id_orden_compra,$tipo,$id_cliente,$id_interaccion,$id_interaccion_ref){
+
+        
+        $base_url_servicios =$this->obtienebaseservicios();                
+        $api_url = $base_url_servicios."Journal/obtienejournalLev";
+  
+        $form_data = array(
+                    'id_orden_compra'		=>$id_orden_compra,
+                    'tipo'              	=>$tipo,
+                    'id_cliente'            =>$id_cliente,
+                    'id_interaccion'            =>$id_interaccion,
+                    'id_interaccion_ref'            =>$id_interaccion_ref
+        );
+  
+        $client = curl_init($api_url);
+  
+        curl_setopt($client, CURLOPT_POST, true);
+  
+        curl_setopt($client, CURLOPT_POSTFIELDS, $form_data);
+  
+        curl_setopt($client, CURLOPT_RETURNTRANSFER, true);
+  
+        $response = curl_exec($client);
+  
+        curl_close($client);
+  
+        return $response;
+  
+    }  
+
 
     function desactivaJournal($id_interaccion,$id_orden,$codEmpresa){
 
