@@ -195,7 +195,15 @@
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="controldecalidad(0)"><i class="fas fa-file-download">
-                                                     </i> Control de calidad
+                                                     </i> Gestión de Calidad
+                                                 </button>
+                                             </div>
+                                         </th>
+                                         <th>
+                                             <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="dossierCalidad(3)"><i class="fas fa-file-download">
+                                                     </i> Dossier de Calidad
                                                  </button>
                                              </div>
                                          </th>
@@ -228,7 +236,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table class="table" cellspacing="0" width="99%">
+              <table class="table table table-bordered" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -1127,6 +1135,10 @@ console.log(parseInt(result.countAdverActivacion));
 
                 window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
                 }
+                function dossierCalidad(filtro) {
+
+window.open('<?php echo site_url('ControlCalidad/dossierCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
+}
 
                 function descarga_bucksheet() {
 

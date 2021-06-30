@@ -24,6 +24,23 @@ class Journal extends CI_Controller {
 	}
 
 
+	function obtienejournalLev(){
+
+		$id_orden_compra = $this->input->post('id_orden_compra');
+		$tipo = $this->input->post('tipo');
+		$id_cliente = $this->input->post('id_cliente');
+		$id_interaccion = $this->input->post('id_interaccion');
+		$id_interaccion_ref = $this->input->post('id_interaccion_ref');
+
+
+		$journals = $this->journal->obtienejournalLev($id_orden_compra,$tipo,$id_cliente,$id_interaccion,$id_interaccion_ref);
+				//output to json format
+		echo json_encode($journals);
+
+
+	}
+
+
 	
 	
 		function agregarControlCalidad()

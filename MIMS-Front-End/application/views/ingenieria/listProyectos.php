@@ -768,8 +768,9 @@
                                                 <tbody>
                                                     <tr>
                                                         <th>
-                                                        <div class="form-group" id="cc_select">
-                                                        </th>
+                                                        <div class="form-group"><label for="cc_select">CONTROL CALIDAD</label><div id="cc_select"></div></div>
+                                                        <div class="form-group"><label for="observacion">OBSERVACION</label><input type="text" id="observacion" class="form-control" value="" name="observacion"></div>
+                                                                                                                      </th>
                                                     </tr>
                                                 </tbody>
                                             </table>
@@ -781,6 +782,7 @@
                                                       <th>Id Orden</th>
                                                       <th>Id Calidad</th>
                                                       <th>Descripcion Calidad</th>
+                                                      <th>Observación</th>
                                                     </tr>
                                                 </thead>
                                                 <tbody id="datos_control_calidad">
@@ -1752,6 +1754,8 @@ let id_control_calidad = $('#select_cc').val();
 var id_cliente = $('#id_cliente_cc').val();
 var id_proyecto = $('#id_proyecto_cc').val();
 var id_orden = $('#id_order_cc').val();
+var observacion = $('#observacion').val();
+
 
 
                     $.ajax({
@@ -1762,6 +1766,7 @@ var id_orden = $('#id_order_cc').val();
                               id_cliente : id_cliente,
                               id_proyecto : id_proyecto,
                               id_orden : id_orden,
+                              observacion : observacion,
                               cod_empresa : cod_empresa
                             },
                             dataType: "JSON",
@@ -1775,6 +1780,7 @@ var id_orden = $('#id_order_cc').val();
                                       //  $('#modal_control_calidad').modal('hide');
                                         listar_cc(id_cliente,id_proyecto,id_orden);
                                         toastr.success(result.mensaje);
+                                        $('#observacion').val("");
                                         $.unblockUI();
                                         }else{
                                           $.unblockUI();
@@ -1854,6 +1860,7 @@ if(opcion){
 
         listar_cc(id_cliente,id_proyecto,id_orden);
         toastr.success(result.mensaje);
+        $('#observacion').val("");
 
       }else{
 
@@ -2109,6 +2116,7 @@ $.ajax({
     calidad_det_html += '<td>' + id_orden+ '</td>';
     calidad_det_html += '<td>' + dato_calidad_det.id_control_calidad + '</td>';
     calidad_det_html += '<td>' + dato_calidad_det.descripcion_control_calidad + '</td>';
+    calidad_det_html += '<td>' + dato_calidad_det.observacion + '</td>';
     calidad_det_html += '</tr>';
 
   });

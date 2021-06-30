@@ -51,7 +51,8 @@ class ControlCalidadDet extends MY_Controller{
             'descripcion_control_calidad'   => $value->descripcion_control_calidad,
             'estado_cc_det'   => $value->estado_cc_det,
             'estado_porc_cc_det'   => $value->estado_porc_cc_det,
-            'archivo_cc_det'   =>  $respaldo
+            'archivo_cc_det'   =>  $respaldo,
+            'observacion'   =>   $this->callutil->cambianull($value->observacion)
           );
 
     }
@@ -84,6 +85,7 @@ class ControlCalidadDet extends MY_Controller{
     $id_proyecto  = $this->input->post('id_proyecto');  
     $id_orden  = $this->input->post('id_orden');  
     $id_cliente  = $this->input->post('id_cliente');  
+    $observacion  = $this->input->post('observacion');  
     $resp = false;
     $mensaje = "";
     $idInsertado = 0;
@@ -98,7 +100,8 @@ class ControlCalidadDet extends MY_Controller{
         'id_control_calidad'   => $id_control_calidad,
         'id_orden' => $id_orden,
         'id_proyecto'       => $id_proyecto,
-        'id_cliente' => $id_cliente
+        'id_cliente' => $id_cliente,
+        'observacion' => $observacion
       );
 
       $calidad = $this->callexternoscontrolcalidaddet->guardaControlCalidadDet($insert);
@@ -115,16 +118,17 @@ class ControlCalidadDet extends MY_Controller{
         $resp =  true;   
 
 
-        $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
-        'accion'  => 'INSERTA_CONTROL_CALIDAD',
-        'id_registro' =>  $clienteins,
-        'usuario'  =>  $this->session->userdata('n_usuario'),
-        'rol' =>   $this->session->userdata('nombre_rol'),
-        'objeto'  => 'CONTROL_CALIDAD' ,
-        'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
-
+        $insert_bitacora = array(
+          'codEmpresa' => $this->session->userdata('cod_emp'),
+          'accion'  => 'INSERTA_CONTROL_CALIDAD',
+          'id_registro' => $idInsertado,
+          'usuario'  =>  $this->session->userdata('n_usuario'),
+          'rol' =>   $this->session->userdata('nombre_rol'),
+          'objeto'  => 'CONTROL_CALIDAD',
+          'fechaCambio' =>  date_create()->format('Y-m-d')
+        );
         $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
-
+       
       }else{
 
         $error_msg = 'Inconvenientes al crear control de calidad, favor reintente.';
@@ -229,6 +233,9 @@ class ControlCalidadDet extends MY_Controller{
       
           }
 
+          
+          $observacion = $value->observacion;
+
     }
 
       $respuesta        = true;
@@ -246,6 +253,7 @@ class ControlCalidadDet extends MY_Controller{
 
     $datos['select_estadoccd'] = $select_estadoccd;
     $datos['estado_porc_cc_det'] = $range_input_ccd;
+    $datos['observacion'] = $observacion;
     $datos['resp']      = $respuesta;
     $datos['mensaje']      = $mensaje;
 
@@ -265,6 +273,7 @@ class ControlCalidadDet extends MY_Controller{
     $id_proyecto = $this->input->post('id_proyecto_cc');
     $estado_porc_cc_det = $this->input->post('estado_porc_cc_det');
     $archivo_cc_det = $this->input->post('archivo_cc_det');
+    $observacion = $this->input->post('observacion');
     $estado_cc_det = $this->input->post('estado_cc_det');
     $id_control_calidad_det = $this->input->post('id_cc_det');
     $id_control_calidad = $this->input->post('id_cc');
@@ -314,7 +323,8 @@ class ControlCalidadDet extends MY_Controller{
               'estado_cc_det' => $estado_cc_det,
               'id_control_calidad' => $id_control_calidad,
               'archivo_cc_det' => $respaldo,
-              'archivo_cc_original' => $respaldo_original
+              'archivo_cc_original' => $respaldo_original,
+              'observacion' => $observacion
               );
 
               $journal = $this->callexternoscontrolcalidaddet->actualizaControlCalidadDet($dataInsert);
@@ -366,7 +376,8 @@ class ControlCalidadDet extends MY_Controller{
           'estado_porc_cc_det' => $estado_porc_cc_det,
           'id_control_calidad_det' => $id_control_calidad_det,
           'estado_cc_det' => $estado_cc_det,
-          'id_control_calidad' => $id_control_calidad
+          'id_control_calidad' => $id_control_calidad,
+          'observacion' => $observacion
           );
 
           $journal = $this->callexternoscontrolcalidaddet->actualizaControlCalidadDet($dataInsert);

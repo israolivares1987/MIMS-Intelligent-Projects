@@ -40,6 +40,47 @@ return $this->db->get()->result();
 
   
     }
+
+
+	function obtienejournalLev($id_orden_compra,$tipo,$id_cliente,$id_interaccion,$id_interaccion_ref){  
+
+		$this->db->select('t1.id_interaccion,
+		t1.nombre_empleado	AS nombre_empleado,
+		t1.fecha_ingreso,
+		t1.numero_referencial,
+		t1.solicitado_por,
+		t1.aprobado_por,
+		t1.comentarios_generales,
+		t1.respaldos,
+		t1.respaldos_original,
+		t2.domain_desc AS tipo_interaccion,
+		t1.tipo_interaccion as cod_tipo_interaccion,
+		t1.id_interaccion_ref as id_interaccion_ref');
+	$this->db->from('tbl_journal t1, tbl_ref_codes t2');				   
+	$this->db->where('tipo',$tipo);
+	$this->db->where('estado',1);
+	$this->db->where('id_interaccion_ref',$id_interaccion);
+	$this->db->where('estado',1);
+	$this->db->where('t1.tipo_interaccion = t2.domain_id');
+	
+		if ($tipo==1)
+		{
+		
+		$this->db->where('t2.domain = "TIPO_INTERACCION_CC"');
+		}else{
+	
+			$this->db->where('t2.domain = "TIPO_INTERACCION_CO"');
+		}
+	
+		$this->db->where('t1.id_orden_compra', $id_orden_compra);
+	
+	
+	return $this->db->get()->result();	
+		  
+	
+	
+	  
+		}
      
 
    function count_all($tipo,$id_orden_compra)
@@ -73,7 +114,7 @@ return $this->db->get()->result();
 
 	function desactivaJournal($id_interaccion, $id_orden,$cod_empresa)
 	{
-		$query=$this->db->query("update $this->table SET estado=0  where id_interaccion=".$id_interaccion." and id_orden_compra=".$id_orden);
+		$query=$this->db->query("update $this->table SET estado=0, id_interaccion_ref = 0  where id_interaccion=".$id_interaccion." and id_orden_compra=".$id_orden);
 
 
 		return $query;

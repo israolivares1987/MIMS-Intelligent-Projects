@@ -133,7 +133,7 @@ class OrdenesItem extends CI_Controller{
                         
                         foreach ($arrnumerolinea as $key => $value) {
                           
-                          $numerolinea = $value->NUMERO_DE_LINEA;
+                          $numerolinea = $value->NumeroLinea;
               
                         }
 

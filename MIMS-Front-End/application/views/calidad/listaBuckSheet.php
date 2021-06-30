@@ -21,7 +21,7 @@
         
            <div class="row">
                  <div class="col-sm-3">
-                                 <div class="card">
+                 <div class="card">
                                      <div class="card-header">
                                          <h3 class="card-title">
                                              <i class="fas fa-text-width"></i>
@@ -176,7 +176,15 @@
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
                                                      onclick="controldecalidad(0)"><i class="fas fa-file-download">
-                                                     </i> Control de calidad
+                                                     </i> Gestión de Calidad
+                                                 </button>
+                                             </div>
+                                         </th>
+                                         <th>
+                                             <div class="col-12">
+                                                 <button class="btn btn-block btn-outline-success btn-sm"
+                                                     onclick="dossierCalidad(3)"><i class="fas fa-file-download">
+                                                     </i> Dossier de Calidad
                                                  </button>
                                              </div>
                                          </th>
@@ -201,7 +209,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table class="table" cellspacing="0" width="99%">
+              <table class="table table table-bordered" cellspacing="0" width="99%">
                              <tbody>
                                  <tr>
                                      <th>
@@ -248,7 +256,7 @@
                                         <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION REAL</th>
-                                        <th style="text-align:left; background-color:#FFCC00">ACTA LIBERACION CALIDAD</th>
+
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
 <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
@@ -430,19 +438,26 @@ $.ajax({
 console.log(parseInt(result.countAdverActivacion));
 
 
-    activacion_html = result.countAdverActivacion;
+if(parseInt(result.countAdverActivacion) > 0){
 
+activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="cambiosenorden(1)">' +result.countAdverActivacion+'</button>';
 
-    console.log(parseInt(result.countAdverCalidad));
-    if(parseInt(result.countAdverCalidad) > 0){
+}else{
 
-        calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
+activacion_html = result.countAdverActivacion;
 
-    }else{
+}
 
-        calidad_html = result.countAdverCalidad;
+console.log(parseInt(result.countAdverCalidad));
+if(parseInt(result.countAdverCalidad) > 0){
 
-    }
+calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdvercountAdverCalidadCalidad+'</button>';
+
+}else{
+
+calidad_html = result.countAdverCalidad;
+
+}
 
 
 
@@ -599,6 +614,11 @@ console.log(parseInt(result.countAdverActivacion));
                 function controldecalidad(filtro) {
 
                 window.open('<?php echo site_url('Journal/controlCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
+                }
+
+                function dossierCalidad(filtro) {
+
+                window.open('<?php echo site_url('ControlCalidad/dossierCalidad/'.$idCliente.'/'.$PurchaseOrderID.'/'.$codProyecto.'/')?>' + filtro, '_blank');
                 }
 
              </script>

@@ -120,19 +120,19 @@ class Journal extends MY_Controller{
 
    if ($this->session->userdata('rol_id')==='202'){
 
-    $this->plantilla_activador('activador/listControlCalidad', $datos);
+    $this->plantilla_activador('activador/listBitacoraCalidad', $datos);
     
   }elseif($this->session->userdata('rol_id')==='203'){
 
-    $this->plantilla_calidad('calidad/listControlCalidad', $datos);
+    $this->plantilla_calidad('calidad/listBitacoraCalidad', $datos);
 
   }elseif($this->session->userdata('rol_id')==='204'){
 
-    $this->plantilla_ingenieria('ingenieria/listControlCalidad', $datos);
+    $this->plantilla_ingenieria('ingenieria/listBitacoraCalidad', $datos);
 
   }elseif($this->session->userdata('rol_id')==='205'){
 
-    $this->plantilla_supervisor('supervisor/listControlCalidad', $datos);
+    $this->plantilla_supervisor('supervisor/listBitacoraCalidad', $datos);
 
   }
 
@@ -331,8 +331,9 @@ class Journal extends MY_Controller{
        
           $datos_journal[] = array(
             'id_interaccion' => $value->id_interaccion,
+            'id_interaccion_ref' => $value->id_interaccion_ref,
             'nombre_empleado'   => $value->nombre_empleado,
-            'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+            'fecha_ingreso'   => $this->callutil->cambianull($value->NUMERO_DE_VIAJE),$this->callutil->formatoFechaSalida($value->fecha_ingreso),
             'numero_referencial' => $value->numero_referencial,
             'solicitado_por' => $value->solicitado_por,
             'aprobado_por' => $value->aprobado_por,
@@ -348,8 +349,9 @@ class Journal extends MY_Controller{
 
         $datos_journal[] = array(
           'id_interaccion' => $value->id_interaccion,
+          'id_interaccion_ref' => $value->id_interaccion_ref,
           'nombre_empleado'   => $value->nombre_empleado,
-          'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
+          'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
           'numero_referencial' => $value->numero_referencial,
           'solicitado_por' => $value->solicitado_por,
           'aprobado_por' => $value->aprobado_por,
@@ -373,6 +375,88 @@ class Journal extends MY_Controller{
 
   }
 
+
+
+
+  function obtienejournalCalidadAdv(){ 
+
+
+    $id_orden_compra = $this->input->post('id_orden_compra');
+		$tipo = 1;
+    $id_cliente = $this->input->post('id_cliente');
+    $filtro =  $this->input->post('filtro');
+    $respuesta = false;
+
+  $journal = $this->callexternosjournal->obtienejournal($id_orden_compra,$tipo,$id_cliente);
+  
+
+ $arrJournal = json_decode($journal);
+ 
+
+  $datos_journal = array();
+
+  if($arrJournal){
+    $respuesta = true;
+    
+    foreach ($arrJournal as $key => $value) {
+
+      $respaldo = '';
+
+      if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
+        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos_original.'"><i class="fas fa-download"></i> Descarga</a>';
+      }else{
+        $respaldo = '';
+      }
+
+      if( $filtro === '1'){
+
+        if($value->cod_tipo_interaccion === '16'){
+       
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'id_interaccion_ref' => $value->id_interaccion_ref,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+
+        }
+
+
+      }else{
+
+        $datos_journal[] = array(
+          'id_interaccion' => $value->id_interaccion,
+          'id_interaccion_ref' => $value->id_interaccion_ref,
+          'nombre_empleado'   => $value->nombre_empleado,
+          'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
+          'numero_referencial' => $value->numero_referencial,
+          'solicitado_por' => $value->solicitado_por,
+          'aprobado_por' => $value->aprobado_por,
+          'comentarios_generales' => $value->comentarios_generales,
+          'respaldos' =>  $respaldo ,
+          'tipo_interaccion' => $value->tipo_interaccion,
+        );
+
+
+      }
+
+      
+
+    }
+  }
+  
+  $datos['journals'] = $datos_journal;
+  $datos['resp']      = $respuesta;
+
+  echo json_encode($datos);
+
+  }
 
 
 
@@ -963,6 +1047,7 @@ $htmlContent .='</html>';
       
 
       $id_interaccion       = $this->input->post('id_interaccion');
+      $id_interaccion_ref       = $this->input->post('id_interaccion_ref');
       $id_orden      = $this->input->post('id_orden');
       $codEmpresa       = $this->session->userdata('cod_emp');
 
@@ -973,6 +1058,18 @@ $htmlContent .='</html>';
 
           $data['resp'] = true;
           $data['mensaje'] = 'Registro eliminado correctamente';
+
+
+           // actualiza ID para referenciar advertencia
+
+          $dataUpdate = array(	
+            'id_interaccion' => $id_interaccion_ref ,
+            'id_interaccion_ref' => '0'
+            );
+
+            $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
+
+ 
 
         }else{
           $data['resp'] = false;
@@ -1120,6 +1217,8 @@ $htmlContent .='</html>';
       $id_empleado = $this->input->post('id_empleado');
       $nombre_empleado = $this->input->post('nombre_empleado');
       $tipo_interaccion = $this->input->post('tipo_interaccion');
+      $id_interaccion_ref = $this->input->post('id_interaccion_ref');
+      $id_interaccion = $this->input->post('id_interaccion');
       $fecha_ingreso = $this->callutil->formatoFecha($this->input->post('fecha_ingreso'));
       $numero_referencial = $this->input->post('numero_referencial');
       $solicitado_por = $this->input->post('solicitado_por');
@@ -1130,7 +1229,6 @@ $htmlContent .='</html>';
       $error_msg = "";
       $respaldos = $this->input->post('respaldos');
       $respaldo = "";
-      $idInsertado= $this->input->post('id_interaccion');
   
 
      
@@ -1176,7 +1274,7 @@ $htmlContent .='</html>';
                             $respaldo = $basename;
                 
                             $dataUpdate = array(	
-                              'id_interaccion' =>$idInsertado,
+                              'id_interaccion' =>$id_interaccion,
                               'tipo' => $tipo ,
                               'id_orden_compra' => $id_orden_compra ,
                               'id_cliente' => $id_cliente,
@@ -1184,17 +1282,18 @@ $htmlContent .='</html>';
                               'id_empleado' =>  $id_empleado,
                               'nombre_empleado' => $nombre_empleado,
                               'tipo_interaccion' => $tipo_interaccion,
-                              'fecha_ingreso' => $fecha_ingreso,
                               'numero_referencial' => $numero_referencial,
                               'solicitado_por' =>  $solicitado_por,
                               'aprobado_por' => $aprobado_por,
                               'comentarios_generales' => $comentarios_generales,
                               'respaldos' => $respaldo,
-                              'respaldos_original' => $respaldos_original
+                              'respaldos_original' => $respaldos_original,
+                              'id_interaccion_ref' => $id_interaccion_ref
                               );
                 
                               $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
                 
+                           
                               $journals = json_decode($journal) ;
                         
                               $resp =  $journals->status;
@@ -1238,7 +1337,7 @@ $htmlContent .='</html>';
       } else{
 
         $dataUpdate = array(	
-          'id_interaccion' =>$idInsertado,
+          'id_interaccion' =>$id_interaccion,
           'tipo' => $tipo ,
           'id_orden_compra' => $id_orden_compra ,
           'id_cliente' => $id_cliente,
@@ -1246,15 +1345,17 @@ $htmlContent .='</html>';
           'id_empleado' =>  $id_empleado,
           'nombre_empleado' => $nombre_empleado,
           'tipo_interaccion' => $tipo_interaccion,
-          'fecha_ingreso' => $fecha_ingreso,
           'numero_referencial' => $numero_referencial,
           'solicitado_por' =>  $solicitado_por,
           'aprobado_por' => $aprobado_por,
-          'comentarios_generales' => $comentarios_generales
+          'comentarios_generales' => $comentarios_generales,
+          'id_interaccion_ref' => $id_interaccion_ref
           );
-
+          
+       
           $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
 
+          
           $journals = json_decode($journal) ;
     
           $resp =  $journals->status;
@@ -1267,7 +1368,7 @@ $htmlContent .='</html>';
 
             $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
             'accion'  => 'ACTUALIZAR_JOURNAL',
-            'id_registro' =>  $idInsertado,
+            'id_registro' =>  $id_interaccion,
             'usuario'  =>  $this->session->userdata('n_usuario'),
             'rol' =>   $this->session->userdata('nombre_rol'),
             'objeto'  => 'JOURNAL' ,
@@ -1294,12 +1395,75 @@ $htmlContent .='</html>';
   
       $data['resp']        = $resp;
       $data['mensaje']     = $error_msg;
-      $data['idInsertado'] = $idInsertado;
    
   
       echo json_encode($data);
   
     }
+
+
+
+
+
+  function obtienejournalCalidadLev(){ 
+
+
+    $id_orden_compra = $this->input->post('id_orden_compra');
+		$tipo = 1;
+    $id_cliente = $this->input->post('id_cliente');
+    $id_interaccion =  $this->input->post('id_interaccion');
+    $id_interaccion_ref =  $this->input->post('id_interaccion_ref');
+    $respuesta = false;
+
+  $journal = $this->callexternosjournal->obtienejournalLev($id_orden_compra,$tipo,$id_cliente,$id_interaccion,$id_interaccion_ref);
+  
+
+ $arrJournal = json_decode($journal);
+ 
+
+  $datos_journal = array();
+
+  if($arrJournal){
+    $respuesta = true;
+    
+    foreach ($arrJournal as $key => $value) {
+
+      $respaldo = '';
+
+      if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
+        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos_original.'"><i class="fas fa-download"></i> Descarga</a>';
+      }else{
+        $respaldo = '';
+      }
+
+     
+       
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'id_interaccion_ref' => $value->id_interaccion_ref,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+
+      }
+
+      
+
+    }
+
+  
+  $datos['journals'] = $datos_journal;
+  $datos['resp']      = $respuesta;
+
+  echo json_encode($datos);
+
+  }
 
 
 
