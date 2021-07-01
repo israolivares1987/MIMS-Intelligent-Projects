@@ -60,7 +60,6 @@ return $this->db->get()->result();
 	$this->db->where('tipo',$tipo);
 	$this->db->where('estado',1);
 	$this->db->where('id_interaccion_ref',$id_interaccion);
-	$this->db->where('estado',1);
 	$this->db->where('t1.tipo_interaccion = t2.domain_id');
 	
 		if ($tipo==1)
@@ -136,7 +135,7 @@ return $this->db->get()->result();
 	$this->db->where('estado',1);
 	$this->db->where('t1.tipo_interaccion = t2.domain_id');
 	$this->db->where('t1.id_interaccion_ref = 0');
-	$this->db->where('t1.tipo_interaccion = 16');
+	$this->db->where('t1.tipo_interaccion IN (16 , 2)');
 	
 		if ($tipo==1)
 		{

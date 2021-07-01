@@ -121,7 +121,7 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                        <table class="table" cellspacing="0" width="99%">
+                        <table class="table" cellspacing="0" width="100%">
                              <tbody>
                                  <tr>
                                      <td>
@@ -130,33 +130,35 @@
                                              <dd class="col-sm-9"><?php echo $PurchaseOrderNumber;?></dd>
                                              <dt class="col-sm-8">MONTO ORDEN DE COMPRA:</dt>
                                              <dd class="col-sm-9"><?php echo urldecode($montoOrden);?>
-                                             </dd>
-                                             </dd>
+                                             
                                          </dl>
                                     </td>
                                     <td>
                                      <dl class="row">
                                              <dt class="col-sm-8">DESCRIPCIÓN ORDEN:</dt>
                                              <dd class="col-sm-9"><?php echo $PurchaseOrderDescription;?></dd>
-                                             <dt class="col-sm-8">&nbsp;</dt>
-                                             <dd class="col-sm-9">&nbsp;
-                                             </dd>
-                                             </dd>
+                                             <dt class="col-sm-8">Monto Pagado</dt>
+                                             <dd id="monto_pagado" class="col-sm-9">11111</dd>
+                                             <dt class="col-sm-8">Monto Por Pagar</dt>
+                                             <dd id="monto_por_pagar"class="col-sm-9">11111</dd>
+                                             
                                          </dl>
                                     </td>
-                                    <td>
-                                    
-                                    </td>
-                                    <td>
+                                 </tr>
+
+                                 
+                             </tbody>
+                         </table>
+                         <table class="table" cellspacing="0" width="99%">
+                             <tbody>
+                                 <tr>
+                                     <th>
                                      <button id="btn_recargar_edp"
                                              class="btn btn-outline-secondary float-right"><i class="fas fa-spinner">
                                                      </i>  Actualizar</button>
                                          <button id="btn_nuevo_registro_edp"
                                              class="btn btn-outline-primary float-right">Nuevo Registro</button>
-                                    </td>
                                  </tr>
-
-                                 
                              </tbody>
                          </table>
                          <table id="tbl_edp" class="table table-striped table-bordered" cellspacing="0" width=100%>
@@ -171,7 +173,6 @@
                                 <th>ACTUAL / PROGRAMADO</th>
                                 <th>PROVEEDOR</th>
                                 <th>IMPORTE EDP</th>
-                                <th>SALDO INSOLUTO O.C</th>
                                 <th>RESPALDO</th>
                                 <th>COMENTARIOS</th>
                                  </tr>
@@ -616,13 +617,14 @@ function mostrarBlock(){
                             edp_html += '<td>' + edp.AP_PROVEEDOR + '</td>';
                             edp_html += '<td>' + edp.PROVEEDOR + '</td>';
                             edp_html += '<td>' + edp.IMPORTE_EDP + '</td>';
-                            edp_html += '<td>' + edp.SALDO_INSOLUTO_EDP + '</td>';
                             edp_html += '<td>' + edp.RESPALDO + '</td>';
                             edp_html += '<td>' + edp.COMENTARIOS + '</td>';
                             edp_html += '</tr>';
 
                         });
 
+                        $('#monto_pagado').html(result.monto_pagado);
+                        $('#monto_por_pagar').html(result.monto_por_pagar);
 
                         $('#datos_edp').html(edp_html);
                         $('#tbl_edp').DataTable({
