@@ -926,16 +926,18 @@ console.log(parseInt(result.countAdverActivacion));
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                    url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
                         id_orden: id_orden
                      },
-                 }).done(function(result) {
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
 
-
-                     $.each(result.bucksheets, function(key, bucksheets) {
+                                $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html +=
@@ -984,9 +986,11 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
+                       
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
+
 
                         bucksheet_html += '</tr>';
 
@@ -1005,8 +1009,6 @@ console.log(parseInt(result.countAdverActivacion));
         "searching": true,
         "ordering": true,
         "info": true,
-         "select": true,
-                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
@@ -1014,7 +1016,7 @@ console.log(parseInt(result.countAdverActivacion));
           "responsive": false,
           "lengthChange": true, 
            "select": true,
-                               "autoWidth": true,
+           "autoWidth": true,
           "dom": 'Bfrtip',
           "buttons": [
             {
@@ -1043,9 +1045,19 @@ console.log(parseInt(result.countAdverActivacion));
             }
     ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
-                 }).fail(function() {
-                     console.log("error change cliente");
-                 })
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            console.log("error change cliente");
+                            $.unblockUI();         
+                        }
+                            });
 
              }
 

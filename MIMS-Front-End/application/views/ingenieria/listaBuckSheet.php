@@ -929,16 +929,18 @@ console.log(parseInt(result.countAdverActivacion));
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                    url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
                         id_orden: id_orden
                      },
-                 }).done(function(result) {
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
 
-
-                     $.each(result.bucksheets, function(key, bucksheets) {
+                                $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
                          bucksheet_html += '<td>';
                          bucksheet_html +=
@@ -1046,9 +1048,20 @@ console.log(parseInt(result.countAdverActivacion));
             }
     ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
-                 }).fail(function() {
-                     console.log("error change cliente");
-                 })
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            console.log("error change cliente");
+                            $.unblockUI();         
+                        }
+                            });
+
 
              }
 
