@@ -489,18 +489,25 @@ calidad_html = result.countAdverCalidad;
                  var   bucksheet_html = "";
 
                  $.ajax({
-                     url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
+                    url: '<?php echo site_url('BuckSheet/obtieneBucksheet')?>',
                      type: 'POST',
                      dataType: 'JSON',
                      data: {
                         id_orden: id_orden
                      },
-                 }).done(function(result) {
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
 
-
-                     $.each(result.bucksheets, function(key, bucksheets) {
+                                $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
-                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.ID_OC+ '</td>';
+                         bucksheet_html += '<td>';
+                         bucksheet_html +=
+                             '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
+                             '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
+                        bucksheet_html += '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.ID_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ITEM_OC+ '</td>';
@@ -565,8 +572,6 @@ calidad_html = result.countAdverCalidad;
         "searching": true,
         "ordering": true,
         "info": true,
-         "select": true,
-                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
@@ -574,7 +579,7 @@ calidad_html = result.countAdverCalidad;
           "responsive": false,
           "lengthChange": true, 
            "select": true,
-                               "autoWidth": true,
+           "autoWidth": true,
           "dom": 'Bfrtip',
           "buttons": [
             {
@@ -603,9 +608,19 @@ calidad_html = result.countAdverCalidad;
             }
     ]}).buttons().container().appendTo('#tbl_bucksheet_wrapper .col-md-6:eq(0)');
 
-                 }).fail(function() {
-                     console.log("error change cliente");
-                 })
+
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            console.log("error change cliente");
+                            $.unblockUI();         
+                        }
+                            });
 
              }
 
