@@ -73,6 +73,15 @@
                             DOSSIER DE CALIDAD
                             </h3>
                         </div>
+                        <table class="table" cellspacing="0" width="99%">
+								   <tbody>
+									   <tr>
+										   <th>
+										   <button onclick="listar_cc(<?php echo $idCliente?> ,<?php echo $codProyecto?>,<?php echo $idOrden?>)" id="btn_listar_cc" class="btn btn-outline-primary float-right mb-3">Nuego Registro de Dossier</button>
+										   </th>
+									   </tr>
+								   </tbody>
+							   </table>
                         <!-- /.card-header -->
                         <div class="card-body">
                             <table id="tbl_controlcalidaddet" class="table table-striped table-bordered" cellspacing="0" width=%100>
@@ -160,6 +169,61 @@
       <!-- /.modal final cambio ccd-->
 
 
+ <!--.modal control de calidad-->
+ <div class="modal fade" id="modal_control_calidad">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div class="modal-body">
+
+                                <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      <h3 class="card-title">
+                                      <i class="fas fa-clipboard-list"></i>
+                                        Ingresar Control de Calidad
+                                      </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                            <table class="table" cellspacing="0" width="99%">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                        <div class="form-group"><label for="cc_select">CONTROL CALIDAD</label><div id="cc_select"></div></div>
+                                                        <div class="form-group"><label for="observacion">OBSERVACION</label><input type="text" id="observacion" class="form-control" value="" name="observacion"></div>
+                                                                                                                      </th>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                      </div>
+                            
+                                    <!-- /.card-body -->
+                            </div>
+
+                         <input type="hidden" id="id_order_cc" name="id_order_cc" value="">
+                          <input type="hidden" id="id_proyecto_cc" name="id_proyecto_cc" value=""> 
+                          <input type="hidden" id="id_cliente_cc" name="id_cliente_cc" value="">
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button id="btn_agregar_cc" type="button" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!--. modal control de calidad-->
 
 
 <style type="text/css" class="init">
@@ -299,7 +363,9 @@ $.each(result.datos_calidad_det,function(key, dato_calidad_det) {
 calidad_det_html += '<tr>';
 calidad_det_html += '<td>';
 calidad_det_html += '<button data-nombre="'+ dato_calidad_det.id_control_calidad_det +'" data-toggle="tooltip" data-placement="left" title="Actualizar Control de Calidad" '+
-'onclick="mostrar_ccd('+dato_calidad_det.id_control_calidad +','+ dato_calidad_det.id_control_calidad_det +','+ id_orden +','+id_cliente+','+id_proyecto+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list"></i></button>';
+'onclick="mostrar_ccd('+dato_calidad_det.id_control_calidad +','+ dato_calidad_det.id_control_calidad_det +','+ id_orden +','+id_cliente+','+id_proyecto+')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-list"></i></button>' +
+'<button data-nombre="'+ dato_calidad_det.id_control_calidad_det +'" data-toggle="tooltip" data-placement="left" title="Borrar Control de Calidad" '+
+    'onclick="borrar_cc('+ dato_calidad_det.id_control_calidad_det +','+ id_orden +','+id_cliente+','+id_proyecto+')" class="btn btn-outline-danger btn-sm mr-1"><i class="fas fa-trash"></i></button>';
 calidad_det_html += '</td>';
 calidad_det_html += '<td>' + id_orden+ '</td>';
 calidad_det_html += '<td>' + dato_calidad_det.id_control_calidad + '</td>';
@@ -422,6 +488,158 @@ $('#modal-control-det').modal('show');
 }).fail(function() {
 console.log("error obtener cc det");
 })
+
+}
+
+function listar_cc(id_cliente,id_proyecto,id_orden){
+
+    recargaControlCalidad(id_cliente ,id_proyecto,id_orden);
+ 
+ $('#id_order_cc').val(id_orden);
+ $('#id_proyecto_cc').val(id_proyecto);
+ $('#id_cliente_cc').val(id_cliente);
+   
+
+ $('#modal_control_calidad').modal('show');
+
+}
+
+
+$('#btn_agregar_cc').on('click', function(){
+
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+let select     = $('#select_cc');
+let id_control_calidad = $('#select_cc').val();
+
+
+var id_cliente = $('#id_cliente_cc').val();
+var id_proyecto = $('#id_proyecto_cc').val();
+var id_orden = $('#id_order_cc').val();
+var observacion = $('#observacion').val();
+
+
+
+                    $.ajax({
+                            url: '<?php echo base_url('index.php/ControlCalidadDet/guardaControlCalidadDet');?>',
+                            type: 'post',
+                            data: {
+                              id_control_calidad : id_control_calidad,
+                              id_cliente : id_cliente,
+                              id_proyecto : id_proyecto,
+                              id_orden : id_orden,
+                              observacion : observacion,
+                              cod_empresa : cod_empresa
+                            },
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
+
+                                if (result.resp) {
+
+                                        
+                                        recargaCalidadDet(id_orden,id_cliente,id_proyecto);
+                                        toastr.success(result.mensaje);
+                                        $('#modal_control_calidad').modal('hide');
+                                        $('#observacion').val("");
+                                        $.unblockUI();
+                                        }else{
+                                          $.unblockUI();
+                                        toastr.warning(result.mensaje);
+                                        }
+
+                            },
+                            complete:function(result){
+                              $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                            $.unblockUI();
+                          }
+                 });
+
+});
+
+
+function recargaControlCalidad(id_cliente ,id_proyecto,id_orden){
+
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+  $.ajax({
+      url: '<?php echo base_url('index.php/ControlCalidad/obtieneControlCalidad');?>',
+      type: 'POST',
+      dataType: 'json',
+      data: {
+        codEmpresa: cod_empresa,
+        id_cliente :id_cliente,
+        id_proyecto : id_proyecto,
+        id_orden : id_orden
+      },
+  }).done(function(result) {
+    
+    dato_calidad_html = '<select class="form-control" id="select_cc" name="select_cc">';
+    
+    $.each(result.datos_calidad, function(key, dato_calidad) {
+          
+          dato_calidad_html += '<option value='+dato_calidad.id_control_calidad + '>'+dato_calidad.descripcion_control_calidad+'</option>';
+                                              
+      });
+
+      dato_calidad_html += '</select>';
+
+
+  $('#cc_select').html(dato_calidad_html);
+
+  recargaCalidadDet(id_orden,id_cliente,id_proyecto);
+
+  }).fail(function() {
+      console.log("error listar CC");
+  })
+
+}
+
+function borrar_cc(id_control_calidad_det,id_orden,id_cliente,id_proyecto){
+
+var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+if(opcion){
+
+    $.ajax({
+    url: 		'<?php echo base_url('index.php/ControlCalidadDet/eliminaControlCalidadDet');?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            id_control_calidad_det : id_control_calidad_det,
+            id_orden : id_orden,
+            id_cliente : id_cliente,
+            id_proyecto : id_proyecto
+          },
+  }).done(function(result) {
+
+    if(result.resp){
+
+      recargaCalidadDet(id_orden,id_cliente,id_proyecto);
+      toastr.success(result.mensaje);
+      $('#observacion').val("");
+
+    }else{
+
+      toastr.error(result.mensaje);
+    
+    }
+      
+
+  }).fail(function() {
+    console.log("error eliminar cc det");
+  })
+
+
+}
+
+
 
 }
 

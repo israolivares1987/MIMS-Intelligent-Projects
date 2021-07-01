@@ -327,13 +327,13 @@ class Journal extends MY_Controller{
 
       if( $filtro === '1'){
 
-        if($value->cod_tipo_interaccion === '16' && $value->id_interaccion_ref === '0' ){
+        if(($value->cod_tipo_interaccion === '16' || $value->cod_tipo_interaccion === '2') && $value->id_interaccion_ref === '0'){
        
           $datos_journal[] = array(
             'id_interaccion' => $value->id_interaccion,
             'id_interaccion_ref' => $value->id_interaccion_ref,
             'nombre_empleado'   => $value->nombre_empleado,
-            'fecha_ingreso'   => $this->callutil->cambianull($value->NUMERO_DE_VIAJE),$this->callutil->formatoFechaSalida($value->fecha_ingreso),
+            'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
             'numero_referencial' => $value->numero_referencial,
             'solicitado_por' => $value->solicitado_por,
             'aprobado_por' => $value->aprobado_por,
@@ -347,18 +347,27 @@ class Journal extends MY_Controller{
 
       }else{
 
-        $datos_journal[] = array(
-          'id_interaccion' => $value->id_interaccion,
-          'id_interaccion_ref' => $value->id_interaccion_ref,
-          'nombre_empleado'   => $value->nombre_empleado,
-          'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
-          'numero_referencial' => $value->numero_referencial,
-          'solicitado_por' => $value->solicitado_por,
-          'aprobado_por' => $value->aprobado_por,
-          'comentarios_generales' => $value->comentarios_generales,
-          'respaldos' =>  $respaldo ,
-          'tipo_interaccion' => $value->tipo_interaccion,
-        );
+        if($value->cod_tipo_interaccion === '16' || $value->cod_tipo_interaccion === '2' || $value->cod_tipo_interaccion === '17'){
+
+
+        }else{
+
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'id_interaccion_ref' => $value->id_interaccion_ref,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+
+
+
+        }
 
 
       }
@@ -408,9 +417,9 @@ class Journal extends MY_Controller{
         $respaldo = '';
       }
 
-      if( $filtro === '1'){
+     
 
-        if($value->cod_tipo_interaccion === '16'){
+        if($value->cod_tipo_interaccion === '16' || $value->cod_tipo_interaccion === '2'){
        
           $datos_journal[] = array(
             'id_interaccion' => $value->id_interaccion,
@@ -426,27 +435,6 @@ class Journal extends MY_Controller{
           );
 
         }
-
-
-      }else{
-
-        $datos_journal[] = array(
-          'id_interaccion' => $value->id_interaccion,
-          'id_interaccion_ref' => $value->id_interaccion_ref,
-          'nombre_empleado'   => $value->nombre_empleado,
-          'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
-          'numero_referencial' => $value->numero_referencial,
-          'solicitado_por' => $value->solicitado_por,
-          'aprobado_por' => $value->aprobado_por,
-          'comentarios_generales' => $value->comentarios_generales,
-          'respaldos' =>  $respaldo ,
-          'tipo_interaccion' => $value->tipo_interaccion,
-        );
-
-
-      }
-
-      
 
     }
   }
@@ -639,6 +627,8 @@ class Journal extends MY_Controller{
 
 
     // actualiza ID para referenciar advertencia
+    
+   if($tipo_interaccion === '17'){
 
     $dataUpdate = array(	
       'id_interaccion' => $id_interaccion_ref ,
@@ -647,6 +637,11 @@ class Journal extends MY_Controller{
 
       $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
 
+
+
+   }
+
+    
  
 
     echo json_encode($data);
@@ -1436,8 +1431,6 @@ $htmlContent .='</html>';
         $respaldo = '';
       }
 
-     
-       
           $datos_journal[] = array(
             'id_interaccion' => $value->id_interaccion,
             'id_interaccion_ref' => $value->id_interaccion_ref,

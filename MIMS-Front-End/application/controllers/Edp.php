@@ -37,7 +37,10 @@ class Edp extends MY_Controller{
     $listasEdt = $this->callexternosedp->listasEdp($idCliente,$idProyecto,$idOrden, $codEmpresa);
     $respuesta = false;
     $respaldo = '';
+    $monto_pagado = 0;
+    $monto_por_pagar= 0;
 
+   
     $arrlistasEdt = json_decode($listasEdt);
    
     $datos_edt = array();
@@ -54,6 +57,16 @@ class Edp extends MY_Controller{
           $respaldo = '';
         }
 
+          if($value->ESTADO_EDP ==='PAGADO'){
+
+            $monto_pagado = $monto_pagado + $value->IMPORTE_EDP;
+          }
+
+
+          if($value->ESTADO_EDP ==='POR PAGAR'){
+
+            $monto_por_pagar= $monto_por_pagar + $value->IMPORTE_EDP;
+          }
 
 
         $datos_edt[] = array(
@@ -70,7 +83,6 @@ class Edp extends MY_Controller{
           'AP_PROVEEDOR' => $value->AP_PROVEEDOR,
           'PROVEEDOR' => $value->PROVEEDOR,
           'IMPORTE_EDP' => $this->callutil->formatoDinero($value->IMPORTE_EDP),
-          'SALDO_INSOLUTO_EDP' => $this->callutil->formatoDinero($value->SALDO_INSOLUTO_EDP),
           'RESPALDO' =>  $respaldo,
           'RESPALDO_ORIGINAL' => $value->RESPALDO_ORIGINAL,
           'ACCION' => $value->ACCION,
@@ -81,6 +93,8 @@ class Edp extends MY_Controller{
     }
 
     $datos['edps'] = $datos_edt;
+    $datos['monto_por_pagar'] = $this->callutil->formatoDinero($monto_por_pagar);
+    $datos['monto_pagado'] = $this->callutil->formatoDinero($monto_pagado);
     $datos['resp']      = $respuesta;
 
     echo json_encode($datos);
