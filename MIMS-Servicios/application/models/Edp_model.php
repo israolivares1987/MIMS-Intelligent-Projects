@@ -41,6 +41,42 @@ class Edp_model extends CI_Model{
 	  
 	}
 
+
+	function obtieneEdp($id_edp,$codEmpresa){
+		{
+
+			$query = $this->db->query("SELECT ID_EDP,
+			 COD_EMPRESA,
+			 ID_CLIENTE,
+			 ID_PROYECTO,
+			 ID_ORDEN,
+			ID_EMPLEADO,
+			FECHA_INGRESO,
+			NUM_EDP,
+			ESTADO_EDP,
+		    FECHA_PAGO,
+			AP_PROVEEDOR,
+			PROVEEDOR,
+			IMPORTE_EDP,
+			SALDO_INSOLUTO_EDP,
+			RESPALDO,
+			RESPALDO_ORIGINAL,
+		    ACCION,
+			COMENTARIOS
+		 FROM tbl_edp a
+		 where COD_EMPRESA = " .$codEmpresa."
+		 and ID_EDP = " .$id_edp);
+	   
+	   
+									   
+			 $Ordenes = $query->result();
+			 return $Ordenes;
+		   }
+	   
+	  
+	}
+
+
 	public function insertEdp($data = array()) {
         if(!empty($data)){
            
@@ -62,7 +98,7 @@ class Edp_model extends CI_Model{
 		if ($this->db->affected_rows() > 0 ) {
 			return true; // Or do whatever you gotta do here to raise an error
 		} else {
-			return false;
+			return true;
 		}
 	}
 

@@ -831,7 +831,7 @@ function obtiene_select_employee($codEmpresa, $nameId, $selected = 0){
 
 
 
-function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
+function obtiene_select_supplier($codEmpresa, $nameId, $selected = ""){
 
   $employee = $this->callexternosproveedores->obtieneSupplier($codEmpresa);
 
@@ -845,12 +845,17 @@ function obtiene_select_supplier($codEmpresa, $nameId, $selected = 0){
     $seleccionado = '';
 
     foreach ($datosEmployee as $key => $value) {
+    
+      var_dump($value->SupplierName);
+      var_dump($selected);
 
-      if($selected > 0){
-        $seleccionado = ($selected == $value->cod_user) ? 'selected' : '';
+
+      if($selected === $value->SupplierName){
+        $seleccionado = 'selected';
+        var_dump("Entra");
       }
 
-      $html .= '<option value="'.$value->SupplierName.'">'.$value->SupplierName.'</option>';
+      $html .= '<option  '.$seleccionado.'value="'.$value->SupplierName.'">'.$value->SupplierName.'</option>';
     }
   }else{
     $html .= '<option value="">No existen Proveedores</option>';

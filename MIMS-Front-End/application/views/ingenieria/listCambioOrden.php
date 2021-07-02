@@ -604,7 +604,7 @@ function mostrarBlock(){
                         $.each(result.edps, function(key, edp) {
                             edp_html += '<tr>';
                             edp_html += '<td>';
-                            edp_html +=
+                            edp_html +='<button data-toggle="tooltip" data-placement="left" title="Editar Registro" onclick="editar_edp('+ edp.ID_EDP +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>'+
                                 '<button data-toggle="tooltip" data-placement="left" title="Elimina Registro" onclick="elimina_edp(' +
                                 edp.ID_EDP +','+ orden + ',' + cliente + ',' +  proyecto +
                                 ')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
@@ -1088,6 +1088,96 @@ var cliente = <?php echo $idCliente?> ;
 
 }
 
+function editar_edp(id_edp){
+
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/Edp/obtieneEdp'); ?>',
+  type: 		'POST',
+  dataType: 'json',
+  data: {
+    id_edp: id_edp
+        },
+}).done(function(result) {
+    
+    $('#ID_EDP').val(result.datos_edt.ID_EDP);
+    $('#ACT_ID_EMPLEADO').val(result.datos_edt.ID_EMPLEADO);
+    $('#ACT_FECHA_INGRESO').val(result.datos_edt.FECHA_INGRESO);
+    $('#select_act_estado_edp').html(result.datos_edt.select_act_estado_edp);
+    $('#select_act_apedp').html(result.datos_edt.select_act_apedp);
+    $('#ACT_FECHA_PAGO').val(result.datos_edt.FECHA_PAGO);
+    $('#ACT_PROVEEDOR').val(result.datos_edt.PROVEEDOR);
+    $('#ACT_IMPORTE_EDP').val(result.datos_edt.IMPORTE_EDP);
+    $('#ACT_COMENTARIOS').val(result.datos_edt.COMENTARIOS);
+
+   
+
+  $('#modal_act_edp').modal('show');
+
+
+}).fail(function() {
+  console.log("error edita_proyecto");
+})
+
+
+
+}
+
+
+
+function Actualizar_Edp() {
+
+
+// validar campos
+var valido = false;
+var falso = 0;
+
+data = new FormData(document.getElementById("formActEdp"));
+
+var cliente = <?php echo $idCliente?> ;
+                var orden = <?php echo $idOrden?>;
+                var proyecto = <?php echo $codProyecto?>;
+
+             
+   $.ajax({
+           url: '<?php echo base_url('index.php/Edp/ActualizaEdp');?>',
+           type: 'post',
+           data: data,
+           contentType: false,
+           processData: false,
+           dataType: "JSON",
+           beforeSend: function(){
+           mostrarBlock();
+           },
+           success: function(result){
+
+               if (result.resp) {
+
+                       $('#modal_act_edp').modal('hide');
+                       recargaEdp(orden, cliente, proyecto);
+
+                       toastr.success(result.mensaje);
+
+
+                       }else{
+
+                       toastr.warning(result.mensaje);
+                       }
+
+           },
+           complete:function(result){
+               $.unblockUI();
+           },
+           error: function(request, status, err) {
+
+           toastr.error("error: " + request + status + err);
+
+}
+           });
+
+
+}
+
              </script>
 
 
@@ -1285,6 +1375,53 @@ var cliente = <?php echo $idCliente?> ;
                  </div>
              </div>
 
+
+             <!--.modal actualizar control Calidad-->
+             <div id="modal_act_edp" class="modal fade" tabindex="-1" role="dialog">
+                 <div class="modal-dialog modal-xl" role="document">
+                     <div class="modal-content">
+
+                         <div class="modal-header">
+                             <h5 class="modal-title">Editar Registro EDP</h5>
+                             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                 <span aria-hidden="true">&times;</span>
+                             </button>
+                         </div>
+                         <div class="modal-body">
+                             <div class="container">
+                                 <form id="formActEdp" class="form-horizontal" enctype="multipart/form-data" method="post">
+                                
+                            
+                                <input type="hidden" id="ID_EDP" class="form-control" name="ID_EDP">
+
+                                
+                                <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label><input type="text" id="ACT_ID_EMPLEADO" class="form-control" name="ACT_ID_EMPLEADO" readonly></div>
+                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="ACT_FECHA_INGRESO" class="form-control" name="ACT_FECHA_INGRESO" readonly></div>
+                                <div class="form-group"><label for="ESTADO EDP">ESTADO EDP</label><div id="select_act_estado_edp"></div></div>
+                                <div class="form-group"><label for="FECHA PAGO">FECHA PAGO</label><input type="text" id="ACT_FECHA_PAGO" class="form-control fechapicker" name="ACT_FECHA_PAGO"></div>
+                                <div class="form-group"><label for="AP PROVEEDOR">AP PROVEEDOR</label> <div id="select_act_apedp"></div></div>
+                                <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><input type="text" id="ACT_PROVEEDOR" class="form-control" name="ACT_PROVEEDOR"></div>
+                                <div class="form-group"><label for="IMPORTE EDP">IMPORTE EDP</label><input type="text" id="ACT_IMPORTE_EDP" class="form-control" name="ACT_IMPORTE_EDP" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div> 
+                                <div class="form-group"><label for="COMENTARIOS">COMENTARIOS</label><input type="textarea" id="ACT_COMENTARIOS" class="form-control" name="ACT_COMENTARIOS"></div>
+                                <div class="form-group"><label for="RESPALDO">RESPALDO</label><div class="custom-file"> <input type="file" id="ACT_RESPALDO" name="ACT_RESPALDO"> </div>
+                                </div>
+                                 
+
+
+
+                                 </form>
+
+                             </div>
+                         </div>
+                         <div class="modal-footer justify-content-between">
+                             <button onclick="Actualizar_Edp();" type="button"
+                                 class="btn btn-outline-primary">Guardar</button>
+                             <button type="button" class="btn btn-outline-secondary"
+                                 data-dismiss="modal">Cerrar</button>
+                         </div>
+                     </div>
+                 </div>
+             </div>
 
 
               <!--.modal nuevo control Calidad-->

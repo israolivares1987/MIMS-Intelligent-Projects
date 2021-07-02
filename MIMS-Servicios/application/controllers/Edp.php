@@ -23,6 +23,23 @@ class Edp extends CI_Controller {
 				  	
 	}
 
+
+	function obtieneEdp(){
+
+
+	  
+		$id_edp 		= $this->input->post('id_edp');
+		$codEmpresa	= $this->input->post('codEmpresa');
+	
+
+
+		$edp = $this->edp->obtieneEdp($id_edp,$codEmpresa);
+		echo json_encode($edp);
+				  	
+	}
+
+
+
 	function insertEdp(){
 
 		

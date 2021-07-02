@@ -184,18 +184,6 @@ class Edp extends MY_Controller{
                 $ESTADO_EDP = '1';
 
               }     
-
-              if($ESTADO_EDP === '1'){
-              
-                $MontoInsoluto = $montoOrden -  $IMPORTE_EDP - $totalSaldo ;    
-              
-              }
-              
-
-              
-
-
-
         
  
         if(is_uploaded_file($_FILES[$nameArchivo]['tmp_name'])) {  
@@ -254,7 +242,6 @@ class Edp extends MY_Controller{
                   'AP_PROVEEDOR' => $AP_PROVEEDOR ,
                   'PROVEEDOR' => $PROVEEDOR ,
                   'IMPORTE_EDP' => $IMPORTE_EDP ,
-                  'SALDO_INSOLUTO_EDP' => $MontoInsoluto ,
                   'RESPALDO' =>  $respaldo ,
                   'RESPALDO_ORIGINAL' => $respaldos_original,
                   'COMENTARIOS' => $COMENTARIOS 
@@ -308,13 +295,7 @@ class Edp extends MY_Controller{
 
         }else{
 
-          if($MontoInsoluto <  0 ){
-
-            $error_msg = 'Monto ingresado es mayor al monto Insoluto, favor verificar.';
-            $resp = false;
-
-          }else{
-            
+           
             $dataInsert = array(	
               'COD_EMPRESA' => $codEmpresa,
               'ID_CLIENTE' => $ID_CLIENTE ,
@@ -328,7 +309,6 @@ class Edp extends MY_Controller{
               'AP_PROVEEDOR' => $AP_PROVEEDOR ,
               'PROVEEDOR' => $PROVEEDOR ,
               'IMPORTE_EDP' => $IMPORTE_EDP ,
-              'SALDO_INSOLUTO_EDP' => $MontoInsoluto ,
               'COMENTARIOS' => $COMENTARIOS 
               );
 
@@ -363,8 +343,7 @@ class Edp extends MY_Controller{
                 $resp =  false;
 
               }
-  
-            }
+
           
           }
 
@@ -526,6 +505,231 @@ function eliminaEdp(){
   echo json_encode($data);
 
 
+
+}
+
+
+
+function obtieneEdp(){
+
+  $id_edp     = $this->input->post('id_edp');
+  $codEmpresa   = $this->session->userdata('cod_emp');
+  $datos_edt         = array();
+  $datos        = array();
+
+  $edp        = $this->callexternosedp->obtieneEdp($id_edp,$codEmpresa);
+
+  if($edp){
+
+    foreach (json_decode($edp) as $key => $value) {
+      
+      $datos_edt = array(
+        'ID_EDP' => $value->ID_EDP,
+        'COD_EMPRESA' => $value->COD_EMPRESA,
+        'ID_CLIENTE' => $value->ID_CLIENTE,
+        'ID_PROYECTO' => $value->ID_PROYECTO,
+        'ID_ORDEN' => $value->ID_ORDEN,
+        'ID_EMPLEADO' => $value->ID_EMPLEADO,
+        'FECHA_INGRESO' => $this->callutil->formatoFechaSalida($value->FECHA_INGRESO),
+        'NUM_EDP' => $value->NUM_EDP,
+        'select_act_estado_edp' => $this->callutil->obtiene_select_def_act('ACT_ESTADO_EDP',$value->ESTADO_EDP,'ESTADO_EDP'),
+        'FECHA_PAGO' => $this->callutil->formatoFechaSalida($value->FECHA_PAGO),
+        'select_act_apedp' => $this->callutil->obtiene_select_def_act('ACT_AP_PROVEEDOR',$value->AP_PROVEEDOR,'ACTUAL_PREVIO'),
+        'PROVEEDOR' => $value->PROVEEDOR,
+        'IMPORTE_EDP' => $value->IMPORTE_EDP,
+        'ACCION' => $value->ACCION,
+        'COMENTARIOS' => $value->COMENTARIOS
+      );
+
+    }
+
+  }
+
+  $datos['datos_edt'] = $datos_edt;
+
+  echo json_encode($datos);
+
+
+}
+
+
+
+function ActualizaEdp(){
+
+    
+  $codEmpresa = $this->session->userdata('cod_emp');
+  $ID_EDP = $this->input->post('ID_EDP');
+  $ID_EMPLEADO = $this->input->post('ACT_ID_EMPLEADO');
+  $ESTADO_EDP = $this->input->post('ACT_ESTADO_EDP');
+  $FECHA_PAGO = $this->callutil->formatoFecha($this->input->post('ACT_FECHA_PAGO'));
+  $AP_PROVEEDOR = $this->input->post('ACT_AP_PROVEEDOR');
+  $PROVEEDOR = $this->input->post('ACT_PROVEEDOR');
+  $IMPORTE_EDP = $this->callutil->formatoNumeroMilesEntrada($this->input->post('ACT_IMPORTE_EDP'));
+  $RESPALDO = $this->input->post('ACT_RESPALDO');
+  $RESPALDO_ORIGINAL = $this->input->post('ACT_RESPALDO_ORIGINAL');
+  $ACCION = $this->input->post('ACT_ACCION');
+  $COMENTARIOS = $this->input->post('ACT_COMENTARIOS');
+
+  $target_path = $this->config->item('BASE_ARCHIVOS')."edp/";
+  $resp = false;
+  $error_msg = "";
+  $respaldo = "";
+  $idInsertado=0;
+  $nameArchivo = "ACT_RESPALDO";
+  $MontoInsoluto = 0;
+
+
+        
+            if($AP_PROVEEDOR ==='ACTUAL'){
+              
+              $ESTADO_EDP = '1';
+
+            }     
+
+
+      if(is_uploaded_file($_FILES[$nameArchivo]['tmp_name'])) {  
+
+        $archivo = $this->checkFileValidation($nameArchivo);
+        $respArchivo = $archivo['resp'];
+      
+        if($respArchivo == false){
+
+          $error_msg = 'Archivo invalido, favor seleccionar archivo valido.';
+          $resp = false;
+        
+      
+        }else{ 
+
+            /* create new name file */
+            $filename   = uniqid() . "-" . time(); // 5dab1961e93a7-1571494241
+            $respaldos_original   = $_FILES[$nameArchivo]["name"];
+            $extension  = pathinfo( $_FILES[$nameArchivo]["name"], PATHINFO_EXTENSION ); // jpg
+            $basename   = $filename . '.' . $extension; // 5dab1961e93a7_1571494241.jpg
+
+            $source       = $_FILES[$nameArchivo]['tmp_name'];
+            $destination  = $target_path . $basename; 
+            
+            
+           
+            
+            /* move the file */
+
+            if(move_uploaded_file( $source, $destination )) {
+           
+
+                   // Comienzo Insert
+  
+              $respaldo = $basename;
+  
+              $dataInsert = array(	
+                'ID_EDP' => $ID_EDP,
+                'COD_EMPRESA' => $codEmpresa,
+                'ESTADO_EDP' => $ESTADO_EDP ,
+                'FECHA_PAGO' => $FECHA_PAGO ,
+                'AP_PROVEEDOR' => $AP_PROVEEDOR ,
+                'PROVEEDOR' => $PROVEEDOR ,
+                'IMPORTE_EDP' => $IMPORTE_EDP ,
+                'RESPALDO' =>  $respaldo ,
+                'RESPALDO_ORIGINAL' => $respaldos_original,
+                'COMENTARIOS' => $COMENTARIOS 
+                );
+
+                $edpInsert = $this->callexternosedp->actualizarEdp($dataInsert);
+  
+
+                $edpInserts = json_decode($edpInsert) ;
+          
+                $resp =  $edpInserts->status;
+
+                if($resp){
+  
+                  $error_msg = 'Registro actualizado correctamente.';
+                  $resp =  true;
+  
+  
+                  $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+                  'accion'  => 'ACTUALIZA_EDP',
+                  'id_registro' =>  $ID_EDP,
+                  'usuario'  =>  $this->session->userdata('n_usuario'),
+                  'rol' =>   $this->session->userdata('nombre_rol'),
+                  'objeto'  => 'EDP' ,
+                  'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+          
+                  $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+                  
+  
+                }else{
+  
+                  $error_msg = 'Inconvenientes al actualizar registro, favor reintente.';
+                  $resp =  false;
+  
+                }
+
+  
+              }else{
+  
+                $error_msg = 'Archivo no cargado, favor reintentar.';
+                $resp =  false;
+  
+              }
+
+        }  
+
+      }else{
+
+     
+          
+        $dataInsert = array(	
+          'ID_EDP' => $ID_EDP,
+          'COD_EMPRESA' => $codEmpresa,
+          'ESTADO_EDP' => $ESTADO_EDP ,
+          'FECHA_PAGO' => $FECHA_PAGO ,
+          'AP_PROVEEDOR' => $AP_PROVEEDOR ,
+          'PROVEEDOR' => $PROVEEDOR ,
+          'IMPORTE_EDP' => $IMPORTE_EDP ,
+          'COMENTARIOS' => $COMENTARIOS 
+          );
+
+
+          $edpInsert = $this->callexternosedp->actualizarEdp($dataInsert);
+  
+            $edpInserts = json_decode($edpInsert) ;
+      
+            $resp =  $edpInserts->status;
+
+
+            if($resp){
+  
+              $error_msg = 'Registro actualizado correctamente.';
+              $resp =  true;
+
+
+              $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
+              'accion'  => 'ACTUALIZA_EDP',
+              'id_registro' =>  $ID_EDP,
+              'usuario'  =>  $this->session->userdata('n_usuario'),
+              'rol' =>   $this->session->userdata('nombre_rol'),
+              'objeto'  => 'EDP' ,
+              'fechaCambio' =>  date_create()->format('Y-m-d H:i:s'));
+      
+              $bitacora = $this->callexternosbitacora->agregarBitacora($insert_bitacora);
+              
+            
+
+            }else{
+
+              $error_msg = 'Inconvenientes al actualizar  registro, favor reintente.';
+              $resp =  false;
+
+            }
+        
+        }
+
+
+  $data['resp']        = $resp;
+  $data['mensaje']     = $error_msg;
+
+  echo json_encode($data);
 
 }
 
