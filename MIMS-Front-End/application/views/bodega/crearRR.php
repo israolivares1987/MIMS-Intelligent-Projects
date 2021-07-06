@@ -115,6 +115,8 @@
                                          <th>ST Cantidad Unitaria</th>
                                          <th>ST Unidad</th>
                                          <th>ST Cantidad  Total</th>
+                                         <th>Paquete de Construccion</th>
+                                         <th>Plano</th>
                                          <th>Guia Despacho</th>
                                          <th>Numero de Viaje</th>
                                          <th>Packing List</th>
@@ -564,6 +566,8 @@
                         bucksheet_html += '<td>' + bucksheet.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheet.UNIDAD+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheet.CANTIDAD_TOTAL+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>'; 
+                        bucksheet_html += '<td>' + bucksheet.NUMERO_DE_PLANO+ '</td>'; 
 
                         bucksheet_html += '<td>' + bucksheet.GUIA_DESPACHO+ '</td>';
                         bucksheet_html += '<td>' + bucksheet.NUMERO_DE_VIAJE+ '</td>';

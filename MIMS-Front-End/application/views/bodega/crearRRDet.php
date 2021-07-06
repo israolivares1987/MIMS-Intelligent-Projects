@@ -152,6 +152,8 @@
                                      <th>ÍTEM ORDEN DE COMPRA</th>
                                      <th>TAG NUMBER</th>
                                      <th>STOCKCODE</th>
+                                     <th>PAQUETE DE CONSTRUCCION</th>
+                                     <th>PLANO</th>
                                      <th>DESCRIPCION</th>
                                      <th>ID ORDEN CLIENTE</th>
                                      <th>PACKING LIST</th>
@@ -427,6 +429,8 @@ $.ajax({
         rr_det_html += '<td>' + rr_det.item_oc + '</td>';
         rr_det_html += '<td>' + rr_det.tag_number + '</td>';
         rr_det_html += '<td>' + rr_det.stockcode + '</td>';
+        rr_det_html += '<td>' + rr_det.paq_construccion + '</td>';
+        rr_det_html += '<td>' + rr_det.plano + '</td>';
         rr_det_html += '<td>' + rr_det.descripcion + '</td>';
         rr_det_html += '<td>' + rr_det.id_orden_cliente + '</td>';
         rr_det_html += '<td>' + rr_det.packing_list + '</td>';
@@ -463,15 +467,12 @@ $.ajax({
         "ordering": true,
         "info": true,
          "select": true,
-                               "autoWidth": true,
         "scrollY": "600px",
         "scrollX": true,
         "colReorder": true,
         "scrollCollapse": true,
           "responsive": false,
           "lengthChange": true, 
-           "select": true,
-                               "autoWidth": true,
           "dom": 'Bfrtip',
           "lengthMenu": [
             [ 10, 25, 50, -1 ],

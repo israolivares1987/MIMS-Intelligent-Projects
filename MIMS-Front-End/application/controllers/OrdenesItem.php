@@ -412,6 +412,7 @@ public function save() {
                                 'cantidad' => $row['cantidad'],
                                 'precio_unitario' => $row['precio_unitario'],
                                 'valor_neto' => $row['cantidad'] * $row['precio_unitario'],
+                                'fecha_requerida' => $this->callutil->formatoFecha($row['fecha_requerida']),                                
                                 'estado' => $estado
                             );
                             

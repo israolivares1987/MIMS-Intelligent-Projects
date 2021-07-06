@@ -443,6 +443,8 @@ $datos['listaTodo'] = $listaTodo ;
                 'id_orden_compra' => $PurchaseOrderID ,
                 'tag_number' => $value->NUMERO_DE_TAG ,
                 'stockcode' => $value->STOCKCODE ,
+                'paq_construccion' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+                'plano' => $value->NUMERO_DE_PLANO,
                 'descripcion' => $value->DESCRIPCION_LINEA ,
                 'id_orden_cliente' => $PurchaseOrderNumber  ,
                 'packing_list' => $value->PACKINGLIST ,
@@ -665,6 +667,8 @@ public function crearRRDet($NumRR){
           'id_orden_compra' => $value->id_orden_compra,
           'tag_number' => $value->tag_number,
           'stockcode' => $value->stockcode,
+          'paq_construccion' => $value->paq_construccion,
+          'plano' => $value->plano,
           'descripcion' => $value->descripcion,
           'id_orden_cliente' => $value->id_orden_cliente,
           'packing_list' => $value->packing_list,
@@ -845,6 +849,8 @@ public function crearRRDet($NumRR){
             'id_orden_compra' => $value->id_orden_compra,
             'tag_number' => $value->tag_number,
             'stockcode' => $value->stockcode,
+            'paq_construccion' => $value->paq_construccion,
+            'plano' => $value->plano,
             'descripcion' => $value->descripcion,
             'id_orden_cliente' => $value->id_orden_cliente,
             'packing_list' => $value->packing_list,
@@ -1424,6 +1430,25 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                 <span lang=ES>".$value->stockcode."</span>
               </p>
             </td>";
+      
+            $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+      border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+              <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+      margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                <span lang=ES>".$value->paq_construccion."</span>
+              </p>
+            </td>";
+            
+            $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+            border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                    <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+            margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                      <span lang=ES>".$value->plano."</span>
+                    </p>
+                  </td>";  
+
+         
+
 
             $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
             border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
@@ -1677,6 +1702,22 @@ margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
                 <span lang=ES>".$value->stockcode."</span>
               </p>
             </td>";
+
+            $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+            border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                    <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+            margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                      <span lang=ES>".$value->paq_construccion."</span>
+                    </p>
+                  </td>";
+                  
+                  $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
+                  border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>
+                          <p class=MsoNormal align=center style='margin-top:6.0pt;margin-right:0cm;
+                  margin-bottom:6.0pt;margin-left:0cm;text-align:center'>
+                            <span lang=ES>".$value->plano."</span>
+                          </p>
+                        </td>";  
 
             $det_rr .= "<td width=\"7%\" valign=top style='width:7.58%;border:solid #5B9BD5 1.0pt;
             border-top:none;padding:0cm 7.2pt 0cm 7.2pt'>

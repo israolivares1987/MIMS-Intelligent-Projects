@@ -896,6 +896,8 @@ class BuckSheet extends MY_Controller
         'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
         'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
         'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+        'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+        'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
         'UNIDAD' => $value->UNIDAD,
         'ID_OC' => $value->ID_OC,
         'NUMERO_OC' => $value->NUMERO_OC,
