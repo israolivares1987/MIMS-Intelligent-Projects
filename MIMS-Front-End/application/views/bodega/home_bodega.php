@@ -223,6 +223,8 @@
                                          <th>ST Cantidad Unitaria</th>
                                          <th>ST Unidad</th>
                                          <th>ST Cantidad  Total</th>
+                                         <th>Paquede de Construccion</th>
+                                         <th>Plano</th>
                                          <th>Guia Despacho</th>
                                          <th>Packing List</th>
                                          <th class="grey">Cantidad Recibida</th>
@@ -997,6 +999,7 @@ function recargaListaToDo(){
                  var  id_orden = orden; 
                  var   bucksheet_html = "";
 
+
                  $.ajax({
                      url: '<?php echo site_url('BuckSheet/obtieneBuckSheetRRInicial')?>',
                      type: 'POST',
@@ -1004,10 +1007,12 @@ function recargaListaToDo(){
                      data: {
                         id_orden: id_orden
                      },
-                 }).done(function(result) {
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
 
-
-                     $.each(result.bucksheets, function(key, bucksheets) {
+                              $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
                        
                         bucksheet_html += '<td>' + bucksheets.NUMERO_DE_LINEA+ '</td>';
@@ -1018,7 +1023,8 @@ function recargaListaToDo(){
                         bucksheet_html += '<td>' + bucksheets.CANTIDAD_UNITARIA+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheets.UNIDAD+ '</td>'; 
                         bucksheet_html += '<td>' + bucksheets.CANTIDAD_TOTAL+ '</td>'; 
-
+                        bucksheet_html += '<td>' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td>' + bucksheets.NUMERO_DE_PLANO+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.GUIA_DESPACHO+ '</td>';
                         bucksheet_html += '<td>' + bucksheets.PACKINGLIST+ '</td>';
                         bucksheet_html += '<td class="grey" >1</td>';
@@ -1039,7 +1045,7 @@ function recargaListaToDo(){
                      
                      });
 
-
+                    
                      $('#datos_rr').html(bucksheet_html);
 
                      $('#tbl_rr').DataTable({
@@ -1098,10 +1104,19 @@ function recargaListaToDo(){
                             ]
                         }).buttons().container().appendTo('#datos_rr_wrapper .col-md-6:eq(0)');
 
-                 }).fail(function() {
-                     console.log("error change cliente");
-                 })
 
+                            },
+                            complete:function(result){
+                                $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                      
+                            console.log("error change cliente");
+                            $.unblockUI();         
+                        }
+                            });
              }
 
 

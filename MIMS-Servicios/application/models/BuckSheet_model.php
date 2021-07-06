@@ -311,6 +311,8 @@ class BuckSheet_model extends CI_Model{
         t1.CANTIDAD_UNITARIA,
 		(select domain_desc from tbl_ref_codes where domain_id = t1.UNIDAD and domain = 'UNIDAD_MEDIDA') as UNIDAD,
         t1.CANTIDAD_TOTAL,
+        t1.NUMERO_DE_PLANO,
+        t1.PAQUETE_DE_CONSTRUCCION_AREA,
 		t1.GUIA_DESPACHO,
         t1.PACKINGLIST,
         t1.UNIDADES_RECIBIDAS,
