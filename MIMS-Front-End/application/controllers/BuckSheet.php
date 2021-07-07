@@ -1519,6 +1519,7 @@ class BuckSheet extends MY_Controller
     header("Content-Type: text/csv;charset=UTF-8");
 
     $codEmpresa = $this->session->userdata('cod_emp');
+    $fecha_hoy = date_create()->format('Y-m-d');
 
     // get data 
     $usersData = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
