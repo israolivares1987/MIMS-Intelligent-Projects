@@ -551,6 +551,16 @@ class BuckSheet extends MY_Controller
                               }
                             }
 
+
+                            if($EstadoLineaBucksheet ==='1' || $EstadoLineaBucksheet ==='2' || $EstadoLineaBucksheet ==='3' || $EstadoLineaBucksheet ==='4' || $EstadoLineaBucksheet ==='6' || $EstadoLineaBucksheet ==='7')
+                            {
+                    
+                              $dias_lb = $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $fecha_hoy);
+                    
+                            }else {
+                              
+                              $dias_lb = $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $row['FECHA_EMBARQUE_REAL']);
+                            }
                        
 
                             $memData = array(
@@ -575,7 +585,7 @@ class BuckSheet extends MY_Controller
                               'REVISION' => $row['REVISION'],
                               'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
                               'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
-                              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $fecha_hoy),
+                              'DIAS_ANTES_LB' => $dias_lb,
                               'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
                               'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION_REAL']),
                               'FECHA_TERMINO_FABRICACION' =>$this->callutil->formatoFecha($row['FECHA_TERMINO_FABRICACION']),
@@ -778,6 +788,17 @@ class BuckSheet extends MY_Controller
   
         }
 
+        $EstadoLineaBucksheet = $value->ESTADO_DE_LINEA;
+        if($EstadoLineaBucksheet ==='1' || $EstadoLineaBucksheet ==='2' || $EstadoLineaBucksheet ==='3' || $EstadoLineaBucksheet ==='4' || $EstadoLineaBucksheet ==='6' || $EstadoLineaBucksheet ==='7')
+        {
+
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy);
+
+        }else {
+          
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $value->FECHA_EMBARQUE_REAL);
+        }
+
 
         $datos_bucksheet[] = array(
 
@@ -801,7 +822,7 @@ class BuckSheet extends MY_Controller
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
-              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
               'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL)),
               'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
@@ -965,6 +986,21 @@ class BuckSheet extends MY_Controller
   
         }
         $fecha_hoy = date_create()->format('Y-m-d');
+        
+        if($estado_bucksheet ==='1' || $estado_bucksheet ==='2' || $estado_bucksheet ==='3' || $estado_bucksheet ==='4' || $estado_bucksheet ==='6' || $estado_bucksheet ==='7')
+        {
+
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy);
+
+        }else {
+          
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $value->FECHA_EMBARQUE_REAL);
+        }
+
+
+        
+        
+        
 
         $datos_bucksheet[] = array(
  
@@ -989,7 +1025,7 @@ class BuckSheet extends MY_Controller
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
-              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
               'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL)),
               'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
@@ -1177,6 +1213,18 @@ class BuckSheet extends MY_Controller
 
       foreach ($arrBucksheet as $key => $value) {
 
+        $EstadoLineaBucksheet = $value->ESTADO_DE_LINEA;
+
+        if($EstadoLineaBucksheet ==='1' || $EstadoLineaBucksheet ==='2' || $EstadoLineaBucksheet ==='3' || $EstadoLineaBucksheet ==='4' || $EstadoLineaBucksheet ==='6' || $EstadoLineaBucksheet ==='7')
+        {
+
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy);
+
+        }else {
+          
+          $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $value->FECHA_EMBARQUE_REAL);
+        }
+
 
 
         $datos_bucksheet[] = array(
@@ -1201,7 +1249,7 @@ class BuckSheet extends MY_Controller
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
-              'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
+              'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
               'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL)),
               'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
@@ -1258,6 +1306,7 @@ class BuckSheet extends MY_Controller
 
     $codEmpresa = $this->session->userdata('cod_emp');
       $EstadoLineaBucksheet = '1';
+      $fecha_hoy = date_create()->format('Y-m-d');
                       
    
 
@@ -1313,6 +1362,16 @@ class BuckSheet extends MY_Controller
 
 
 
+        if($EstadoLineaBucksheet ==='1' || $EstadoLineaBucksheet ==='2' || $EstadoLineaBucksheet ==='3' || $EstadoLineaBucksheet ==='4' || $EstadoLineaBucksheet ==='6' || $EstadoLineaBucksheet ==='7')
+        {
+
+          $dias_lb = $this->callutil->diasDiffFechas($this->input->post('FECHA_LINEA_BASE'), $fecha_hoy);
+
+        }else {
+          
+          $dias_lb = $this->callutil->diasDiffFechas($this->input->post('FECHA_LINEA_BASE'), $this->input->post('FECHA_EMBARQUE_REAL'));
+        }
+
     $memData = array(
       'COD_EMPRESA' => $codEmpresa,
       'ID_OC' => $this->input->post('ID_OC'),
@@ -1335,7 +1394,7 @@ class BuckSheet extends MY_Controller
       'REVISION' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('REVISION')),
       'PAQUETE_DE_CONSTRUCCION_AREA' => $this->input->post('PAQUETE_DE_CONSTRUCCION_AREA'),
       'FECHA_LINEA_BASE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_LINEA_BASE')),
-      'DIAS_ANTES_LB' => $this->input->post('DIAS_ANTES_LB'),
+      'DIAS_ANTES_LB' =>  $dias_lb,
       'FECHA_COMIENZO_FABRICACION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_COMIENZO_FABRICACION')),
       'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->formatoFecha($this->input->post('FECHA_COMIENZO_FABRICACION_REAL')),
       'FECHA_TERMINO_FABRICACION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_TERMINO_FABRICACION')),
@@ -1460,6 +1519,7 @@ class BuckSheet extends MY_Controller
     header("Content-Type: text/csv;charset=UTF-8");
 
     $codEmpresa = $this->session->userdata('cod_emp');
+    $fecha_hoy = date_create()->format('Y-m-d');
 
     // get data 
     $usersData = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
@@ -1536,6 +1596,17 @@ class BuckSheet extends MY_Controller
       }
 
 
+      if($value->ESTADO_DE_LINEA ==='1' || $value->ESTADO_DE_LINEA ==='2' || $value->ESTADO_DE_LINEA ==='3' || $value->ESTADO_DE_LINEA ==='4' || $value->ESTADO_DE_LINEA ==='6' || $value->ESTADO_DE_LINEA ==='7')
+      {
+
+        $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy);
+
+      }else {
+        
+        $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE,$value->FECHA_EMBARQUE_REAL);
+      }
+
+
       $datos_bucksheet = array(
 
             'ID_OC' => $value->ID_OC,
@@ -1558,7 +1629,7 @@ class BuckSheet extends MY_Controller
             'REVISION' => $value->REVISION,
             'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
             'FECHA_LINEA_BASE' => $this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE),
-            'DIAS_ANTES_LB' => $value->DIAS_ANTES_LB,
+            'DIAS_ANTES_LB' => $dias_lb,
             'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION),
             'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL),
             'FECHA_TERMINO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION),

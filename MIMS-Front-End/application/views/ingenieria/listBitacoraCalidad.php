@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Registros Gestión de Calidad</h1>
+                     <h1>Registros Gestión de Calidad - FlashReport</h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -122,6 +122,7 @@
                                  <tr>
                                      <th style="display: none;" ></th>
                                      <th style="display: none;" ></th>
+                                     <th>Acciones</th>
                                      <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -152,6 +153,7 @@
                          <table id="tbl_ccalidadlev" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
+                                     <th>Acciones</th>
                                      <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -829,7 +831,8 @@ if(opcion){
 
       if(result.resp){
 
-        recargaControlCalidad(orden, cliente)
+        recargaControlCalidad(orden, cliente);
+        recargaControlCalidadAdv(orden, cliente);
         toastr.success(result.mensaje);
 
       }else{
@@ -906,6 +909,14 @@ $.ajax({
         calidad_html += '<tr>';
         calidad_html += '<td style="display: none;">' + journal.id_interaccion + '</td>';
         calidad_html += '<td style="display: none;">' + journal.id_interaccion_ref + '</td>';
+        calidad_html += '<td>';
+        calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +',' +journal.id_interaccion_ref +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        calidad_html += '</td>';
         calidad_html += '<td>' + journal.nombre_empleado + '</td>';
         calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
         calidad_html += '<td>' + journal.numero_referencial + '</td>';

@@ -675,7 +675,9 @@ class Journal extends MY_Controller{
         'image/png',
         'image/tiff',
         'message/rfc822',
-        'video/mp4'
+        'video/mp4',
+        'application/zip', 
+        'application/octet-stream'
     );
 
     $fileExtArray = array(
@@ -708,7 +710,9 @@ class Journal extends MY_Controller{
       'EML',
       'eml',
       'MP4',
-      'mp4'
+      'mp4',
+      'zip',
+      'ZIP'
   );
     if(isset($_FILES[$str]['name']) && $_FILES[$str]['name'] != ""){
         // get mime by extension
