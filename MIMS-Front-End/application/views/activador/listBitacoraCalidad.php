@@ -5,7 +5,7 @@
          <div class="container-fluid">
              <div class="row mb-2">
                  <div class="col-sm-6">
-                     <h1>Registros Gestión de Calidad</h1>
+                     <h1>Registros Gestión de Calidad - FlashReport</h1>
                  </div>
              </div>
          </div><!-- /.container-fluid -->
@@ -112,7 +112,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                               ADVERTENCIAS DE CALIDAD
+                            Advertencias de Calidad / No Conformidades
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -122,6 +122,7 @@
                                  <tr>
                                      <th style="display: none;" ></th>
                                      <th style="display: none;" ></th>
+                                     <th>Acciones</th>
                                      <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -144,7 +145,7 @@
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                               LEVANTAMIENTOS DE CALIDAD
+                               LEVANTAMIENTOS DE Advertencias y las No Conformidades
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -152,6 +153,7 @@
                          <table id="tbl_ccalidadlev" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
+                                     <th>Acciones</th>
                                      <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -179,7 +181,7 @@
      <div class="modal-dialog modal-xl  modal-dialog-scrollable">
          <div class="modal-content">
              <div class="modal-header">
-             <h4 class="modal-title">NUEVO REGISTRO GESTIÓN DE ACTIVACIÓN</h4>
+             <h4 class="modal-title">NUEVO REGISTRO Gestión de Calidad</h4>
                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                      <span aria-hidden="true">&times;</span>
                  </button>
@@ -189,7 +191,6 @@
 
                 <input type="hidden" id="tipo" name="tipo" value="1">
                 <input type="hidden" id="id_interaccion" name="id_interaccion" value="">
-                <input type="hidden" id="id_interaccion_ref" name="id_interaccion_ref" value="">
                 
                 
                 <input type="hidden" id="id_orden_compra" name="id_orden_compra" value="<?php echo $idOrden?>">  
@@ -203,7 +204,7 @@
                                 <div class="col-md-12">
                                     <div class="card card-primary">
                                         <div class="card-header">
-                                            <h3 class="card-title">GESTIÓN DE ACTIVACIÓN</h3>
+                                            <h3 class="card-title">Gestión de Calidad</h3>
                                             <div class="card-tools">
                                                 <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
                                                 <i class="fas fa-minus"></i></button>
@@ -382,6 +383,7 @@ var url;
 
 recargaControlCalidad(orden, cliente);
 formToggleDesactivar('interaction_ref');
+$('#id_interaccion_ref').val("0");
 recargaControlCalidadAdv(orden, cliente);
 recargaControlCalidadLev(0, 0, 0, 0)
 
@@ -414,6 +416,7 @@ if (tipo_interaccion=='17'){
 }else{
 
     formToggleDesactivar('interaction_ref');
+    $('#id_interaccion_ref').val("0");
 
 }
 
@@ -447,6 +450,7 @@ if (element.style.display === "block") {
 
 $('#miForm')[0].reset();
 $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
+$('#id_interaccion_ref').val("0");
 $('#modal_control_calidad').modal('show');
 $('#name_respaldo').html("");
 obtieneSelects();
@@ -601,7 +605,7 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                             console.log(journal.id_interaccion);
 
                             $('#id_interaccion').val(journal.id_interaccion);
-                            $('#id_interaccion_ref').val(journal.id_interaccion);
+                            $('#id_interaccion_ref').val(journal.id_interaccion_ref);
                             $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
                             $('#fecha_ingreso').val(journal.fecha_ingreso);
                             $('#numero_referencial').val(journal.numero_referencial);
@@ -827,7 +831,8 @@ if(opcion){
 
       if(result.resp){
 
-        recargaControlCalidad(orden, cliente)
+        recargaControlCalidad(orden, cliente);
+        recargaControlCalidadAdv(orden, cliente);
         toastr.success(result.mensaje);
 
       }else{
@@ -904,6 +909,14 @@ $.ajax({
         calidad_html += '<tr>';
         calidad_html += '<td style="display: none;">' + journal.id_interaccion + '</td>';
         calidad_html += '<td style="display: none;">' + journal.id_interaccion_ref + '</td>';
+        calidad_html += '<td>';
+        calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +',' +journal.id_interaccion_ref +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        calidad_html += '</td>';
         calidad_html += '<td>' + journal.nombre_empleado + '</td>';
         calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
         calidad_html += '<td>' + journal.numero_referencial + '</td>';
