@@ -1061,13 +1061,7 @@ public function crearRRDet($NumRR){
                                 'UNIDADES_SOLICITADAS' => ($value->UNIDADES_SOLICITADAS - $diferencia )
                               );   
 
-                              var_dump($memData);
-
-
                               $update = $this->callexternosbucksheet->update($memData, $cod_empresa, $id_orden_compra, $numero_linea_wpanel);
-
-
-                              var_dump($update);
 
                             
                       if ($insert) {
