@@ -191,7 +191,7 @@
                                          <th>
                                              <div class="col-12">
                                                  <button class="btn btn-block btn-outline-success btn-sm"
-                                                     onclick="dossierCalidad(3)"><i class="fas fa-file-download">
+                                                     onclick="dossierCalidad(1)"><i class="fas fa-file-download">
                                                      </i> Dossier de Calidad
                                                  </button>
                                              </div>
@@ -266,6 +266,7 @@
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">CODIGO CONTROL PROYECTO</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">FECHA LINEA BASE</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">DIAS ANTES LB</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION</th>
@@ -285,6 +286,10 @@
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">GUIA DESPACHO</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">NÚMERO DE VIAJE</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">FECHA_RAS</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">FECHA_ETA</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACION</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">COMENTARIOS</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">ORIGEN</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
@@ -292,7 +297,7 @@
                                         
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
-                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
+                                        
                                      </tr>
                              </thead>
                              <tbody id="datos_bucksheet">
@@ -524,12 +529,7 @@ console.log(parseInt(result.countAdverActivacion));
 
                                 $.each(result.bucksheets, function(key, bucksheets) {
                          bucksheet_html += '<tr>';
-                         bucksheet_html += '<td>';
-                         bucksheet_html +=
-                             '<button data-toggle="tooltip" data-placement="left" title="Editar WPanel" onclick="edit_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>' +
-                             '<button data-toggle="tooltip" data-placement="left" title="Borrar WPanel" onclick="eliminar_bucksheet('+bucksheets.ID_OC+','+bucksheets.NUMERO_DE_LINEA+')" class="btn btn-outline-danger btn-sm mr-1"><i class="far fa-trash-alt"></i></button>';
-                        bucksheet_html += '</td>';
-                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.ID_OC+ '</td>';
+                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.ID_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_OC+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ITEM_OC+ '</td>';
@@ -548,6 +548,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_PLANO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REVISION+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CODIGO_CONTROL_PROYECTO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LINEA_BASE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_ANTES_LB + '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
@@ -569,12 +570,17 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ORIGEN+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
+
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_RAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_ETA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.COMENTARIOS+ '</td>';
+
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
                        
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
 
 
                         bucksheet_html += '</tr>';

@@ -151,12 +151,10 @@ class Supervisor extends MY_Controller{
  $datos['listaTodo'] = $listaTodo ;
 
 
-
   // Se obtiene datos totales
 
 
   $datosTotales = $this->callexternosconsultas->obtieneDatosTotales($codEmpresa);
-
 
 
   $arrTotalessss = json_decode($datosTotales);
@@ -172,6 +170,8 @@ class Supervisor extends MY_Controller{
       $datos['totalOrdenesObra'] =   $this->callutil->formatoNumero($arrTotales['totalOrdenesObra']);
       $datos['totalOrdenesAdminCompras'] =  $this->callutil->formatoDinero($arrTotales['totalOrdenesAdminCompras']);
       $datos['totalOrdenesAdminObras'] =  $this->callutil->formatoDinero($arrTotales['totalOrdenesAdminObras']);
+
+  
 
     $this->plantilla_supervisor('supervisor/home_supervisor', $datos);
 
