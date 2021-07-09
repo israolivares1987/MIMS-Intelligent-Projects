@@ -153,6 +153,33 @@ return $this->db->get()->result();
 	}
 
 
+	function obtienejournalHallazgos($id_orden_compra,$tipo,$id_cliente){  
+
+		$this->db->select('t1.id_interaccion,
+		t1.numero_referencial as tipo_interaccion');
+	$this->db->from('tbl_journal t1, tbl_ref_codes t2');				   
+	$this->db->where('tipo',$tipo);
+	$this->db->where('estado',1);
+	$this->db->where('t1.tipo_interaccion = t2.domain_id');
+	$this->db->where('t1.id_interaccion_ref = 0');
+	$this->db->where('t1.tipo_interaccion IN (20)');
+	
+		if ($tipo==1)
+		{
+		
+		$this->db->where('t2.domain = "TIPO_INTERACCION_CC"');
+		}else{
+	
+			$this->db->where('t2.domain = "TIPO_INTERACCION_CO"');
+		}
+	
+		$this->db->where('t1.id_orden_compra', $id_orden_compra);
+	
+	
+	return $this->db->get()->result();	
+	}
+
+
 
 }
 ?>

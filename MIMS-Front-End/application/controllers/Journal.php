@@ -347,7 +347,11 @@ class Journal extends MY_Controller{
 
       }else{
 
-        if($value->cod_tipo_interaccion === '16' || $value->cod_tipo_interaccion === '2' || $value->cod_tipo_interaccion === '17'){
+        if($value->cod_tipo_interaccion === '16' ||
+           $value->cod_tipo_interaccion === '2' || 
+           $value->cod_tipo_interaccion === '17' ||
+           $value->cod_tipo_interaccion === '20' ||
+           $value->cod_tipo_interaccion === '21'){
 
 
         }else{
@@ -420,6 +424,66 @@ class Journal extends MY_Controller{
      
 
         if($value->cod_tipo_interaccion === '16' || $value->cod_tipo_interaccion === '2'){
+       
+          $datos_journal[] = array(
+            'id_interaccion' => $value->id_interaccion,
+            'id_interaccion_ref' => $value->id_interaccion_ref,
+            'nombre_empleado'   => $value->nombre_empleado,
+            'fecha_ingreso'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->fecha_ingreso)),
+            'numero_referencial' => $value->numero_referencial,
+            'solicitado_por' => $value->solicitado_por,
+            'aprobado_por' => $value->aprobado_por,
+            'comentarios_generales' => $value->comentarios_generales,
+            'respaldos' =>  $respaldo ,
+            'tipo_interaccion' => $value->tipo_interaccion,
+          );
+
+        }
+
+    }
+  }
+  
+  $datos['journals'] = $datos_journal;
+  $datos['resp']      = $respuesta;
+
+  echo json_encode($datos);
+
+  }
+
+
+  function obtienejournalCalidadHall(){ 
+
+
+    $id_orden_compra = $this->input->post('id_orden_compra');
+		$tipo = 1;
+    $id_cliente = $this->input->post('id_cliente');
+    $filtro =  $this->input->post('filtro');
+    $respuesta = false;
+
+  $journal = $this->callexternosjournal->obtienejournal($id_orden_compra,$tipo,$id_cliente);
+  
+
+ $arrJournal = json_decode($journal);
+ 
+
+  $datos_journal = array();
+
+  if($arrJournal){
+    $respuesta = true;
+    
+    foreach ($arrJournal as $key => $value) {
+
+      $respaldo = '';
+
+      if(strlen($value->respaldos) > 0 && $value->respaldos !='null'  ){
+        $respaldo = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/controlcalidad/'.$value->respaldos.'" download="'.$value->respaldos_original.'"><i class="fas fa-download"></i> Descarga</a>';
+      }else{
+        $respaldo = '';
+      }
+
+     
+
+        if($value->cod_tipo_interaccion === '20'){
        
           $datos_journal[] = array(
             'id_interaccion' => $value->id_interaccion,
@@ -1462,6 +1526,8 @@ $htmlContent .='</html>';
 
   }
 
+
+  
 
 
   }

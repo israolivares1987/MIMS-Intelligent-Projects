@@ -179,13 +179,56 @@ class Consultas extends MY_Controller
     }
 
 
+    function obtieneSelectHall(){
+    
+      $codEmpresa = $this->session->userdata('cod_emp');
+      $idOrden = $this->input->post('id_orden_compra');
+      $tipo = $this->input->post('tipo');
+      $idCliente = $this->input->post('id_cliente');
+      $data = array();
+    
+      $data['select_cc_ref']  = $this->obtiene_select_journal_hallazgos('id_interaccion_ref',$idOrden,$tipo,$idCliente);
+    
+    
+      echo json_encode($data);
+    
+    }
+
+
+    function obtiene_select_journal_hallazgos($nameId,$idOrden,$tipo,$idCliente){
+    
+      $datosap_ref     =  $this->callexternosjournal->obtienejournalHallazgos($idOrden,$tipo,$idCliente);
+      $datosap_refArray = json_decode($datosap_ref);
+      $html = '';
+
+      $html .= '<select name="'.$nameId.'" id="'.$nameId.'" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">'; 
+
+      if($datosap_refArray){
+
+        $seleccionado = '';
+
+        foreach ($datosap_refArray as $key => $value) {
+
+          $html .= '<option '.$seleccionado.' value="'.$value->id_interaccion.'">'.$value->tipo_interaccion.'</option>';
+        }
+
+      }else{
+        $html .= '<option value="">No existen Hallazgos</option>';
+      }
+
+      $html .= '</select>';
+      return $html;
+    
+    }
+
+
     function obtiene_select_journal_advertencia($nameId,$idOrden,$tipo,$idCliente){
     
       $datosap_ref     =  $this->callexternosjournal->obtienejournalAdvertencias($idOrden,$tipo,$idCliente);
       $datosap_refArray = json_decode($datosap_ref);
       $html = '';
 
-      $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">'; 
+      $html .= '<select name="'.$nameId.'" id="'.$nameId.'" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true">'; 
 
       if($datosap_refArray){
 
@@ -212,7 +255,7 @@ class Consultas extends MY_Controller
           $datosSupplier = json_decode($supplier);
           $html = '';
     
-          $html .= '<select name="'.$nameId.'" class="form-control form-control-sm" id="'.$nameId.'">'; 
+          $html .= '<select name="'.$nameId.'" class="form-control" id="'.$nameId.'">'; 
     
           if($datosSupplier){
     
