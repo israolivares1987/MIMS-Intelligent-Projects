@@ -35,9 +35,9 @@
                                              <dd class="col-sm-7"><?php echo $PurchaseOrderID;?></dd>
                                              <dt class="col-sm-8">Descripción:</dt>
                                              <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderDescription);?></dd>
-                                             <dt class="col-sm-8">Orden de compra cliente:</dt>
-                                             <dd class="col-sm-7"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
-                                             </dd>
+                                             <dt class="col-sm-10">Orden de compra cliente:</dt>
+                                             <dd class="col-sm-10"><?php echo urldecode($PurchaseOrderNumber);?></dd>             
+                                             <dt class="col-sm-10">&nbsp;</dt>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
@@ -59,9 +59,9 @@
                                              <dd class="col-sm-7"><?php echo $nombreCliente;?></dd>
                                              <dt class="col-sm-8">Proyecto:</dt>
                                              <dd class="col-sm-7"><?php echo urldecode($DescripcionProyecto);?></dd>
-                                             <dt class="col-sm-8">Razon Social:</dt>
-                                             <dd class="col-sm-7"><?php echo urldecode($razonSocial);?></dd>
-                                             </dd>
+                                             <dt class="col-sm-10">Razon Social:</dt>
+                                             <dd class="col-sm-10"><?php echo urldecode($razonSocial);?></dd>
+                                             <dt class="col-sm-10">&nbsp;</dt>
                                          </dl>
                                      </div>
                                      <!-- /.card-body -->
@@ -169,7 +169,7 @@
               </div>
               <!-- /.card-header -->
               <div class="card-body">
-              <table class="table table-bordered" cellspacing="0" width="100%">
+              <table class="" cellspacing="0" width="100%">
                                  <tbody>
                                      <tr>
                                          <th>
@@ -254,7 +254,7 @@
                          <table id="tbl_bucksheet" class="table table-striped table-bordered" cellspacing="0" width="100%">
                              <thead>
                              <tr>
-                                        <th>EDITAR</th>
+                             <th>EDITAR</th>
                                         <th style="text-align:left; background-color:#FFE699">ID OC</th>
                                         <th style="text-align:left; background-color:#FFE699">NÚMERO OC</th>
                                         <th style="text-align:left; background-color:#FFE699">DESCRIPCIÓN OC</th>
@@ -274,6 +274,7 @@
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">NÚMERO DE PLANO</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">REVISIÓN</th>
                                         <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">PAQUETE DE CONSTRUCCIÓN / ÁREA</th>
+                                        <th style="text-align:left; background-color:#FF5050; color:#FFFFFF">CODIGO CONTROL PROYECTO</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">FECHA LINEA BASE</th>
                                         <th style="text-align:left; background-color:#333F4F; color:#FFFFFF">DIAS ANTES LB</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA COMIENZO FABRICACION</th>
@@ -286,7 +287,6 @@
                                         <th style="text-align:left; background-color:#FFCC00">FECHA PINTURA REAL</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA LISTO INSPECCION REAL</th>
-                                        <th style="text-align:left; background-color:#FFCC00">ACTA LIBERACION CALIDAD</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA</th>
                                         <th style="text-align:left; background-color:#FFCC00">FECHA SALIDA FABRICA REAL</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">FECHA EMBARQUE</th>
@@ -294,13 +294,20 @@
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">PACKINGLIST</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">GUIA DESPACHO</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">NÚMERO DE VIAJE</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">FECHA_RAS</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">FECHA_ETA</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACION</th>
+                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">COMENTARIOS</th>
+                                       
+
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">ORIGEN</th>
                                         <th style="text-align:left; background-color:#007A37; color:#FFFFFF">DIAS VIAJE</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">UNIDADES RECIBIDAS</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE RECEPCIÓN (RR)</th>
+                                        
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">REPORTE DE EXCEPCIÓN (EXB)</th>
                                         <th style="text-align:left; background-color:#351805; color:#FFFFFF">INSPECCIÓN DE INGENIERÍA</th>
-                                        <th style="text-align:left; background-color:#FF6600; color:#FFFFFF">OBSERVACIÓN</th>
+                                        
 
                                      </tr>
                              </thead>
@@ -515,6 +522,7 @@
                                                             <div class="form-group"><label for="NÚMERO DE PLANO">NÚMERO DE PLANO</label><input type="text" id="NUMERO_DE_PLANO" class="form-control" name="NUMERO_DE_PLANO"></div>
                                                             <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input onkeyup="formatoNumero(this)" type="text" id="REVISION" class="form-control" name="REVISION"></div>
                                                             <div class="form-group"><label for="PAQUETE DE CONSTRUCCIÓN / ÁREA">PAQUETE DE CONSTRUCCIÓN / ÁREA</label><input type="text" id="PAQUETE_DE_CONSTRUCCION_AREA" class="form-control" name="PAQUETE_DE_CONSTRUCCION_AREA"></div>
+                                                            <div class="form-group"><label for="CODIGO CONTROL PROYECTO">CODIGO CONTROL PROYECTO</label><input type="text" id="CODIGO_CONTROL_PROYECTO" class="form-control" name="CODIGO_CONTROL_PROYECTO"></div>
  
                                                         </div>
                                                   </div>
@@ -576,31 +584,33 @@
                                                
                                                         <div class="col-md-6">
                                                             <div class="form-group"><label for="FECHA COMIENZO FABRICACION">FECHA COMIENZO FABRICACION</label><input type="text" id="FECHA_COMIENZO_FABRICACION" class="form-control fechapicker" name="FECHA_COMIENZO_FABRICACION"></div>
-                                                            <div class="form-group"><label for="FECHA COMIENZO FABRICACION REAL">FECHA COMIENZO FECHA COMIENZO FABRICACION REAL</label><input type="text" id="FECHA_COMIENZO_FABRICACION_REAL" class="form-control fechapicker" name="FECHA_COMIENZO_FABRICACION_REAL"></div>
-                                                                                                                     
+                                                            <div class="form-group"><label for="FECHA COMIENZO FABRICACION REAL">FECHA COMIENZO FABRICACION REAL</label><input type="text" id="FECHA_COMIENZO_FABRICACION_REAL" class="form-control fechapicker" name="FECHA_COMIENZO_FABRICACION_REAL"></div>
+                                                       
+
+                                                          
 
 
-                                                            <div class="form-group"><label for="FECHA TERMINO FABRICACION">FECHA TERMINO FABRICACION</label><input type="text" id="FECHA_TERMINO_FABRICACION" class="form-control fechapicker"  name="FECHA_TERMINO_FABRICACION"></div>
-                                                            <div class="form-group"><label for="FECHA TERMINO FABRICACION REAL">FECHA TERMINO FABRICACION REAL</label><input type="text" id="FECHA_TERMINO_FABRICACION_REAL" class="form-control fechapicker"  name="FECHA_TERMINO_FABRICACION_REAL"></div>
+                                                            <div class="form-group"><label for="FECHA TERMINO FABRICACION">FECHA TERMINO FABRICACION</label><input type="text" id="FECHA_TERMINO_FABRICACION" class="form-control fechapicker" name="FECHA_TERMINO_FABRICACION"></div>
+                                                            <div class="form-group"><label for="FECHA TERMINO FABRICACION REAL">FECHA TERMINO FABRICACION REAL</label><input type="text" id="FECHA_TERMINO_FABRICACION_REAL" class="form-control fechapicker" name="FECHA_TERMINO_FABRICACION_REAL"></div>
 
 
                                                             <div class="form-group"><label for="FECHA GRANALLADO">FECHA GRANALLADO</label><input type="text" id="FECHA_GRANALLADO" class="form-control fechapicker" name="FECHA_GRANALLADO"></div>
-                                                            <div class="form-group"><label for="FECHA GRANALLADO">FECHA GRANALLADO REAL</label><input type="text" id="FECHA_GRANALLADO_REAL" class="form-control fechapicker" name="FECHA_GRANALLADO_REAL"></div>
-
+                                                            <div class="form-group"><label for="FECHA GRANALLADO REAL">FECHA GRANALLADO REAL</label><input type="text" id="FECHA_GRANALLADO_REAL" class="form-control fechapicker" name="FECHA_GRANALLADO_REAL"></div>
                                                             
                                                          </div>
 
                                                         <div class="col-md-6">
                                                             <div class="form-group"><label for="FECHA PINTURA">FECHA PINTURA</label><input type="text" id="FECHA_PINTURA" class="form-control fechapicker" name="FECHA_PINTURA"></div>
-                                                            <div class="form-group"><label for="FECHA PINTURAREAL ">FECHA PINTURAREAL </label><input type="text" id="FECHA_PINTURA_REAL" class="form-control fechapicker" name="FECHA_PINTURA_REAL"></div>
+                                                            <div class="form-group"><label for="FECHA PINTURA REAL">FECHA PINTURA REAL</label><input type="text" id="FECHA_PINTURA_REAL" class="form-control fechapicker" name="FECHA_PINTURA_REAL"></div>
+                                                           
                                                             <div class="form-group"><label for="FECHA LISTO INSPECCION">FECHA LISTO INSPECCION</label><input type="text" id="FECHA_LISTO_INSPECCION" class="form-control fechapicker" name="FECHA_LISTO_INSPECCION"></div>
                                                             <div class="form-group"><label for="FECHA LISTO INSPECCION REAL">FECHA LISTO INSPECCION REAL</label><input type="text" id="FECHA_LISTO_INSPECCION_REAL" class="form-control fechapicker" name="FECHA_LISTO_INSPECCION_REAL"></div>
-                                                                                                                    
-                                                            
+
                                                             <div class="form-group"><label for="FECHA SALIDA FABRICA">FECHA SALIDA FABRICA</label><input type="text" id="FECHA_SALIDA_FABRICA" class="form-control fechapicker" name="FECHA_SALIDA_FABRICA"></div>
-                                                            <div class="form-group"><label for="PA FSF">PA FSF</label>
-                                                            <div id="select_pafsf"></div>
-                                                              </div>
+                                                            <div class="form-group"><label for="FECHA SALIDA FABRICA REAL">FECHA SALIDA FABRICA REAL</label><input type="text" id="FECHA_SALIDA_FABRICA_REAL" class="form-control fechapicker" name="FECHA_SALIDA_FABRICA_REAL"></div>
+                                                            
+                                                            
+                                                         
                                                         </div>
                                                   </div>
                                               </div>
@@ -646,6 +656,42 @@
                                 </div>
                             </div> 
 
+                            
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">OBSERVACIÓN</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+
+                                               
+                                                        <div class="col-md-6">
+                                                        <div class="form-group"><label for="FECHA_RAS">FECHA_RAS</label><input type="text" id="FECHA_RAS" class="form-control fechapicker" name="FECHA_RAS"></div>
+                                                        <div class="form-group"><label for="FECHA_ETA">FECHA_ETA</label><input type="text" id="FECHA_ETA" class="form-control fechapicker" name="FECHA_ETA"></div>
+                                                        <div class="form-group"><label for="OBSERVACIÓN">OBSERVACIÓN</label><input type="text" id="OBSERVACION" class="form-control" name="OBSERVACION"></div>
+                                                        <div class="form-group"><label for="COMENTARIOS">COMENTARIOS</label><input type="text" id="COMENTARIOS" class="form-control" name="COMENTARIOS"></div>
+
+
+
+
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                       </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div> 
                             <div class="row">
                                 <div class="col-md-12">
                                     <div class="card card-primary">
@@ -673,37 +719,6 @@
                                                             <div class="form-group"><label for="INSPECCIÓN DE INGENIERÍA">INSPECCIÓN DE INGENIERÍA</label><input type="text" id="INSPECCION_DE_INGENIERIA" class="form-control" name="INSPECCION_DE_INGENIERIA"></div>
 
                                                         </div>
-                                                  </div>
-                                              </div>
-                                    
-                                        <!-- /.card-body -->
-                                    </div>
-                                </div>
-                            </div> 
-
-
-                            <div class="row">
-                                <div class="col-md-12">
-                                    <div class="card card-primary">
-                                        <div class="card-header">
-                                            <h3 class="card-title">OBSERVACIÓN</h3>
-                                            <div class="card-tools">
-                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
-                                                <i class="fas fa-minus"></i></button>
-                                            </div>
-                                        </div>
-                                                <div class="card-body">
-                                                  <div class="row show-grid">
-
-
-                                               
-                                                        <div class="col-md-6">
-                                                           <div class="form-group"><label for="OBSERVACIÓN">OBSERVACIÓN</label><input type="text" id="OBSERVACION" class="form-control" name="OBSERVACION"></div>
-
-                                                        </div>
-
-                                                        <div class="col-md-6">
-                                                       </div>
                                                   </div>
                                               </div>
                                     
@@ -749,13 +764,7 @@
              .grey {
             background-color: rgba(128,128,128,.25)!important;
             }
-            table {
-                    border-collapse: collapse;
-                    border-spacing: 0;
-                    width: 100%;
-                    border: 5px solid #000;
-                    }
-
+            
              </style>
 
 
@@ -875,26 +884,26 @@ $.ajax({
 
 console.log(parseInt(result.countAdverActivacion));
 
-    if(parseInt(result.countAdverActivacion) > 0){
+if(parseInt(result.countAdverActivacion) > 0){
 
-        activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="cambiosenorden(1)">' +result.countAdverActivacion+'</button>';
+activacion_html = '<button class="btn btn-block btn-outline-success btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
 
-    }else{
+}else{
 
-        activacion_html = result.countAdverActivacion;
+activacion_html = result.countAdverActivacion;
 
-    }
+}
 
-    console.log(parseInt(result.countAdverCalidad));
-    if(parseInt(result.countAdverCalidad) > 0){
+console.log(parseInt(result.countAdverCalidad));
+if(parseInt(result.countAdverCalidad) > 0){
 
-        calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdvercountAdverCalidadCalidad+'</button>';
+calidad_html = '<button class="btn btn-block btn-outline-danger btn-sm" onclick="controldecalidad(1)">' +result.countAdverCalidad+'</button>';
 
-    }else{
+}else{
 
-        calidad_html = result.countAdverCalidad;
+calidad_html = result.countAdverActivacion;
 
-    }
+}
 
 
 
@@ -963,6 +972,7 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_PLANO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REVISION+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.PAQUETE_DE_CONSTRUCCION_AREA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.CODIGO_CONTROL_PROYECTO+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_LINEA_BASE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_ANTES_LB + '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_COMIENZO_FABRICACION + '</td>';
@@ -984,17 +994,24 @@ console.log(parseInt(result.countAdverActivacion));
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.NUMERO_DE_VIAJE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.ORIGEN+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.DIAS_VIAJE+ '</td>';
+
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_RAS+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.FECHA_ETA+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
+                        bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.COMENTARIOS+ '</td>';
+
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.UNIDADES_RECIBIDAS+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_RECEPCION_RR+ '</td>';
                        
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.REPORTE_DE_EXCEPCION_EXB+ '</td>';
                         bucksheet_html += '<td style="text-align:left;"> ' + bucksheets.INSPECCION_DE_INGENIERIA+ '</td>';
-                        bucksheet_html += '<td style="text-align:left;">' + bucksheets.OBSERVACION+ '</td>';
+
 
 
                         bucksheet_html += '</tr>';
 
                      });
+
 
 
                      $('#datos_bucksheet').html(bucksheet_html);
@@ -1251,6 +1268,7 @@ window.open('<?php echo site_url('ControlCalidad/dossierCalidad/'.$idCliente.'/'
                 $('#NUMERO_DE_PLANO').val(bucksheets.NUMERO_DE_PLANO);
                 $('#REVISION').val(bucksheets.REVISION);
                 $('#PAQUETE_DE_CONSTRUCCION_AREA').val(bucksheets.PAQUETE_DE_CONSTRUCCION_AREA);
+                $('#CODIGO_CONTROL_PROYECTO').val(bucksheets.CODIGO_CONTROL_PROYECTO);
                 $('#FECHA_LINEA_BASE').val(bucksheets.FECHA_LINEA_BASE);
                 $('#DIAS_ANTES_LB').val(bucksheets.DIAS_ANTES_LB);
                 $('#FECHA_COMIENZO_FABRICACION').val(bucksheets.FECHA_COMIENZO_FABRICACION);
@@ -1272,13 +1290,16 @@ window.open('<?php echo site_url('ControlCalidad/dossierCalidad/'.$idCliente.'/'
                 $('#NUMERO_DE_VIAJE').val(bucksheets.NUMERO_DE_VIAJE);
                 $('#ORIGEN').val(bucksheets.ORIGEN);
                 $('#DIAS_VIAJE').val(bucksheets.DIAS_VIAJE);
+                $('#FECHA_RAS').val(bucksheets.FECHA_RAS);
+                $('#FECHA_ETA').val(bucksheets.FECHA_ETA);
+                $('#OBSERVACION').val(bucksheets.OBSERVACION);
+                $('#COMENTARIOS').val(bucksheets.COMENTARIOS);
                 $('#UNIDADES_RECIBIDAS').val(bucksheets.UNIDADES_RECIBIDAS);
                 $('#REPORTE_DE_RECEPCION_RR').val(bucksheets.REPORTE_DE_RECEPCION_RR);
                 $('#REPORTE_DE_ENTREGA_RE').val(bucksheets.REPORTE_DE_ENTREGA_RE);
                 $('#REPORTE_DE_EXCEPCION_EXB').val(bucksheets.REPORTE_DE_EXCEPCION_EXB);
                 $('#INSPECCION_DE_INGENIERIA').val(bucksheets.INSPECCION_DE_INGENIERIA);
-                $('#OBSERVACION').val(bucksheets.OBSERVACION);
-
+                
                 
 
        

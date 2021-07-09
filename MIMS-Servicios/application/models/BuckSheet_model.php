@@ -85,9 +85,8 @@ class BuckSheet_model extends CI_Model{
                             t1.FECHA_PINTURA_REAL,
                             t1.FECHA_LISTO_INSPECCION,
                             t1.FECHA_LISTO_INSPECCION_REAL,
-                           
                             t1.FECHA_SALIDA_FABRICA,
-                           t1.FECHA_SALIDA_FABRICA_REAL,
+                            t1.FECHA_SALIDA_FABRICA_REAL,
                             t1.FECHA_EMBARQUE,
                             t1.FECHA_EMBARQUE_REAL,
                             t1.PACKINGLIST,
@@ -99,7 +98,11 @@ class BuckSheet_model extends CI_Model{
                             t1.REPORTE_DE_RECEPCION_RR,
                             t1.REPORTE_DE_EXCEPCION_EXB,
                             t1.INSPECCION_DE_INGENIERIA,
-                            t1.OBSERVACION"); 
+                            t1.OBSERVACION,
+                            t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
@@ -157,7 +160,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
@@ -218,6 +225,10 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
         t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS,
         t3.PurchaseOrderNumber,
         t3.PurchaseOrderDescription"); 
      $this->db->from('tbl_bucksheet t1, tbl_proyectos t2, tbl_ordenes t3');			
@@ -284,7 +295,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
@@ -373,7 +388,6 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
         t1.FECHA_LISTO_INSPECCION_REAL,
-       
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
@@ -387,7 +401,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
      $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
@@ -476,7 +494,6 @@ class BuckSheet_model extends CI_Model{
         t1.FECHA_PINTURA_REAL,
         t1.FECHA_LISTO_INSPECCION,
         t1.FECHA_LISTO_INSPECCION_REAL,
-       
         t1.FECHA_SALIDA_FABRICA,
        t1.FECHA_SALIDA_FABRICA_REAL,
         t1.FECHA_EMBARQUE,
@@ -490,7 +507,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
     $this->db->from('tbl_bucksheet t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('COD_EMPRESA',$this->_codEmpresa);
@@ -684,7 +705,11 @@ class BuckSheet_model extends CI_Model{
         t1.REPORTE_DE_RECEPCION_RR,
         t1.REPORTE_DE_EXCEPCION_EXB,
         t1.INSPECCION_DE_INGENIERIA,
-        t1.OBSERVACION"); 
+        t1.OBSERVACION,
+        t1.CODIGO_CONTROL_PROYECTO,
+                            t1.FECHA_RAS,
+                            t1.FECHA_ETA,
+                            t1.COMENTARIOS"); 
     $this->db->from('tbl_bucksheet_error t1');			
      $this->db->where('ID_OC',$this->_ID_OC);
      $this->db->where('ID_ERROR', $this->_idError);

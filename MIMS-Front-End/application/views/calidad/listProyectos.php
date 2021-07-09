@@ -130,8 +130,7 @@
 						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
                       <thead>
                         <tr>                          
-						  <th>Acciones</th>
-						  <th>ID Orden</th>
+										  <th>ID Orden</th>
 						  <th>Item ID</th>
 						  <th>Descripcion</th>
 						  <th>Revisión</th>
@@ -1107,7 +1106,12 @@ function obtieneSelects(){
 
 }
 
+function listar_item_ordenes(orden_id, id_cliente, id_proyecto, nombre_orden ) {
 
+recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden);
+
+
+}
 
 function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
         window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');

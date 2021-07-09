@@ -562,6 +562,8 @@ class BuckSheet extends MY_Controller
                               $dias_lb = $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $row['FECHA_EMBARQUE_REAL']);
                             }
                        
+                          
+                          
 
                             $memData = array(
                               'COD_EMPRESA' =>  $codEmpresa,
@@ -584,6 +586,7 @@ class BuckSheet extends MY_Controller
                               'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
                               'REVISION' => $row['REVISION'],
                               'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
+                              'CODIGO_CONTROL_PROYECTO' => $row['CODIGO_CONTROL_PROYECTO'],
                               'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
                               'DIAS_ANTES_LB' => $dias_lb,
                               'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
@@ -596,7 +599,6 @@ class BuckSheet extends MY_Controller
                               'FECHA_PINTURA_REAL' => $this->callutil->formatoFecha($row['FECHA_PINTURA_REAL']),
                               'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
                               'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION_REAL']),
-                             
                               'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
                               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA_REAL']),
                               'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
@@ -606,11 +608,14 @@ class BuckSheet extends MY_Controller
                               'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
                               'ORIGEN' => $row['ORIGEN'],
                               'DIAS_VIAJE' => $row['DIAS_VIAJE'],
+                              'FECHA_RAS' => $this->callutil->formatoFecha($row['FECHA_RAS']),
+                              'FECHA_ETA' => $this->callutil->formatoFecha($row['FECHA_ETA']),
+                              'OBSERVACION' => $row['OBSERVACION'],
+                              'COMENTARIOS' => $row['COMENTARIOS'],
                               'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
                               'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
                               'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
-                              'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
-                              'OBSERVACION' => $row['OBSERVACION']
+                              'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA']                              
                             );
 
 
@@ -821,6 +826,7 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
               'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
@@ -833,7 +839,6 @@ class BuckSheet extends MY_Controller
               'FECHA_PINTURA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL)),
               'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
               'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL)),
-              
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($value->FECHA_SALIDA_FABRICA_REAL),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
@@ -843,12 +848,14 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_VIAJE' => $this->callutil->cambianull($value->NUMERO_DE_VIAJE),
               'ORIGEN' => $this->callutil->cambianull($value->ORIGEN),
               'DIAS_VIAJE' => $this->callutil->cambianull($value->DIAS_VIAJE),
+              'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+              'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+              'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+              'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
               'UNIDADES_RECIBIDAS' => $this->callutil->cambianull($value->UNIDADES_RECIBIDAS),
               'REPORTE_DE_RECEPCION_RR' => $this->callutil->cambianull($value->REPORTE_DE_RECEPCION_RR),
               'REPORTE_DE_EXCEPCION_EXB' => $this->callutil->cambianull($value->REPORTE_DE_EXCEPCION_EXB),
-              'INSPECCION_DE_INGENIERIA' => $this->callutil->cambianull($value->INSPECCION_DE_INGENIERIA),
-              'OBSERVACION' =>$this->callutil->cambianull( $value->OBSERVACION)
-              
+              'INSPECCION_DE_INGENIERIA' => $this->callutil->cambianull($value->INSPECCION_DE_INGENIERIA)            
 
 
 
@@ -1024,6 +1031,7 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
               'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
@@ -1036,7 +1044,6 @@ class BuckSheet extends MY_Controller
               'FECHA_PINTURA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL)),
               'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
               'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL)),
-              
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
@@ -1046,6 +1053,10 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
               'ORIGEN' => $value->ORIGEN,
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+              'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+              'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+              'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
@@ -1148,6 +1159,7 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
               'DIAS_ANTES_LB' => $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE, $fecha_hoy),
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
@@ -1160,7 +1172,6 @@ class BuckSheet extends MY_Controller
               'FECHA_PINTURA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL)),
               'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
               'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL)),
-              
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
@@ -1170,11 +1181,14 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
               'ORIGEN' => $value->ORIGEN,
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+              'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+              'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+              'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-              'OBSERVACION' => $value->OBSERVACION
+              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA
 
         );
       }
@@ -1248,6 +1262,7 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
               'REVISION' => $value->REVISION,
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+              'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
               'DIAS_ANTES_LB' => $dias_lb,
               'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
@@ -1260,7 +1275,6 @@ class BuckSheet extends MY_Controller
               'FECHA_PINTURA_REAL' =>  $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL)),
               'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
               'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL)),
-              
               'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
               'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL)),
               'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
@@ -1270,11 +1284,14 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
               'ORIGEN' => $value->ORIGEN,
               'DIAS_VIAJE' => $value->DIAS_VIAJE,
+              'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+              'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+              'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+              'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
               'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
               'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
               'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-              'OBSERVACION' => $value->OBSERVACION
+              'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA
         );
 
         $select_unidad = $this->callutil->obtiene_select_def_act('UNIDAD',$value->UNIDAD,'UNIDAD_MEDIDA');
@@ -1393,6 +1410,7 @@ class BuckSheet extends MY_Controller
       'NUMERO_DE_PLANO' => $this->input->post('NUMERO_DE_PLANO'),
       'REVISION' => $this->callutil->formatoNumeroMilesEntrada($this->input->post('REVISION')),
       'PAQUETE_DE_CONSTRUCCION_AREA' => $this->input->post('PAQUETE_DE_CONSTRUCCION_AREA'),
+      'CODIGO_CONTROL_PROYECTO' =>$this->input->post('CODIGO_CONTROL_PROYECTO'),
       'FECHA_LINEA_BASE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_LINEA_BASE')),
       'DIAS_ANTES_LB' =>  $dias_lb,
       'FECHA_COMIENZO_FABRICACION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_COMIENZO_FABRICACION')),
@@ -1405,7 +1423,6 @@ class BuckSheet extends MY_Controller
       'FECHA_PINTURA_REAL' => $this->callutil->formatoFecha($this->input->post('FECHA_PINTURA_REAL')),
       'FECHA_LISTO_INSPECCION' =>  $this->callutil->formatoFecha($this->input->post('FECHA_LISTO_INSPECCION')),
       'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->formatoFecha($this->input->post('FECHA_LISTO_INSPECCION_REAL')),
-      
       'FECHA_SALIDA_FABRICA' =>  $this->callutil->formatoFecha($this->input->post('FECHA_SALIDA_FABRICA')),
       'FECHA_SALIDA_FABRICA_REAL' =>  $this->callutil->formatoFecha($this->input->post('FECHA_SALIDA_FABRICA_REAL')),
       'FECHA_EMBARQUE' =>  $this->callutil->formatoFecha($this->input->post('FECHA_EMBARQUE')),
@@ -1415,11 +1432,14 @@ class BuckSheet extends MY_Controller
       'NUMERO_DE_VIAJE' => $this->input->post('NUMERO_DE_VIAJE'),
       'ORIGEN' => $this->input->post('ORIGEN'),
       'DIAS_VIAJE' => $this->input->post('DIAS_VIAJE'),
+      'FECHA_RAS' => $this->callutil->formatoFecha($this->input->post('FECHA_RAS')),
+      'FECHA_ETA' => $this->callutil->formatoFecha($this->input->post('FECHA_ETA')),
+      'OBSERVACION' => $this->input->post('OBSERVACION'),
+      'COMENTARIOS' => $this->input->post('COMENTARIOS'),
       'UNIDADES_RECIBIDAS' => $this->input->post('UNIDADES_RECIBIDAS'),
       'REPORTE_DE_RECEPCION_RR' => $this->input->post('REPORTE_DE_RECEPCION_RR'),
       'REPORTE_DE_EXCEPCION_EXB' => $this->input->post('REPORTE_DE_EXCEPCION_EXB'),
-      'INSPECCION_DE_INGENIERIA' => $this->input->post('INSPECCION_DE_INGENIERIA'),
-      'OBSERVACION' => $this->input->post('OBSERVACION'),
+      'INSPECCION_DE_INGENIERIA' => $this->input->post('INSPECCION_DE_INGENIERIA')
       
     );
 
@@ -1552,6 +1572,7 @@ class BuckSheet extends MY_Controller
       "NUMERO_DE_PLANO",
       "REVISION",
       "PAQUETE_DE_CONSTRUCCION_AREA",
+      "CODIGO_CONTROL_PROYECTO",
       "FECHA_LINEA_BASE",
       "DIAS_ANTES_LB",
       "FECHA_COMIENZO_FABRICACION",
@@ -1564,7 +1585,6 @@ class BuckSheet extends MY_Controller
       "FECHA_PINTURA_REAL",
       "FECHA_LISTO_INSPECCION",
       "FECHA_LISTO_INSPECCION_REAL",
-      
       "FECHA_SALIDA_FABRICA",
       "FECHA_SALIDA_FABRICA_REAL",
       "FECHA_EMBARQUE",
@@ -1574,11 +1594,14 @@ class BuckSheet extends MY_Controller
       "NUMERO_DE_VIAJE",
       "ORIGEN",
       "DIAS_VIAJE",
+      'FECHA_RAS',
+      'FECHA_ETA',
+      'OBSERVACION',
+      'COMENTARIOS',
       "UNIDADES_RECIBIDAS",
       "REPORTE_DE_RECEPCION_RR",
       "REPORTE_DE_EXCEPCION_EXB",
-      "INSPECCION_DE_INGENIERIA",
-      "OBSERVACION"
+      "INSPECCION_DE_INGENIERIA"
 
     );
 
@@ -1628,6 +1651,7 @@ class BuckSheet extends MY_Controller
             'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
             'REVISION' => $value->REVISION,
             'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+            'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
             'FECHA_LINEA_BASE' => $this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE),
             'DIAS_ANTES_LB' => $dias_lb,
             'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION),
@@ -1640,7 +1664,6 @@ class BuckSheet extends MY_Controller
             'FECHA_PINTURA_REAL' =>$this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL),
             'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION),
             'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL),
-            
             'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
             'FECHA_SALIDA_FABRICA_REAL' =>  $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL),
             'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
@@ -1650,11 +1673,14 @@ class BuckSheet extends MY_Controller
             'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
             'ORIGEN' => $value->ORIGEN,
             'DIAS_VIAJE' => $value->DIAS_VIAJE,
+            'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+            'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+            'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+            'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
             'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
             'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
             'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-            'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-            'OBSERVACION' => $value->OBSERVACION
+            'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA
       );
 
 
@@ -1715,6 +1741,7 @@ class BuckSheet extends MY_Controller
       'NUMERO_DE_PLANO' => $row['NUMERO_DE_PLANO'],
       'REVISION' => $row['REVISION'],
       'PAQUETE_DE_CONSTRUCCION_AREA' => $row['PAQUETE_DE_CONSTRUCCION_AREA'],
+      'CODIGO_CONTROL_PROYECTO'  => $row['CODIGO_CONTROL_PROYECTO'],
       'FECHA_LINEA_BASE' => $this->callutil->formatoFecha($row['FECHA_LINEA_BASE']),
       'DIAS_ANTES_LB' => $row['DIAS_ANTES_LB'],
       'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFecha($row['FECHA_COMIENZO_FABRICACION']),
@@ -1727,7 +1754,6 @@ class BuckSheet extends MY_Controller
       'FECHA_PINTURA_REAL' => $this->callutil->formatoFecha($row['FECHA_PINTURA_REAL']),
       'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION']),
       'FECHA_LISTO_INSPECCION_REAL' =>$this->callutil->formatoFecha($row['FECHA_LISTO_INSPECCION_REAL']),
-     
       'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA']),
       'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFecha($row['FECHA_SALIDA_FABRICA_REAL']),
       'FECHA_EMBARQUE' => $this->callutil->formatoFecha($row['FECHA_EMBARQUE']),
@@ -1737,11 +1763,14 @@ class BuckSheet extends MY_Controller
       'NUMERO_DE_VIAJE' => $row['NUMERO_DE_VIAJE'],
       'ORIGEN' => $row['ORIGEN'],
       'DIAS_VIAJE' => $row['DIAS_VIAJE'],
+      'FECHA_RAS' => $this->callutil->formatoFecha($row['FECHA_RAS']),
+      'FECHA_ETA' => $this->callutil->formatoFecha($row['FECHA_ETA']),
+      'OBSERVACION' => $row['OBSERVACION'],
+      'COMENTARIOS' => $row['COMENTARIOS'],
       'UNIDADES_RECIBIDAS' => $row['UNIDADES_RECIBIDAS'],
       'REPORTE_DE_RECEPCION_RR' => $row['REPORTE_DE_RECEPCION_RR'],
       'REPORTE_DE_EXCEPCION_EXB' => $row['REPORTE_DE_EXCEPCION_EXB'],
-      'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA'],
-      'OBSERVACION' => $row['OBSERVACION']
+      'INSPECCION_DE_INGENIERIA' => $row['INSPECCION_DE_INGENIERIA']
     );
 
 
@@ -1793,6 +1822,7 @@ class BuckSheet extends MY_Controller
       "NUMERO_DE_PLANO",
       "REVISION",
       "PAQUETE_DE_CONSTRUCCION_AREA",
+      "CODIGO_CONTROL_PROYECTO",
       "FECHA_LINEA_BASE",
       "DIAS_ANTES_LB",
       "FECHA_COMIENZO_FABRICACION",
@@ -1805,7 +1835,6 @@ class BuckSheet extends MY_Controller
       "FECHA_PINTURA_REAL",
       "FECHA_LISTO_INSPECCION",
       "FECHA_LISTO_INSPECCION_REAL",
-      
       "FECHA_SALIDA_FABRICA",
       "FECHA_SALIDA_FABRICA_REAL",
       "FECHA_EMBARQUE",
@@ -1815,11 +1844,14 @@ class BuckSheet extends MY_Controller
       "NUMERO_DE_VIAJE",
       "ORIGEN",
       "DIAS_VIAJE",
+      "FECHA_RAS" ,
+      "FECHA_ETA" ,
+      "OBSERVACION" ,
+      "COMENTARIOS",
       "UNIDADES_RECIBIDAS",
       "REPORTE_DE_RECEPCION_RR",
       "REPORTE_DE_EXCEPCION_EXB",
-      "INSPECCION_DE_INGENIERIA",
-      "OBSERVACION"
+      "INSPECCION_DE_INGENIERIA"
     );
 
   fputcsv($file, $header, ';', chr(27));
@@ -1832,51 +1864,54 @@ class BuckSheet extends MY_Controller
         "ID_ERROR" => $value->ID_ERROR,
         "MENSAJE_ERROR" => $value->MENSAJE_ERROR,
         'ID_OC' => $value->ID_OC,
-            'NUMERO_OC' => $value->NUMERO_OC,
-            'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
-            'ITEM_OC' => $value->ITEM_OC,
-            'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
-            'PROVEEDOR' => $value->PROVEEDOR,
-            'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
-            'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
-            'ESTADO_DE_LINEA' => $value->ESTADO_DE_LINEA,
-            'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
-            'STOCKCODE' => $value->STOCKCODE,
-            'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
-            'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
-            'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
-            'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
-            'UNIDAD' => $value->UNIDAD,
-            'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
-            'REVISION' => $value->REVISION,
-            'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
-            'FECHA_LINEA_BASE' => $this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE),
-            'DIAS_ANTES_LB' => $value->DIAS_ANTES_LB,
-            'FECHA_COMIENZO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION),
-            'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL),
-            'FECHA_TERMINO_FABRICACION' => $this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION),
-            'FECHA_TERMINO_FABRICACION_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION_REAL),
-            'FECHA_GRANALLADO' => $this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO),
-            'FECHA_GRANALLADO_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO_REAL),
-            'FECHA_PINTURA' => $this->callutil->formatoFechaSalida($value->FECHA_PINTURA),
-            'FECHA_PINTURA_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL),
-            'FECHA_LISTO_INSPECCION' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION),
-            'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL),
-            
-            'FECHA_SALIDA_FABRICA' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA),
-            'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA_REAL),
-            'FECHA_EMBARQUE' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE),
-            'FECHA_EMBARQUE_REAL' => $this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL),
-            'PACKINGLIST' => $value->PACKINGLIST,
-            'GUIA_DESPACHO' => $value->GUIA_DESPACHO,
-            'NUMERO_DE_VIAJE' => $value->NUMERO_DE_VIAJE,
-            'ORIGEN' => $value->ORIGEN,
-            'DIAS_VIAJE' => $value->DIAS_VIAJE,
-            'UNIDADES_RECIBIDAS' => $value->UNIDADES_RECIBIDAS,
-            'REPORTE_DE_RECEPCION_RR' => $value->REPORTE_DE_RECEPCION_RR,
-            'REPORTE_DE_EXCEPCION_EXB' => $value->REPORTE_DE_EXCEPCION_EXB,
-            'INSPECCION_DE_INGENIERIA' => $value->INSPECCION_DE_INGENIERIA,
-            'OBSERVACION' => $value->OBSERVACION
+        'NUMERO_OC' => $value->NUMERO_OC,
+        'DESCRIPCION_OC' => $value->DESCRIPCION_OC,
+        'ITEM_OC' => $value->ITEM_OC,
+        'SUB_ITEM_OC' => $value->SUB_ITEM_OC,
+        'PROVEEDOR' => $value->PROVEEDOR,
+        'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
+        'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
+        'ESTADO_DE_LINEA' => $this->callutil->cambianull($value->ESTADO_DE_LINEA),
+        'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
+        'STOCKCODE' => $value->STOCKCODE,
+        'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
+        'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
+        'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
+        'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
+        'UNIDAD' => $value->UNIDAD,
+        'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
+        'REVISION' => $value->REVISION,
+        'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
+        'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
+        'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
+        'DIAS_ANTES_LB' => $dias_lb,
+        'FECHA_COMIENZO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION)),
+        'FECHA_COMIENZO_FABRICACION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_COMIENZO_FABRICACION_REAL)),
+        'FECHA_TERMINO_FABRICACION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION)),
+        'FECHA_TERMINO_FABRICACION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_TERMINO_FABRICACION_REAL)),
+        'FECHA_GRANALLADO' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO)),
+        'FECHA_GRANALLADO_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_GRANALLADO_REAL)),
+        'FECHA_PINTURA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA)),
+        'FECHA_PINTURA_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_PINTURA_REAL)),
+        'FECHA_LISTO_INSPECCION' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION)),
+        'FECHA_LISTO_INSPECCION_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LISTO_INSPECCION_REAL)),
+        'FECHA_SALIDA_FABRICA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_SALIDA_FABRICA)),
+        'FECHA_SALIDA_FABRICA_REAL' => $this->callutil->cambianull($value->FECHA_SALIDA_FABRICA_REAL),
+        'FECHA_EMBARQUE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE)),
+        'FECHA_EMBARQUE_REAL' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_EMBARQUE_REAL)),
+        'PACKINGLIST' => $this->callutil->cambianull($value->PACKINGLIST),
+        'GUIA_DESPACHO' => $this->callutil->cambianull($value->GUIA_DESPACHO),
+        'NUMERO_DE_VIAJE' => $this->callutil->cambianull($value->NUMERO_DE_VIAJE),
+        'ORIGEN' => $this->callutil->cambianull($value->ORIGEN),
+        'DIAS_VIAJE' => $this->callutil->cambianull($value->DIAS_VIAJE),
+        'FECHA_RAS' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_RAS)),
+        'FECHA_ETA' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_ETA)),
+        'OBSERVACION' => $this->callutil->cambianull($value->OBSERVACION),
+        'COMENTARIOS' => $this->callutil->cambianull($value->COMENTARIOS),
+        'UNIDADES_RECIBIDAS' => $this->callutil->cambianull($value->UNIDADES_RECIBIDAS),
+        'REPORTE_DE_RECEPCION_RR' => $this->callutil->cambianull($value->REPORTE_DE_RECEPCION_RR),
+        'REPORTE_DE_EXCEPCION_EXB' => $this->callutil->cambianull($value->REPORTE_DE_EXCEPCION_EXB),
+        'INSPECCION_DE_INGENIERIA' => $this->callutil->cambianull($value->INSPECCION_DE_INGENIERIA)           
       );
 
 
