@@ -137,6 +137,22 @@ class Journal extends CI_Controller {
 			
 				}
 
+				function obtienejournalHallazgos(){
+
+					$id_orden_compra = $this->input->post('id_orden_compra');
+					$tipo = $this->input->post('tipo');
+					$id_cliente = $this->input->post('id_cliente');
+			
+			
+					$journals = $this->journal->obtienejournalHallazgos($id_orden_compra,$tipo,$id_cliente);
+							//output to json format
+					echo json_encode($journals);
+			
+			
+				}
+
+				
+
 }
 
 	

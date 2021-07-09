@@ -140,12 +140,44 @@
                         <!-- /.card-body -->
                     </div>
 
+                    <div class="card">
+                        <div class="card-header">
+                            <h3 class="card-title">
+                            <i class="fas fa-tasks"></i>
+                            Hallazgos
+                            </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                         <table id="tbl_ccalidadhall" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                             <thead>
+                                 <tr>
+                                     <th style="display: none;" ></th>
+                                     <th style="display: none;" ></th>
+                                     <th>Acciones</th>
+                                     <th>Usuario</th>
+                                     <th>Fecha Ingreso</th>
+                                     <th>Numero Referencial</th>
+                                     <th>Tipo Interaccion</th>
+                                     <th>Solicitado por</th>
+                                     <th>Aprobado por</th>
+                                     <th>Comentarios Generales</th>
+                                     <th>Respaldos</th>
+                                 </tr>
+                             </thead>
+                             <tbody id="datos_ccalidadhall">
+                             </tbody>
+                         </table>
+                        </div>
+                        <!-- /.card-body -->
+                    </div>
+
 
                     <div class="card">
                         <div class="card-header">
                             <h3 class="card-title">
                             <i class="fas fa-tasks"></i>
-                               LEVANTAMIENTOS DE Advertencias y las No Conformidades
+                               LEVANTAMIENTOS DE Advertencias, las No Conformidades y Hallazgos
                             </h3>
                         </div>
                         <!-- /.card-header -->
@@ -153,7 +185,6 @@
                          <table id="tbl_ccalidadlev" class="table table-striped table-bordered" cellspacing="0" width=100%>
                              <thead>
                                  <tr>
-                                     <th>Acciones</th>
                                      <th>Usuario</th>
                                      <th>Fecha Ingreso</th>
                                      <th>Numero Referencial</th>
@@ -170,6 +201,15 @@
                         </div>
                         <!-- /.card-body -->
                     </div>
+
+
+                
+
+
+
+
+
+
                  </div>
 
 
@@ -385,7 +425,8 @@ recargaControlCalidad(orden, cliente);
 formToggleDesactivar('interaction_ref');
 $('#id_interaccion_ref').val("0");
 recargaControlCalidadAdv(orden, cliente);
-recargaControlCalidadLev(0, 0, 0, 0)
+recargaControlCalidadLev(0, 0, 0, 0);
+recargaControlCalidadHall(orden, cliente);
 
 
 //set input/textarea/select event when change value, remove class error and remove text help block 
@@ -411,6 +452,14 @@ var tipo_interaccion = this.value;
 
 if (tipo_interaccion=='17'){
 
+    
+    obtieneSelects();
+    formToggleActivar('interaction_ref');
+
+}else if(tipo_interaccion=='21'){
+
+    
+    obtieneSelectsHall();
     formToggleActivar('interaction_ref');
 
 }else{
@@ -435,6 +484,7 @@ var orden = <?php echo $idOrden?>;
 
 recargaControlCalidad(orden, cliente);
 recargaControlCalidadAdv(orden, cliente);
+recargaControlCalidadHall(orden, cliente);
 
 });
 
@@ -453,7 +503,7 @@ $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
 $('#id_interaccion_ref').val("0");
 $('#modal_control_calidad').modal('show');
 $('#name_respaldo').html("");
-obtieneSelects();
+$('#tipo_interaccion').prop('disabled',false);
 formToggleDesactivar('interaction_ref');
 
 });
@@ -587,6 +637,7 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                 {
                     save_method = 'update';
                     $('#miForm')[0].reset(); // reset form on modals
+                    formToggleDesactivar('interaction_ref');
                  
                   
                     $.ajax({
@@ -624,9 +675,8 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                             }
                             
 
-                            var campo = document.getElementById('tipo_interaccion');
-                            campo.readOnly = true; // Se añade el atributo
-
+                          
+                            $('#tipo_interaccion').prop('disabled',true);
 
                             $('#modal_control_calidad').modal('show');
                             $('#name_respaldo').html("");
@@ -749,6 +799,7 @@ if(falso == 0 ){
                        $('#modal_control_calidad').modal('hide');
                        recargaControlCalidad(orden, cliente);
                        recargaControlCalidadAdv(orden, cliente);
+                       recargaControlCalidadHall(orden, cliente);
                        toastr.success(result.mensaje);
 
 
@@ -833,6 +884,8 @@ if(opcion){
 
         recargaControlCalidad(orden, cliente);
         recargaControlCalidadAdv(orden, cliente);
+        recargaControlCalidadHall(orden, cliente);
+        recargaControlCalidadLev(orden, cliente, id_interaccion, id_interaccion_ref);
         toastr.success(result.mensaje);
 
       }else{
@@ -882,6 +935,40 @@ $.ajax({
 
 
 }
+
+
+function obtieneSelectsHall(){
+
+
+var cliente = <?php echo $idCliente?>;
+var orden = <?php echo $idOrden?>;
+var tipo =<?php echo $tipoJournal?>;
+
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/Consultas/obtieneSelectHall'); ?>',
+  type: 		'POST',
+  data:{
+    id_orden_compra: orden,
+    tipo: tipo,
+    id_cliente: cliente
+  },
+  dataType: 'json'
+  }).done(function(result) {
+
+   
+    $('#select_interaction_ref').html(result.select_cc_ref);
+
+
+
+  }).fail(function() {
+  console.log("error eliminar order");
+  })
+
+
+}
+
+
 
 function recargaControlCalidadAdv(orden, cliente) {
 
@@ -1022,6 +1109,32 @@ var data = table.row( this ).data();
 } ); 
 
 
+
+$('#tbl_ccalidadhall tbody').on('click', 'tr', function () {
+
+var cliente = <?php echo $idCliente?>;
+var orden = <?php echo $idOrden?>;
+var table = $('#tbl_ccalidadhall').DataTable();
+
+
+if ( $(this).hasClass('selected') ) {
+            $(this).removeClass('selected');
+        }
+        else {
+            table.$('tr.selected').removeClass('selected');
+            $(this).addClass('selected');
+        }
+
+
+
+
+
+
+var data = table.row( this ).data();
+  recargaControlCalidadLev(orden, cliente, data[0], data[1]);
+} ); 
+
+
 function recargaControlCalidadLev(orden, cliente, id_interaccion, id_interaccion_ref) {
 
 var calidad_html = '';
@@ -1125,6 +1238,120 @@ $.ajax({
 
 }
 
+
+function recargaControlCalidadHall(orden, cliente) {
+
+var calidad_html = '';
+
+var tabla_calidad = $('#tbl_ccalidadhall').DataTable();
+
+
+
+tabla_calidad.destroy();
+
+$.ajax({
+    url: '<?php echo base_url('index.php/Journal/obtienejournalCalidadHall'); ?>',
+    type: 'POST',
+    dataType: 'json',
+    data: {
+        id_orden_compra: orden,
+        id_cliente: cliente,
+        filtro: 1
+    },
+}).done(function(result) {
+
+
+    $.each(result.journals, function(key, journal) {
+        calidad_html += '<tr>';
+        calidad_html += '<td style="display: none;">' + journal.id_interaccion + '</td>';
+        calidad_html += '<td style="display: none;">' + journal.id_interaccion_ref + '</td>';
+        calidad_html += '<td>';
+        calidad_html +='<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="desactiva_registro_cc(' +journal.id_interaccion +',' +journal.id_interaccion_ref +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>' +
+                        '<button data-toggle="tooltip" data-placement="left" title="Desactiva Registro" ' +
+                        'onclick="edita_registro_cc(' +journal.id_interaccion +','+ orden + ',' + cliente +')"' + 
+                        'class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        calidad_html += '</td>';
+        calidad_html += '<td>' + journal.nombre_empleado + '</td>';
+        calidad_html += '<td>' + journal.fecha_ingreso + '</td>';
+        calidad_html += '<td>' + journal.numero_referencial + '</td>';
+        calidad_html += '<td>' + journal.tipo_interaccion + '</td>';
+        calidad_html += '<td>' + journal.solicitado_por + '</td>';
+        calidad_html += '<td>' + journal.aprobado_por + '</td>';
+        calidad_html += '<td>' + journal.comentarios_generales + '</td>';
+        calidad_html += '<td>' + journal.respaldos + '</td>';
+        calidad_html += '</tr>';
+
+    });
+
+
+    $('#datos_ccalidadhall').html(calidad_html);
+
+
+    $('#tbl_ccalidadhall').DataTable({
+                         lengthMenu: [[1, 2, 3, -1], [1, 2, 3, "All"]],
+                          language: {
+              url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+                                },
+                                "paging": false,
+                                "lengthChange": false,
+                                "searching": true,
+                                "ordering": true,
+                                "info": true,
+                                 "select": true,
+                               "autoWidth": true,
+                                "scrollY": "600px",
+                                "scrollX": true,
+                                "colReorder": true,
+                                "scrollCollapse": true,
+                                "responsive": false,
+                                "lengthChange": true, 
+                                "dom": 'Bfrtip',
+                                "lengthMenu": [
+                                    [ 10, 25, 50, -1 ],
+                                    [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+                                ],
+                                "buttons": [
+                                    {
+                                    "extend": 'copy',
+                                    "text": 'COPIAR'
+                                    },
+                                    {
+                                    "extend": 'csv',
+                                    "text": 'CSV'
+                                    },
+                                    {
+                                    "extend": 'excel',
+                                    "text": 'EXCEL'
+                                    },
+                                    {
+                                    "extend": 'pdf',
+                                    "text": 'PDF'
+                                    },
+                                    {
+                                    "extend": 'print',
+                                    "text": 'IMPRIMIR'
+                                    },
+                                    {
+                                    "extend": 'colvis',
+                                    "text": 'COLUMNAS VISIBLES'
+                                    },
+                                    {
+                                    "extend": 'pageLength',
+                                    "text": 'MOSTRAR REGISTROS'
+                                    }
+                            ]
+                        }).buttons().container().appendTo('#tbl_ccalidadhall_wrapper .col-md-6:eq(0)');
+
+
+
+
+}).fail(function() {
+    console.log("error change cliente");
+})
+
+}
 
 
 </script>
