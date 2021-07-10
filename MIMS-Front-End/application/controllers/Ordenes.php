@@ -846,13 +846,10 @@ function obtiene_select_supplier($codEmpresa, $nameId, $selected = ""){
 
     foreach ($datosEmployee as $key => $value) {
     
-      var_dump($value->SupplierName);
-      var_dump($selected);
-
+     
 
       if($selected === $value->SupplierName){
         $seleccionado = 'selected';
-        var_dump("Entra");
       }
 
       $html .= '<option  '.$seleccionado.'value="'.$value->SupplierName.'">'.$value->SupplierName.'</option>';

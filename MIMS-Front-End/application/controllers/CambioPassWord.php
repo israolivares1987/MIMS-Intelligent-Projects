@@ -305,9 +305,6 @@ function cambio_password(){
 
           $actualizapass = $this->callexternosconsultas->actualiza_password_new($cod_user,md5($password),$cod_emp);
           
-          
-          var_dump($actualizapass);
-
 
 
           if($actualizapass){
