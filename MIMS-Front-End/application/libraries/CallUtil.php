@@ -156,20 +156,21 @@ function formatoNumero($dato){
 		}
 
 		
-		public function obtieneDatoRef($dominio,$dato){
+public function obtieneDatoRef($dominio,$dato){
+
+
+	$CI =& get_instance();
+	$CI->load->library('CallExternosDominios');
+	
 
 	
-			$CI =& get_instance();
-			$CI->load->library('CallExternosDominios');
-			
+	$def  = $CI->callexternosdominios->obtieneDatoRef($dominio,$dato); 
 	
-			
-			$def  = $CI->callexternosdominios->obtieneDatoRef($dominio,$dato); 
-			
-			
-			return $def;
-			
-			}
+	
+	return $def;
+	
+	}
+	
 public function obtiene_select_def_act($inputId,$selected,$domain){
 
 	

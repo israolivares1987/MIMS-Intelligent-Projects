@@ -105,7 +105,7 @@ function cargaCalendarioFechas()
 
   let date = new Date()
 
-  let day = date.getDate() -1
+  let day = date.getDate()-1
   let month = date.getMonth() + 1
   let year = date.getFullYear()
   let fechaactual="";
@@ -119,49 +119,16 @@ function cargaCalendarioFechas()
 
 
 
-  $('.fechapicker').daterangepicker({
-    "singleDatePicker": true,
-    "showDropdowns": true,
-    "autoApply":true,
-    "locale": {
-        "format": "DD-MM-YYYY",
-        "separator": " - ",
-        "applyLabel": "Aplicar",
-        "cancelLabel": "Cancel",
-        "fromLabel": "From",
-        "toLabel": "To",
-        "customRangeLabel": "Custom",
-        "weekLabel": "W",
-        "daysOfWeek": [
-          "Lun",
-          "Mar",
-          "Mie",
-          "Jue",
-          "Vie",
-          "Sab",
-          "Dom"
-        ],
-        "monthNames": [
-          "Ene",
-          "Feb",
-          "Mar",
-          "Abr",
-          "May",
-          "Jun",
-          "Jul",
-          "Ago",
-          "Sep",
-          "Oct",
-          "Nov",
-          "Dic"
-        ],
-        "firstDay": 0
-    },
-    "startDate": fechaactual,
-    "endDate": "01-01-2030",
-    "opens": "top"
-  }, function(start, end, label) {
-  console.log('New date range selected: ' + start.format('DD-MM-YYYY') + ' to ' + end.format('DD-MM-YYYY') + ' (predefined range: ' + label + ')');
-  });
+  $('.fechapicker').datepicker({
+  
+      language: 'es',
+      format: 'dd-mm-yyyy',
+      todayHighlight:'TRUE',
+      autoclose: true,
+      forceParse: false,
+      orientation:'auto',
+      showOnFocus:	true
+  
+});
 
 }

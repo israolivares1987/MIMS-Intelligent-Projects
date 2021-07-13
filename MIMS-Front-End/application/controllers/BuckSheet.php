@@ -223,6 +223,7 @@ class BuckSheet extends MY_Controller
     $idProyecto = $this->input->post('idProyecto');
     $error = 0;
     $idmensaje = 0;
+    $avance = 0;
 
 
     $this->form_validation->set_rules('fileURL', 'Upload File', 'callback_checkFileValidation');
@@ -562,8 +563,16 @@ class BuckSheet extends MY_Controller
                               $dias_lb = $this->callutil->diasDiffFechas($row['FECHA_LINEA_BASE'], $row['FECHA_EMBARQUE_REAL']);
                             }
                        
+
+                            $DatoAvance = $this->obtieneDatoAvance($EstadoLineaBucksheet);
                           
+                            
+                                foreach (json_decode($DatoAvance) as $llave => $valor) {
+                                            
+                                  $avance = $valor->domain_desc;
                           
+                                }
+                                                  
 
                             $memData = array(
                               'COD_EMPRESA' =>  $codEmpresa,
@@ -576,6 +585,7 @@ class BuckSheet extends MY_Controller
                               'NUMERO_DE_LINEA' => $row['NUMERO_DE_LINEA'],
                               'TIPO_DE_LINEA' => $row['TIPO_DE_LINEA'],
                               'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+                              'ESTADO_AVANCE' => $avance,
                               'NUMERO_DE_TAG' => $row['NUMERO_DE_TAG'],
                               'STOCKCODE' => $row['STOCKCODE'],
                               'DESCRIPCION_LINEA' => $row['DESCRIPCION_LINEA'],
@@ -766,6 +776,7 @@ class BuckSheet extends MY_Controller
     $codEmpresa = $this->session->userdata('cod_emp');
     $PurchaseOrderID = $this->input->post('id_orden');
     $respuesta = false;
+    $avance = '0';
 
     $bucksheet = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
 
@@ -805,6 +816,18 @@ class BuckSheet extends MY_Controller
         }
 
 
+
+        $DatoAvance = $this->obtieneDatoAvance($EstadoLineaBucksheet);
+                          
+                            
+        foreach (json_decode($DatoAvance) as $llave => $valor) {
+                    
+          $avance = $valor->domain_desc;
+  
+        }
+
+
+
         $datos_bucksheet[] = array(
 
               'ID_OC' => $value->ID_OC,
@@ -816,15 +839,16 @@ class BuckSheet extends MY_Controller
               'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
               'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
               'ESTADO_DE_LINEA' => $this->callutil->cambianull($estado_bucksheet),
-              'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
-              'STOCKCODE' => $value->STOCKCODE,
-              'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
-              'UNIDADES_SOLICITADAS' => $value->UNIDADES_SOLICITADAS,
-              'CANTIDAD_UNITARIA' => $value->CANTIDAD_UNITARIA,
-              'CANTIDAD_TOTAL' => $value->CANTIDAD_TOTAL,
-              'UNIDAD' => $value->UNIDAD,
-              'NUMERO_DE_PLANO' => $value->NUMERO_DE_PLANO,
-              'REVISION' => $value->REVISION,
+              'ESTADO_AVANCE' => $avance,
+              'NUMERO_DE_TAG' => $this->callutil->cambianull($value->NUMERO_DE_TAG),
+              'STOCKCODE' => $this->callutil->cambianull($value->STOCKCODE),
+              'DESCRIPCION_LINEA' => $this->callutil->cambianull($value->DESCRIPCION_LINEA),
+              'UNIDADES_SOLICITADAS' => $this->callutil->cambianull($value->UNIDADES_SOLICITADAS),
+              'CANTIDAD_UNITARIA' => $this->callutil->cambianull($value->CANTIDAD_UNITARIA),
+              'CANTIDAD_TOTAL' => $this->callutil->cambianull($value->CANTIDAD_TOTAL),
+              'UNIDAD' => $this->callutil->cambianull($value->UNIDAD),
+              'NUMERO_DE_PLANO' => $this->callutil->cambianull($value->NUMERO_DE_PLANO),
+              'REVISION' => $this->callutil->cambianull($value->REVISION),
               'PAQUETE_DE_CONSTRUCCION_AREA' => $value->PAQUETE_DE_CONSTRUCCION_AREA,
               'CODIGO_CONTROL_PROYECTO' => $this->callutil->cambianull($value->CODIGO_CONTROL_PROYECTO),
               'FECHA_LINEA_BASE' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FECHA_LINEA_BASE)),
@@ -915,6 +939,9 @@ class BuckSheet extends MY_Controller
   
         }
         $fecha_hoy = date_create()->format('Y-m-d');
+
+
+
 
         $datos_bucksheet[] = array(
         'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
@@ -1324,6 +1351,7 @@ class BuckSheet extends MY_Controller
     $codEmpresa = $this->session->userdata('cod_emp');
       $EstadoLineaBucksheet = '1';
       $fecha_hoy = date_create()->format('Y-m-d');
+      $avance = '0';
                       
    
 
@@ -1353,6 +1381,8 @@ class BuckSheet extends MY_Controller
 
       $EstadoLineaBucksheet = '5';
     }
+
+   
 
 
 
@@ -1389,6 +1419,17 @@ class BuckSheet extends MY_Controller
           $dias_lb = $this->callutil->diasDiffFechas($this->input->post('FECHA_LINEA_BASE'), $this->input->post('FECHA_EMBARQUE_REAL'));
         }
 
+
+        $DatoAvance = $this->obtieneDatoAvance($EstadoLineaBucksheet);
+                          
+                            
+        foreach (json_decode($DatoAvance) as $llave => $valor) {
+                    
+          $avance = $valor->domain_desc;
+    
+        }
+
+
     $memData = array(
       'COD_EMPRESA' => $codEmpresa,
       'ID_OC' => $this->input->post('ID_OC'),
@@ -1400,6 +1441,7 @@ class BuckSheet extends MY_Controller
       'NUMERO_DE_LINEA' => $this->input->post('NUMERO_DE_LINEA'),
       'TIPO_DE_LINEA' => $this->input->post('TIPO_DE_LINEA'),
       'ESTADO_DE_LINEA' => $EstadoLineaBucksheet,
+      'ESTADO_AVANCE' => $avance,
       'NUMERO_DE_TAG' => $this->input->post('NUMERO_DE_TAG'),
       'STOCKCODE' => $this->input->post('STOCKCODE'),
       'DESCRIPCION_LINEA' => $this->input->post('DESCRIPCION_LINEA'),
@@ -1540,6 +1582,7 @@ class BuckSheet extends MY_Controller
 
     $codEmpresa = $this->session->userdata('cod_emp');
     $fecha_hoy = date_create()->format('Y-m-d');
+    $avance = '0';
 
     // get data 
     $usersData = $this->callexternosbucksheet->obtieneBucksheet($codEmpresa,$PurchaseOrderID);
@@ -1562,6 +1605,7 @@ class BuckSheet extends MY_Controller
       "NUMERO_DE_LINEA",
       "TIPO_DE_LINEA",
       "ESTADO_DE_LINEA",
+      "ESTADO_AVANCE",
       "NUMERO_DE_TAG",
       "STOCKCODE",
       "DESCRIPCION_LINEA",
@@ -1629,6 +1673,14 @@ class BuckSheet extends MY_Controller
         $dias_lb = $this->callutil->diasDiffFechas($value->FECHA_LINEA_BASE,$value->FECHA_EMBARQUE_REAL);
       }
 
+      $DatoAvance = $this->obtieneDatoAvance($estado_bucksheet);
+                          
+                            
+      foreach (json_decode($DatoAvance) as $llave => $valor) {
+                  
+        $avance = $valor->domain_desc;
+  
+      }
 
       $datos_bucksheet = array(
 
@@ -1641,6 +1693,7 @@ class BuckSheet extends MY_Controller
             'NUMERO_DE_LINEA' => $value->NUMERO_DE_LINEA,
             'TIPO_DE_LINEA' => $value->TIPO_DE_LINEA,
             'ESTADO_DE_LINEA' => $this->callutil->cambianull($estado_bucksheet),
+            'ESTADO_AVANCE' => $avance ,
             'NUMERO_DE_TAG' => $value->NUMERO_DE_TAG,
             'STOCKCODE' => $value->STOCKCODE,
             'DESCRIPCION_LINEA' => $value->DESCRIPCION_LINEA,
@@ -1945,4 +1998,18 @@ class BuckSheet extends MY_Controller
     }
     fwrite($handle, "\n");
   }
+
+  public function obtieneDatoAvance($dato){
+    
+    $def  =$this->callexternosdominios->obtieneDatoRef('ESTADO_AVANCE_BUCKSHEET',$dato); 
+    
+    return $def;
+
+  }
+
+
+
+
+
+
 }
