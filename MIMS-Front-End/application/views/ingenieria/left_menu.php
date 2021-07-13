@@ -51,6 +51,16 @@
                     </li>
 
                     <li class="nav-item">
+                      <a href="<?php echo site_url('Dominios/index_avance');?>" class="nav-link">
+                        <i class="far fa-circle nav-icon"></i>
+                        <p>Valor Avances Proyectos</p>
+                      </a>
+                    </li>
+
+
+                    
+
+                    <li class="nav-item">
                       <a href="<?php echo site_url('Bodega/index_man_bodega');?>" class="nav-link">
                         <i class="far fa-circle nav-icon"></i>
                         <p>Bodegas</p>

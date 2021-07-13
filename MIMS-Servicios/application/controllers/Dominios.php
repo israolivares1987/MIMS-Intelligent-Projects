@@ -48,6 +48,25 @@ class Dominios extends CI_Controller {
 		
 	}
 
+	function editarAvance(){
+
+		$domain_id  = $this->input->post('domain_id');  
+		$domain      = $this->input->post('domain');
+		$domain_desc = $this->input->post('domain_desc');
+	
+		$update= array(
+			'domain_desc' => $domain_desc
+		  );
+	
+		$ivadato = $this->dominios->editarAvance($update,array('domain' =>$domain, 'domain_id'=>$domain_id));
+
+		echo json_encode($ivadato);
+	
+	}
+
+
+	
+
 
 }
 

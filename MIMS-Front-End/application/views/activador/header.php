@@ -46,7 +46,9 @@
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-buttons/css/buttons.dataTables.min.css');?>">
   <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-colreorder/css/colReorder.bootstrap4.min.css');?>">
   
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/datatables-select/css/select.bootstrap4.min.css');?>">
 
+  <link rel="stylesheet" href="<?php echo base_url('assets/plugins/bootstrap-datepicker/css/bootstrap-datepicker.min.css');?>">
 
 
 
@@ -84,6 +86,8 @@
 <script src="<?php echo base_url('assets/plugins/datatables-bs4/js/dataTables.bootstrap4.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/dataTables.responsive.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-responsive/js/responsive.bootstrap4.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/datatables-select/js/dataTables.select.min.js');?>"></script>
+
 
 <script src="<?php echo base_url('assets/plugins/datatables-buttons/js/buttons.flash.min.js');?>"></script>
 <script src="<?php echo base_url('assets/plugins/datatables-buttons/js/dataTables.buttons.min.js');?>"></script>
@@ -109,6 +113,11 @@
 <script src="<?php echo base_url('assets/plugins/fullcalendar/locales/es.js');?>"></script>
 
 
+<!-- bootstrap-datepicker -->
+<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/js/bootstrap-datepicker.min.js');?>"></script>
+<script src="<?php echo base_url('assets/plugins/bootstrap-datepicker/locales/bootstrap-datepicker.es.min.js');?>" charset="UTF-8"></script>
+
+
 <script type="text/javascript">
 $(document).ready(function () {
   bsCustomFileInput.init();
@@ -128,7 +137,33 @@ setTimeout('ActualizarReloj()',1000);
 
 }
 
+
 </script>
+
+<style type="text/css" class="init">
+    /* Ensure that the demo table scrolls */
+    th,
+    td {
+        white-space: nowrap;
+    }
+
+    div.dataTables_wrapper {
+        margin: 0 auto;
+    }
+
+    tr {
+        height: 50px;
+    }
+
+    @media only screen and (max-width: 767px) {
+    div.bootstrap-datetimepicker-widget {
+        bottom: 45px !important;
+        /*background-color: orangered !important;*/
+    }
+}
+
+    </style>
+
 
 
 
