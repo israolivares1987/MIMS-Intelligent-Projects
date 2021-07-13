@@ -232,7 +232,8 @@
                                         <th style="text-align:left; background-color:#FFE699">PROVEEDOR</th>
                                         <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE LÍNEA</th>
                                         <th style="text-align:left; background-color:#DBDBDB">TIPO DE LÍNEA</th>
-                                        <th style="text-align:left; background-color:#DBDBDB">ESTADO DE LÍNEA</th>
+                                                                                <th style="text-align:left; background-color:#DBDBDB">ESTADO DE LÍNEA</th>
+                                        <th style="text-align:left; background-color:#DBDBDB">AVANCE</th>
                                         <th style="text-align:left; background-color:#DBDBDB">NÚMERO DE TAG</th>
                                         <th style="text-align:left; background-color:#DBDBDB">STOCKCODE</th>
                                         <th style="text-align:left; background-color:#DBDBDB">DESCRIPCIÓN LÍNEA</th>
@@ -515,6 +516,7 @@ calidad_html = result.countAdverActivacion;
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.TIPO_DE_LINEA+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.ESTADO_DE_LINEA+ '</td>';
+bucksheet_html += '<td style="text-align:left;">' + bucksheets.ESTADO_AVANCE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.NUMERO_DE_TAG+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.STOCKCODE+ '</td>';
                         bucksheet_html += '<td style="text-align:left;">' + bucksheets.DESCRIPCION_LINEA+ '</td>';

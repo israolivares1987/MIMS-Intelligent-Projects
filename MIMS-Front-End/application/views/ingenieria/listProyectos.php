@@ -1236,23 +1236,6 @@
              </script>
 
 
-      <style type="text/css" class="init">
-    /* Ensure that the demo table scrolls */
-    th,
-    td {
-        white-space: nowrap;
-    }
-
-    div.dataTables_wrapper {
-        margin: 0 auto;
-    }
-
-    tr {
-        height: 50px;
-    }
-    </style>
-
-
 
 <script type="text/javascript">
 
