@@ -560,6 +560,7 @@ function ActualizaEdp(){
   $codEmpresa = $this->session->userdata('cod_emp');
   $ID_EDP = $this->input->post('ID_EDP');
   $ID_EMPLEADO = $this->input->post('ACT_ID_EMPLEADO');
+  $FECHA_INGRESO = $this->callutil->formatoFecha($this->input->post('ACT_FECHA_INGRESO'));
   $ESTADO_EDP = $this->input->post('ACT_ESTADO_EDP');
   $FECHA_PAGO = $this->callutil->formatoFecha($this->input->post('ACT_FECHA_PAGO'));
   $AP_PROVEEDOR = $this->input->post('ACT_AP_PROVEEDOR');
@@ -625,6 +626,7 @@ function ActualizaEdp(){
                 'ID_EDP' => $ID_EDP,
                 'COD_EMPRESA' => $codEmpresa,
                 'ESTADO_EDP' => $ESTADO_EDP ,
+                'FECHA_INGRESO' => $FECHA_INGRESO,
                 'FECHA_PAGO' => $FECHA_PAGO ,
                 'AP_PROVEEDOR' => $AP_PROVEEDOR ,
                 'PROVEEDOR' => $PROVEEDOR ,
@@ -683,6 +685,7 @@ function ActualizaEdp(){
           'ID_EDP' => $ID_EDP,
           'COD_EMPRESA' => $codEmpresa,
           'ESTADO_EDP' => $ESTADO_EDP ,
+          'FECHA_INGRESO' => $FECHA_INGRESO,
           'FECHA_PAGO' => $FECHA_PAGO ,
           'AP_PROVEEDOR' => $AP_PROVEEDOR ,
           'PROVEEDOR' => $PROVEEDOR ,

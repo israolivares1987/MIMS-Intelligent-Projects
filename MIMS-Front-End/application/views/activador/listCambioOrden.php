@@ -1396,7 +1396,7 @@ var cliente = <?php echo $idCliente?> ;
 
                                 
                                 <div class="form-group"><label for="ID EMPLEADO">ID EMPLEADO</label><input type="text" id="ACT_ID_EMPLEADO" class="form-control" name="ACT_ID_EMPLEADO" readonly></div>
-                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="ACT_FECHA_INGRESO" class="form-control" name="ACT_FECHA_INGRESO" readonly></div>
+                                <div class="form-group"><label for="FECHA INGRESO">FECHA INGRESO</label><input type="text" id="ACT_FECHA_INGRESO" class="form-control fechapicker" name="ACT_FECHA_INGRESO"></div>
                                 <div class="form-group"><label for="ESTADO EDP">ESTADO EDP</label><div id="select_act_estado_edp"></div></div>
                                 <div class="form-group"><label for="FECHA PAGO">FECHA PAGO</label><input type="text" id="ACT_FECHA_PAGO" class="form-control fechapicker" name="ACT_FECHA_PAGO"></div>
                                 <div class="form-group"><label for="AP PROVEEDOR">AP PROVEEDOR</label> <div id="select_act_apedp"></div></div>
