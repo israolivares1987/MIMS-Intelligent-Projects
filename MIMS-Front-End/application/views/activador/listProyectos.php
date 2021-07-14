@@ -84,7 +84,8 @@
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
                   <th>Fecha Orden Creada</th>
-                  <th>Fecha Requerida</th>
+                  <th>Fecha Requerida (RAS)</th>
+                  <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
                   <th>Estado</th>
                   <th>Fecha de cierre</th>
@@ -177,6 +178,253 @@
                   </div>
 
    </div>
+
+
+     <!--.modal nuevo orden-->
+ <div class="modal fade" id="modal_new_orden">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">NUEVA ORDEN</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_orden" class="form-horizontal">
+                <input type="hidden" id="id_proyecto_or" name="id_proyecto_or" value=""> 
+				       	<input type="hidden" id="id_cliente_or" name="id_cliente_or" value="">
+
+                     <section class="content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="NOMBRE PROYECTO">NOMBRE PROYECTO</label><input type="text" id="or_nombre_proyecto" class="form-control" name="or_nombre_proyecto" readonly></div>
+                                                            <div class="form-group"><label for="NOMBRE CLIENTE">NOMBRE CLIENTE</label><input type="text" id="or_nombre_cliente" class="form-control" name="or_nombre_cliente" readonly></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">NÚMERO ORDEN DE COMPRA</label><input type="text" id="or_purchase_order" class="form-control" name="or_purchase_order"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CRITICIDAD</label><div id="s_criticidad"></div></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">ID REQUERIMIENTO</label><input type="text" id="or_idrequerimiento" class="form-control" name="or_idrequerimiento"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CATEGORIZACION</label><div id="s_categorizacion"></div></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_purchase_desc" class="form-control" name="or_purchase_desc"></div>
+                                                            <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_revision" class="form-control" name="or_revision"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><div id="s_supplier"></div></div>
+                                                            <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_comprador" class="form-control" name="or_comprador"></div>
+                                                            <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_employee"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_currency"></div></div>
+                                                            <div class="form-group"><label for="INGENIERO REQUESTOR">INGENIERO REQUESTOR</label><input type="text" id="or_requestor" class="form-control" name="or_requestor"></div>
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">VALORES ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_valor_neto" name="or_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)"></div>
+                                                            <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_budget" name="or_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
+                                                            <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_costcodebudget" name="or_costcodebudget" class="form-control" ></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_order_date" type="text" class="form-control fechapicker" id="or_order_date"></div>
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_support" name="or_support" type="file" class="form-control form-control-file"></div>
+                                                           
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                            <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control fechapicker" id="or_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA ETA">FECHA ETA</label> <input name="or_date_eta" type="text" class="form-control fechapicker" id="or_date_eta"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_ship_date" type="text" class="form-control fechapicker" id="or_ship_date"></div>
+                                                            <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_shipping"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_status"></div></div>
+                                                           
+                                                            
+                                                            
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_orden" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
+
+
+
+
+  <!--.modal nuevo orden-->
+  <div class="modal fade" id="modal_edit_orden">
+     <div class="modal-dialog modal-xl  modal-dialog-scrollable">
+         <div class="modal-content">
+             <div class="modal-header">
+             <h4 class="modal-title">ACTUALIZAR ORDEN</h4>
+                 <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                     <span aria-hidden="true">&times;</span>
+                 </button>
+             </div>
+             <div class="modal-body">
+                <form action="#" id="form_orden_act" class="form-horizontal">
+
+             	 <input type="hidden" id="id_act_order" name="id_act_order" value="">
+					     <input type="hidden" id="id_act_proyecto" name="id_act_proyecto" value=""> 
+					     <input type="hidden" id="id_act_cliente" name="id_act_cliente" value="">
+
+                     <section class="content">
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="NOMBRE PROYECTO">NOMBRE PROYECTO</label><input type="text" id="or_act_nombre_proyecto" class="form-control" name="or_act_nombre_proyecto" readonly></div>
+                                                            <div class="form-group"><label for="NOMBRE CLIENTE">NOMBRE CLIENTE</label><input type="text" id="or_act_nombre_cliente" class="form-control" name="or_act_nombre_cliente" readonly></div>
+                                                            <div class="form-group"><label for="NÚMERO ORDEN DE COMPRA">NÚMERO ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_order" class="form-control" name="or_act_purchase_order"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CRITICIDAD</label><div id="s_act_criticidad"></div></div>
+                                                            <div class="form-group"><label for="ID REQUERIMIENTO">ID REQUERIMIENTO</label><input type="text" id="or_act_idrequerimiento" class="form-control" name="or_act_idrequerimiento"></div>
+                                                            <div class="form-group"><label for="SELECCIONE CRITICIDAD">SELECCIONE CATEGORIZACION</label><div id="s_act_categorizacion"></div></div>
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            <div class="form-group"><label for="DESCRIPCIÓN ORDEN DE COMPRA">DESCRIPCIÓN ORDEN DE COMPRA</label><input type="text" id="or_act_purchase_desc" class="form-control" name="or_act_purchase_desc"></div>
+                                                            <div class="form-group"><label for="REVISIÓN">REVISIÓN</label><input type="text" id="or_act_revision" class="form-control" name="or_act_revision"></div>
+                                                            <div class="form-group"><label for="PROVEEDOR">PROVEEDOR</label><div id="s_act_supplier"></div></div>
+                                                            <div class="form-group"><label for="COMPRADOR">COMPRADOR</label><input type="text" id="or_act_comprador" class="form-control" name="or_act_comprador"></div>
+                                                            <div class="form-group"><label for="SELECCIONE ACTIVADOR">SELECCIONE ACTIVADOR</label><div id="s_act_employee"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE MODENA">SELECCIONE MODENA</label><div id="s_act_currency"></div></div>
+                                                            <div class="form-group"><label for="INGENIERO REQUESTOR">INGENIERO REQUESTOR</label><input type="text" id="or_act_requestor" class="form-control" name="or_act_requestor"></div>
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <div class="card card-primary">
+                                        <div class="card-header">
+                                            <h3 class="card-title">VALORES ORDEN DE COMPRA</h3>
+                                            <div class="card-tools">
+                                                <button type="button" class="btn btn-tool" data-card-widget="collapse" data-toggle="tooltip" title="Collapse">
+                                                <i class="fas fa-minus"></i></button>
+                                            </div>
+                                        </div>
+                                                <div class="card-body">
+                                                  <div class="row show-grid">
+
+                                                        <div class="col-md-6">
+                                                           
+                                                            <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
+                                                            <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_act_budget" name="or_act_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
+                                                            <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control" ></div>
+                                                            <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control fechapicker" id="or_act_order_date"></div>
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
+                                                           
+                                                        </div>
+
+                                                        <div class="col-md-6">
+                                                            
+                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_date_required" type="text" class="form-control fechapicker" id="or_act_date_required"></div>
+                                                        <div class="form-group"><label for="FECHA ETA">FECHA ETA</label> <input name="or_act_date_eta" type="text" class="form-control fechapicker" id="or_act_date_eta"></div>
+                                                            <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control fechapicker"  id="or_act_ship_date"></div>
+                                                            <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_act_shipping"></div></div>
+                                                            <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_act_status"></div></div>
+                                                           
+                                                            
+                                                            
+                                                          </div>
+                                                  </div>
+                                              </div>
+                                    
+                                        <!-- /.card-body -->
+                                    </div>
+                                </div>
+                            </div>
+
+
+
+
+                    </section>
+
+                     
+                 </form>
+             </div>
+
+             <div class="modal-footer justify-content-between">
+                    <button id="btn_act_orden" type="button" class="btn btn-primary">Guardar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+         </div>
+         <!-- /.modal-content -->
+     </div>
+     <!-- /.modal-dialog -->
+ </div>
+
 
 
 
@@ -547,6 +795,10 @@
                      </div>
                  </div>
              </div>
+
+
+
+
 
       <script>
              $(function() {
@@ -1070,6 +1322,7 @@ $.ajax({
       ordenes_html += '<tr>';
       ordenes_html += '<td>';
         ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +',\''+orden.PurchaseOrderDescription+'\', this)" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
         ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
         ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
         ordenes_html += '</td>';
@@ -1097,6 +1350,7 @@ $.ajax({
          ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
          ordenes_html += '<td>' + orden.DateCreated  + '</td>';
          ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+         ordenes_html += '<td>' + orden.DateEta  + '</td>';
          ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
          ordenes_html += '<td>' + orden.POStatus  + '</td>';
          ordenes_html += '<td>' + orden.ShipDate  + '</td>';
@@ -1199,6 +1453,109 @@ $.ajax({
 
 
 }
+
+function editar_orden(id_cliente, id_proyecto, order_id){
+
+
+$.ajax({
+  url: 		'<?php echo base_url('index.php/Ordenes/editarOrden'); ?>',
+  type: 		'POST',
+  dataType: 'json',
+  data: {
+          id_proyecto: id_proyecto,
+          id_cliente:id_cliente,
+          order_id:order_id
+        },
+}).done(function(result) {
+    
+
+    $('#or_act_purchase_order').val(result.formulario.purchase_number);
+
+    $('#or_act_idrequerimiento').val(result.formulario.id_requerimiento);
+
+    $('#s_act_categorizacion').html(result.formulario.select_categorizacion);
+
+    $('#or_act_purchase_desc').val(result.formulario.purchase_desc);
+    $('#or_act_revision').val(result.formulario.revision);
+
+    $('#or_act_comprador').val(result.formulario.comprador);
+    $('#s_act_supplier').html(result.formulario.select_supplier);
+    $('#s_act_employee').html(result.formulario.select_employee);
+
+    $('#s_act_currency').html(result.formulario.select_currency);
+    $('#s_act_criticidad').html(result.formulario.select_criticidad);
+    $('#or_act_requestor').val(result.formulario.requestor);
+
+
+    
+    $('#or_act_valor_neto').val(result.formulario.valor_neto);
+    $('#or_act_budget').val(result.formulario.budget);
+    $('#or_act_costcodebudget').val(result.formulario.costcodebudget);
+    $('#or_act_order_date').val(result.formulario.order_date);
+    $('#or_act_date_required').val(result.formulario.date_required);
+    $('#or_act_date_eta').val(result.formulario.date_eta);
+    $('#or_act_date_promised').val(result.formulario.date_promised);
+    $('#or_act_ship_date').val(result.formulario.ship_date);
+    $('#s_act_shipping').html(result.formulario.select_shipping);
+    $('#s_act_status').html(result.formulario.select_status);
+    $('#or_act_nombre_proyecto').val(result.formulario.nombre_proyecto);
+
+    $('#id_act_order').val(order_id);
+    $('#id_act_proyecto').val(id_proyecto);
+    $('#id_act_cliente').val(id_cliente);
+  
+
+  $('#modal_edit_orden').modal('show');
+
+
+}).fail(function() {
+  console.log("error edita_proyecto");
+})
+
+
+
+}
+
+
+$('#btn_act_orden').on('click', function(){
+  
+
+  var formData = new FormData(document.getElementById("form_orden_act"));
+
+
+  $.ajax({
+    url: 		'<?php echo base_url('index.php/Ordenes/actualizaOrden'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    contentType: 	false,
+    cache: 			false,
+    processData: 	false,
+    data: formData
+  }).done(function(result) {
+
+
+    if(result.resp){
+
+      recargaOrdenes($('#id_act_proyecto').val(), $('#id_act_cliente').val(),$('#titulo_ordenes').val());
+      $('#modal_edit_orden').modal('hide');
+      toastr.success(result.mensaje);
+
+        }else{
+
+        toastr.error(result.mensaje);
+
+        }
+
+
+  }).fail(function() {
+    console.log("error edita_proyecto");
+  })
+
+});
+
+$('#modal_edit_orden').on('hidden.bs.modal', function () {
+  $("#form_orden_act")[0].reset();
+});
 
  
 /**

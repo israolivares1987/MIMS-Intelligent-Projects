@@ -94,7 +94,8 @@
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
                   <th>Fecha Orden Creada</th>
-                  <th>Fecha Requerida</th>
+                  <th>Fecha Requerida (RAS)</th>
+                  <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
                   <th>Estado</th>
                   <th>Fecha de cierre</th>
@@ -781,6 +782,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
            ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
            ordenes_html += '<td>' + orden.DateCreated  + '</td>';
            ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+           ordenes_html += '<td>' + orden.DateEta  + '</td>';
            ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
            ordenes_html += '<td>' + orden.POStatus  + '</td>';
            ordenes_html += '<td>' + orden.ShipDate  + '</td>';

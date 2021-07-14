@@ -538,10 +538,10 @@ class Journal extends MY_Controller{
     $nameArchivo = "respaldos";
 
 
+    if(is_uploaded_file($_FILES['respaldos']['tmp_name'])) {   
  
-        if(is_uploaded_file($_FILES[$nameArchivo]['tmp_name'])) {  
 
-          $archivo = $this->checkFileValidation($nameArchivo);
+          $archivo = $this->checkFileValidation('respaldos');
           $respArchivo = $archivo['resp'];
         
           if($respArchivo == false){
@@ -1126,12 +1126,24 @@ $htmlContent .='</html>';
            // actualiza ID para referenciar advertencia
 
           $dataUpdate = array(	
-            'id_interaccion' => $id_interaccion_ref ,
+            'id_interaccion' => $id_interaccion ,
             'id_interaccion_ref' => '0'
             );
 
             $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
 
+         
+
+            $dataUpdate = array(	
+              'id_interaccion' => $id_interaccion_ref ,
+              'id_interaccion_ref' => '0',
+              'estado' => '0'
+              );
+    
+            $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
+        
+                  
+         
  
 
         }else{
@@ -1252,6 +1264,7 @@ $htmlContent .='</html>';
             
         $datos_journal[] = array(
           'id_interaccion' => $value->id_interaccion,
+          'id_interaccion_ref' => $value->id_interaccion_ref,
           'nombre_empleado'   => $value->nombre_empleado,
           'fecha_ingreso'   => $this->callutil->formatoFechaSalida($value->fecha_ingreso),
           'numero_referencial' => $value->numero_referencial,
@@ -1295,15 +1308,12 @@ $htmlContent .='</html>';
   
 
      
-  
-  
       if(is_uploaded_file($_FILES['respaldos']['tmp_name'])) {   
-  
+ 
 
-                
-                            $archivo = $this->checkFileValidation($_FILES['respaldos']['tmp_name']);
-                            $respArchivo = $archivo['resp'];
-
+        $archivo = $this->checkFileValidation('respaldos');
+        $respArchivo = $archivo['resp'];
+    
                             
                             if($respArchivo== false){
 
@@ -1371,7 +1381,7 @@ $htmlContent .='</html>';
 
                                 $insert_bitacora = array('codEmpresa' => $this->session->userdata('cod_emp') ,
                                 'accion'  => 'ACTUALIZAR_JOURNAL',
-                                'id_registro' =>  $idInsertado,
+                                'id_registro' =>  $id_interaccion,
                                 'usuario'  =>  $this->session->userdata('n_usuario'),
                                 'rol' =>   $this->session->userdata('nombre_rol'),
                                 'objeto'  => 'JOURNAL' ,
@@ -1452,8 +1462,34 @@ $htmlContent .='</html>';
 
       }
 
+      if($id_interaccion_ref > 0){
+
+        // actualiza ID para referenciar advertencia
+          $dataUpdate = array(	
+            'id_interaccion' => $id_interaccion_ref,
+            'id_interaccion_ref' => '0',
+            'estado' => '0'
+            );
+
+
+            $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
+
+
+            $dataUpdate = array(	
+              'id_interaccion' => $id_interaccion ,
+              'id_interaccion_ref' => '0'
+              
+              );
+    
+              $journal = $this->callexternosjournal->actualizarControlCalidad($dataUpdate);
+  
+            
+   }
           
         
+
+       
+    
   
   
       $data['resp']        = $resp;
