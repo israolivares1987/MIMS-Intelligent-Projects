@@ -75,6 +75,7 @@ class Ordenes extends CI_Controller{
                 'CostCodeBudget'   => $this->callutil->cambianull($value->CostCodeBudget),
                 'OrderDate'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->OrderDate)),
                 'DateRequired'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateRequired)),
+                'DateEta'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateEta)),
                 'DatePromised'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DatePromised)),
                 'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
                 'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
@@ -153,6 +154,7 @@ class Ordenes extends CI_Controller{
                 'CostCodeBudget'   => $value->CostCodeBudget,
                 'OrderDate'   => $this->callutil->formatoFechaSalida($value->OrderDate),
                 'DateRequired'   => $this->callutil->formatoFechaSalida($value->DateRequired),
+                'DateEta'   => $this->callutil->formatoFechaSalida($value->DateEta),
                 'DatePromised'   => $this->callutil->formatoFechaSalida($value->DatePromised),
                 'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
                 'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
@@ -204,6 +206,8 @@ class Ordenes extends CI_Controller{
     $or_comprador         = $this->input->post('or_comprador');
     $or_order_date        = date('Y-m-d', strtotime($this->input->post('or_order_date')));
     $or_date_required     = date('Y-m-d', strtotime($this->input->post('or_date_required')));
+    $or_date_eta     = date('Y-m-d', strtotime($this->input->post('or_date_eta')));
+    
     $or_date_promised     = date('Y-m-d', strtotime($this->input->post('or_date_promised')));
     $or_ship_date         = date('Y-m-d', strtotime($this->input->post('or_ship_date')));
     $or_select_shipping   = $this->input->post('or_select_shipping');
@@ -279,6 +283,7 @@ class Ordenes extends CI_Controller{
                   'CostCodeBudget'            =>$or_costcodebudget ,
                   'OrderDate'                 => $or_order_date,
                   'DateRequired'              => $or_date_required,
+                  'DateEta'                   => $or_date_eta,
                   'DatePromised'              => $or_date_promised,
                   'ShipDate'                  => $or_ship_date,
                   'ShippingMethodID'          => $or_select_shipping,
@@ -373,6 +378,7 @@ class Ordenes extends CI_Controller{
           'costcodebudget'      => $value->CostCodeBudget,
           'order_date'          => date('d-m-Y', strtotime($value->OrderDate)),
           'date_required'       => date('d-m-Y', strtotime($value->DateRequired)),
+          'date_eta'            => $this->callutil->cambianull(date('d-m-Y', strtotime($value->DateEta))),
           'date_promised'       => date('d-m-Y', strtotime($value->DatePromised)),
           'ship_date'           => date('d-m-Y', strtotime($value->ShipDate)),
           'select_shipping'     => $this->callutil->obtiene_select_def_act('or_act_select_shipping',$value->ShippingMethodID,'SHIPPING_METHOD'),
@@ -420,6 +426,7 @@ class Ordenes extends CI_Controller{
     $or_comprador         = $this->input->post('or_act_comprador');
     $or_order_date        = date('Y-m-d', strtotime($this->input->post('or_act_order_date')));
     $or_date_required     = date('Y-m-d', strtotime($this->input->post('or_act_date_required')));
+    $or_date_eta          = date('Y-m-d', strtotime($this->input->post('or_act_date_eta')));
     $or_date_promised     = date('Y-m-d', strtotime($this->input->post('or_act_date_promised')));
     $or_ship_date         = date('Y-m-d', strtotime($this->input->post('or_act_ship_date')));
     $or_select_shipping   = $this->input->post('or_act_select_shipping');
@@ -494,6 +501,7 @@ class Ordenes extends CI_Controller{
                   'CostCodeBudget'            =>$or_costcodebudget ,
                   'OrderDate'                 => $or_order_date,
                   'DateRequired'              => $or_date_required,
+                  'DateEta'                   => $or_date_eta,
                   'DatePromised'              => $or_date_promised,
                   'ShipDate'                  => $or_ship_date,
                   'ShippingMethodID'          => $or_select_shipping,
@@ -574,6 +582,7 @@ class Ordenes extends CI_Controller{
                   'CostCodeBudget'            =>$or_costcodebudget ,
                   'OrderDate'                 => $or_order_date,
                   'DateRequired'              => $or_date_required,
+                  'DateEta'                   => $or_date_eta,
                   'DatePromised'              => $or_date_promised,
                   'ShipDate'                  => $or_ship_date,
                   'ShippingMethodID'          => $or_select_shipping,

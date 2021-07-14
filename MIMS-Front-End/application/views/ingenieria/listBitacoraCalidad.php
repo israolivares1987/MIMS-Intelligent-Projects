@@ -231,6 +231,7 @@
 
                 <input type="hidden" id="tipo" name="tipo" value="1">
                 <input type="hidden" id="id_interaccion" name="id_interaccion" value="">
+                <input type="hidden" id="id_interaccion_ref" name="id_interaccion_ref" value="">
                 
                 
                 <input type="hidden" id="id_orden_compra" name="id_orden_compra" value="<?php echo $idOrden?>">  
@@ -264,7 +265,7 @@
                                                             <div class="form-group"><label for="SOLICITADOR POR">SOLICITADOR POR</label><input name="solicitado_por" placeholder="" class="form-control" type="text" id="solicitado_por"></div>
                                                             <div class="form-group"><label for="APROBADO POR">APROBADO POR</label><input name="aprobado_por" placeholder="" class="form-control" type="text" id="aprobado_por"></div>
                                                             <div class="form-group"><label for="COMENTARIOS GENERALES">COMENTARIOS GENERALES</label><textarea id="comentarios_generales" name="comentarios_generales" class="form-control" rows="10" placeholder="Ingresar ..."></textarea></div>
-                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  onChange="ver_archivo();" class="form-control" id="respaldos" name="respaldos"></div>
+                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  class="form-control" id="respaldos" name="respaldos"></div>
                                                             <div class="form-group"><label for="NOTIFICAR">NOTIFICAR</label> <select name="notificacion" id="select_interaccion" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" onchange="MostrarEmail(this);"><option value="" selected></option> <option value="S">SI</option> <option value="N">NO</option></select></div>
 
                                                         </div>
@@ -423,7 +424,7 @@ var url;
 
 recargaControlCalidad(orden, cliente);
 formToggleDesactivar('interaction_ref');
-$('#id_interaccion_ref').val("0");
+
 recargaControlCalidadAdv(orden, cliente);
 recargaControlCalidadLev(0, 0, 0, 0);
 recargaControlCalidadHall(orden, cliente);
@@ -465,7 +466,6 @@ if (tipo_interaccion=='17'){
 }else{
 
     formToggleDesactivar('interaction_ref');
-    $('#id_interaccion_ref').val("0");
 
 }
 
@@ -500,7 +500,6 @@ if (element.style.display === "block") {
 
 $('#miForm')[0].reset();
 $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
-$('#id_interaccion_ref').val("0");
 $('#modal_control_calidad').modal('show');
 $('#name_respaldo').html("");
 $('#tipo_interaccion').prop('disabled',false);
@@ -653,8 +652,7 @@ function edita_registro_cc(id_interaccion, orden, cliente)
 
                             $.each(result.journals, function(key, journal) {
 
-                            console.log(journal.id_interaccion);
-
+            
                             $('#id_interaccion').val(journal.id_interaccion);
                             $('#id_interaccion_ref').val(journal.id_interaccion_ref);
                             $('#nombre_empleado').val('<?php echo $nombreEmpleador;?>');
@@ -674,9 +672,6 @@ function edita_registro_cc(id_interaccion, orden, cliente)
                                 element.style.display = "none";
                             }
                             
-
-                          
-                            $('#tipo_interaccion').prop('disabled',true);
 
                             $('#modal_control_calidad').modal('show');
                             $('#name_respaldo').html("");
@@ -800,6 +795,7 @@ if(falso == 0 ){
                        recargaControlCalidad(orden, cliente);
                        recargaControlCalidadAdv(orden, cliente);
                        recargaControlCalidadHall(orden, cliente);
+                       recargaControlCalidadLev(0, 0, 0, 0);
                        toastr.success(result.mensaje);
 
 
@@ -885,7 +881,6 @@ if(opcion){
         recargaControlCalidad(orden, cliente);
         recargaControlCalidadAdv(orden, cliente);
         recargaControlCalidadHall(orden, cliente);
-        recargaControlCalidadLev(orden, cliente, id_interaccion, id_interaccion_ref);
         toastr.success(result.mensaje);
 
       }else{

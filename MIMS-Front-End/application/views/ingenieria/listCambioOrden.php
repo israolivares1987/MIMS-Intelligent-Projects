@@ -1237,7 +1237,7 @@ var cliente = <?php echo $idCliente?> ;
                                                             <div class="form-group"><label for="SOLICITADOR POR">SOLICITADOR POR</label><input name="solicitado_por" placeholder="" class="form-control" type="text" id="var_solicitado_por"></div>
                                                             <div class="form-group"><label for="APROBADO POR">APROBADO POR</label><input name="aprobado_por" placeholder="" class="form-control" type="text" id="var_aprobado_por"></div>
                                                             <div class="form-group"><label for="COMENTARIOS GENERALES">COMENTARIOS GENERALES</label><textarea id="var_comentarios_generales" name="comentarios_generales" class="form-control" rows="10" placeholder="Ingresar ..."></textarea></div>
-                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  onChange="ver_archivo();" class="form-control" id="var_respaldos" name="respaldos"></div>
+                                                            <div class="form-group"><label for="APROBADO POR">RESPALDO</label><input type="file"  class="form-control" id="var_respaldos" name="respaldos"></div>
                                                             <div class="form-group"><label for="NOTIFICAR">NOTIFICAR</label> <select name="notificacion" id="select_interaccion" class="form-control" style="width: 100%;" tabindex="-1" aria-hidden="true" onchange="MostrarEmail(this);"><option value="" selected></option> <option value="S">SI</option> <option value="N">NO</option></select></div>
 
                                                         </div>

@@ -103,7 +103,8 @@
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
                   <th>Fecha Orden Creada</th>
-                  <th>Fecha Requerida</th>
+                  <th>Fecha Requerida (RAS)</th>
+                  <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
                   <th>Estado</th>
                   <th>Fecha de cierre</th>
@@ -428,17 +429,18 @@
                                                             <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_budget" name="or_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_costcodebudget" name="or_costcodebudget" class="form-control" ></div>
                                                             <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_order_date" type="text" class="form-control fechapicker" id="or_order_date"></div>
-                                                            
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_support" name="or_support" type="file" class="form-control form-control-file"></div>
+                                                           
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             
-                                                        <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control fechapicker" id="or_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_date_required" type="text" class="form-control fechapicker" id="or_date_required"></div>
+                                                            <div class="form-group"><label for="FECHA ETA">FECHA ETA</label> <input name="or_date_eta" type="text" class="form-control fechapicker" id="or_date_eta"></div>
                                                             <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_ship_date" type="text" class="form-control fechapicker" id="or_ship_date"></div>
                                                             <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_shipping"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_status"></div></div>
-                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_support" name="or_support" type="file" class="form-control form-control-file"></div>
-                                                            
+                                                           
                                                             
                                                             
                                                           </div>
@@ -552,17 +554,18 @@
                                                             <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_act_budget" name="or_act_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control" ></div>
                                                             <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control fechapicker" id="or_act_order_date"></div>
-                                                            
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
+                                                           
                                                         </div>
 
                                                         <div class="col-md-6">
                                                             
                                                         <div class="form-group"><label for="FECHA REQUERIDA">FECHA REQUERIDA</label> <input name="or_act_date_required" type="text" class="form-control fechapicker" id="or_act_date_required"></div>
+                                                        <div class="form-group"><label for="FECHA ETA">FECHA ETA</label> <input name="or_act_date_eta" type="text" class="form-control fechapicker" id="or_act_date_eta"></div>
                                                             <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control fechapicker"  id="or_act_ship_date"></div>
                                                             <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_act_shipping"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_act_status"></div></div>
-                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
-                                                            
+                                                           
                                                             
                                                             
                                                           </div>
@@ -2234,6 +2237,7 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
            ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
            ordenes_html += '<td>' + orden.DateCreated  + '</td>';
            ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+           ordenes_html += '<td>' + orden.DateEta  + '</td>';
            ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
            ordenes_html += '<td>' + orden.POStatus  + '</td>';
            ordenes_html += '<td>' + orden.ShipDate  + '</td>';
@@ -2516,6 +2520,7 @@ function editar_orden(id_cliente, id_proyecto, order_id){
       $('#or_act_costcodebudget').val(result.formulario.costcodebudget);
       $('#or_act_order_date').val(result.formulario.order_date);
       $('#or_act_date_required').val(result.formulario.date_required);
+      $('#or_act_date_eta').val(result.formulario.date_eta);
       $('#or_act_date_promised').val(result.formulario.date_promised);
       $('#or_act_ship_date').val(result.formulario.ship_date);
       $('#s_act_shipping').html(result.formulario.select_shipping);

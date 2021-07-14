@@ -119,6 +119,15 @@ return $this->db->get()->result();
 		return $query;
 	}
 
+
+	function desactivaJournalRef($id_interaccion_ref, $id_orden,$cod_empresa)
+	{
+		$query=$this->db->query("update $this->table SET estado=0, id_interaccion_ref = 0  where id_interaccion_ref=".$id_interaccion_ref." and id_orden_compra=".$id_orden);
+
+
+		return $query;
+	}
+
 	function save($data)
 	{
 		$this->db->insert($this->table, $data);
