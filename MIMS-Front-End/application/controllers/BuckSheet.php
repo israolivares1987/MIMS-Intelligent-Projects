@@ -529,7 +529,7 @@ class BuckSheet extends MY_Controller
                                 $EstadoLineaBucksheet = '2';
                               }
 
-                              if (!$this->callutil->validanull($row['FECHA_TERMINO_FABRICACION']) && !$this->callutil->validanull($row['FECHA_COMIENZO_FABRICACION_REAL'])) {
+                              if (!$this->callutil->validanull($row['FECHA_TERMINO_FABRICACION']) && !$this->callutil->validanull($row['FECHA_TERMINO_FABRICACION_REAL'])) {
 
                                 $EstadoLineaBucksheet = '3';
                               }
