@@ -93,7 +93,11 @@
                   <th>Valor Neto</th>
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
+                  <th>Tipo Cambio</th>
+                  <th>Valor Neto USD</th>
                   <th>Fecha Orden Creada</th>
+                  <th>Fecha Adjudicada Programada</th>
+                  <th>Fecha Adjudicada</th>
                   <th>Fecha Requerida (RAS)</th>
                   <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
@@ -131,7 +135,7 @@
 						   <table id="tbl_ordenes_items" class="table table-striped table-bordered" cellspacing="0" width=100%>
                       <thead>
                         <tr>                          
-						  <th>ID Orden</th>
+										  <th>ID Orden</th>
 						  <th>Item ID</th>
 						  <th>Descripcion</th>
 						  <th>Revisión</th>
@@ -150,7 +154,59 @@
                     <!-- /.card-body -->
                   </div>
 
+                  <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-list"></i>
+                        Ordenes de Compra Proyecto PAQUETE DE COMPRA
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+							 
+								<table id="ListOrdenesPaq" class="table table-striped table-bordered" cellspacing="0" width=100%>
+						 
+							  <thead>
+								  <tr>
+								  <th>Acciones</th>
+                  <th>Criticidad</th>
+                  <th>ID Requerimiento</th>
+                  <th>Categorizacion</th>
+                  <th>Número Orden</th>
+                  <th>Fecha Emisión Orden</th>
+                  <th>Descripcion Orden</th>
+                  <th>Revisión</th>
+                  <th>Nombre Proveedor</th>
+                  <th>Nombre Cliente</th>
+                  <th>Comprador</th>
+                  <th>Generador de Compra</th>
+                  <th>Activador</th>
+                  <th>Moneda</th>
+                  <th>Valor Neto</th>
+                  <th>Presupuesto</th>
+                  <th>Codigo Presupuesto</th>
+                  <th>Tipo Cambio</th>
+                  <th>Valor Neto USD</th>
+                  <th>Fecha Orden Creada</th>
+                  <th>Fecha Adjudicada Programada</th>
+                  <th>Fecha Adjudicada</th>
+                  <th>Fecha Requerida (RAS)</th>
+                  <th>Fecha Eta</th>
+                  <th>Metodo Envio</th>
+                  <th>Estado</th>
+                  <th>Fecha de cierre</th>
+                  <th>ID Orden</th>
+                  <th>Archivo</th>
+								  </tr>
+							  </thead>
+							  <tbody id="datos_ordenes_paq">
+								
+							  </tbody>
+							  
+						  </table>
 
+                </div>
+                
                   <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header">
@@ -186,6 +242,82 @@
                   </div>
 
    </div>
+
+ <!--.modal control de calidad-->
+<div class="modal fade" id="modal_control_calidad">
+        <div class="modal-dialog modal-lg">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+                <div class="modal-body">
+
+                                <div class="col-lg-12">
+                                <div class="card">
+                                    <div class="card-header">
+                                      <h3 class="card-title">
+                                      <i class="fas fa-clipboard-list"></i>
+                                        Ingresar Control de Calidad
+                                      </h3>
+                                    </div>
+                                    <!-- /.card-header -->
+                                    <div class="card-body">
+                                            <table class="table" cellspacing="0" width="99%">
+                                                <tbody>
+                                                    <tr>
+                                                        <th>
+                                                        <div class="form-group"><label for="cc_select">CONTROL CALIDAD</label><div id="cc_select"></div></div>
+                                                        <div class="form-group"><label for="observacion">OBSERVACION</label><input type="text" id="observacion" class="form-control" value="" name="observacion"></div>
+                                                                       
+                                                        </th>
+                                                    </tr>
+                                                
+
+                                                    
+                                                </tbody>
+                                            </table>
+
+                                            <table id="tbl_control_calidad" class="table table-striped table-bordered" cellspacing="0" width=100%>
+                                                <thead>
+                                                    <tr>
+                                                      <th>Acciones</th>
+                                                      <th>Id Orden</th>
+                                                      <th>Id Calidad</th>
+                                                      <th>Descripcion Calidad</th>
+                                                      <th>Observación</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody id="datos_control_calidad">
+                                                </tbody>
+                                            </table>
+                                      </div>
+                            
+                                    <!-- /.card-body -->
+                            </div>
+
+                         <input type="hidden" id="id_order_cc" name="id_order_cc" value="">
+                          <input type="hidden" id="id_proyecto_cc" name="id_proyecto_cc" value=""> 
+                          <input type="hidden" id="id_cliente_cc" name="id_cliente_cc" value="">
+                    </div>
+                    <!-- /.card-body -->
+                  </div>
+                  <div class="modal-footer justify-content-between">
+                    <button id="btn_agregar_cc" type="button" class="btn btn-primary">Agregar</button>
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+
+                </div>
+            </div>
+          </div>
+          <!-- /.modal-content -->
+        </div>
+        <!-- /.modal-dialog -->
+      </div>
+      <!-- /.modal -->
+      <!--. modal control de calidad-->
+
+  <!--.modal control de calidad-->
  
 
 
@@ -229,6 +361,7 @@ $(document).ready(function() {
 
     recargaProyectos(0);
     recargaOrdenes(0,0,'');
+    recargaOrdenesPaq(0,0,'');
     recargaItemOrdenes(0, 0, 0,'');
    // recargaCalidadDet(0, 0, 0);
     recargaArchivoTecnico(0,0);
@@ -274,6 +407,7 @@ function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){
   $('#flag_orden').val(1); 
   recargaItemOrdenes(0, 0, 0,'');
   recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
+  recargaOrdenesPaq(id_proyecto,id_cliente,nombre_proyecto);
   recargaArchivoTecnico(0,0);
 
 
@@ -303,6 +437,7 @@ $('#select_clientes').on('change', function(){
 
     }else{
       recargaOrdenes(0,0,'');
+      ecargaOrdenesPaq(0,0,'');
       recargaItemOrdenes(0, 0, 0,'');
       $('#flag_orden').val(0);
       $('#datos_proyectos').html('<td class="text-center" colspan="5">No hay datos disponibles en la tabla.</td>');
@@ -483,6 +618,110 @@ function listar_cc(id_cliente ,id_proyecto,id_orden){
 
 } 
 
+
+
+$('#btn_agregar_cc').on('click', function(){
+
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+let select     = $('#select_cc');
+let id_control_calidad = $('#select_cc').val();
+
+
+var id_cliente = $('#id_cliente_cc').val();
+var id_proyecto = $('#id_proyecto_cc').val();
+var id_orden = $('#id_order_cc').val();
+var observacion = $('#observacion').val();
+
+
+                    $.ajax({
+                            url: '<?php echo base_url('index.php/ControlCalidadDet/guardaControlCalidadDet');?>',
+                            type: 'post',
+                            data: {
+                              id_control_calidad : id_control_calidad,
+                              id_cliente : id_cliente,
+                              id_proyecto : id_proyecto,
+                              id_orden : id_orden,
+                              observacion : observacion,
+                              cod_empresa : cod_empresa
+                            },
+                            dataType: "JSON",
+                            beforeSend: function(){
+                            mostrarBlock();
+                            },
+                            success: function(result){
+
+                                if (result.resp) {
+
+                                      //  $('#modal_control_calidad').modal('hide');
+                                        listar_cc(id_cliente,id_proyecto,id_orden);
+                                        toastr.success(result.mensaje);
+                                        $('#observacion').val("");
+                                        $.unblockUI();
+                                        }else{
+                                          $.unblockUI();
+                                        toastr.warning(result.mensaje);
+                                        }
+
+                            },
+                            complete:function(result){
+                              $.unblockUI();
+                            },
+                            error: function(request, status, err) {
+    
+                            toastr.error("error: " + request + status + err);
+                            $.unblockUI();
+                          }
+                 });
+
+});
+
+
+
+
+
+
+function borrar_cc(id_control_calidad_det,id_orden,id_cliente,id_proyecto){
+
+  var opcion = confirm("Esta seguro que quiere borrar este registro");
+
+if(opcion){
+
+      $.ajax({
+      url: 		'<?php echo base_url('index.php/ControlCalidadDet/eliminaControlCalidadDet');?>',
+      type: 		'POST',
+      dataType: 'json',
+      data: {
+              id_control_calidad_det : id_control_calidad_det,
+              id_orden : id_orden,
+              id_cliente : id_cliente,
+              id_proyecto : id_proyecto
+            },
+    }).done(function(result) {
+
+      if(result.resp){
+
+        listar_cc(id_cliente,id_proyecto,id_orden);
+        toastr.success(result.mensaje);
+        $('#observacion').val("");
+
+      }else{
+
+        toastr.error(result.mensaje);
+      
+      }
+        
+
+    }).fail(function() {
+      console.log("error eliminar cc det");
+    })
+  
+
+}
+
+
+
+}
 
 function recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden) {
 
@@ -755,7 +994,8 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
         ordenes_html += '<tr>';
         ordenes_html += '<td>';
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Listar Item Orden" onclick="listar_item_ordenes('+ orden.PurchaseOrderID +','+ id_cliente +','+ id_proyecto +',\''+orden.PurchaseOrderDescription+'\', this)" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-list-ol"></i></button>';
-           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Agregar Control de Calidad" onclick="listar_cc('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm"><i class="fas fa-shield-alt"></i></button>';
+          ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver WPanel" onclick="ver_bucksheet(' + orden.PurchaseOrderID + ', '+id_cliente +', '+id_proyecto + ')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-eye"></i></button>'
           ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
           ordenes_html += '</td>';
           if( orden.Criticidad ==='BAJA'){
@@ -779,8 +1019,11 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
            ordenes_html += '<td>' + orden.Currency  + '</td>';
            ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
            ordenes_html += '<td>' + orden.Budget  + '</td>';
-           ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
-           ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+          ordenes_html += '<td>' + orden.TipoCambio+ '</td>';
+            ordenes_html += '<td>' + orden.ValorNetoUsd+ '</td>';
+             ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+            ordenes_html += '<td>' + orden.FechaAdjudicadaProgramada+ '</td>';
+            ordenes_html += '<td>' + orden.FechaAdjudicada+ '</td>';
            ordenes_html += '<td>' + orden.DateRequired  + '</td>';
            ordenes_html += '<td>' + orden.DateEta  + '</td>';
            ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
@@ -886,6 +1129,167 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
 
 }
 
+function recargaOrdenesPaq(id_proyecto,id_cliente,nombre_proyecto){
+
+var ordenes_html ='';
+var tabla_ordenes =  $('#ListOrdenesPaq').DataTable();
+var titulo_ordenes ='';
+var nombre_cliente = '';
+var id_requerimiento  = '';
+var titulo_proyecto = '';
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+tabla_ordenes.destroy();
+
+$.ajax({
+    url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenesPaq'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            idCliente: id_cliente,
+            idProyecto: id_proyecto
+          },
+  }).done(function(result) {
+
+    
+    $.each(result.ordenes,function(key, orden) {
+      ordenes_html += '<tr>';
+      ordenes_html += '<td>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
+        ordenes_html += '</td>';
+        if( orden.Criticidad ==='BAJA'){
+               ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
+          }else if(orden.Criticidad ==='ALTA'){
+               ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
+          }else{
+               ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
+          }
+         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+         ordenes_html += '<td>' + orden.Revision + '</td>';
+         ordenes_html += '<td>' + orden.SupplierName + '</td>';
+         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+         ordenes_html += '<td>' + orden.Comprador + '</td>';
+         ordenes_html += '<td>' + orden.Requestor+ '</td>';
+         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+         ordenes_html += '<td>' + orden.Currency  + '</td>';
+         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+         ordenes_html += '<td>' + orden.Budget  + '</td>';
+         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+          ordenes_html += '<td>' + orden.TipoCambio+ '</td>';
+          ordenes_html += '<td>' + orden.ValorNetoUsd+ '</td>';
+           ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+          ordenes_html += '<td>' + orden.FechaAdjudicadaProgramada+ '</td>';
+          ordenes_html += '<td>' + orden.FechaAdjudicada+ '</td>';
+         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+         ordenes_html += '<td>' + orden.DateEta  + '</td>';
+         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+         ordenes_html += '<td>' + orden.POStatus  + '</td>';
+         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+         ordenes_html += '<td>' + orden.Support  + '</td>';
+      ordenes_html += '</tr>';
+
+      nombre_cliente = orden.nombreCliente ;
+
+      id_requerimiento = orden.idRequerimiento ;
+
+          
+      titulo_proyecto = '<a href="#" class="nav-link"> DETALLE PROYECTO: '+ orden.NombreProyecto + ' - '+orden.DescripcionProyecto +'</a>';
+
+    }); 
+
+
+    $('#titulo_proyecto').html(titulo_proyecto);  
+
+    titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
+    $('#titulo_ordenes').html(titulo_ordenes);  
+    $('#datos_ordenes_paq').html(ordenes_html);
+    $('#or_nombre_proyecto').val(nombre_proyecto);
+    $('#or_act_nombre_proyecto').val(nombre_proyecto);
+
+    $('#or_id_requerimiento').val(id_requerimiento);
+    $('#or_act_id_requerimiento').val(id_requerimiento);
+    
+
+    $('#id_proyecto_or').val(id_proyecto);
+    $('#id_cliente_or').val(id_cliente);
+    $('#or_nombre_cliente').val(nombre_cliente);
+
+
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#ListOrdenesPaq').DataTable({
+        language: {
+            url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+        },
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+       "select": true,
+                             "autoWidth": true,
+      "scrollY": "600px",
+      "scrollX": true,
+      "colReorder": true,
+      "scrollCollapse": true,
+        "responsive": false,
+        "lengthChange": true, 
+         "select": true,
+                             "autoWidth": true,
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+          [ 10, 25, 50, -1 ],
+          [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+      ],
+        "buttons": [
+                                  {
+                                  "extend": 'copy',
+                                  "text": 'COPIAR'
+                                  },
+                                  {
+                                  "extend": 'csv',
+                                  "text": 'CSV'
+                                  },
+                                  {
+                                  "extend": 'excel',
+                                  "text": 'EXCEL'
+                                  },
+                                  {
+                                  "extend": 'pdf',
+                                  "text": 'PDF'
+                                  },
+                                  {
+                                  "extend": 'print',
+                                  "text": 'IMPRIMIR'
+                                  },
+                                  {
+                                  "extend": 'colvis',
+                                  "text": 'COLUMNAS VISIBLES'
+                                  },
+                                  {
+                                  "extend": 'pageLength',
+                                  "text": 'MOSTRAR REGISTROS'
+                                  }
+                          ]
+                      }).buttons().container().appendTo('#ListOrdenesPaq_wrapper .col-md-6:eq(0)');
+
+
+  }).fail(function() {
+    console.log("error listar_ordenes_paq");
+  })
+
+
+}
+
+
+
 /**
   Funcion trae select para usarlos en formulario nueva orden
  */
@@ -927,19 +1331,19 @@ function obtieneSelects(){
 
 }
 
-
-
-function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
-        window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');
-    }
-   
-   
-    function listar_item_ordenes(orden_id, id_cliente, id_proyecto, nombre_orden ) {
+function listar_item_ordenes(orden_id, id_cliente, id_proyecto, nombre_orden ) {
 
 recargaItemOrdenes(orden_id, id_cliente, id_proyecto, nombre_orden);
 
 
 }
+
+function ver_bucksheet(idOrden, cliente, codigo_proyecto) {
+        window.open('<?php echo site_url('BuckSheet/listaBucksheet')?>/'+ idOrden + '/'+cliente+'/'+codigo_proyecto,'_blank');
+    }
+
+
+
 
 
 function recargaArchivoTecnico(cod_empresa,id_orden){

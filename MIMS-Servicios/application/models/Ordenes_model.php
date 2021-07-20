@@ -38,7 +38,11 @@ class Ordenes_model extends CI_Model{
 									a.DateCreated,
 									a.Support_original,
 									d.NombreProyecto,
-                                    d.DescripcionProyecto       
+                                    d.DescripcionProyecto,
+									a.TipoCambio,
+    								a.ValorNetoUsd,       
+									a.FechaAdjudicadaProgramada,
+    								a.FechaAdjudicada
 									FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 									WHERE a.idCliente = ".$idCliente."
 									AND a.idproyecto = ".$idProyecto."
@@ -94,7 +98,11 @@ class Ordenes_model extends CI_Model{
 								a.DateCreated,
 								a.Support_original,
 								d.NombreProyecto,
-                                d.DescripcionProyecto       
+                                d.DescripcionProyecto,
+								a.TipoCambio,
+    						    a.ValorNetoUsd,       
+								a.FechaAdjudicadaProgramada,
+    							a.FechaAdjudicada       
 								FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."

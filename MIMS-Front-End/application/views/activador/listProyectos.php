@@ -83,7 +83,11 @@
                   <th>Valor Neto</th>
                   <th>Presupuesto</th>
                   <th>Codigo Presupuesto</th>
+                  <th>Tipo Cambio</th>
+                  <th>Valor Neto USD</th>
                   <th>Fecha Orden Creada</th>
+                  <th>Fecha Adjudicada Programada</th>
+                  <th>Fecha Adjudicada</th>
                   <th>Fecha Requerida (RAS)</th>
                   <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
@@ -141,7 +145,58 @@
                     <!-- /.card-body -->
                   </div>
 
+                  <div class="col-lg-12">
+                  <div class="card">
+                    <div class="card-header">
+                        <i class="fas fa-clipboard-list"></i>
+                        Ordenes de Compra Proyecto PAQUETE DE COMPRA
+                      </h3>
+                    </div>
+                    <!-- /.card-header -->
+                    <div class="card-body">
+							 
+								<table id="ListOrdenesPaq" class="table table-striped table-bordered" cellspacing="0" width=100%>
+						 
+							  <thead>
+								  <tr>
+								  <th>Acciones</th>
+                  <th>Criticidad</th>
+                  <th>ID Requerimiento</th>
+                  <th>Categorizacion</th>
+                  <th>Número Orden</th>
+                  <th>Fecha Emisión Orden</th>
+                  <th>Descripcion Orden</th>
+                  <th>Revisión</th>
+                  <th>Nombre Proveedor</th>
+                  <th>Nombre Cliente</th>
+                  <th>Comprador</th>
+                  <th>Generador de Compra</th>
+                  <th>Activador</th>
+                  <th>Moneda</th>
+                  <th>Valor Neto</th>
+                  <th>Presupuesto</th>
+                  <th>Codigo Presupuesto</th>
+                  <th>Tipo Cambio</th>
+                  <th>Valor Neto USD</th>
+                  <th>Fecha Orden Creada</th>
+                  <th>Fecha Adjudicada Programada</th>
+                  <th>Fecha Adjudicada</th>
+                  <th>Fecha Requerida (RAS)</th>
+                  <th>Fecha Eta</th>
+                  <th>Metodo Envio</th>
+                  <th>Estado</th>
+                  <th>Fecha de cierre</th>
+                  <th>ID Orden</th>
+                  <th>Archivo</th>
+								  </tr>
+							  </thead>
+							  <tbody id="datos_ordenes_paq">
+								
+							  </tbody>
+							  
+						  </table>
 
+                </div>
                   <div class="col-lg-12">
                   <div class="card">
                     <div class="card-header">
@@ -381,8 +436,12 @@
                                                             <div class="form-group"><label for="VALOR NETO">VALOR NETO</label> <input id="or_act_valor_neto" name="or_act_valor_neto" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="mostrarValorTotalOr(this)"></div>
                                                             <div class="form-group"><label for="PRESUPUESTO">PRESUPUESTO</label><input id="or_act_budget" name="or_act_budget" type="text" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
                                                             <div class="form-group"><label for="CODIGO PRESUPUESTO"> CÓDIGO PRESUPUESTO</label><input id="or_act_costcodebudget" name="or_act_costcodebudget" class="form-control" ></div>
+                                                            <div class="form-group"><label for="TIPO CAMBIO">TIPO CAMBIO</label><input id="or_act_tipo_cambio" name="or_act_tipo_cambio" class="form-control" onkeyup="formatoNumero(this)" onchange="formatoNumero(this)"></div>
+                                                          
                                                             <div class="form-group"><label for="FECHA EMISION ORDEN DE COMPRA">FECHA DE EMISION ORDEN DE COMPRA</label> <input name="or_act_order_date" type="text" class="form-control fechapicker" id="or_act_order_date"></div>
-                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div>
+                                                            <div class="form-group"><label for="FECHA ADJUDICADA PROGRAMADA">FECHA ADJUDICADA PROGRAMADA</label> <input name="or_act_fecha_adjudicada_programada" type="text" class="form-control fechapicker" id="or_act_fecha_adjudicada_programada"></div>
+                                                            <div class="form-group"><label for="FECHA ADJUDICADA">FECHA ADJUDICADA </label> <input name="or_act_fecha_adjudicada" type="text" class="form-control fechapicker" id="or_act_fecha_adjudicada"></div>
+                                                        
                                                            
                                                         </div>
 
@@ -393,7 +452,7 @@
                                                             <div class="form-group"><label for="FECHA CIERRE ORDEN DE COMPRA">FECHA CIERRE ORDEN DE COMPRA</label> <input name="or_act_ship_date" type="text" class="form-control fechapicker"  id="or_act_ship_date"></div>
                                                             <div class="form-group"><label for="SELECCIONE METODO DE ENVIO">SELECCIONE MÉTODO ENVIO</label><div id="s_act_shipping"></div></div>
                                                             <div class="form-group"><label for="SELECCIONE ESTADO ORDEN">SELECCIONE ESTADO ORDEN</label><div id="s_act_status"></div></div>
-                                                           
+                                                            <div class="form-group"><label for="ARCHIVO RESPALDO">ARCHIVO RESPALDO</label><input id="or_act_support" name="or_act_support" type="file" class="form-control form-control-file"></div> 
                                                             
                                                             
                                                           </div>
@@ -404,8 +463,6 @@
                                     </div>
                                 </div>
                             </div>
-
-
 
 
                     </section>
@@ -840,6 +897,7 @@ $(document).ready(function() {
 
     recargaProyectos(0);
     recargaOrdenes(0,0,'');
+    recargaOrdenesPaq(0,0,'');
     recargaItemOrdenes(0, 0, 0,'');
    // recargaCalidadDet(0, 0, 0);
     recargaArchivoTecnico(0,0);
@@ -885,6 +943,7 @@ function listar_ordenes(id_proyecto,id_cliente,nombre_proyecto){
   $('#flag_orden').val(1); 
   recargaItemOrdenes(0, 0, 0,'');
   recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto);
+  recargaOrdenesPaq(id_proyecto,id_cliente,nombre_proyecto);
   recargaArchivoTecnico(0,0);
  
 }
@@ -905,6 +964,7 @@ $('#select_clientes').on('change', function(){
     if(cliente > 0){
 
       recargaOrdenes(0,0,'');
+      recargaOrdenesPaq(0,0,'');
       recargaItemOrdenes(0, 0, 0,'');
       recargaProyectos(cliente);
       obtieneSelects();
@@ -914,6 +974,7 @@ $('#select_clientes').on('change', function(){
 
     }else{
       recargaOrdenes(0,0,'');
+      recargaOrdenesPaq(0,0,'');
       recargaItemOrdenes(0, 0, 0,'');
       $('#flag_orden').val(0);
       $('#datos_proyectos').html('<td class="text-center" colspan="5">No hay datos disponibles en la tabla.</td>');
@@ -1298,17 +1359,19 @@ var titulo_ordenes ='';
 var nombre_cliente = '';
 var id_requerimiento  = '';
 var titulo_proyecto = '';
+var codActivador = <?php echo $this->session->userdata('cod_user');?>;
 var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
 
 tabla_ordenes.destroy();
 
 $.ajax({
-    url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenes'); ?>',
+    url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenesActivador'); ?>',
     type: 		'POST',
     dataType: 'json',
     data: {
             idCliente: id_cliente,
-            idProyecto: id_proyecto
+            idProyecto: id_proyecto,
+            codActivador: codActivador
           },
   }).done(function(result) {
 
@@ -1348,7 +1411,11 @@ $.ajax({
          ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
          ordenes_html += '<td>' + orden.Budget  + '</td>';
          ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+         ordenes_html += '<td>' + orden.TipoCambio+ '</td>';
+         ordenes_html += '<td>' + orden.ValorNetoUsd+ '</td>';
          ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+         ordenes_html += '<td>' + orden.FechaAdjudicadaProgramada+ '</td>';
+         ordenes_html += '<td>' + orden.FechaAdjudicada+ '</td>';
          ordenes_html += '<td>' + orden.DateRequired  + '</td>';
          ordenes_html += '<td>' + orden.DateEta  + '</td>';
          ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
@@ -1454,6 +1521,168 @@ $.ajax({
 
 }
 
+
+function recargaOrdenesPaq(id_proyecto,id_cliente,nombre_proyecto){
+
+var ordenes_html ='';
+var tabla_ordenes =  $('#ListOrdenesPaq').DataTable();
+var titulo_ordenes ='';
+var nombre_cliente = '';
+var id_requerimiento  = '';
+var titulo_proyecto = '';
+var codActivador = <?php echo $this->session->userdata('cod_user');?>;
+var cod_empresa = <?php echo $this->session->userdata('cod_emp');?>;
+
+tabla_ordenes.destroy();
+
+$.ajax({
+    url: 		'<?php echo base_url('index.php/Ordenes/obtieneOrdenesActivadorPaq'); ?>',
+    type: 		'POST',
+    dataType: 'json',
+    data: {
+            idCliente: id_cliente,
+            idProyecto: id_proyecto,
+            codActivador: codActivador
+          },
+  }).done(function(result) {
+
+    
+    $.each(result.ordenes,function(key, orden) {
+      ordenes_html += '<tr>';
+      ordenes_html += '<td>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Editar Orden" onclick="editar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-info btn-sm mr-1"><i class="fas fa-edit"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Eliminar Orden" onclick="eliminar_orden('+ id_cliente +','+ id_proyecto +','+ orden.PurchaseOrderID +')" class="btn btn-outline-danger btn-sm"><i class="far fa-trash-alt"></i></button>';
+        ordenes_html += '<button data-toggle="tooltip" data-placement="left" title="Ver Archivos Tecnicos" onclick="listar_archivos_adjuntos(' +cod_empresa + ', '+ orden.PurchaseOrderID +')" class="btn btn-outline-success btn-sm mr-1"><i class="fas fa-file-archive"></i></button>'
+        ordenes_html += '</td>';
+        if( orden.Criticidad ==='BAJA'){
+               ordenes_html  += '<td><span class="bg-green">'+  orden.Criticidad +'</span></td>';    
+          }else if(orden.Criticidad ==='ALTA'){
+               ordenes_html  += '<td><span class="bg-red">'+  orden.Criticidad +'</span></td>';
+          }else{
+               ordenes_html  += '<td><span class="bg-yellow">'+  orden.Criticidad +'</span></td>';
+          }
+         ordenes_html += '<td>' + orden.idRequerimiento  + '</td>';
+         ordenes_html += '<td>' + orden.Categorizacion + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderNumber + '</td>';
+         ordenes_html += '<td>' + orden.OrderDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderDescription + '</td>';
+         ordenes_html += '<td>' + orden.Revision + '</td>';
+         ordenes_html += '<td>' + orden.SupplierName + '</td>';
+         ordenes_html += '<td>' + orden.nombreCliente + '</td>';
+         ordenes_html += '<td>' + orden.Comprador + '</td>';
+         ordenes_html += '<td>' + orden.Requestor+ '</td>';
+         ordenes_html += '<td>' + orden.ExpediterID + '</td>';
+         ordenes_html += '<td>' + orden.Currency  + '</td>';
+         ordenes_html += '<td>' + orden.ValorNeto  + '</td>';
+         ordenes_html += '<td>' + orden.Budget  + '</td>';
+         ordenes_html += '<td>' + orden.CostCodeBudget  + '</td>';
+          ordenes_html += '<td>' + orden.TipoCambio+ '</td>';
+          ordenes_html += '<td>' + orden.ValorNetoUsd+ '</td>';
+           ordenes_html += '<td>' + orden.DateCreated  + '</td>';
+          ordenes_html += '<td>' + orden.FechaAdjudicadaProgramada+ '</td>';
+          ordenes_html += '<td>' + orden.FechaAdjudicada+ '</td>';
+         ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+         ordenes_html += '<td>' + orden.DateEta  + '</td>';
+         ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
+         ordenes_html += '<td>' + orden.POStatus  + '</td>';
+         ordenes_html += '<td>' + orden.ShipDate  + '</td>';
+         ordenes_html += '<td>' + orden.PurchaseOrderID + '</td>';
+         ordenes_html += '<td>' + orden.Support  + '</td>';
+      ordenes_html += '</tr>';
+
+      nombre_cliente = orden.nombreCliente ;
+
+      id_requerimiento = orden.idRequerimiento ;
+
+          
+      titulo_proyecto = '<a href="#" class="nav-link"> DETALLE PROYECTO: '+ orden.NombreProyecto + ' - '+orden.DescripcionProyecto +'</a>';
+
+    }); 
+
+
+    $('#titulo_proyecto').html(titulo_proyecto);  
+
+    titulo_ordenes = '<i class="fas fa-clipboard-list"></i> Orden de compra Proyecto '+ nombre_proyecto;
+    $('#titulo_ordenes').html(titulo_ordenes);  
+    $('#datos_ordenes_paq').html(ordenes_html);
+    $('#or_nombre_proyecto').val(nombre_proyecto);
+    $('#or_act_nombre_proyecto').val(nombre_proyecto);
+
+    $('#or_id_requerimiento').val(id_requerimiento);
+    $('#or_act_id_requerimiento').val(id_requerimiento);
+    
+
+    $('#id_proyecto_or').val(id_proyecto);
+    $('#id_cliente_or').val(id_cliente);
+    $('#or_nombre_cliente').val(nombre_cliente);
+
+
+      $('[data-toggle="tooltip"]').tooltip();
+
+      $('#ListOrdenesPaq').DataTable({
+        language: {
+            url: '<?php echo base_url();?>/assets/plugins/datatables/lang/Spanish.json'	
+        },
+      "paging": true,
+      "lengthChange": false,
+      "searching": true,
+      "ordering": true,
+      "info": true,
+       "select": true,
+                             "autoWidth": true,
+      "scrollY": "600px",
+      "scrollX": true,
+      "colReorder": true,
+      "scrollCollapse": true,
+        "responsive": false,
+        "lengthChange": true, 
+         "select": true,
+                             "autoWidth": true,
+        "dom": 'Bfrtip',
+        "lengthMenu": [
+          [ 10, 25, 50, -1 ],
+          [ '10 registros', '25 registros', '50 registros', 'Mostrar Todos' ]
+      ],
+        "buttons": [
+                                  {
+                                  "extend": 'copy',
+                                  "text": 'COPIAR'
+                                  },
+                                  {
+                                  "extend": 'csv',
+                                  "text": 'CSV'
+                                  },
+                                  {
+                                  "extend": 'excel',
+                                  "text": 'EXCEL'
+                                  },
+                                  {
+                                  "extend": 'pdf',
+                                  "text": 'PDF'
+                                  },
+                                  {
+                                  "extend": 'print',
+                                  "text": 'IMPRIMIR'
+                                  },
+                                  {
+                                  "extend": 'colvis',
+                                  "text": 'COLUMNAS VISIBLES'
+                                  },
+                                  {
+                                  "extend": 'pageLength',
+                                  "text": 'MOSTRAR REGISTROS'
+                                  }
+                          ]
+                      }).buttons().container().appendTo('#ListOrdenesPaq_wrapper .col-md-6:eq(0)');
+
+
+  }).fail(function() {
+    console.log("error listar_ordenes_paq");
+  })
+
+
+}
+
 function editar_orden(id_cliente, id_proyecto, order_id){
 
 
@@ -1500,6 +1729,11 @@ $.ajax({
     $('#s_act_status').html(result.formulario.select_status);
     $('#or_act_nombre_proyecto').val(result.formulario.nombre_proyecto);
 
+    $('#or_act_tipo_cambio').val(result.formulario.TipoCambio);
+      $('#or_act_fecha_adjudicada_programada').val(result.formulario.FechaAdjudicadaProgramada);
+      $('#or_act_fecha_adjudicada').val(result.formulario.FechaAdjudicada);
+
+
     $('#id_act_order').val(order_id);
     $('#id_act_proyecto').val(id_proyecto);
     $('#id_act_cliente').val(id_cliente);
@@ -1537,6 +1771,7 @@ $('#btn_act_orden').on('click', function(){
     if(result.resp){
 
       recargaOrdenes($('#id_act_proyecto').val(), $('#id_act_cliente').val(),$('#titulo_ordenes').val());
+      recargaOrdenesPaq($('#id_act_proyecto').val(), $('#id_act_cliente').val(),$('#titulo_ordenes').val());
       $('#modal_edit_orden').modal('hide');
       toastr.success(result.mensaje);
 
