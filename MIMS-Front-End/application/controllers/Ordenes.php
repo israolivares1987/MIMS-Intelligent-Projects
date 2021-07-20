@@ -54,6 +54,7 @@ class Ordenes extends CI_Controller{
 
               if(strcmp($value->Categorizacion, 'PAQUETE DE COMPRA') !== 0){
                              
+               
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'Criticidad' => $this->callutil->cambianull($value->Criticidad),
@@ -86,7 +87,7 @@ class Ordenes extends CI_Controller{
                 'NombreProyecto' => $this->callutil->cambianull($value->NombreProyecto),
                 'DescripcionProyecto' => $this->callutil->cambianull($value->DescripcionProyecto),
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
-                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
                 'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
@@ -171,7 +172,7 @@ class Ordenes extends CI_Controller{
                 'NombreProyecto' => $this->callutil->cambianull($value->NombreProyecto),
                 'DescripcionProyecto' => $this->callutil->cambianull($value->DescripcionProyecto),
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
-                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
                 'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
@@ -259,7 +260,7 @@ class Ordenes extends CI_Controller{
                 "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
                 "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto),
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
-                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
                 'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
@@ -344,7 +345,7 @@ class Ordenes extends CI_Controller{
                 "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
                 "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto),
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
-                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
                 'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
@@ -403,7 +404,7 @@ class Ordenes extends CI_Controller{
     $id_cliente_or       = $this->input->post('id_cliente');
 
 
-    $or_tipo_cambio = $this->input->post('or_tipo_cambio');
+    $or_tipo_cambio = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_tipo_cambio'));
    
     $or_fecha_adjudicada_programada = date('Y-m-d', strtotime($this->input->post('or_fecha_adjudicada_programada')));
     $or_fecha_adjudicada= date('Y-m-d', strtotime($this->input->post('or_fecha_adjudicada')));
@@ -411,7 +412,8 @@ class Ordenes extends CI_Controller{
 
     if ($or_valor_neto > 0 && $or_tipo_cambio > 0){
 
-      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),2,20);
+  
+      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),2);
                             
     }else {
       $or_valor_neto_usd = 0;
@@ -651,15 +653,17 @@ class Ordenes extends CI_Controller{
     $id_cliente_or       = $this->input->post('id_act_cliente');
     $id_order_or       = $this->input->post('id_act_order');
 
-    $or_tipo_cambio = $this->input->post('or_act_tipo_cambio');
+    $or_tipo_cambio            = $this->callutil->formatoNumeroMilesEntrada($this->input->post('or_act_tipo_cambio'));
     
+
 
     if ($or_valor_neto > 0 && $or_tipo_cambio > 0){
 
-      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),20,2);
+      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),2);
     }else {
       $or_valor_neto_usd = 0;
     }
+
 
 
     $or_fecha_adjudicada_programada = date('Y-m-d', strtotime($this->input->post('or_act_fecha_adjudicada_programada')));

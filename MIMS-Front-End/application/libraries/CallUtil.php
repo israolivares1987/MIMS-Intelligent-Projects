@@ -147,6 +147,14 @@ function formatoDinero($dato){
 			return $dinero;
 		}
 
+		function formatoDineroDecimalUSD($dato){
+
+
+			$dinero =  "$ ".number_format((float)$dato,2,',', '.');
+
+			return $dinero;
+		}		
+
 function formatoNumero($dato){
 
 
@@ -656,18 +664,9 @@ function validarFecha($date, $format = 'd-m-Y'){
 	}
 
 
-	function num_format($numVal,$afterPoint=2,$minAfterPoint=0,$thousandSep=".",$decPoint=","){
+	function num_format($numVal,$afterPoint,$thousandSep="",$decPoint="."){
 
 		$ret = number_format((float)$numVal,$afterPoint,$decPoint,$thousandSep);
-		if($afterPoint!=$minAfterPoint){
-		  while(($afterPoint>$minAfterPoint) && (substr($ret,-1) =="0") ){
-			// $minAfterPoint!=$minAfterPoint and number ends with a '0'
-			// Remove '0' from end of string and set $afterPoint=$afterPoint-1
-			$ret = substr($ret,0,-1);
-			$afterPoint = $afterPoint-1;
-		  }
-		}
-		if(substr($ret,-1)==$decPoint) {$ret = substr($ret,0,-1);}
 		return $ret;
 	  }
 
