@@ -52,7 +52,8 @@ class Ordenes extends CI_Controller{
                 $Support = '';
               }
 
-               
+              if(strcmp($value->Categorizacion, 'PAQUETE DE COMPRA') !== 0){
+                             
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'Criticidad' => $this->callutil->cambianull($value->Criticidad),
@@ -62,7 +63,7 @@ class Ordenes extends CI_Controller{
                 'PurchaseOrderDescription'   => $this->callutil->cambianull($value->PurchaseOrderDescription),
                 'Revision'   => $value->Revision,
                 'nombreCliente'   => $this->callutil->cambianull($value->nombreCliente),
-                "SupplierName" => $this->callutil->cambianull($value->SupplierName),
+                'SupplierName' => $this->callutil->cambianull($value->SupplierName),
                 'ExpediterID'   => $value->ExpediterID,
                 'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
                 'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
@@ -82,9 +83,101 @@ class Ordenes extends CI_Controller{
                 'DateCreated'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateCreated)),
                 "POStatus" => $this->callutil->cambianull($value->POStatus),
                 'Support' =>  $Support,
-                "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
-                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto)
+                'NombreProyecto' => $this->callutil->cambianull($value->NombreProyecto),
+                'DescripcionProyecto' => $this->callutil->cambianull($value->DescripcionProyecto),
+                'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
+                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
+            }
+
+
+
+            }
+          }
+
+
+						
+
+        $datos['ordenes'] = $datos_ordenes;
+        $datos['resp']    = $respuesta;
+
+        echo json_encode($datos);
+    
+
+  }
+
+
+  function obtieneOrdenesPaq(){
+
+    $idCliente       = $this->input->post('idCliente');
+    $idProyecto      = $this->input->post('idProyecto');
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+    $respuesta = false;
+
+    $ordenes = $this->callexternosordenes->obtieneOrdenes($idProyecto,$idCliente,$codEmpresa);
+
+    $arrOrdenes = json_decode($ordenes);
+ 
+
+          $datos_ordenes = array();
+
+          if($arrOrdenes){
+            $respuesta = true;
+            
+            foreach ($arrOrdenes as $key => $value) {
+
+              $Support = '';
+
+              if(strlen($value->Support) > 0 && $value->Support !='null'  ){
+                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support_original.'"><i class="fas fa-download"></i> Descarga</a>';
+              }else{
+                $Support = '';
+              }
+
+              if(strcmp($value->Categorizacion, 'PAQUETE DE COMPRA') === 0){
+                             
+              $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
+                'PurchaseOrderID' => $value->PurchaseOrderID,
+                'Criticidad' => $this->callutil->cambianull($value->Criticidad),
+                'idRequerimiento' => $value->idRequerimiento,
+                'PurchaseOrderNumber'   => $this->callutil->cambianull($value->PurchaseOrderNumber),
+                'Categorizacion'  => $value->Categorizacion,
+                'PurchaseOrderDescription'   => $this->callutil->cambianull($value->PurchaseOrderDescription),
+                'Revision'   => $value->Revision,
+                'nombreCliente'   => $this->callutil->cambianull($value->nombreCliente),
+                'SupplierName' => $this->callutil->cambianull($value->SupplierName),
+                'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
+                'Requestor'   => $this->callutil->cambianull($value->Requestor),
+                'Comprador'   => $this->callutil->cambianull($value->Comprador),
+                'Currency'   => $value->Currency,
+                'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
+                'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
+                'Budget'   => $this->callutil->formatoDinero($value->Budget),
+                'CostCodeBudget'   => $this->callutil->cambianull($value->CostCodeBudget),
+                'OrderDate'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->OrderDate)),
+                'DateRequired'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateRequired)),
+                'DateEta'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateEta)),
+                'DatePromised'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DatePromised)),
+                'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
+                'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
+                'DateCreated'   => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->DateCreated)),
+                "POStatus" => $this->callutil->cambianull($value->POStatus),
+                'Support' =>  $Support,
+                'NombreProyecto' => $this->callutil->cambianull($value->NombreProyecto),
+                'DescripcionProyecto' => $this->callutil->cambianull($value->DescripcionProyecto),
+                'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
+                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+              );
+            }
+
+
 
             }
           }
@@ -131,7 +224,9 @@ class Ordenes extends CI_Controller{
                 $Support = '';
               }
 
-              
+    
+              if(strcmp($value->Categorizacion, 'PAQUETE DE COMPRA') !== 0){
+
               $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
                 'PurchaseOrderID' => $value->PurchaseOrderID,
                 'Criticidad' => $this->callutil->cambianull($value->Criticidad),
@@ -162,9 +257,98 @@ class Ordenes extends CI_Controller{
                 "POStatus" => $this->callutil->cambianull($value->POStatus),
                 'Support' =>  $Support,
                 "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
-                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto)
+                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto),
+                'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
+                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
               );
+            }
 
+            }
+          }
+
+
+						
+
+        $datos['ordenes'] = $datos_ordenes;
+        $datos['resp']    = $respuesta;
+
+        echo json_encode($datos);
+    
+
+  }
+
+
+  function obtieneOrdenesActivadorPaq(){
+
+    $idCliente       = $this->input->post('idCliente');
+    $idProyecto      = $this->input->post('idProyecto');
+    $codActivador      = $this->input->post('codActivador');
+    $codEmpresa       = $this->session->userdata('cod_emp');
+
+    $respuesta = false;
+
+    $ordenes = $this->callexternosordenes->obtieneOrdenesActivador($idCliente,$idProyecto, $codActivador,$codEmpresa);
+
+    $arrOrdenes = json_decode($ordenes);
+ 
+
+          $datos_ordenes = array();
+
+          if($arrOrdenes){
+            $respuesta = true;
+            
+            foreach ($arrOrdenes as $key => $value) {
+
+              $Support = '';
+
+              if(strlen($value->Support) > 0 && $value->Support !='null'  ){
+                $Support = '<a class="btn btn-outline-success btn-sm mr-1" href="'.base_url().'/archivos/ordenes/'.$value->Support.'" download="'.$value->Support_original.'"><i class="fas fa-download"></i> Descarga</a>';
+              }else{
+                $Support = '';
+              }
+
+    
+              if(strcmp($value->Categorizacion, 'PAQUETE DE COMPRA') == 0){
+
+              $datos_ordenes[] = array('codEmpresa' => $value->codEmpresa,
+                'PurchaseOrderID' => $value->PurchaseOrderID,
+                'Criticidad' => $this->callutil->cambianull($value->Criticidad),
+                'idRequerimiento' => $value->idRequerimiento,
+                'PurchaseOrderNumber'   => $value->PurchaseOrderNumber,
+                'Categorizacion'  => $value->Categorizacion,
+                'PurchaseOrderDescription'   => $value->PurchaseOrderDescription,
+                'Revision'   => $value->Revision,
+                'nombreCliente'   => $value->nombreCliente,
+                "SupplierName" => $value->SupplierName,
+                'ExpediterID'   => $value->ExpediterID,
+                'EstadoPlano'   =>$this->callutil->cambianull($value->EstadoPlano),
+                'ObservacionesEp'   => $this->callutil->cambianull($value->ObservacionesEp),
+                'Requestor'   => $value->Requestor,
+                'Comprador'   => $value->Comprador,
+                'Currency'   => $value->Currency,
+                'ValorNeto'   => $this->callutil->formatoDinero($value->ValorNeto),
+                'ValorTotal'   => $this->callutil->formatoDinero($value->ValorTotal),
+                'Budget'   => $this->callutil->formatoDinero($value->Budget),
+                'CostCodeBudget'   => $value->CostCodeBudget,
+                'OrderDate'   => $this->callutil->formatoFechaSalida($value->OrderDate),
+                'DateRequired'   => $this->callutil->formatoFechaSalida($value->DateRequired),
+                'DateEta'   => $this->callutil->formatoFechaSalida($value->DateEta),
+                'DatePromised'   => $this->callutil->formatoFechaSalida($value->DatePromised),
+                'ShipDate'   => $this->callutil->formatoFechaSalida($value->ShipDate),
+                'ShippingMethodID'   => $this->callutil->cambianull($value->ShippingMethodID),
+                'DateCreated'   => $this->callutil->formatoFechaSalida($value->DateCreated),
+                "POStatus" => $this->callutil->cambianull($value->POStatus),
+                'Support' =>  $Support,
+                "NombreProyecto" => $this->callutil->cambianull($value->NombreProyecto),
+                "DescripcionProyecto" => $this->callutil->cambianull($value->DescripcionProyecto),
+                'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
+                'ValorNetoUsd' => $value->ValorNetoUsd,
+                'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+              );
+            }
             }
           }
 
@@ -184,6 +368,9 @@ class Ordenes extends CI_Controller{
 
 
   function guardaOrden(){
+
+
+
 
     $or_purchase_order    = $this->input->post('or_purchase_order');
     $or_criticidad      = $this->input->post('or_select_criticidad');
@@ -214,6 +401,25 @@ class Ordenes extends CI_Controller{
     $or_select_status     = $this->input->post('or_select_status');
     $id_proyecto_or       = $this->input->post('id_proyecto_or');
     $id_cliente_or       = $this->input->post('id_cliente');
+
+
+    $or_tipo_cambio = $this->input->post('or_tipo_cambio');
+   
+    $or_fecha_adjudicada_programada = date('Y-m-d', strtotime($this->input->post('or_fecha_adjudicada_programada')));
+    $or_fecha_adjudicada= date('Y-m-d', strtotime($this->input->post('or_fecha_adjudicada')));
+
+
+    if ($or_valor_neto > 0 && $or_tipo_cambio > 0){
+
+      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),2,20);
+                            
+    }else {
+      $or_valor_neto_usd = 0;
+    }
+
+
+
+
 
     $path_completo = '';
     $codEmpresa       = $this->session->userdata('cod_emp');
@@ -290,11 +496,15 @@ class Ordenes extends CI_Controller{
                   'DateCreated'               => date('Y-m-d'),
                   'POStatus'                  => $or_select_status,
                   'Support'                   => $respaldo,
-                  'Support_original'          => $respaldo_original
+                  'Support_original'          => $respaldo_original,
+                  'TipoCambio' => $or_tipo_cambio ,
+                  'ValorNetoUsd' => $or_valor_neto_usd ,
+                  'FechaAdjudicadaProgramada' => $or_fecha_adjudicada_programada ,
+                  'FechaAdjudicada' => $or_fecha_adjudicada
                 );
 
                 $ordenes    = $this->callexternosordenes->guardaOrden($data);
-
+            
                 if($ordenes){
 
                   $error_msg = 'Orden cargada correctamente';
@@ -386,7 +596,12 @@ class Ordenes extends CI_Controller{
           'orden_id'            => $orden_id,
           'id_proyecto'         => $id_proyecto,
           'id_cliente'          => $id_cliente,
-          'nombre_proyecto'     => $id_cliente
+          'nombre_proyecto'     => $id_cliente,
+          'TipoCambio' => $this->callutil->formatoNumero($value->TipoCambio),
+          'ValorNetoUsd' => $this->callutil->formatoNumero($value->ValorNetoUsd),                                       
+          'FechaAdjudicadaProgramada' => date('d-m-Y', strtotime($value->FechaAdjudicadaProgramada)),
+          'FechaAdjudicada' => date('d-m-Y', strtotime($value->FechaAdjudicada))
+
         );
 
       }
@@ -436,7 +651,19 @@ class Ordenes extends CI_Controller{
     $id_cliente_or       = $this->input->post('id_act_cliente');
     $id_order_or       = $this->input->post('id_act_order');
 
+    $or_tipo_cambio = $this->input->post('or_act_tipo_cambio');
+    
 
+    if ($or_valor_neto > 0 && $or_tipo_cambio > 0){
+
+      $or_valor_neto_usd = $this->callutil->num_format(($or_valor_neto / $or_tipo_cambio),20,2);
+    }else {
+      $or_valor_neto_usd = 0;
+    }
+
+
+    $or_fecha_adjudicada_programada = date('Y-m-d', strtotime($this->input->post('or_act_fecha_adjudicada_programada')));
+    $or_fecha_adjudicada= date('Y-m-d', strtotime($this->input->post('or_act_fecha_adjudicada')));
 
     $path_completo = '';
     $codEmpresa       = $this->session->userdata('cod_emp');
@@ -505,12 +732,14 @@ class Ordenes extends CI_Controller{
                   'DatePromised'              => $or_date_promised,
                   'ShipDate'                  => $or_ship_date,
                   'ShippingMethodID'          => $or_select_shipping,
-                  'DateCreated'               => date('Y-m-d'),
-                  'POStatus'                  => $or_select_status
+                  'POStatus'                  => $or_select_status,
+                  'TipoCambio' => $or_tipo_cambio ,
+                  'ValorNetoUsd' => $or_valor_neto_usd ,
+                  'FechaAdjudicadaProgramada' => $or_fecha_adjudicada_programada ,
+                  'FechaAdjudicada' => $or_fecha_adjudicada
 
                 );
                 $ordenes    = $this->callexternosordenes->actualizaOrden($data);
-
                 if($ordenes){
 
                   $error_msg = 'Orden actualizada correctamente';
@@ -586,10 +815,13 @@ class Ordenes extends CI_Controller{
                   'DatePromised'              => $or_date_promised,
                   'ShipDate'                  => $or_ship_date,
                   'ShippingMethodID'          => $or_select_shipping,
-                  'DateCreated'               => date('Y-m-d'),
                   'POStatus'                  => $or_select_status,
                   'Support'                   => $respaldo,
-                  'Support_original'          => $respaldo_original 
+                  'Support_original'          => $respaldo_original,
+                  'TipoCambio' => $or_tipo_cambio ,
+                  'ValorNetoUsd' => $or_valor_neto_usd ,
+                  'FechaAdjudicadaProgramada' => $or_fecha_adjudicada_programada ,
+                  'FechaAdjudicada' => $or_fecha_adjudicada 
                 );
 
                 $ordenes    = $this->callexternosordenes->actualizaOrden($update);
