@@ -99,6 +99,12 @@
                   <th>Fecha Adjudicada Programada</th>
                   <th>Fecha Adjudicada</th>
                   <th>Fecha Requerida (RAS)</th>
+                  <th>Tiempo Ejecución</th> 
+                  <th>Dias a Hoy</th>
+                  <th>Avance Esperado</th>
+                  <th>Fecha hoy</th>
+                  <th>Avance Real</th>
+                  <th>Alerta</th>
                   <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
                   <th>Estado</th>
@@ -191,6 +197,12 @@
                   <th>Fecha Adjudicada Programada</th>
                   <th>Fecha Adjudicada</th>
                   <th>Fecha Requerida (RAS)</th>
+                  <th>Tiempo Ejecución</th> 
+                  <th>Dias a Hoy</th>
+                  <th>Avance Esperado</th>
+                  <th>Fecha hoy</th>
+                  <th>Avance Real</th>
+                  <th>Alerta</th>
                   <th>Fecha Eta</th>
                   <th>Metodo Envio</th>
                   <th>Estado</th>
@@ -1025,6 +1037,19 @@ function recargaOrdenes(id_proyecto,id_cliente,nombre_proyecto){
             ordenes_html += '<td>' + orden.FechaAdjudicadaProgramada+ '</td>';
             ordenes_html += '<td>' + orden.FechaAdjudicada+ '</td>';
            ordenes_html += '<td>' + orden.DateRequired  + '</td>';
+          ordenes_html += '<td>' + orden.Tiempo_Ejecución+ '</td>';
+            ordenes_html += '<td>' + orden.Dias_a_Hoy+ '</td>';
+            ordenes_html += '<td>' + orden.Avance_Esperado+ '</td>';
+            ordenes_html += '<td>' + orden.fecha_hoy+ '</td>';
+            ordenes_html += '<td>' + orden.Avance_Real+ '</td>';
+            
+            if( orden.Alerta <= -5){
+                 ordenes_html  += '<td><span class="bg-red">'+  orden.Alerta +'</span></td>';    
+            }else if(orden.Alerta >=-4 && orden.Alerta <5){
+                 ordenes_html  += '<td><span class="bg-yellow">'+  orden.Alerta +'</span></td>';
+            }else{
+                 ordenes_html  += '<td><span class="bg-green">'+  orden.Alerta +'</span></td>';
+            }
            ordenes_html += '<td>' + orden.DateEta  + '</td>';
            ordenes_html += '<td>' + orden.ShippingMethodID  + '</td>';
            ordenes_html += '<td>' + orden.POStatus  + '</td>';
