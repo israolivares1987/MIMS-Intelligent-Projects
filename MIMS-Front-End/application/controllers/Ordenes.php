@@ -89,11 +89,17 @@ class Ordenes extends CI_Controller{
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
                 'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
-                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada)),
+                'Tiempo_Ejecución' => $this->callutil->cambianull($value->Tiempo_Ejecución),
+                'Dias_a_Hoy' => $this->callutil->cambianull($value->Dias_a_Hoy),
+                'Avance_Esperado' => $this->callutil->cambianull($value->Avance_Esperado),
+                'fecha_hoy' => $this->callutil->cambianull($value->fecha_hoy),
+                'Avance_Real' => $this->callutil->cambianull($value->Avance_Real),
+                'Alerta' => $this->callutil->cambianull($value->Alerta)
               );
             }
-
-
+            
+          
 
             }
           }
@@ -174,7 +180,13 @@ class Ordenes extends CI_Controller{
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
                 'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
-                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada)),
+                'Tiempo_Ejecución' => $this->callutil->cambianull($value->Tiempo_Ejecución),
+                'Dias_a_Hoy' => $this->callutil->cambianull($value->Dias_a_Hoy),
+                'Avance_Esperado' => $this->callutil->cambianull($value->Avance_Esperado),
+                'fecha_hoy' => $this->callutil->cambianull($value->fecha_hoy),
+                'Avance_Real' => $this->callutil->cambianull($value->Avance_Real),
+                'Alerta' => $this->callutil->cambianull($value->Alerta)
               );
             }
 
@@ -262,7 +274,13 @@ class Ordenes extends CI_Controller{
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
                 'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
-                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada)),
+                'Tiempo_Ejecución' => $this->callutil->cambianull($value->Tiempo_Ejecución),
+                'Dias_a_Hoy' => $this->callutil->cambianull($value->Dias_a_Hoy),
+                'Avance_Esperado' => $this->callutil->cambianull($value->Avance_Esperado),
+                'fecha_hoy' => $this->callutil->cambianull($value->fecha_hoy),
+                'Avance_Real' => $this->callutil->cambianull($value->Avance_Real),
+                'Alerta' => $this->callutil->cambianull($value->Alerta)
               );
             }
 
@@ -347,7 +365,13 @@ class Ordenes extends CI_Controller{
                 'TipoCambio' => $this->callutil->formatoDinero($value->TipoCambio),
                 'ValorNetoUsd' => $this->callutil->formatoDineroDecimalUSD($value->ValorNetoUsd),
                 'FechaAdjudicadaProgramada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicadaProgramada)),
-                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada))
+                'FechaAdjudicada' => $this->callutil->cambianull($this->callutil->formatoFechaSalida($value->FechaAdjudicada)),
+                'Tiempo_Ejecución' => $this->callutil->cambianull($value->Tiempo_Ejecución),
+                'Dias_a_Hoy' => $this->callutil->cambianull($value->Dias_a_Hoy),
+                'Avance_Esperado' => $this->callutil->cambianull($value->Avance_Esperado),
+                'fecha_hoy' => $this->callutil->cambianull($value->fecha_hoy),
+                'Avance_Real' => $this->callutil->cambianull($value->Avance_Real),
+                'Alerta' => $this->callutil->cambianull($value->Alerta)
               );
             }
             }
