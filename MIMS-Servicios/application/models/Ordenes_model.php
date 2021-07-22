@@ -44,11 +44,11 @@ class Ordenes_model extends CI_Model{
 									a.FechaAdjudicadaProgramada,
     								a.FechaAdjudicada,
 									(DATEDIFF(a.DateRequired,a.FechaAdjudicada))  as Tiempo_Ejecución ,
-									(DATEDIFF(now(),a.FechaAdjudicada))  as Dias_a_Hoy,
-									TRUNCATE(DATEDIFF(now(),a.FechaAdjudicada) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2)  as Avance_Esperado,
+									(DATEDIFF(a.FechaAdjudicada, now()))  as Dias_a_Hoy,
+									TRUNCATE(DATEDIFF(a.FechaAdjudicada, now()) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2)  as Avance_Esperado,
 									Date_format(CURDATE(),'%d-%m-%Y') as fecha_hoy,
 									(select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) as Avance_Real,
-									( (select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) - (TRUNCATE(DATEDIFF(now(),a.FechaAdjudicada) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2))) as Alerta
+									( (select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) - (TRUNCATE(DATEDIFF(a.FechaAdjudicada,now()) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2))) as Alerta
 									FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 									WHERE a.idCliente = ".$idCliente."
 									AND a.idproyecto = ".$idProyecto."
@@ -110,11 +110,11 @@ class Ordenes_model extends CI_Model{
 								a.FechaAdjudicadaProgramada,
     							a.FechaAdjudicada,
 								(DATEDIFF(a.DateRequired,a.FechaAdjudicada))  as Tiempo_Ejecución ,
-								(DATEDIFF(now(),a.FechaAdjudicada))  as Dias_a_Hoy,
-								TRUNCATE(DATEDIFF(now(),a.FechaAdjudicada) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2)  as Avance_Esperado,
+								(DATEDIFF(a.FechaAdjudicada, now()))  as Dias_a_Hoy,
+								TRUNCATE(DATEDIFF(a.FechaAdjudicada, now()) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2)  as Avance_Esperado,
 								Date_format(CURDATE(),'%d-%m-%Y') as fecha_hoy,
 								(select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) as Avance_Real,
-								( (select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) - (TRUNCATE(DATEDIFF(now(),a.FechaAdjudicada) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2))) as Alerta
+								( (select TRUNCATE(avg(ESTADO_AVANCE),0) from tbl_bucksheet where COD_EMPRESA = a.codEmpresa and id_oc = PurchaseOrderID) - (TRUNCATE(DATEDIFF(a.FechaAdjudicada,now()) / DATEDIFF(a.DateRequired,a.FechaAdjudicada) * 100,2))) as Alerta
 								FROM tbl_ordenes a ,  tbl_user c, tbl_clientes b, tbl_proyectos d
 								WHERE a.idCliente = ".$idCliente."
 								AND idproyecto = ".$idProyecto."
